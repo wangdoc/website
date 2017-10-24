@@ -4,3 +4,6 @@ node_js:
 before_install:
 - openssl aes-256-cbc -K $encrypted_54e6d4f451da_key -iv $encrypted_54e6d4f451da_iv
   -in wangdoc-deploy-rsa.enc -out wangdoc-deploy-rsa -d
+
+install: true
+script: bash ./deploy.sh
