@@ -1,0 +1,204 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Canvas API - Web API 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com</a></div></div></nav><section class="hero is-link"><div class="hero-body"><div class="container"><a href="index.html"><h1 class="title">Web API 教程</h1></a></div></div><div class="hero-foot"><div class="container"></div></div></section><section class="section main article"><div class="container"><div class="columns"><div class="column is-8"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="index.html"><span class="icon"><i class="fa fa-home"></i></span> 首页</a></li><li class="is-active"><a class="has-text-grey" href="canvas.html">Canvas API</a></li></ul></nav><article class="content"><h1 class="title">Canvas API</h1><p>Canvas API（画布）用于在网页实时生成图像，并且可以操作图像内容，基本上它是一个可以用 JavaScript 操作的位图（bitmap）。</p><h2 id="概述">概述 <a class="markdownIt-Anchor" href="#概述">#</a></h2><p>使用 Canvas API 之前，首先需要新建一个<code>&lt;canvas&gt;</code>网页元素。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">canvas</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"myCanvas"</span> <span class="hljs-attr">width</span>=<span class="hljs-string">"400"</span> <span class="hljs-attr">height</span>=<span class="hljs-string">"200"</span>&gt;</span>
+  您的浏览器不支持 Canvas
+<span class="hljs-tag">&lt;/<span class="hljs-name">canvas</span>&gt;</span>
+</code></pre><p>上面代码中，如果浏览器不支持这个 API，则就会显示<code>&lt;canvas&gt;</code>标签中间的文字 —— “您的浏览器不支持 Canvas”。</p><p>每个<code>canvas</code>节点都有一个对应的<code>context</code>对象（上下文对象），Canvas API 定义在这个<code>context</code>对象上面，所以需要获取这个对象，方法是使用<code>getContext</code>方法。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> canvas = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'myCanvas'</span>);
+
+<span class="hljs-keyword">if</span> (canvas.getContext) {
+  <span class="hljs-keyword">var</span> ctx = canvas.getContext(<span class="hljs-string">'2d'</span>);
+}
+</code></pre><p>上面代码中，<code>getContext</code>方法指定参数<code>2d</code>，表示该<code>canvas</code>节点用于生成 2D 图案（即平面图案）。如果参数是<code>webgl</code>，就表示用于生成 3D 图像（即立体图案），这部分实际上单独叫做 WebGL API（本书不涉及）。</p><p>按照用途，Canvas API 分成两大部分：绘制图形和图像处理。</p><h2 id="绘制图形">绘制图形 <a class="markdownIt-Anchor" href="#绘制图形">#</a></h2><p>Canvas 画布提供了一个用来作图的平面空间，该空间的每个点都有自己的坐标，<code>x</code>表示横坐标，<code>y</code>表示竖坐标。原点<code>(0, 0)</code>位于图像左上角，<code>x</code>轴的正向是原点向右，<code>y</code>轴的正向是原点向下。</p><h3 id="绘制路径">绘制路径 <a class="markdownIt-Anchor" href="#绘制路径">#</a></h3><p><code>context.beginPath</code>方法表示开始绘制路径，<code>moveTo(x, y)</code>方法设置线段的起点，<code>lineTo(x, y)</code>方法设置线段的终点，<code>stroke</code>方法用来给透明的线段着色。</p><p>下面是绘制一条直线的例子。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> ctx = canvas.getContext(<span class="hljs-string">'2d'</span>);
+
+ctx.beginPath(); <span class="hljs-comment">// 开始路径绘制</span>
+ctx.moveTo(<span class="hljs-number">20</span>, <span class="hljs-number">20</span>); <span class="hljs-comment">// 设置路径起点，坐标为(20,20)</span>
+ctx.lineTo(<span class="hljs-number">200</span>, <span class="hljs-number">20</span>); <span class="hljs-comment">// 绘制一条到(200,20)的直线</span>
+ctx.lineWidth = <span class="hljs-number">1.0</span>; <span class="hljs-comment">// 设置线宽</span>
+ctx.lineCap = <span class="hljs-string">"butt"</span>; <span class="hljs-comment">//设置端点样式:butt(默认),round,square</span>
+ctx.lineJoin = <span class="hljs-string">"miter"</span>; <span class="hljs-comment">//设置连接样式:miter(默认),bevel,round</span>
+ctx.strokeStyle = <span class="hljs-string">'#CC0000'</span>; <span class="hljs-comment">// 设置线的颜色</span>
+ctx.stroke(); <span class="hljs-comment">// 进行线的着色，这时整条线才变得可见</span>
+</code></pre><p><code>context.moveto</code>和<code>context.lineto</code>方法可以多次使用。</p><p><code>context.closePath</code>方法会自动绘制一条当前点到起点的直线，形成一个封闭图形，省却使用一次<code>lineto</code>方法。</p><h3 id="绘制矩形">绘制矩形 <a class="markdownIt-Anchor" href="#绘制矩形">#</a></h3><p><code>context.fillRect(x, y, width, height)</code>方法用来绘制矩形，它的四个参数分别为矩形左上角顶点的<code>x</code>坐标、<code>y</code>坐标，以及矩形的宽和高。<code>fillStyle</code>属性用来设置矩形的填充色。</p><pre class="hljs"><code>ctx.fillStyle = <span class="hljs-string">'yellow'</span>;
+ctx.fillRect(<span class="hljs-number">50</span>, <span class="hljs-number">50</span>, <span class="hljs-number">200</span>, <span class="hljs-number">100</span>);
+</code></pre><p><code>strokeRect</code>方法与<code>fillRect</code>类似，用来绘制空心矩形。</p><pre class="hljs"><code>ctx.strokeRect(<span class="hljs-number">10</span>,<span class="hljs-number">10</span>,<span class="hljs-number">200</span>,<span class="hljs-number">100</span>);
+</code></pre><p><code>clearRect</code>方法用来清除某个矩形区域的内容。</p><pre class="hljs"><code>ctx.clearRect(<span class="hljs-number">100</span>,<span class="hljs-number">50</span>,<span class="hljs-number">50</span>,<span class="hljs-number">50</span>);
+</code></pre><h3 id="绘制文本">绘制文本 <a class="markdownIt-Anchor" href="#绘制文本">#</a></h3><p><code>context.fillText(string, x, y)</code>用来绘制文本，它的三个参数分别为文本内容、起点的<code>x</code>坐标、<code>y</code>坐标。使用之前，需用<code>font</code>属性设置字体、大小、样式（写法类似与 CSS 的<code>font</code>属性）。与此类似的还有<code>strokeText</code>方法，用来添加空心字。</p><pre class="hljs"><code><span class="hljs-comment">// 设置字体</span>
+ctx.font = <span class="hljs-string">"Bold 20px Arial"</span>;
+<span class="hljs-comment">// 设置对齐方式</span>
+ctx.textAlign = <span class="hljs-string">"left"</span>;
+<span class="hljs-comment">// 设置填充颜色</span>
+ctx.fillStyle = <span class="hljs-string">"#008600"</span>;
+<span class="hljs-comment">// 设置字体内容，以及在画布上的位置</span>
+ctx.fillText(<span class="hljs-string">"Hello!"</span>, <span class="hljs-number">10</span>, <span class="hljs-number">50</span>);
+<span class="hljs-comment">// 绘制空心字</span>
+ctx.strokeText(<span class="hljs-string">"Hello!"</span>, <span class="hljs-number">10</span>, <span class="hljs-number">100</span>);
+</code></pre><p><code>fillText</code>方法不支持文本断行，即所有文本出现在一行内。所以，如果要生成多行文本，只有调用多次<code>fillText</code>方法。</p><h3 id="绘制圆形和扇形">绘制圆形和扇形 <a class="markdownIt-Anchor" href="#绘制圆形和扇形">#</a></h3><p><code>context.arc</code>方法用来绘制扇形。</p><pre class="hljs"><code>ctx.arc(x, y, radius, startAngle, endAngle, anticlockwise);
+</code></pre><p><code>arc</code>方法的<code>x</code>和<code>y</code>参数是圆心坐标，<code>radius</code>是半径，<code>startAngle</code>和<code>endAngle</code>则是扇形的起始角度和终止角度（以弧度表示），<code>anticlockwise</code>表示做图时应该逆时针画（<code>true</code>）还是顺时针画（<code>false</code>）。</p><p>下面是如何绘制实心的圆形。</p><pre class="hljs"><code>ctx.beginPath();
+ctx.arc(<span class="hljs-number">60</span>, <span class="hljs-number">60</span>, <span class="hljs-number">50</span>, <span class="hljs-number">0</span>, <span class="hljs-built_in">Math</span>.PI*<span class="hljs-number">2</span>, <span class="hljs-literal">true</span>); 
+ctx.fillStyle = <span class="hljs-string">"#000000"</span>; 
+ctx.fill();
+</code></pre><p>绘制空心圆形的例子。</p><pre class="hljs"><code>ctx.beginPath(); 
+ctx.arc(<span class="hljs-number">60</span>, <span class="hljs-number">60</span>, <span class="hljs-number">50</span>, <span class="hljs-number">0</span>, <span class="hljs-built_in">Math</span>.PI*<span class="hljs-number">2</span>, <span class="hljs-literal">true</span>); 
+ctx.lineWidth = <span class="hljs-number">1.0</span>; 
+ctx.strokeStyle = <span class="hljs-string">"#000"</span>; 
+ctx.stroke();
+</code></pre><h3 id="设置渐变色">设置渐变色 <a class="markdownIt-Anchor" href="#设置渐变色">#</a></h3><p><code>context.createLinearGradient</code>方法用来设置渐变色。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> myGradient = ctx.createLinearGradient(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">160</span>); 
+myGradient.addColorStop(<span class="hljs-number">0</span>, <span class="hljs-string">"#BABABA"</span>); 
+myGradient.addColorStop(<span class="hljs-number">1</span>, <span class="hljs-string">"#636363"</span>);
+</code></pre><p><code>createLinearGradient</code>方法的参数是<code>(x1, y1, x2, y2)</code>，其中<code>x1</code>和<code>y1</code>是起点坐标，<code>x2</code>和<code>y2</code>是终点坐标。通过不同的坐标值，可以生成从上至下、从左到右的渐变等等。</p><p>使用方法如下：</p><pre class="hljs"><code>ctx.fillStyle = myGradient;
+ctx.fillRect(<span class="hljs-number">10</span>,<span class="hljs-number">10</span>,<span class="hljs-number">200</span>,<span class="hljs-number">100</span>);
+</code></pre><h3 id="设置阴影">设置阴影 <a class="markdownIt-Anchor" href="#设置阴影">#</a></h3><p>一系列与阴影相关的方法，可以用来设置阴影。</p><pre class="hljs"><code>ctx.shadowOffsetX = <span class="hljs-number">10</span>; <span class="hljs-comment">// 设置水平位移</span>
+ctx.shadowOffsetY = <span class="hljs-number">10</span>; <span class="hljs-comment">// 设置垂直位移</span>
+ctx.shadowBlur = <span class="hljs-number">5</span>; <span class="hljs-comment">// 设置模糊度</span>
+ctx.shadowColor = <span class="hljs-string">"rgba(0,0,0,0.5)"</span>; <span class="hljs-comment">// 设置阴影颜色</span>
+
+ctx.fillStyle = <span class="hljs-string">"#CC0000"</span>;
+ctx.fillRect(<span class="hljs-number">10</span>,<span class="hljs-number">10</span>,<span class="hljs-number">200</span>,<span class="hljs-number">100</span>);
+</code></pre><h2 id="图像处理方法">图像处理方法 <a class="markdownIt-Anchor" href="#图像处理方法">#</a></h2><h3 id="drawimage">drawImage() <a class="markdownIt-Anchor" href="#drawimage">#</a></h3><p>Canvas API 允许将图像文件插入画布，做法是读取图片后，使用<code>drawImage</code>方法在画布内进行重绘。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> img = <span class="hljs-keyword">new</span> Image();
+img.src = <span class="hljs-string">'image.png'</span>;
+ctx.drawImage(img, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>); <span class="hljs-comment">// 设置对应的图像对象，以及它在画布上的位置</span>
+</code></pre><p>上面代码将一个 PNG 图像载入画布。<code>drawImage()</code>方法接受三个参数，第一个参数是图像文件的DOM元素（即<code>&lt;img&gt;</code>节点），第二个和第三个参数是图像左上角在画布中的坐标，上例中的<code>(0, 0)</code>就表示将图像左上角放置在画布的左上角。</p><p>由于图像的载入需要时间，<code>drawImage</code>方法只能在图像完全载入后才能调用，因此上面的代码需要改写。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> image = <span class="hljs-keyword">new</span> Image();
+
+image.onload = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">var</span> canvas = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'canvas'</span>);
+  canvas.width = image.width;
+  canvas.height = image.height;
+  canvas.getContext(<span class="hljs-string">'2d'</span>).drawImage(image, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);
+  <span class="hljs-comment">// 插入页面底部</span>
+  <span class="hljs-built_in">document</span>.body.appendChild(image);
+  <span class="hljs-keyword">return</span> canvas;
+}
+
+image.src = <span class="hljs-string">'image.png'</span>;
+</code></pre><h3 id="getimagedata方法，putimagedata方法">getImageData方法，putImageData方法 <a class="markdownIt-Anchor" href="#getimagedata方法，putimagedata方法">#</a></h3><p><code>getImageData</code>方法可以用来读取 Canvas 的内容，返回一个对象，包含了每个像素的信息。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> imageData = context.getImageData(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, canvas.width, canvas.height);
+</code></pre><p><code>imageData</code>对象有一个<code>data</code>属性，它的值是一个一维数组。该数组的值，依次是每个像素的红、绿、蓝、alpha 通道值，因此该数组的长度等于<code>图像的像素宽度 x 图像的像素高度 x 4</code>，每个值的范围是 0～255。这个数组不仅可读，而且可写，因此通过操作这个数组的值，就可以达到操作图像的目的。修改这个数组以后，使用<code>putImageData</code>方法将数组内容重新绘制在 Canvas 画布上。</p><pre class="hljs"><code>context.putImageData(imageData, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);
+</code></pre><h3 id="todataurl方法">toDataURL方法 <a class="markdownIt-Anchor" href="#todataurl方法">#</a></h3><p>对图像数据做出修改以后，可以使用<code>toDataURL</code>方法，将 Canvas 数据重新转化成一般的图像文件形式。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">convertCanvasToImage</span>(<span class="hljs-params">canvas</span>) </span>{
+  <span class="hljs-keyword">var</span> image = <span class="hljs-keyword">new</span> Image();
+  image.src = canvas.toDataURL(<span class="hljs-string">'image/png'</span>);
+  <span class="hljs-keyword">return</span> image;
+}
+</code></pre><p>上面的代码将 Canvas 数据，转化成PNG data URI。</p><h3 id="save方法，restore方法">save方法，restore方法 <a class="markdownIt-Anchor" href="#save方法，restore方法">#</a></h3><p>save方法用于保存上下文环境，restore方法用于恢复到上一次保存的上下文环境。</p><pre class="hljs"><code>ctx.save();
+
+ctx.shadowOffsetX = <span class="hljs-number">10</span>;
+ctx.shadowOffsetY = <span class="hljs-number">10</span>;
+ctx.shadowBlur = <span class="hljs-number">5</span>;
+ctx.shadowColor = <span class="hljs-string">'rgba(0,0,0,0.5)'</span>;
+
+ctx.fillStyle = <span class="hljs-string">'#CC0000'</span>;
+ctx.fillRect(<span class="hljs-number">10</span>,<span class="hljs-number">10</span>,<span class="hljs-number">150</span>,<span class="hljs-number">100</span>);
+
+ctx.restore();
+
+ctx.fillStyle = <span class="hljs-string">'#000000'</span>;
+ctx.fillRect(<span class="hljs-number">180</span>,<span class="hljs-number">10</span>,<span class="hljs-number">150</span>,<span class="hljs-number">100</span>);
+</code></pre><p>上面代码先用<code>save</code>方法，保存了当前设置，然后绘制了一个有阴影的矩形。接着，使用<code>restore</code>方法，恢复了保存前的设置，绘制了一个没有阴影的矩形。</p><h2 id="图像变换">图像变换 <a class="markdownIt-Anchor" href="#图像变换">#</a></h2><h3 id="平移、旋转、缩放">平移、旋转、缩放 <a class="markdownIt-Anchor" href="#平移、旋转、缩放">#</a></h3><pre class="hljs"><code>ctx.translate( x, y )<span class="hljs-comment">//位移：把图像原点位移到(x， y)的位置</span>
+ctx.rotate( deg )<span class="hljs-comment">//旋转：旋转 deg 度数</span>
+ctx.scale( sx, sy )<span class="hljs-comment">//缩放：在横向进行 sx 倍的缩放，在纵向进行 sy 倍的缩放</span>
+</code></pre><p>缩放出现的问题<br>1.如果有<code>lineWith</code>，宽度也会缩放<br>2.如果起始点不是<code>(0, 0)</code>，起始点也会缩放</p><h3 id="变换矩阵">变换矩阵 <a class="markdownIt-Anchor" href="#变换矩阵">#</a></h3><pre class="hljs"><code>ctx.transform(a, b, c, d, e, f);
+<span class="hljs-comment">/*
+a:水平缩放(默认值1)
+b:水平倾斜(默认值0)
+c:垂直倾斜(默认值0)
+d:垂直缩放(默认值1)
+e:水平位移(默认值0)
+f:垂直位移(默认值0)
+*/</span>
+</code></pre><p><code>context.transform()</code>可以叠加使用，如果需要重新初始化矩阵变换的值，可以用<code>context.setTransform(a, b, c, d, e, f)</code>。它会使得之前设置的<code>context.transform()</code>失效，恢复为单位矩阵然后再<code>transform</code>。</p><h2 id="动画">动画 <a class="markdownIt-Anchor" href="#动画">#</a></h2><p>利用 JavaScript，可以在 Canvas 元素上很容易地产生动画效果。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> posX = <span class="hljs-number">20</span>,
+    posY = <span class="hljs-number">100</span>;
+
+setInterval(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+	context.fillStyle = <span class="hljs-string">"black"</span>;
+    context.fillRect(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,canvas.width, canvas.height);
+
+	posX += <span class="hljs-number">1</span>;
+	posY += <span class="hljs-number">0.25</span>;
+
+	context.beginPath();
+	context.fillStyle = <span class="hljs-string">"white"</span>;
+
+	context.arc(posX, posY, <span class="hljs-number">10</span>, <span class="hljs-number">0</span>, <span class="hljs-built_in">Math</span>.PI*<span class="hljs-number">2</span>, <span class="hljs-literal">true</span>); 
+	context.closePath();
+	context.fill();
+}, <span class="hljs-number">30</span>);
+</code></pre><p>上面代码会产生一个小圆点，每隔30毫秒就向右下方移动的效果。<code>setInterval</code>函数的一开始，之所以要将画布重新渲染黑色底色，是为了抹去上一步的小圆点。</p><p>通过设置圆心坐标，可以产生各种运动轨迹。</p><p>先上升后下降。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> vx = <span class="hljs-number">10</span>,
+    vy = <span class="hljs-number">-10</span>,
+    gravity = <span class="hljs-number">1</span>;
+
+setInterval(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    posX += vx;
+    posY += vy;
+    vy += gravity;
+	<span class="hljs-comment">// ...</span>
+});
+</code></pre><p>上面代码中，<code>x</code>坐标始终增大，表示持续向右运动。<code>y</code>坐标先变小，然后在重力作用下，不断增大，表示先上升后下降。</p><p>小球不断反弹后，逐步趋于静止。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> vx = <span class="hljs-number">10</span>,
+    vy = <span class="hljs-number">-10</span>,
+    gravity = <span class="hljs-number">1</span>;
+
+setInterval(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    posX += vx;
+    posY += vy;
+
+	<span class="hljs-keyword">if</span> (posY &gt; canvas.height * <span class="hljs-number">0.75</span>) {
+          vy *= <span class="hljs-number">-0.6</span>;
+          vx *= <span class="hljs-number">0.75</span>;
+          posY = canvas.height * <span class="hljs-number">0.75</span>;
+    }
+	
+    vy += gravity;
+	<span class="hljs-comment">// ...</span>
+});
+</code></pre><p>上面代码表示，一旦小球的y坐标处于屏幕下方75%的位置，向x轴移动的速度变为原来的75%，而向y轴反弹上一次反弹高度的40%。</p><h2 id="像素处理">像素处理 <a class="markdownIt-Anchor" href="#像素处理">#</a></h2><p>通过<code>getImageData</code>方法和<code>putImageData</code>方法，可以处理每个像素，进而操作图像内容。</p><p>假定<code>filter</code>是一个处理像素的函数，那么整个对Canvas的处理流程，可以用下面的代码表示。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> (canvas.width &gt; <span class="hljs-number">0</span> &amp;&amp; canvas.height &gt; <span class="hljs-number">0</span>) {
+	<span class="hljs-keyword">var</span> imageData = context.getImageData(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, canvas.width, canvas.height);
+  filter(imageData);
+  context.putImageData(imageData, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);
+}
+</code></pre><p>以下是几种常见的处理方法。</p><h3 id="灰度效果">灰度效果 <a class="markdownIt-Anchor" href="#灰度效果">#</a></h3><p>灰度图（grayscale）就是取红、绿、蓝三个像素值的算术平均值，这实际上将图像转成了黑白形式。假定<code>d[i]</code>是像素数组中一个象素的红色值，则<code>d[i+1]</code>为绿色值，<code>d[i+2]</code>为蓝色值，<code>d[i+3]</code>就是 alpha 通道值。转成灰度的算法，就是将红、绿、蓝三个值相加后除以3，再将结果写回数组。</p><pre class="hljs"><code>grayscale = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">pixels</span>) </span>{
+  <span class="hljs-keyword">var</span> d = pixels.data;
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; d.length; i += <span class="hljs-number">4</span>) {
+    <span class="hljs-keyword">var</span> r = d[i];
+    <span class="hljs-keyword">var</span> g = d[i + <span class="hljs-number">1</span>];
+    <span class="hljs-keyword">var</span> b = d[i + <span class="hljs-number">2</span>];
+    d[i] = d[i + <span class="hljs-number">1</span>] = d[i + <span class="hljs-number">2</span>] = (r+g+b)/<span class="hljs-number">3</span>;
+  }
+  <span class="hljs-keyword">return</span> pixels;
+};
+</code></pre><h3 id="复古效果">复古效果 <a class="markdownIt-Anchor" href="#复古效果">#</a></h3><p>复古效果（sepia）则是将红、绿、蓝三个像素，分别取这三个值的某种加权平均值，使得图像有一种古旧的效果。</p><pre class="hljs"><code>sepia = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">pixels</span>) </span>{
+    <span class="hljs-keyword">var</span> d = pixels.data;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; d.length; i += <span class="hljs-number">4</span>) {
+      <span class="hljs-keyword">var</span> r = d[i];
+      <span class="hljs-keyword">var</span> g = d[i + <span class="hljs-number">1</span>];
+      <span class="hljs-keyword">var</span> b = d[i + <span class="hljs-number">2</span>];
+      d[i]     = (r * <span class="hljs-number">0.393</span>)+(g * <span class="hljs-number">0.769</span>)+(b * <span class="hljs-number">0.189</span>); <span class="hljs-comment">// red</span>
+      d[i + <span class="hljs-number">1</span>] = (r * <span class="hljs-number">0.349</span>)+(g * <span class="hljs-number">0.686</span>)+(b * <span class="hljs-number">0.168</span>); <span class="hljs-comment">// green</span>
+      d[i + <span class="hljs-number">2</span>] = (r * <span class="hljs-number">0.272</span>)+(g * <span class="hljs-number">0.534</span>)+(b * <span class="hljs-number">0.131</span>); <span class="hljs-comment">// blue</span>
+    }
+    <span class="hljs-keyword">return</span> pixels;
+};
+</code></pre><h3 id="红色蒙版效果">红色蒙版效果 <a class="markdownIt-Anchor" href="#红色蒙版效果">#</a></h3><p>红色蒙版指的是，让图像呈现一种偏红的效果。算法是将红色通道设为红、绿、蓝三个值的平均值，而将绿色通道和蓝色通道都设为0。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> red = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">pixels</span>) </span>{
+  <span class="hljs-keyword">var</span> d = pixels.data;
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; d.length; i += <span class="hljs-number">4</span>) {
+    <span class="hljs-keyword">var</span> r = d[i];
+    <span class="hljs-keyword">var</span> g = d[i + <span class="hljs-number">1</span>];
+    <span class="hljs-keyword">var</span> b = d[i + <span class="hljs-number">2</span>];
+    d[i] = (r+g+b)/<span class="hljs-number">3</span>;        <span class="hljs-comment">// 红色通道取平均值</span>
+    d[i + <span class="hljs-number">1</span>] = d[i + <span class="hljs-number">2</span>] = <span class="hljs-number">0</span>; <span class="hljs-comment">// 绿色通道和蓝色通道都设为0</span>
+  }
+  <span class="hljs-keyword">return</span> pixels;
+};
+</code></pre><h3 id="亮度效果">亮度效果 <a class="markdownIt-Anchor" href="#亮度效果">#</a></h3><p>亮度效果（brightness）是指让图像变得更亮或更暗。算法将红色通道、绿色通道、蓝色通道，同时加上一个正值或负值。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> brightness = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">pixels, delta</span>) </span>{
+  <span class="hljs-keyword">var</span> d = pixels.data;
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; d.length; i += <span class="hljs-number">4</span>) {
+    d[i] += delta;     <span class="hljs-comment">// red</span>
+    d[i + <span class="hljs-number">1</span>] += delta; <span class="hljs-comment">// green</span>
+    d[i + <span class="hljs-number">2</span>] += delta; <span class="hljs-comment">// blue   </span>
+  }
+  <span class="hljs-keyword">return</span> pixels;
+};
+</code></pre><h3 id="反转效果">反转效果 <a class="markdownIt-Anchor" href="#反转效果">#</a></h3><p>反转效果（invert）是指图片呈现一种色彩颠倒的效果。算法为红、绿、蓝通道都取各自的相反值（255-原值）。</p><pre class="hljs"><code>invert = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">pixels</span>) </span>{
+  <span class="hljs-keyword">var</span> d = pixels.data;
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; d.length; i += <span class="hljs-number">4</span>) {
+		d[i] = <span class="hljs-number">255</span> - d[i];
+		d[i+<span class="hljs-number">1</span>] = <span class="hljs-number">255</span> - d[i + <span class="hljs-number">1</span>];
+		d[i+<span class="hljs-number">2</span>] = <span class="hljs-number">255</span> - d[i + <span class="hljs-number">2</span>];
+	}
+	<span class="hljs-keyword">return</span> pixels;
+};
+</code></pre><h2 id="参考链接">参考链接 <a class="markdownIt-Anchor" href="#参考链接">#</a></h2><ul><li>David Walsh, <a href="http://davidwalsh.name/convert-canvas-image" target="_blank" rel="noopener">JavaScript Canvas Image Conversion</a></li><li>Matt West, <a href="http://blog.teamtreehouse.com/getting-started-with-the-canvas-api" target="_blank" rel="noopener">Getting Started With The Canvas API</a></li><li>John Robinson, <a href="http://www.storminthecastle.com/2013/04/06/how-you-can-do-cool-image-effects-using-html5-canvas/" target="_blank" rel="noopener">How You Can Do Cool Image Effects Using HTML5 Canvas</a></li><li>Ivaylo Gerchev, <a href="http://www.sitepoint.com/html5-canvas-tutorial-introduction/" target="_blank" rel="noopener">HTML5 Canvas Tutorial: An Introduction</a></li><li>Donovan Hutchinson, <a href="http://hop.ie/blog/particles/" target="_blank" rel="noopener">Particles in canvas</a></li></ul></article><nav class="level level-previous-next is-size-5 is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="index.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> Home</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="fetch.html">Fetch API <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav></div><div class="column is-4"><nav class="panel panel-menu is-medium"><p class="panel-heading">Web API 教程</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="canvas.html" class="is-active"><span class="icon"></span> Canvas API</a></li><li><a href="fetch.html"><span class="icon"></span> Fetch API</a></li><li><a href="intersectionObserver.html"><span class="icon"></span> IntersectionObserver</a></li><li><a href="server-sent-events.html"><span class="icon"></span> Server-Sent Events</a></li><li><a href="websocket.html"><span class="icon"></span> WebSocket</a></li></ul></aside></div></nav></div></div></div></section><footer class="footer"><div class="container"><div class="content has-text-centered"><p>联系：contact@wangdoc.com / Build by <a target="_blank" href="https://github.com/ruanyf/loppo">Loppo 0.6.10</a></p></div></div></footer><script>var LOPPO={};LOPPO.current_path="canvas.md",LOPPO.relative_root_path="",LOPPO.article_toc='<ul class="markdownIt-TOC">\n<li><a href="#%E6%A6%82%E8%BF%B0">概述</a></li>\n<li><a href="#%E7%BB%98%E5%88%B6%E5%9B%BE%E5%BD%A2">绘制图形</a>\n<ul>\n<li><a href="#%E7%BB%98%E5%88%B6%E8%B7%AF%E5%BE%84">绘制路径</a></li>\n<li><a href="#%E7%BB%98%E5%88%B6%E7%9F%A9%E5%BD%A2">绘制矩形</a></li>\n<li><a href="#%E7%BB%98%E5%88%B6%E6%96%87%E6%9C%AC">绘制文本</a></li>\n<li><a href="#%E7%BB%98%E5%88%B6%E5%9C%86%E5%BD%A2%E5%92%8C%E6%89%87%E5%BD%A2">绘制圆形和扇形</a></li>\n<li><a href="#%E8%AE%BE%E7%BD%AE%E6%B8%90%E5%8F%98%E8%89%B2">设置渐变色</a></li>\n<li><a href="#%E8%AE%BE%E7%BD%AE%E9%98%B4%E5%BD%B1">设置阴影</a></li>\n</ul>\n</li>\n<li><a href="#%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95">图像处理方法</a>\n<ul>\n<li><a href="#drawimage">drawImage()</a></li>\n<li><a href="#getimagedata%E6%96%B9%E6%B3%95%EF%BC%8Cputimagedata%E6%96%B9%E6%B3%95">getImageData方法，putImageData方法</a></li>\n<li><a href="#todataurl%E6%96%B9%E6%B3%95">toDataURL方法</a></li>\n<li><a href="#save%E6%96%B9%E6%B3%95%EF%BC%8Crestore%E6%96%B9%E6%B3%95">save方法，restore方法</a></li>\n</ul>\n</li>\n<li><a href="#%E5%9B%BE%E5%83%8F%E5%8F%98%E6%8D%A2">图像变换</a>\n<ul>\n<li><a href="#%E5%B9%B3%E7%A7%BB%E3%80%81%E6%97%8B%E8%BD%AC%E3%80%81%E7%BC%A9%E6%94%BE">平移、旋转、缩放</a></li>\n<li><a href="#%E5%8F%98%E6%8D%A2%E7%9F%A9%E9%98%B5">变换矩阵</a></li>\n</ul>\n</li>\n<li><a href="#%E5%8A%A8%E7%94%BB">动画</a></li>\n<li><a href="#%E5%83%8F%E7%B4%A0%E5%A4%84%E7%90%86">像素处理</a>\n<ul>\n<li><a href="#%E7%81%B0%E5%BA%A6%E6%95%88%E6%9E%9C">灰度效果</a></li>\n<li><a href="#%E5%A4%8D%E5%8F%A4%E6%95%88%E6%9E%9C">复古效果</a></li>\n<li><a href="#%E7%BA%A2%E8%89%B2%E8%92%99%E7%89%88%E6%95%88%E6%9E%9C">红色蒙版效果</a></li>\n<li><a href="#%E4%BA%AE%E5%BA%A6%E6%95%88%E6%9E%9C">亮度效果</a></li>\n<li><a href="#%E5%8F%8D%E8%BD%AC%E6%95%88%E6%9E%9C">反转效果</a></li>\n</ul>\n</li>\n<li><a href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5">参考链接</a></li>\n</ul>\n'</script><script src="assets/js/app.js"></script></body></html>
