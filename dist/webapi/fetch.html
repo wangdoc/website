@@ -1,0 +1,246 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Fetch API - Web API 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="index.html" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com</a></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="index.html"><span class="icon"><i class="fa fa-home"></i></span> 首页</a></li><li class="is-active"><a class="has-text-grey" href="fetch.html">Fetch API</a></li></ul></nav><article class="content is-size-4-desktop"><h1 class="title">Fetch API</h1><h2 id="基本用法">基本用法 <a class="markdownIt-Anchor" href="#基本用法">#</a></h2><p>Ajax 操作使用的<code>XMLHttpRequest</code>对象，已经有十多年的历史了，它的API设计并不是很好，输入、输出、状态都在同一个接口管理，容易写出非常混乱的代码。Fetch API 是一种新规范，用来取代<code>XMLHttpRequest</code>对象。</p><p>它主要有两个特点，一是接口合理化，Ajax 将所有不同性质的接口都放在 XHR 对象上，而 Fetch 将它们分散在几个不同的对象上，设计更合理；二是 Fetch 操作返回<code>Promise</code>对象，避免了嵌套的回调函数。</p><p>下面的代码检查浏览器是否部署了 Fetch API。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> (<span class="hljs-string">'fetch'</span> <span class="hljs-keyword">in</span> <span class="hljs-built_in">window</span>){
+  <span class="hljs-comment">// 支持</span>
+} <span class="hljs-keyword">else</span> {
+  <span class="hljs-comment">// 不支持</span>
+}
+</code></pre><p>下面是一个 Fetch API 的简单例子。</p><pre class="hljs"><code>fetch(url)
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">response</span>) </span>{
+  <span class="hljs-keyword">return</span> response.json();
+})
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">jsonData</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(jsonData);
+})
+.catch(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'出错了'</span>);
+});
+</code></pre><p>上面代码首先向<code>url</code>发出请求，得到回应后，将其转为 JSON 格式，输出到控制台。如果出错，则输出一条提示信息。这里需要注意，<code>fetch</code>方法返回的是一个 Promise 对象。</p><p>作为比较，<code>XMLHttpRequest</code>的写法如下。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
+xhr.open(<span class="hljs-string">'GET'</span>, url);
+xhr.responseType = <span class="hljs-string">'json'</span>;
+xhr.onload = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">console</span>.log(xhr.response);
+};
+xhr.onerror = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'出错了'</span>);
+};
+xhr.send();
+</code></pre><h2 id="stream-数据流">stream 数据流 <a class="markdownIt-Anchor" href="#stream-数据流">#</a></h2><p>除了返回<code>Promise</code>对象，Fetch API 还有一个特点，就是数据传送是以数据流（stream）的形式进行的。对于大文件，数据是一段一段得到的。</p><pre class="hljs"><code>response.text().then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">responseText</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(responseText);
+}
+</code></pre><p>上面代码中，<code>text()</code>就是一个数据流读取器。</p><p>Fetch API 提供以下五个数据流读取器。</p><ul><li><code>.text()</code>：返回字符串</li><li><code>.json()</code>：返回JSON对象</li><li><code>.formData()</code>：返回<code>FormData</code>对象</li><li><code>.blob()</code>：返回<code>blob</code>对象</li><li><code>.arrayBuffer()</code>：返回二进制数组<code>ArrayBuffer</code>对象</li></ul><p>数据流只能读取一次，一旦读取，数据流就空了。再次读取就不会得到结果。解决方法是在读取之前，先使用<code>.clone()</code>方法，复制一份一模一样的副本。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> url = <span class="hljs-string">'LargeFile.txt'</span>;
+<span class="hljs-keyword">var</span> progress = <span class="hljs-number">0</span>;
+<span class="hljs-keyword">var</span> contentLength = <span class="hljs-number">0</span>;
+
+fetch(url).then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">response</span>) </span>{
+  <span class="hljs-comment">// 本次请求总的数据长度</span>
+  contentLength = response.headers.get(<span class="hljs-string">'Content-Length'</span>);
+  <span class="hljs-keyword">var</span> getStream = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">reader</span>) </span>{
+    <span class="hljs-comment">// ...</span>
+  };
+  <span class="hljs-keyword">return</span> getStream(response.body.getReader());
+})
+.catch(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">error</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(error);
+});
+</code></pre><p>上面代码中，<code>response.body.getReader()</code>返回的就是数据流之中的一段。处理数据流的<code>getStream</code>函数代码如下。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> progress = <span class="hljs-number">0</span>;
+<span class="hljs-keyword">var</span> contentLength = <span class="hljs-number">0</span>;
+
+<span class="hljs-keyword">var</span> getStream = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">reader</span>) </span>{
+  <span class="hljs-keyword">return</span> reader.read().then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">result</span>) </span>{
+    <span class="hljs-comment">// 如果数据已经读取完毕，直接返回</span>
+    <span class="hljs-keyword">if</span> (result.done) {
+      <span class="hljs-keyword">return</span>;
+    }
+
+    <span class="hljs-comment">// 取出本段数据（二进制格式）</span>
+    <span class="hljs-keyword">var</span> chunk = result.value;
+
+    <span class="hljs-keyword">var</span> text = <span class="hljs-string">''</span>;
+    <span class="hljs-comment">// 假定数据是UTF-8编码，前三字节是数据头，</span>
+    <span class="hljs-comment">// 而且每个字符占据一个字节（即都为英文字符）</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">3</span>; i &lt; chunk.byteLength; i++) {
+      text += <span class="hljs-built_in">String</span>.fromCharCode(chunk[i]);
+    }
+
+    <span class="hljs-comment">// 将本段数据追加到网页之中</span>
+    <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'content'</span>).innerHTML += text;
+
+    <span class="hljs-comment">// 计算当前进度</span>
+    progress += chunk.byteLength;
+    <span class="hljs-built_in">console</span>.log(((progress / contentLength) * <span class="hljs-number">100</span>) + <span class="hljs-string">'%'</span>);
+
+    <span class="hljs-comment">// 递归处理下一段数据</span>
+    <span class="hljs-keyword">return</span> getStream(reader);
+  };
+};
+</code></pre><p>上面这样的数据流处理，可以提高网站性能表现，减少内存占用，对于请求大文件或者网速慢的场景相当有用。传统的<code>XMLHTTPRequest</code>对象不支持数据流，所有的数据必须放在缓存里，等到全部拿到后，再一次性吐出来。</p><h2 id="fetch">fetch() <a class="markdownIt-Anchor" href="#fetch">#</a></h2><p><code>fetch</code>方法的第一个参数可以是 URL 字符串，也可以是后文要讲到的<code>Request</code>对象实例。<code>Fetch</code>方法返回一个<code>Promise</code>对象，并将一个<code>response</code>对象传给回调函数。</p><p><code>response</code>对象有一个<code>ok</code>属性，如果返回的状态码在200到299之间（即请求成功），这个属性为<code>true</code>，否则为<code>false</code>。因此，判断请求是否成功的代码可以写成下面这样。</p><pre class="hljs"><code>fetch(<span class="hljs-string">'./api/some.json'</span>).then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">response</span>) </span>{
+  <span class="hljs-keyword">if</span> (response.ok) {
+    response.json().then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">data</span>) </span>{
+      <span class="hljs-built_in">console</span>.log(data);
+    });
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'请求失败，状态码为'</span>, response.status);
+  }
+}, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'出错：'</span>, err);
+});
+</code></pre><p><code>response</code>对象除了<code>json</code>方法，还包含了服务器 HTTP 回应的元数据。</p><pre class="hljs"><code>fetch(<span class="hljs-string">'users.json'</span>).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">response</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(response.headers.get(<span class="hljs-string">'Content-Type'</span>));
+  <span class="hljs-built_in">console</span>.log(response.headers.get(<span class="hljs-string">'Date'</span>));
+  <span class="hljs-built_in">console</span>.log(response.status);
+  <span class="hljs-built_in">console</span>.log(response.statusText);
+  <span class="hljs-built_in">console</span>.log(response.type);
+  <span class="hljs-built_in">console</span>.log(response.url);
+});
+</code></pre><p>上面代码中，<code>response</code>对象有很多属性，其中的<code>response.type</code>属性比较特别，表示HTTP回应的类型，它有以下三个值。</p><ul><li>basic：正常的同域请求</li><li>cors：CORS 机制下的跨域请求</li><li>opaque：非 CORS 机制下的跨域请求，这时无法读取返回的数据，也无法判断是否请求成功</li></ul><p>如果需要在 CORS 机制下发出跨域请求，需要指明状态。</p><pre class="hljs"><code>fetch(<span class="hljs-string">'http://some-site.com/cors-enabled/some.json'</span>, {<span class="hljs-attr">mode</span>: <span class="hljs-string">'cors'</span>})
+  .then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">response</span>) </span>{
+    <span class="hljs-keyword">return</span> response.text();
+  })
+  .then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">text</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Request successful'</span>, text);
+  })
+  .catch(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error</span>) </span>{
+    log(<span class="hljs-string">'Request failed'</span>, error)
+  });
+</code></pre><p>除了指定模式，fetch 方法的第二个参数还可以用来配置其他值，比如指定 cookie 连同 HTTP 请求一起发出。</p><pre class="hljs"><code>fetch(url, {
+  <span class="hljs-attr">credentials</span>: <span class="hljs-string">'include'</span>
+})
+</code></pre><p>发出 POST 请求的写法如下。</p><pre class="hljs"><code>fetch(<span class="hljs-string">'http://www.example.org/submit.php'</span>, {
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'POST'</span>,
+  <span class="hljs-attr">headers</span>: {
+    <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/x-www-form-urlencoded'</span>
+  },
+  <span class="hljs-attr">body</span>: <span class="hljs-string">'firstName=Nikhil&amp;favColor=blue&amp;password=easytoguess'</span>
+}).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">res</span>) </span>{
+  <span class="hljs-keyword">if</span> (res.ok) {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Perfect! Your settings are saved.'</span>);
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (res.status == <span class="hljs-number">401</span>) {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Oops! You are not authorized.'</span>);
+  }
+}, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Error submitting form!'</span>);
+});
+</code></pre><h2 id="headers">Headers <a class="markdownIt-Anchor" href="#headers">#</a></h2><p>Fetch API 引入三个新的对象（也是构造函数）：<code>Headers</code>, <code>Request</code>和<code>Response</code>。其中，<code>Headers</code>对象用来构造/读取 HTTP 数据包的头信息。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> content = <span class="hljs-string">'Hello World'</span>;
+<span class="hljs-keyword">var</span> headers = <span class="hljs-keyword">new</span> Headers();
+headers.append(<span class="hljs-string">'Accept'</span>, <span class="hljs-string">'application/json'</span>);
+headers.append(<span class="hljs-string">'Content-Type'</span>, <span class="hljs-string">'text/plain'</span>);
+headers.append(<span class="hljs-string">'Content-Length'</span>, content.length.toString());
+headers.append(<span class="hljs-string">'X-Custom-Header'</span>, <span class="hljs-string">'ProcessThisImmediately'</span>);
+</code></pre><p><code>Headers</code>对象的实例，除了使用<code>append</code>方法添加属性，也可以直接通过构造函数一次性生成。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> reqHeaders = <span class="hljs-keyword">new</span> Headers({
+  <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'text/plain'</span>,
+  <span class="hljs-string">'Content-Length'</span>: content.length.toString(),
+  <span class="hljs-string">'X-Custom-Header'</span>: <span class="hljs-string">'ProcessThisImmediately'</span>,
+});
+</code></pre><p>Headers 对象实例还提供了一些工具方法。</p><pre class="hljs"><code>reqHeaders.has(<span class="hljs-string">'Content-Type'</span>) <span class="hljs-comment">// true</span>
+reqHeaders.has(<span class="hljs-string">'Set-Cookie'</span>) <span class="hljs-comment">// false</span>
+reqHeaders.set(<span class="hljs-string">'Content-Type'</span>, <span class="hljs-string">'text/html'</span>)
+reqHeaders.append(<span class="hljs-string">'X-Custom-Header'</span>, <span class="hljs-string">'AnotherValue'</span>)
+
+reqHeaders.get(<span class="hljs-string">'Content-Length'</span>) <span class="hljs-comment">// 11</span>
+reqHeaders.getAll(<span class="hljs-string">'X-Custom-Header'</span>) <span class="hljs-comment">// ["ProcessThisImmediately", "AnotherValue"]</span>
+
+reqHeaders.delete(<span class="hljs-string">'X-Custom-Header'</span>)
+reqHeaders.getAll(<span class="hljs-string">'X-Custom-Header'</span>) <span class="hljs-comment">// []</span>
+</code></pre><p>生成 Header 实例以后，可以将它作为第二个参数，传入<code>Request</code>方法。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> headers = <span class="hljs-keyword">new</span> Headers();
+headers.append(<span class="hljs-string">'Accept'</span>, <span class="hljs-string">'application/json'</span>);
+<span class="hljs-keyword">var</span> request = <span class="hljs-keyword">new</span> Request(URL, {<span class="hljs-attr">headers</span>: headers});
+
+fetch(request).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">response</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(response.headers);
+});
+</code></pre><p>同样地，Headers 实例可以用来构造 Response 方法。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> headers = <span class="hljs-keyword">new</span> Headers({
+  <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span>,
+  <span class="hljs-string">'Cache-Control'</span>: <span class="hljs-string">'max-age=3600'</span>
+});
+
+<span class="hljs-keyword">var</span> response = <span class="hljs-keyword">new</span> Response(
+  <span class="hljs-built_in">JSON</span>.stringify({<span class="hljs-attr">photos</span>: {<span class="hljs-attr">photo</span>: []}}),
+  {<span class="hljs-string">'status'</span>: <span class="hljs-number">200</span>, <span class="hljs-attr">headers</span>: headers}
+);
+
+response.json().then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">json</span>) </span>{
+  insertPhotos(json);
+});
+</code></pre><p>上面代码中，构造了一个 HTTP 回应。目前，浏览器构造 HTTP 回应没有太大用处，但是随着 Service Worker 的部署，不久浏览器就可以向 Service Worker 发出 HTTP 回应。</p><h2 id="request对象">Request对象 <a class="markdownIt-Anchor" href="#request对象">#</a></h2><p><code>Request</code>对象用来构造 HTTP 请求。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> req = <span class="hljs-keyword">new</span> Request(<span class="hljs-string">'/index.html'</span>);
+req.method <span class="hljs-comment">// "GET"</span>
+req.url <span class="hljs-comment">// "http://example.com/index.html"</span>
+</code></pre><p><code>Request</code>对象的第二个参数，表示配置对象。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> uploadReq = <span class="hljs-keyword">new</span> Request(<span class="hljs-string">'/uploadImage'</span>, {
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'POST'</span>,
+  <span class="hljs-attr">headers</span>: {
+    <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'image/png'</span>,
+  },
+  <span class="hljs-attr">body</span>: <span class="hljs-string">'image data'</span>
+});
+</code></pre><p>上面代码指定<code>Request</code>对象使用 POST 方法发出，并指定 HTTP 头信息和信息体。</p><p>下面是另一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> req = <span class="hljs-keyword">new</span> Request(URL, {<span class="hljs-attr">method</span>: <span class="hljs-string">'GET'</span>, <span class="hljs-attr">cache</span>: <span class="hljs-string">'reload'</span>});
+fetch(req).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">response</span>) </span>{
+  <span class="hljs-keyword">return</span> response.json();
+}).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">json</span>) </span>{
+  someOperator(json);
+});
+</code></pre><p>上面代码中，指定请求方法为 GET，并且要求浏览器不得缓存 response。</p><p><code>Request</code>对象实例有两个属性是只读的，不能手动设置。一个是<code>referrer</code>属性，表示请求的来源，由浏览器设置，有可能是空字符串。另一个是<code>context</code>属性，表示请求发出的上下文，如果值是<code>image</code>，表示是从<code>&lt;img&gt;</code>标签发出，如果值是<code>worker</code>，表示是从<code>worker</code>脚本发出，如果是<code>fetch</code>，表示是从<code>fetch</code>函数发出的。</p><p><code>Request</code>对象实例的<code>mode</code>属性，用来设置是否跨域，合法的值有以下三种：same-origin、no-cors（默认值）、cors。当设置为<code>same-origin</code>时，只能向同域的 URL 发出请求，否则会报错。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> arbitraryUrl = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"url-input"</span>).value;
+fetch(arbitraryUrl, { <span class="hljs-attr">mode</span>: <span class="hljs-string">"same-origin"</span> }).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">res</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Response succeeded?"</span>, res.ok);
+}, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Please enter a same-origin URL!"</span>);
+});
+</code></pre><p>上面代码中，如果用户输入的URL不是同域的，将会报错，否则就会发出请求。</p><p>如果<code>mode</code>属性为<code>no-cors</code>，就与默认的浏览器行为没有不同，类似<code>&lt;script&gt;</code>标签加载外部脚本文件、<code>&lt;img&gt;</code>标签加载外部图片。如果<code>mode</code>属性为<code>cors</code>，就可以向部署了<code>CORS</code>机制的服务器，发出跨域请求。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> u = <span class="hljs-keyword">new</span> URLSearchParams();
+u.append(<span class="hljs-string">'method'</span>, <span class="hljs-string">'flickr.interestingness.getList'</span>);
+u.append(<span class="hljs-string">'api_key'</span>, <span class="hljs-string">'&lt;insert api key here&gt;'</span>);
+u.append(<span class="hljs-string">'format'</span>, <span class="hljs-string">'json'</span>);
+u.append(<span class="hljs-string">'nojsoncallback'</span>, <span class="hljs-string">'1'</span>);
+
+<span class="hljs-keyword">var</span> apiCall = fetch(<span class="hljs-string">'https://api.flickr.com/services/rest?'</span> + u);
+
+apiCall.then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">response</span>) </span>{
+  <span class="hljs-keyword">return</span> response.json().then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">json</span>) </span>{
+    <span class="hljs-comment">// photo is a list of photos.</span>
+    <span class="hljs-keyword">return</span> json.photos.photo;
+  });
+}).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">photos</span>) </span>{
+  photos.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">photo</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(photo.title);
+  });
+});
+</code></pre><p>上面代码是向 Flickr API 发出图片请求的例子。</p><p><code>Request</code>对象的一个很有用的功能，是在其他<code>Request</code>实例的基础上，生成新的<code>Request</code>实例。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> postReq = <span class="hljs-keyword">new</span> Request(req, {<span class="hljs-attr">method</span>: <span class="hljs-string">'POST'</span>});
+</code></pre><h2 id="response">Response <a class="markdownIt-Anchor" href="#response">#</a></h2><p>fetch方法返回Response对象实例，它有以下属性。</p><ul><li><code>status</code>：整数值，表示状态码（比如200）</li><li><code>statusText</code>：字符串，表示状态信息，默认是“OK”</li><li><code>ok</code>：布尔值，表示状态码是否在200-299的范围内</li><li><code>headers</code>：Headers对象，表示HTTP回应的头信息</li><li><code>url</code>：字符串，表示HTTP请求的网址</li><li><code>type</code>：字符串，合法的值有五个basic、cors、default、error、opaque。basic表示正常的同域请求；cors表示CORS机制的跨域请求；<code>error</code>表示网络出错，无法取得信息，<code>status</code>属性为0，<code>headers</code>属性为空，并且导致<code>fetch</code>函数返回<code>Promise</code>对象被拒绝；<code>opaque</code>表示非 CORS 机制的跨域请求，受到严格限制。</li></ul><p><code>Response</code>对象还有两个静态方法。</p><ul><li>Response.error() 返回一个type属性为error的Response对象实例</li><li>Response.redirect(url, status) 返回的Response对象实例会重定向到另一个URL</li></ul><pre class="hljs"><code>fetch(<span class="hljs-string">'https://example.com'</span>, init)
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">response</span>) </span>{
+<span class="hljs-comment">// Check that the response is a 200</span>
+  <span class="hljs-keyword">if</span> (response.status === <span class="hljs-number">200</span>) {
+    alert(<span class="hljs-string">"Content type: "</span> + response.headers.get(<span class="hljs-string">'Content-Type'</span>));
+  }
+});
+</code></pre><h2 id="body属性">body属性 <a class="markdownIt-Anchor" href="#body属性">#</a></h2><p><code>Request</code>对象和<code>Response</code>对象都有<code>body</code>属性，表示请求的内容。<code>body</code>属性可能是以下的数据类型。</p><ul><li>ArrayBuffer</li><li>ArrayBufferView (Uint8Array等)</li><li>Blob/File</li><li>string</li><li>URLSearchParams</li><li>FormData</li></ul><pre class="hljs"><code><span class="hljs-keyword">var</span> form = <span class="hljs-keyword">new</span> FormData(<span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'login-form'</span>));
+fetch(<span class="hljs-string">"/login"</span>, {
+  <span class="hljs-attr">method</span>: <span class="hljs-string">"POST"</span>,
+  <span class="hljs-attr">body</span>: form
+})
+</code></pre><p>上面代码中，<code>Request</code>对象的<code>body</code>属性为表单数据。</p><p><code>Request</code>对象和<code>Response</code>对象都提供以下方法，用来读取<code>body</code>。</p><ul><li>arrayBuffer()</li><li>blob()</li><li>json()</li><li>text()</li><li>formData()</li></ul><p>注意，上面这些方法都只能使用一次，第二次使用就会报错，也就是说，<code>body</code>属性只能读取一次。<code>Request</code>对象和<code>Response</code>对象都有<code>bodyUsed</code>属性，返回一个布尔值，表示<code>body</code>是否被读取过。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> res = <span class="hljs-keyword">new</span> Response(<span class="hljs-string">'one time use'</span>);
+<span class="hljs-built_in">console</span>.log(res.bodyUsed); <span class="hljs-comment">// false</span>
+res.text().then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">v</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(res.bodyUsed); <span class="hljs-comment">// true</span>
+});
+<span class="hljs-built_in">console</span>.log(res.bodyUsed); <span class="hljs-comment">// true</span>
+
+res.text().catch(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Tried to read already consumed Response'</span>);
+});
+</code></pre><p>上面代码中，第二次通过<code>text</code>方法读取<code>Response</code>对象实例的<code>body</code>时，就会报错。</p><p>这是因为<code>body</code>属性是一个stream对象，数据只能单向传送一次。这样的设计是为了允许 JavaScript 处理视频、音频这样的大型文件。</p><p>如果希望多次使用<code>body</code>属性，可以使用<code>Response</code>对象和<code>Request</code>对象的<code>clone</code>方法。它必须在<code>body</code>还没有读取前调用，返回一个新的<code>body</code>，也就是说，需要使用几次<code>body</code>，就要调用几次<code>clone</code>方法。</p><pre class="hljs"><code>addEventListener(<span class="hljs-string">'fetch'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">evt</span>) </span>{
+  <span class="hljs-keyword">var</span> sheep = <span class="hljs-keyword">new</span> Response(<span class="hljs-string">"Dolly"</span>);
+  <span class="hljs-built_in">console</span>.log(sheep.bodyUsed); <span class="hljs-comment">// false</span>
+  <span class="hljs-keyword">var</span> clone = sheep.clone();
+  <span class="hljs-built_in">console</span>.log(clone.bodyUsed); <span class="hljs-comment">// false</span>
+
+  clone.text();
+  <span class="hljs-built_in">console</span>.log(sheep.bodyUsed); <span class="hljs-comment">// false</span>
+  <span class="hljs-built_in">console</span>.log(clone.bodyUsed); <span class="hljs-comment">// true</span>
+
+  evt.respondWith(cache.add(sheep.clone()).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+    <span class="hljs-keyword">return</span> sheep;
+  });
+});
+</code></pre><h2 id="reader-的实例">reader 的实例 <a class="markdownIt-Anchor" href="#reader-的实例">#</a></h2><pre class="hljs"><code><span class="hljs-keyword">const</span> fetchUrl = <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">url</span>) </span>{
+  <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> fetch(url);
+  <span class="hljs-keyword">const</span> reader = response.body.getReader();
+  <span class="hljs-keyword">const</span> chunk1 = <span class="hljs-keyword">await</span> reader.read();
+  <span class="hljs-built_in">console</span>.log(chunk1);
+}
+</code></pre><h2 id="参考链接">参考链接 <a class="markdownIt-Anchor" href="#参考链接">#</a></h2><ul><li><a href="https://www.sitepen.com/blog/2017/10/02/a-guide-to-faster-web-app-io-and-data-operations-with-streams/" target="_blank" rel="noopener">A Guide to Faster Web App I/O and Data Operations with Streams</a>, by Umar Hansa</li></ul></article><nav class="level level-previous-next is-size-5 is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="canvas.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> Canvas API</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="intersectionObserver.html">IntersectionObserver <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav></div><div class="column is-3 is-offset-1"><nav class="panel panel-menu"><p class="panel-heading"><i class="fa fa-book" aria-hidden="true"></i> Web API 教程</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="canvas.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Canvas API</span></a></li><li><a href="fetch.html" class="is-active"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Fetch API</span></a></li><li><a href="intersectionObserver.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">IntersectionObserver</span></a></li><li><a href="server-sent-events.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Server-Sent Events</span></a></li><li><a href="websocket.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">WebSocket</span></a></li></ul></aside></div></nav></div></div></div></section><footer class="footer"><div class="container"><div class="content has-text-centered"><p>联系：contact@wangdoc.com / Build by <a target="_blank" href="https://github.com/ruanyf/loppo">Loppo 0.6.10</a></p></div></div></footer><script>var LOPPO={};LOPPO.current_path="fetch.md",LOPPO.relative_root_path="",LOPPO.article_toc='<ul class="markdownIt-TOC">\n<li><a href="#%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95">基本用法</a></li>\n<li><a href="#stream-%E6%95%B0%E6%8D%AE%E6%B5%81">stream 数据流</a></li>\n<li><a href="#fetch">fetch()</a></li>\n<li><a href="#headers">Headers</a></li>\n<li><a href="#request%E5%AF%B9%E8%B1%A1">Request对象</a></li>\n<li><a href="#response">Response</a></li>\n<li><a href="#body%E5%B1%9E%E6%80%A7">body属性</a></li>\n<li><a href="#reader-%E7%9A%84%E5%AE%9E%E4%BE%8B">reader 的实例</a></li>\n<li><a href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5">参考链接</a></li>\n</ul>\n'</script><script src="assets/js/app.js"></script></body></html>
