@@ -10805,6 +10805,27 @@ article.content h3:hover a {
   display: inline;
 }
 
+article .page-meta {
+  margin: 1em auto;
+}
+
+article .page-meta p {
+  color: #b5b5b5;
+  text-align: right;
+  font-size: 85%;
+}
+
+/* page info */
+.page-info {
+  border-top: 1px solid #b5b5b5;
+  padding-top: 1em;
+}
+
+.page-info p {
+  color: #b5b5b5;
+  line-height: 2;
+}
+
 /*
  * breadcrumb icon
  */
@@ -10877,6 +10898,7 @@ article.content h3:hover a {
 }
 
 .panel-menu .panel-block .menu-list a.is-active {
-  opacity: 0.75;
+  color: #4a4a4a;
+  background-color: whitesmoke;
 }
 /*# sourceMappingURL=app.css.map */
