@@ -10660,4 +10660,31 @@ label.panel-block:hover {
   background-color: whitesmoke;
   padding: 3rem 1.5rem 6rem;
 }
+
+/* menu */
+.panel-menu .panel-block {
+  padding: 0.5em 0.75em 0.5em 0em;
+  padding-left: 0em;
+}
+
+.panel-menu .panel-block .menu {
+  width: 100%;
+}
+
+.panel-menu .panel-block .menu-list a {
+  padding-left: 0em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  word-break: break-all;
+}
+
+.panel-menu .panel-block .menu-list a .menu-list-title {
+  width: calc(100% - 1.5rem - 14px - 8px);
+}
+
+.panel-menu .panel-block .menu-list a.is-active {
+  color: #4a4a4a;
+  background-color: whitesmoke;
+}
 /*# sourceMappingURL=app.css.map */
