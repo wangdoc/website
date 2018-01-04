@@ -1,0 +1,262 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>数组 - JavaScript 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="../assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="../index.html" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com</a></div><div class="navbar-menu"><div class="navbar-end"><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/javascript-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8"><nav class="breadcrumb is-size-5-desktop" aria-label="breadcrumbs"><ul><li><a href="../index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;JavaScript 教程</a></li><li><a href="../basic/index.html">入门篇</a></li><li class="is-active"><a class="has-text-grey" href="../basic/array.html">数组</a></li></ul></nav><nav class="level level-previous-next is-size-5 is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="../basic/object.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> 对象</a></p></div><div class="level-right"><p class="level-item is-narrow"></p></div></nav><article class="content is-size-4-desktop"><h1 class="title">数组</h1><div class="page-meta"><p>出自网道（WangDoc.com），互联网开发文档</p></div><h2 id="定义">定义 <a class="markdownIt-Anchor" href="#定义">#</a></h2><p>数组（array）是按次序排列的一组值。每个值的位置都有编号（从0开始），整个数组用方括号表示。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> arr = [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>];
+</code></pre><p>上面代码中的<code>a</code>、<code>b</code>、<code>c</code>就构成一个数组，两端的方括号是数组的标志。<code>a</code>是0号位置，<code>b</code>是1号位置，<code>c</code>是2号位置。</p><p>除了在定义时赋值，数组也可以先定义后赋值。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> arr = [];
+
+arr[<span class="hljs-number">0</span>] = <span class="hljs-string">'a'</span>;
+arr[<span class="hljs-number">1</span>] = <span class="hljs-string">'b'</span>;
+arr[<span class="hljs-number">2</span>] = <span class="hljs-string">'c'</span>;
+</code></pre><p>任何类型的数据，都可以放入数组。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> arr = [
+  {<span class="hljs-attr">a</span>: <span class="hljs-number">1</span>},
+  [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>],
+  <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;}
+];
+
+arr[<span class="hljs-number">0</span>] <span class="hljs-comment">// Object {a: 1}</span>
+arr[<span class="hljs-number">1</span>] <span class="hljs-comment">// [1, 2, 3]</span>
+arr[<span class="hljs-number">2</span>] <span class="hljs-comment">// function (){return true;}</span>
+</code></pre><p>上面数组<code>arr</code>的3个成员依次是对象、数组、函数。</p><p>如果数组的元素还是数组，就形成了多维数组。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> a = [[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]];
+a[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>] <span class="hljs-comment">// 2</span>
+a[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>] <span class="hljs-comment">// 4</span>
+</code></pre><h2 id="数组的本质">数组的本质 <a class="markdownIt-Anchor" href="#数组的本质">#</a></h2><p>本质上，数组属于一种特殊的对象。<code>typeof</code>运算符会返回数组的类型是<code>object</code>。</p><pre class="hljs"><code><span class="hljs-keyword">typeof</span> [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>] <span class="hljs-comment">// "object"</span>
+</code></pre><p>上面代码表明，<code>typeof</code>运算符认为数组的类型就是对象。</p><p>数组的特殊性体现在，它的键名是按次序排列的一组整数（0，1，2...）。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> arr = [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>];
+
+<span class="hljs-built_in">Object</span>.keys(arr)
+<span class="hljs-comment">// ["0", "1", "2"]</span>
+</code></pre><p>上面代码中，<code>Object.keys</code>方法返回数组的所有键名。可以看到数组的键名就是整数0、1、2。</p><p>由于数组成员的键名是固定的（默认总是0、1、2...），因此数组不用为每个元素指定键名，而对象的每个成员都必须指定键名。JavaScript 语言规定，对象的键名一律为字符串，所以，数组的键名其实也是字符串。之所以可以用数值读取，是因为非字符串的键名会被转为字符串。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> arr = [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>];
+
+arr[<span class="hljs-string">'0'</span>] <span class="hljs-comment">// 'a'</span>
+arr[<span class="hljs-number">0</span>] <span class="hljs-comment">// 'a'</span>
+</code></pre><p>上面代码分别用数值和字符串作为键名，结果都能读取数组。原因是数值键名被自动转为了字符串。</p><p>注意，这点在赋值时也成立。如果一个值总是先转成字符串，再进行赋值。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> a = [];
+
+a[<span class="hljs-number">1.00</span>] = <span class="hljs-number">6</span>;
+a[<span class="hljs-number">1</span>] <span class="hljs-comment">// 6</span>
+</code></pre><p>上面代码中，由于<code>1.00</code>转成字符串是<code>1</code>，所以通过数字键<code>1</code>可以读取值。</p><p>上一章说过，对象有两种读取成员的方法：点结构（<code>object.key</code>）和方括号结构（<code>object[key]</code>）。但是，对于数值的键名，不能使用点结构。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> arr = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
+arr<span class="hljs-number">.0</span> <span class="hljs-comment">// SyntaxError</span>
+</code></pre><p>上面代码中，<code>arr.0</code>的写法不合法，因为单独的数值不能作为标识符（identifier）。所以，数组成员只能用方括号<code>arr[0]</code>表示（方括号是运算符，可以接受数值）。</p><h2 id="length-属性">length 属性 <a class="markdownIt-Anchor" href="#length-属性">#</a></h2><p>数组的<code>length</code>属性，返回数组的成员数量。</p><pre class="hljs"><code>[<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>].length <span class="hljs-comment">// 3</span>
+</code></pre><p>JavaScript 使用一个32位整数，保存数组的元素个数。这意味着，数组成员最多只有 4294967295 个（2<sup>32</sup> - 1）个，也就是说<code>length</code>属性的最大值就是 4294967295。</p><p>只要是数组，就一定有<code>length</code>属性。该属性是一个动态的值，等于键名中的最大整数加上<code>1</code>。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> arr = [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>];
+arr.length <span class="hljs-comment">// 2</span>
+
+arr[<span class="hljs-number">2</span>] = <span class="hljs-string">'c'</span>;
+arr.length <span class="hljs-comment">// 3</span>
+
+arr[<span class="hljs-number">9</span>] = <span class="hljs-string">'d'</span>;
+arr.length <span class="hljs-comment">// 10</span>
+
+arr[<span class="hljs-number">1000</span>] = <span class="hljs-string">'e'</span>;
+arr.length <span class="hljs-comment">// 1001</span>
+</code></pre><p>上面代码表示，数组的数字键不需要连续，<code>length</code>属性的值总是比最大的那个整数键大<code>1</code>。另外，这也表明数组是一种动态的数据结构，可以随时增减数组的成员。</p><p><code>length</code>属性是可写的。如果人为设置一个小于当前成员个数的值，该数组的成员会自动减少到<code>length</code>设置的值。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> arr = [ <span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span> ];
+arr.length <span class="hljs-comment">// 3</span>
+
+arr.length = <span class="hljs-number">2</span>;
+arr <span class="hljs-comment">// ["a", "b"]</span>
+</code></pre><p>上面代码表示，当数组的<code>length</code>属性设为2（即最大的整数键只能是1）那么整数键2（值为<code>c</code>）就已经不在数组中了，被自动删除了。</p><p>清空数组的一个有效方法，就是将<code>length</code>属性设为0。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> arr = [ <span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span> ];
+
+arr.length = <span class="hljs-number">0</span>;
+arr <span class="hljs-comment">// []</span>
+</code></pre><p>如果人为设置<code>length</code>大于当前元素个数，则数组的成员数量会增加到这个值，新增的位置都是空位。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> a = [<span class="hljs-string">'a'</span>];
+
+a.length = <span class="hljs-number">3</span>;
+a[<span class="hljs-number">1</span>] <span class="hljs-comment">// undefined</span>
+</code></pre><p>上面代码表示，当<code>length</code>属性设为大于数组个数时，读取新增的位置都会返回<code>undefined</code>。</p><p>如果人为设置<code>length</code>为不合法的值，JavaScript 会报错。</p><pre class="hljs"><code><span class="hljs-comment">// 设置负值</span>
+[].length = <span class="hljs-number">-1</span>
+<span class="hljs-comment">// RangeError: Invalid array length</span>
+
+<span class="hljs-comment">// 数组元素个数大于等于2的32次方</span>
+[].length = <span class="hljs-built_in">Math</span>.pow(<span class="hljs-number">2</span>, <span class="hljs-number">32</span>)
+<span class="hljs-comment">// RangeError: Invalid array length</span>
+
+<span class="hljs-comment">// 设置字符串</span>
+[].length = <span class="hljs-string">'abc'</span>
+<span class="hljs-comment">// RangeError: Invalid array length</span>
+</code></pre><p>值得注意的是，由于数组本质上是一种对象，所以可以为数组添加属性，但是这不影响<code>length</code>属性的值。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> a = [];
+
+a[<span class="hljs-string">'p'</span>] = <span class="hljs-string">'abc'</span>;
+a.length <span class="hljs-comment">// 0</span>
+
+a[<span class="hljs-number">2.1</span>] = <span class="hljs-string">'abc'</span>;
+a.length <span class="hljs-comment">// 0</span>
+</code></pre><p>上面代码将数组的键分别设为字符串和小数，结果都不影响<code>length</code>属性。因为，<code>length</code>属性的值就是等于最大的数字键加1，而这个数组没有整数键，所以<code>length</code>属性保持为<code>0</code>。</p><p>如果数组的键名是添加超出范围的数值，该键名会自动转为字符串。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> arr = [];
+arr[<span class="hljs-number">-1</span>] = <span class="hljs-string">'a'</span>;
+arr[<span class="hljs-built_in">Math</span>.pow(<span class="hljs-number">2</span>, <span class="hljs-number">32</span>)] = <span class="hljs-string">'b'</span>;
+
+arr.length <span class="hljs-comment">// 0</span>
+arr[<span class="hljs-number">-1</span>] <span class="hljs-comment">// "a"</span>
+arr[<span class="hljs-number">4294967296</span>] <span class="hljs-comment">// "b"</span>
+</code></pre><p>上面代码中，我们为数组<code>arr</code>添加了两个不合法的数字键，结果<code>length</code>属性没有发生变化。这些数字键都变成了字符串键名。最后两行之所以会取到值，是因为取键值时，数字键名会默认转为字符串。</p><h2 id="in-运算符">in 运算符 <a class="markdownIt-Anchor" href="#in-运算符">#</a></h2><p>检查某个键名是否存在的运算符<code>in</code>，适用于对象，也适用于数组。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> arr = [ <span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span> ];
+<span class="hljs-number">2</span> <span class="hljs-keyword">in</span> arr  <span class="hljs-comment">// true</span>
+<span class="hljs-string">'2'</span> <span class="hljs-keyword">in</span> arr <span class="hljs-comment">// true</span>
+<span class="hljs-number">4</span> <span class="hljs-keyword">in</span> arr <span class="hljs-comment">// false</span>
+</code></pre><p>上面代码表明，数组存在键名为<code>2</code>的键。由于键名都是字符串，所以数值<code>2</code>会自动转成字符串。</p><p>注意，如果数组的某个位置是空位，<code>in</code>运算符返回<code>false</code>。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> arr = [];
+arr[<span class="hljs-number">100</span>] = <span class="hljs-string">'a'</span>;
+
+<span class="hljs-number">100</span> <span class="hljs-keyword">in</span> arr <span class="hljs-comment">// true</span>
+<span class="hljs-number">1</span> <span class="hljs-keyword">in</span> arr <span class="hljs-comment">// false</span>
+</code></pre><p>上面代码中，数组<code>arr</code>只有一个成员<code>arr[100]</code>，其他位置的键名都会返回<code>false</code>。</p><h2 id="forin-循环和数组的遍历">for...in 循环和数组的遍历 <a class="markdownIt-Anchor" href="#forin-循环和数组的遍历">#</a></h2><p><code>for...in</code>循环不仅可以遍历对象，也可以遍历数组，毕竟数组只是一种特殊对象。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
+
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i <span class="hljs-keyword">in</span> a) {
+  <span class="hljs-built_in">console</span>.log(a[i]);
+}
+<span class="hljs-comment">// 1</span>
+<span class="hljs-comment">// 2</span>
+<span class="hljs-comment">// 3</span>
+</code></pre><p>但是，<code>for...in</code>不仅会遍历数组所有的数字键，还会遍历非数字键。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
+a.foo = <span class="hljs-literal">true</span>;
+
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> key <span class="hljs-keyword">in</span> a) {
+  <span class="hljs-built_in">console</span>.log(key);
+}
+<span class="hljs-comment">// 0</span>
+<span class="hljs-comment">// 1</span>
+<span class="hljs-comment">// 2</span>
+<span class="hljs-comment">// foo</span>
+</code></pre><p>上面代码在遍历数组时，也遍历到了非整数键<code>foo</code>。所以，不推荐使用<code>for...in</code>遍历数组。</p><p>数组的遍历可以考虑使用<code>for</code>循环或<code>while</code>循环。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
+
+<span class="hljs-comment">// for循环</span>
+<span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; a.length; i++) {
+  <span class="hljs-built_in">console</span>.log(a[i]);
+}
+
+<span class="hljs-comment">// while循环</span>
+<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>;
+<span class="hljs-keyword">while</span> (i &lt; a.length) {
+  <span class="hljs-built_in">console</span>.log(a[i]);
+  i++;
+}
+
+<span class="hljs-keyword">var</span> l = a.length;
+<span class="hljs-keyword">while</span> (l--) {
+  <span class="hljs-built_in">console</span>.log(a[l]);
+}
+</code></pre><p>上面代码是三种遍历数组的写法。最后一种写法是逆向遍历，即从最后一个元素向第一个元素遍历。</p><p>数组的<code>forEach</code>方法，也可以用来遍历数组，详见《标准库》的 Array 对象一章。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> colors = [<span class="hljs-string">'red'</span>, <span class="hljs-string">'green'</span>, <span class="hljs-string">'blue'</span>];
+colors.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">color</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(color);
+});
+<span class="hljs-comment">// red</span>
+<span class="hljs-comment">// green</span>
+<span class="hljs-comment">// blue</span>
+</code></pre><h2 id="数组的空位">数组的空位 <a class="markdownIt-Anchor" href="#数组的空位">#</a></h2><p>当数组的某个位置是空元素，即两个逗号之间没有任何值，我们称该数组存在空位（hole）。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> a = [<span class="hljs-number">1</span>, , <span class="hljs-number">1</span>];
+a.length <span class="hljs-comment">// 3</span>
+</code></pre><p>上面代码表明，数组的空位不影响<code>length</code>属性。</p><p>需要注意的是，如果最后一个元素后面有逗号，并不会产生空位。也就是说，有没有这个逗号，结果都是一样的。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>,];
+
+a.length <span class="hljs-comment">// 3</span>
+a <span class="hljs-comment">// [1, 2, 3]</span>
+</code></pre><p>上面代码中，数组最后一个成员后面有一个逗号，这不影响<code>length</code>属性的值，与没有这个逗号时效果一样。</p><p>数组的空位是可以读取的，返回<code>undefined</code>。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> a = [, , ,];
+a[<span class="hljs-number">1</span>] <span class="hljs-comment">// undefined</span>
+</code></pre><p>使用<code>delete</code>命令删除一个数组成员，会形成空位，并且不会影响<code>length</code>属性。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
+<span class="hljs-keyword">delete</span> a[<span class="hljs-number">1</span>];
+
+a[<span class="hljs-number">1</span>] <span class="hljs-comment">// undefined</span>
+a.length <span class="hljs-comment">// 3</span>
+</code></pre><p>上面代码用<code>delete</code>命令删除了数组的第二个元素，这个位置就形成了空位，但是对<code>length</code>属性没有影响。也就是说，<code>length</code>属性不过滤空位。所以，使用<code>length</code>属性进行数组遍历，一定要非常小心。</p><p>数组的某个位置是空位，与某个位置是<code>undefined</code>，是不一样的。如果是空位，使用数组的<code>forEach</code>方法、<code>for...in</code>结构、以及<code>Object.keys</code>方法进行遍历，空位都会被跳过。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> a = [, , ,];
+
+a.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">x, i</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(i + <span class="hljs-string">'. '</span> + x);
+})
+<span class="hljs-comment">// 不产生任何输出</span>
+
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i <span class="hljs-keyword">in</span> a) {
+  <span class="hljs-built_in">console</span>.log(i);
+}
+<span class="hljs-comment">// 不产生任何输出</span>
+
+<span class="hljs-built_in">Object</span>.keys(a)
+<span class="hljs-comment">// []</span>
+</code></pre><p>如果某个位置是<code>undefined</code>，遍历的时候就不会被跳过。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> a = [<span class="hljs-literal">undefined</span>, <span class="hljs-literal">undefined</span>, <span class="hljs-literal">undefined</span>];
+
+a.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">x, i</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(i + <span class="hljs-string">'. '</span> + x);
+});
+<span class="hljs-comment">// 0. undefined</span>
+<span class="hljs-comment">// 1. undefined</span>
+<span class="hljs-comment">// 2. undefined</span>
+
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i <span class="hljs-keyword">in</span> a) {
+  <span class="hljs-built_in">console</span>.log(i);
+}
+<span class="hljs-comment">// 0</span>
+<span class="hljs-comment">// 1</span>
+<span class="hljs-comment">// 2</span>
+
+<span class="hljs-built_in">Object</span>.keys(a)
+<span class="hljs-comment">// ['0', '1', '2']</span>
+</code></pre><p>这就是说，空位就是数组没有这个元素，所以不会被遍历到，而<code>undefined</code>则表示数组有这个元素，值是<code>undefined</code>，所以遍历不会跳过。</p><h2 id="类似数组的对象">类似数组的对象 <a class="markdownIt-Anchor" href="#类似数组的对象">#</a></h2><p>如果一个对象的所有键名都是正整数或零，并且有<code>length</code>属性，那么这个对象就很像数组，语法上称为“类似数组的对象”（array-like object）。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = {
+  <span class="hljs-number">0</span>: <span class="hljs-string">'a'</span>,
+  <span class="hljs-number">1</span>: <span class="hljs-string">'b'</span>,
+  <span class="hljs-number">2</span>: <span class="hljs-string">'c'</span>,
+  <span class="hljs-attr">length</span>: <span class="hljs-number">3</span>
+};
+
+obj[<span class="hljs-number">0</span>] <span class="hljs-comment">// 'a'</span>
+obj[<span class="hljs-number">1</span>] <span class="hljs-comment">// 'b'</span>
+obj.length <span class="hljs-comment">// 3</span>
+obj.push(<span class="hljs-string">'d'</span>) <span class="hljs-comment">// TypeError: obj.push is not a function</span>
+</code></pre><p>上面代码中，对象<code>obj</code>就是一个类似数组的对象。但是，“类似数组的对象”并不是数组，因为它们不具备数组特有的方法。对象<code>obj</code>没有数组的<code>push</code>方法，使用该方法就会报错。</p><p>“类似数组的对象”的根本特征，就是具有<code>length</code>属性。只要有<code>length</code>属性，就可以认为这个对象类似于数组。但是有一个问题，这种<code>length</code>属性不是动态值，不会随着成员的变化而变化。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = {
+  <span class="hljs-attr">length</span>: <span class="hljs-number">0</span>
+};
+obj[<span class="hljs-number">3</span>] = <span class="hljs-string">'d'</span>;
+obj.length <span class="hljs-comment">// 0</span>
+</code></pre><p>上面代码为对象<code>obj</code>添加了一个数字键，但是<code>length</code>属性没变。这就说明了<code>obj</code>不是数组。</p><p>典型的“类似数组的对象”是函数的<code>arguments</code>对象，以及大多数 DOM 元素集，还有字符串。</p><pre class="hljs"><code><span class="hljs-comment">// arguments对象</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">args</span>(<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">return</span> <span class="hljs-built_in">arguments</span> }
+<span class="hljs-keyword">var</span> arrayLike = args(<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>);
+
+arrayLike[<span class="hljs-number">0</span>] <span class="hljs-comment">// 'a'</span>
+arrayLike.length <span class="hljs-comment">// 2</span>
+arrayLike <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Array</span> <span class="hljs-comment">// false</span>
+
+<span class="hljs-comment">// DOM元素集</span>
+<span class="hljs-keyword">var</span> elts = <span class="hljs-built_in">document</span>.getElementsByTagName(<span class="hljs-string">'h3'</span>);
+elts.length <span class="hljs-comment">// 3</span>
+elts <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Array</span> <span class="hljs-comment">// false</span>
+
+<span class="hljs-comment">// 字符串</span>
+<span class="hljs-string">'abc'</span>[<span class="hljs-number">1</span>] <span class="hljs-comment">// 'b'</span>
+<span class="hljs-string">'abc'</span>.length <span class="hljs-comment">// 3</span>
+<span class="hljs-string">'abc'</span> <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Array</span> <span class="hljs-comment">// false</span>
+</code></pre><p>上面代码包含三个例子，它们都不是数组（<code>instanceof</code>运算符返回<code>false</code>），但是看上去都非常像数组。</p><p>数组的<code>slice</code>方法可以将“类似数组的对象”变成真正的数组。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> arr = <span class="hljs-built_in">Array</span>.prototype.slice.call(arrayLike);
+</code></pre><p>除了转为真正的数组，“类似数组的对象”还有一个办法可以使用数组的方法，就是通过<code>call()</code>把数组的方法放到对象上面。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">print</span>(<span class="hljs-params">value, index</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(index + <span class="hljs-string">' : '</span> + value);
+}
+
+<span class="hljs-built_in">Array</span>.prototype.forEach.call(arrayLike, print);
+</code></pre><p>上面代码中，<code>arrayLike</code>代表一个类似数组的对象，本来是不可以使用数组的<code>forEach()</code>方法的，但是通过<code>call()</code>，可以把<code>forEach()</code>嫁接到<code>arrayLike</code>上面调用。</p><p>下面的例子就是通过这种方法，在<code>arguments</code>对象上面调用<code>forEach</code>方法。</p><pre class="hljs"><code><span class="hljs-comment">// forEach 方法</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">logArgs</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">Array</span>.prototype.forEach.call(<span class="hljs-built_in">arguments</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">elem, i</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(i + <span class="hljs-string">'. '</span> + elem);
+  });
+}
+
+<span class="hljs-comment">// 等同于 for 循环</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">logArgs</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">arguments</span>.length; i++) {
+    <span class="hljs-built_in">console</span>.log(i + <span class="hljs-string">'. '</span> + <span class="hljs-built_in">arguments</span>[i]);
+  }
+}
+</code></pre><p>字符串也是类似数组的对象，所以也可以用<code>Array.prototype.forEach.call</code>遍历。</p><pre class="hljs"><code><span class="hljs-built_in">Array</span>.prototype.forEach.call(<span class="hljs-string">'abc'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">chr</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(chr);
+});
+<span class="hljs-comment">// a</span>
+<span class="hljs-comment">// b</span>
+<span class="hljs-comment">// c</span>
+</code></pre><p>注意，这种方法比直接使用数组原生的<code>forEach</code>要慢，所以最好还是先将“类似数组的对象”转为真正的数组，然后再直接调用数组的<code>forEach</code>方法。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> arr = <span class="hljs-built_in">Array</span>.prototype.slice.call(<span class="hljs-string">'abc'</span>);
+arr.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">chr</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(chr);
+});
+<span class="hljs-comment">// a</span>
+<span class="hljs-comment">// b</span>
+<span class="hljs-comment">// c</span>
+</code></pre><h2 id="参考链接">参考链接 <a class="markdownIt-Anchor" href="#参考链接">#</a></h2><ul><li>Axel Rauschmayer, <a href="http://www.2ality.com/2012/12/arrays.html" target="_blank" rel="noopener">Arrays in JavaScript</a></li><li>Axel Rauschmayer, <a href="http://www.2ality.com/2012/06/dense-arrays.html" target="_blank" rel="noopener">JavaScript: sparse arrays vs. dense arrays</a></li><li>Felix Bohm, <a href="http://net.tutsplus.com/tutorials/javascript-ajax/what-they-didnt-tell-you-about-es5s-array-extras/" target="_blank" rel="noopener">What They Didn’t Tell You About ES5′s Array Extras</a></li><li>Juriy Zaytsev, <a href="http://perfectionkills.com/how-ecmascript-5-still-does-not-allow-to-subclass-an-array/" target="_blank" rel="noopener">How ECMAScript 5 still does not allow to subclass an array</a></li></ul></article><nav class="level level-previous-next is-size-5 is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="../basic/object.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> 对象</a></p></div><div class="level-right"><p class="level-item is-narrow"></p></div></nav><div class="page-info is-size-5-desktop"><p>本教程采用<a href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh" target="_blank">知识共享 署名-相同方式共享 3.0协议</a>。</p><p>最后生成于 2018-1-4 12:04:48</p></div></div><div class="column is-3 is-offset-1"><nav class="panel panel-menu"><p class="panel-heading"><i class="fa fa-book" aria-hidden="true"></i> JavaScript 教程</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="../introduction.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">导论</span></a></li><li><a href="../history.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">JavaScript 语言的历史</span></a></li><li><a href="../basic/index.html"><span class="icon"><i class="fa fa-caret-down"></i> </span><i class="fa folder fa-folder-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">入门篇</span></a><ul><li><a href="../basic/grammar.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">基本语法</span></a></li><li><a href="../basic/types.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数据类型</span></a></li><li><a href="../basic/null-undefined-boolean.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">null，undefined 和布尔值</span></a></li><li><a href="../basic/number.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数值</span></a></li><li><a href="../basic/string.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">字符串</span></a></li><li><a href="../basic/object.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">对象</span></a></li><li><a href="../basic/array.html" class="is-active"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数组</span></a></li></ul></li></ul></aside></div></nav><nav class="panel panel-info"><p class="panel-heading"><i class="fa fa-link" aria-hidden="true"></i> 链接</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="https://raw.githubusercontent.com/wangdoc/javascript-tutorial/master/docs/basic/array.md" target="_blank"><span class="icon"></span><i class="fa fa-code" aria-hidden="true" style="width: 14px;"></i>&nbsp;本文源码</a></li><li><a href="https://github.com/wangdoc/javascript-tutorial" target="_blank"><span class="icon"></span><i class="fa fa-hdd-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;代码仓库</a></li><li><a href="https://github.com/wangdoc/javascript-tutorial/issues" target="_blank"><span class="icon"></span><i class="fa fa-flag-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;反馈</a></li></ul></aside></div></nav></div></div><div class="columns"><div class="column is-8"><div id="disqus_thread"></div></div></div></div></section><footer class="footer is-size-5-desktop"><div class="container"><div class="content has-text-centered"><p>联系：contact@wangdoc.com / Build by <a target="_blank" href="https://github.com/ruanyf/loppo">Loppo 0.6.11</a></p></div></div></footer><script>var LOPPO={};LOPPO.current_path="basic/array.md",LOPPO.relative_root_path="../",LOPPO.article_toc='<ul class="markdownIt-TOC">\n<li><a href="#%E5%AE%9A%E4%B9%89">定义</a></li>\n<li><a href="#%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%AC%E8%B4%A8">数组的本质</a></li>\n<li><a href="#length-%E5%B1%9E%E6%80%A7">length 属性</a></li>\n<li><a href="#in-%E8%BF%90%E7%AE%97%E7%AC%A6">in 运算符</a></li>\n<li><a href="#forin-%E5%BE%AA%E7%8E%AF%E5%92%8C%E6%95%B0%E7%BB%84%E7%9A%84%E9%81%8D%E5%8E%86">for...in 循环和数组的遍历</a></li>\n<li><a href="#%E6%95%B0%E7%BB%84%E7%9A%84%E7%A9%BA%E4%BD%8D">数组的空位</a></li>\n<li><a href="#%E7%B1%BB%E4%BC%BC%E6%95%B0%E7%BB%84%E7%9A%84%E5%AF%B9%E8%B1%A1">类似数组的对象</a></li>\n<li><a href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5">参考链接</a></li>\n</ul>\n'</script><script src="../assets/js/app.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-111269443-1"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","UA-111269443-1")</script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?5eec262881855af3dede6a71234571f6";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><script>/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+const l = window.location;
+const url = l.protocol + '//' + l.host + (l.port ? ':' + l.port : '') + l.pathname;
+this.page.url = url;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = l.pathname; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://wangdoc-javascript.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();</script></body></html>
