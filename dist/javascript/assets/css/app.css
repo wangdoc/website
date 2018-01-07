@@ -10893,6 +10893,37 @@ article .page-meta p a:hover {
   content: counter(articleTOCFirstLevel) "." counter(articleTOCSecondLevel) " ";
 }
 
+.toc-controller {
+  font-size: 80%;
+}
+
+.toc-controller a {
+  display: inline-block !important;
+}
+
+.markdownIt-TOC {
+  -webkit-animation: fadein 1s;
+          animation: fadein 1s;
+}
+
+@-webkit-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 /* comments */
 #disqus_thread {
   border-top: 1px solid #b5b5b5;
