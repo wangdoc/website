@@ -10731,6 +10731,7 @@ label.panel-block:hover {
   background: #23241f;
   color: #f8f8f2;
   direction: ltr;
+  font-family: Consolas,"Courier New",Courier,FreeMono,monospace;
 }
 
 .hljs,
@@ -10802,6 +10803,231 @@ label.panel-block:hover {
 .hljs-deletion,
 .hljs-meta {
   color: #75715e;
+}
+
+.hljs {
+  background-color: #23241f;
+  color: #586e75;
+}
+
+.hljs .c {
+  color: #93a1a1;
+}
+
+.hljs .err,
+.hljs .g {
+  color: #586e75;
+}
+
+.hljs .k {
+  color: #859900;
+}
+
+.hljs .l,
+.hljs .n {
+  color: #586e75;
+}
+
+.hljs .o {
+  color: #859900;
+}
+
+.hljs .x {
+  color: #cb4b16;
+}
+
+.hljs .p {
+  color: #586e75;
+}
+
+.hljs .cm {
+  color: #93a1a1;
+}
+
+.hljs .cp {
+  color: #859900;
+}
+
+.hljs .c1 {
+  color: #93a1a1;
+}
+
+.hljs .cs {
+  color: #859900;
+}
+
+.hljs .gd {
+  color: #2aa198;
+}
+
+.hljs .ge {
+  color: #586e75;
+  font-style: italic;
+}
+
+.hljs .gr {
+  color: #dc322f;
+}
+
+.hljs .gh {
+  color: #cb4b16;
+}
+
+.hljs .gi {
+  color: #859900;
+}
+
+.hljs .go,
+.hljs .gp {
+  color: #586e75;
+}
+
+.hljs .gs {
+  color: #586e75;
+  font-weight: bold;
+}
+
+.hljs .gu {
+  color: #cb4b16;
+}
+
+.hljs .gt {
+  color: #586e75;
+}
+
+.hljs .kc {
+  color: #cb4b16;
+}
+
+.hljs .kd {
+  color: #268bd2;
+}
+
+.hljs .kn,
+.hljs .kp {
+  color: #859900;
+}
+
+.hljs .kr {
+  color: #268bd2;
+}
+
+.hljs .kt {
+  color: #dc322f;
+}
+
+.hljs .ld {
+  color: #586e75;
+}
+
+.hljs .m,
+.hljs .s {
+  color: #2aa198;
+}
+
+.hljs .na {
+  color: #B58900;
+}
+
+.hljs .nb {
+  color: #586e75;
+}
+
+.hljs .nc {
+  color: #268bd2;
+}
+
+.hljs .no {
+  color: #cb4b16;
+}
+
+.hljs .nd {
+  color: #268bd2;
+}
+
+.hljs .ni,
+.hljs .ne {
+  color: #cb4b16;
+}
+
+.hljs .nf {
+  color: #268bd2;
+}
+
+.hljs .nl,
+.hljs .nn,
+.hljs .nx,
+.hljs .py {
+  color: #586e75;
+}
+
+.hljs .nt,
+.hljs .nv {
+  color: #268bd2;
+}
+
+.hljs .ow {
+  color: #859900;
+}
+
+.hljs .w {
+  color: #586e75;
+}
+
+.hljs .mf,
+.hljs .mh,
+.hljs .mi,
+.hljs .mo {
+  color: #2aa198;
+}
+
+.hljs .sb {
+  color: #93a1a1;
+}
+
+.hljs .sc {
+  color: #2aa198;
+}
+
+.hljs .sd {
+  color: #586e75;
+}
+
+.hljs .s2 {
+  color: #2aa198;
+}
+
+.hljs .se {
+  color: #cb4b16;
+}
+
+.hljs .sh {
+  color: #586e75;
+}
+
+.hljs .si,
+.hljs .sx {
+  color: #2aa198;
+}
+
+.hljs .sr {
+  color: #dc322f;
+}
+
+.hljs .s1,
+.hljs .ss {
+  color: #2aa198;
+}
+
+.hljs .bp,
+.hljs .vc,
+.hljs .vg,
+.hljs .vi {
+  color: #268bd2;
+}
+
+.hljs .il {
+  color: #2aa198;
 }
 
 /*
