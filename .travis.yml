@@ -5,7 +5,6 @@ node_js:
 addons:
   ssh_known_hosts:
   - wangdoc.com
-  - $host_ip
 
 sudo: required
 
@@ -15,5 +14,5 @@ before_install:
 # - echo -e "Host wangdoc.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 # - echo -e "Host wangdoc.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 
-install: true
+install: ssh  -o StrictHostKeyChecking=no $host_ip
 script: bash ./deploy.sh
