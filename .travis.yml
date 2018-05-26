@@ -14,5 +14,6 @@ before_install:
 # - echo -e "Host wangdoc.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 # - echo -e "Host wangdoc.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 
-install: ssh  -o StrictHostKeyChecking=no $host_ip
+install:
+  - echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCsnC6/bkCUui/I2DT05ynRYDpF1RH7Rm6wUDBAt2sQ8v57Ad7zzrwPWknbqx0+mvkyqVcNU+z03EFCG1L6PKxqs3dMOnQCnLm4NtyN8cX3P7hA2ZjfyQNMFoROZEdBYH/LnY5twxdPvO5aNOHIbAYVuF6umxhBrUd6m949L9gkgr9zr7w001zWSVJQyuBSY2YS1IAJoOvWD/Ua5KzZ89Vt5kmC/6UMaJbi/onHoCZw6fxpn8etA44cz3IX4mvEK+UHP0jmUWanp7jF6cxQn6JTxOxrjTu+slprD0Oc8qIXT227BpXe7G6/VJLyqCI2UQKpXY7Bfa4+VIxCm6m3M2Cs9m0IN2iiEp6eU1StpbGxcQlOfjvg5CjHsbUyxp1VUTDz2prAQP5kxCd+nboRNZbACHCy9vidCEEmE9A3LrfI0xbSPFlu6H+CsaUJXPfDG5lsWurke915nFgpVc+DGZLTKasKdVYZ0XIJ/cWKqBzF97m5CuVdFh62oAXB7ZOgMRxs5zL+SDRgu/BsmOwTuGD8qcPuTuEq/6J8wImQ/k7qACYvw6N5wph5/AfAPG+wxQk1IMTb2hkA5KjTtWy1Adzv3MhJS3VhQgFluC+UXEtDGe/De3zVlJ6BVyDwjN6yZapT7N37gXToJeLnxIiz4Q43xWSLuNVcX2DPEHplL/d4YQ== your_email@example.com' >> $HOME/.ssh/known_hosts
 script: bash ./deploy.sh
