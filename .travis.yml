@@ -5,6 +5,7 @@ node_js:
 addons:
   ssh_known_hosts:
   - wangdoc.com
+  - $host_ip
 
 sudo: required
 
