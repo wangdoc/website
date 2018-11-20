@@ -153,7 +153,18 @@ type.isRegExp(<span class="hljs-regexp">/abc/</span>) <span class="hljs-comment"
 </code></pre><h3 id="objectprototypetolocalestring">Object.prototype.toLocaleString() <a class="markdownIt-Anchor" href="#objectprototypetolocalestring">#</a></h3><p><code>Object.prototype.toLocaleString</code>方法与<code>toString</code>的返回结果相同，也是返回一个值的字符串形式。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = {};
 obj.toString(obj) <span class="hljs-comment">// "[object Object]"</span>
 obj.toLocaleString(obj) <span class="hljs-comment">// "[object Object]"</span>
-</code></pre><p>这个方法的主要作用是留出一个接口，让各种不同的对象实现自己版本的<code>toLocaleString</code>，用来返回针对某些地域的特定的值。目前，主要有三个对象自定义了<code>toLocaleString</code>方法。</p><ul><li>Array.prototype.toLocaleString()</li><li>Number.prototype.toLocaleString()</li><li>Date.prototype.toLocaleString()</li></ul><p>举例来说，日期的实例对象的<code>toString</code>和<code>toLocaleString</code>返回值就不一样，而且<code>toLocaleString</code>的返回值跟用户设定的所在地域相关。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> date = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
+</code></pre><p>这个方法的主要作用是留出一个接口，让各种不同的对象实现自己版本的<code>toLocaleString</code>，用来返回针对某些地域的特定的值。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> person = {
+  toString(): <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-string">'Henry Norman Bethune'</span>;
+  },
+  toLocaleString(): <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-string">'白求恩'</span>;
+  }
+};
+
+person.toString() <span class="hljs-comment">// Henry Norman Bethune</span>
+person.toLocaleString() <span class="hljs-comment">// 白求恩</span>
+</code></pre><p>上面代码中，<code>toString()</code>方法返回对象的一般字符串形式，<code>toLocaleString()</code>方法返回本地的字符串形式。</p><p>目前，主要有三个对象自定义了<code>toLocaleString</code>方法。</p><ul><li>Array.prototype.toLocaleString()</li><li>Number.prototype.toLocaleString()</li><li>Date.prototype.toLocaleString()</li></ul><p>举例来说，日期的实例对象的<code>toString</code>和<code>toLocaleString</code>返回值就不一样，而且<code>toLocaleString</code>的返回值跟用户设定的所在地域相关。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> date = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
 date.toString() <span class="hljs-comment">// "Tue Jan 01 2018 12:01:33 GMT+0800 (CST)"</span>
 date.toLocaleString() <span class="hljs-comment">// "1/01/2018, 12:01:33 PM"</span>
 </code></pre><h3 id="objectprototypehasownproperty">Object.prototype.hasOwnProperty() <a class="markdownIt-Anchor" href="#objectprototypehasownproperty">#</a></h3><p><code>Object.prototype.hasOwnProperty</code>方法接受一个字符串作为参数，返回一个布尔值，表示该实例对象自身是否具有该属性。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = {
