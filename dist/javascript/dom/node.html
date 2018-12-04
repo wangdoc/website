@@ -28,8 +28,8 @@ div.firstChild.nodeValue <span class="hljs-comment">// "hello world"</span>
 d === <span class="hljs-built_in">document</span> <span class="hljs-comment">// true</span>
 </code></pre><p><code>document</code>对象本身的<code>ownerDocument</code>属性，返回<code>null</code>。</p><h3 id="nodeprototypenextsibling">Node.prototype.nextSibling <a class="markdownIt-Anchor" href="#nodeprototypenextsibling">#</a></h3><p><code>Node.nextSibling</code>属性返回紧跟在当前节点后面的第一个同级节点。如果当前节点后面没有同级节点，则返回<code>null</code>。</p><pre class="hljs"><code><span class="hljs-comment">// HTML 代码如下</span>
 <span class="hljs-comment">// &lt;div id="d1"&gt;hello&lt;/div&gt;&lt;div id="d2"&gt;world&lt;/div&gt;</span>
-<span class="hljs-keyword">var</span> div1 = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'d1'</span>);
-<span class="hljs-keyword">var</span> div2 = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'d2'</span>);
+<span class="hljs-keyword">var</span> d1 = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'d1'</span>);
+<span class="hljs-keyword">var</span> d2 = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'d2'</span>);
 
 d1.nextSibling === d2 <span class="hljs-comment">// true</span>
 </code></pre><p>上面代码中，<code>d1.nextSibling</code>就是紧跟在<code>d1</code>后面的同级节点<code>d2</code>。</p><p>注意，该属性还包括文本节点和注释节点（<code>&lt;!-- comment --&gt;</code>）。因此如果当前节点后面有空格，该属性会返回一个文本节点，内容为空格。</p><p><code>nextSibling</code>属性可以用来遍历所有子节点。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> el = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'div1'</span>).firstChild;
