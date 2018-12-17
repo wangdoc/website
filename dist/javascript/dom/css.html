@@ -26,11 +26,11 @@ divStyle.cssText = <span class="hljs-string">'background-color: red;'</span>
 </code></pre><p>注意，<code>cssText</code>的属性值不用改写 CSS 属性名。</p><p>删除一个元素的所有行内样式，最简便的方法就是设置<code>cssText</code>为空字符串。</p><pre class="hljs"><code>divStyle.cssText = <span class="hljs-string">''</span>;
 </code></pre><p><strong>（2）CSSStyleDeclaration.length</strong></p><p><code>CSSStyleDeclaration.length</code>属性返回一个整数值，表示当前规则包含多少条样式声明。</p><pre class="hljs"><code><span class="hljs-comment">// HTML 代码如下</span>
 <span class="hljs-comment">// &lt;div id="myDiv"</span>
-<span class="hljs-comment">//   style="margin: 0 10px; background-color: #CA1; border: 1px solid red;"</span>
+<span class="hljs-comment">//   style="height: 1px;width: 100%;background-color: #CA1;"</span>
 <span class="hljs-comment">// &gt;&lt;/div&gt;</span>
 <span class="hljs-keyword">var</span> myDiv = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'myDiv'</span>);
 <span class="hljs-keyword">var</span> divStyle = myDiv.style;
-divStyles.length <span class="hljs-comment">// 3</span>
+divStyle.length <span class="hljs-comment">// 3</span>
 </code></pre><p>上面代码中，<code>myDiv</code>元素的行内样式共包含3条样式规则。</p><p><strong>（3）CSSStyleDeclaration.parentRule</strong></p><p><code>CSSStyleDeclaration.parentRule</code>属性返回当前规则所属的那个样式块（CSSRule 实例）。如果不存在所属的样式块，该属性返回<code>null</code>。</p><p>该属性只读，且只在使用 CSSRule 接口时有意义。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> declaration = <span class="hljs-built_in">document</span>.styleSheets[<span class="hljs-number">0</span>].rules[<span class="hljs-number">0</span>].style;
 declaration.parentRule === <span class="hljs-built_in">document</span>.styleSheets[<span class="hljs-number">0</span>].rules[<span class="hljs-number">0</span>]
 <span class="hljs-comment">// true</span>
