@@ -154,10 +154,10 @@ type.isRegExp(<span class="hljs-regexp">/abc/</span>) <span class="hljs-comment"
 obj.toString(obj) <span class="hljs-comment">// "[object Object]"</span>
 obj.toLocaleString(obj) <span class="hljs-comment">// "[object Object]"</span>
 </code></pre><p>这个方法的主要作用是留出一个接口，让各种不同的对象实现自己版本的<code>toLocaleString</code>，用来返回针对某些地域的特定的值。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> person = {
-  toString(): <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-attr">toString</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">return</span> <span class="hljs-string">'Henry Norman Bethune'</span>;
   },
-  toLocaleString(): <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-attr">toLocaleString</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">return</span> <span class="hljs-string">'白求恩'</span>;
   }
 };
