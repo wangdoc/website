@@ -55,7 +55,7 @@ MyArray.prototype.constructor = MyArray;
 mine.push(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>);
 mine.length <span class="hljs-comment">// 3</span>
 mine <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Array</span> <span class="hljs-comment">// true</span>
-</code></pre><p>上面代码中，<code>mine</code>是构造函数<code>MyArray</code>的实例对象，由于<code>MyArray.prototype</code>指向一个数组实例，使得<code>mine</code>可以调用数组方法（这些方法定义在数组实例的<code>prototype</code>对象上面）。最后那行<code>instanceof</code>表达式，用来比较一个对象是否为某个构造函数的实例，结果就是证明<code>mine</code>为<code>Array</code>的实例，<code>instanceof</code>运算符的详细解释详见后文。</p><p>上面代码还出现了原型对象的<code>contructor</code>属性，这个属性的含义下一节就来解释。</p><h3 id="constructor-属性">constructor 属性 <a class="markdownIt-Anchor" href="#constructor-属性">#</a></h3><p><code>prototype</code>对象有一个<code>constructor</code>属性，默认指向<code>prototype</code>对象所在的构造函数。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">P</span>(<span class="hljs-params"></span>) </span>{}
+</code></pre><p>上面代码中，<code>mine</code>是构造函数<code>MyArray</code>的实例对象，由于<code>MyArray.prototype</code>指向一个数组实例，使得<code>mine</code>可以调用数组方法（这些方法定义在数组实例的<code>prototype</code>对象上面）。最后那行<code>instanceof</code>表达式，用来比较一个对象是否为某个构造函数的实例，结果就是证明<code>mine</code>为<code>Array</code>的实例，<code>instanceof</code>运算符的详细解释详见后文。</p><p>上面代码还出现了原型对象的<code>constructor</code>属性，这个属性的含义下一节就来解释。</p><h3 id="constructor-属性">constructor 属性 <a class="markdownIt-Anchor" href="#constructor-属性">#</a></h3><p><code>prototype</code>对象有一个<code>constructor</code>属性，默认指向<code>prototype</code>对象所在的构造函数。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">P</span>(<span class="hljs-params"></span>) </span>{}
 P.prototype.constructor === P <span class="hljs-comment">// true</span>
 </code></pre><p>由于<code>constructor</code>属性定义在<code>prototype</code>对象上面，意味着可以被所有实例对象继承。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">P</span>(<span class="hljs-params"></span>) </span>{}
 <span class="hljs-keyword">var</span> p = <span class="hljs-keyword">new</span> P();
@@ -88,7 +88,7 @@ Person.prototype = {
 
 Person.prototype.constructor === Person <span class="hljs-comment">// false</span>
 Person.prototype.constructor === <span class="hljs-built_in">Object</span> <span class="hljs-comment">// true</span>
-</code></pre><p>上面代码中，构造函数<code>Person</code>的原型对象改掉了，但是没有修改<code>constructor</code>属性，导致这个属性不再指向<code>Person</code>。由于<code>Person</code>的新原型是一个普通对象，而普通对象的<code>contructor</code>属性指向<code>Object</code>构造函数，导致<code>Person.prototype.constructor</code>变成了<code>Object</code>。</p><p>所以，修改原型对象时，一般要同时修改<code>constructor</code>属性的指向。</p><pre class="hljs"><code><span class="hljs-comment">// 坏的写法</span>
+</code></pre><p>上面代码中，构造函数<code>Person</code>的原型对象改掉了，但是没有修改<code>constructor</code>属性，导致这个属性不再指向<code>Person</code>。由于<code>Person</code>的新原型是一个普通对象，而普通对象的<code>constructor</code>属性指向<code>Object</code>构造函数，导致<code>Person.prototype.constructor</code>变成了<code>Object</code>。</p><p>所以，修改原型对象时，一般要同时修改<code>constructor</code>属性的指向。</p><pre class="hljs"><code><span class="hljs-comment">// 坏的写法</span>
 C.prototype = {
   <span class="hljs-attr">method1</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">...</span>) </span>{ ... },
   <span class="hljs-comment">// ...</span>
