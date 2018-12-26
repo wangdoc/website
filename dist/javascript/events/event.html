@@ -45,7 +45,7 @@ evt.cancelable  <span class="hljs-comment">// false</span>
 }
 
 para.addEventListener(<span class="hljs-string">'click'</span>, hide, <span class="hljs-literal">false</span>);
-</code></pre><p>上面代码中，如果在<code>para</code>节点的<code>&lt;em&gt;</code>子节点上面点击，则<code>e.target</code>指向<code>&lt;em&gt;</code>子节点，导致<code>&lt;em&gt;</code>子节点（即 World 部分）会不可见。如果点击 Hello 部分，则整个<code>para</code>都将不可见。</p><h3 id="eventtype">Event.type <a class="markdownIt-Anchor" href="#eventtype">#</a></h3><p><code>Event.type</code>属性返回一个字符串，表示事件类型。事件的类型是在生成事件的时候。该属性只读。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> evt = <span class="hljs-keyword">new</span> Event(<span class="hljs-string">'foo'</span>);
+</code></pre><p>上面代码中，如果在<code>para</code>节点的<code>&lt;em&gt;</code>子节点上面点击，则<code>e.target</code>指向<code>&lt;em&gt;</code>子节点，导致<code>&lt;em&gt;</code>子节点（即 World 部分）会不可见。如果点击 Hello 部分，则整个<code>para</code>都将不可见。</p><h3 id="eventtype">Event.type <a class="markdownIt-Anchor" href="#eventtype">#</a></h3><p><code>Event.type</code>属性返回一个字符串，表示事件类型。事件的类型是在生成事件的时候指定的。该属性只读。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> evt = <span class="hljs-keyword">new</span> Event(<span class="hljs-string">'foo'</span>);
 evt.type <span class="hljs-comment">// "foo"</span>
 </code></pre><h3 id="eventtimestamp">Event.timeStamp <a class="markdownIt-Anchor" href="#eventtimestamp">#</a></h3><p><code>Event.timeStamp</code>属性返回一个毫秒时间戳，表示事件发生的时间。它是相对于网页加载成功开始计算的。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> evt = <span class="hljs-keyword">new</span> Event(<span class="hljs-string">'foo'</span>);
 evt.timeStamp <span class="hljs-comment">// 3683.6999999995896</span>
