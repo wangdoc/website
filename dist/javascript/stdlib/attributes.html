@@ -281,7 +281,7 @@ extend({}, {
 
 extend({}, { get a(){ <span class="hljs-keyword">return</span> <span class="hljs-number">1</span> } })
 <span class="hljs-comment">// { get a(){ return 1 } })</span>
-</code></pre><p>上面代码中，<code>hasOwnProperty</code>那一行用来过滤掉继承的属性，否则会报错，因为<code>Object.getOwnPropertyDescriptor</code>读不到继承属性的属性描述对象。</p><h2 id="控制对象状态">控制对象状态 <a class="markdownIt-Anchor" href="#控制对象状态">#</a></h2><p>有时需要冻结对象的读写状态，防止对象被改变。JavaScript 提供了三种冻结方法，最弱的一种是<code>Object.preventExtensions</code>，其次是<code>Object.seal</code>，最强的是<code>Object.freeze</code>。</p><h3 id="objectpreventextensions">Object.preventExtensions() <a class="markdownIt-Anchor" href="#objectpreventextensions">#</a></h3><p><code>Object.preventExtensions</code>方法可以使得一个对象无法再添加新的属性。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Object</span>();
+</code></pre><p>上面代码中，<code>hasOwnProperty</code>那一行用来过滤掉继承的属性，否则可能会报错，因为<code>Object.getOwnPropertyDescriptor</code>读不到继承属性的属性描述对象。</p><h2 id="控制对象状态">控制对象状态 <a class="markdownIt-Anchor" href="#控制对象状态">#</a></h2><p>有时需要冻结对象的读写状态，防止对象被改变。JavaScript 提供了三种冻结方法，最弱的一种是<code>Object.preventExtensions</code>，其次是<code>Object.seal</code>，最强的是<code>Object.freeze</code>。</p><h3 id="objectpreventextensions">Object.preventExtensions() <a class="markdownIt-Anchor" href="#objectpreventextensions">#</a></h3><p><code>Object.preventExtensions</code>方法可以使得一个对象无法再添加新的属性。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Object</span>();
 <span class="hljs-built_in">Object</span>.preventExtensions(obj);
 
 <span class="hljs-built_in">Object</span>.defineProperty(obj, <span class="hljs-string">'p'</span>, {
