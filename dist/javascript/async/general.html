@@ -41,17 +41,24 @@ f1(f2);
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'完成: '</span>, value);
 }
 
-<span class="hljs-keyword">async</span>(<span class="hljs-number">1</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">value</span>)</span>{
-  <span class="hljs-keyword">async</span>(value, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">value</span>)</span>{
-    <span class="hljs-keyword">async</span>(value, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">value</span>)</span>{
-      <span class="hljs-keyword">async</span>(value, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">value</span>)</span>{
-        <span class="hljs-keyword">async</span>(value, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">value</span>)</span>{
-          <span class="hljs-keyword">async</span>(value, final);
+<span class="hljs-keyword">async</span>(<span class="hljs-number">1</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">async</span>(<span class="hljs-number">2</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+    <span class="hljs-keyword">async</span>(<span class="hljs-number">3</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+      <span class="hljs-keyword">async</span>(<span class="hljs-number">4</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+        <span class="hljs-keyword">async</span>(<span class="hljs-number">5</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+          <span class="hljs-keyword">async</span>(<span class="hljs-number">6</span>, final);
         });
       });
     });
   });
 });
+<span class="hljs-comment">// 参数为 1 , 1秒后返回结果</span>
+<span class="hljs-comment">// 参数为 2 , 1秒后返回结果</span>
+<span class="hljs-comment">// 参数为 3 , 1秒后返回结果</span>
+<span class="hljs-comment">// 参数为 4 , 1秒后返回结果</span>
+<span class="hljs-comment">// 参数为 5 , 1秒后返回结果</span>
+<span class="hljs-comment">// 参数为 6 , 1秒后返回结果</span>
+<span class="hljs-comment">// 完成:  12</span>
 </code></pre><p>上面代码中，六个回调函数的嵌套，不仅写起来麻烦，容易出错，而且难以维护。</p><h3 id="串行执行">串行执行 <a class="markdownIt-Anchor" href="#串行执行">#</a></h3><p>我们可以编写一个流程控制函数，让它来控制异步任务，一个任务完成以后，再执行另一个。这就叫串行执行。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> items = [ <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span> ];
 <span class="hljs-keyword">var</span> results = [];
 
