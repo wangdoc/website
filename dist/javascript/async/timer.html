@@ -85,6 +85,7 @@ setTimeout(f, <span class="hljs-number">1000</span>) <span class="hljs-comment">
 setTimeout(f, <span class="hljs-number">1000</span>) <span class="hljs-comment">// 11</span>
 setTimeout(f, <span class="hljs-number">1000</span>) <span class="hljs-comment">// 12</span>
 </code></pre><p>上面代码中，连续调用三次<code>setTimeout</code>，返回值都比上一次大了1。</p><p>利用这一点，可以写一个函数，取消当前所有的<code>setTimeout</code>定时器。</p><pre class="hljs"><code>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">// 每轮事件循环检查一次</span>
   <span class="hljs-keyword">var</span> gid = setInterval(clearAllTimeouts, <span class="hljs-number">0</span>);
 
   <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">clearAllTimeouts</span>(<span class="hljs-params"></span>) </span>{
