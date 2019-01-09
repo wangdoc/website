@@ -134,8 +134,12 @@ input.willValidate <span class="hljs-comment">// true</span>
 <span class="hljs-keyword">if</span> (!myInput.checkValidity()) {
   <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'prompt'</span>).innerHTML = myInput.validationMessage;
 } 
-</code></pre><h3 id="setcustomvalidity">setCustomValidity() <a class="markdownIt-Anchor" href="#setcustomvalidity">#</a></h3><p>控件元素的<code>setCustomValidity()</code>方法用来定制校验失败时的报错信息。它接受一个字符串作为参数，该字符串就是定制的报错信息。如果参数为空字符串，则上次设置的报错信息被清除。</p><p>如果调用这个方法，并且参数不为空字符串，浏览器就会认为控件没有通过校验，就会立刻显示该方法设置的报错信息。</p><pre class="hljs"><code><span class="hljs-comment">// HTML 代码如下</span>
-<span class="hljs-comment">// &lt;input type="file" id="fs"&gt;</span>
+</code></pre><h3 id="setcustomvalidity">setCustomValidity() <a class="markdownIt-Anchor" href="#setcustomvalidity">#</a></h3><p>控件元素的<code>setCustomValidity()</code>方法用来定制校验失败时的报错信息。它接受一个字符串作为参数，该字符串就是定制的报错信息。如果参数为空字符串，则上次设置的报错信息被清除。</p><p>如果调用这个方法，并且参数不为空字符串，浏览器就会认为控件没有通过校验，就会立刻显示该方法设置的报错信息。</p><pre class="hljs"><code><span class="hljs-comment">/* HTML 代码如下
+&lt;form&gt;
+  &lt;p&gt;&lt;input type="file" id="fs"&gt;&lt;/p&gt;
+  &lt;p&gt;&lt;input type="submit"&gt;&lt;/p&gt;
+&lt;/form&gt;
+*/</span>
 
 <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'fs'</span>).onchange = checkFileSize;
 
@@ -144,13 +148,13 @@ input.willValidate <span class="hljs-comment">// true</span>
   <span class="hljs-keyword">var</span> files = fs.files;
   <span class="hljs-keyword">if</span> (files.length &gt; <span class="hljs-number">0</span>) {
      <span class="hljs-keyword">if</span> (files[<span class="hljs-number">0</span>].size &gt; <span class="hljs-number">75</span> * <span class="hljs-number">1024</span>) {
-       fs.setCustomValidity(<span class="hljs-string">'文件不能大于75KB'</span>);
+       fs.setCustomValidity(<span class="hljs-string">'文件不能大于 75KB'</span>);
        <span class="hljs-keyword">return</span>;
      }
   }
   fs.setCustomValidity(<span class="hljs-string">''</span>);
 }
-</code></pre><h3 id="validity-属性">validity 属性 <a class="markdownIt-Anchor" href="#validity-属性">#</a></h3><p>控件元素的属性<code>validity</code>属性返回一个<code>ValidityState</code>对象，包含当前校验状态的信息。</p><p>该对象有以下属性，全部为只读属性。</p><ul><li><code>ValidityState.badInput</code>：布尔值，表示浏览器是否不能将用户的输入转换成正确的类型，比如用户在数值框里面输入字符串。</li><li><code>ValidityState.customError</code>：布尔值，表示是否已经调用<code>setCustomValidity()</code>方法，将校验信息设置为一个非空字符串。</li><li><code>ValidityState.patternMismatch</code>：布尔值，表示用户输入的值是否不满足模式的要求。</li><li><code>ValidityState.rangeOverflow</code>：布尔值，表示用户输入的值是否大于最大范围。</li><li><code>ValidityState.rangeUnderflow</code>：布尔值，表示用户输入的值是否小于最小范围。</li><li><code>ValidityState.stepMismatch</code>：布尔值，表示用户输入的值不符合步长的设置（即不能被步长值整除）。</li><li><code>ValidityState.tooLong</code>：布尔值，表示用户输入的字数超出了最长字数。</li><li><code>ValidityState.tooShort</code>：布尔值，表示用户输入的字符少于最短字数。</li><li><code>ValidityState.typeMismatch</code>：布尔值，表示用户填入的值不符合类型要求（主要是类型为 Email 或 URL 的情况）。</li><li><code>ValidityState.valid</code>：布尔值，表示用户是否满足所有校验条件。</li><li><code>ValidityState.valueMissing</code>：布尔值，表示用户没有填入必填的值。</li></ul><p>下面是一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> input = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'myinput'</span>);
+</code></pre><p>上面代码一旦发现文件大于 75KB，就会设置校验失败，同时给出自定义的报错信息。然后，点击提交按钮时，就会显示报错信息。这种校验失败是不会自动消除的，所以如果所有文件都符合条件，要将报错信息设为空字符串，手动消除校验失败的状态。</p><h3 id="validity-属性">validity 属性 <a class="markdownIt-Anchor" href="#validity-属性">#</a></h3><p>控件元素的属性<code>validity</code>属性返回一个<code>ValidityState</code>对象，包含当前校验状态的信息。</p><p>该对象有以下属性，全部为只读属性。</p><ul><li><code>ValidityState.badInput</code>：布尔值，表示浏览器是否不能将用户的输入转换成正确的类型，比如用户在数值框里面输入字符串。</li><li><code>ValidityState.customError</code>：布尔值，表示是否已经调用<code>setCustomValidity()</code>方法，将校验信息设置为一个非空字符串。</li><li><code>ValidityState.patternMismatch</code>：布尔值，表示用户输入的值是否不满足模式的要求。</li><li><code>ValidityState.rangeOverflow</code>：布尔值，表示用户输入的值是否大于最大范围。</li><li><code>ValidityState.rangeUnderflow</code>：布尔值，表示用户输入的值是否小于最小范围。</li><li><code>ValidityState.stepMismatch</code>：布尔值，表示用户输入的值不符合步长的设置（即不能被步长值整除）。</li><li><code>ValidityState.tooLong</code>：布尔值，表示用户输入的字数超出了最长字数。</li><li><code>ValidityState.tooShort</code>：布尔值，表示用户输入的字符少于最短字数。</li><li><code>ValidityState.typeMismatch</code>：布尔值，表示用户填入的值不符合类型要求（主要是类型为 Email 或 URL 的情况）。</li><li><code>ValidityState.valid</code>：布尔值，表示用户是否满足所有校验条件。</li><li><code>ValidityState.valueMissing</code>：布尔值，表示用户没有填入必填的值。</li></ul><p>下面是一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> input = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'myinput'</span>);
 <span class="hljs-keyword">if</span> (input.validity.valid) {
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'通过校验'</span>);
 } <span class="hljs-keyword">else</span> {
