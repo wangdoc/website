@@ -40,8 +40,8 @@ d1.nextSibling === d2 <span class="hljs-comment">// true</span>
 }
 </code></pre><p>上面代码遍历<code>div1</code>节点的所有子节点。</p><h3 id="nodeprototypeprevioussibling">Node.prototype.previousSibling <a class="markdownIt-Anchor" href="#nodeprototypeprevioussibling">#</a></h3><p><code>previousSibling</code>属性返回当前节点前面的、距离最近的一个同级节点。如果当前节点前面没有同级节点，则返回<code>null</code>。</p><pre class="hljs"><code><span class="hljs-comment">// HTML 代码如下</span>
 <span class="hljs-comment">// &lt;div id="d1"&gt;hello&lt;/div&gt;&lt;div id="d2"&gt;world&lt;/div&gt;</span>
-<span class="hljs-keyword">var</span> div1 = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'d1'</span>);
-<span class="hljs-keyword">var</span> div2 = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'d2'</span>);
+<span class="hljs-keyword">var</span> d1 = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'d1'</span>);
+<span class="hljs-keyword">var</span> d2 = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'d2'</span>);
 
 d2.previousSibling === d1 <span class="hljs-comment">// true</span>
 </code></pre><p>上面代码中，<code>d2.previousSibling</code>就是<code>d2</code>前面的同级节点<code>d1</code>。</p><p>注意，该属性还包括文本节点和注释节点。因此如果当前节点前面有空格，该属性会返回一个文本节点，内容为空格。</p><h3 id="nodeprototypeparentnode">Node.prototype.parentNode <a class="markdownIt-Anchor" href="#nodeprototypeparentnode">#</a></h3><p><code>parentNode</code>属性返回当前节点的父节点。对于一个节点来说，它的父节点只可能是三种类型：元素节点（element）、文档节点（document）和文档片段节点（documentfragment）。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> (node.parentNode) {
