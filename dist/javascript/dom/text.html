@@ -41,7 +41,7 @@ pElementText.insertData(<span class="hljs-number">7</span>, <span class="hljs-st
 <span class="hljs-comment">// 页面显示 Hello WHello</span>
 pElementText.replaceData(<span class="hljs-number">7</span>, <span class="hljs-number">5</span>, <span class="hljs-string">'World'</span>);
 <span class="hljs-comment">// 页面显示 Hello WWorld</span>
-pElementText.substringData(<span class="hljs-number">7</span>, <span class="hljs-number">10</span>); 
+pElementText.substringData(<span class="hljs-number">7</span>, <span class="hljs-number">10</span>);
 <span class="hljs-comment">// 页面显示不变，返回"World "</span>
 </code></pre><h3 id="remove">remove() <a class="markdownIt-Anchor" href="#remove">#</a></h3><p><code>remove</code>方法用于移除当前<code>Text</code>节点。</p><pre class="hljs"><code><span class="hljs-comment">// HTML 代码为</span>
 <span class="hljs-comment">// &lt;p&gt;Hello World&lt;/p&gt;</span>
@@ -70,7 +70,7 @@ docFrag.appendChild(li);
 
 <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'ul'</span>).appendChild(docFrag);
 </code></pre><p>上面代码创建了一个<code>DocumentFragment</code>节点，然后将一个<code>li</code>节点添加在它里面，最后将<code>DocumentFragment</code>节点移动到原文档。</p><p>注意，<code>DocumentFragment</code>节点本身不能被插入当前文档。当它作为<code>appendChild()</code>、<code>insertBefore()</code>、<code>replaceChild()</code>等方法的参数时，是它的所有子节点插入当前文档，而不是它自身。一旦<code>DocumentFragment</code>节点被添加进当前文档，它自身就变成了空节点（<code>textContent</code>属性为空字符串），可以被再次使用。如果想要保存<code>DocumentFragment</code>节点的内容，可以使用<code>cloneNode</code>方法。</p><pre class="hljs"><code><span class="hljs-built_in">document</span>
-  .queryselector(<span class="hljs-string">'ul'</span>)
+  .querySelector(<span class="hljs-string">'ul'</span>)
   .appendChild(docFrag.cloneNode(<span class="hljs-literal">true</span>));
 </code></pre><p>上面这样添加<code>DocumentFragment</code>节点进入当前文档，不会清空<code>DocumentFragment</code>节点。</p><p>下面是一个例子，使用<code>DocumentFragment</code>反转一个指定节点的所有子节点的顺序。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">reverse</span>(<span class="hljs-params">n</span>) </span>{
   <span class="hljs-keyword">var</span> f = <span class="hljs-built_in">document</span>.createDocumentFragment();

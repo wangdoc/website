@@ -31,10 +31,10 @@ today.toString()
 <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">'2013-FEB-15'</span>)
 <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">'FEB, 15, 2013'</span>)
 <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">'FEB 15, 2013'</span>)
-<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">'Feberuary, 15, 2013'</span>)
-<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">'Feberuary 15, 2013'</span>)
+<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">'February, 15, 2013'</span>)
+<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">'February 15, 2013'</span>)
 <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">'15 Feb 2013'</span>)
-<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">'15, Feberuary, 2013'</span>)
+<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">'15, February, 2013'</span>)
 <span class="hljs-comment">// Fri Feb 15 2013 00:00:00 GMT+0800 (CST)</span>
 </code></pre><p>上面多种日期字符串的写法，返回的都是同一个时间。</p><p>第三，参数为年、月、日等多个整数时，年和月是不能省略的，其他参数都可以省略的。也就是说，这时至少需要两个参数，因为如果只使用“年”这一个参数，<code>Date</code>会将其解释为毫秒数。</p><pre class="hljs"><code><span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-number">2013</span>)
 <span class="hljs-comment">// Thu Jan 01 1970 08:00:02 GMT+0800 (CST)</span>

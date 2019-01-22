@@ -145,7 +145,7 @@ p1.isEqualNode(p2) <span class="hljs-comment">// true</span>
 
 p1.isSameNode(p2) <span class="hljs-comment">// false</span>
 p1.isSameNode(p1) <span class="hljs-comment">// true</span>
-</code></pre><h3 id="nodeprototypenormalize">Node.prototype.normalize() <a class="markdownIt-Anchor" href="#nodeprototypenormalize">#</a></h3><p><code>normailize</code>方法用于清理当前节点内部的所有文本节点（text）。它会去除空的文本节点，并且将毗邻的文本节点合并成一个，也就是说不存在空的文本节点，以及毗邻的文本节点。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> wrapper = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'div'</span>);
+</code></pre><h3 id="nodeprototypenormalize">Node.prototype.normalize() <a class="markdownIt-Anchor" href="#nodeprototypenormalize">#</a></h3><p><code>normalize</code>方法用于清理当前节点内部的所有文本节点（text）。它会去除空的文本节点，并且将毗邻的文本节点合并成一个，也就是说不存在空的文本节点，以及毗邻的文本节点。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> wrapper = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'div'</span>);
 
 wrapper.appendChild(<span class="hljs-built_in">document</span>.createTextNode(<span class="hljs-string">'Part 1 '</span>));
 wrapper.appendChild(<span class="hljs-built_in">document</span>.createTextNode(<span class="hljs-string">'Part 2 '</span>));

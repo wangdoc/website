@@ -42,7 +42,7 @@ $elem
 a+b  <span class="hljs-comment">// 标识符不能包含加号</span>
 -d  <span class="hljs-comment">// 标识符不能包含减号或连词线</span>
 </code></pre><p>中文是合法的标识符，可以用作变量名。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> 临时变量 = <span class="hljs-number">1</span>;
-</code></pre><blockquote><p>JavaScript 有一些保留字，不能用作标识符：arguments、break、case、catch、class、const、continue、debugger、default、delete、do、else、enum、eval、export、extends、false、finally、for、function、if、implements、import、in、instanceof、interface、let、new、null、package、private、protected、public、return、static、super、switch、this、throw、true、try、typeof、var、void、while、with、yield。</p></blockquote><h2 id="注释">注释 <a class="markdownIt-Anchor" href="#注释">#</a></h2><p>源码中被 JavaScript 引擎忽略的部分就叫做注释，它的作用是对代码进行解释。Javascript 提供两种注释的写法：一种是单行注释，用<code>//</code>起头；另一种是多行注释，放在<code>/*</code>和<code>*/</code>之间。</p><pre class="hljs"><code><span class="hljs-comment">// 这是单行注释</span>
+</code></pre><blockquote><p>JavaScript 有一些保留字，不能用作标识符：arguments、break、case、catch、class、const、continue、debugger、default、delete、do、else、enum、eval、export、extends、false、finally、for、function、if、implements、import、in、instanceof、interface、let、new、null、package、private、protected、public、return、static、super、switch、this、throw、true、try、typeof、var、void、while、with、yield。</p></blockquote><h2 id="注释">注释 <a class="markdownIt-Anchor" href="#注释">#</a></h2><p>源码中被 JavaScript 引擎忽略的部分就叫做注释，它的作用是对代码进行解释。JavaScript 提供两种注释的写法：一种是单行注释，用<code>//</code>起头；另一种是多行注释，放在<code>/*</code>和<code>*/</code>之间。</p><pre class="hljs"><code><span class="hljs-comment">// 这是单行注释</span>
 
 <span class="hljs-comment">/*
  这是
@@ -103,14 +103,14 @@ a <span class="hljs-comment">// 1</span>
 <span class="hljs-keyword">else</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'world'</span>);
 </code></pre><p>上面代码不会有任何输出，<code>else</code>代码块不会得到执行，因为它跟着的是最近的那个<code>if</code>语句，相当于下面这样。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> (m !== <span class="hljs-number">1</span>) {
   <span class="hljs-keyword">if</span> (n === <span class="hljs-number">2</span>) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'hello'</span>);	
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'hello'</span>);
   } <span class="hljs-keyword">else</span> {
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'world'</span>);
   }
 }
 </code></pre><p>如果想让<code>else</code>代码块跟随最上面的那个<code>if</code>语句，就要改变大括号的位置。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> (m !== <span class="hljs-number">1</span>) {
   <span class="hljs-keyword">if</span> (n === <span class="hljs-number">2</span>) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'hello'</span>);	
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'hello'</span>);
   }
 } <span class="hljs-keyword">else</span> {
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'world'</span>);

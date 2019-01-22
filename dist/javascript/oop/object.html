@@ -100,7 +100,7 @@ o1.isPrototypeOf(o3) <span class="hljs-comment">// true</span>
 
 obj.__proto__ = p;
 <span class="hljs-built_in">Object</span>.getPrototypeOf(obj) === p <span class="hljs-comment">// true</span>
-</code></pre><p>上面代码通过<code>__proto__</code>属性，将<code>p</code>对象设为<code>obj</code>对象的原型。</p><p>根据语言标准，<code>__proto__</code>属性只有浏览器才需要部署，其他环境可以没有这个属性。它前后的两根下划线，表明它本质是一个内部属性，不应该对使用者暴露。因此，应该尽量少用这个属性，而是用<code>Object.getPrototypeof()</code>和<code>Object.setPrototypeOf()</code>，进行原型对象的读写操作。</p><p>原型链可以用<code>__proto__</code>很直观地表示。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> A = {
+</code></pre><p>上面代码通过<code>__proto__</code>属性，将<code>p</code>对象设为<code>obj</code>对象的原型。</p><p>根据语言标准，<code>__proto__</code>属性只有浏览器才需要部署，其他环境可以没有这个属性。它前后的两根下划线，表明它本质是一个内部属性，不应该对使用者暴露。因此，应该尽量少用这个属性，而是用<code>Object.getPrototypeOf()</code>和<code>Object.setPrototypeOf()</code>，进行原型对象的读写操作。</p><p>原型链可以用<code>__proto__</code>很直观地表示。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> A = {
   <span class="hljs-attr">name</span>: <span class="hljs-string">'张三'</span>
 };
 <span class="hljs-keyword">var</span> B = {

@@ -7,7 +7,7 @@ history.go(<span class="hljs-number">-1</span>)
 </code></pre><p>浏览器工具栏的“前进”和“后退”按钮，其实就是对 History 对象进行操作。</p><h2 id="属性">属性 <a class="markdownIt-Anchor" href="#属性">#</a></h2><p>History 对象主要有两个属性。</p><ul><li><code>History.length</code>：当前窗口访问过的网址数量（包括当前网页）</li><li><code>History.state</code>：History 堆栈最上层的状态值（详见下文）</li></ul><pre class="hljs"><code><span class="hljs-comment">// 当前窗口访问过多少个网页</span>
 <span class="hljs-built_in">window</span>.history.length <span class="hljs-comment">// 1</span>
 
-<span class="hljs-comment">// Histroy 对象的当前状态</span>
+<span class="hljs-comment">// History 对象的当前状态</span>
 <span class="hljs-comment">// 通常是 undefined，即未设置</span>
 <span class="hljs-built_in">window</span>.history.state <span class="hljs-comment">// undefined</span>
 </code></pre><h2 id="方法">方法 <a class="markdownIt-Anchor" href="#方法">#</a></h2><h3 id="historyback、historyforward、historygo">History.back()、History.forward()、History.go() <a class="markdownIt-Anchor" href="#historyback、historyforward、historygo">#</a></h3><p>这三个方法用于在历史之中移动。</p><ul><li><code>History.back()</code>：移动到上一个网址，等同于点击浏览器的后退键。对于第一个访问的网址，该方法无效果。</li><li><code>History.forward()</code>：移动到下一个网址，等同于点击浏览器的前进键。对于最后一个访问的网址，该方法无效果。</li><li><code>History.go()</code>：接受一个整数作为参数，以当前网址为基准，移动到参数指定的网址，比如<code>go(1)</code>相当于<code>forward()</code>，<code>go(-1)</code>相当于<code>back()</code>。如果参数超过实际存在的网址范围，该方法无效果；如果不指定参数，默认参数为<code>0</code>，相当于刷新当前页面。</li></ul><pre class="hljs"><code>history.back();

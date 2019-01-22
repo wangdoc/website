@@ -304,12 +304,12 @@ arr.every(<span class="hljs-function"><span class="hljs-keyword">function</span>
 <span class="hljs-comment">// TypeError: Reduce of empty array with no initial value</span>
 [].reduce(add, <span class="hljs-number">1</span>)
 <span class="hljs-comment">// 1</span>
-</code></pre><p>上面代码中，由于空数组取不到初始值，<code>reduce</code>方法会报错。这时，加上第二个参数，就能保证总是会返回一个值。</p><p>下面是一个<code>reduceRight</code>方法的例子。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">substract</span>(<span class="hljs-params">prev, cur</span>) </span>{
+</code></pre><p>上面代码中，由于空数组取不到初始值，<code>reduce</code>方法会报错。这时，加上第二个参数，就能保证总是会返回一个值。</p><p>下面是一个<code>reduceRight</code>方法的例子。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">subtract</span>(<span class="hljs-params">prev, cur</span>) </span>{
   <span class="hljs-keyword">return</span> prev - cur;
 }
 
-[<span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>].reduce(substract) <span class="hljs-comment">// 0</span>
-[<span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>].reduceRight(substract) <span class="hljs-comment">// -4</span>
+[<span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>].reduce(subtract) <span class="hljs-comment">// 0</span>
+[<span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>].reduceRight(subtract) <span class="hljs-comment">// -4</span>
 </code></pre><p>上面代码中，<code>reduce</code>方法相当于<code>3</code>减去<code>2</code>再减去<code>1</code>，<code>reduceRight</code>方法相当于<code>1</code>减去<code>2</code>再减去<code>3</code>。</p><p>由于这两个方法会遍历数组，所以实际上还可以用来做一些遍历相关的操作。比如，找出字符长度最长的数组成员。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">findLongest</span>(<span class="hljs-params">entries</span>) </span>{
   <span class="hljs-keyword">return</span> entries.reduce(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">longest, entry</span>) </span>{
     <span class="hljs-keyword">return</span> entry.length &gt; longest.length ? entry : longest;

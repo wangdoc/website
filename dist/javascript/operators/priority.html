@@ -3,7 +3,7 @@
 </code></pre><p>上面是<code>void</code>运算符的两种写法，都正确。建议采用后一种形式，即总是使用圆括号。因为<code>void</code>运算符的优先性很高，如果不使用括号，容易造成错误的结果。比如，<code>void 4 + 7</code>实际上等同于<code>(void 4) + 7</code>。</p><p>下面是<code>void</code>运算符的一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> x = <span class="hljs-number">3</span>;
 <span class="hljs-keyword">void</span> (x = <span class="hljs-number">5</span>) <span class="hljs-comment">//undefined</span>
 x <span class="hljs-comment">// 5</span>
-</code></pre><p>这个运算符的主要用途是浏览器的书签工具（bookmarklet），以及在超级链接中插入代码防止网页跳转。</p><p>请看下面的代码。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+</code></pre><p>这个运算符的主要用途是浏览器的书签工具（Bookmarklet），以及在超级链接中插入代码防止网页跳转。</p><p>请看下面的代码。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Hello World'</span>);
 }
@@ -33,7 +33,7 @@ value <span class="hljs-comment">// true</span>
 </code></pre><p>记住所有运算符的优先级，是非常难的，也是没有必要的。</p><h3 id="圆括号的作用">圆括号的作用 <a class="markdownIt-Anchor" href="#圆括号的作用">#</a></h3><p>圆括号（<code>()</code>）可以用来提高运算的优先级，因为它的优先级是最高的，即圆括号中的表达式会第一个运算。</p><pre class="hljs"><code>(<span class="hljs-number">4</span> + <span class="hljs-number">5</span>) * <span class="hljs-number">6</span> <span class="hljs-comment">// 54</span>
 </code></pre><p>上面代码中，由于使用了圆括号，加法会先于乘法执行。</p><p>运算符的优先级别十分繁杂，且都是硬性规定，因此建议总是使用圆括号，保证运算顺序清晰可读，这对代码的维护和除错至关重要。</p><p>顺便说一下，圆括号不是运算符，而是一种语法结构。它一共有两种用法：一种是把表达式放在圆括号之中，提升运算的优先级；另一种是跟在函数的后面，作用是调用函数。</p><p>注意，因为圆括号不是运算符，所以不具有求值作用，只改变运算的优先级。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> x = <span class="hljs-number">1</span>;
 (x) = <span class="hljs-number">2</span>;
-</code></pre><p>上面代码的第二行，如果圆括号具有求值作用，那么就会变成<code>1 = 2</code>，这是会报错了。但是，上面的代码可以运行，这验证了圆括号只改变优先级，不会求值。</p><p>这也意味着，如果整个表达式都放在圆括号之中，那么不会有任何效果。</p><pre class="hljs"><code>(exprssion)
+</code></pre><p>上面代码的第二行，如果圆括号具有求值作用，那么就会变成<code>1 = 2</code>，这是会报错了。但是，上面的代码可以运行，这验证了圆括号只改变优先级，不会求值。</p><p>这也意味着，如果整个表达式都放在圆括号之中，那么不会有任何效果。</p><pre class="hljs"><code>(expression)
 <span class="hljs-comment">// 等同于</span>
 expression
 </code></pre><p>函数放在圆括号中，会返回函数本身。如果圆括号紧跟在函数的后面，就表示调用函数。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params"></span>) </span>{

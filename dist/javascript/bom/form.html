@@ -79,7 +79,7 @@ formData.append(<span class="hljs-string">'key2'</span>, <span class="hljs-strin
 <span class="hljs-comment">// "value2"</span>
 
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> pair <span class="hljs-keyword">of</span> formData.entries()) {
-  <span class="hljs-built_in">console</span>.log(pair[<span class="hljs-number">0</span>] + <span class="hljs-string">': '</span> + pair[<span class="hljs-number">1</span>]); 
+  <span class="hljs-built_in">console</span>.log(pair[<span class="hljs-number">0</span>] + <span class="hljs-string">': '</span> + pair[<span class="hljs-number">1</span>]);
 }
 <span class="hljs-comment">// key1: value1</span>
 <span class="hljs-comment">// key2: value2</span>
@@ -133,7 +133,7 @@ input.willValidate <span class="hljs-comment">// true</span>
 </code></pre><p>下面是另一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> myInput = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'myinput'</span>);
 <span class="hljs-keyword">if</span> (!myInput.checkValidity()) {
   <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'prompt'</span>).innerHTML = myInput.validationMessage;
-} 
+}
 </code></pre><h3 id="setcustomvalidity">setCustomValidity() <a class="markdownIt-Anchor" href="#setcustomvalidity">#</a></h3><p>控件元素的<code>setCustomValidity()</code>方法用来定制校验失败时的报错信息。它接受一个字符串作为参数，该字符串就是定制的报错信息。如果参数为空字符串，则上次设置的报错信息被清除。</p><p>如果调用这个方法，并且参数不为空字符串，浏览器就会认为控件没有通过校验，就会立刻显示该方法设置的报错信息。</p><pre class="hljs"><code><span class="hljs-comment">/* HTML 代码如下
 &lt;form&gt;
   &lt;p&gt;&lt;input type="file" id="fs"&gt;&lt;/p&gt;

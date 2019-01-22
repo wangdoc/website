@@ -223,7 +223,7 @@ DBOpenRequest.onsuccess = <span class="hljs-function"><span class="hljs-keyword"
   };
 
   transaction.onerror = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) </span>{
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'tansaction error: '</span> + transaction.error);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'transaction error: '</span> + transaction.error);
   };
 
   <span class="hljs-keyword">var</span> objectStore = transaction.objectStore(<span class="hljs-string">'items'</span>);
@@ -296,11 +296,11 @@ DBOpenRequest.onsuccess = <span class="hljs-function"><span class="hljs-keyword"
   <span class="hljs-keyword">var</span> transaction = db.transaction([<span class="hljs-string">'demo'</span>], <span class="hljs-string">'readwrite'</span>);
 
   transaction.oncomplete = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) </span>{
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'transaction success'</span>);  
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'transaction success'</span>);
   };
 
   transaction.onerror = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) </span>{
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'tansaction error: '</span> + transaction.error);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'transaction error: '</span> + transaction.error);
   };
 
   <span class="hljs-keyword">var</span> objectStore = transaction.objectStore(<span class="hljs-string">'demo'</span>);
@@ -340,7 +340,7 @@ myIndex.openCursor().onsuccess = <span class="hljs-function"><span class="hljs-k
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Entries all displayed.'</span>);
   }
 };
-</code></pre><p>IDBIndex 对象有以下属性。</p><ul><li><code>IDBIndex.name</code>：字符串，索引的名称。</li><li><code>IDBIndex.objectStore</code>：索引所在的对象仓库。</li><li><code>IDBIndex.keyPath</code>：索引的主键。</li><li><code>IDBIndex.multiEntry</code>：布尔值，针对<code>keyPath</code>为数组的情况，如果设为<code>true</code>，创建数组时，每个数组成员都会有一个条目，否则每个数组都只有一个条目。</li><li><code>IDBIndex.unique</code>：布尔值，表示创建索引时是否允许相同的主键。</li></ul><p>IDBIndex 对象有以下方法，它们都是异步的，立即返回的都是一个 IDBRequest 对象。</p><ul><li><code>IDBIndex.count()</code>：用来获取记录的数量。它可以接受主键或 IDBKeyRange 对象作为参数，这时只返回符合主键的记录数量，否则返回所有记录的数量。</li><li><code>IDBIndex.get(key)</code>：用来获取符合指定主键的数据记录。</li><li><code>IDBIndex.getKey(key)</code>：用来获取指定的主键。</li><li><code>IDBIndex.getAll()</code>：用来获取所有的数据记录。它可以接受两个参数，都是可选的，第一个参数用来指定主键，第二个参数用来指定返回记录的数量。如果省略这两个参数，则返回所有记录。由于获取成功时，浏览器必须生成所有对象，所以对性能有影响。如果数据集比较大，建议使用 IDBCursor 对象。</li><li><code>IDBIndex.getAllKeys()</code>：该方法与<code>IDBIndex.getAll()</code>方法相似，区别是获取所有主键。</li><li><code>IDBIndex.openCursor()</code>：用来获取一个 IDBCursor 对象，用来遍历索引里面的所有条目。</li><li><code>IDBIndex.openKeyCursor()</code>：该方法与<code>IDBIndex.openCursor()</code>方法相似，区别是遍历所有条目的主键。</li></ul><h2 id="idbcursor-对象">IDBCursor 对象 <a class="markdownIt-Anchor" href="#idbcursor-对象">#</a></h2><p>IDBCursor 对象代表指针对象，用来遍历数据仓库（IDBObjectStroe）或索引（IDBIndex）的记录。</p><p>IDBCursor 对象一般通过<code>IDBObjectStore.openCursor()</code>方法获得。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> transaction = db.transaction([<span class="hljs-string">'rushAlbumList'</span>], <span class="hljs-string">'readonly'</span>);
+</code></pre><p>IDBIndex 对象有以下属性。</p><ul><li><code>IDBIndex.name</code>：字符串，索引的名称。</li><li><code>IDBIndex.objectStore</code>：索引所在的对象仓库。</li><li><code>IDBIndex.keyPath</code>：索引的主键。</li><li><code>IDBIndex.multiEntry</code>：布尔值，针对<code>keyPath</code>为数组的情况，如果设为<code>true</code>，创建数组时，每个数组成员都会有一个条目，否则每个数组都只有一个条目。</li><li><code>IDBIndex.unique</code>：布尔值，表示创建索引时是否允许相同的主键。</li></ul><p>IDBIndex 对象有以下方法，它们都是异步的，立即返回的都是一个 IDBRequest 对象。</p><ul><li><code>IDBIndex.count()</code>：用来获取记录的数量。它可以接受主键或 IDBKeyRange 对象作为参数，这时只返回符合主键的记录数量，否则返回所有记录的数量。</li><li><code>IDBIndex.get(key)</code>：用来获取符合指定主键的数据记录。</li><li><code>IDBIndex.getKey(key)</code>：用来获取指定的主键。</li><li><code>IDBIndex.getAll()</code>：用来获取所有的数据记录。它可以接受两个参数，都是可选的，第一个参数用来指定主键，第二个参数用来指定返回记录的数量。如果省略这两个参数，则返回所有记录。由于获取成功时，浏览器必须生成所有对象，所以对性能有影响。如果数据集比较大，建议使用 IDBCursor 对象。</li><li><code>IDBIndex.getAllKeys()</code>：该方法与<code>IDBIndex.getAll()</code>方法相似，区别是获取所有主键。</li><li><code>IDBIndex.openCursor()</code>：用来获取一个 IDBCursor 对象，用来遍历索引里面的所有条目。</li><li><code>IDBIndex.openKeyCursor()</code>：该方法与<code>IDBIndex.openCursor()</code>方法相似，区别是遍历所有条目的主键。</li></ul><h2 id="idbcursor-对象">IDBCursor 对象 <a class="markdownIt-Anchor" href="#idbcursor-对象">#</a></h2><p>IDBCursor 对象代表指针对象，用来遍历数据仓库（IDBObjectStore）或索引（IDBIndex）的记录。</p><p>IDBCursor 对象一般通过<code>IDBObjectStore.openCursor()</code>方法获得。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> transaction = db.transaction([<span class="hljs-string">'rushAlbumList'</span>], <span class="hljs-string">'readonly'</span>);
 <span class="hljs-keyword">var</span> objectStore = transaction.objectStore(<span class="hljs-string">'rushAlbumList'</span>);
 
 objectStore.openCursor(<span class="hljs-literal">null</span>, <span class="hljs-string">'next'</span>).onsuccess = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>) </span>{
@@ -381,7 +381,7 @@ objectStore.openCursor(<span class="hljs-literal">null</span>, <span class="hljs
 <span class="hljs-comment">// All keys ≥ x &amp;&amp;&lt; y</span>
 <span class="hljs-keyword">var</span> r8 = IDBKeyRange.bound(x, y, <span class="hljs-literal">false</span>, <span class="hljs-literal">true</span>);
 
-<span class="hljs-comment">// The key = z	</span>
+<span class="hljs-comment">// The key = z</span>
 <span class="hljs-keyword">var</span> r9 = IDBKeyRange.only(z);
 </code></pre><p><code>IDBKeyRange.lowerBound()</code>、<code>IDBKeyRange.upperBound()</code>、<code>IDBKeyRange.bound()</code>这三个方法默认包括端点值，可以传入一个布尔值，修改这个属性。</p><p>与之对应，IDBKeyRange 对象有四个只读属性。</p><ul><li><code>IDBKeyRange.lower</code>：返回下限</li><li><code>IDBKeyRange.lowerOpen</code>：布尔值，表示下限是否为开区间（即下限是否排除在范围之外）</li><li><code>IDBKeyRange.upper</code>：返回上限</li><li><code>IDBKeyRange.upperOpen</code>：布尔值，表示上限是否为开区间（即上限是否排除在范围之外）</li></ul><p>IDBKeyRange 实例对象生成以后，将它作为参数输入 IDBObjectStore 或 IDBIndex 对象的<code>openCursor()</code>方法，就可以在所设定的范围内读取数据。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> t = db.transaction([<span class="hljs-string">'people'</span>], <span class="hljs-string">'readonly'</span>);
 <span class="hljs-keyword">var</span> store = t.objectStore(<span class="hljs-string">'people'</span>);
