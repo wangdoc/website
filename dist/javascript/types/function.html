@@ -134,7 +134,7 @@ f.toString()
 multiline(f);
 <span class="hljs-comment">// " 这是一个</span>
 <span class="hljs-comment">//   多行注释"</span>
-</code></pre><h2 id="函数作用域">函数作用域 <a class="markdownIt-Anchor" href="#函数作用域">#</a></h2><h3 id="定义">定义 <a class="markdownIt-Anchor" href="#定义">#</a></h3><p>作用域（scope）指的是变量存在的范围。在 ES5 的规范中，JavaScript 只有两种作用域：一种是全局作用域，变量在整个程序中一直存在，所有地方都可以读取；另一种是函数作用域，变量只在函数内部存在。ES6 又新增了块级作用域，本教程不涉及。</p><p>函数外部声明的变量就是全局变量（global variable），它可以在函数内部读取。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> v = <span class="hljs-number">1</span>;
+</code></pre><h2 id="函数作用域">函数作用域 <a class="markdownIt-Anchor" href="#函数作用域">#</a></h2><h3 id="定义">定义 <a class="markdownIt-Anchor" href="#定义">#</a></h3><p>作用域（scope）指的是变量存在的范围。在 ES5 的规范中，JavaScript 只有两种作用域：一种是全局作用域，变量在整个程序中一直存在，所有地方都可以读取；另一种是函数作用域，变量只在函数内部存在。ES6 又新增了块级作用域，本教程不涉及。</p><p>对于顶层函数来说，函数外部声明的变量就是全局变量（global variable），它可以在函数内部读取。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> v = <span class="hljs-number">1</span>;
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-built_in">console</span>.log(v);
