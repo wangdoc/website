@@ -53,7 +53,7 @@ obj.a = <span class="hljs-number">123</span>;
 <span class="hljs-comment">// TypeError: Cannot delete property 'p' of #&lt;Object&gt;</span>
 </code></pre><h3 id="只设置了取值器的属性不可写">只设置了取值器的属性不可写 <a class="markdownIt-Anchor" href="#只设置了取值器的属性不可写">#</a></h3><p>严格模式下，对一个只有取值器（getter）、没有存值器（setter）的属性赋值，会报错。</p><pre class="hljs"><code><span class="hljs-meta">'use strict'</span>;
 <span class="hljs-keyword">var</span> obj = {
-  get v() { <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>; }
+  <span class="hljs-keyword">get</span> v() { <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>; }
 };
 obj.v = <span class="hljs-number">2</span>;
 <span class="hljs-comment">// Uncaught TypeError: Cannot set property v of #&lt;Object&gt; which has only a getter</span>
@@ -65,7 +65,7 @@ obj.v = <span class="hljs-number">1</span>;
 </code></pre><p>上面代码中，<code>obj</code>对象禁止扩展，添加属性就会报错。</p><h3 id="eval、arguments-不可用作标识名">eval、arguments 不可用作标识名 <a class="markdownIt-Anchor" href="#eval、arguments-不可用作标识名">#</a></h3><p>严格模式下，使用<code>eval</code>或者<code>arguments</code>作为标识名，将会报错。下面的语句都会报错。</p><pre class="hljs"><code><span class="hljs-meta">'use strict'</span>;
 <span class="hljs-keyword">var</span> <span class="hljs-built_in">eval</span> = <span class="hljs-number">17</span>;
 <span class="hljs-keyword">var</span> <span class="hljs-built_in">arguments</span> = <span class="hljs-number">17</span>;
-<span class="hljs-keyword">var</span> obj = { set p(<span class="hljs-built_in">arguments</span>) { } };
+<span class="hljs-keyword">var</span> obj = { <span class="hljs-keyword">set</span> p(arguments) { } };
 <span class="hljs-keyword">try</span> { } <span class="hljs-keyword">catch</span> (<span class="hljs-built_in">arguments</span>) { }
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">x</span>(<span class="hljs-params">eval</span>) </span>{ }
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">arguments</span>(<span class="hljs-params"></span>) </span>{ }

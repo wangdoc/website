@@ -227,17 +227,17 @@ obj.p2 <span class="hljs-comment">// 2</span>
 obj.p <span class="hljs-comment">// "getter"</span>
 obj.p = <span class="hljs-number">123</span> <span class="hljs-comment">// "setter: 123"</span>
 </code></pre><p>上面代码中，<code>obj.p</code>定义了<code>get</code>和<code>set</code>属性。<code>obj.p</code>取值时，就会调用<code>get</code>；赋值时，就会调用<code>set</code>。</p><p>JavaScript 还提供了存取器的另一种写法。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = {
-  get p() {
+  <span class="hljs-keyword">get</span> p() {
     <span class="hljs-keyword">return</span> <span class="hljs-string">'getter'</span>;
   },
-  set p(value) {
+  <span class="hljs-keyword">set</span> p(value) {
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'setter: '</span> + value);
   }
 };
 </code></pre><p>上面的写法与定义属性描述对象是等价的，而且使用更广泛。</p><p>注意，取值函数<code>get</code>不能接受参数，存值函数<code>set</code>只能接受一个参数（即属性的值）。</p><p>存取器往往用于，属性的值依赖对象内部数据的场合。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj ={
   <span class="hljs-attr">$n</span> : <span class="hljs-number">5</span>,
-  get next() { <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.$n++ },
-  set next(n) {
+  <span class="hljs-keyword">get</span> next() { <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.$n++ },
+  <span class="hljs-keyword">set</span> next(n) {
     <span class="hljs-keyword">if</span> (n &gt;= <span class="hljs-keyword">this</span>.$n) <span class="hljs-keyword">this</span>.$n = n;
     <span class="hljs-keyword">else</span> <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'新的值必须大于当前值'</span>);
   }
@@ -263,7 +263,7 @@ extend({}, {
 })
 <span class="hljs-comment">// {a: 1}</span>
 </code></pre><p>上面这个方法的问题在于，如果遇到存取器定义的属性，会只拷贝值。</p><pre class="hljs"><code>extend({}, {
-  get a() { <span class="hljs-keyword">return</span> <span class="hljs-number">1</span> }
+  <span class="hljs-keyword">get</span> a() { <span class="hljs-keyword">return</span> <span class="hljs-number">1</span> }
 })
 <span class="hljs-comment">// {a: 1}</span>
 </code></pre><p>为了解决这个问题，我们可以通过<code>Object.defineProperty</code>方法来拷贝属性。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> extend = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">to, from</span>) </span>{
@@ -279,7 +279,7 @@ extend({}, {
   <span class="hljs-keyword">return</span> to;
 }
 
-extend({}, { get a(){ <span class="hljs-keyword">return</span> <span class="hljs-number">1</span> } })
+extend({}, { <span class="hljs-keyword">get</span> a(){ <span class="hljs-keyword">return</span> <span class="hljs-number">1</span> } })
 <span class="hljs-comment">// { get a(){ return 1 } })</span>
 </code></pre><p>上面代码中，<code>hasOwnProperty</code>那一行用来过滤掉继承的属性，否则可能会报错，因为<code>Object.getOwnPropertyDescriptor</code>读不到继承属性的属性描述对象。</p><h2 id="控制对象状态">控制对象状态 <a class="markdownIt-Anchor" href="#控制对象状态">#</a></h2><p>有时需要冻结对象的读写状态，防止对象被改变。JavaScript 提供了三种冻结方法，最弱的一种是<code>Object.preventExtensions</code>，其次是<code>Object.seal</code>，最强的是<code>Object.freeze</code>。</p><h3 id="objectpreventextensions">Object.preventExtensions() <a class="markdownIt-Anchor" href="#objectpreventextensions">#</a></h3><p><code>Object.preventExtensions</code>方法可以使得一个对象无法再添加新的属性。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Object</span>();
 <span class="hljs-built_in">Object</span>.preventExtensions(obj);
