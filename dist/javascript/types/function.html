@@ -111,7 +111,9 @@ f.toString()
 <span class="hljs-comment">//  b();</span>
 <span class="hljs-comment">//  c();</span>
 <span class="hljs-comment">// }</span>
-</code></pre><p>函数内部的注释也可以返回。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params"></span>) </span>{<span class="hljs-comment">/*
+</code></pre><p>对于那些原生的函数，<code>toString()</code>方法返回<code>function (){[native code]}</code>。</p><pre class="hljs"><code><span class="hljs-built_in">Math</span>.sqrt.toString()
+<span class="hljs-comment">// "function sqrt() { [native code] }"</span>
+</code></pre><p>上面代码中，<code>Math.sqrt</code>是 JavaScript 引擎提供的原生函数，<code>toString()</code>方法就返回原生代码的提示。</p><p>函数内部的注释也可以返回。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params"></span>) </span>{<span class="hljs-comment">/*
   这是一个
   多行注释
 */</span>}
