@@ -14,7 +14,7 @@ a.search <span class="hljs-comment">// "?bar=1"</span>
 a.username <span class="hljs-comment">// "user"</span>
 </code></pre><p>除了<code>origin</code>属性是只读的，上面这些属性都是可读写的。</p><h3 id="accesskey-属性">accessKey 属性 <a class="markdownIt-Anchor" href="#accesskey-属性">#</a></h3><p><code>accessKey</code>属性用来读写<code>&lt;a&gt;</code>元素的快捷键。</p><pre class="hljs"><code><span class="hljs-comment">// HTML 代码如下</span>
 <span class="hljs-comment">// &lt;a id="test" href="http://example.com"&gt;test&lt;/a&gt;</span>
-<span class="hljs-keyword">var</span> a = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'a'</span>);
+<span class="hljs-keyword">var</span> a = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'test'</span>);
 a.accessKey = <span class="hljs-string">'k'</span>;
 </code></pre><p>上面代码设置<code>&lt;a&gt;</code>元素的快捷键为<code>k</code>，以后只要按下这个快捷键，浏览器就会跳转到<code>example.com</code>。</p><p>注意，不同的浏览器在不同的操作系统下，唤起快捷键的功能键组合是<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/accesskey" target="_blank" rel="noopener">不一样</a>的。比如，Chrome 浏览器在 Linux 系统下，需要按下<code>Alt + k</code>，才会跳转到<code>example.com</code>。</p><h3 id="download-属性">download 属性 <a class="markdownIt-Anchor" href="#download-属性">#</a></h3><p><code>download</code>属性表示当前链接不是用来浏览，而是用来下载的。它的值是一个字符串，表示用户下载得到的文件名。</p><pre class="hljs"><code><span class="hljs-comment">// HTML 代码如下</span>
 <span class="hljs-comment">// &lt;a id="test" href="foo.jpg"&gt;下载&lt;/a&gt;</span>
