@@ -198,14 +198,15 @@ obj.x <span class="hljs-comment">// 123</span>
 
 <span class="hljs-built_in">Object</span>.defineProperty(o2, <span class="hljs-string">'p'</span>, {<span class="hljs-attr">value</span>: <span class="hljs-number">2</span>})
 <span class="hljs-comment">// 修改成功</span>
-</code></pre><p>另外，<code>configurable</code>为<code>false</code>时，直接目标属性赋值，不报错，但不会成功。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = <span class="hljs-built_in">Object</span>.defineProperty({}, <span class="hljs-string">'p'</span>, {
+</code></pre><p>另外，<code>writable</code>为<code>false</code>时，直接目标属性赋值，不报错，但不会成功。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = <span class="hljs-built_in">Object</span>.defineProperty({}, <span class="hljs-string">'p'</span>, {
   <span class="hljs-attr">value</span>: <span class="hljs-number">1</span>,
+  <span class="hljs-attr">writable</span>: <span class="hljs-literal">false</span>,
   <span class="hljs-attr">configurable</span>: <span class="hljs-literal">false</span>
 });
 
 obj.p = <span class="hljs-number">2</span>;
 obj.p <span class="hljs-comment">// 1</span>
-</code></pre><p>上面代码中，<code>obj.p</code>的<code>configurable</code>为<code>false</code>，对<code>obj.p</code>赋值是不会生效的。如果是严格模式，还会报错。</p><p>可配置性决定了目标属性是否可以被删除（delete）。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = <span class="hljs-built_in">Object</span>.defineProperties({}, {
+</code></pre><p>上面代码中，<code>obj.p</code>的<code>writable</code>为<code>false</code>，对<code>obj.p</code>直接赋值不会生效。如果是严格模式，还会报错。</p><p>可配置性决定了目标属性是否可以被删除（delete）。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = <span class="hljs-built_in">Object</span>.defineProperties({}, {
   <span class="hljs-attr">p1</span>: { <span class="hljs-attr">value</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">configurable</span>: <span class="hljs-literal">true</span> },
   <span class="hljs-attr">p2</span>: { <span class="hljs-attr">value</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">configurable</span>: <span class="hljs-literal">false</span> }
 });
