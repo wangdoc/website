@@ -166,7 +166,7 @@ date.toJSON() <span class="hljs-comment">// "2015-01-01T00:00:00.000Z"</span>
 <span class="hljs-comment">// 设置 toJSON 方法时</span>
 <span class="hljs-built_in">RegExp</span>.prototype.toJSON = <span class="hljs-built_in">RegExp</span>.prototype.toString;
 <span class="hljs-built_in">JSON</span>.stringify(<span class="hljs-regexp">/foo/</span>) <span class="hljs-comment">// ""/foo/""</span>
-</code></pre><p>上面代码在正则对象的原型上面部署了<code>toJSON</code>方法，将其指向<code>toString</code>方法，因此遇到转换成<code>JSON</code>时，正则对象就先调用<code>toJSON</code>方法转为字符串，然后再被<code>JSON.stingify</code>方法处理。</p><h2 id="jsonparse">JSON.parse() <a class="markdownIt-Anchor" href="#jsonparse">#</a></h2><p><code>JSON.parse</code>方法用于将 JSON 字符串转换成对应的值。</p><pre class="hljs"><code><span class="hljs-built_in">JSON</span>.parse(<span class="hljs-string">'{}'</span>) <span class="hljs-comment">// {}</span>
+</code></pre><p>上面代码在正则对象的原型上面部署了<code>toJSON()</code>方法，将其指向<code>toString()</code>方法，因此转换成 JSON 格式时，正则对象就先调用<code>toJSON()</code>方法转为字符串，然后再被<code>JSON.stringify()</code>方法处理。</p><h2 id="jsonparse">JSON.parse() <a class="markdownIt-Anchor" href="#jsonparse">#</a></h2><p><code>JSON.parse</code>方法用于将 JSON 字符串转换成对应的值。</p><pre class="hljs"><code><span class="hljs-built_in">JSON</span>.parse(<span class="hljs-string">'{}'</span>) <span class="hljs-comment">// {}</span>
 <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-string">'true'</span>) <span class="hljs-comment">// true</span>
 <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-string">'"foo"'</span>) <span class="hljs-comment">// "foo"</span>
 <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-string">'[1, 5, "false"]'</span>) <span class="hljs-comment">// [1, 5, "false"]</span>
