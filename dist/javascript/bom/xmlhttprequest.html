@@ -331,16 +331,42 @@ xhr.open();
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadEnd</span>(<span class="hljs-params">e</span>) </span>{
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'请求结束，状态未知'</span>);
 }
-</code></pre><h3 id="timeout-事件">timeout 事件 <a class="markdownIt-Anchor" href="#timeout-事件">#</a></h3><p>服务器超过指定时间还没有返回结果，就会触发 timeout 事件，具体的例子参见<code>timeout</code>属性一节。</p><h2 id="navigatorsendbeacon">Navigator.sendBeacon() <a class="markdownIt-Anchor" href="#navigatorsendbeacon">#</a></h2><p>用户卸载网页的时候，有时需要向服务器发一些数据。很自然的做法是在<code>unload</code>事件或<code>beforeunload</code>事件的监听函数里面，使用<code>XMLHttpRequest</code>对象发送数据。但是，这样做不是很可靠，因为<code>XMLHttpRequest</code>对象是异步发送，很可能在它即将发送的时候，页面已经卸载了，从而导致发送取消或者发送失败。</p><p>解决方法就是 AJAX 通信改成同步发送，即只有发送完成，页面才能卸载。但是，很多浏览器已经不支持同步的 XMLHttpRequest 对象了（即<code>open()</code>方法的第三个参数为<code>false</code>）。</p><pre class="hljs"><code><span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'unload'</span>, logData, <span class="hljs-literal">false</span>);
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">logData</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">var</span> client = <span class="hljs-keyword">new</span> XMLHttpRequest();
-  <span class="hljs-comment">// 第三个参数表示同步发送</span>
-  client.open(<span class="hljs-string">'POST'</span>, <span class="hljs-string">'/log'</span>, <span class="hljs-literal">false</span>);
-  client.setRequestHeader(<span class="hljs-string">'Content-Type'</span>, <span class="hljs-string">'text/plain;charset=UTF-8'</span>);
-  client.send(analyticsData);
+</code></pre><h3 id="timeout-事件">timeout 事件 <a class="markdownIt-Anchor" href="#timeout-事件">#</a></h3><p>服务器超过指定时间还没有返回结果，就会触发 timeout 事件，具体的例子参见<code>timeout</code>属性一节。</p><h2 id="navigatorsendbeacon">Navigator.sendBeacon() <a class="markdownIt-Anchor" href="#navigatorsendbeacon">#</a></h2><p>用户卸载网页的时候，有时需要向服务器发一些数据。很自然的做法是在<code>unload</code>事件或<code>beforeunload</code>事件的监听函数里面，使用<code>XMLHttpRequest</code>对象发送数据。但是，这样做不是很可靠，因为<code>XMLHttpRequest</code>对象是异步发送，很可能在它即将发送的时候，页面已经卸载了，从而导致发送取消或者发送失败。</p><p>解决方法就是<code>unload</code>事件里面，加一些很耗时的同步操作。这样就能留出足够的时间，保证异步 AJAX 能够发送成功。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">log</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">let</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
+  xhr.open(<span class="hljs-string">'post'</span>, <span class="hljs-string">'/log'</span>, <span class="hljs-literal">true</span>);
+  xhr.setRequestHeader(<span class="hljs-string">'Content-Type'</span>, <span class="hljs-string">'application/x-www-form-urlencoded'</span>);
+  xhr.send(<span class="hljs-string">'foo=bar'</span>);
 }
-</code></pre><p>上面代码指定<code>XMLHttpRequest</code>同步发送，很多浏览器都已经不支持这种写法。</p><p>同步通信有几种变通的方法。一种做法是新建一个<code>&lt;img&gt;</code>元素，数据放在<code>src</code>属性，作为 URL 的查询字符串，这时浏览器会等待图片加载完成（服务器回应），再进行卸载。另一种做法是创建一个循环，规定执行时间为几秒钟，在这几秒钟内把数据发出去，然后再卸载页面。</p><p>这些做法的共同问题是，卸载的时间被硬生生拖长了，后面页面的加载被推迟了，用户体验不好。</p><p>为了解决这个问题，浏览器引入了<code>Navigator.sendBeacon()</code>方法。这个方法还是异步发出请求，但是请求与当前页面脱钩，作为浏览器的任务，因此可以保证会把数据发出去，不拖延卸载流程。</p><pre class="hljs"><code><span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'unload'</span>, logData, <span class="hljs-literal">false</span>);
+
+<span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'unload'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>) </span>{
+  log();
+
+  <span class="hljs-comment">// a time-consuming operation</span>
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>; i &lt; <span class="hljs-number">10000</span>; i++) {
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> m = <span class="hljs-number">1</span>; m &lt; <span class="hljs-number">10000</span>; m++) { <span class="hljs-keyword">continue</span>; }
+  }
+});
+</code></pre><p>上面代码中，强制执行了一次双重循环，拖长了<code>unload</code>事件的执行时间，导致异步 AJAX 能够发送成功。</p><p>类似的还可以使用<code>setTimeout</code>。下面是追踪用户点击的例子。</p><pre class="hljs"><code><span class="hljs-comment">// HTML 代码如下</span>
+<span class="hljs-comment">// &lt;a id="target" href="https://baidu.com"&gt;click&lt;/a&gt;</span>
+<span class="hljs-keyword">const</span> clickTime = <span class="hljs-number">350</span>;
+<span class="hljs-keyword">const</span> theLink = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'target'</span>);
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">log</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">let</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
+  xhr.open(<span class="hljs-string">'post'</span>, <span class="hljs-string">'/log'</span>, <span class="hljs-literal">true</span>);
+  xhr.setRequestHeader(<span class="hljs-string">'Content-Type'</span>, <span class="hljs-string">'application/x-www-form-urlencoded'</span>);
+  xhr.send(<span class="hljs-string">'foo=bar'</span>);
+}
+
+theLink.addEventListener(<span class="hljs-string">'click'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) </span>{
+  event.preventDefault();
+  log();
+
+  setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-built_in">window</span>.location.href = theLink.getAttribute(<span class="hljs-string">'href'</span>);
+  }, clickTime);
+});
+</code></pre><p>上面代码使用<code>setTimeout</code>，拖延了350毫秒，才让页面跳转，因此使得异步 AJAX 有时间发出。</p><p>这些做法的共同问题是，卸载的时间被硬生生拖长了，后面页面的加载被推迟了，用户体验不好。</p><p>为了解决这个问题，浏览器引入了<code>Navigator.sendBeacon()</code>方法。这个方法还是异步发出请求，但是请求与当前页面线程脱钩，作为浏览器进程的任务，因此可以保证会把数据发出去，不拖延卸载流程。</p><pre class="hljs"><code><span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'unload'</span>, logData, <span class="hljs-literal">false</span>);
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">logData</span>(<span class="hljs-params"></span>) </span>{
   navigator.sendBeacon(<span class="hljs-string">'/log'</span>, analyticsData);
