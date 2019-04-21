@@ -3,12 +3,13 @@
 </code></pre><p>上面两种写法是等价的，都新建了一个内容为<code>xyz</code>的正则表达式对象。它们的主要区别是，第一种方法在引擎编译代码时，就会新建正则表达式，第二种方法在运行时新建正则表达式，所以前者的效率较高。而且，前者比较便利和直观，所以实际应用中，基本上都采用字面量定义正则表达式。</p><p><code>RegExp</code>构造函数还可以接受第二个参数，表示修饰符（详细解释见下文）。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> regex = <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'xyz'</span>, <span class="hljs-string">'i'</span>);
 <span class="hljs-comment">// 等价于</span>
 <span class="hljs-keyword">var</span> regex = <span class="hljs-regexp">/xyz/i</span>;
-</code></pre><p>上面代码中，正则表达式<code>/xyz/</code>有一个修饰符<code>i</code>。</p><h2 id="实例属性">实例属性 <a class="markdownIt-Anchor" href="#实例属性">#</a></h2><p>正则对象的实例属性分成两类。</p><p>一类是修饰符相关，返回一个布尔值，表示对应的修饰符是否设置。</p><ul><li><code>RegExp.prototype.ignoreCase</code>：返回一个布尔值，表示是否设置了<code>i</code>修饰符。</li><li><code>RegExp.prototype.global</code>：返回一个布尔值，表示是否设置了<code>g</code>修饰符。</li><li><code>RegExp.prototype.multiline</code>：返回一个布尔值，表示是否设置了<code>m</code>修饰符。</li></ul><p>上面三个属性都是只读的。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> r = <span class="hljs-regexp">/abc/igm</span>;
+</code></pre><p>上面代码中，正则表达式<code>/xyz/</code>有一个修饰符<code>i</code>。</p><h2 id="实例属性">实例属性 <a class="markdownIt-Anchor" href="#实例属性">#</a></h2><p>正则对象的实例属性分成两类。</p><p>一类是修饰符相关，用于了解设置了什么修饰符。</p><ul><li><code>RegExp.prototype.ignoreCase</code>：返回一个布尔值，表示是否设置了<code>i</code>修饰符。</li><li><code>RegExp.prototype.global</code>：返回一个布尔值，表示是否设置了<code>g</code>修饰符。</li><li><code>RegExp.prototype.multiline</code>：返回一个布尔值，表示是否设置了<code>m</code>修饰符。</li><li><code>RegExp.prototype.flags</code>：返回一个字符串，包含了已经设置的所有修饰符，按字母排序。</li></ul><p>上面四个属性都是只读的。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> r = <span class="hljs-regexp">/abc/igm</span>;
 
 r.ignoreCase <span class="hljs-comment">// true</span>
 r.global <span class="hljs-comment">// true</span>
 r.multiline <span class="hljs-comment">// true</span>
-</code></pre><p>另一类是与修饰符无关的属性，主要是下面两个。</p><ul><li><code>RegExp.prototype.lastIndex</code>：返回一个整数，表示下一次开始搜索的位置。该属性可读写，但是只在进行连续搜索时有意义，详细介绍请看后文。</li><li><code>RegExp.prototype.source</code>：返回正则表达式的字符串形式（不包括反斜杠），该属性只读。</li><li><code>RegExp.prototype.flags</code>：返回正则表达式修饰符的字符串形式，按照字母顺序排序，该属性只读。</li></ul><pre class="hljs"><code><span class="hljs-keyword">var</span> r = <span class="hljs-regexp">/abc/igm</span>;
+r.flags <span class="hljs-comment">// 'gim'</span>
+</code></pre><p>另一类是与修饰符无关的属性，主要是下面两个。</p><ul><li><code>RegExp.prototype.lastIndex</code>：返回一个整数，表示下一次开始搜索的位置。该属性可读写，但是只在进行连续搜索时有意义，详细介绍请看后文。</li><li><code>RegExp.prototype.source</code>：返回正则表达式的字符串形式（不包括反斜杠），该属性只读。</li></ul><pre class="hljs"><code><span class="hljs-keyword">var</span> r = <span class="hljs-regexp">/abc/igm</span>;
 
 r.lastIndex <span class="hljs-comment">// 0</span>
 r.source <span class="hljs-comment">// "abc"</span>
