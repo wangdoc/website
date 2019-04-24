@@ -119,11 +119,13 @@
   }
 })
 <span class="hljs-comment">// "3"</span>
-</code></pre><p>上面代码对三个对象使用<code>String</code>函数。第一个对象返回<code>toString</code>方法的值（数值3），第二个对象返回的还是<code>toString</code>方法的值（<code>[object Object]</code>），第三个对象表示<code>toString</code>方法先于<code>valueOf</code>方法执行。</p><h3 id="boolean">Boolean() <a class="markdownIt-Anchor" href="#boolean">#</a></h3><p><code>Boolean</code>函数可以将任意类型的值转为布尔值。</p><p>它的转换规则相对简单：除了以下五个值的转换结果为<code>false</code>，其他的值全部为<code>true</code>。</p><ul><li><code>undefined</code></li><li><code>null</code></li><li><code>-0</code>或<code>+0</code></li><li><code>NaN</code></li><li><code>''</code>（空字符串）</li></ul><pre class="hljs"><code><span class="hljs-built_in">Boolean</span>(<span class="hljs-literal">undefined</span>) <span class="hljs-comment">// false</span>
+</code></pre><p>上面代码对三个对象使用<code>String</code>函数。第一个对象返回<code>toString</code>方法的值（数值3），第二个对象返回的还是<code>toString</code>方法的值（<code>[object Object]</code>），第三个对象表示<code>toString</code>方法先于<code>valueOf</code>方法执行。</p><h3 id="boolean">Boolean() <a class="markdownIt-Anchor" href="#boolean">#</a></h3><p><code>Boolean()</code>函数可以将任意类型的值转为布尔值。</p><p>它的转换规则相对简单：除了以下五个值的转换结果为<code>false</code>，其他的值全部为<code>true</code>。</p><ul><li><code>undefined</code></li><li><code>null</code></li><li><code>0</code>（包含<code>-0</code>和<code>+0</code>）</li><li><code>NaN</code></li><li><code>''</code>（空字符串）</li></ul><pre class="hljs"><code><span class="hljs-built_in">Boolean</span>(<span class="hljs-literal">undefined</span>) <span class="hljs-comment">// false</span>
 <span class="hljs-built_in">Boolean</span>(<span class="hljs-literal">null</span>) <span class="hljs-comment">// false</span>
 <span class="hljs-built_in">Boolean</span>(<span class="hljs-number">0</span>) <span class="hljs-comment">// false</span>
 <span class="hljs-built_in">Boolean</span>(<span class="hljs-literal">NaN</span>) <span class="hljs-comment">// false</span>
 <span class="hljs-built_in">Boolean</span>(<span class="hljs-string">''</span>) <span class="hljs-comment">// false</span>
+</code></pre><p>当然，<code>true</code>和<code>false</code>这两个布尔值不会发生变化。</p><pre class="hljs"><code><span class="hljs-built_in">Boolean</span>(<span class="hljs-literal">true</span>) <span class="hljs-comment">// true</span>
+<span class="hljs-built_in">Boolean</span>(<span class="hljs-literal">false</span>) <span class="hljs-comment">// false</span>
 </code></pre><p>注意，所有对象（包括空对象）的转换结果都是<code>true</code>，甚至连<code>false</code>对应的布尔对象<code>new Boolean(false)</code>也是<code>true</code>（详见《原始类型值的包装对象》一章）。</p><pre class="hljs"><code><span class="hljs-built_in">Boolean</span>({}) <span class="hljs-comment">// true</span>
 <span class="hljs-built_in">Boolean</span>([]) <span class="hljs-comment">// true</span>
 <span class="hljs-built_in">Boolean</span>(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Boolean</span>(<span class="hljs-literal">false</span>)) <span class="hljs-comment">// true</span>
