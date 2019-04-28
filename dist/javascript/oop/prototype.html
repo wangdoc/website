@@ -114,7 +114,7 @@ Vehicle.prototype.isPrototypeOf(v)
 </code></pre><p>上面代码中，<code>Object.prototype.isPrototypeOf</code>的详细解释见后文。</p><p>由于<code>instanceof</code>检查整个原型链，因此同一个实例对象，可能会对多个构造函数都返回<code>true</code>。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> d = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
 d <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Date</span> <span class="hljs-comment">// true</span>
 d <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Object</span> <span class="hljs-comment">// true</span>
-</code></pre><p>上面代码中，<code>d</code>同时是<code>Date</code>和<code>Object</code>的实例，因此对这两个构造函数都返回<code>true</code>。</p><p>由于任意对象（除了<code>null</code>）都是<code>Object</code>的实例，所以<code>instanceof</code>运算符可以判断一直是否为非<code>null</code>的对象。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = { <span class="hljs-attr">foo</span>: <span class="hljs-number">123</span> };
+</code></pre><p>上面代码中，<code>d</code>同时是<code>Date</code>和<code>Object</code>的实例，因此对这两个构造函数都返回<code>true</code>。</p><p>由于任意对象（除了<code>null</code>）都是<code>Object</code>的实例，所以<code>instanceof</code>运算符可以判断一个值是否为非<code>null</code>的对象。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = { <span class="hljs-attr">foo</span>: <span class="hljs-number">123</span> };
 obj <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Object</span> <span class="hljs-comment">// true</span>
 
 <span class="hljs-literal">null</span> <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Object</span> <span class="hljs-comment">// false</span>
