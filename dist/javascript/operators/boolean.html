@@ -41,7 +41,7 @@ i &amp;&amp; doSomething();
 </code></pre><p>短路规则对这个运算符也适用。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> x = <span class="hljs-number">1</span>;
 <span class="hljs-literal">true</span> || (x = <span class="hljs-number">2</span>) <span class="hljs-comment">// true</span>
 x <span class="hljs-comment">// 1</span>
-</code></pre><p>上面代码中，且运算符的第一个运算子为<code>true</code>，所以直接返回<code>true</code>，不再运行第二个运算子。所以，<code>x</code>的值没有改变。这种只通过第一个表达式的值，控制是否运行第二个表达式的机制，就称为“短路”（short-cut）。</p><p>或运算符可以多个连用，这时返回第一个布尔值为<code>true</code>的表达式的值。如果所有表达式都为<code>false</code>，则返回最后一个表达式的值。</p><pre class="hljs"><code><span class="hljs-literal">false</span> || <span class="hljs-number">0</span> || <span class="hljs-string">''</span> || <span class="hljs-number">4</span> || <span class="hljs-string">'foo'</span> || <span class="hljs-literal">true</span>
+</code></pre><p>上面代码中，或运算符的第一个运算子为<code>true</code>，所以直接返回<code>true</code>，不再运行第二个运算子。所以，<code>x</code>的值没有改变。这种只通过第一个表达式的值，控制是否运行第二个表达式的机制，就称为“短路”（short-cut）。</p><p>或运算符可以多个连用，这时返回第一个布尔值为<code>true</code>的表达式的值。如果所有表达式都为<code>false</code>，则返回最后一个表达式的值。</p><pre class="hljs"><code><span class="hljs-literal">false</span> || <span class="hljs-number">0</span> || <span class="hljs-string">''</span> || <span class="hljs-number">4</span> || <span class="hljs-string">'foo'</span> || <span class="hljs-literal">true</span>
 <span class="hljs-comment">// 4</span>
 
 <span class="hljs-literal">false</span> || <span class="hljs-number">0</span> || <span class="hljs-string">''</span>
