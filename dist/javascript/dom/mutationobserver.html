@@ -69,12 +69,12 @@ mo.observe(<span class="hljs-built_in">document</span>.body, option);
 }
 
 mo.observe(element, options);
-</code></pre><p>上面代码先设定追踪属性变动（<code>'attributes': true</code>），然后设定记录变动前的值。实际发生变动时，会将变动前的值显示在控制台。</p><h3 id="取代-domcontentloaded-事件">取代 DOMContentLoaded 事件 <a class="markdownIt-Anchor" href="#取代-domcontentloaded-事件">#</a></h3><p>网页加载的时候，DOM 节点的生成会产生变动记录，因此只要观察 DOM 的变动，就能在第一时间触发相关事件，因此也就没有必要使用<code>DOMContentLoaded</code>事件。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> observer = <span class="hljs-keyword">new</span> MutationObserver(callback);
+</code></pre><p>上面代码先设定追踪属性变动（<code>'attributes': true</code>），然后设定记录变动前的值。实际发生变动时，会将变动前的值显示在控制台。</p><h3 id="取代-domcontentloaded-事件">取代 DOMContentLoaded 事件 <a class="markdownIt-Anchor" href="#取代-domcontentloaded-事件">#</a></h3><p>网页加载的时候，DOM 节点的生成会产生变动记录，因此只要观察 DOM 的变动，就能在第一时间触发相关事件，也就没有必要使用<code>DOMContentLoaded</code>事件。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> observer = <span class="hljs-keyword">new</span> MutationObserver(callback);
 observer.observe(<span class="hljs-built_in">document</span>.documentElement, {
   <span class="hljs-attr">childList</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">subtree</span>: <span class="hljs-literal">true</span>
 });
-</code></pre><p>上面代码中，监听<code>document.documentElement</code>（即HTML节点）的子节点的变动，<code>subtree</code>属性指定监听还包括后代节点。因此，任意一个网页元素一旦生成，就能立刻被监听到。</p><p>下面的代码，使用<code>MutationObserver</code>对象封装一个监听 DOM 生成的函数。</p><pre class="hljs"><code>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">win</span>)</span>{
+</code></pre><p>上面代码中，监听<code>document.documentElement</code>（即网页的<code>&lt;html&gt;</code>HTML 节点）的子节点的变动，<code>subtree</code>属性指定监听还包括后代节点。因此，任意一个网页元素一旦生成，就能立刻被监听到。</p><p>下面的代码，使用<code>MutationObserver</code>对象封装一个监听 DOM 生成的函数。</p><pre class="hljs"><code>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">win</span>)</span>{
 <span class="hljs-meta">  'use strict'</span>;
 
   <span class="hljs-keyword">var</span> listeners = [];
@@ -123,6 +123,7 @@ observer.observe(<span class="hljs-built_in">document</span>.documentElement, {
 
 })(<span class="hljs-keyword">this</span>);
 
+<span class="hljs-comment">// 使用方法</span>
 ready(<span class="hljs-string">'.foo'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">element</span>)</span>{
   <span class="hljs-comment">// ...</span>
 });
