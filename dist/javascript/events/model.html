@@ -38,7 +38,7 @@ btn.addEventListener(
 </code></pre><p>上面两种写法，点击按钮以后也是输出<code>btn</code>。</p><h2 id="事件的传播">事件的传播 <a class="markdownIt-Anchor" href="#事件的传播">#</a></h2><p>一个事件发生后，会在子元素和父元素之间传播（propagation）。这种传播分成三个阶段。</p><ul><li><strong>第一阶段</strong>：从<code>window</code>对象传导到目标节点（上层传到底层），称为“捕获阶段”（capture phase）。</li><li><strong>第二阶段</strong>：在目标节点上触发，称为“目标阶段”（target phase）。</li><li><strong>第三阶段</strong>：从目标节点传导回<code>window</code>对象（从底层传回上层），称为“冒泡阶段”（bubbling phase）。</li></ul><p>这种三阶段的传播模型，使得同一个事件会在多个节点上触发。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>点击<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-</code></pre><p>上面代码中，<code>&lt;div&gt;</code>节点之中有一个<code>&lt;p&gt;</code>节点。</p><p>如果对这两个节点，都设置<code>click</code>事件的监听函数（每个节点的捕获阶段和监听阶段，各设置一个监听函数），共计设置四个监听函数。然后，对<code>&lt;p&gt;</code>点击，<code>click</code>事件会触发四次。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> phases = {
+</code></pre><p>上面代码中，<code>&lt;div&gt;</code>节点之中有一个<code>&lt;p&gt;</code>节点。</p><p>如果对这两个节点，都设置<code>click</code>事件的监听函数（每个节点的捕获阶段和冒泡阶段，各设置一个监听函数），共计设置四个监听函数。然后，对<code>&lt;p&gt;</code>点击，<code>click</code>事件会触发四次。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> phases = {
   <span class="hljs-number">1</span>: <span class="hljs-string">'capture'</span>,
   <span class="hljs-number">2</span>: <span class="hljs-string">'target'</span>,
   <span class="hljs-number">3</span>: <span class="hljs-string">'bubble'</span>
