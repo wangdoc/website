@@ -67,7 +67,7 @@ xhr.responseType = <span class="hljs-string">'arraybuffer'</span>;
 
 xhr.onload = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
   <span class="hljs-keyword">var</span> uInt8Array = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Uint8Array</span>(<span class="hljs-keyword">this</span>.response);
-  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, len = binStr.length; i &lt; len; ++i) {
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, len = uInt8Array.length; i &lt; len; ++i) {
     <span class="hljs-comment">// var byte = uInt8Array[i];</span>
   }
 };
