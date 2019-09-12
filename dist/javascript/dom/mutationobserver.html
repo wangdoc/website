@@ -21,7 +21,7 @@ mutationObserver.observe(<span class="hljs-built_in">document</span>.documentEle
   <span class="hljs-attr">attributeOldValue</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">characterDataOldValue</span>: <span class="hljs-literal">true</span>
 });
-</code></pre><p>对一个节点添加观察器，就像使用<code>addEventListener</code>方法一样，多次添加同一个观察器是无效的，回调函数依然只会触发一次。但是，如果指定不同的<code>options</code>对象，就会被当作两个不同的观察器。</p><p>下面的例子是观察新增的子节点。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> insertedNodes = [];
+</code></pre><p>对一个节点添加观察器，就像使用<code>addEventListener</code>方法一样，多次添加同一个观察器是无效的，回调函数依然只会触发一次。如果指定不同的<code>options</code>对象，以后面添加的那个为准，类似覆盖。</p><p>下面的例子是观察新增的子节点。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> insertedNodes = [];
 <span class="hljs-keyword">var</span> observer = <span class="hljs-keyword">new</span> MutationObserver(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">mutations</span>) </span>{
   mutations.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">mutation</span>) </span>{
     <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; mutation.addedNodes.length; i++) {
