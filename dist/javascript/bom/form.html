@@ -19,7 +19,7 @@ Host</span>: example.com
 <span class="hljs-attribute">Content-Length</span>: 74
 
 <span class="dts">user_name=张三<span class="hljs-variable">&amp;user_passwd</span>=<span class="hljs-number">123</span><span class="hljs-variable">&amp;submit_button</span>=提交
-</span></code></pre><p>注意，实际提交的时候，只要键值不是 URL 的合法字符（比如汉字“张三”和“确定”），浏览器会自动对其进行编码。</p><p>点击<code>submit</code>控件，就可以提交表单。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">form</span>&gt;</span>
+</span></code></pre><p>注意，实际提交的时候，只要键值不是 URL 的合法字符（比如汉字“张三”和“提交”），浏览器会自动对其进行编码。</p><p>点击<code>submit</code>控件，就可以提交表单。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">form</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"submit"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"提交"</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
 </code></pre><p>上面表单就包含一个<code>submit</code>控件，点击这个控件，浏览器就会把表单数据向服务器提交。</p><p>注意，表单里面的<code>&lt;button&gt;</code>元素如果没有用<code>type</code>属性指定类型，那么默认就是<code>submit</code>控件。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">form</span>&gt;</span>
