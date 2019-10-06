@@ -171,7 +171,7 @@ a <span class="hljs-comment">// [1, 2]</span>
 
 [<span class="hljs-number">10111</span>, <span class="hljs-number">1101</span>, <span class="hljs-number">111</span>].sort()
 <span class="hljs-comment">// [10111, 1101, 111]</span>
-</code></pre><p>上面代码的最后两个例子，需要特殊注意。<code>sort</code>方法不是按照大小排序，而是按照字典顺序。也就是说，数值会被先转成字符串，再按照字典顺序进行比较，所以<code>101</code>排在<code>11</code>的前面。</p><p>如果想让<code>sort</code>方法按照自定义方式排序，可以传入一个函数作为参数。</p><pre class="hljs"><code>[<span class="hljs-number">10111</span>, <span class="hljs-number">1101</span>, <span class="hljs-number">111</span>].sort(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">a, b</span>) </span>{
+</code></pre><p>上面代码的最后两个例子，需要特殊注意。<code>sort()</code>方法不是按照大小排序，而是按照字典顺序。也就是说，数值会被先转成字符串，再按照字典顺序进行比较，所以<code>101</code>排在<code>11</code>的前面。</p><p>如果想让<code>sort</code>方法按照自定义方式排序，可以传入一个函数作为参数。</p><pre class="hljs"><code>[<span class="hljs-number">10111</span>, <span class="hljs-number">1101</span>, <span class="hljs-number">111</span>].sort(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">a, b</span>) </span>{
   <span class="hljs-keyword">return</span> a - b;
 })
 <span class="hljs-comment">// [111, 1101, 10111]</span>
@@ -187,7 +187,12 @@ a <span class="hljs-comment">// [1, 2]</span>
 <span class="hljs-comment">//   { name: "王五", age: 28  },</span>
 <span class="hljs-comment">//   { name: "张三", age: 30 }</span>
 <span class="hljs-comment">// ]</span>
-</code></pre><h3 id="map">map() <a class="markdownIt-Anchor" href="#map">#</a></h3><p><code>map</code>方法将数组的所有成员依次传入参数函数，然后把每一次的执行结果组成一个新数组返回。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> numbers = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
+</code></pre><p>注意，自定义的排序函数应该返回数值，否则不同的浏览器可能有不同的实现，不能保证结果都一致。</p><pre class="hljs"><code><span class="hljs-comment">// bad</span>
+[<span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">2</span>, <span class="hljs-number">6</span>, <span class="hljs-number">0</span>, <span class="hljs-number">6</span>, <span class="hljs-number">2</span>, <span class="hljs-number">6</span>].sort(<span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> a &gt; b)
+
+<span class="hljs-comment">// good</span>
+[<span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">2</span>, <span class="hljs-number">6</span>, <span class="hljs-number">0</span>, <span class="hljs-number">6</span>, <span class="hljs-number">2</span>, <span class="hljs-number">6</span>].sort(<span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> a - b)
+</code></pre><p>上面代码中，前一种排序算法返回的是布尔值，这是不推荐使用的。后一种是数值，才是更好的写法。</p><h3 id="map">map() <a class="markdownIt-Anchor" href="#map">#</a></h3><p><code>map</code>方法将数组的所有成员依次传入参数函数，然后把每一次的执行结果组成一个新数组返回。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> numbers = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
 
 numbers.map(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">n</span>) </span>{
   <span class="hljs-keyword">return</span> n + <span class="hljs-number">1</span>;
