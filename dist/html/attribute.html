@@ -23,7 +23,7 @@
 英语单词 separate 容易写错成 seperate。
 <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 </code></pre><p>上面代码中，<code>seperate</code>下面会有提示，表示拼错了。</p><p>注意，由于该属性只在编辑时生效，所以这个例子必须加上<code>contenteditable</code>属性，表示本段内容可编辑。鼠标单击就可以进入编辑状态，这时才会看到拼写提示。不可编辑的状态下，拼写错误是不提示显示的。对于那些不可编辑的元素，该属性无效。</p><p>这个属性看上去像布尔属性，但是其实是枚举属性，所以最好不要省略它的值。如果没有指定这个属性，浏览器将自行决定是否打开拼写检查。</p><h3 id="data-属性"><code>data-</code>属性 <a class="markdownIt-Anchor" href="#data-属性">#</a></h3><p><code>data-</code>属性用于放置自定义数据。如果没有其他属性或元素合适放置数据，就可以放在<code>data-</code>属性。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"tooltip"</span> <span class="hljs-attr">data-tip</span>=<span class="hljs-string">"this is the tip!"</span>&gt;</span>链接<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
-</code></pre><p>上面代码中，<code>data-tip</code>用于防止链接的提示文字。</p><p>由于<code>data-</code>属性只能通过 CSS 或 JavaScript 利用，所以这里不做详细介绍了。下面是 CSS 的例子。</p><pre class="hljs"><code><span class="hljs-comment">/* HTML 代码如下
+</code></pre><p>上面代码中，<code>data-tip</code>用于放置链接的提示文字。</p><p>由于<code>data-</code>属性只能通过 CSS 或 JavaScript 利用，所以这里不做详细介绍了。下面是 CSS 的例子。</p><pre class="hljs"><code><span class="hljs-comment">/* HTML 代码如下
 &lt;div data-role="mobile"&gt;
 Mobile only content
 &lt;/div&gt;
