@@ -13,7 +13,7 @@ buffer.byteLength <span class="hljs-comment">// 8</span>
 
 myBlob.size <span class="hljs-comment">// 32</span>
 myBlob.type <span class="hljs-comment">// "text/html"</span>
-</code></pre><p><code>Blob</code>具有一个实例方法<code>slice</code>，用来拷贝原来的数据，返回的也是一个<code>Blob</code>实例。</p><pre class="hljs"><code>myBlob.slice(start，end, contentType)
+</code></pre><p><code>Blob</code>具有一个实例方法<code>slice</code>，用来拷贝原来的数据，返回的也是一个<code>Blob</code>实例。</p><pre class="hljs"><code>myBlob.slice(start, end, contentType)
 </code></pre><p><code>slice</code>方法有三个参数，都是可选的。它们依次是起始的字节位置（默认为0）、结束的字节位置（默认为<code>size</code>属性的值，该位置本身将不包含在拷贝的数据之中）、新实例的数据类型（默认为空字符串）。</p><h3 id="获取文件信息">获取文件信息 <a class="markdownIt-Anchor" href="#获取文件信息">#</a></h3><p>文件选择器<code>&lt;input type=&quot;file&quot;&gt;</code>用来让用户选取文件。出于安全考虑，浏览器不允许脚本自行设置这个控件的<code>value</code>属性，即文件必须是用户手动选取的，不能是脚本指定的。一旦用户选好了文件，脚本就可以读取这个文件。</p><p>文件选择器返回一个 FileList 对象，该对象是一个类似数组的成员，每个成员都是一个 File 实例对象。File 实例对象是一个特殊的 Blob 实例，增加了<code>name</code>和<code>lastModifiedDate</code>属性。</p><pre class="hljs"><code><span class="hljs-comment">// HTML 代码如下</span>
 <span class="hljs-comment">// &lt;input type="file" accept="image/*" multiple onchange="fileinfo(this.files)"/&gt;</span>
 
