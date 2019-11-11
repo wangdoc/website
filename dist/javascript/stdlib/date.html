@@ -187,16 +187,16 @@ d.getUTCDate() <span class="hljs-comment">// 5</span>
 d <span class="hljs-comment">// Sun Jan 06 2013 00:00:00 GMT+0800 (CST)</span>
 d.setDate(<span class="hljs-number">9</span>) <span class="hljs-comment">// 1357660800000</span>
 d <span class="hljs-comment">// Wed Jan 09 2013 00:00:00 GMT+0800 (CST)</span>
-</code></pre><p><code>set*</code>方法的参数都会自动折算。以<code>setDate</code>为例，如果参数超过当月的最大天数，则向下一个月顺延，如果参数是负数，表示从上个月的最后一天开始减去的天数。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> d1 = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">'January 6, 2013'</span>);
+</code></pre><p><code>set*</code>方法的参数都会自动折算。以<code>setDate()</code>为例，如果参数超过当月的最大天数，则向下一个月顺延，如果参数是负数，表示从上个月的最后一天开始减去的天数。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> d1 = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">'January 6, 2013'</span>);
 
 d1.setDate(<span class="hljs-number">32</span>) <span class="hljs-comment">// 1359648000000</span>
 d1 <span class="hljs-comment">// Fri Feb 01 2013 00:00:00 GMT+0800 (CST)</span>
 
 <span class="hljs-keyword">var</span> d2 = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span> (<span class="hljs-string">'January 6, 2013'</span>);
 
-d.setDate(<span class="hljs-number">-1</span>) <span class="hljs-comment">// 1356796800000</span>
-d <span class="hljs-comment">// Sun Dec 30 2012 00:00:00 GMT+0800 (CST)</span>
-</code></pre><p><code>set</code>类方法和<code>get</code>类方法，可以结合使用，得到相对时间。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> d = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
+d2.setDate(<span class="hljs-number">-1</span>) <span class="hljs-comment">// 1356796800000</span>
+d2 <span class="hljs-comment">// Sun Dec 30 2012 00:00:00 GMT+0800 (CST)</span>
+</code></pre><p>上面代码中，<code>d1.setDate(32)</code>将日期设为1月份的32号，因为1月份只有31号，所以自动折算为2月1日。<code>d2.setDate(-1)</code>表示设为上个月的倒数第二天，即12月30日。</p><p><code>set</code>类方法和<code>get</code>类方法，可以结合使用，得到相对时间。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> d = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
 
 <span class="hljs-comment">// 将日期向后推1000天</span>
 d.setDate(d.getDate() + <span class="hljs-number">1000</span>);
