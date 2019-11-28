@@ -209,7 +209,7 @@ count
 
 result
 <span class="hljs-comment">// false</span>
-</code></pre><p>上面代码中，<code>catch</code>代码块结束执行之前，会先执行<code>finally</code>代码块。</p><p><code>catch</code>代码块之中，触发转入<code>finally</code>代码快的标志，不仅有<code>return</code>语句，还有<code>throw</code>语句。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params"></span>) </span>{
+</code></pre><p>上面代码中，<code>catch</code>代码块结束执行之前，会先执行<code>finally</code>代码块。</p><p><code>catch</code>代码块之中，触发转入<code>finally</code>代码块的标志，不仅有<code>return</code>语句，还有<code>throw</code>语句。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">try</span> {
     <span class="hljs-keyword">throw</span> <span class="hljs-string">'出错了！'</span>;
   } <span class="hljs-keyword">catch</span>(e) {
