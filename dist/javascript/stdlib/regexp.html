@@ -110,7 +110,7 @@ r.lastIndex <span class="hljs-comment">// 0</span>
 </code></pre><p>正则表达式如果不加<code>g</code>修饰符，就替换第一个匹配成功的值，否则替换所有匹配成功的值。</p><pre class="hljs"><code><span class="hljs-string">'aaa'</span>.replace(<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>) <span class="hljs-comment">// "baa"</span>
 <span class="hljs-string">'aaa'</span>.replace(<span class="hljs-regexp">/a/</span>, <span class="hljs-string">'b'</span>) <span class="hljs-comment">// "baa"</span>
 <span class="hljs-string">'aaa'</span>.replace(<span class="hljs-regexp">/a/g</span>, <span class="hljs-string">'b'</span>) <span class="hljs-comment">// "bbb"</span>
-</code></pre><p>上面代码中，最后一个正则表达式使用了<code>g</code>修饰符，导致所有的<code>b</code>都被替换掉了。</p><p><code>replace</code>方法的一个应用，就是消除字符串首尾两端的空格。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> str = <span class="hljs-string">'  #id div.class  '</span>;
+</code></pre><p>上面代码中，最后一个正则表达式使用了<code>g</code>修饰符，导致所有的<code>a</code>都被替换掉了。</p><p><code>replace</code>方法的一个应用，就是消除字符串首尾两端的空格。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> str = <span class="hljs-string">'  #id div.class  '</span>;
 
 str.replace(<span class="hljs-regexp">/^\s+|\s+$/g</span>, <span class="hljs-string">''</span>)
 <span class="hljs-comment">// "#id div.class"</span>
