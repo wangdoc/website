@@ -28,7 +28,7 @@ modal.returnValue <span class="hljs-comment">// "Accepted"</span>
 
 <span class="hljs-selector-tag">dialog</span><span class="hljs-selector-pseudo">::backdrop</span> {
   <span class="hljs-comment">/* make the backdrop a semi-transparent black */</span>
-  <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">rgba</span>(0, 0, 0, 0.4);
+  <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.4</span>);
 }
 </code></pre><p>上面代码不仅为<code>&lt;dialog&gt;</code>指定了样式，还将对话框的透明层变成了灰色透明。</p><p><code>&lt;dialog&gt;</code>元素还有一个<code>Dialog.show()</code>方法，也能唤起对话框，但是没有透明层，用户可以与对话框外部的内容互动。</p><h3 id="事件">事件 <a class="markdownIt-Anchor" href="#事件">#</a></h3><p><code>&lt;dialog&gt;</code>元素有两个事件，可以监听。</p><ul><li><code>close</code>：对话框关闭时触发</li><li><code>cancel</code>：用户按下<code>esc</code>键关闭对话框时触发</li></ul><p>如果希望用户点击透明层，就关闭对话框，可以用下面的代码。</p><pre class="hljs"><code>modal.addEventListener(<span class="hljs-string">'click'</span>, (event) =&gt; {
   <span class="hljs-keyword">if</span> (event.target === modal) {
