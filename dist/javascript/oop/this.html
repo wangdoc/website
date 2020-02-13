@@ -225,7 +225,7 @@ o.f1()
   <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>
 };
 counter.inc = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-<span class="hljs-meta">  'use strict'</span>;
+  <span class="hljs-string">'use strict'</span>;
   <span class="hljs-keyword">this</span>.count++
 };
 <span class="hljs-keyword">var</span> f = counter.inc;
@@ -418,7 +418,7 @@ element.removeEventListener(<span class="hljs-string">'click'</span>, listener);
 </code></pre><p><strong>（2）结合回调函数使用</strong></p><p>回调函数是 JavaScript 最常用的模式之一，但是一个常见的错误是，将包含<code>this</code>的方法直接当作回调函数。解决方法就是使用<code>bind</code>方法，将<code>counter.inc</code>绑定<code>counter</code>。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> counter = {
   <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>,
   <span class="hljs-attr">inc</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-<span class="hljs-meta">    'use strict'</span>;
+    <span class="hljs-string">'use strict'</span>;
     <span class="hljs-keyword">this</span>.count++;
   }
 };

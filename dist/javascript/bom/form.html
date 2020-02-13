@@ -226,8 +226,8 @@ The second line.
   <span class="hljs-attr">onsubmit</span>=<span class="hljs-string">"AJAXSubmit(this); return false;"</span>
 &gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
-</code></pre><p>数据将以 URL 的查询字符串发出。</p><pre class="hljs"><code>?<span class="hljs-attribute">foo=bar&amp;baz=The%20first%20line.%0AThe%20second%20line.
-</span></code></pre><p><strong>（2）application/x-www-form-urlencoded</strong></p><p>如果表单用<code>POST</code>方法发送数据，并省略<code>enctype</code>属性，那么数据以<code>application/x-www-form-urlencoded</code>格式发送（因为这是默认值）。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">form</span>
+</code></pre><p>数据将以 URL 的查询字符串发出。</p><pre class="hljs"><code>?foo=bar&amp;baz=The%20first%20line.%0AThe%20second%20line.
+</code></pre><p><strong>（2）application/x-www-form-urlencoded</strong></p><p>如果表单用<code>POST</code>方法发送数据，并省略<code>enctype</code>属性，那么数据以<code>application/x-www-form-urlencoded</code>格式发送（因为这是默认值）。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">form</span>
   <span class="hljs-attr">action</span>=<span class="hljs-string">"register.php"</span>
   <span class="hljs-attr">method</span>=<span class="hljs-string">"post"</span>
   <span class="hljs-attr">onsubmit</span>=<span class="hljs-string">"AJAXSubmit(this); return false;"</span>

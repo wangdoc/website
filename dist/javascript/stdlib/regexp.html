@@ -40,7 +40,7 @@ r.test(<span class="hljs-string">'-bb-'</span>) <span class="hljs-comment">// fa
 <span class="hljs-keyword">while</span> (<span class="hljs-regexp">/a/g</span>.test(<span class="hljs-string">'babaa'</span>)) count++;
 </code></pre><p>上面代码会导致无限循环，因为<code>while</code>循环的每次匹配条件都是一个新的正则表达式，导致<code>lastIndex</code>属性总是等于0。</p><p>如果正则模式是一个空字符串，则匹配所有字符串。</p><pre class="hljs"><code><span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">''</span>).test(<span class="hljs-string">'abc'</span>)
 <span class="hljs-comment">// true</span>
-</code></pre><h3 id="regexpprototypeexec">RegExp.prototype.exec() <a class="markdownIt-Anchor" href="#regexpprototypeexec">#</a></h3><p>正则实例对象的<code>exec</code>方法，用来返回匹配结果。如果发现匹配，就返回一个数组，成员是匹配成功的子字符串，否则返回<code>null</code>。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> s = <span class="hljs-string">'_x_x'</span>;
+</code></pre><h3 id="regexpprototypeexec">RegExp.prototype.exec() <a class="markdownIt-Anchor" href="#regexpprototypeexec">#</a></h3><p>正则实例对象的<code>exec()</code>方法，用来返回匹配结果。如果发现匹配，就返回一个数组，成员是匹配成功的子字符串，否则返回<code>null</code>。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> s = <span class="hljs-string">'_x_x'</span>;
 <span class="hljs-keyword">var</span> r1 = <span class="hljs-regexp">/x/</span>;
 <span class="hljs-keyword">var</span> r2 = <span class="hljs-regexp">/y/</span>;
 
@@ -50,14 +50,14 @@ r2.exec(s) <span class="hljs-comment">// null</span>
 <span class="hljs-keyword">var</span> r = <span class="hljs-regexp">/_(x)/</span>;
 
 r.exec(s) <span class="hljs-comment">// ["_x", "x"]</span>
-</code></pre><p>上面代码的<code>exec</code>方法，返回一个数组。第一个成员是整个匹配的结果，第二个成员是圆括号匹配的结果。</p><p><code>exec</code>方法的返回数组还包含以下两个属性：</p><ul><li><code>input</code>：整个原字符串。</li><li><code>index</code>：整个模式匹配成功的开始位置（从0开始计数）。</li></ul><pre class="hljs"><code><span class="hljs-keyword">var</span> r = <span class="hljs-regexp">/a(b+)a/</span>;
+</code></pre><p>上面代码的<code>exec()</code>方法，返回一个数组。第一个成员是整个匹配的结果，第二个成员是圆括号匹配的结果。</p><p><code>exec()</code>方法的返回数组还包含以下两个属性：</p><ul><li><code>input</code>：整个原字符串。</li><li><code>index</code>：模式匹配成功的开始位置（从0开始计数）。</li></ul><pre class="hljs"><code><span class="hljs-keyword">var</span> r = <span class="hljs-regexp">/a(b+)a/</span>;
 <span class="hljs-keyword">var</span> arr = r.exec(<span class="hljs-string">'_abbba_aba_'</span>);
 
 arr <span class="hljs-comment">// ["abbba", "bbb"]</span>
 
 arr.index <span class="hljs-comment">// 1</span>
 arr.input <span class="hljs-comment">// "_abbba_aba_"</span>
-</code></pre><p>上面代码中的<code>index</code>属性等于1，是因为从原字符串的第二个位置开始匹配成功。</p><p>如果正则表达式加上<code>g</code>修饰符，则可以使用多次<code>exec</code>方法，下一次搜索的位置从上一次匹配成功结束的位置开始。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> reg = <span class="hljs-regexp">/a/g</span>;
+</code></pre><p>上面代码中的<code>index</code>属性等于1，是因为从原字符串的第二个位置开始匹配成功。</p><p>如果正则表达式加上<code>g</code>修饰符，则可以使用多次<code>exec()</code>方法，下一次搜索的位置从上一次匹配成功结束的位置开始。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> reg = <span class="hljs-regexp">/a/g</span>;
 <span class="hljs-keyword">var</span> str = <span class="hljs-string">'abc_abc_abc'</span>
 
 <span class="hljs-keyword">var</span> r1 = reg.exec(str);
@@ -78,7 +78,7 @@ reg.lastIndex <span class="hljs-comment">// 9</span>
 <span class="hljs-keyword">var</span> r4 = reg.exec(str);
 r4 <span class="hljs-comment">// null</span>
 reg.lastIndex <span class="hljs-comment">// 0</span>
-</code></pre><p>上面代码连续用了四次<code>exec</code>方法，前三次都是从上一次匹配结束的位置向后匹配。当第三次匹配结束以后，整个字符串已经到达尾部，匹配结果返回<code>null</code>，正则实例对象的<code>lastIndex</code>属性也重置为<code>0</code>，意味着第四次匹配将从头开始。</p><p>利用<code>g</code>修饰符允许多次匹配的特点，可以用一个循环完成全部匹配。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> reg = <span class="hljs-regexp">/a/g</span>;
+</code></pre><p>上面代码连续用了四次<code>exec()</code>方法，前三次都是从上一次匹配结束的位置向后匹配。当第三次匹配结束以后，整个字符串已经到达尾部，匹配结果返回<code>null</code>，正则实例对象的<code>lastIndex</code>属性也重置为<code>0</code>，意味着第四次匹配将从头开始。</p><p>利用<code>g</code>修饰符允许多次匹配的特点，可以用一个循环完成全部匹配。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> reg = <span class="hljs-regexp">/a/g</span>;
 <span class="hljs-keyword">var</span> str = <span class="hljs-string">'abc_abc_abc'</span>
 
 <span class="hljs-keyword">while</span>(<span class="hljs-literal">true</span>) {
@@ -89,7 +89,7 @@ reg.lastIndex <span class="hljs-comment">// 0</span>
 <span class="hljs-comment">// #0:a</span>
 <span class="hljs-comment">// #4:a</span>
 <span class="hljs-comment">// #8:a</span>
-</code></pre><p>上面代码中，只要<code>exec</code>方法不返回<code>null</code>，就会一直循环下去，每次输出匹配的位置和匹配的文本。</p><p>正则实例对象的<code>lastIndex</code>属性不仅可读，还可写。设置了<code>g</code>修饰符的时候，只要手动设置了<code>lastIndex</code>的值，就会从指定位置开始匹配。</p><h2 id="字符串的实例方法">字符串的实例方法 <a class="markdownIt-Anchor" href="#字符串的实例方法">#</a></h2><p>字符串的实例方法之中，有4种与正则表达式有关。</p><ul><li><code>String.prototype.match()</code>：返回一个数组，成员是所有匹配的子字符串。</li><li><code>String.prototype.search()</code>：按照给定的正则表达式进行搜索，返回一个整数，表示匹配开始的位置。</li><li><code>String.prototype.replace()</code>：按照给定的正则表达式进行替换，返回替换后的字符串。</li><li><code>String.prototype.split()</code>：按照给定规则进行字符串分割，返回一个数组，包含分割后的各个成员。</li></ul><h3 id="stringprototypematch">String.prototype.match() <a class="markdownIt-Anchor" href="#stringprototypematch">#</a></h3><p>字符串实例对象的<code>match</code>方法对字符串进行正则匹配，返回匹配结果。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> s = <span class="hljs-string">'_x_x'</span>;
+</code></pre><p>上面代码中，只要<code>exec()</code>方法不返回<code>null</code>，就会一直循环下去，每次输出匹配的位置和匹配的文本。</p><p>正则实例对象的<code>lastIndex</code>属性不仅可读，还可写。设置了<code>g</code>修饰符的时候，只要手动设置了<code>lastIndex</code>的值，就会从指定位置开始匹配。</p><h2 id="字符串的实例方法">字符串的实例方法 <a class="markdownIt-Anchor" href="#字符串的实例方法">#</a></h2><p>字符串的实例方法之中，有4种与正则表达式有关。</p><ul><li><code>String.prototype.match()</code>：返回一个数组，成员是所有匹配的子字符串。</li><li><code>String.prototype.search()</code>：按照给定的正则表达式进行搜索，返回一个整数，表示匹配开始的位置。</li><li><code>String.prototype.replace()</code>：按照给定的正则表达式进行替换，返回替换后的字符串。</li><li><code>String.prototype.split()</code>：按照给定规则进行字符串分割，返回一个数组，包含分割后的各个成员。</li></ul><h3 id="stringprototypematch">String.prototype.match() <a class="markdownIt-Anchor" href="#stringprototypematch">#</a></h3><p>字符串实例对象的<code>match</code>方法对字符串进行正则匹配，返回匹配结果。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> s = <span class="hljs-string">'_x_x'</span>;
 <span class="hljs-keyword">var</span> r1 = <span class="hljs-regexp">/x/</span>;
 <span class="hljs-keyword">var</span> r2 = <span class="hljs-regexp">/y/</span>;
 

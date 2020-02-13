@@ -286,7 +286,7 @@ f(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span 
 
 f(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// 5</span>
 </code></pre><p>上面代码中，函数<code>f</code>调用时传入的参数，在函数内部被修改成<code>3</code>和<code>2</code>。</p><p>严格模式下，<code>arguments</code>对象与函数参数不具有联动关系。也就是说，修改<code>arguments</code>对象不会影响到实际的函数参数。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> f = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a, b</span>) </span>{
-<span class="hljs-meta">  'use strict'</span>; <span class="hljs-comment">// 开启严格模式</span>
+  <span class="hljs-string">'use strict'</span>; <span class="hljs-comment">// 开启严格模式</span>
   <span class="hljs-built_in">arguments</span>[<span class="hljs-number">0</span>] = <span class="hljs-number">3</span>;
   <span class="hljs-built_in">arguments</span>[<span class="hljs-number">1</span>] = <span class="hljs-number">2</span>;
   <span class="hljs-keyword">return</span> a + b;
@@ -411,12 +411,12 @@ a <span class="hljs-comment">// 1</span>
 
 a <span class="hljs-comment">// 2</span>
 </code></pre><p>上面代码中，<code>eval</code>命令修改了外部变量<code>a</code>的值。由于这个原因，<code>eval</code>有安全风险。</p><p>为了防止这种风险，JavaScript 规定，如果使用严格模式，<code>eval</code>内部声明的变量，不会影响到外部作用域。</p><pre class="hljs"><code>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params"></span>) </span>{
-<span class="hljs-meta">  'use strict'</span>;
+  <span class="hljs-string">'use strict'</span>;
   <span class="hljs-built_in">eval</span>(<span class="hljs-string">'var foo = 123'</span>);
   <span class="hljs-built_in">console</span>.log(foo);  <span class="hljs-comment">// ReferenceError: foo is not defined</span>
 })()
 </code></pre><p>上面代码中，函数<code>f</code>内部是严格模式，这时<code>eval</code>内部声明的<code>foo</code>变量，就不会影响到外部。</p><p>不过，即使在严格模式下，<code>eval</code>依然可以读写当前作用域的变量。</p><pre class="hljs"><code>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params"></span>) </span>{
-<span class="hljs-meta">  'use strict'</span>;
+  <span class="hljs-string">'use strict'</span>;
   <span class="hljs-keyword">var</span> foo = <span class="hljs-number">1</span>;
   <span class="hljs-built_in">eval</span>(<span class="hljs-string">'foo = 2'</span>);
   <span class="hljs-built_in">console</span>.log(foo);  <span class="hljs-comment">// 2</span>

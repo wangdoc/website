@@ -72,7 +72,7 @@ worker.postMessage(arrayBuffer, [arrayBuffer]);
 <span class="hljs-comment">// 例子</span>
 <span class="hljs-keyword">var</span> ab = <span class="hljs-keyword">new</span> <span class="hljs-built_in">ArrayBuffer</span>(<span class="hljs-number">1</span>);
 worker.postMessage(ab, [ab]);
-</code></pre><h2 id="同页面的-web-worker">同页面的 Web Worker <a class="markdownIt-Anchor" href="#同页面的-web-worker">#</a></h2><p>通常情况下，Worker 载入的是一个单独的 JavaScript 脚本文件，但是也可以载入与主线程在同一个网页的代码。</p><pre class="hljs"><code><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
+</code></pre><h2 id="同页面的-web-worker">同页面的 Web Worker <a class="markdownIt-Anchor" href="#同页面的-web-worker">#</a></h2><p>通常情况下，Worker 载入的是一个单独的 JavaScript 脚本文件，但是也可以载入与主线程在同一个网页的代码。</p><pre class="hljs"><code><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"worker"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"app/worker"</span>&gt;</span><span class="actionscript">
       addEventListener(<span class="hljs-string">'message'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{

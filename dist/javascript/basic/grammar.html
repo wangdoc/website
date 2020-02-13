@@ -49,9 +49,9 @@ a+b  <span class="hljs-comment">// 标识符不能包含加号</span>
  多行
  注释
 */</span>
-</code></pre><p>此外，由于历史上 JavaScript 可以兼容 HTML 代码的注释，所以<code>&lt;!--</code>和<code>--&gt;</code>也被视为合法的单行注释。</p><pre class="hljs"><code>x = <span class="hljs-number">1</span>; <span class="xml"><span class="hljs-comment">&lt;!-- x = 2;
---&gt;</span> x = 3;
-</span></code></pre><p>上面代码中，只有<code>x = 1</code>会执行，其他的部分都被注释掉了。</p><p>需要注意的是，<code>--&gt;</code>只有在行首，才会被当成单行注释，否则会当作正常的运算。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">countdown</span>(<span class="hljs-params">n</span>) </span>{
+</code></pre><p>此外，由于历史上 JavaScript 可以兼容 HTML 代码的注释，所以<code>&lt;!--</code>和<code>--&gt;</code>也被视为合法的单行注释。</p><pre class="hljs"><code>x = <span class="hljs-number">1</span>; &lt;!-- x = <span class="hljs-number">2</span>;
+--&gt; x = <span class="hljs-number">3</span>;
+</code></pre><p>上面代码中，只有<code>x = 1</code>会执行，其他的部分都被注释掉了。</p><p>需要注意的是，<code>--&gt;</code>只有在行首，才会被当成单行注释，否则会当作正常的运算。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">countdown</span>(<span class="hljs-params">n</span>) </span>{
   <span class="hljs-keyword">while</span> (n --&gt; <span class="hljs-number">0</span>) <span class="hljs-built_in">console</span>.log(n);
 }
 countdown(<span class="hljs-number">3</span>)

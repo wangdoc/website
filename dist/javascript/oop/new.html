@@ -24,7 +24,7 @@ v.price <span class="hljs-comment">// 1000</span>
 v <span class="hljs-comment">// undefined</span>
 price <span class="hljs-comment">// 1000</span>
 </code></pre><p>上面代码中，调用<code>Vehicle</code>构造函数时，忘了加上<code>new</code>命令。结果，变量<code>v</code>变成了<code>undefined</code>，而<code>price</code>属性变成了全局变量。因此，应该非常小心，避免不使用<code>new</code>命令、直接调用构造函数。</p><p>为了保证构造函数必须与<code>new</code>命令一起使用，一个解决办法是，构造函数内部使用严格模式，即第一行加上<code>use strict</code>。这样的话，一旦忘了使用<code>new</code>命令，直接调用构造函数就会报错。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Fubar</span>(<span class="hljs-params">foo, bar</span>)</span>{
-<span class="hljs-meta">  'use strict'</span>;
+  <span class="hljs-string">'use strict'</span>;
   <span class="hljs-keyword">this</span>._foo = foo;
   <span class="hljs-keyword">this</span>._bar = bar;
 }
