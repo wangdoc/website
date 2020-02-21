@@ -121,7 +121,7 @@ d.toLocaleTimeString()
 </code></pre><p>这三个方法都有两个可选的参数。</p><pre class="hljs"><code>dateObj.toLocaleString([locales[, options]])
 dateObj.toLocaleDateString([locales[, options]])
 dateObj.toLocaleTimeString([locales[, options]])
-</code></pre><p>这两个参数中，<code>locales</code>是一个指定所用语言的字符串，<code>options</code>是一个配置对象。下面是<code>locales</code>的例子。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> d = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-number">2013</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>);
+</code></pre><p>这两个参数中，<code>locales</code>是一个指定所用语言的字符串，<code>options</code>是一个配置对象。下面是<code>locales</code>的例子，分别采用<code>en-US</code>和<code>zh-CN</code>语言设定。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> d = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-number">2013</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>);
 
 d.toLocaleString(<span class="hljs-string">'en-US'</span>) <span class="hljs-comment">// "1/1/2013, 12:00:00 AM"</span>
 d.toLocaleString(<span class="hljs-string">'zh-CN'</span>) <span class="hljs-comment">// "2013/1/1 上午12:00:00"</span>
@@ -131,10 +131,8 @@ d.toLocaleDateString(<span class="hljs-string">'zh-CN'</span>) <span class="hljs
 
 d.toLocaleTimeString(<span class="hljs-string">'en-US'</span>) <span class="hljs-comment">// "12:00:00 AM"</span>
 d.toLocaleTimeString(<span class="hljs-string">'zh-CN'</span>) <span class="hljs-comment">// "上午12:00:00"</span>
-</code></pre><p>下面是<code>options</code>的例子。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> d = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-number">2013</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>);
+</code></pre><p><code>options</code>配置对象有以下属性。</p><ul><li><code>dateStyle</code>：可能的值为<code>full</code>、<code>long</code>、<code>medium</code>、<code>short</code>。</li><li><code>timeStyle</code>：可能的值为<code>full</code>、<code>long</code>、<code>medium</code>、<code>short</code>。</li><li><code>month</code>：可能的值为<code>numeric</code>、<code>2-digit</code>、<code>long</code>、<code>short</code>、<code>narrow</code>。</li><li><code>year</code>：可能的值为<code>numeric</code>、<code>2-digit</code>。</li><li><code>weekday</code>：可能的值为<code>long</code>、<code>short</code>、<code>narrow</code>。</li><li><code>day</code>、<code>hour</code>、<code>minute</code>、<code>second</code>：可能的值为<code>numeric</code>、<code>2-digit</code>。</li><li><code>timeZone</code>：可能的值为 IANA 的时区数据库。</li><li><code>timeZooneName</code>：可能的值为<code>long</code>、<code>short</code>。</li><li><code>hour12</code>：24小时周期还是12小时周期，可能的值为<code>true</code>、<code>false</code>。</li></ul><p>下面是用法实例。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> d = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-number">2013</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>);
 
-<span class="hljs-comment">// 时间格式</span>
-<span class="hljs-comment">// 下面的设置是，星期和月份为完整文字，年份和日期为数字</span>
 d.toLocaleDateString(<span class="hljs-string">'en-US'</span>, {
   <span class="hljs-attr">weekday</span>: <span class="hljs-string">'long'</span>,
   <span class="hljs-attr">year</span>: <span class="hljs-string">'numeric'</span>,
@@ -143,7 +141,13 @@ d.toLocaleDateString(<span class="hljs-string">'en-US'</span>, {
 })
 <span class="hljs-comment">// "Tuesday, January 1, 2013"</span>
 
-<span class="hljs-comment">// 指定时区</span>
+d.toLocaleDateString(<span class="hljs-string">'en-US'</span>, {
+  <span class="hljs-attr">day</span>: <span class="hljs-string">"2-digit"</span>,
+  <span class="hljs-attr">month</span>: <span class="hljs-string">"long"</span>,
+  <span class="hljs-attr">year</span>: <span class="hljs-string">"2-digit"</span>
+});
+<span class="hljs-comment">// "January 01, 13"</span>
+
 d.toLocaleTimeString(<span class="hljs-string">'en-US'</span>, {
   <span class="hljs-attr">timeZone</span>: <span class="hljs-string">'UTC'</span>,
   <span class="hljs-attr">timeZoneName</span>: <span class="hljs-string">'short'</span>
@@ -156,7 +160,6 @@ d.toLocaleTimeString(<span class="hljs-string">'en-US'</span>, {
 })
 <span class="hljs-comment">// "12:00:00 AM China Standard Time"</span>
 
-<span class="hljs-comment">// 小时周期为12还是24</span>
 d.toLocaleTimeString(<span class="hljs-string">'en-US'</span>, {
   <span class="hljs-attr">hour12</span>: <span class="hljs-literal">false</span>
 })
