@@ -30,14 +30,10 @@ catchit()
 </code></pre><p>上面代码的错误，都是在语法解析阶段就可以发现，所以会抛出<code>SyntaxError</code>。第一个错误提示是“token 非法”，第二个错误提示是“字符串不符合要求”。</p><h3 id="referenceerror-对象">ReferenceError 对象 <a class="markdownIt-Anchor" href="#referenceerror-对象">#</a></h3><p><code>ReferenceError</code>对象是引用一个不存在的变量时发生的错误。</p><pre class="hljs"><code><span class="hljs-comment">// 使用一个不存在的变量</span>
 unknownVariable
 <span class="hljs-comment">// Uncaught ReferenceError: unknownVariable is not defined</span>
-</code></pre><p>另一种触发场景是，将一个值分配给无法分配的对象，比如对函数的运行结果或者<code>this</code>赋值。</p><pre class="hljs"><code><span class="hljs-comment">// 等号左侧不是变量</span>
+</code></pre><p>另一种触发场景是，将一个值分配给无法分配的对象，比如对函数的运行结果赋值。</p><pre class="hljs"><code><span class="hljs-comment">// 等号左侧不是变量</span>
 <span class="hljs-built_in">console</span>.log() = <span class="hljs-number">1</span>
 <span class="hljs-comment">// Uncaught ReferenceError: Invalid left-hand side in assignment</span>
-
-<span class="hljs-comment">// this 对象不能手动赋值</span>
-<span class="hljs-keyword">this</span> = <span class="hljs-number">1</span>
-<span class="hljs-comment">// ReferenceError: Invalid left-hand side in assignment</span>
-</code></pre><p>上面代码对函数<code>console.log</code>的运行结果和<code>this</code>赋值，结果都引发了<code>ReferenceError</code>错误。</p><h3 id="rangeerror-对象">RangeError 对象 <a class="markdownIt-Anchor" href="#rangeerror-对象">#</a></h3><p><code>RangeError</code>对象是一个值超出有效范围时发生的错误。主要有几种情况，一是数组长度为负数，二是<code>Number</code>对象的方法参数超出范围，以及函数堆栈超过最大值。</p><pre class="hljs"><code><span class="hljs-comment">// 数组长度不得为负数</span>
+</code></pre><p>上面代码对函数<code>console.log</code>的运行结果赋值，结果引发了<code>ReferenceError</code>错误。</p><h3 id="rangeerror-对象">RangeError 对象 <a class="markdownIt-Anchor" href="#rangeerror-对象">#</a></h3><p><code>RangeError</code>对象是一个值超出有效范围时发生的错误。主要有几种情况，一是数组长度为负数，二是<code>Number</code>对象的方法参数超出范围，以及函数堆栈超过最大值。</p><pre class="hljs"><code><span class="hljs-comment">// 数组长度不得为负数</span>
 <span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>(<span class="hljs-number">-1</span>)
 <span class="hljs-comment">// Uncaught RangeError: Invalid array length</span>
 </code></pre><h3 id="typeerror-对象">TypeError 对象 <a class="markdownIt-Anchor" href="#typeerror-对象">#</a></h3><p><code>TypeError</code>对象是变量或参数不是预期类型时发生的错误。比如，对字符串、布尔值、数值等原始类型的值使用<code>new</code>命令，就会抛出这种错误，因为<code>new</code>命令的参数应该是一个构造函数。</p><pre class="hljs"><code><span class="hljs-keyword">new</span> <span class="hljs-number">123</span>
