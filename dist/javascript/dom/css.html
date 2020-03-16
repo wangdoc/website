@@ -298,7 +298,7 @@ mql.onchange = <span class="hljs-function"><span class="hljs-keyword">function</
     <span class="hljs-comment">/* 视口超过 600 像素 */</span>
   }
 }
-</code></pre><p>上面代码中，<code>change</code>事件发生后，存在两种可能。一种是显示宽度从700像素以上变为以下，另一种是从700像素以下变为以上，所以在监听函数内部要判断一下当前是哪一种情况。</p><h3 id="mediaquerylist-接口的实例方法">MediaQueryList 接口的实例方法 <a class="markdownIt-Anchor" href="#mediaquerylist-接口的实例方法">#</a></h3><p>MediaQueryList 实例有两个方法<code>MediaQueryList.addListener()</code>和<code>MediaQueryList.removeListener()</code>，用来为<code>change</code>事件添加或撤销监听函数。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> mql = <span class="hljs-built_in">window</span>.matchMedia(<span class="hljs-string">'(max-width: 600px)'</span>);
+</code></pre><p>上面代码中，<code>change</code>事件发生后，存在两种可能。一种是显示宽度从600像素以上变为以下，另一种是从600像素以下变为以上，所以在监听函数内部要判断一下当前是哪一种情况。</p><h3 id="mediaquerylist-接口的实例方法">MediaQueryList 接口的实例方法 <a class="markdownIt-Anchor" href="#mediaquerylist-接口的实例方法">#</a></h3><p>MediaQueryList 实例有两个方法<code>MediaQueryList.addListener()</code>和<code>MediaQueryList.removeListener()</code>，用来为<code>change</code>事件添加或撤销监听函数。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> mql = <span class="hljs-built_in">window</span>.matchMedia(<span class="hljs-string">'(max-width: 600px)'</span>);
 
 <span class="hljs-comment">// 指定监听函数</span>
 mql.addListener(mqCallback);
