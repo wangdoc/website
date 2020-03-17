@@ -362,14 +362,14 @@ o.f = <span class="hljs-function"><span class="hljs-keyword">function</span> (<s
 
 <span class="hljs-comment">// jQuery 的写法</span>
 $(<span class="hljs-string">'#button'</span>).on(<span class="hljs-string">'click'</span>, f);
-</code></pre><p>上面代码中，点击按钮以后，控制台将会显示<code>true</code>。由于<code>apply</code>方法（或者<code>call</code>方法）不仅绑定函数执行时所在的对象，还会立即执行函数，因此不得不把绑定语句写在一个函数体内。更简洁的写法是采用下面介绍的<code>bind</code>方法。</p><h3 id="functionprototypebind">Function.prototype.bind() <a class="markdownIt-Anchor" href="#functionprototypebind">#</a></h3><p><code>bind</code>方法用于将函数体内的<code>this</code>绑定到某个对象，然后返回一个新函数。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> d = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
+</code></pre><p>上面代码中，点击按钮以后，控制台将会显示<code>true</code>。由于<code>apply()</code>方法（或者<code>call()</code>方法）不仅绑定函数执行时所在的对象，还会立即执行函数，因此不得不把绑定语句写在一个函数体内。更简洁的写法是采用下面介绍的<code>bind()</code>方法。</p><h3 id="functionprototypebind">Function.prototype.bind() <a class="markdownIt-Anchor" href="#functionprototypebind">#</a></h3><p><code>bind()</code>方法用于将函数体内的<code>this</code>绑定到某个对象，然后返回一个新函数。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> d = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
 d.getTime() <span class="hljs-comment">// 1481869925657</span>
 
 <span class="hljs-keyword">var</span> print = d.getTime;
 print() <span class="hljs-comment">// Uncaught TypeError: this is not a Date object.</span>
-</code></pre><p>上面代码中，我们将<code>d.getTime</code>方法赋给变量<code>print</code>，然后调用<code>print</code>就报错了。这是因为<code>getTime</code>方法内部的<code>this</code>，绑定<code>Date</code>对象的实例，赋给变量<code>print</code>以后，内部的<code>this</code>已经不指向<code>Date</code>对象的实例了。</p><p><code>bind</code>方法可以解决这个问题。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> print = d.getTime.bind(d);
+</code></pre><p>上面代码中，我们将<code>d.getTime()</code>方法赋给变量<code>print</code>，然后调用<code>print()</code>就报错了。这是因为<code>getTime()</code>方法内部的<code>this</code>，绑定<code>Date</code>对象的实例，赋给变量<code>print</code>以后，内部的<code>this</code>已经不指向<code>Date</code>对象的实例了。</p><p><code>bind()</code>方法可以解决这个问题。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> print = d.getTime.bind(d);
 print() <span class="hljs-comment">// 1481869925657</span>
-</code></pre><p>上面代码中，<code>bind</code>方法将<code>getTime</code>方法内部的<code>this</code>绑定到<code>d</code>对象，这时就可以安全地将这个方法赋值给其他变量了。</p><p><code>bind</code>方法的参数就是所要绑定<code>this</code>的对象，下面是一个更清晰的例子。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> counter = {
+</code></pre><p>上面代码中，<code>bind()</code>方法将<code>getTime()</code>方法内部的<code>this</code>绑定到<code>d</code>对象，这时就可以安全地将这个方法赋值给其他变量了。</p><p><code>bind</code>方法的参数就是所要绑定<code>this</code>的对象，下面是一个更清晰的例子。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> counter = {
   <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>,
   <span class="hljs-attr">inc</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">this</span>.count++;
@@ -379,7 +379,7 @@ print() <span class="hljs-comment">// 1481869925657</span>
 <span class="hljs-keyword">var</span> func = counter.inc.bind(counter);
 func();
 counter.count <span class="hljs-comment">// 1</span>
-</code></pre><p>上面代码中，<code>counter.inc</code>方法被赋值给变量<code>func</code>。这时必须用<code>bind</code>方法将<code>inc</code>内部的<code>this</code>，绑定到<code>counter</code>，否则就会出错。</p><p><code>this</code>绑定到其他对象也是可以的。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> counter = {
+</code></pre><p>上面代码中，<code>counter.inc()</code>方法被赋值给变量<code>func</code>。这时必须用<code>bind()</code>方法将<code>inc()</code>内部的<code>this</code>，绑定到<code>counter</code>，否则就会出错。</p><p><code>this</code>绑定到其他对象也是可以的。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> counter = {
   <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>,
   <span class="hljs-attr">inc</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">this</span>.count++;
@@ -392,7 +392,7 @@ counter.count <span class="hljs-comment">// 1</span>
 <span class="hljs-keyword">var</span> func = counter.inc.bind(obj);
 func();
 obj.count <span class="hljs-comment">// 101</span>
-</code></pre><p>上面代码中，<code>bind</code>方法将<code>inc</code>方法内部的<code>this</code>，绑定到<code>obj</code>对象。结果调用<code>func</code>函数以后，递增的就是<code>obj</code>内部的<code>count</code>属性。</p><p><code>bind</code>还可以接受更多的参数，将这些参数绑定原函数的参数。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> add = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">x, y</span>) </span>{
+</code></pre><p>上面代码中，<code>bind()</code>方法将<code>inc()</code>方法内部的<code>this</code>，绑定到<code>obj</code>对象。结果调用<code>func</code>函数以后，递增的就是<code>obj</code>内部的<code>count</code>属性。</p><p><code>bind()</code>还可以接受更多的参数，将这些参数绑定原函数的参数。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> add = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">x, y</span>) </span>{
   <span class="hljs-keyword">return</span> x * <span class="hljs-keyword">this</span>.m + y * <span class="hljs-keyword">this</span>.n;
 }
 
@@ -403,19 +403,19 @@ obj.count <span class="hljs-comment">// 101</span>
 
 <span class="hljs-keyword">var</span> newAdd = add.bind(obj, <span class="hljs-number">5</span>);
 newAdd(<span class="hljs-number">5</span>) <span class="hljs-comment">// 20</span>
-</code></pre><p>上面代码中，<code>bind</code>方法除了绑定<code>this</code>对象，还将<code>add</code>函数的第一个参数<code>x</code>绑定成<code>5</code>，然后返回一个新函数<code>newAdd</code>，这个函数只要再接受一个参数<code>y</code>就能运行了。</p><p>如果<code>bind</code>方法的第一个参数是<code>null</code>或<code>undefined</code>，等于将<code>this</code>绑定到全局对象，函数运行时<code>this</code>指向顶层对象（浏览器为<code>window</code>）。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">add</span>(<span class="hljs-params">x, y</span>) </span>{
+</code></pre><p>上面代码中，<code>bind()</code>方法除了绑定<code>this</code>对象，还将<code>add()</code>函数的第一个参数<code>x</code>绑定成<code>5</code>，然后返回一个新函数<code>newAdd()</code>，这个函数只要再接受一个参数<code>y</code>就能运行了。</p><p>如果<code>bind()</code>方法的第一个参数是<code>null</code>或<code>undefined</code>，等于将<code>this</code>绑定到全局对象，函数运行时<code>this</code>指向顶层对象（浏览器为<code>window</code>）。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">add</span>(<span class="hljs-params">x, y</span>) </span>{
   <span class="hljs-keyword">return</span> x + y;
 }
 
 <span class="hljs-keyword">var</span> plus5 = add.bind(<span class="hljs-literal">null</span>, <span class="hljs-number">5</span>);
 plus5(<span class="hljs-number">10</span>) <span class="hljs-comment">// 15</span>
-</code></pre><p>上面代码中，函数<code>add</code>内部并没有<code>this</code>，使用<code>bind</code>方法的主要目的是绑定参数<code>x</code>，以后每次运行新函数<code>plus5</code>，就只需要提供另一个参数<code>y</code>就够了。而且因为<code>add</code>内部没有<code>this</code>，所以<code>bind</code>的第一个参数是<code>null</code>，不过这里如果是其他对象，也没有影响。</p><p><code>bind</code>方法有一些使用注意点。</p><p><strong>（1）每一次返回一个新函数</strong></p><p><code>bind</code>方法每运行一次，就返回一个新函数，这会产生一些问题。比如，监听事件的时候，不能写成下面这样。</p><pre class="hljs"><code>element.addEventListener(<span class="hljs-string">'click'</span>, o.m.bind(o));
-</code></pre><p>上面代码中，<code>click</code>事件绑定<code>bind</code>方法生成的一个匿名函数。这样会导致无法取消绑定，所以，下面的代码是无效的。</p><pre class="hljs"><code>element.removeEventListener(<span class="hljs-string">'click'</span>, o.m.bind(o));
+</code></pre><p>上面代码中，函数<code>add()</code>内部并没有<code>this</code>，使用<code>bind()</code>方法的主要目的是绑定参数<code>x</code>，以后每次运行新函数<code>plus5()</code>，就只需要提供另一个参数<code>y</code>就够了。而且因为<code>add()</code>内部没有<code>this</code>，所以<code>bind()</code>的第一个参数是<code>null</code>，不过这里如果是其他对象，也没有影响。</p><p><code>bind()</code>方法有一些使用注意点。</p><p><strong>（1）每一次返回一个新函数</strong></p><p><code>bind()</code>方法每运行一次，就返回一个新函数，这会产生一些问题。比如，监听事件的时候，不能写成下面这样。</p><pre class="hljs"><code>element.addEventListener(<span class="hljs-string">'click'</span>, o.m.bind(o));
+</code></pre><p>上面代码中，<code>click</code>事件绑定<code>bind()</code>方法生成的一个匿名函数。这样会导致无法取消绑定，所以下面的代码是无效的。</p><pre class="hljs"><code>element.removeEventListener(<span class="hljs-string">'click'</span>, o.m.bind(o));
 </code></pre><p>正确的方法是写成下面这样：</p><pre class="hljs"><code><span class="hljs-keyword">var</span> listener = o.m.bind(o);
 element.addEventListener(<span class="hljs-string">'click'</span>, listener);
 <span class="hljs-comment">//  ...</span>
 element.removeEventListener(<span class="hljs-string">'click'</span>, listener);
-</code></pre><p><strong>（2）结合回调函数使用</strong></p><p>回调函数是 JavaScript 最常用的模式之一，但是一个常见的错误是，将包含<code>this</code>的方法直接当作回调函数。解决方法就是使用<code>bind</code>方法，将<code>counter.inc</code>绑定<code>counter</code>。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> counter = {
+</code></pre><p><strong>（2）结合回调函数使用</strong></p><p>回调函数是 JavaScript 最常用的模式之一，但是一个常见的错误是，将包含<code>this</code>的方法直接当作回调函数。解决方法就是使用<code>bind()</code>方法，将<code>counter.inc()</code>绑定<code>counter</code>。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> counter = {
   <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>,
   <span class="hljs-attr">inc</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
     <span class="hljs-string">'use strict'</span>;
@@ -429,7 +429,7 @@ element.removeEventListener(<span class="hljs-string">'click'</span>, listener);
 
 callIt(counter.inc.bind(counter));
 counter.count <span class="hljs-comment">// 1</span>
-</code></pre><p>上面代码中，<code>callIt</code>方法会调用回调函数。这时如果直接把<code>counter.inc</code>传入，调用时<code>counter.inc</code>内部的<code>this</code>就会指向全局对象。使用<code>bind</code>方法将<code>counter.inc</code>绑定<code>counter</code>以后，就不会有这个问题，<code>this</code>总是指向<code>counter</code>。</p><p>还有一种情况比较隐蔽，就是某些数组方法可以接受一个函数当作参数。这些函数内部的<code>this</code>指向，很可能也会出错。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = {
+</code></pre><p>上面代码中，<code>callIt()</code>方法会调用回调函数。这时如果直接把<code>counter.inc</code>传入，调用时<code>counter.inc()</code>内部的<code>this</code>就会指向全局对象。使用<code>bind()</code>方法将<code>counter.inc</code>绑定<code>counter</code>以后，就不会有这个问题，<code>this</code>总是指向<code>counter</code>。</p><p>还有一种情况比较隐蔽，就是某些数组方法可以接受一个函数当作参数。这些函数内部的<code>this</code>指向，很可能也会出错。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = {
   <span class="hljs-attr">name</span>: <span class="hljs-string">'张三'</span>,
   <span class="hljs-attr">times</span>: [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>],
   <span class="hljs-attr">print</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
@@ -441,7 +441,7 @@ counter.count <span class="hljs-comment">// 1</span>
 
 obj.print()
 <span class="hljs-comment">// 没有任何输出</span>
-</code></pre><p>上面代码中，<code>obj.print</code>内部<code>this.times</code>的<code>this</code>是指向<code>obj</code>的，这个没有问题。但是，<code>forEach</code>方法的回调函数内部的<code>this.name</code>却是指向全局对象，导致没有办法取到值。稍微改动一下，就可以看得更清楚。</p><pre class="hljs"><code>obj.print = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+</code></pre><p>上面代码中，<code>obj.print</code>内部<code>this.times</code>的<code>this</code>是指向<code>obj</code>的，这个没有问题。但是，<code>forEach()</code>方法的回调函数内部的<code>this.name</code>却是指向全局对象，导致没有办法取到值。稍微改动一下，就可以看得更清楚。</p><pre class="hljs"><code>obj.print = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">this</span>.times.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">n</span>) </span>{
     <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span> === <span class="hljs-built_in">window</span>);
   });
@@ -451,7 +451,7 @@ obj.print()
 <span class="hljs-comment">// true</span>
 <span class="hljs-comment">// true</span>
 <span class="hljs-comment">// true</span>
-</code></pre><p>解决这个问题，也是通过<code>bind</code>方法绑定<code>this</code>。</p><pre class="hljs"><code>obj.print = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+</code></pre><p>解决这个问题，也是通过<code>bind()</code>方法绑定<code>this</code>。</p><pre class="hljs"><code>obj.print = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">this</span>.times.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">n</span>) </span>{
     <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.name);
   }.bind(<span class="hljs-keyword">this</span>));
@@ -461,10 +461,10 @@ obj.print()
 <span class="hljs-comment">// 张三</span>
 <span class="hljs-comment">// 张三</span>
 <span class="hljs-comment">// 张三</span>
-</code></pre><p><strong>（3）结合<code>call</code>方法使用</strong></p><p>利用<code>bind</code>方法，可以改写一些 JavaScript 原生方法的使用形式，以数组的<code>slice</code>方法为例。</p><pre class="hljs"><code>[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>].slice(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// [1]</span>
+</code></pre><p><strong>（3）结合<code>call()</code>方法使用</strong></p><p>利用<code>bind()</code>方法，可以改写一些 JavaScript 原生方法的使用形式，以数组的<code>slice()</code>方法为例。</p><pre class="hljs"><code>[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>].slice(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// [1]</span>
 <span class="hljs-comment">// 等同于</span>
 <span class="hljs-built_in">Array</span>.prototype.slice.call([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], <span class="hljs-number">0</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// [1]</span>
-</code></pre><p>上面的代码中，数组的<code>slice</code>方法从<code>[1, 2, 3]</code>里面，按照指定位置和长度切分出另一个数组。这样做的本质是在<code>[1, 2, 3]</code>上面调用<code>Array.prototype.slice</code>方法，因此可以用<code>call</code>方法表达这个过程，得到同样的结果。</p><p><code>call</code>方法实质上是调用<code>Function.prototype.call</code>方法，因此上面的表达式可以用<code>bind</code>方法改写。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> slice = <span class="hljs-built_in">Function</span>.prototype.call.bind(<span class="hljs-built_in">Array</span>.prototype.slice);
+</code></pre><p>上面的代码中，数组的<code>slice</code>方法从<code>[1, 2, 3]</code>里面，按照指定的开始位置和结束位置，切分出另一个数组。这样做的本质是在<code>[1, 2, 3]</code>上面调用<code>Array.prototype.slice()</code>方法，因此可以用<code>call</code>方法表达这个过程，得到同样的结果。</p><p><code>call()</code>方法实质上是调用<code>Function.prototype.call()</code>方法，因此上面的表达式可以用<code>bind()</code>方法改写。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> slice = <span class="hljs-built_in">Function</span>.prototype.call.bind(<span class="hljs-built_in">Array</span>.prototype.slice);
 slice([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], <span class="hljs-number">0</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// [1]</span>
 </code></pre><p>上面代码的含义就是，将<code>Array.prototype.slice</code>变成<code>Function.prototype.call</code>方法所在的对象，调用时就变成了<code>Array.prototype.slice.call</code>。类似的写法还可以用于其他数组方法。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> push = <span class="hljs-built_in">Function</span>.prototype.call.bind(<span class="hljs-built_in">Array</span>.prototype.push);
 <span class="hljs-keyword">var</span> pop = <span class="hljs-built_in">Function</span>.prototype.call.bind(<span class="hljs-built_in">Array</span>.prototype.pop);
