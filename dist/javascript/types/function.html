@@ -75,7 +75,7 @@ a(add)(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
 </code></pre><p>上面的代码等同于下面的形式。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> f;
 f();
 f = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{};
-</code></pre><p>上面代码第二行，调用<code>f</code>的时候，<code>f</code>只是被声明了，还没有被赋值，等于<code>undefined</code>，所以会报错。因此，如果同时采用<code>function</code>命令和赋值语句声明同一个函数，最后总是采用赋值语句的定义。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> f = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+</code></pre><p>上面代码第二行，调用<code>f</code>的时候，<code>f</code>只是被声明了，还没有被赋值，等于<code>undefined</code>，所以会报错。因此，如果同时采用<code>function</code>命令和赋值语句声明同一个函数，调用函数的位置如果在顶部，会采用声明语句，调用函数的位置在赋值语句后面，就会采用赋值语句的定义。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> f = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'1'</span>);
 }
 
