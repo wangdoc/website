@@ -75,7 +75,7 @@ a(add)(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
 </code></pre><p>上面的代码等同于下面的形式。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> f;
 f();
 f = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{};
-</code></pre><p>上面代码第二行，调用<code>f</code>的时候，<code>f</code>只是被声明了，还没有被赋值，等于<code>undefined</code>，所以会报错。因此，如果同时采用<code>function</code>命令和赋值语句声明同一个函数，调用函数的位置如果在顶部，会采用声明语句，调用函数的位置在赋值语句后面，就会采用赋值语句的定义。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> f = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+</code></pre><p>上面代码第二行，调用<code>f</code>的时候，<code>f</code>只是被声明了，还没有被赋值，等于<code>undefined</code>，所以会报错。</p><p>注意，如果像下面例子那样，采用<code>function</code>命令和<code>var</code>赋值语句声明同一个函数，由于存在函数提升，最后会采用<code>var</code>赋值语句的定义。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> f = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'1'</span>);
 }
 
@@ -84,7 +84,7 @@ f = <span class="hljs-function"><span class="hljs-keyword">function</span> (<spa
 }
 
 f() <span class="hljs-comment">// 1</span>
-</code></pre><h2 id="函数的属性和方法">函数的属性和方法 <a class="markdownIt-Anchor" href="#函数的属性和方法">#</a></h2><h3 id="name-属性">name 属性 <a class="markdownIt-Anchor" href="#name-属性">#</a></h3><p>函数的<code>name</code>属性返回函数的名字。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f1</span>(<span class="hljs-params"></span>) </span>{}
+</code></pre><p>上面例子中，表面上后面声明的函数<code>f</code>，应该覆盖前面的<code>var</code>赋值语句，但是由于存在函数提升，实际上正好反过来。</p><h2 id="函数的属性和方法">函数的属性和方法 <a class="markdownIt-Anchor" href="#函数的属性和方法">#</a></h2><h3 id="name-属性">name 属性 <a class="markdownIt-Anchor" href="#name-属性">#</a></h3><p>函数的<code>name</code>属性返回函数的名字。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f1</span>(<span class="hljs-params"></span>) </span>{}
 f1.name <span class="hljs-comment">// "f1"</span>
 </code></pre><p>如果是通过变量赋值定义的函数，那么<code>name</code>属性返回变量名。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> f2 = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{};
 f2.name <span class="hljs-comment">// "f2"</span>
