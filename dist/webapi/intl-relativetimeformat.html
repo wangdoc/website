@@ -21,8 +21,8 @@ rtf.format(<span class="hljs-number">-42</span>, <span class="hljs-string">'year
 </code></pre><p><code>Intl.RelativeTimeFormat()</code>还可以接受一个配置对象，作为第二个参数，用来精确指定相对时间实例的行为。配置对象共有下面这些属性。</p><ul><li>options.style：表示返回字符串的风格，可能的值有<code>long</code>（默认值，比如“in 1 month”）、<code>short</code>（比如“in 1 mo.”）、<code>narrow</code>（比如“in 1 mo.”）。对于一部分语言来说，<code>narrow</code>风格和<code>short</code>风格是类似的。</li><li>options.localeMatcher：表示匹配语言参数的算法，可能的值有<code>best fit</code>（默认值）和<code>lookup</code>。</li><li>options.numeric：表示返回字符串是数字显示，还是文字显示，可能的值有<code>always</code>（默认值，总是文字显示）和<code>auto</code>（自动转换）。</li></ul><pre class="hljs"><code><span class="hljs-comment">// 下面的配置对象，传入的都是默认值</span>
 <span class="hljs-keyword">const</span> rtf = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Intl</span>.RelativeTimeFormat(<span class="hljs-string">'en'</span>, {
   <span class="hljs-attr">localeMatcher</span>: <span class="hljs-string">'best fit'</span>, <span class="hljs-comment">// 其他值：'lookup'</span>
-  style: <span class="hljs-string">'long'</span>, <span class="hljs-comment">// 其他值：'short' or 'narrow'</span>
-  numeric: <span class="hljs-string">'always'</span>, <span class="hljs-comment">// 其他值：'auto'</span>
+  <span class="hljs-attr">style</span>: <span class="hljs-string">'long'</span>, <span class="hljs-comment">// 其他值：'short' or 'narrow'</span>
+  <span class="hljs-attr">numeric</span>: <span class="hljs-string">'always'</span>, <span class="hljs-comment">// 其他值：'auto'</span>
 });
 
 <span class="hljs-comment">// Now, let’s try some special cases!</span>
