@@ -1,0 +1,154 @@
+<!DOCTYPE html><html prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Bash 变量 - Bash 脚本教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="Bash 变量"><link rel="apple-touch-icon" sizes="57x57" href="assets/icons/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="assets/icons/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="assets/icons/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="assets/icons/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="assets/icons/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="assets/icons/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="assets/icons/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="assets/icons/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png"><link rel="manifest" href="assets/icons/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="assets/icons/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com</a></div><div class="navbar-menu"><div class="navbar-end"><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/bash-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8"><nav class="breadcrumb is-size-5-desktop" aria-label="breadcrumbs"><ul><li><a href="index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;Bash 脚本教程</a></li><li class="is-active"><a class="has-text-grey" href="variable.html">Bash 变量</a></li></ul></nav><nav class="level level-previous-next is-size-5 is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="arithmetic.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> Bash 的算术运算</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="script.html">Bash 脚本简介 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content is-size-5-desktop"><h1 class="title">Bash 变量</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><p>Shell 变量分成预定义变量和自定义变量两类。预定义变量是系统提供的变量，进入 Shell 时已经定义好了，可以直接使用。自定义变量是用户自己定义的变量。</p><h2 id="简介">简介 <a class="markdownIt-Anchor" href="#简介">#</a></h2><p>预定义变量，又称环境变量，是系统预先定义好的变量，用户可以直接使用。<code>env</code>命令或<code>printenv</code>命令，可以显示所有预定义变量。</p><pre class="hljs"><code>$ env
+<span class="hljs-comment"># 或者</span>
+$ printenv
+</code></pre><p>下面是一些常见的预定义变量。</p><ul><li><code>BASHPID</code>：Bash 进程的进程 ID。</li><li><code>BASHOPTS</code>：当前 Shell 的参数，可以用<code>shopt</code>命令修改。</li><li><code>DISPLAY</code>：图形环境的显示器名字，通常是<code>:0</code>，表示 X Server 的第一个显示器。</li><li><code>EDITOR</code>：文本编辑器的名字。</li><li><code>HOME</code>：用户的主目录。</li><li><code>HOST</code>：当前主机的名称。</li><li><code>IFS</code>：词与词之间的分隔符，默认为空格。</li><li><code>LANG</code>：字符集以及语言编码，比如<code>zh_CN.UTF-8</code>。</li><li><code>PATH</code>：由冒号分开的目录列表，当输入可执行程序名后，会搜索这个目录列表。</li><li><code>PS1</code>：Shell 提示符。</li><li><code>PS2</code>： 输入多行命令时，次要的 Shell 提示符。</li><li><code>PWD</code>：当前工作目录。</li><li><code>RANDOM</code>：返回一个0到32767之间的随机数。</li><li><code>SHELL</code>：Shell 的名字。</li><li><code>SHELLOPTS</code>：启动当前 Shell 的<code>set</code>命令的参数，参见《set 命令》一章。</li><li><code>TERM</code>：终端类型名，即终端仿真器所用的协议。</li><li><code>UID</code>：当前用户的 ID 编号。</li><li><code>USER</code>：当前用户的用户名。</li></ul><p>相当一部分预定义变量很少发生变化，而且是只读的，一般可以视为常量。由于它们的变量名全部都是大写，所以传统上，如果用户要自己定义一个常量，也会使用全部大写的变量名。</p><p>注意，Bash 变量名区分大小写，<code>HOME</code>和<code>home</code>是两个不同的变量。</p><p>查看单个环境变量的值，可以使用<code>printenv</code>命令或<code>echo</code>命令。</p><pre class="hljs"><code>$ printenv PATH
+<span class="hljs-comment"># 或者</span>
+$ <span class="hljs-built_in">echo</span> <span class="hljs-variable">$PATH</span>
+</code></pre><p>注意，<code>printenv</code>命令后面的变量名，不用加前缀<code>$</code>。</p><p>自定义变量是用户自己定义的变量，必须先定义后使用，而且仅在当前 Shell 可用。一旦退出当前 Shell，该变量就不存在了。</p><p><code>set</code>命令可以显示所有变量（包括预定义变量和自定义变量），以及定义的函数。</p><pre class="hljs"><code>$ <span class="hljs-built_in">set</span>
+</code></pre><h2 id="读取变量">读取变量 <a class="markdownIt-Anchor" href="#读取变量">#</a></h2><p>读取变量的时候，直接在变量名前加上<code>$</code>就可以了。</p><pre class="hljs"><code>$ foo=bar
+$ <span class="hljs-built_in">echo</span> <span class="hljs-variable">$foo</span>
+bar
+</code></pre><p>每当 Shell 看到以<code>$</code>开头的单词时，就会尝试读取这个变量名对应的值。</p><p>由于<code>$</code>在 Bash 中有特殊含义，把它当作美元符号使用时，一定要非常小心，</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> The total is <span class="hljs-variable">$100</span>.00
+The total is 00.00
+</code></pre><p>上面命令的原意是输入<code>$100</code>，但是 Bash 将<code>$1</code>解释成了变量，该变量为空，因此输入就变成了<code>00.00</code>。</p><p>所以，如果要使用<code>$</code>的原义，需要在<code>$</code>前面放上反斜杠，进行转义。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> The total is \<span class="hljs-variable">$100</span>.00
+The total is <span class="hljs-variable">$100</span>.00
+</code></pre><p>读取变量的时候，变量名可以被花括号<code>{}</code>包围，比如<code>$a</code>可以用<code>${a}</code>表示，这样可以用于一些特殊情况，防止变量名的混淆。</p><pre class="hljs"><code>$ a=foo
+$ <span class="hljs-built_in">echo</span> <span class="hljs-variable">$a_file</span>
+
+$ <span class="hljs-built_in">echo</span> <span class="hljs-variable">${a}</span>_file
+foo_file
+</code></pre><p>上面代码中，变量名<code>a_file</code>不会有任何输出，因为 Bash 将其整个解释为变量，而这个变量是不存在的。只有用花括号区分<code>$a</code>，将其替换为<code>foo</code>，才能正确显示。</p><p>事实上，读取变量的语法<code>$foo</code>，可以看作是<code>${foo}</code>的简写形式。</p><p>如果变量的值本身也是变量，可以使用<code>${!varname}</code>的语法，读取最终的值。</p><pre class="hljs"><code><span class="hljs-meta">#!/bin/bash</span>
+<span class="hljs-comment"># test.sh</span>
+
+<span class="hljs-keyword">for</span> myvar <span class="hljs-keyword">in</span> USER UID SHELL
+<span class="hljs-keyword">do</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-variable">$myvar</span> is <span class="hljs-variable">${!myvar}</span>
+<span class="hljs-keyword">done</span>
+</code></pre><p>运行上面的脚本，会得到下面的结果。</p><pre class="hljs"><code>$ ./test.sh
+USER is ruanyf
+UID is 1000
+SHELL is /bin/bash
+</code></pre><p>上面的例子中，变量<code>myvar</code>的值依次是<code>USER</code>、<code>UID</code>和<code>SHELL</code>。<code>${!myvar}</code>将它们展开成最终的值。</p><h2 id="创建变量">创建变量 <a class="markdownIt-Anchor" href="#创建变量">#</a></h2><p>用户创建变量的时候，一般约定，全局变量的变量名都使用大写字母，局部变量使用小写字母。</p><p>变量名必须遵守下面的规则。</p><ul><li>由字母、数字和下划线字符组成。</li><li>第一个字符必须是一个字母或一个下划线。</li><li>不允许出现空格和标点符号。</li></ul><p>变量声明的语法如下。</p><pre class="hljs"><code>variable=value
+</code></pre><p>上面命令中，等号左边是变量名，右边是变量值，中间是一个等号（<code>=</code>）。注意，等号两边不能有空格。</p><p>如果变量的值包含空格，则必须将值放在引号中。</p><pre class="hljs"><code>myvar=<span class="hljs-string">"hello world"</span>
+</code></pre><p>Bash 没有数据类型的概念，所有的变量值都是字符串。</p><p>下面是一些自定义变量的例子。</p><pre class="hljs"><code>a=z                     <span class="hljs-comment"># 变量 a 赋值为字符串 z</span>
+b=<span class="hljs-string">"a string"</span>            <span class="hljs-comment"># 变量值如果包含空格，就必须放在引号里面</span>
+c=<span class="hljs-string">"a string and <span class="hljs-variable">$b</span>"</span>     <span class="hljs-comment"># 变量值可以引用其他变量的值</span>
+d=<span class="hljs-string">"\t\ta string\n"</span>      <span class="hljs-comment"># 变量值可以使用转义字符</span>
+e=$(ls -l foo.txt)      <span class="hljs-comment"># 变量值可以是命令的执行结果</span>
+f=$((5 * 7))            <span class="hljs-comment"># 变量值可以是数学运算的结果</span>
+</code></pre><p>变量可以重复赋值，后面的赋值会覆盖前面的赋值。</p><pre class="hljs"><code>$ foo=1
+$ foo=2
+$ <span class="hljs-built_in">echo</span> <span class="hljs-variable">$foo</span>
+2
+</code></pre><p>上面例子中，变量<code>foo</code>的第二次赋值会覆盖第一次赋值。</p><h2 id="删除变量">删除变量 <a class="markdownIt-Anchor" href="#删除变量">#</a></h2><p><code>unset</code>命令用来删除一个变量。</p><pre class="hljs"><code><span class="hljs-built_in">unset</span> NAME
+</code></pre><p>这个命令不是很有用。因为不存在的 Bash 变量一律都等于空字符串，所以即使<code>unset</code>命令删除了变量，还是可以读取这个变量，值为空字符串。</p><p>所以，删除一个变量，也可以将这个变量设成空字符串。</p><pre class="hljs"><code>$ foo=<span class="hljs-string">''</span>
+$ foo=
+</code></pre><p>上面两种写法，都是删除了变量<code>foo</code>。</p><h2 id="输出变量">输出变量 <a class="markdownIt-Anchor" href="#输出变量">#</a></h2><p>像上一节那样创建的变量，都是局部变量，仅可用于当前 Shell，当前 Shell 的子 Shell 读取不到此变量。为了把变量传递到子 Shell，需要使用<code>export</code>命令。这样输出的变量，对于子 Shell 来说就是环境变量。</p><p><code>export</code>命令用来向子 Shell 输出变量。变量的赋值和输出通常在一个步骤中完成。</p><pre class="hljs"><code><span class="hljs-built_in">export</span> NAME=value
+</code></pre><p>上面命令执行后，当前 Shell 及随后新建的子 Shell，都可以读取变量<code>$NAME</code>。</p><p>如果子 Shell 修改继承的变量，不会影响父 Shell。</p><pre class="hljs"><code><span class="hljs-comment"># 输出变量 $foo</span>
+$ <span class="hljs-built_in">export</span> foo=bar
+
+<span class="hljs-comment"># 新建子 Shell</span>
+$ bash
+
+<span class="hljs-comment"># 读取 $foo</span>
+$ <span class="hljs-built_in">echo</span> <span class="hljs-variable">$foo</span>
+bar
+
+<span class="hljs-comment"># 修改继承的变量</span>
+$ foo=baz
+
+<span class="hljs-comment"># 退出子 Shell</span>
+$ <span class="hljs-built_in">exit</span>
+
+<span class="hljs-comment"># 读取 $foo</span>
+$ <span class="hljs-built_in">echo</span> <span class="hljs-variable">$foo</span>
+bar
+</code></pre><p>上面例子，子 Shell 修改了继承的变量<code>$foo</code>，对父 Shell 没有影响。</p><h2 id="特殊变量">特殊变量 <a class="markdownIt-Anchor" href="#特殊变量">#</a></h2><p>Bash 还提供一些特殊变量。这些变量的值由 Shell 提供，用户不能进行赋值。</p><p>（1）<code>$?</code></p><p><code>$?</code>为上一个命令的退出码，用来判断上一个命令是否执行成功。</p><pre class="hljs"><code>$ ls doesnotexist
+ls: doesnotexist: No such file or directory
+
+$ <span class="hljs-built_in">echo</span> $?
+1
+</code></pre><p>（2）<code>$$</code></p><p><code>$$</code>为当前 Shell 的进程 ID。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> $$
+10662
+</code></pre><p>这个特殊变量可以用来命名临时文件。</p><pre class="hljs"><code>LOGFILE=/tmp/output_log.$$
+</code></pre><p>（3）<code>$_</code></p><p><code>$_</code>为上一个命令的最后一个参数。</p><pre class="hljs"><code>$ grep dictionary /usr/share/dict/words
+dictionary
+
+$ <span class="hljs-built_in">echo</span> <span class="hljs-variable">$_</span>
+/usr/share/dict/words
+</code></pre><p>（4）<code>$!</code></p><p><code>$!</code>为最近一个后台执行的异步命令的进程 ID。</p><pre class="hljs"><code>$ mozilla &amp;
+[1] 11064
+
+$ <span class="hljs-built_in">echo</span> $!
+11064
+</code></pre><p>（5）<code>$0</code></p><p><code>$0</code>为当前 Shell 的名称（命令行直接执行）或者脚本名（脚本中执行）。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> <span class="hljs-variable">$0</span>
+bash
+</code></pre><p>（6）<code>$-</code></p><p><code>$-</code>为当前 Shell 的启动参数。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> $-
+himBHs
+</code></pre><p>（7）<code>$@</code>和<code>$#</code></p><p>特殊变量还有<code>$@</code>和<code>$#</code>，与脚本的参数数量有关，参见脚本一章。</p><h2 id="变量的默认值">变量的默认值 <a class="markdownIt-Anchor" href="#变量的默认值">#</a></h2><p>Bash 提供一些特殊语法，设置变量的默认值，或者保证变量肯定存在，且不为空。</p><pre class="hljs"><code><span class="hljs-variable">${varname:-word}</span>
+</code></pre><p>上面语法的含义是，如果变量<code>varname</code>存在且不为空，则返回它的值，否则返回<code>word</code>。它的目的是返回一个默认值，比如<code>${count:-0}</code>。</p><pre class="hljs"><code><span class="hljs-variable">${varname:=word}</span>
+</code></pre><p>上面语法的含义是，如果变量<code>varname</code>存在且不为空，则返回它的值，否则将它设为<code>word</code>，并且返回<code>word</code>。它的目的是设置变量的默认值，比如<code>${count:=0}</code>。</p><pre class="hljs"><code><span class="hljs-variable">${varname:+word}</span>
+</code></pre><p>上面语法的含义是，如果变量名存在且不为空，则返回<code>word</code>，否则返回空值。它的目的是测试变量是否存在，比如<code>${count:+1}</code>（返回<code>1</code>，表示<code>true</code>）。</p><pre class="hljs"><code><span class="hljs-variable">${varname:?message}</span>
+</code></pre><p>上面语法的含义是，如果变量<code>varname</code>存在且不为空，则返回它的值，否则打印出<code>varname: message</code>，并中断脚本的执行。如果省略了<code>message</code>，则输出默认的信息“parameter null or not set.”。它的目的主要是，防止变量未定义，如果是的就中断执行，抛出错误，比如<code>${count:?&quot;undefined!&quot;}</code>。</p><p>如果是在脚本之中，<code>1</code>到<code>9</code>是特殊变量，表示脚本的参数。</p><pre class="hljs"><code>filename=<span class="hljs-variable">${1:?"filename missing."}</span>
+</code></pre><p>上面代码出现在脚本中，<code>1</code>表示脚本的第一个参数。如果该参数不存在，就退出脚本并报错。</p><h2 id="declare-命令">declare 命令 <a class="markdownIt-Anchor" href="#declare-命令">#</a></h2><p><code>declare</code>命令可以声明一些特殊类型的变量，为变量设置一些限制，比如只读类型的变量和整数类型的变量。</p><p>它的语法形式如下。</p><pre class="hljs"><code><span class="hljs-built_in">declare</span> OPTION VARIABLE=value
+</code></pre><p><code>declare</code>命令的主要参数（OPTION）如下。</p><ul><li><code>-a</code>：声明数组变量。</li><li><code>-f</code>：输出所有函数定义。</li><li><code>-F</code>：输出所有函数名。</li><li><code>-i</code>：声明整数变量。</li><li><code>-l</code>：声明变量为小写字母。</li><li><code>-p</code>：查看变量信息。</li><li><code>-r</code>：声明只读变量。</li><li><code>-u</code>：声明变量为大写字母。</li><li><code>-x</code>：该变量输出为环境变量。</li></ul><p><code>declare</code>命令如果用在函数中，声明的变量只在函数内部有效，等同于<code>local</code>命令。</p><p>不带任何参数，<code>declare</code>直接执行可以输出当前环境的所有变量，包括函数在内。</p><pre class="hljs"><code>$ <span class="hljs-built_in">declare</span>
+</code></pre><p><strong>（1）<code>-i</code>参数</strong></p><p><code>-i</code>参数声明整数变量以后，可以直接进行数学运算。</p><pre class="hljs"><code>$ <span class="hljs-built_in">declare</span> -i val1=12 val2=5
+$ <span class="hljs-built_in">declare</span> -i result
+$ result=val1*val2
+$ <span class="hljs-built_in">echo</span> <span class="hljs-variable">$result</span>
+60
+</code></pre><p>上面例子中，如果不是整数，<code>val1*val2</code>会被处理成一个字面量。另外，<code>val1</code>和<code>val2</code>其实不需要声明为整数，因为只要<code>resule</code>声明为整数，它的赋值就会自动解释为整数运算。</p><p><strong>（2）<code>-x</code>参数</strong></p><p><code>-x</code>参数等同于<code>export</code>命令，可以输出一个变量为子 Shell 的环境变量。</p><pre class="hljs"><code>$ <span class="hljs-built_in">declare</span> -x foo
+<span class="hljs-comment"># 等同于</span>
+$ <span class="hljs-built_in">export</span> foo
+</code></pre><p><strong>（3）<code>-r</code>参数</strong></p><p><code>-r</code>参数可以声明只读变量，无法改变变量值，也不能<code>unset</code>变量。</p><pre class="hljs"><code>$ <span class="hljs-built_in">declare</span> -r bar=1
+$ bar=2 <span class="hljs-comment"># 无效</span>
+$ <span class="hljs-built_in">unset</span> bar <span class="hljs-comment"># 无效</span>
+</code></pre><p><strong>（4）<code>-u</code>参数</strong></p><p><code>-u</code>参数声明变量为大写字母，可以自动把变量值转成大写字母。</p><pre class="hljs"><code>$ <span class="hljs-built_in">declare</span> -u foo
+$ foo=upper
+$ <span class="hljs-built_in">echo</span> <span class="hljs-variable">$foo</span>
+UPPER
+</code></pre><p><strong>（5）<code>-l</code>参数</strong></p><p><code>-l</code>参数声明变量为小写字母，可以自动把变量值转成小写字母。</p><pre class="hljs"><code>$ <span class="hljs-built_in">declare</span> -l bar
+$ bar=LOWER
+$ <span class="hljs-built_in">echo</span> <span class="hljs-variable">$bar</span>
+lower
+</code></pre><p><strong>（6）<code>-p</code>参数</strong></p><p><code>-p</code>参数输出变量信息。</p><pre class="hljs"><code>$ foo=hello
+$ <span class="hljs-built_in">declare</span> -p foo
+<span class="hljs-built_in">declare</span> -- foo=<span class="hljs-string">"hello"</span>
+$ <span class="hljs-built_in">declare</span> -p bar
+bar：未找到
+</code></pre><p>上面例子中，<code>declare -p</code>可以输出已定义变量的值，对于未定义的变量，会提出找不到。</p><p>如果不提供变量名，<code>declear -p</code>输出所有变量的信息。</p><pre class="hljs"><code>$ <span class="hljs-built_in">declare</span> -p
+</code></pre><p><strong>（7）<code>-f</code>参数</strong></p><p><code>-f</code>参数输出当前环境的所有函数，包括它的定义。</p><pre class="hljs"><code>$ <span class="hljs-built_in">declare</span> -f
+</code></pre><p><strong>（8）<code>-F</code>参数</strong></p><p><code>-F</code>参数输出当前环境的所有函数名，不包含函数定义。</p><pre class="hljs"><code>$ <span class="hljs-built_in">declare</span> -F
+</code></pre><h2 id="readonly-命令">readonly 命令 <a class="markdownIt-Anchor" href="#readonly-命令">#</a></h2><p><code>readonly</code>命令等同于<code>declare -r</code>，用来声明只读变量，不能改变变量值，也不能<code>unset</code>变量。</p><pre class="hljs"><code>$ <span class="hljs-built_in">readonly</span> foo=1
+$ foo=2 <span class="hljs-comment"># 无效</span>
+</code></pre><p>它有三个参数。</p><ul><li><code>-f</code>：声明的变量为函数名。</li><li><code>-p</code>：打印出所有的只读变量。</li><li><code>-a</code>：声明的变量为数组。</li></ul><h2 id="let-命令">let 命令 <a class="markdownIt-Anchor" href="#let-命令">#</a></h2><p><code>let</code>命令声明变量时，可以直接执行算术表达式。</p><pre class="hljs"><code>$ <span class="hljs-built_in">let</span> <span class="hljs-string">"foo = 1 + 2"</span>
+$ <span class="hljs-built_in">echo</span> <span class="hljs-variable">$foo</span>
+3
+</code></pre><p>上面例子中，<code>let</code>命令可以直接计算<code>1 + 2</code>。</p><p><code>let</code>命令的参数表达式如果包含空格，就需要使用引号。</p><pre class="hljs"><code>$ <span class="hljs-built_in">let</span> <span class="hljs-string">"foo = 1 + 2"</span>
+<span class="hljs-comment"># 等同于</span>
+$ <span class="hljs-built_in">let</span> foo=1+2
+</code></pre><p><code>let</code>可以同时对多个变量赋值，赋值表达式之间使用空格分隔。</p><pre class="hljs"><code>$ <span class="hljs-built_in">let</span> <span class="hljs-string">"v1 = 1"</span> <span class="hljs-string">"v2 = v1++"</span>
+$ <span class="hljs-built_in">echo</span> <span class="hljs-variable">$v1</span>,<span class="hljs-variable">$v2</span>
+2,1
+</code></pre><p>上面例子中，<code>let</code>声明了两个变量<code>v1</code>和<code>v2</code>，其中<code>v2</code>等于<code>v1++</code>，表示先返回<code>v1</code>的值，然后<code>v1</code>自增。</p><p>这种语法支持的运算符，参考《Bash 的算术运算》一章。</p><h2 id="参数终止符---">参数终止符 <code>--</code> <a class="markdownIt-Anchor" href="#参数终止符---">#</a></h2><p>变量当作命令参数时，有时希望指定变量只能作为路径名，不能当作配置参数，这时可以使用参数终止符<code>--</code>。</p><pre class="hljs"><code>$ myPath=<span class="hljs-string">"~/docs"</span>
+$ ls -- <span class="hljs-variable">$myPath</span>
+</code></pre><p>上面例子中，<code>--</code>强制变量<code>$myPath</code>只能当作路径名解释。</p><p>如果变量不是路径名，就会报错。</p><pre class="hljs"><code>$ myPath=<span class="hljs-string">"-l"</span>
+$ ls -- <span class="hljs-variable">$myPath</span>
+ls: 无法访问<span class="hljs-string">'-l'</span>: 没有那个文件或目录
+</code></pre><p>上面例子中，变量<code>myPath</code>的值为<code>-l</code>，不是路径。但是，<code>--</code>强制<code>$myPath</code>只能作为路径解释，导致报错“不存在该路径”。</p></article><nav class="level level-previous-next is-size-5 is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="arithmetic.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> Bash 的算术运算</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="script.html">Bash 脚本简介 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><div class="page-info is-size-5-desktop"><p>本教程采用<a href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh" target="_blank">知识共享 署名-相同方式共享 3.0协议</a>。</p><p>分享本文 <span class="social-share"></span></p></div></div><div class="column is-3 is-offset-1"><nav class="panel panel-menu"><p class="panel-heading"><i class="fa fa-book" aria-hidden="true"></i> Bash 脚本教程</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="intro.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Bash 简介</span></a></li><li><a href="grammar.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Bash 的基本语法</span></a></li><li><a href="quotation.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">引号和转义</span></a></li><li><a href="string.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">字符串操作</span></a></li><li><a href="expansion.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Bash 的模式扩展</span></a></li><li><a href="arithmetic.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Bash 的算术运算</span></a></li><li><a href="variable.html" class="is-active"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Bash 变量</span></a></li><li><a href="script.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Bash 脚本简介</span></a></li><li><a href="condition.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">条件判断</span></a></li><li><a href="loop.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">循环</span></a></li><li><a href="function.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Bash 函数</span></a></li><li><a href="startup.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Bash 启动环境</span></a></li><li><a href="stack.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">目录堆栈</span></a></li><li><a href="array.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数组</span></a></li><li><a href="readline.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Bash 行操作</span></a></li><li><a href="prompt.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">命令提示符</span></a></li><li><a href="debug.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">脚本除错</span></a></li><li><a href="set.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">set 命令</span></a></li><li><a href="mktemp.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">mktemp 命令</span></a></li><li><a href="trap.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">trap 命令</span></a></li></ul></aside></div></nav><nav class="panel panel-info"><p class="panel-heading"><i class="fa fa-link" aria-hidden="true"></i> 链接</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="https://raw.githubusercontent.com/wangdoc/bash-tutorial/master/docs/variable.md" target="_blank"><span class="icon"></span><i class="fa fa-code" aria-hidden="true" style="width: 14px;"></i>&nbsp;本文源码</a></li><li><a href="https://github.com/wangdoc/bash-tutorial" target="_blank"><span class="icon"></span><i class="fa fa-hdd-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;代码仓库</a></li><li><a href="https://github.com/wangdoc/bash-tutorial/issues" target="_blank"><span class="icon"></span><i class="fa fa-flag-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;反馈</a></li></ul></aside></div></nav></div></div><div class="columns"><div class="column is-8"><div id="disqus_thread"></div></div></div></div></section><footer class="footer is-size-5-desktop"><div class="container"><div class="content has-text-centered"><p>联系：contact@wangdoc.com</p></div></div></footer><script>var LOPPO={current_path:"variable.md",relative_root_path:"",article_toc:'<ul class="markdownIt-TOC">\n<li><a href="#%E7%AE%80%E4%BB%8B">简介</a></li>\n<li><a href="#%E8%AF%BB%E5%8F%96%E5%8F%98%E9%87%8F">读取变量</a></li>\n<li><a href="#%E5%88%9B%E5%BB%BA%E5%8F%98%E9%87%8F">创建变量</a></li>\n<li><a href="#%E5%88%A0%E9%99%A4%E5%8F%98%E9%87%8F">删除变量</a></li>\n<li><a href="#%E8%BE%93%E5%87%BA%E5%8F%98%E9%87%8F">输出变量</a></li>\n<li><a href="#%E7%89%B9%E6%AE%8A%E5%8F%98%E9%87%8F">特殊变量</a></li>\n<li><a href="#%E5%8F%98%E9%87%8F%E7%9A%84%E9%BB%98%E8%AE%A4%E5%80%BC">变量的默认值</a></li>\n<li><a href="#declare-%E5%91%BD%E4%BB%A4">declare 命令</a></li>\n<li><a href="#readonly-%E5%91%BD%E4%BB%A4">readonly 命令</a></li>\n<li><a href="#let-%E5%91%BD%E4%BB%A4">let 命令</a></li>\n<li><a href="#%E5%8F%82%E6%95%B0%E7%BB%88%E6%AD%A2%E7%AC%A6---">参数终止符 <code>--</code></a></li>\n</ul>\n'}</script><script src="assets/js/app.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-111269443-1"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","UA-111269443-1")</script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?5eec262881855af3dede6a71234571f6";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><script>/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+const l = window.location;
+const url = l.protocol + '//' + l.host + (l.port ? ':' + l.port : '') + l.pathname;
+this.page.url = url;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = l.pathname; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://wangdoc-bash.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();</script><!--script src="assets/js/social-share.min.js"--><!--/script--><script>var shareDesc="我正在阅读《Bash 变量》，出自网道（WangDoc.com）的《Bash 脚本教程》。",shareOpts={url:window.location.href,source:shareDesc,title:shareDesc,description:"",image:"",sites:["weibo","wechat","qq","qzone","twitter","facebook"],origin:"WangDoc_com",disabled:[],wechatQrcodeTitle:"微信",wechatQrcodeHelper:"扫一下二维码，分享到微信。"};socialShare(".social-share",shareOpts)</script></body></html>
