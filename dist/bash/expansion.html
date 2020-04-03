@@ -52,20 +52,20 @@ $ <span class="hljs-built_in">echo</span> .[!.]*
 </code></pre><p><code>*</code>字符扩展也属于文件名扩展，只有文件确实存在的前提下才会扩展。如果文件不存在，就会原样输出。</p><pre class="hljs"><code><span class="hljs-comment"># 当前目录不存在 c 开头的文件</span>
 $ <span class="hljs-built_in">echo</span> c*.txt
 c*.txt
-</code></pre><p>上面例子中，当前目录里面没有<code>c</code>开头的文件，导致<code>c*.txt</code>会原样输出。</p><h2 id="方括号扩展">方括号扩展 <a class="markdownIt-Anchor" href="#方括号扩展">#</a></h2><p>方括号模式是<code>[...]</code>，可以匹配方括号之中的任意一个字符，比如<code>[aeiou]</code>可以匹配五个元音字母中的任意一个。该模式属于文件名匹配，即匹配后的结果必须符合现有的文件路径，如果不存在匹配，就会保持原样，不进行扩展。</p><pre class="hljs"><code><span class="hljs-comment"># 存在文件 a.txt 和 b.txt</span>
+</code></pre><p>上面例子中，当前目录里面没有<code>c</code>开头的文件，导致<code>c*.txt</code>会原样输出。</p><h2 id="方括号扩展">方括号扩展 <a class="markdownIt-Anchor" href="#方括号扩展">#</a></h2><p>方括号扩展的形式是<code>[...]</code>，只有文件确实存在的前提下才会扩展。如果文件不存在，就会原样输出。括号之中的任意一个字符。比如，<code>[aeiou]</code>可以匹配五个元音字母中的任意一个。</p><pre class="hljs"><code><span class="hljs-comment"># 存在文件 a.txt 和 b.txt</span>
 $ ls [ab].txt
 a.txt b.txt
 
 <span class="hljs-comment"># 只存在文件 a.txt</span>
 $ ls [ab].txt
 a.txt
-
-<span class="hljs-comment"># 不存在文件 a.txt 和 b.txt</span>
+</code></pre><p>上面例子中，<code>[ab]</code>可以匹配<code>a</code>或<code>b</code>，前提是确实存在相应的文件。</p><p>方括号扩展属于文件名匹配，即扩展后的结果必须符合现有的文件路径。如果不存在匹配，就会保持原样，不进行扩展。</p><pre class="hljs"><code><span class="hljs-comment"># 不存在文件 a.txt 和 b.txt</span>
 $ ls [ab].txt
 ls: 无法访问<span class="hljs-string">'[ab].txt'</span>: 没有那个文件或目录
-</code></pre><p>上面命令中，<code>[ab]</code>表示可以扩展成<code>a</code>或<code>b</code>。具体的执行结果，取决于当前目录是否包含指定的文件。</p><p>方括号模式还有两种变体：<code>[^...]</code>和<code>[!...]</code>。它们表示匹配不在方括号里面的字符，这两种写法是等价的。比如，<code>[^abc]</code>或<code>[!abc]</code>表示匹配除了<code>a</code>、<code>b</code>、<code>c</code>以外的字符。</p><pre class="hljs"><code>$ ls ?[!a]?
+</code></pre><p>上面例子中，由于扩展后的文件不存在，<code>[ab].txt</code>就原样输出了，导致<code>ls</code>命名报错。</p><p>方括号扩展还有两种变体：<code>[^...]</code>和<code>[!...]</code>。它们表示匹配不在方括号里面的字符，这两种写法是等价的。比如，<code>[^abc]</code>或<code>[!abc]</code>表示匹配除了<code>a</code>、<code>b</code>、<code>c</code>以外的字符。</p><pre class="hljs"><code><span class="hljs-comment"># 存在 aaa、bbb、aba 三个文件</span>
+$ ls ?[!a]?
 aba bbb
-</code></pre><p>上面命令中，<code>[!a]</code>表示文件名第二个字符不是<code>a</code>的文件名。</p><p>注意，如果需要匹配<code>[</code>字符，可以放在方括号内，比如<code>[[aeiou]</code>。如果需要匹配连字号<code>-</code>，只能放在方括号内部的开头或结尾，比如<code>[-aeiou]</code>或<code>[aeiou-]</code>。</p><h2 id="start-end-扩展">[start-end] 扩展 <a class="markdownIt-Anchor" href="#start-end-扩展">#</a></h2><p>方括号模式<code>[start-end]</code>可以表示一个连续的范围。</p><pre class="hljs"><code><span class="hljs-comment"># 存在文件 a.txt、b.txt 和 c.txt</span>
+</code></pre><p>上面命令中，<code>[!a]</code>表示文件名第二个字符不是<code>a</code>的文件名，所以返回了<code>aba</code>和<code>bbb</code>两个文件。</p><p>注意，如果需要匹配<code>[</code>字符，可以放在方括号内，比如<code>[[aeiou]</code>。如果需要匹配连字号<code>-</code>，只能放在方括号内部的开头或结尾，比如<code>[-aeiou]</code>或<code>[aeiou-]</code>。</p><h2 id="start-end-扩展">[start-end] 扩展 <a class="markdownIt-Anchor" href="#start-end-扩展">#</a></h2><p>方括号扩展有一个简写形式<code>[start-end]</code>，表示匹配一个连续的范围。比如，<code>[a-c]</code>等同于<code>[abc]</code>，<code>[0-9]</code>匹配<code>[0123456789]</code>。</p><pre class="hljs"><code><span class="hljs-comment"># 存在文件 a.txt、b.txt 和 c.txt</span>
 $ ls [a-c].txt
 a.txt
 b.txt
@@ -77,9 +77,9 @@ report1.txt
 report2.txt
 report3.txt
 ...
-</code></pre><p>下面是更多的例子。</p><ul><li><code>[a-z]</code>：所有小写字母。</li><li><code>[a-zA-Z]</code>：所有小写字母与大写字母。</li><li><code>[a-zA-Z0-9]</code>：所有小写字母、大写字母与数字。</li><li><code>[abc]*</code>：所有以<code>a</code>、<code>b</code>、<code>c</code>字符之一开头的文件名。</li><li><code>program.[co]</code>：文件<code>program.c</code>与文件<code>program.o</code>。</li><li><code>BACKUP.[0-9][0-9][0-9]</code>：所有以<code>BACKUP.</code>开头，后面是三个数字的文件名。</li></ul><p>方括号模式的否定形式，也可以使用连续范围的写法<code>[!start-end]</code>，表示匹配不属于这个范围的字符。比如，<code>[!a-zA-Z]</code>表示匹配非英文字母的字符。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> report[!1–3].txt
+</code></pre><p>下面是一些常用简写的例子。</p><ul><li><code>[a-z]</code>：所有小写字母。</li><li><code>[a-zA-Z]</code>：所有小写字母与大写字母。</li><li><code>[a-zA-Z0-9]</code>：所有小写字母、大写字母与数字。</li><li><code>[abc]*</code>：所有以<code>a</code>、<code>b</code>、<code>c</code>字符之一开头的文件名。</li><li><code>program.[co]</code>：文件<code>program.c</code>与文件<code>program.o</code>。</li><li><code>BACKUP.[0-9][0-9][0-9]</code>：所有以<code>BACKUP.</code>开头，后面是三个数字的文件名。</li></ul><p>这种简写形式有一个否定形式<code>[!start-end]</code>，表示匹配不属于这个范围的字符。比如，<code>[!a-zA-Z]</code>表示匹配非英文字母的字符。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> report[!1–3].txt
 report4.txt report5.txt
-</code></pre><p>上面代码中，<code>[!1-3]</code>表示排除1、2和3。</p><h2 id="大括号扩展">大括号扩展 <a class="markdownIt-Anchor" href="#大括号扩展">#</a></h2><p>大括号扩展<code>{...}</code>表示分别输出大括号里面的所有值，各个值之间使用逗号分隔。这种扩展跟上面的扩展都不一样，不是文件名扩展，即不会扩展成文件名，而是扩展成所有给定的值。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> {1,2,3}
+</code></pre><p>上面代码中，<code>[!1-3]</code>表示排除1、2和3。</p><h2 id="大括号扩展">大括号扩展 <a class="markdownIt-Anchor" href="#大括号扩展">#</a></h2><p>大括号扩展<code>{...}</code>表示分别扩展成大括号里面的所有值，各个值之间使用逗号分隔。比如，<code>{1,2,3}</code>扩展成<code>1 2 3</code>。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> {1,2,3}
 1 2 3
 
 $ <span class="hljs-built_in">echo</span> d{a,e,i,u,o}g
@@ -87,9 +87,14 @@ dag deg dig dug dog
 
 $ <span class="hljs-built_in">echo</span> Front-{A,B,C}-Back
 Front-A-Back Front-B-Back Front-C-Back
-</code></pre><p>注意，大括号内部的逗号前后不能有空格。否则，大括号模式会失效。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> {1 , 2}
+</code></pre><p>注意，大括号扩展不是文件名扩展。它会扩展成所有给定的值，而不管是否有对应的文件存在。</p><pre class="hljs"><code>$ ls {a,b,c}.txt
+ls: 无法访问<span class="hljs-string">'a.txt'</span>: 没有那个文件或目录
+ls: 无法访问<span class="hljs-string">'b.txt'</span>: 没有那个文件或目录
+ls: 无法访问<span class="hljs-string">'c.txt'</span>: 没有那个文件或目录
+</code></pre><p>上面例子中，即使不存在对应的文件，<code>{a,b,c}</code>依然扩展成三个文件名，导致<code>ls</code>命令报了三个错误。</p><p>另一个需要注意的地方是，大括号内部的逗号前后不能有空格。否则，大括号扩展会失效。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> {1 , 2}
 {1 , 2}
-</code></pre><p>如果逗号前面没有值，就表示扩展的第一项为空。</p><pre class="hljs"><code>$ cp a.log{,.bak}
+</code></pre><p>上面例子中，逗号前后有空格，Bash 就会认为这不是大括号扩展，而不是两个独立的参数。</p><p>逗号前面可以没有值，表示扩展的第一项为空。</p><pre class="hljs"><code>$ cp a.log{,.bak}
+
 <span class="hljs-comment"># 等同于</span>
 <span class="hljs-comment"># cp a.log a.log.bak</span>
 </code></pre><p>大括号可以嵌套。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> {j{p,pe}g,png}
@@ -99,19 +104,16 @@ $ <span class="hljs-built_in">echo</span> a{A{1,2},B{3,4}}b
 aA1b aA2b aB3b aB4b
 </code></pre><p>大括号也可以与其他模式联用，并且总是先于其他模式进行扩展。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> {cat,d*}
 cat dawg dg dig dog doug dug
-</code></pre><p>上面代码中，会先进行大括号扩展，然后进行<code>*</code>扩展。</p><p>大括号可以用于多字符的模式，方括号不行。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> {cat,dog}
+</code></pre><p>上面例子中，会先进行大括号扩展，然后进行<code>*</code>扩展。</p><p>大括号可以用于多字符的模式，方括号不行（只能匹配单字符）。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> {cat,dog}
 cat dog
-</code></pre><p>大括号模式<code>{...}</code>与方括号模式<code>[...]</code>有一个很重要的区别。如果匹配的文件不存在，<code>[...]</code>会失去模式的功能，变成一个单纯的字符串，而<code>{...}</code>依然可以展开，因为大括号不是文件名扩展。</p><pre class="hljs"><code><span class="hljs-comment"># 不存在 a.txt 和 b.txt</span>
+</code></pre><p>由于大括号扩展<code>{...}</code>不是文件名扩展，所以它总是会扩展的。这与方括号扩展<code>[...]</code>完全不同，如果匹配的文件不存在，方括号就不会扩展。这一点要注意区分。</p><pre class="hljs"><code><span class="hljs-comment"># 不存在 a.txt 和 b.txt</span>
 $ <span class="hljs-built_in">echo</span> [ab].txt
 [ab].txt
 
 $ <span class="hljs-built_in">echo</span> {a,b}.txt
 a.txt b.txt
-</code></pre><p>上面代码中，如果不存在<code>a.txt</code>和<code>b.txt</code>，那么<code>[ab].txt</code>就会变成一个普通的文件名，而<code>{a,b}.txt</code>可以照样展开。</p><h2 id="startend-扩展">{start..end} 扩展 <a class="markdownIt-Anchor" href="#startend-扩展">#</a></h2><p>大括号里面两个点的<code>{start..end}</code>模式，表示扩展成一个连续序列，然后分别输出。比如<code>{a..z}</code>可以扩展成26个小写英文字母，然后输出。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> {a..c}
+</code></pre><p>上面例子中，如果不存在<code>a.txt</code>和<code>b.txt</code>，那么<code>[ab].txt</code>就会变成一个普通的文件名，而<code>{a,b}.txt</code>可以照样扩展。</p><h2 id="startend-扩展">{start..end} 扩展 <a class="markdownIt-Anchor" href="#startend-扩展">#</a></h2><p>大括号扩展有一个简写形式<code>{start..end}</code>，表示扩展成一个连续序列。比如，<code>{a..z}</code>可以扩展成26个小写英文字母。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> {a..c}
 a b c
-
-$ <span class="hljs-built_in">echo</span> {c..a}
-c b a
 
 $ <span class="hljs-built_in">echo</span> d{a..d}g
 dag dbg dcg ddg
@@ -121,55 +123,58 @@ $ <span class="hljs-built_in">echo</span> {1..4}
 
 $ <span class="hljs-built_in">echo</span> Number_{1..5}
 Number_1 Number_2 Number_3 Number_4 Number_5
-</code></pre><p>大括号的双点号支持逆序。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> {5..1}
-5 4 3 2 1
+</code></pre><p>这种简写形式支持逆序。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> {c..a}
+c b a
 
-$ <span class="hljs-built_in">echo</span> {E..A}
-E D C B A
-</code></pre><p>如果遇到无法解释的扩展，模式会原样输出。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> {a1..3c}
+$ <span class="hljs-built_in">echo</span> {5..1}
+5 4 3 2 1
+</code></pre><p>注意，如果遇到无法理解的简写，大括号模式就会原样输出，不会扩展。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> {a1..3c}
 {a1..3c}
-</code></pre><p>这种模式与逗号联用，可以写出复杂的模式。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> .{mp{3..4},m4{a,b,p,v}}
+</code></pre><p>这种简写形式可以嵌套使用，形成复杂的扩展。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> .{mp{3..4},m4{a,b,p,v}}
 .mp3 .mp4 .m4a .m4b .m4p .m4v
 </code></pre><p>大括号扩展的常见用途为新建一系列目录。</p><pre class="hljs"><code>$ mkdir {2007..2009}-{01..12}
-</code></pre><p>上面命令会新建36个子目录，每个子目录的名字都是”年份-月份“。</p><p>整数前面可以使用前导<code>0</code>，然后输出的每一项都有前导<code>0</code>。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> {01..5}
+</code></pre><p>上面命令会新建36个子目录，每个子目录的名字都是”年份-月份“。</p><p>这个写法的另一个常见用途，是直接用于<code>for</code>循环。</p><pre class="hljs"><code><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> {1..4}
+<span class="hljs-keyword">do</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-variable">$i</span>
+<span class="hljs-keyword">done</span>
+</code></pre><p>上面例子会循环4次。</p><p>如果整数前面有前导<code>0</code>，扩展输出的每一项都有前导<code>0</code>。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> {01..5}
 01 02 03 04 05
 
 $ <span class="hljs-built_in">echo</span> {001..5}
 001 002 003 004 005
-</code></pre><p>大括号里面还可以使用第二个双点号（<code>start..end..step</code>），用来指定扩展的步长。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> {0..8..2}
+</code></pre><p>这种简写形式还可以使用第二个双点号（<code>start..end..step</code>），用来指定扩展的步长。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> {0..8..2}
 0 2 4 6 8
-</code></pre><p>上面代码将<code>0</code>扩展到<code>8</code>，每次递增的长度为<code>2</code>，所以一共输出5个数字。</p><p>多个大括号连用，会有循环处理的效果。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> {a..c}{1..3}
+</code></pre><p>上面代码将<code>0</code>扩展到<code>8</code>，每次递增的长度为<code>2</code>，所以一共输出5个数字。</p><p>多个简写形式连用，会有循环处理的效果。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> {a..c}{1..3}
 a1 a2 a3 b1 b2 b3 c1 c2 c3
-</code></pre><p>这个写法可以直接用于<code>for</code>循环。</p><pre class="hljs"><code><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> {1..4}
-<span class="hljs-keyword">do</span>
-  <span class="hljs-built_in">echo</span> <span class="hljs-variable">$i</span>
-<span class="hljs-keyword">done</span>
 </code></pre><h2 id="变量扩展">变量扩展 <a class="markdownIt-Anchor" href="#变量扩展">#</a></h2><p>Bash 将美元符号<code>$</code>开头的词元视为变量，将其扩展成变量值，详见《Bash 变量》一章。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> <span class="hljs-variable">$SHELL</span>
 /bin/bash
 </code></pre><p>变量名除了放在美元符号后面，也可以放在<code>${}</code>里面。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> <span class="hljs-variable">${SHELL}</span>
 /bin/bash
-</code></pre><p><code>${!...*}</code>或<code>${!...@}</code>可以返回所有匹配的变量名。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> <span class="hljs-variable">${!S*}</span>
+</code></pre><p><code>${!string*}</code>或<code>${!string@}</code>返回所有匹配给定字符串<code>string</code>的变量名。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> <span class="hljs-variable">${!S*}</span>
 SECONDS SHELL SHELLOPTS SHLVL SSH_AGENT_PID SSH_AUTH_SOCK
-</code></pre><p>上面例子中，<code>${!S*}</code>扩展成所有以<code>S</code>开头的变量名。</p><h2 id="子命令扩展">子命令扩展 <a class="markdownIt-Anchor" href="#子命令扩展">#</a></h2><p><code>$(...)</code>可以扩展成另一个命令的运行结果，内部命令的所有输出都会作为返回值。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> $(date)
+</code></pre><p>上面例子中，<code>${!S*}</code>扩展成所有以<code>S</code>开头的变量名。</p><h2 id="子命令扩展">子命令扩展 <a class="markdownIt-Anchor" href="#子命令扩展">#</a></h2><p><code>$(...)</code>可以扩展成另一个命令的运行结果，该命令的所有输出都会作为返回值。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> $(date)
 Tue Jan 28 00:01:13 CST 2020
 </code></pre><p>上面例子中，<code>$(date)</code>返回<code>date</code>命令的运行结果。</p><p>还有另一种较老的语法，子命令放在反引号之中，也可以扩展成命令的运行结果。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> `date`
 Tue Jan 28 00:01:13 CST 2020
-</code></pre><p><code>$(...)</code>还可以嵌套，比如<code>$(ls $(pwd))</code>。</p><h2 id="算术扩展">算术扩展 <a class="markdownIt-Anchor" href="#算术扩展">#</a></h2><p><code>$((...))</code>可以扩展成整数运算的结果，详见《Bash 的算术运算》一章。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> $((2 + 2))
+</code></pre><p><code>$(...)</code>可以嵌套，比如<code>$(ls $(pwd))</code>。</p><h2 id="算术扩展">算术扩展 <a class="markdownIt-Anchor" href="#算术扩展">#</a></h2><p><code>$((...))</code>可以扩展成整数运算的结果，详见《Bash 的算术运算》一章。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> $((2 + 2))
 4
-</code></pre><h2 id="字符类">字符类 <a class="markdownIt-Anchor" href="#字符类">#</a></h2><p><code>[[:class:]]</code>表示一个字符类，匹配某一类特定字符之中的一个。常用的字符类如下。</p><ul><li><code>[[:alnum:]]</code>：匹配任意英文字母与数字</li><li><code>[[:alpha:]]</code>：匹配任意英文字母</li><li><code>[[:blank:]]</code>：空格和 Tab 键。</li><li><code>[[:cntrl:]]</code>：ASCII 码 0-31 的不可打印字符。</li><li><code>[[:digit:]]</code>：匹配任意数字 0-9。</li><li><code>[[:graph:]]</code>：A-Z、a-z、0-9 和标点符号。</li><li><code>[[:lower:]]</code>：匹配任意小写字母 a-z。</li><li><code>[[:print:]]</code>：ASCII 码 32-127 的可打印字符。</li><li><code>[[:punct:]]</code>：标点符号（除了 A-Z、a-z、0-9 的可打印字符）。</li><li><code>[[:space:]]</code>：空格、Tab、LF（10）、VT（11）、FF（12）、CR（13）。</li><li><code>[[:upper:]]</code>：匹配任意大写字母 A-Z。</li><li><code>[[:xdigit:]]</code>：16进制字符（A-F、a-f、0-9）。</li></ul><p>请看下面的例子。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> [[:upper:]]*
+</code></pre><h2 id="字符类">字符类 <a class="markdownIt-Anchor" href="#字符类">#</a></h2><p><code>[[:class:]]</code>表示一个字符类，扩展成某一类特定字符之中的一个。常用的字符类如下。</p><ul><li><code>[[:alnum:]]</code>：匹配任意英文字母与数字</li><li><code>[[:alpha:]]</code>：匹配任意英文字母</li><li><code>[[:blank:]]</code>：空格和 Tab 键。</li><li><code>[[:cntrl:]]</code>：ASCII 码 0-31 的不可打印字符。</li><li><code>[[:digit:]]</code>：匹配任意数字 0-9。</li><li><code>[[:graph:]]</code>：A-Z、a-z、0-9 和标点符号。</li><li><code>[[:lower:]]</code>：匹配任意小写字母 a-z。</li><li><code>[[:print:]]</code>：ASCII 码 32-127 的可打印字符。</li><li><code>[[:punct:]]</code>：标点符号（除了 A-Z、a-z、0-9 的可打印字符）。</li><li><code>[[:space:]]</code>：空格、Tab、LF（10）、VT（11）、FF（12）、CR（13）。</li><li><code>[[:upper:]]</code>：匹配任意大写字母 A-Z。</li><li><code>[[:xdigit:]]</code>：16进制字符（A-F、a-f、0-9）。</li></ul><p>请看下面的例子。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> [[:upper:]]*
 </code></pre><p>上面命令输出所有大写字母开头的文件名。</p><p>字符类的第一个方括号后面，可以加上感叹号<code>!</code>，表示否定。比如，<code>[![:digit:]]</code>匹配所有非数字。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> [![:digit:]]*
-</code></pre><p>上面命令输出所有不以数字开头的文件名。</p><h2 id="使用注意点">使用注意点 <a class="markdownIt-Anchor" href="#使用注意点">#</a></h2><p>通配符有一些使用注意点，不可不知。</p><p><strong>（1）通配符是先解释，再执行。</strong></p><p>Bash 接收到命令以后，发现里面有通配符，会进行通配符扩展，然后再执行命令。</p><pre class="hljs"><code>$ ls a*.txt
+</code></pre><p>上面命令输出所有不以数字开头的文件名。</p><p>字符类也属于文件名扩展，如果没有匹配的文件名，字符类就会原样输出。</p><pre class="hljs"><code><span class="hljs-comment"># 不存在以大写字母开头的文件</span>
+$ <span class="hljs-built_in">echo</span> [[:upper:]]*
+[[:upper:]]*
+</code></pre><p>上面例子中，由于可匹配的文件，字符类就原样输出了。</p><h2 id="使用注意点">使用注意点 <a class="markdownIt-Anchor" href="#使用注意点">#</a></h2><p>通配符有一些使用注意点，不可不知。</p><p><strong>（1）通配符是先解释，再执行。</strong></p><p>Bash 接收到命令以后，发现里面有通配符，会进行通配符扩展，然后再执行命令。</p><pre class="hljs"><code>$ ls a*.txt
 ab.txt
-</code></pre><p>上面命令的执行过程是，Bash 先将<code>a*.txt</code>扩展成<code>ab.txt</code>，然后再执行<code>ls ab.txt</code>。</p><p><strong>（2）通配符不匹配，会原样输出。</strong></p><p>Bash 扩展通配符的时候，发现不存在匹配的文件，会将通配符原样输出。</p><pre class="hljs"><code><span class="hljs-comment"># 不存在 r 开头的文件名</span>
+</code></pre><p>上面命令的执行过程是，Bash 先将<code>a*.txt</code>扩展成<code>ab.txt</code>，然后再执行<code>ls ab.txt</code>。</p><p><strong>（2）文件名扩展在不匹配时，会原样输出。</strong></p><p>文件名扩展在没有可匹配的文件时，会原样输出。</p><pre class="hljs"><code><span class="hljs-comment"># 不存在 r 开头的文件名</span>
 $ <span class="hljs-built_in">echo</span> r*
 r*
 </code></pre><p>上面代码中，由于不存在<code>r</code>开头的文件名，<code>r*</code>会原样输出。</p><p>下面是另一个例子。</p><pre class="hljs"><code>$ ls *.csv
 ls: *.csv: No such file or directory
-</code></pre><p>另外，前面已经说过，这条规则对大括号模式<code>{...}</code>不适用。</p><p><strong>（3）只适用于单层路径。</strong></p><p>上面所有通配符只匹配单层路径，不能跨目录匹配，即无法匹配子目录里面的文件。或者说，<code>?</code>或<code>*</code>这样的通配符，不能匹配路径分隔符（<code>/</code>）。</p><p>如果要匹配子目录里面的文件，可以写成下面这样。</p><pre class="hljs"><code>$ ls */*.txt
-</code></pre><p><strong>（4）可用于文件名。</strong></p><p>Bash 允许文件名使用通配符，即文件名包括通配符字符。这时，引用文件名的时候，需要把文件名放在单引号里面。</p><pre class="hljs"><code>$ touch <span class="hljs-string">'fo*'</span>
+</code></pre><p>另外，前面已经说过，大括号扩展<code>{...}</code>不是文件名扩展。</p><p><strong>（3）只适用于单层路径。</strong></p><p>所有文件名扩展只匹配单层路径，不能跨目录匹配，即无法匹配子目录里面的文件。或者说，<code>?</code>或<code>*</code>这样的通配符，不能匹配路径分隔符（<code>/</code>）。</p><p>如果要匹配子目录里面的文件，可以写成下面这样。</p><pre class="hljs"><code>$ ls */*.txt
+</code></pre><p><strong>（4）文件名可以使用通配符。</strong></p><p>Bash 允许文件名使用通配符，即文件名包括特殊字符。这时引用文件名，需要把文件名放在单引号里面。</p><pre class="hljs"><code>$ touch <span class="hljs-string">'fo*'</span>
 $ ls
 fo*
-</code></pre><p>上面代码创建了一个<code>fo*</code>文件，这时<code>*</code>就是文件名的一部分。</p><h2 id="量词语法">量词语法 <a class="markdownIt-Anchor" href="#量词语法">#</a></h2><p>量词语法用来控制模式匹配的次数。它需要在 Bash 的<code>extglob</code>参数打开的情况下，才能使用。不过，一般是默认打开的，可以用下面的命令查询。</p><pre class="hljs"><code>$ <span class="hljs-built_in">shopt</span> extglob
+</code></pre><p>上面代码创建了一个<code>fo*</code>文件，这时<code>*</code>就是文件名的一部分。</p><h2 id="量词语法">量词语法 <a class="markdownIt-Anchor" href="#量词语法">#</a></h2><p>量词语法用来控制模式匹配的次数。它只有在 Bash 的<code>extglob</code>参数打开的情况下才能使用，不过一般是默认打开的。下面的命令可以查询。</p><pre class="hljs"><code>$ <span class="hljs-built_in">shopt</span> extglob
 extglob        	on
 </code></pre><p>量词语法有下面几个。</p><ul><li><code>?(pattern-list)</code>：匹配零个或一个模式。</li><li><code>*(pattern-list)</code>：匹配零个或多个模式。</li><li><code>+(pattern-list)</code>：匹配一个或多个模式。</li><li><code>@(pattern-list)</code>：只匹配一个模式。</li><li><code>!(pattern-list)</code>：匹配零个或一个以上的模式，但不匹配单独一个的模式。</li></ul><pre class="hljs"><code>$ ls abc?(.)txt
 abctxt abc.txt
@@ -179,7 +184,10 @@ abc abcdef
 abc.php abc.txt
 </code></pre><p>上面例子中，<code>+(.txt|.php)</code>匹配文件有一个<code>.txt</code>或<code>.php</code>后缀名。</p><pre class="hljs"><code>$ ls abc+(.txt)
 abc.txt abc.txt.txt
-</code></pre><p>上面例子中，<code>+(.txt)</code>匹配文件有一个或多个<code>.txt</code>后缀名。</p><h2 id="shopt-命令">shopt 命令 <a class="markdownIt-Anchor" href="#shopt-命令">#</a></h2><p><code>shopt</code>命令可以调整 Bash 的行为。它有好几个参数跟通配符扩展有关。</p><p>它的命令格式如下。</p><pre class="hljs"><code><span class="hljs-comment"># 打开某个参数</span>
+</code></pre><p>上面例子中，<code>+(.txt)</code>匹配文件有一个或多个<code>.txt</code>后缀名。</p><p>量词语法也属于文件名扩展，如果不存在可匹配的文件，就会原样输出。</p><pre class="hljs"><code><span class="hljs-comment"># 没有 abc 开头的文件名</span>
+$ ls abc?(def)
+ls: 无法访问<span class="hljs-string">'abc?(def)'</span>: 没有那个文件或目录
+</code></pre><p>上面例子中，由于没有可匹配的文件，<code>abc?(def)</code>就原样输出，导致<code>ls</code>命令报错。</p><h2 id="shopt-命令">shopt 命令 <a class="markdownIt-Anchor" href="#shopt-命令">#</a></h2><p><code>shopt</code>命令可以调整 Bash 的行为。它有好几个参数跟通配符扩展有关。</p><p><code>shopt</code>命令的使用方法如下。</p><pre class="hljs"><code><span class="hljs-comment"># 打开某个参数</span>
 $ <span class="hljs-built_in">shopt</span> -s [optionname]
 
 <span class="hljs-comment"># 关闭某个参数</span>
@@ -187,7 +195,7 @@ $ <span class="hljs-built_in">shopt</span> -u [optionname]
 
 <span class="hljs-comment"># 查询某个参数关闭还是打开</span>
 $ <span class="hljs-built_in">shopt</span> [optionname]
-</code></pre><p><strong>（1）dotglob 参数</strong></p><p><code>dotglob</code>参数可以让文件通配符包括隐藏文件（即点开头的文件）。</p><p>正常情况下，通配符扩展不包括隐藏文件。</p><pre class="hljs"><code>$ ls *
+</code></pre><p><strong>（1）dotglob 参数</strong></p><p><code>dotglob</code>参数可以让扩展结果包括隐藏文件（即点开头的文件）。</p><p>正常情况下，扩展结果不包括隐藏文件。</p><pre class="hljs"><code>$ ls *
 abc.txt
 </code></pre><p>打开<code>dotglob</code>，就会包括隐藏文件。</p><pre class="hljs"><code>$ <span class="hljs-built_in">shopt</span> -s dotglob
 $ ls *
@@ -200,9 +208,9 @@ rm: 缺少操作数
 </code></pre><p>上面例子中，由于没有<code>b*</code>匹配的文件名，所以<code>rm b*</code>扩展成了<code>rm</code>，导致报错变成了”缺少操作数“。</p><p><strong>（3）failglob 参数</strong></p><p><code>failglob</code>参数使得通配符不匹配任何文件名时，Bash 会直接报错，而不是让各个命令去处理。</p><pre class="hljs"><code>$ <span class="hljs-built_in">shopt</span> -s failglob
 $ rm b*
 bash: 无匹配: b*
-</code></pre><p>上面例子中，打开<code>failglob</code>以后，由于<code>b*</code>不匹配任何文件名，Bash 直接报错了，不再让<code>rm</code>命令去处理。</p><p><strong>（4）extglob 参数</strong></p><p><code>extglob</code>参数使得 Bash 支持 ksh 的一些扩展语法。它默认情况下面，应该是打开的。</p><pre class="hljs"><code>$ <span class="hljs-built_in">shopt</span> extglob
+</code></pre><p>上面例子中，打开<code>failglob</code>以后，由于<code>b*</code>不匹配任何文件名，Bash 直接报错了，不再让<code>rm</code>命令去处理。</p><p><strong>（4）extglob 参数</strong></p><p><code>extglob</code>参数使得 Bash 支持 ksh 的一些扩展语法。它默认应该是打开的。</p><pre class="hljs"><code>$ <span class="hljs-built_in">shopt</span> extglob
 extglob        	on
-</code></pre><p>它的主要应用是支持量词语法。如果不希望支持，可以用下面的命令关闭。</p><pre class="hljs"><code>$ <span class="hljs-built_in">shopt</span> -u extglob
+</code></pre><p>它的主要应用是支持量词语法。如果不希望支持量词语法，可以用下面的命令关闭。</p><pre class="hljs"><code>$ <span class="hljs-built_in">shopt</span> -u extglob
 </code></pre><p><strong>（5）nocaseglob 参数</strong></p><p><code>nocaseglob</code>参数可以让通配符扩展不区分大小写。</p><pre class="hljs"><code>$ <span class="hljs-built_in">shopt</span> -s nocaseglob
 $ ls /windows/program*
 /windows/ProgramData
