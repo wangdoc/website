@@ -101,7 +101,7 @@ $ <span class="hljs-built_in">echo</span> <span class="hljs-variable">${#a[100]}
 </code></pre><p>上面例子中，<code>${#a[100]}</code>实际上是返回数组第100号成员<code>a[100]</code>的值（<code>foo</code>）的字符串长度。</p><h2 id="提取数组序号">提取数组序号 <a class="markdownIt-Anchor" href="#提取数组序号">#</a></h2><p><code>${!array[@]}</code>或<code>${!array[*]}</code>，可以返回数组的成员序号，即哪些位置是有值的。</p><pre class="hljs"><code>$ arr=([5]=a [9]=b [23]=c)
 $ <span class="hljs-built_in">echo</span> <span class="hljs-variable">${!arr[@]}</span>
 5 9 23
-$ <span class="hljs-built_in">echo</span> <span class="hljs-variable">${!arr[@*]}</span>
+$ <span class="hljs-built_in">echo</span> <span class="hljs-variable">${!arr[*]}</span>
 5 9 23
 </code></pre><p>上面例子中，数组的5、9、23号位置有值。</p><p>利用这个语法，也可以通过<code>for</code>循环遍历数组。</p><pre class="hljs"><code>arr=(a b c d)
 

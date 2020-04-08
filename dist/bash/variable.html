@@ -91,7 +91,7 @@ $ <span class="hljs-built_in">declare</span> -i result
 $ result=val1*val2
 $ <span class="hljs-built_in">echo</span> <span class="hljs-variable">$result</span>
 60
-</code></pre><p>上面例子中，如果变量<code>result</code>不声明为整数，<code>val1*val2</code>会被当作字面量，不会进行整数运算。另外，<code>val1</code>和<code>val2</code>其实不需要声明为整数，因为只要<code>resule</code>声明为整数，它的赋值就会自动解释为整数运算。</p><p>注意，一个变量声明为整数以后，依然可以被改写为字符串。</p><pre class="hljs"><code>$ <span class="hljs-built_in">declare</span> -i val=12
+</code></pre><p>上面例子中，如果变量<code>result</code>不声明为整数，<code>val1*val2</code>会被当作字面量，不会进行整数运算。另外，<code>val1</code>和<code>val2</code>其实不需要声明为整数，因为只要<code>result</code>声明为整数，它的赋值就会自动解释为整数运算。</p><p>注意，一个变量声明为整数以后，依然可以被改写为字符串。</p><pre class="hljs"><code>$ <span class="hljs-built_in">declare</span> -i val=12
 $ var=foo
 $ <span class="hljs-built_in">echo</span> <span class="hljs-variable">$var</span>
 foo
