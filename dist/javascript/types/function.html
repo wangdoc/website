@@ -99,7 +99,7 @@ f3.name <span class="hljs-comment">// 'myName'</span>
 test(myFunc) <span class="hljs-comment">// myFunc</span>
 </code></pre><p>上面代码中，函数<code>test</code>内部通过<code>name</code>属性，就可以知道传入的参数是什么函数。</p><h3 id="length-属性">length 属性 <a class="markdownIt-Anchor" href="#length-属性">#</a></h3><p>函数的<code>length</code>属性返回函数预期传入的参数个数，即函数定义之中的参数个数。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params">a, b</span>) </span>{}
 f.length <span class="hljs-comment">// 2</span>
-</code></pre><p>上面代码定义了空函数<code>f</code>，它的<code>length</code>属性就是定义时的参数个数。不管调用时输入了多少个参数，<code>length</code>属性始终等于2。</p><p><code>length</code>属性提供了一种机制，判断定义时和调用时参数的差异，以便实现面向对象编程的“方法重载”（overload）。</p><h3 id="tostring">toString() <a class="markdownIt-Anchor" href="#tostring">#</a></h3><p>函数的<code>toString</code>方法返回一个字符串，内容是函数的源码。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params"></span>) </span>{
+</code></pre><p>上面代码定义了空函数<code>f</code>，它的<code>length</code>属性就是定义时的参数个数。不管调用时输入了多少个参数，<code>length</code>属性始终等于2。</p><p><code>length</code>属性提供了一种机制，判断定义时和调用时参数的差异，以便实现面向对象编程的“方法重载”（overload）。</p><h3 id="tostring">toString() <a class="markdownIt-Anchor" href="#tostring">#</a></h3><p>函数的<code>toString()</code>方法返回一个字符串，内容是函数的源码。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params"></span>) </span>{
   a();
   b();
   c();
@@ -113,7 +113,7 @@ f.toString()
 <span class="hljs-comment">// }</span>
 </code></pre><p>对于那些原生的函数，<code>toString()</code>方法返回<code>function (){[native code]}</code>。</p><pre class="hljs"><code><span class="hljs-built_in">Math</span>.sqrt.toString()
 <span class="hljs-comment">// "function sqrt() { [native code] }"</span>
-</code></pre><p>上面代码中，<code>Math.sqrt</code>是 JavaScript 引擎提供的原生函数，<code>toString()</code>方法就返回原生代码的提示。</p><p>函数内部的注释也可以返回。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params"></span>) </span>{<span class="hljs-comment">/*
+</code></pre><p>上面代码中，<code>Math.sqrt()</code>是 JavaScript 引擎提供的原生函数，<code>toString()</code>方法就返回原生代码的提示。</p><p>函数内部的注释也可以返回。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params"></span>) </span>{<span class="hljs-comment">/*
   这是一个
   多行注释
 */</span>}
@@ -253,17 +253,17 @@ obj.p <span class="hljs-comment">// 2</span>
 f(obj);
 
 obj <span class="hljs-comment">// [1, 2, 3]</span>
-</code></pre><p>上面代码中，在函数<code>f</code>内部，参数对象<code>obj</code>被整个替换成另一个值。这时不会影响到原始值。这是因为，形式参数（<code>o</code>）的值实际是参数<code>obj</code>的地址，重新对<code>o</code>赋值导致<code>o</code>指向另一个地址，保存在原地址上的值当然不受影响。</p><h3 id="同名参数">同名参数 <a class="markdownIt-Anchor" href="#同名参数">#</a></h3><p>如果有同名的参数，则取最后出现的那个值。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params">a, a</span>) </span>{
+</code></pre><p>上面代码中，在函数<code>f()</code>内部，参数对象<code>obj</code>被整个替换成另一个值。这时不会影响到原始值。这是因为，形式参数（<code>o</code>）的值实际是参数<code>obj</code>的地址，重新对<code>o</code>赋值导致<code>o</code>指向另一个地址，保存在原地址上的值当然不受影响。</p><h3 id="同名参数">同名参数 <a class="markdownIt-Anchor" href="#同名参数">#</a></h3><p>如果有同名的参数，则取最后出现的那个值。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params">a, a</span>) </span>{
   <span class="hljs-built_in">console</span>.log(a);
 }
 
 f(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// 2</span>
-</code></pre><p>上面代码中，函数<code>f</code>有两个参数，且参数名都是<code>a</code>。取值的时候，以后面的<code>a</code>为准，即使后面的<code>a</code>没有值或被省略，也是以其为准。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params">a, a</span>) </span>{
+</code></pre><p>上面代码中，函数<code>f()</code>有两个参数，且参数名都是<code>a</code>。取值的时候，以后面的<code>a</code>为准，即使后面的<code>a</code>没有值或被省略，也是以其为准。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params">a, a</span>) </span>{
   <span class="hljs-built_in">console</span>.log(a);
 }
 
 f(<span class="hljs-number">1</span>) <span class="hljs-comment">// undefined</span>
-</code></pre><p>调用函数<code>f</code>的时候，没有提供第二个参数，<code>a</code>的取值就变成了<code>undefined</code>。这时，如果要获得第一个<code>a</code>的值，可以使用<code>arguments</code>对象。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params">a, a</span>) </span>{
+</code></pre><p>调用函数<code>f()</code>的时候，没有提供第二个参数，<code>a</code>的取值就变成了<code>undefined</code>。这时，如果要获得第一个<code>a</code>的值，可以使用<code>arguments</code>对象。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params">a, a</span>) </span>{
   <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">arguments</span>[<span class="hljs-number">0</span>]);
 }
 
@@ -285,7 +285,7 @@ f(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span 
 }
 
 f(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// 5</span>
-</code></pre><p>上面代码中，函数<code>f</code>调用时传入的参数，在函数内部被修改成<code>3</code>和<code>2</code>。</p><p>严格模式下，<code>arguments</code>对象与函数参数不具有联动关系。也就是说，修改<code>arguments</code>对象不会影响到实际的函数参数。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> f = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a, b</span>) </span>{
+</code></pre><p>上面代码中，函数<code>f()</code>调用时传入的参数，在函数内部被修改成<code>3</code>和<code>2</code>。</p><p>严格模式下，<code>arguments</code>对象与函数参数不具有联动关系。也就是说，修改<code>arguments</code>对象不会影响到实际的函数参数。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> f = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a, b</span>) </span>{
   <span class="hljs-string">'use strict'</span>; <span class="hljs-comment">// 开启严格模式</span>
   <span class="hljs-built_in">arguments</span>[<span class="hljs-number">0</span>] = <span class="hljs-number">3</span>;
   <span class="hljs-built_in">arguments</span>[<span class="hljs-number">1</span>] = <span class="hljs-number">2</span>;
