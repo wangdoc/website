@@ -11182,6 +11182,13 @@ label.panel-block:hover {
 }
 
 /*
+ * navbar
+ */
+.navbar-brand .title {
+  margin-bottom: 0;
+}
+
+/*
  * article title counter
  */
 .article .content {
