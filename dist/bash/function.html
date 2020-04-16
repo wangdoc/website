@@ -20,7 +20,7 @@ hello world
 </code></pre><p>查看当前 Shell 已经定义的所有函数，可以使用<code>declare</code>命令。</p><pre class="hljs"><code>$ <span class="hljs-built_in">declare</span> -f
 </code></pre><p>上面的<code>declare</code>命令不仅会输出函数名，还会输出所有定义。输出顺序是按照函数名的字母表顺序。由于会输出很多内容，最好通过管道命令配合<code>more</code>或<code>less</code>使用。</p><p><code>declare</code>命令还支持查看单个函数的定义。</p><pre class="hljs"><code>$ <span class="hljs-built_in">declare</span> -f functionName
 </code></pre><p><code>declare -F</code>可以输出所有已经定义的函数名，不含函数体。</p><pre class="hljs"><code>$ <span class="hljs-built_in">declare</span> -F
-</code></pre><h2 id="参数变量">参数变量 <a class="markdownIt-Anchor" href="#参数变量">#</a></h2><p>函数体内可以使用参数变量，获取函数参数。函数的参数变量，与脚本参数变量是一致的。</p><ul><li><code>$1</code>~<code>$9</code>：函数的第一个到第9个的参数。</li><li><code>$0</code>：函数所在的脚本名。</li><li><code>$#</code>：函数的参数总数。</li><li><code>$a</code>：函数的全部参数，参数之间使用空格分隔。</li><li><code>$*</code>：函数的全部参数，参数之间使用变量<code>$IFS</code>值的第一个字符分隔，默认为空格，但是可以自定义。</li></ul><p>如果函数的参数多于9个，那么第10个参数可以用<code>${10}</code>的形式引用，以此类推。</p><p>下面是一个示例脚本<code>test.sh</code>。</p><pre class="hljs"><code><span class="hljs-meta">#!/bin/bash</span>
+</code></pre><h2 id="参数变量">参数变量 <a class="markdownIt-Anchor" href="#参数变量">#</a></h2><p>函数体内可以使用参数变量，获取函数参数。函数的参数变量，与脚本参数变量是一致的。</p><ul><li><code>$1</code>~<code>$9</code>：函数的第一个到第9个的参数。</li><li><code>$0</code>：函数所在的脚本名。</li><li><code>$#</code>：函数的参数总数。</li><li><code>$@</code>：函数的全部参数，参数之间使用空格分隔。</li><li><code>$*</code>：函数的全部参数，参数之间使用变量<code>$IFS</code>值的第一个字符分隔，默认为空格，但是可以自定义。</li></ul><p>如果函数的参数多于9个，那么第10个参数可以用<code>${10}</code>的形式引用，以此类推。</p><p>下面是一个示例脚本<code>test.sh</code>。</p><pre class="hljs"><code><span class="hljs-meta">#!/bin/bash</span>
 <span class="hljs-comment"># test.sh</span>
 
 <span class="hljs-keyword">function</span> alice {
