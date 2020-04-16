@@ -1,0 +1,512 @@
+<!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>装饰器 - ES6 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="装饰器"><link rel="apple-touch-icon" sizes="57x57" href="assets/icons/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="assets/icons/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="assets/icons/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="assets/icons/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="assets/icons/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="assets/icons/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="assets/icons/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="assets/icons/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png"><link rel="manifest" href="assets/icons/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="assets/icons/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/es6-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/es6-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8"><nav class="breadcrumb is-size-5-desktop" aria-label="breadcrumbs"><ul><li><a href="index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;ES6 教程</a></li><li class="is-active"><a class="has-text-grey" href="decorator.html">Decorator</a></li></ul></nav><nav class="level level-previous-next is-size-5 is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="proposals.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> 最新提案</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="reference.html">参考链接 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content is-size-5-desktop"><h1 class="title">装饰器</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><p>[说明] Decorator 提案经过了大幅修改，目前还没有定案，不知道语法会不会再变。下面的内容完全依据以前的提案，已经有点过时了。等待定案以后，需要完全重写。</p><p>装饰器（Decorator）是一种与类（class）相关的语法，用来注释或修改类和类方法。许多面向对象的语言都有这项功能，目前有一个<a href="https://github.com/tc39/proposal-decorators" target="_blank" rel="noopener">提案</a>将其引入了 ECMAScript。</p><p>装饰器是一种函数，写成<code>@ + 函数名</code>。它可以放在类和类方法的定义前面。</p><pre class="hljs"><code>@frozen <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> </span>{
+  @configurable(<span class="hljs-literal">false</span>)
+  @enumerable(<span class="hljs-literal">true</span>)
+  method() {}
+
+  @throttle(<span class="hljs-number">500</span>)
+  expensiveMethod() {}
+}
+</code></pre><p>上面代码一共使用了四个装饰器，一个用在类本身，另外三个用在类方法。它们不仅增加了代码的可读性，清晰地表达了意图，而且提供一种方便的手段，增加或修改类的功能。</p><h2 id="类的装饰">类的装饰 <a class="markdownIt-Anchor" href="#类的装饰">#</a></h2><p>装饰器可以用来装饰整个类。</p><pre class="hljs"><code>@testable
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyTestableClass</span> </span>{
+  <span class="hljs-comment">// ...</span>
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">testable</span>(<span class="hljs-params">target</span>) </span>{
+  target.isTestable = <span class="hljs-literal">true</span>;
+}
+
+MyTestableClass.isTestable <span class="hljs-comment">// true</span>
+</code></pre><p>上面代码中，<code>@testable</code>就是一个装饰器。它修改了<code>MyTestableClass</code>这个类的行为，为它加上了静态属性<code>isTestable</code>。<code>testable</code>函数的参数<code>target</code>是<code>MyTestableClass</code>类本身。</p><p>基本上，装饰器的行为就是下面这样。</p><pre class="hljs"><code>@decorator
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> </span>{}
+
+<span class="hljs-comment">// 等同于</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> </span>{}
+A = decorator(A) || A;
+</code></pre><p>也就是说，装饰器是一个对类进行处理的函数。装饰器函数的第一个参数，就是所要装饰的目标类。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">testable</span>(<span class="hljs-params">target</span>) </span>{
+  <span class="hljs-comment">// ...</span>
+}
+</code></pre><p>上面代码中，<code>testable</code>函数的参数<code>target</code>，就是会被装饰的类。</p><p>如果觉得一个参数不够用，可以在装饰器外面再封装一层函数。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">testable</span>(<span class="hljs-params">isTestable</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">target</span>) </span>{
+    target.isTestable = isTestable;
+  }
+}
+
+@testable(<span class="hljs-literal">true</span>)
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyTestableClass</span> </span>{}
+MyTestableClass.isTestable <span class="hljs-comment">// true</span>
+
+@testable(<span class="hljs-literal">false</span>)
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{}
+MyClass.isTestable <span class="hljs-comment">// false</span>
+</code></pre><p>上面代码中，装饰器<code>testable</code>可以接受参数，这就等于可以修改装饰器的行为。</p><p>注意，装饰器对类的行为的改变，是代码编译时发生的，而不是在运行时。这意味着，装饰器能在编译阶段运行代码。也就是说，装饰器本质就是编译时执行的函数。</p><p>前面的例子是为类添加一个静态属性，如果想添加实例属性，可以通过目标类的<code>prototype</code>对象操作。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">testable</span>(<span class="hljs-params">target</span>) </span>{
+  target.prototype.isTestable = <span class="hljs-literal">true</span>;
+}
+
+@testable
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyTestableClass</span> </span>{}
+
+<span class="hljs-keyword">let</span> obj = <span class="hljs-keyword">new</span> MyTestableClass();
+obj.isTestable <span class="hljs-comment">// true</span>
+</code></pre><p>上面代码中，装饰器函数<code>testable</code>是在目标类的<code>prototype</code>对象上添加属性，因此就可以在实例上调用。</p><p>下面是另外一个例子。</p><pre class="hljs"><code><span class="hljs-comment">// mixins.js</span>
+<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mixins</span>(<span class="hljs-params">...list</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">target</span>) </span>{
+    <span class="hljs-built_in">Object</span>.assign(target.prototype, ...list)
+  }
+}
+
+<span class="hljs-comment">// main.js</span>
+<span class="hljs-keyword">import</span> { mixins } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins'</span>
+
+<span class="hljs-keyword">const</span> Foo = {
+  foo() { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'foo'</span>) }
+};
+
+@mixins(Foo)
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{}
+
+<span class="hljs-keyword">let</span> obj = <span class="hljs-keyword">new</span> MyClass();
+obj.foo() <span class="hljs-comment">// 'foo'</span>
+</code></pre><p>上面代码通过装饰器<code>mixins</code>，把<code>Foo</code>对象的方法添加到了<code>MyClass</code>的实例上面。可以用<code>Object.assign()</code>模拟这个功能。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> Foo = {
+  foo() { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'foo'</span>) }
+};
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{}
+
+<span class="hljs-built_in">Object</span>.assign(MyClass.prototype, Foo);
+
+<span class="hljs-keyword">let</span> obj = <span class="hljs-keyword">new</span> MyClass();
+obj.foo() <span class="hljs-comment">// 'foo'</span>
+</code></pre><p>实际开发中，React 与 Redux 库结合使用时，常常需要写成下面这样。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyReactComponent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> connect(mapStateToProps, mapDispatchToProps)(MyReactComponent);
+</code></pre><p>有了装饰器，就可以改写上面的代码。</p><pre class="hljs"><code>@connect(mapStateToProps, mapDispatchToProps)
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyReactComponent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{}
+</code></pre><p>相对来说，后一种写法看上去更容易理解。</p><h2 id="方法的装饰">方法的装饰 <a class="markdownIt-Anchor" href="#方法的装饰">#</a></h2><p>装饰器不仅可以装饰类，还可以装饰类的属性。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> </span>{
+  @readonly
+  name() { <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${<span class="hljs-keyword">this</span>.first}</span> <span class="hljs-subst">${<span class="hljs-keyword">this</span>.last}</span>`</span> }
+}
+</code></pre><p>上面代码中，装饰器<code>readonly</code>用来装饰“类”的<code>name</code>方法。</p><p>装饰器函数<code>readonly</code>一共可以接受三个参数。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">readonly</span>(<span class="hljs-params">target, name, descriptor</span>)</span>{
+  <span class="hljs-comment">// descriptor对象原来的值如下</span>
+  <span class="hljs-comment">// {</span>
+  <span class="hljs-comment">//   value: specifiedFunction,</span>
+  <span class="hljs-comment">//   enumerable: false,</span>
+  <span class="hljs-comment">//   configurable: true,</span>
+  <span class="hljs-comment">//   writable: true</span>
+  <span class="hljs-comment">// };</span>
+  descriptor.writable = <span class="hljs-literal">false</span>;
+  <span class="hljs-keyword">return</span> descriptor;
+}
+
+readonly(Person.prototype, <span class="hljs-string">'name'</span>, descriptor);
+<span class="hljs-comment">// 类似于</span>
+<span class="hljs-built_in">Object</span>.defineProperty(Person.prototype, <span class="hljs-string">'name'</span>, descriptor);
+</code></pre><p>装饰器第一个参数是类的原型对象，上例是<code>Person.prototype</code>，装饰器的本意是要“装饰”类的实例，但是这个时候实例还没生成，所以只能去装饰原型（这不同于类的装饰，那种情况时<code>target</code>参数指的是类本身）；第二个参数是所要装饰的属性名，第三个参数是该属性的描述对象。</p><p>另外，上面代码说明，装饰器（readonly）会修改属性的描述对象（descriptor），然后被修改的描述对象再用来定义属性。</p><p>下面是另一个例子，修改属性描述对象的<code>enumerable</code>属性，使得该属性不可遍历。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> </span>{
+  @nonenumerable
+  <span class="hljs-keyword">get</span> kidCount() { <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.children.length; }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">nonenumerable</span>(<span class="hljs-params">target, name, descriptor</span>) </span>{
+  descriptor.enumerable = <span class="hljs-literal">false</span>;
+  <span class="hljs-keyword">return</span> descriptor;
+}
+</code></pre><p>下面的<code>@log</code>装饰器，可以起到输出日志的作用。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Math</span> </span>{
+  @log
+  add(a, b) {
+    <span class="hljs-keyword">return</span> a + b;
+  }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">log</span>(<span class="hljs-params">target, name, descriptor</span>) </span>{
+  <span class="hljs-keyword">var</span> oldValue = descriptor.value;
+
+  descriptor.value = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Calling <span class="hljs-subst">${name}</span> with`</span>, <span class="hljs-built_in">arguments</span>);
+    <span class="hljs-keyword">return</span> oldValue.apply(<span class="hljs-keyword">this</span>, <span class="hljs-built_in">arguments</span>);
+  };
+
+  <span class="hljs-keyword">return</span> descriptor;
+}
+
+<span class="hljs-keyword">const</span> math = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Math</span>();
+
+<span class="hljs-comment">// passed parameters should get logged now</span>
+math.add(<span class="hljs-number">2</span>, <span class="hljs-number">4</span>);
+</code></pre><p>上面代码中，<code>@log</code>装饰器的作用就是在执行原始的操作之前，执行一次<code>console.log</code>，从而达到输出日志的目的。</p><p>装饰器有注释的作用。</p><pre class="hljs"><code>@testable
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> </span>{
+  @readonly
+  @nonenumerable
+  name() { <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${<span class="hljs-keyword">this</span>.first}</span> <span class="hljs-subst">${<span class="hljs-keyword">this</span>.last}</span>`</span> }
+}
+</code></pre><p>从上面代码中，我们一眼就能看出，<code>Person</code>类是可测试的，而<code>name</code>方法是只读和不可枚举的。</p><p>下面是使用 Decorator 写法的<a href="https://github.com/ionic-team/stencil" target="_blank" rel="noopener">组件</a>，看上去一目了然。</p><pre class="hljs"><code>@Component({
+  <span class="hljs-attr">tag</span>: <span class="hljs-string">'my-component'</span>,
+  <span class="hljs-attr">styleUrl</span>: <span class="hljs-string">'my-component.scss'</span>
+})
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyComponent</span> </span>{
+  @Prop() first: string;
+  @Prop() last: string;
+  @State() isVisible: boolean = <span class="hljs-literal">true</span>;
+
+  render() {
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Hello, my name is {this.first} {this.last}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span>
+    );
+  }
+}
+</code></pre><p>如果同一个方法有多个装饰器，会像剥洋葱一样，先从外到内进入，然后由内向外执行。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">dec</span>(<span class="hljs-params">id</span>)</span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'evaluated'</span>, id);
+  <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">target, property, descriptor</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'executed'</span>, id);
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Example</span> </span>{
+    @dec(<span class="hljs-number">1</span>)
+    @dec(<span class="hljs-number">2</span>)
+    method(){}
+}
+<span class="hljs-comment">// evaluated 1</span>
+<span class="hljs-comment">// evaluated 2</span>
+<span class="hljs-comment">// executed 2</span>
+<span class="hljs-comment">// executed 1</span>
+</code></pre><p>上面代码中，外层装饰器<code>@dec(1)</code>先进入，但是内层装饰器<code>@dec(2)</code>先执行。</p><p>除了注释，装饰器还能用来类型检查。所以，对于类来说，这项功能相当有用。从长期来看，它将是 JavaScript 代码静态分析的重要工具。</p><h2 id="为什么装饰器不能用于函数？">为什么装饰器不能用于函数？ <a class="markdownIt-Anchor" href="#为什么装饰器不能用于函数？">#</a></h2><p>装饰器只能用于类和类的方法，不能用于函数，因为存在函数提升。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> counter = <span class="hljs-number">0</span>;
+
+<span class="hljs-keyword">var</span> add = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  counter++;
+};
+
+@add
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>{
+}
+</code></pre><p>上面的代码，意图是执行后<code>counter</code>等于 1，但是实际上结果是<code>counter</code>等于 0。因为函数提升，使得实际执行的代码是下面这样。</p><pre class="hljs"><code>@add
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>{
+}
+
+<span class="hljs-keyword">var</span> counter;
+<span class="hljs-keyword">var</span> add;
+
+counter = <span class="hljs-number">0</span>;
+
+add = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  counter++;
+};
+</code></pre><p>下面是另一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> readOnly = <span class="hljs-built_in">require</span>(<span class="hljs-string">"some-decorator"</span>);
+
+@readOnly
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>{
+}
+</code></pre><p>上面代码也有问题，因为实际执行是下面这样。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> readOnly;
+
+@readOnly
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>{
+}
+
+readOnly = <span class="hljs-built_in">require</span>(<span class="hljs-string">"some-decorator"</span>);
+</code></pre><p>总之，由于存在函数提升，使得装饰器不能用于函数。类是不会提升的，所以就没有这方面的问题。</p><p>另一方面，如果一定要装饰函数，可以采用高阶函数的形式直接执行。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">doSomething</span>(<span class="hljs-params">name</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Hello, '</span> + name);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loggingDecorator</span>(<span class="hljs-params">wrapped</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Starting'</span>);
+    <span class="hljs-keyword">const</span> result = wrapped.apply(<span class="hljs-keyword">this</span>, <span class="hljs-built_in">arguments</span>);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Finished'</span>);
+    <span class="hljs-keyword">return</span> result;
+  }
+}
+
+<span class="hljs-keyword">const</span> wrapped = loggingDecorator(doSomething);
+</code></pre><h2 id="core-decoratorsjs">core-decorators.js <a class="markdownIt-Anchor" href="#core-decoratorsjs">#</a></h2><p><a href="https://github.com/jayphelps/core-decorators.js" target="_blank" rel="noopener">core-decorators.js</a>是一个第三方模块，提供了几个常见的装饰器，通过它可以更好地理解装饰器。</p><p><strong>（1）@autobind</strong></p><p><code>autobind</code>装饰器使得方法中的<code>this</code>对象，绑定原始对象。</p><pre class="hljs"><code><span class="hljs-keyword">import</span> { autobind } <span class="hljs-keyword">from</span> <span class="hljs-string">'core-decorators'</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> </span>{
+  @autobind
+  getPerson() {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+  }
+}
+
+<span class="hljs-keyword">let</span> person = <span class="hljs-keyword">new</span> Person();
+<span class="hljs-keyword">let</span> getPerson = person.getPerson;
+
+getPerson() === person;
+<span class="hljs-comment">// true</span>
+</code></pre><p><strong>（2）@readonly</strong></p><p><code>readonly</code>装饰器使得属性或方法不可写。</p><pre class="hljs"><code><span class="hljs-keyword">import</span> { readonly } <span class="hljs-keyword">from</span> <span class="hljs-string">'core-decorators'</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Meal</span> </span>{
+  @readonly
+  entree = <span class="hljs-string">'steak'</span>;
+}
+
+<span class="hljs-keyword">var</span> dinner = <span class="hljs-keyword">new</span> Meal();
+dinner.entree = <span class="hljs-string">'salmon'</span>;
+<span class="hljs-comment">// Cannot assign to read only property 'entree' of [object Object]</span>
+</code></pre><p><strong>（3）@override</strong></p><p><code>override</code>装饰器检查子类的方法，是否正确覆盖了父类的同名方法，如果不正确会报错。</p><pre class="hljs"><code><span class="hljs-keyword">import</span> { override } <span class="hljs-keyword">from</span> <span class="hljs-string">'core-decorators'</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Parent</span> </span>{
+  speak(first, second) {}
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Child</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Parent</span> </span>{
+  @override
+  speak() {}
+  <span class="hljs-comment">// SyntaxError: Child#speak() does not properly override Parent#speak(first, second)</span>
+}
+
+<span class="hljs-comment">// or</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Child</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Parent</span> </span>{
+  @override
+  speaks() {}
+  <span class="hljs-comment">// SyntaxError: No descriptor matching Child#speaks() was found on the prototype chain.</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">//   Did you mean "speak"?</span>
+}
+</code></pre><p><strong>（4）@deprecate (别名@deprecated)</strong></p><p><code>deprecate</code>或<code>deprecated</code>装饰器在控制台显示一条警告，表示该方法将废除。</p><pre class="hljs"><code><span class="hljs-keyword">import</span> { deprecate } <span class="hljs-keyword">from</span> <span class="hljs-string">'core-decorators'</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> </span>{
+  @deprecate
+  facepalm() {}
+
+  @deprecate(<span class="hljs-string">'We stopped facepalming'</span>)
+  facepalmHard() {}
+
+  @deprecate(<span class="hljs-string">'We stopped facepalming'</span>, { <span class="hljs-attr">url</span>: <span class="hljs-string">'http://knowyourmeme.com/memes/facepalm'</span> })
+  facepalmHarder() {}
+}
+
+<span class="hljs-keyword">let</span> person = <span class="hljs-keyword">new</span> Person();
+
+person.facepalm();
+<span class="hljs-comment">// DEPRECATION Person#facepalm: This function will be removed in future versions.</span>
+
+person.facepalmHard();
+<span class="hljs-comment">// DEPRECATION Person#facepalmHard: We stopped facepalming</span>
+
+person.facepalmHarder();
+<span class="hljs-comment">// DEPRECATION Person#facepalmHarder: We stopped facepalming</span>
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">//     See http://knowyourmeme.com/memes/facepalm for more details.</span>
+<span class="hljs-comment">//</span>
+</code></pre><p><strong>（5）@suppressWarnings</strong></p><p><code>suppressWarnings</code>装饰器抑制<code>deprecated</code>装饰器导致的<code>console.warn()</code>调用。但是，异步代码发出的调用除外。</p><pre class="hljs"><code><span class="hljs-keyword">import</span> { suppressWarnings } <span class="hljs-keyword">from</span> <span class="hljs-string">'core-decorators'</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> </span>{
+  @deprecated
+  facepalm() {}
+
+  @suppressWarnings
+  facepalmWithoutWarning() {
+    <span class="hljs-keyword">this</span>.facepalm();
+  }
+}
+
+<span class="hljs-keyword">let</span> person = <span class="hljs-keyword">new</span> Person();
+
+person.facepalmWithoutWarning();
+<span class="hljs-comment">// no warning is logged</span>
+</code></pre><h2 id="使用装饰器实现自动发布事件">使用装饰器实现自动发布事件 <a class="markdownIt-Anchor" href="#使用装饰器实现自动发布事件">#</a></h2><p>我们可以使用装饰器，使得对象的方法被调用时，自动发出一个事件。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> postal = <span class="hljs-built_in">require</span>(<span class="hljs-string">"postal/lib/postal.lodash"</span>);
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">publish</span>(<span class="hljs-params">topic, channel</span>) </span>{
+  <span class="hljs-keyword">const</span> channelName = channel || <span class="hljs-string">'/'</span>;
+  <span class="hljs-keyword">const</span> msgChannel = postal.channel(channelName);
+  msgChannel.subscribe(topic, v =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'频道: '</span>, channelName);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'事件: '</span>, topic);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'数据: '</span>, v);
+  });
+
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">target, name, descriptor</span>) </span>{
+    <span class="hljs-keyword">const</span> fn = descriptor.value;
+
+    descriptor.value = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">let</span> value = fn.apply(<span class="hljs-keyword">this</span>, <span class="hljs-built_in">arguments</span>);
+      msgChannel.publish(topic, value);
+    };
+  };
+}
+</code></pre><p>上面代码定义了一个名为<code>publish</code>的装饰器，它通过改写<code>descriptor.value</code>，使得原方法被调用时，会自动发出一个事件。它使用的事件“发布/订阅”库是<a href="https://github.com/postaljs/postal.js" target="_blank" rel="noopener">Postal.js</a>。</p><p>它的用法如下。</p><pre class="hljs"><code><span class="hljs-comment">// index.js</span>
+<span class="hljs-keyword">import</span> publish <span class="hljs-keyword">from</span> <span class="hljs-string">'./publish'</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FooComponent</span> </span>{
+  @publish(<span class="hljs-string">'foo.some.message'</span>, <span class="hljs-string">'component'</span>)
+  someMethod() {
+    <span class="hljs-keyword">return</span> { <span class="hljs-attr">my</span>: <span class="hljs-string">'data'</span> };
+  }
+  @publish(<span class="hljs-string">'foo.some.other'</span>)
+  anotherMethod() {
+    <span class="hljs-comment">// ...</span>
+  }
+}
+
+<span class="hljs-keyword">let</span> foo = <span class="hljs-keyword">new</span> FooComponent();
+
+foo.someMethod();
+foo.anotherMethod();
+</code></pre><p>以后，只要调用<code>someMethod</code>或者<code>anotherMethod</code>，就会自动发出一个事件。</p><pre class="hljs"><code>$ bash-node index.js
+频道:  component
+事件:  foo.some.message
+数据:  { my: <span class="hljs-string">'data'</span> }
+
+频道:  /
+事件:  foo.some.other
+数据:  undefined
+</code></pre><h2 id="mixin">Mixin <a class="markdownIt-Anchor" href="#mixin">#</a></h2><p>在装饰器的基础上，可以实现<code>Mixin</code>模式。所谓<code>Mixin</code>模式，就是对象继承的一种替代方案，中文译为“混入”（mix in），意为在一个对象之中混入另外一个对象的方法。</p><p>请看下面的例子。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> Foo = {
+  foo() { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'foo'</span>) }
+};
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{}
+
+<span class="hljs-built_in">Object</span>.assign(MyClass.prototype, Foo);
+
+<span class="hljs-keyword">let</span> obj = <span class="hljs-keyword">new</span> MyClass();
+obj.foo() <span class="hljs-comment">// 'foo'</span>
+</code></pre><p>上面代码之中，对象<code>Foo</code>有一个<code>foo</code>方法，通过<code>Object.assign</code>方法，可以将<code>foo</code>方法“混入”<code>MyClass</code>类，导致<code>MyClass</code>的实例<code>obj</code>对象都具有<code>foo</code>方法。这就是“混入”模式的一个简单实现。</p><p>下面，我们部署一个通用脚本<code>mixins.js</code>，将 Mixin 写成一个装饰器。</p><pre class="hljs"><code><span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mixins</span>(<span class="hljs-params">...list</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">target</span>) </span>{
+    <span class="hljs-built_in">Object</span>.assign(target.prototype, ...list);
+  };
+}
+</code></pre><p>然后，就可以使用上面这个装饰器，为类“混入”各种方法。</p><pre class="hljs"><code><span class="hljs-keyword">import</span> { mixins } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins'</span>;
+
+<span class="hljs-keyword">const</span> Foo = {
+  foo() { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'foo'</span>) }
+};
+
+@mixins(Foo)
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{}
+
+<span class="hljs-keyword">let</span> obj = <span class="hljs-keyword">new</span> MyClass();
+obj.foo() <span class="hljs-comment">// "foo"</span>
+</code></pre><p>通过<code>mixins</code>这个装饰器，实现了在<code>MyClass</code>类上面“混入”<code>Foo</code>对象的<code>foo</code>方法。</p><p>不过，上面的方法会改写<code>MyClass</code>类的<code>prototype</code>对象，如果不喜欢这一点，也可以通过类的继承实现 Mixin。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">MyBaseClass</span> </span>{
+  <span class="hljs-comment">/* ... */</span>
+}
+</code></pre><p>上面代码中，<code>MyClass</code>继承了<code>MyBaseClass</code>。如果我们想在<code>MyClass</code>里面“混入”一个<code>foo</code>方法，一个办法是在<code>MyClass</code>和<code>MyBaseClass</code>之间插入一个混入类，这个类具有<code>foo</code>方法，并且继承了<code>MyBaseClass</code>的所有方法，然后<code>MyClass</code>再继承这个类。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> MyMixin = <span class="hljs-function">(<span class="hljs-params">superclass</span>) =&gt;</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">superclass</span> </span>{
+  foo() {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'foo from MyMixin'</span>);
+  }
+};
+</code></pre><p>上面代码中，<code>MyMixin</code>是一个混入类生成器，接受<code>superclass</code>作为参数，然后返回一个继承<code>superclass</code>的子类，该子类包含一个<code>foo</code>方法。</p><p>接着，目标类再去继承这个混入类，就达到了“混入”<code>foo</code>方法的目的。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">MyMixin</span>(<span class="hljs-title">MyBaseClass</span>) </span>{
+  <span class="hljs-comment">/* ... */</span>
+}
+
+<span class="hljs-keyword">let</span> c = <span class="hljs-keyword">new</span> MyClass();
+c.foo(); <span class="hljs-comment">// "foo from MyMixin"</span>
+</code></pre><p>如果需要“混入”多个方法，就生成多个混入类。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Mixin1</span>(<span class="hljs-title">Mixin2</span>(<span class="hljs-title">MyBaseClass</span>)) </span>{
+  <span class="hljs-comment">/* ... */</span>
+}
+</code></pre><p>这种写法的一个好处，是可以调用<code>super</code>，因此可以避免在“混入”过程中覆盖父类的同名方法。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> Mixin1 = <span class="hljs-function">(<span class="hljs-params">superclass</span>) =&gt;</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">superclass</span> </span>{
+  foo() {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'foo from Mixin1'</span>);
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">super</span>.foo) <span class="hljs-keyword">super</span>.foo();
+  }
+};
+
+<span class="hljs-keyword">let</span> Mixin2 = <span class="hljs-function">(<span class="hljs-params">superclass</span>) =&gt;</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">superclass</span> </span>{
+  foo() {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'foo from Mixin2'</span>);
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">super</span>.foo) <span class="hljs-keyword">super</span>.foo();
+  }
+};
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">S</span> </span>{
+  foo() {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'foo from S'</span>);
+  }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">C</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Mixin1</span>(<span class="hljs-title">Mixin2</span>(<span class="hljs-title">S</span>)) </span>{
+  foo() {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'foo from C'</span>);
+    <span class="hljs-keyword">super</span>.foo();
+  }
+}
+</code></pre><p>上面代码中，每一次<code>混入</code>发生时，都调用了父类的<code>super.foo</code>方法，导致父类的同名方法没有被覆盖，行为被保留了下来。</p><pre class="hljs"><code><span class="hljs-keyword">new</span> C().foo()
+<span class="hljs-comment">// foo from C</span>
+<span class="hljs-comment">// foo from Mixin1</span>
+<span class="hljs-comment">// foo from Mixin2</span>
+<span class="hljs-comment">// foo from S</span>
+</code></pre><h2 id="trait">Trait <a class="markdownIt-Anchor" href="#trait">#</a></h2><p>Trait 也是一种装饰器，效果与 Mixin 类似，但是提供更多功能，比如防止同名方法的冲突、排除混入某些方法、为混入的方法起别名等等。</p><p>下面采用<a href="https://github.com/CocktailJS/traits-decorator" target="_blank" rel="noopener">traits-decorator</a>这个第三方模块作为例子。这个模块提供的<code>traits</code>装饰器，不仅可以接受对象，还可以接受 ES6 类作为参数。</p><pre class="hljs"><code><span class="hljs-keyword">import</span> { traits } <span class="hljs-keyword">from</span> <span class="hljs-string">'traits-decorator'</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TFoo</span> </span>{
+  foo() { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'foo'</span>) }
+}
+
+<span class="hljs-keyword">const</span> TBar = {
+  bar() { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'bar'</span>) }
+};
+
+@traits(TFoo, TBar)
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{ }
+
+<span class="hljs-keyword">let</span> obj = <span class="hljs-keyword">new</span> MyClass();
+obj.foo() <span class="hljs-comment">// foo</span>
+obj.bar() <span class="hljs-comment">// bar</span>
+</code></pre><p>上面代码中，通过<code>traits</code>装饰器，在<code>MyClass</code>类上面“混入”了<code>TFoo</code>类的<code>foo</code>方法和<code>TBar</code>对象的<code>bar</code>方法。</p><p>Trait 不允许“混入”同名方法。</p><pre class="hljs"><code><span class="hljs-keyword">import</span> { traits } <span class="hljs-keyword">from</span> <span class="hljs-string">'traits-decorator'</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TFoo</span> </span>{
+  foo() { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'foo'</span>) }
+}
+
+<span class="hljs-keyword">const</span> TBar = {
+  bar() { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'bar'</span>) },
+  foo() { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'foo'</span>) }
+};
+
+@traits(TFoo, TBar)
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{ }
+<span class="hljs-comment">// 报错</span>
+<span class="hljs-comment">// throw new Error('Method named: ' + methodName + ' is defined twice.');</span>
+<span class="hljs-comment">//        ^</span>
+<span class="hljs-comment">// Error: Method named: foo is defined twice.</span>
+</code></pre><p>上面代码中，<code>TFoo</code>和<code>TBar</code>都有<code>foo</code>方法，结果<code>traits</code>装饰器报错。</p><p>一种解决方法是排除<code>TBar</code>的<code>foo</code>方法。</p><pre class="hljs"><code><span class="hljs-keyword">import</span> { traits, excludes } <span class="hljs-keyword">from</span> <span class="hljs-string">'traits-decorator'</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TFoo</span> </span>{
+  foo() { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'foo'</span>) }
+}
+
+<span class="hljs-keyword">const</span> TBar = {
+  bar() { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'bar'</span>) },
+  foo() { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'foo'</span>) }
+};
+
+@traits(TFoo, <span class="hljs-attr">TBar</span>::excludes(<span class="hljs-string">'foo'</span>))
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{ }
+
+<span class="hljs-keyword">let</span> obj = <span class="hljs-keyword">new</span> MyClass();
+obj.foo() <span class="hljs-comment">// foo</span>
+obj.bar() <span class="hljs-comment">// bar</span>
+</code></pre><p>上面代码使用绑定运算符（::）在<code>TBar</code>上排除<code>foo</code>方法，混入时就不会报错了。</p><p>另一种方法是为<code>TBar</code>的<code>foo</code>方法起一个别名。</p><pre class="hljs"><code><span class="hljs-keyword">import</span> { traits, alias } <span class="hljs-keyword">from</span> <span class="hljs-string">'traits-decorator'</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TFoo</span> </span>{
+  foo() { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'foo'</span>) }
+}
+
+<span class="hljs-keyword">const</span> TBar = {
+  bar() { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'bar'</span>) },
+  foo() { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'foo'</span>) }
+};
+
+@traits(TFoo, <span class="hljs-attr">TBar</span>::alias({<span class="hljs-attr">foo</span>: <span class="hljs-string">'aliasFoo'</span>}))
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{ }
+
+<span class="hljs-keyword">let</span> obj = <span class="hljs-keyword">new</span> MyClass();
+obj.foo() <span class="hljs-comment">// foo</span>
+obj.aliasFoo() <span class="hljs-comment">// foo</span>
+obj.bar() <span class="hljs-comment">// bar</span>
+</code></pre><p>上面代码为<code>TBar</code>的<code>foo</code>方法起了别名<code>aliasFoo</code>，于是<code>MyClass</code>也可以混入<code>TBar</code>的<code>foo</code>方法了。</p><p><code>alias</code>和<code>excludes</code>方法，可以结合起来使用。</p><pre class="hljs"><code>@traits(TExample::excludes(<span class="hljs-string">'foo'</span>,<span class="hljs-string">'bar'</span>)::alias({<span class="hljs-attr">baz</span>:<span class="hljs-string">'exampleBaz'</span>}))
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{}
+</code></pre><p>上面代码排除了<code>TExample</code>的<code>foo</code>方法和<code>bar</code>方法，为<code>baz</code>方法起了别名<code>exampleBaz</code>。</p><p><code>as</code>方法则为上面的代码提供了另一种写法。</p><pre class="hljs"><code>@traits(TExample::<span class="hljs-keyword">as</span>({<span class="hljs-attr">excludes</span>:[<span class="hljs-string">'foo'</span>, <span class="hljs-string">'bar'</span>], <span class="hljs-attr">alias</span>: {<span class="hljs-attr">baz</span>: <span class="hljs-string">'exampleBaz'</span>}}))
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{}
+</code></pre></article><nav class="level level-previous-next is-size-5 is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="proposals.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> 最新提案</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="reference.html">参考链接 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><div class="page-info is-size-5-desktop"><p>本教程采用<a href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh" target="_blank">知识共享 署名-相同方式共享 3.0协议</a>。</p><p>分享本文 <span class="social-share"></span></p></div></div><div class="column is-3 is-offset-1"><nav class="panel panel-menu"><p class="panel-heading"><i class="fa fa-book" aria-hidden="true"></i> ES6 教程</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="intro.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">ECMAScript 6 简介</span></a></li><li><a href="let.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">let 和 const 命令</span></a></li><li><a href="destructuring.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">变量的解构赋值</span></a></li><li><a href="string.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">字符串的扩展</span></a></li><li><a href="string-methods.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">字符串的新增方法</span></a></li><li><a href="regex.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">正则的扩展</span></a></li><li><a href="number.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数值的扩展</span></a></li><li><a href="function.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">函数的扩展</span></a></li><li><a href="array.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数组的扩展</span></a></li><li><a href="object.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">对象的扩展</span></a></li><li><a href="object-methods.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">对象的新增方法</span></a></li><li><a href="symbol.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Symbol</span></a></li><li><a href="set-map.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Set 和 Map 数据结构</span></a></li><li><a href="proxy.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Proxy</span></a></li><li><a href="reflect.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Reflect</span></a></li><li><a href="promise.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Promise 对象</span></a></li><li><a href="iterator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Iterator 和 for...of 循环</span></a></li><li><a href="generator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Generator 函数的语法</span></a></li><li><a href="generator-async.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Generator 函数的异步应用</span></a></li><li><a href="async.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">async 函数</span></a></li><li><a href="class.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Class 的基本语法</span></a></li><li><a href="class-extends.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Class 的继承</span></a></li><li><a href="module.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Module 的语法</span></a></li><li><a href="module-loader.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Module 的加载实现</span></a></li><li><a href="style.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">编程风格</span></a></li><li><a href="spec.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">读懂规格</span></a></li><li><a href="async-iterator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">异步遍历器</span></a></li><li><a href="arraybuffer.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">ArrayBuffer</span></a></li><li><a href="proposals.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">最新提案</span></a></li><li><a href="decorator.html" class="is-active"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Decorator</span></a></li><li><a href="reference.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">参考链接</span></a></li></ul></aside></div></nav><nav class="panel panel-info"><p class="panel-heading"><i class="fa fa-link" aria-hidden="true"></i> 链接</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="https://raw.githubusercontent.com/wangdoc/es6-tutorial/master/docs/decorator.md" target="_blank"><span class="icon"></span><i class="fa fa-code" aria-hidden="true" style="width: 14px;"></i>&nbsp;本文源码</a></li><li><a href="https://github.com/wangdoc/es6-tutorial" target="_blank"><span class="icon"></span><i class="fa fa-hdd-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;代码仓库</a></li><li><a href="https://github.com/wangdoc/es6-tutorial/issues" target="_blank"><span class="icon"></span><i class="fa fa-flag-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;反馈</a></li></ul></aside></div></nav></div></div><div class="columns"><div class="column is-8"><div id="disqus_thread"></div></div></div></div></section><footer class="footer is-size-5-desktop"><div class="container"><div class="content has-text-centered"><p>联系：contact@wangdoc.com</p></div></div></footer><script>var LOPPO={current_path:"decorator.md",relative_root_path:"",article_toc:'<ul class="markdownIt-TOC">\n<li><a href="#%E7%B1%BB%E7%9A%84%E8%A3%85%E9%A5%B0">类的装饰</a></li>\n<li><a href="#%E6%96%B9%E6%B3%95%E7%9A%84%E8%A3%85%E9%A5%B0">方法的装饰</a></li>\n<li><a href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A3%85%E9%A5%B0%E5%99%A8%E4%B8%8D%E8%83%BD%E7%94%A8%E4%BA%8E%E5%87%BD%E6%95%B0%EF%BC%9F">为什么装饰器不能用于函数？</a></li>\n<li><a href="#core-decoratorsjs">core-decorators.js</a></li>\n<li><a href="#%E4%BD%BF%E7%94%A8%E8%A3%85%E9%A5%B0%E5%99%A8%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E5%8F%91%E5%B8%83%E4%BA%8B%E4%BB%B6">使用装饰器实现自动发布事件</a></li>\n<li><a href="#mixin">Mixin</a></li>\n<li><a href="#trait">Trait</a></li>\n</ul>\n'}</script><script src="assets/js/app.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-111269443-1"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","UA-111269443-1")</script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?5eec262881855af3dede6a71234571f6";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><script>/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+const l = window.location;
+const url = l.protocol + '//' + l.host + (l.port ? ':' + l.port : '') + l.pathname;
+this.page.url = url;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = l.pathname; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://wangdoc-es6.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();</script><!--script src="assets/js/social-share.min.js"--><!--/script--><script>var shareDesc="我正在阅读《装饰器》，出自网道（WangDoc.com）的《ES6 教程》。",shareOpts={url:window.location.href,source:shareDesc,title:shareDesc,description:"",image:"",sites:["weibo","wechat","qq","qzone","twitter","facebook"],origin:"WangDoc_com",disabled:[],wechatQrcodeTitle:"微信",wechatQrcodeHelper:"扫一下二维码，分享到微信。"};socialShare(".social-share",shareOpts)</script></body></html>

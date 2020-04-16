@@ -1,0 +1,378 @@
+<!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Module 的加载实现 - ES6 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="Module 的加载实现"><link rel="apple-touch-icon" sizes="57x57" href="assets/icons/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="assets/icons/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="assets/icons/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="assets/icons/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="assets/icons/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="assets/icons/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="assets/icons/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="assets/icons/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png"><link rel="manifest" href="assets/icons/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="assets/icons/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/es6-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/es6-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8"><nav class="breadcrumb is-size-5-desktop" aria-label="breadcrumbs"><ul><li><a href="index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;ES6 教程</a></li><li class="is-active"><a class="has-text-grey" href="module-loader.html">Module 的加载实现</a></li></ul></nav><nav class="level level-previous-next is-size-5 is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="module.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> Module 的语法</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="style.html">编程风格 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content is-size-5-desktop"><h1 class="title">Module 的加载实现</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><p>上一章介绍了模块的语法，本章介绍如何在浏览器和 Node.js 之中加载 ES6 模块，以及实际开发中经常遇到的一些问题（比如循环加载）。</p><h2 id="浏览器加载">浏览器加载 <a class="markdownIt-Anchor" href="#浏览器加载">#</a></h2><h3 id="传统方法">传统方法 <a class="markdownIt-Anchor" href="#传统方法">#</a></h3><p>HTML 网页中，浏览器通过<code>&lt;script&gt;</code>标签加载 JavaScript 脚本。</p><pre class="hljs"><code><span class="hljs-comment">&lt;!-- 页面内嵌的脚本 --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"application/javascript"</span>&gt;</span><span class="actionscript">
+  <span class="hljs-comment">// module code</span>
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- 外部脚本 --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"application/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"path/to/myModule.js"</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre><p>上面代码中，由于浏览器脚本的默认语言是 JavaScript，因此<code>type=&quot;application/javascript&quot;</code>可以省略。</p><p>默认情况下，浏览器是同步加载 JavaScript 脚本，即渲染引擎遇到<code>&lt;script&gt;</code>标签就会停下来，等到执行完脚本，再继续向下渲染。如果是外部脚本，还必须加入脚本下载的时间。</p><p>如果脚本体积很大，下载和执行的时间就会很长，因此造成浏览器堵塞，用户会感觉到浏览器“卡死”了，没有任何响应。这显然是很不好的体验，所以浏览器允许脚本异步加载，下面就是两种异步加载的语法。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"path/to/myModule.js"</span> <span class="hljs-attr">defer</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"path/to/myModule.js"</span> <span class="hljs-attr">async</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre><p>上面代码中，<code>&lt;script&gt;</code>标签打开<code>defer</code>或<code>async</code>属性，脚本就会异步加载。渲染引擎遇到这一行命令，就会开始下载外部脚本，但不会等它下载和执行，而是直接执行后面的命令。</p><p><code>defer</code>与<code>async</code>的区别是：<code>defer</code>要等到整个页面在内存中正常渲染结束（DOM 结构完全生成，以及其他脚本执行完成），才会执行；<code>async</code>一旦下载完，渲染引擎就会中断渲染，执行这个脚本以后，再继续渲染。一句话，<code>defer</code>是“渲染完再执行”，<code>async</code>是“下载完就执行”。另外，如果有多个<code>defer</code>脚本，会按照它们在页面出现的顺序加载，而多个<code>async</code>脚本是不能保证加载顺序的。</p><h3 id="加载规则">加载规则 <a class="markdownIt-Anchor" href="#加载规则">#</a></h3><p>浏览器加载 ES6 模块，也使用<code>&lt;script&gt;</code>标签，但是要加入<code>type=&quot;module&quot;</code>属性。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"module"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"./foo.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre><p>上面代码在网页中插入一个模块<code>foo.js</code>，由于<code>type</code>属性设为<code>module</code>，所以浏览器知道这是一个 ES6 模块。</p><p>浏览器对于带有<code>type=&quot;module&quot;</code>的<code>&lt;script&gt;</code>，都是异步加载，不会造成堵塞浏览器，即等到整个页面渲染完，再执行模块脚本，等同于打开了<code>&lt;script&gt;</code>标签的<code>defer</code>属性。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"module"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"./foo.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-comment">&lt;!-- 等同于 --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"module"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"./foo.js"</span> <span class="hljs-attr">defer</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre><p>如果网页有多个<code>&lt;script type=&quot;module&quot;&gt;</code>，它们会按照在页面出现的顺序依次执行。</p><p><code>&lt;script&gt;</code>标签的<code>async</code>属性也可以打开，这时只要加载完成，渲染引擎就会中断渲染立即执行。执行完成后，再恢复渲染。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"module"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"./foo.js"</span> <span class="hljs-attr">async</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre><p>一旦使用了<code>async</code>属性，<code>&lt;script type=&quot;module&quot;&gt;</code>就不会按照在页面出现的顺序执行，而是只要该模块加载完成，就执行该模块。</p><p>ES6 模块也允许内嵌在网页中，语法行为与加载外部脚本完全一致。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"module"</span>&gt;</span><span class="javascript">
+  <span class="hljs-keyword">import</span> utils <span class="hljs-keyword">from</span> <span class="hljs-string">"./utils.js"</span>;
+
+  <span class="hljs-comment">// other code</span>
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre><p>举例来说，jQuery 就支持模块加载。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"module"</span>&gt;</span><span class="javascript">
+  <span class="hljs-keyword">import</span> $ <span class="hljs-keyword">from</span> <span class="hljs-string">"./jquery/src/jquery.js"</span>;
+  $(<span class="hljs-string">'#message'</span>).text(<span class="hljs-string">'Hi from jQuery!'</span>);
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre><p>对于外部的模块脚本（上例是<code>foo.js</code>），有几点需要注意。</p><ul><li>代码是在模块作用域之中运行，而不是在全局作用域运行。模块内部的顶层变量，外部不可见。</li><li>模块脚本自动采用严格模式，不管有没有声明<code>use strict</code>。</li><li>模块之中，可以使用<code>import</code>命令加载其他模块（<code>.js</code>后缀不可省略，需要提供绝对 URL 或相对 URL），也可以使用<code>export</code>命令输出对外接口。</li><li>模块之中，顶层的<code>this</code>关键字返回<code>undefined</code>，而不是指向<code>window</code>。也就是说，在模块顶层使用<code>this</code>关键字，是无意义的。</li><li>同一个模块如果加载多次，将只执行一次。</li></ul><p>下面是一个示例模块。</p><pre class="hljs"><code><span class="hljs-keyword">import</span> utils <span class="hljs-keyword">from</span> <span class="hljs-string">'https://example.com/js/utils.js'</span>;
+
+<span class="hljs-keyword">const</span> x = <span class="hljs-number">1</span>;
+
+<span class="hljs-built_in">console</span>.log(x === <span class="hljs-built_in">window</span>.x); <span class="hljs-comment">//false</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span> === <span class="hljs-literal">undefined</span>); <span class="hljs-comment">// true</span>
+</code></pre><p>利用顶层的<code>this</code>等于<code>undefined</code>这个语法点，可以侦测当前代码是否在 ES6 模块之中。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> isNotModuleScript = <span class="hljs-keyword">this</span> !== <span class="hljs-literal">undefined</span>;
+</code></pre><h2 id="es6-模块与-commonjs-模块的差异">ES6 模块与 CommonJS 模块的差异 <a class="markdownIt-Anchor" href="#es6-模块与-commonjs-模块的差异">#</a></h2><p>讨论 Node.js 加载 ES6 模块之前，必须了解 ES6 模块与 CommonJS 模块完全不同。</p><p>它们有两个重大差异。</p><ul><li>CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用。</li><li>CommonJS 模块是运行时加载，ES6 模块是编译时输出接口。</li></ul><p>第二个差异是因为 CommonJS 加载的是一个对象（即<code>module.exports</code>属性），该对象只有在脚本运行完才会生成。而 ES6 模块不是对象，它的对外接口只是一种静态定义，在代码静态解析阶段就会生成。</p><p>下面重点解释第一个差异。</p><p>CommonJS 模块输出的是值的拷贝，也就是说，一旦输出一个值，模块内部的变化就影响不到这个值。请看下面这个模块文件<code>lib.js</code>的例子。</p><pre class="hljs"><code><span class="hljs-comment">// lib.js</span>
+<span class="hljs-keyword">var</span> counter = <span class="hljs-number">3</span>;
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">incCounter</span>(<span class="hljs-params"></span>) </span>{
+  counter++;
+}
+<span class="hljs-built_in">module</span>.exports = {
+  <span class="hljs-attr">counter</span>: counter,
+  <span class="hljs-attr">incCounter</span>: incCounter,
+};
+</code></pre><p>上面代码输出内部变量<code>counter</code>和改写这个变量的内部方法<code>incCounter</code>。然后，在<code>main.js</code>里面加载这个模块。</p><pre class="hljs"><code><span class="hljs-comment">// main.js</span>
+<span class="hljs-keyword">var</span> mod = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./lib'</span>);
+
+<span class="hljs-built_in">console</span>.log(mod.counter);  <span class="hljs-comment">// 3</span>
+mod.incCounter();
+<span class="hljs-built_in">console</span>.log(mod.counter); <span class="hljs-comment">// 3</span>
+</code></pre><p>上面代码说明，<code>lib.js</code>模块加载以后，它的内部变化就影响不到输出的<code>mod.counter</code>了。这是因为<code>mod.counter</code>是一个原始类型的值，会被缓存。除非写成一个函数，才能得到内部变动后的值。</p><pre class="hljs"><code><span class="hljs-comment">// lib.js</span>
+<span class="hljs-keyword">var</span> counter = <span class="hljs-number">3</span>;
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">incCounter</span>(<span class="hljs-params"></span>) </span>{
+  counter++;
+}
+<span class="hljs-built_in">module</span>.exports = {
+  <span class="hljs-keyword">get</span> counter() {
+    <span class="hljs-keyword">return</span> counter
+  },
+  <span class="hljs-attr">incCounter</span>: incCounter,
+};
+</code></pre><p>上面代码中，输出的<code>counter</code>属性实际上是一个取值器函数。现在再执行<code>main.js</code>，就可以正确读取内部变量<code>counter</code>的变动了。</p><pre class="hljs"><code>$ node main.js
+3
+4
+</code></pre><p>ES6 模块的运行机制与 CommonJS 不一样。JS 引擎对脚本静态分析的时候，遇到模块加载命令<code>import</code>，就会生成一个只读引用。等到脚本真正执行时，再根据这个只读引用，到被加载的那个模块里面去取值。换句话说，ES6 的<code>import</code>有点像 Unix 系统的“符号连接”，原始值变了，<code>import</code>加载的值也会跟着变。因此，ES6 模块是动态引用，并且不会缓存值，模块里面的变量绑定其所在的模块。</p><p>还是举上面的例子。</p><pre class="hljs"><code><span class="hljs-comment">// lib.js</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">let</span> counter = <span class="hljs-number">3</span>;
+<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">incCounter</span>(<span class="hljs-params"></span>) </span>{
+  counter++;
+}
+
+<span class="hljs-comment">// main.js</span>
+<span class="hljs-keyword">import</span> { counter, incCounter } <span class="hljs-keyword">from</span> <span class="hljs-string">'./lib'</span>;
+<span class="hljs-built_in">console</span>.log(counter); <span class="hljs-comment">// 3</span>
+incCounter();
+<span class="hljs-built_in">console</span>.log(counter); <span class="hljs-comment">// 4</span>
+</code></pre><p>上面代码说明，ES6 模块输入的变量<code>counter</code>是活的，完全反应其所在模块<code>lib.js</code>内部的变化。</p><p>再举一个出现在<code>export</code>一节中的例子。</p><pre class="hljs"><code><span class="hljs-comment">// m1.js</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">var</span> foo = <span class="hljs-string">'bar'</span>;
+setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> foo = <span class="hljs-string">'baz'</span>, <span class="hljs-number">500</span>);
+
+<span class="hljs-comment">// m2.js</span>
+<span class="hljs-keyword">import</span> {foo} <span class="hljs-keyword">from</span> <span class="hljs-string">'./m1.js'</span>;
+<span class="hljs-built_in">console</span>.log(foo);
+setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(foo), <span class="hljs-number">500</span>);
+</code></pre><p>上面代码中，<code>m1.js</code>的变量<code>foo</code>，在刚加载时等于<code>bar</code>，过了 500 毫秒，又变为等于<code>baz</code>。</p><p>让我们看看，<code>m2.js</code>能否正确读取这个变化。</p><pre class="hljs"><code>$ babel-node m2.js
+
+bar
+baz
+</code></pre><p>上面代码表明，ES6 模块不会缓存运行结果，而是动态地去被加载的模块取值，并且变量总是绑定其所在的模块。</p><p>由于 ES6 输入的模块变量，只是一个“符号连接”，所以这个变量是只读的，对它进行重新赋值会报错。</p><pre class="hljs"><code><span class="hljs-comment">// lib.js</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">let</span> obj = {};
+
+<span class="hljs-comment">// main.js</span>
+<span class="hljs-keyword">import</span> { obj } <span class="hljs-keyword">from</span> <span class="hljs-string">'./lib'</span>;
+
+obj.prop = <span class="hljs-number">123</span>; <span class="hljs-comment">// OK</span>
+obj = {}; <span class="hljs-comment">// TypeError</span>
+</code></pre><p>上面代码中，<code>main.js</code>从<code>lib.js</code>输入变量<code>obj</code>，可以对<code>obj</code>添加属性，但是重新赋值就会报错。因为变量<code>obj</code>指向的地址是只读的，不能重新赋值，这就好比<code>main.js</code>创造了一个名为<code>obj</code>的<code>const</code>变量。</p><p>最后，<code>export</code>通过接口，输出的是同一个值。不同的脚本加载这个接口，得到的都是同样的实例。</p><pre class="hljs"><code><span class="hljs-comment">// mod.js</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">C</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">this</span>.sum = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">this</span>.add = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">this</span>.sum += <span class="hljs-number">1</span>;
+  };
+  <span class="hljs-keyword">this</span>.show = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.sum);
+  };
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">let</span> c = <span class="hljs-keyword">new</span> C();
+</code></pre><p>上面的脚本<code>mod.js</code>，输出的是一个<code>C</code>的实例。不同的脚本加载这个模块，得到的都是同一个实例。</p><pre class="hljs"><code><span class="hljs-comment">// x.js</span>
+<span class="hljs-keyword">import</span> {c} <span class="hljs-keyword">from</span> <span class="hljs-string">'./mod'</span>;
+c.add();
+
+<span class="hljs-comment">// y.js</span>
+<span class="hljs-keyword">import</span> {c} <span class="hljs-keyword">from</span> <span class="hljs-string">'./mod'</span>;
+c.show();
+
+<span class="hljs-comment">// main.js</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">'./x'</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">'./y'</span>;
+</code></pre><p>现在执行<code>main.js</code>，输出的是<code>1</code>。</p><pre class="hljs"><code>$ babel-node main.js
+1
+</code></pre><p>这就证明了<code>x.js</code>和<code>y.js</code>加载的都是<code>C</code>的同一个实例。</p><h2 id="nodejs-加载">Node.js 加载 <a class="markdownIt-Anchor" href="#nodejs-加载">#</a></h2><h3 id="概述">概述 <a class="markdownIt-Anchor" href="#概述">#</a></h3><p>Node.js 对 ES6 模块的处理比较麻烦，因为它有自己的 CommonJS 模块格式，与 ES6 模块格式是不兼容的。目前的解决方案是，将两者分开，ES6 模块和 CommonJS 采用各自的加载方案。从 v13.2 版本开始，Node.js 已经默认打开了 ES6 模块支持。</p><p>Node.js 要求 ES6 模块采用<code>.mjs</code>后缀文件名。也就是说，只要脚本文件里面使用<code>import</code>或者<code>export</code>命令，那么就必须采用<code>.mjs</code>后缀名。Node.js 遇到<code>.mjs</code>文件，就认为它是 ES6 模块，默认启用严格模式，不必在每个模块文件顶部指定<code>&quot;use strict&quot;</code>。</p><p>如果不希望将后缀名改成<code>.mjs</code>，可以在项目的<code>package.json</code>文件中，指定<code>type</code>字段为<code>module</code>。</p><pre class="hljs"><code>{
+   <span class="hljs-string">"type"</span>: <span class="hljs-string">"module"</span>
+}
+</code></pre><p>一旦设置了以后，该目录里面的 JS 脚本，就被解释用 ES6 模块。</p><pre class="hljs"><code><span class="hljs-comment"># 解释成 ES6 模块</span>
+$ node my-app.js
+</code></pre><p>如果这时还要使用 CommonJS 模块，那么需要将 CommonJS 脚本的后缀名都改成<code>.cjs</code>。如果没有<code>type</code>字段，或者<code>type</code>字段为<code>commonjs</code>，则<code>.js</code>脚本会被解释成 CommonJS 模块。</p><p>总结为一句话：<code>.mjs</code>文件总是以 ES6 模块加载，<code>.cjs</code>文件总是以 CommonJS 模块加载，<code>.js</code>文件的加载取决于<code>package.json</code>里面<code>type</code>字段的设置。</p><p>注意，ES6 模块与 CommonJS 模块尽量不要混用。<code>require</code>命令不能加载<code>.mjs</code>文件，会报错，只有<code>import</code>命令才可以加载<code>.mjs</code>文件。反过来，<code>.mjs</code>文件里面也不能使用<code>require</code>命令，必须使用<code>import</code>。</p><h3 id="main-字段">main 字段 <a class="markdownIt-Anchor" href="#main-字段">#</a></h3><p><code>package.json</code>文件有两个字段可以指定模块的入口文件：<code>main</code>和<code>exports</code>。比较简单的模块，可以只使用<code>main</code>字段，指定模块加载的入口文件。</p><pre class="hljs"><code><span class="hljs-comment">// ./node_modules/es-module-package/package.json</span>
+{
+  <span class="hljs-string">"type"</span>: <span class="hljs-string">"module"</span>,
+  <span class="hljs-string">"main"</span>: <span class="hljs-string">"./src/index.js"</span>
+}
+</code></pre><p>上面代码指定项目的入口脚本为<code>./src/index.js</code>，它的格式为 ES6 模块。如果没有<code>type</code>字段，<code>index.js</code>就会被解释为 CommonJS 模块。</p><p>然后，<code>import</code>命令就可以加载这个模块。</p><pre class="hljs"><code><span class="hljs-comment">// ./my-app.mjs</span>
+
+<span class="hljs-keyword">import</span> { something } <span class="hljs-keyword">from</span> <span class="hljs-string">'es-module-package'</span>;
+<span class="hljs-comment">// 实际加载的是 ./node_modules/es-module-package/src/index.js</span>
+</code></pre><p>上面代码中，运行该脚本以后，Node.js 就会到<code>./node_modules</code>目录下面，寻找<code>es-module-package</code>模块，然后根据该模块<code>package.json</code>的<code>main</code>字段去执行入口文件。</p><p>这时，如果用 CommonJS 模块的<code>require()</code>命令去加载<code>es-module-package</code>模块会报错，因为 CommonJS 模块不能处理<code>export</code>命令。</p><h3 id="exports-字段">exports 字段 <a class="markdownIt-Anchor" href="#exports-字段">#</a></h3><p><code>exports</code>字段的优先级高于<code>main</code>字段。它有多种用法。</p><p>（1）子目录别名</p><p><code>package.json</code>文件的<code>exports</code>字段可以指定脚本或子目录的别名。</p><pre class="hljs"><code><span class="hljs-comment">// ./node_modules/es-module-package/package.json</span>
+{
+  <span class="hljs-string">"exports"</span>: {
+    <span class="hljs-string">"./submodule"</span>: <span class="hljs-string">"./src/submodule.js"</span>
+  }
+}
+</code></pre><p>上面的代码指定<code>src/submodule.js</code>别名为<code>submodule</code>，然后就可以从别名加载这个文件。</p><pre class="hljs"><code><span class="hljs-keyword">import</span> submodule <span class="hljs-keyword">from</span> <span class="hljs-string">'es-module-package/submodule'</span>;
+<span class="hljs-comment">// 加载 ./node_modules/es-module-package/src/submodule.js</span>
+</code></pre><p>下面是子目录别名的例子。</p><pre class="hljs"><code><span class="hljs-comment">// ./node_modules/es-module-package/package.json</span>
+{
+  <span class="hljs-string">"exports"</span>: {
+    <span class="hljs-string">"./features/"</span>: <span class="hljs-string">"./src/features/"</span>
+  }
+}
+
+<span class="hljs-keyword">import</span> feature <span class="hljs-keyword">from</span> <span class="hljs-string">'es-module-package/features/x.js'</span>;
+<span class="hljs-comment">// 加载 ./node_modules/es-module-package/src/features/x.js</span>
+</code></pre><p>如果没有指定别名，就不能用“模块+脚本名”这种形式加载脚本。</p><pre class="hljs"><code><span class="hljs-comment">// 报错</span>
+<span class="hljs-keyword">import</span> submodule <span class="hljs-keyword">from</span> <span class="hljs-string">'es-module-package/private-module.js'</span>;
+
+<span class="hljs-comment">// 不报错</span>
+<span class="hljs-keyword">import</span> submodule <span class="hljs-keyword">from</span> <span class="hljs-string">'./node_modules/es-module-package/private-module.js'</span>;
+</code></pre><p>（2）main 的别名</p><p><code>exports</code>字段的别名如果是<code>.</code>，就代表模块的主入口，优先级高于<code>main</code>字段，并且可以直接简写成<code>exports</code>字段的值。</p><pre class="hljs"><code>{
+  <span class="hljs-string">"exports"</span>: {
+    <span class="hljs-string">"."</span>: <span class="hljs-string">"./main.js"</span>
+  }
+}
+
+<span class="hljs-comment">// 等同于</span>
+{
+  <span class="hljs-string">"exports"</span>: <span class="hljs-string">"./main.js"</span>
+}
+</code></pre><p>由于<code>exports</code>字段只有支持 ES6 的 Node.js 才认识，所以可以用来兼容旧版本的 Node.js。</p><pre class="hljs"><code>{
+  <span class="hljs-string">"main"</span>: <span class="hljs-string">"./main-legacy.cjs"</span>,
+  <span class="hljs-string">"exports"</span>: {
+    <span class="hljs-string">"."</span>: <span class="hljs-string">"./main-modern.cjs"</span>
+  }
+}
+</code></pre><p>上面代码中，老版本的 Node.js （不支持 ES6 模块）的入口文件是<code>main-legacy.cjs</code>，新版本的 Node.js 的入口文件是<code>main-modern.cjs</code>。</p><p><strong>（3）条件加载</strong></p><p>利用<code>.</code>这个别名，可以为 ES6 模块和 CommonJS 指定不同的入口。目前，这个功能需要在 Node.js 运行的时候，打开<code>--experimental-conditional-exports</code>标志。</p><pre class="hljs"><code>{
+  <span class="hljs-string">"type"</span>: <span class="hljs-string">"module"</span>,
+  <span class="hljs-string">"exports"</span>: {
+    <span class="hljs-string">"."</span>: {
+      <span class="hljs-string">"require"</span>: <span class="hljs-string">"./main.cjs"</span>,
+      <span class="hljs-string">"default"</span>: <span class="hljs-string">"./main.js"</span>
+    }
+  }
+}
+</code></pre><p>上面代码中，别名<code>.</code>的<code>require</code>条件指定<code>require()</code>命令的入口文件（即 CommonJS 的入口），<code>default</code>条件指定其他情况的入口（即 ES6 的入口）。</p><p>上面的写法可以简写如下。</p><pre class="hljs"><code>{
+  <span class="hljs-string">"exports"</span>: {
+    <span class="hljs-string">"require"</span>: <span class="hljs-string">"./main.cjs"</span>,
+    <span class="hljs-string">"default"</span>: <span class="hljs-string">"./main.js"</span>
+  }
+}
+</code></pre><p>注意，如果同时还有其他别名，就不能采用简写，否则或报错。</p><pre class="hljs"><code>{
+  <span class="hljs-comment">// 报错</span>
+  <span class="hljs-string">"exports"</span>: {
+    <span class="hljs-string">"./feature"</span>: <span class="hljs-string">"./lib/feature.js"</span>,
+    <span class="hljs-string">"require"</span>: <span class="hljs-string">"./main.cjs"</span>,
+    <span class="hljs-string">"default"</span>: <span class="hljs-string">"./main.js"</span>
+  }
+}
+</code></pre><h3 id="es6-模块加载-commonjs-模块">ES6 模块加载 CommonJS 模块 <a class="markdownIt-Anchor" href="#es6-模块加载-commonjs-模块">#</a></h3><p>目前，一个模块同时支持 ES6 和 CommonJS 两种格式的常见方法是，<code>package.json</code>文件的<code>main</code>字段指定 CommonJS 入口，给 Node.js 使用；<code>module</code>字段指定 ES6 模块入口，给打包工具使用，因为 Node.js 不认识<code>module</code>字段。</p><p>有了上一节的条件加载以后，Node.js 本身就可以同时处理两种模块。</p><pre class="hljs"><code><span class="hljs-comment">// ./node_modules/pkg/package.json</span>
+{
+  <span class="hljs-string">"type"</span>: <span class="hljs-string">"module"</span>,
+  <span class="hljs-string">"main"</span>: <span class="hljs-string">"./index.cjs"</span>,
+  <span class="hljs-string">"exports"</span>: {
+    <span class="hljs-string">"require"</span>: <span class="hljs-string">"./index.cjs"</span>,
+    <span class="hljs-string">"default"</span>: <span class="hljs-string">"./wrapper.mjs"</span>
+  }
+}
+</code></pre><p>上面代码指定了 CommonJS 入口文件<code>index.cjs</code>，下面是这个文件的代码。</p><pre class="hljs"><code><span class="hljs-comment">// ./node_modules/pkg/index.cjs</span>
+exports.name = <span class="hljs-string">'value'</span>;
+</code></pre><p>然后，ES6 模块可以加载这个文件。</p><pre class="hljs"><code><span class="hljs-comment">// ./node_modules/pkg/wrapper.mjs</span>
+<span class="hljs-keyword">import</span> cjsModule <span class="hljs-keyword">from</span> <span class="hljs-string">'./index.cjs'</span>;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> name = cjsModule.name;
+</code></pre><p>注意，<code>import</code>命令加载 CommonJS 模块，只能整体加载，不能只加载单一的输出项。</p><pre class="hljs"><code><span class="hljs-comment">// 正确</span>
+<span class="hljs-keyword">import</span> packageMain <span class="hljs-keyword">from</span> <span class="hljs-string">'commonjs-package'</span>;
+
+<span class="hljs-comment">// 报错</span>
+<span class="hljs-keyword">import</span> { method } <span class="hljs-keyword">from</span> <span class="hljs-string">'commonjs-package'</span>;
+</code></pre><p>还有一种变通的加载方法，就是使用 Node.js 内置的<code>module.createRequire()</code>方法。</p><pre class="hljs"><code><span class="hljs-comment">// cjs.cjs</span>
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-string">'cjs'</span>;
+
+<span class="hljs-comment">// esm.mjs</span>
+<span class="hljs-keyword">import</span> { createRequire } <span class="hljs-keyword">from</span> <span class="hljs-string">'module'</span>;
+
+<span class="hljs-keyword">const</span> <span class="hljs-built_in">require</span> = createRequire(<span class="hljs-keyword">import</span>.meta.url);
+
+<span class="hljs-keyword">const</span> cjs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./cjs.cjs'</span>);
+cjs === <span class="hljs-string">'cjs'</span>; <span class="hljs-comment">// true</span>
+</code></pre><p>上面代码中，ES6 模块通过<code>module.createRequire()</code>方法可以加载 CommonJS 模块</p><h3 id="commonjs-模块加载-es6-模块">CommonJS 模块加载 ES6 模块 <a class="markdownIt-Anchor" href="#commonjs-模块加载-es6-模块">#</a></h3><p>CommonJS 的<code>require</code>命令不能加载 ES6 模块，会报错，只能使用<code>import()</code>这个方法加载。</p><pre class="hljs"><code>(<span class="hljs-keyword">async</span> () =&gt; {
+  <span class="hljs-keyword">await</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">'./my-app.mjs'</span>);
+})();
+</code></pre><p>上面代码可以在 CommonJS 模块中运行。</p><h3 id="nodejs-的内置模块">Node.js 的内置模块 <a class="markdownIt-Anchor" href="#nodejs-的内置模块">#</a></h3><p>Node.js 的内置模块可以整体加载，也可以加载指定的输出项。</p><pre class="hljs"><code><span class="hljs-comment">// 整体加载</span>
+<span class="hljs-keyword">import</span> EventEmitter <span class="hljs-keyword">from</span> <span class="hljs-string">'events'</span>;
+<span class="hljs-keyword">const</span> e = <span class="hljs-keyword">new</span> EventEmitter();
+
+<span class="hljs-comment">// 加载指定的输出项</span>
+<span class="hljs-keyword">import</span> { readFile } <span class="hljs-keyword">from</span> <span class="hljs-string">'fs'</span>;
+readFile(<span class="hljs-string">'./foo.txt'</span>, (err, source) =&gt; {
+  <span class="hljs-keyword">if</span> (err) {
+    <span class="hljs-built_in">console</span>.error(err);
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-built_in">console</span>.log(source);
+  }
+});
+</code></pre><h3 id="加载路径">加载路径 <a class="markdownIt-Anchor" href="#加载路径">#</a></h3><p>ES6 模块的加载路径必须给出脚本的完整路径，不能省略脚本的后缀名。<code>import</code>命令和<code>package.json</code>文件的<code>main</code>字段如果省略脚本的后缀名，会报错。</p><pre class="hljs"><code><span class="hljs-comment">// ES6 模块中将报错</span>
+<span class="hljs-keyword">import</span> { something } <span class="hljs-keyword">from</span> <span class="hljs-string">'./index'</span>;
+</code></pre><p>为了与浏览器的<code>import</code>加载规则相同，Node.js 的<code>.mjs</code>文件支持 URL 路径。</p><pre class="hljs"><code><span class="hljs-keyword">import</span> <span class="hljs-string">'./foo.mjs?query=1'</span>; <span class="hljs-comment">// 加载 ./foo 传入参数 ?query=1</span>
+</code></pre><p>上面代码中，脚本路径带有参数<code>?query=1</code>，Node 会按 URL 规则解读。同一个脚本只要参数不同，就会被加载多次，并且保存成不同的缓存。由于这个原因，只要文件名中含有<code>:</code>、<code>%</code>、<code>#</code>、<code>?</code>等特殊字符，最好对这些字符进行转义。</p><p>目前，Node.js 的<code>import</code>命令只支持加载本地模块（<code>file:</code>协议）和<code>data:</code>协议，不支持加载远程模块。另外，脚本路径只支持相对路径，不支持绝对路径（即以<code>/</code>或<code>//</code>开头的路径）。</p><p>最后，Node 的<code>import</code>命令是异步加载，这一点与浏览器的处理方法相同。</p><h3 id="内部变量">内部变量 <a class="markdownIt-Anchor" href="#内部变量">#</a></h3><p>ES6 模块应该是通用的，同一个模块不用修改，就可以用在浏览器环境和服务器环境。为了达到这个目标，Node 规定 ES6 模块之中不能使用 CommonJS 模块的特有的一些内部变量。</p><p>首先，就是<code>this</code>关键字。ES6 模块之中，顶层的<code>this</code>指向<code>undefined</code>；CommonJS 模块的顶层<code>this</code>指向当前模块，这是两者的一个重大差异。</p><p>其次，以下这些顶层变量在 ES6 模块之中都是不存在的。</p><ul><li><code>arguments</code></li><li><code>require</code></li><li><code>module</code></li><li><code>exports</code></li><li><code>__filename</code></li><li><code>__dirname</code></li></ul><h2 id="循环加载">循环加载 <a class="markdownIt-Anchor" href="#循环加载">#</a></h2><p>“循环加载”（circular dependency）指的是，<code>a</code>脚本的执行依赖<code>b</code>脚本，而<code>b</code>脚本的执行又依赖<code>a</code>脚本。</p><pre class="hljs"><code><span class="hljs-comment">// a.js</span>
+<span class="hljs-keyword">var</span> b = <span class="hljs-built_in">require</span>(<span class="hljs-string">'b'</span>);
+
+<span class="hljs-comment">// b.js</span>
+<span class="hljs-keyword">var</span> a = <span class="hljs-built_in">require</span>(<span class="hljs-string">'a'</span>);
+</code></pre><p>通常，“循环加载”表示存在强耦合，如果处理不好，还可能导致递归加载，使得程序无法执行，因此应该避免出现。</p><p>但是实际上，这是很难避免的，尤其是依赖关系复杂的大项目，很容易出现<code>a</code>依赖<code>b</code>，<code>b</code>依赖<code>c</code>，<code>c</code>又依赖<code>a</code>这样的情况。这意味着，模块加载机制必须考虑“循环加载”的情况。</p><p>对于 JavaScript 语言来说，目前最常见的两种模块格式 CommonJS 和 ES6，处理“循环加载”的方法是不一样的，返回的结果也不一样。</p><h3 id="commonjs-模块的加载原理">CommonJS 模块的加载原理 <a class="markdownIt-Anchor" href="#commonjs-模块的加载原理">#</a></h3><p>介绍 ES6 如何处理“循环加载”之前，先介绍目前最流行的 CommonJS 模块格式的加载原理。</p><p>CommonJS 的一个模块，就是一个脚本文件。<code>require</code>命令第一次加载该脚本，就会执行整个脚本，然后在内存生成一个对象。</p><pre class="hljs"><code>{
+  <span class="hljs-attr">id</span>: <span class="hljs-string">'...'</span>,
+  <span class="hljs-attr">exports</span>: { ... },
+  <span class="hljs-attr">loaded</span>: <span class="hljs-literal">true</span>,
+  ...
+}
+</code></pre><p>上面代码就是 Node 内部加载模块后生成的一个对象。该对象的<code>id</code>属性是模块名，<code>exports</code>属性是模块输出的各个接口，<code>loaded</code>属性是一个布尔值，表示该模块的脚本是否执行完毕。其他还有很多属性，这里都省略了。</p><p>以后需要用到这个模块的时候，就会到<code>exports</code>属性上面取值。即使再次执行<code>require</code>命令，也不会再次执行该模块，而是到缓存之中取值。也就是说，CommonJS 模块无论加载多少次，都只会在第一次加载时运行一次，以后再加载，就返回第一次运行的结果，除非手动清除系统缓存。</p><h3 id="commonjs-模块的循环加载">CommonJS 模块的循环加载 <a class="markdownIt-Anchor" href="#commonjs-模块的循环加载">#</a></h3><p>CommonJS 模块的重要特性是加载时执行，即脚本代码在<code>require</code>的时候，就会全部执行。一旦出现某个模块被&quot;循环加载&quot;，就只输出已经执行的部分，还未执行的部分不会输出。</p><p>让我们来看，Node <a href="https://nodejs.org/api/modules.html#modules_cycles" target="_blank" rel="noopener">官方文档</a>里面的例子。脚本文件<code>a.js</code>代码如下。</p><pre class="hljs"><code>exports.done = <span class="hljs-literal">false</span>;
+<span class="hljs-keyword">var</span> b = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./b.js'</span>);
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'在 a.js 之中，b.done = %j'</span>, b.done);
+exports.done = <span class="hljs-literal">true</span>;
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'a.js 执行完毕'</span>);
+</code></pre><p>上面代码之中，<code>a.js</code>脚本先输出一个<code>done</code>变量，然后加载另一个脚本文件<code>b.js</code>。注意，此时<code>a.js</code>代码就停在这里，等待<code>b.js</code>执行完毕，再往下执行。</p><p>再看<code>b.js</code>的代码。</p><pre class="hljs"><code>exports.done = <span class="hljs-literal">false</span>;
+<span class="hljs-keyword">var</span> a = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./a.js'</span>);
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'在 b.js 之中，a.done = %j'</span>, a.done);
+exports.done = <span class="hljs-literal">true</span>;
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'b.js 执行完毕'</span>);
+</code></pre><p>上面代码之中，<code>b.js</code>执行到第二行，就会去加载<code>a.js</code>，这时，就发生了“循环加载”。系统会去<code>a.js</code>模块对应对象的<code>exports</code>属性取值，可是因为<code>a.js</code>还没有执行完，从<code>exports</code>属性只能取回已经执行的部分，而不是最后的值。</p><p><code>a.js</code>已经执行的部分，只有一行。</p><pre class="hljs"><code>exports.done = <span class="hljs-literal">false</span>;
+</code></pre><p>因此，对于<code>b.js</code>来说，它从<code>a.js</code>只输入一个变量<code>done</code>，值为<code>false</code>。</p><p>然后，<code>b.js</code>接着往下执行，等到全部执行完毕，再把执行权交还给<code>a.js</code>。于是，<code>a.js</code>接着往下执行，直到执行完毕。我们写一个脚本<code>main.js</code>，验证这个过程。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> a = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./a.js'</span>);
+<span class="hljs-keyword">var</span> b = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./b.js'</span>);
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'在 main.js 之中, a.done=%j, b.done=%j'</span>, a.done, b.done);
+</code></pre><p>执行<code>main.js</code>，运行结果如下。</p><pre class="hljs"><code>$ node main.js
+
+在 b.js 之中，a.done = <span class="hljs-literal">false</span>
+b.js 执行完毕
+在 a.js 之中，b.done = <span class="hljs-literal">true</span>
+a.js 执行完毕
+在 main.js 之中, a.done=<span class="hljs-literal">true</span>, b.done=<span class="hljs-literal">true</span>
+</code></pre><p>上面的代码证明了两件事。一是，在<code>b.js</code>之中，<code>a.js</code>没有执行完毕，只执行了第一行。二是，<code>main.js</code>执行到第二行时，不会再次执行<code>b.js</code>，而是输出缓存的<code>b.js</code>的执行结果，即它的第四行。</p><pre class="hljs"><code>exports.done = <span class="hljs-literal">true</span>;
+</code></pre><p>总之，CommonJS 输入的是被输出值的拷贝，不是引用。</p><p>另外，由于 CommonJS 模块遇到循环加载时，返回的是当前已经执行的部分的值，而不是代码全部执行后的值，两者可能会有差异。所以，输入变量的时候，必须非常小心。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> a = <span class="hljs-built_in">require</span>(<span class="hljs-string">'a'</span>); <span class="hljs-comment">// 安全的写法</span>
+<span class="hljs-keyword">var</span> foo = <span class="hljs-built_in">require</span>(<span class="hljs-string">'a'</span>).foo; <span class="hljs-comment">// 危险的写法</span>
+
+exports.good = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">arg</span>) </span>{
+  <span class="hljs-keyword">return</span> a.foo(<span class="hljs-string">'good'</span>, arg); <span class="hljs-comment">// 使用的是 a.foo 的最新值</span>
+};
+
+exports.bad = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">arg</span>) </span>{
+  <span class="hljs-keyword">return</span> foo(<span class="hljs-string">'bad'</span>, arg); <span class="hljs-comment">// 使用的是一个部分加载时的值</span>
+};
+</code></pre><p>上面代码中，如果发生循环加载，<code>require('a').foo</code>的值很可能后面会被改写，改用<code>require('a')</code>会更保险一点。</p><h3 id="es6-模块的循环加载">ES6 模块的循环加载 <a class="markdownIt-Anchor" href="#es6-模块的循环加载">#</a></h3><p>ES6 处理“循环加载”与 CommonJS 有本质的不同。ES6 模块是动态引用，如果使用<code>import</code>从一个模块加载变量（即<code>import foo from 'foo'</code>），那些变量不会被缓存，而是成为一个指向被加载模块的引用，需要开发者自己保证，真正取值的时候能够取到值。</p><p>请看下面这个例子。</p><pre class="hljs"><code><span class="hljs-comment">// a.mjs</span>
+<span class="hljs-keyword">import</span> {bar} <span class="hljs-keyword">from</span> <span class="hljs-string">'./b'</span>;
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'a.mjs'</span>);
+<span class="hljs-built_in">console</span>.log(bar);
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">let</span> foo = <span class="hljs-string">'foo'</span>;
+
+<span class="hljs-comment">// b.mjs</span>
+<span class="hljs-keyword">import</span> {foo} <span class="hljs-keyword">from</span> <span class="hljs-string">'./a'</span>;
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'b.mjs'</span>);
+<span class="hljs-built_in">console</span>.log(foo);
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">let</span> bar = <span class="hljs-string">'bar'</span>;
+</code></pre><p>上面代码中，<code>a.mjs</code>加载<code>b.mjs</code>，<code>b.mjs</code>又加载<code>a.mjs</code>，构成循环加载。执行<code>a.mjs</code>，结果如下。</p><pre class="hljs"><code>$ node --experimental-modules a.mjs
+b.mjs
+ReferenceError: foo is not defined
+</code></pre><p>上面代码中，执行<code>a.mjs</code>以后会报错，<code>foo</code>变量未定义，这是为什么？</p><p>让我们一行行来看，ES6 循环加载是怎么处理的。首先，执行<code>a.mjs</code>以后，引擎发现它加载了<code>b.mjs</code>，因此会优先执行<code>b.mjs</code>，然后再执行<code>a.mjs</code>。接着，执行<code>b.mjs</code>的时候，已知它从<code>a.mjs</code>输入了<code>foo</code>接口，这时不会去执行<code>a.mjs</code>，而是认为这个接口已经存在了，继续往下执行。执行到第三行<code>console.log(foo)</code>的时候，才发现这个接口根本没定义，因此报错。</p><p>解决这个问题的方法，就是让<code>b.mjs</code>运行的时候，<code>foo</code>已经有定义了。这可以通过将<code>foo</code>写成函数来解决。</p><pre class="hljs"><code><span class="hljs-comment">// a.mjs</span>
+<span class="hljs-keyword">import</span> {bar} <span class="hljs-keyword">from</span> <span class="hljs-string">'./b'</span>;
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'a.mjs'</span>);
+<span class="hljs-built_in">console</span>.log(bar());
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">return</span> <span class="hljs-string">'foo'</span> }
+<span class="hljs-keyword">export</span> {foo};
+
+<span class="hljs-comment">// b.mjs</span>
+<span class="hljs-keyword">import</span> {foo} <span class="hljs-keyword">from</span> <span class="hljs-string">'./a'</span>;
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'b.mjs'</span>);
+<span class="hljs-built_in">console</span>.log(foo());
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bar</span>(<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">return</span> <span class="hljs-string">'bar'</span> }
+<span class="hljs-keyword">export</span> {bar};
+</code></pre><p>这时再执行<code>a.mjs</code>就可以得到预期结果。</p><pre class="hljs"><code>$ node --experimental-modules a.mjs
+b.mjs
+foo
+a.mjs
+bar
+</code></pre><p>这是因为函数具有提升作用，在执行<code>import {bar} from './b'</code>时，函数<code>foo</code>就已经有定义了，所以<code>b.mjs</code>加载的时候不会报错。这也意味着，如果把函数<code>foo</code>改写成函数表达式，也会报错。</p><pre class="hljs"><code><span class="hljs-comment">// a.mjs</span>
+<span class="hljs-keyword">import</span> {bar} <span class="hljs-keyword">from</span> <span class="hljs-string">'./b'</span>;
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'a.mjs'</span>);
+<span class="hljs-built_in">console</span>.log(bar());
+<span class="hljs-keyword">const</span> foo = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-string">'foo'</span>;
+<span class="hljs-keyword">export</span> {foo};
+</code></pre><p>上面代码的第四行，改成了函数表达式，就不具有提升作用，执行就会报错。</p><p>我们再来看 ES6 模块加载器<a href="https://github.com/ModuleLoader/es6-module-loader/blob/master/docs/circular-references-bindings.md" target="_blank" rel="noopener">SystemJS</a>给出的一个例子。</p><pre class="hljs"><code><span class="hljs-comment">// even.js</span>
+<span class="hljs-keyword">import</span> { odd } <span class="hljs-keyword">from</span> <span class="hljs-string">'./odd'</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">var</span> counter = <span class="hljs-number">0</span>;
+<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">even</span>(<span class="hljs-params">n</span>) </span>{
+  counter++;
+  <span class="hljs-keyword">return</span> n === <span class="hljs-number">0</span> || odd(n - <span class="hljs-number">1</span>);
+}
+
+<span class="hljs-comment">// odd.js</span>
+<span class="hljs-keyword">import</span> { even } <span class="hljs-keyword">from</span> <span class="hljs-string">'./even'</span>;
+<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">odd</span>(<span class="hljs-params">n</span>) </span>{
+  <span class="hljs-keyword">return</span> n !== <span class="hljs-number">0</span> &amp;&amp; even(n - <span class="hljs-number">1</span>);
+}
+</code></pre><p>上面代码中，<code>even.js</code>里面的函数<code>even</code>有一个参数<code>n</code>，只要不等于 0，就会减去 1，传入加载的<code>odd()</code>。<code>odd.js</code>也会做类似操作。</p><p>运行上面这段代码，结果如下。</p><pre class="hljs"><code>$ babel-node
+&gt; <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> m <span class="hljs-keyword">from</span> <span class="hljs-string">'./even.js'</span>;
+&gt; m.even(<span class="hljs-number">10</span>);
+<span class="hljs-literal">true</span>
+&gt; m.counter
+<span class="hljs-number">6</span>
+&gt; m.even(<span class="hljs-number">20</span>)
+<span class="hljs-literal">true</span>
+&gt; m.counter
+<span class="hljs-number">17</span>
+</code></pre><p>上面代码中，参数<code>n</code>从 10 变为 0 的过程中，<code>even()</code>一共会执行 6 次，所以变量<code>counter</code>等于 6。第二次调用<code>even()</code>时，参数<code>n</code>从 20 变为 0，<code>even()</code>一共会执行 11 次，加上前面的 6 次，所以变量<code>counter</code>等于 17。</p><p>这个例子要是改写成 CommonJS，就根本无法执行，会报错。</p><pre class="hljs"><code><span class="hljs-comment">// even.js</span>
+<span class="hljs-keyword">var</span> odd = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./odd'</span>);
+<span class="hljs-keyword">var</span> counter = <span class="hljs-number">0</span>;
+exports.counter = counter;
+exports.even = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">n</span>) </span>{
+  counter++;
+  <span class="hljs-keyword">return</span> n == <span class="hljs-number">0</span> || odd(n - <span class="hljs-number">1</span>);
+}
+
+<span class="hljs-comment">// odd.js</span>
+<span class="hljs-keyword">var</span> even = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./even'</span>).even;
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">n</span>) </span>{
+  <span class="hljs-keyword">return</span> n != <span class="hljs-number">0</span> &amp;&amp; even(n - <span class="hljs-number">1</span>);
+}
+</code></pre><p>上面代码中，<code>even.js</code>加载<code>odd.js</code>，而<code>odd.js</code>又去加载<code>even.js</code>，形成“循环加载”。这时，执行引擎就会输出<code>even.js</code>已经执行的部分（不存在任何结果），所以在<code>odd.js</code>之中，变量<code>even</code>等于<code>undefined</code>，等到后面调用<code>even(n - 1)</code>就会报错。</p><pre class="hljs"><code>$ node
+&gt; var m = require(<span class="hljs-string">'./even'</span>);
+&gt; m.even(10)
+TypeError: even is not a <span class="hljs-keyword">function</span>
+</code></pre></article><nav class="level level-previous-next is-size-5 is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="module.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> Module 的语法</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="style.html">编程风格 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><div class="page-info is-size-5-desktop"><p>本教程采用<a href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh" target="_blank">知识共享 署名-相同方式共享 3.0协议</a>。</p><p>分享本文 <span class="social-share"></span></p></div></div><div class="column is-3 is-offset-1"><nav class="panel panel-menu"><p class="panel-heading"><i class="fa fa-book" aria-hidden="true"></i> ES6 教程</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="intro.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">ECMAScript 6 简介</span></a></li><li><a href="let.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">let 和 const 命令</span></a></li><li><a href="destructuring.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">变量的解构赋值</span></a></li><li><a href="string.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">字符串的扩展</span></a></li><li><a href="string-methods.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">字符串的新增方法</span></a></li><li><a href="regex.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">正则的扩展</span></a></li><li><a href="number.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数值的扩展</span></a></li><li><a href="function.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">函数的扩展</span></a></li><li><a href="array.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数组的扩展</span></a></li><li><a href="object.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">对象的扩展</span></a></li><li><a href="object-methods.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">对象的新增方法</span></a></li><li><a href="symbol.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Symbol</span></a></li><li><a href="set-map.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Set 和 Map 数据结构</span></a></li><li><a href="proxy.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Proxy</span></a></li><li><a href="reflect.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Reflect</span></a></li><li><a href="promise.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Promise 对象</span></a></li><li><a href="iterator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Iterator 和 for...of 循环</span></a></li><li><a href="generator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Generator 函数的语法</span></a></li><li><a href="generator-async.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Generator 函数的异步应用</span></a></li><li><a href="async.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">async 函数</span></a></li><li><a href="class.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Class 的基本语法</span></a></li><li><a href="class-extends.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Class 的继承</span></a></li><li><a href="module.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Module 的语法</span></a></li><li><a href="module-loader.html" class="is-active"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Module 的加载实现</span></a></li><li><a href="style.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">编程风格</span></a></li><li><a href="spec.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">读懂规格</span></a></li><li><a href="async-iterator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">异步遍历器</span></a></li><li><a href="arraybuffer.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">ArrayBuffer</span></a></li><li><a href="proposals.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">最新提案</span></a></li><li><a href="decorator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Decorator</span></a></li><li><a href="reference.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">参考链接</span></a></li></ul></aside></div></nav><nav class="panel panel-info"><p class="panel-heading"><i class="fa fa-link" aria-hidden="true"></i> 链接</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="https://raw.githubusercontent.com/wangdoc/es6-tutorial/master/docs/module-loader.md" target="_blank"><span class="icon"></span><i class="fa fa-code" aria-hidden="true" style="width: 14px;"></i>&nbsp;本文源码</a></li><li><a href="https://github.com/wangdoc/es6-tutorial" target="_blank"><span class="icon"></span><i class="fa fa-hdd-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;代码仓库</a></li><li><a href="https://github.com/wangdoc/es6-tutorial/issues" target="_blank"><span class="icon"></span><i class="fa fa-flag-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;反馈</a></li></ul></aside></div></nav></div></div><div class="columns"><div class="column is-8"><div id="disqus_thread"></div></div></div></div></section><footer class="footer is-size-5-desktop"><div class="container"><div class="content has-text-centered"><p>联系：contact@wangdoc.com</p></div></div></footer><script>var LOPPO={current_path:"module-loader.md",relative_root_path:"",article_toc:'<ul class="markdownIt-TOC">\n<li><a href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8A%A0%E8%BD%BD">浏览器加载</a>\n<ul>\n<li><a href="#%E4%BC%A0%E7%BB%9F%E6%96%B9%E6%B3%95">传统方法</a></li>\n<li><a href="#%E5%8A%A0%E8%BD%BD%E8%A7%84%E5%88%99">加载规则</a></li>\n</ul>\n</li>\n<li><a href="#es6-%E6%A8%A1%E5%9D%97%E4%B8%8E-commonjs-%E6%A8%A1%E5%9D%97%E7%9A%84%E5%B7%AE%E5%BC%82">ES6 模块与 CommonJS 模块的差异</a></li>\n<li><a href="#nodejs-%E5%8A%A0%E8%BD%BD">Node.js 加载</a>\n<ul>\n<li><a href="#%E6%A6%82%E8%BF%B0">概述</a></li>\n<li><a href="#main-%E5%AD%97%E6%AE%B5">main 字段</a></li>\n<li><a href="#exports-%E5%AD%97%E6%AE%B5">exports 字段</a></li>\n<li><a href="#es6-%E6%A8%A1%E5%9D%97%E5%8A%A0%E8%BD%BD-commonjs-%E6%A8%A1%E5%9D%97">ES6 模块加载 CommonJS 模块</a></li>\n<li><a href="#commonjs-%E6%A8%A1%E5%9D%97%E5%8A%A0%E8%BD%BD-es6-%E6%A8%A1%E5%9D%97">CommonJS 模块加载 ES6 模块</a></li>\n<li><a href="#nodejs-%E7%9A%84%E5%86%85%E7%BD%AE%E6%A8%A1%E5%9D%97">Node.js 的内置模块</a></li>\n<li><a href="#%E5%8A%A0%E8%BD%BD%E8%B7%AF%E5%BE%84">加载路径</a></li>\n<li><a href="#%E5%86%85%E9%83%A8%E5%8F%98%E9%87%8F">内部变量</a></li>\n</ul>\n</li>\n<li><a href="#%E5%BE%AA%E7%8E%AF%E5%8A%A0%E8%BD%BD">循环加载</a>\n<ul>\n<li><a href="#commonjs-%E6%A8%A1%E5%9D%97%E7%9A%84%E5%8A%A0%E8%BD%BD%E5%8E%9F%E7%90%86">CommonJS 模块的加载原理</a></li>\n<li><a href="#commonjs-%E6%A8%A1%E5%9D%97%E7%9A%84%E5%BE%AA%E7%8E%AF%E5%8A%A0%E8%BD%BD">CommonJS 模块的循环加载</a></li>\n<li><a href="#es6-%E6%A8%A1%E5%9D%97%E7%9A%84%E5%BE%AA%E7%8E%AF%E5%8A%A0%E8%BD%BD">ES6 模块的循环加载</a></li>\n</ul>\n</li>\n</ul>\n'}</script><script src="assets/js/app.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-111269443-1"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","UA-111269443-1")</script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?5eec262881855af3dede6a71234571f6";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><script>/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+const l = window.location;
+const url = l.protocol + '//' + l.host + (l.port ? ':' + l.port : '') + l.pathname;
+this.page.url = url;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = l.pathname; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://wangdoc-es6.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();</script><!--script src="assets/js/social-share.min.js"--><!--/script--><script>var shareDesc="我正在阅读《Module 的加载实现》，出自网道（WangDoc.com）的《ES6 教程》。",shareOpts={url:window.location.href,source:shareDesc,title:shareDesc,description:"",image:"",sites:["weibo","wechat","qq","qzone","twitter","facebook"],origin:"WangDoc_com",disabled:[],wechatQrcodeTitle:"微信",wechatQrcodeHelper:"扫一下二维码，分享到微信。"};socialShare(".social-share",shareOpts)</script></body></html>

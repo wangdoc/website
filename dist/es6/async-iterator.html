@@ -1,0 +1,296 @@
+<!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>异步遍历器 - ES6 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="异步遍历器"><link rel="apple-touch-icon" sizes="57x57" href="assets/icons/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="assets/icons/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="assets/icons/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="assets/icons/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="assets/icons/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="assets/icons/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="assets/icons/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="assets/icons/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png"><link rel="manifest" href="assets/icons/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="assets/icons/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/es6-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/es6-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8"><nav class="breadcrumb is-size-5-desktop" aria-label="breadcrumbs"><ul><li><a href="index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;ES6 教程</a></li><li class="is-active"><a class="has-text-grey" href="async-iterator.html">异步遍历器</a></li></ul></nav><nav class="level level-previous-next is-size-5 is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="spec.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> 读懂规格</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="arraybuffer.html">ArrayBuffer <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content is-size-5-desktop"><h1 class="title">异步遍历器</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><h2 id="同步遍历器的问题">同步遍历器的问题 <a class="markdownIt-Anchor" href="#同步遍历器的问题">#</a></h2><p>《遍历器》一章说过，Iterator 接口是一种数据遍历的协议，只要调用遍历器对象的<code>next</code>方法，就会得到一个对象，表示当前遍历指针所在的那个位置的信息。<code>next</code>方法返回的对象的结构是<code>{value, done}</code>，其中<code>value</code>表示当前的数据的值，<code>done</code>是一个布尔值，表示遍历是否结束。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">idMaker</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">let</span> index = <span class="hljs-number">0</span>;
+
+  <span class="hljs-keyword">return</span> {
+    <span class="hljs-attr">next</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">return</span> { <span class="hljs-attr">value</span>: index++, <span class="hljs-attr">done</span>: <span class="hljs-literal">false</span> };
+    }
+  };
+}
+
+<span class="hljs-keyword">const</span> it = idMaker();
+
+it.next().value <span class="hljs-comment">// 0</span>
+it.next().value <span class="hljs-comment">// 1</span>
+it.next().value <span class="hljs-comment">// 2</span>
+<span class="hljs-comment">// ...</span>
+</code></pre><p>上面代码中，变量<code>it</code>是一个遍历器（iterator）。每次调用<code>it.next()</code>方法，就返回一个对象，表示当前遍历位置的信息。</p><p>这里隐含着一个规定，<code>it.next()</code>方法必须是同步的，只要调用就必须立刻返回值。也就是说，一旦执行<code>it.next()</code>方法，就必须同步地得到<code>value</code>和<code>done</code>这两个属性。如果遍历指针正好指向同步操作，当然没有问题，但对于异步操作，就不太合适了。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">idMaker</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">let</span> index = <span class="hljs-number">0</span>;
+
+  <span class="hljs-keyword">return</span> {
+    <span class="hljs-attr">next</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">resolve, reject</span>) </span>{
+        setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+          resolve({ <span class="hljs-attr">value</span>: index++, <span class="hljs-attr">done</span>: <span class="hljs-literal">false</span> });
+        }, <span class="hljs-number">1000</span>);
+      });
+    }
+  };
+}
+</code></pre><p>上面代码中，<code>next()</code>方法返回的是一个 Promise 对象，这样就不行，不符合 Iterator 协议，只要代码里面包含异步操作都不行。也就是说，Iterator 协议里面<code>next()</code>方法只能包含同步操作。</p><p>目前的解决方法是，将异步操作包装成 Thunk 函数或者 Promise 对象，即<code>next()</code>方法返回值的<code>value</code>属性是一个 Thunk 函数或者 Promise 对象，等待以后返回真正的值，而<code>done</code>属性则还是同步产生的。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">idMaker</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">let</span> index = <span class="hljs-number">0</span>;
+
+  <span class="hljs-keyword">return</span> {
+    <span class="hljs-attr">next</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">return</span> {
+        <span class="hljs-attr">value</span>: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-params">resolve</span> =&gt;</span> setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> resolve(index++), <span class="hljs-number">1000</span>)),
+        <span class="hljs-attr">done</span>: <span class="hljs-literal">false</span>
+      };
+    }
+  };
+}
+
+<span class="hljs-keyword">const</span> it = idMaker();
+
+it.next().value.then(<span class="hljs-function"><span class="hljs-params">o</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(o)) <span class="hljs-comment">// 1</span>
+it.next().value.then(<span class="hljs-function"><span class="hljs-params">o</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(o)) <span class="hljs-comment">// 2</span>
+it.next().value.then(<span class="hljs-function"><span class="hljs-params">o</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(o)) <span class="hljs-comment">// 3</span>
+<span class="hljs-comment">// ...</span>
+</code></pre><p>上面代码中，<code>value</code>属性的返回值是一个 Promise 对象，用来放置异步操作。但是这样写很麻烦，不太符合直觉，语义也比较绕。</p><p>ES2018 <a href="https://github.com/tc39/proposal-async-iteration" target="_blank" rel="noopener">引入</a>了“异步遍历器”（Async Iterator），为异步操作提供原生的遍历器接口，即<code>value</code>和<code>done</code>这两个属性都是异步产生。</p><h2 id="异步遍历的接口">异步遍历的接口 <a class="markdownIt-Anchor" href="#异步遍历的接口">#</a></h2><p>异步遍历器的最大的语法特点，就是调用遍历器的<code>next</code>方法，返回的是一个 Promise 对象。</p><pre class="hljs"><code>asyncIterator
+  .next()
+  .then(
+    <span class="hljs-function">(<span class="hljs-params">{ value, done }</span>) =&gt;</span> <span class="hljs-comment">/* ... */</span>
+  );
+</code></pre><p>上面代码中，<code>asyncIterator</code>是一个异步遍历器，调用<code>next</code>方法以后，返回一个 Promise 对象。因此，可以使用<code>then</code>方法指定，这个 Promise 对象的状态变为<code>resolve</code>以后的回调函数。回调函数的参数，则是一个具有<code>value</code>和<code>done</code>两个属性的对象，这个跟同步遍历器是一样的。</p><p>我们知道，一个对象的同步遍历器的接口，部署在<code>Symbol.iterator</code>属性上面。同样地，对象的异步遍历器接口，部署在<code>Symbol.asyncIterator</code>属性上面。不管是什么样的对象，只要它的<code>Symbol.asyncIterator</code>属性有值，就表示应该对它进行异步遍历。</p><p>下面是一个异步遍历器的例子。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> asyncIterable = createAsyncIterable([<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>]);
+<span class="hljs-keyword">const</span> asyncIterator = asyncIterable[<span class="hljs-built_in">Symbol</span>.asyncIterator]();
+
+asyncIterator
+.next()
+.then(<span class="hljs-function"><span class="hljs-params">iterResult1</span> =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(iterResult1); <span class="hljs-comment">// { value: 'a', done: false }</span>
+  <span class="hljs-keyword">return</span> asyncIterator.next();
+})
+.then(<span class="hljs-function"><span class="hljs-params">iterResult2</span> =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(iterResult2); <span class="hljs-comment">// { value: 'b', done: false }</span>
+  <span class="hljs-keyword">return</span> asyncIterator.next();
+})
+.then(<span class="hljs-function"><span class="hljs-params">iterResult3</span> =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(iterResult3); <span class="hljs-comment">// { value: undefined, done: true }</span>
+});
+</code></pre><p>上面代码中，异步遍历器其实返回了两次值。第一次调用的时候，返回一个 Promise 对象；等到 Promise 对象<code>resolve</code>了，再返回一个表示当前数据成员信息的对象。这就是说，异步遍历器与同步遍历器最终行为是一致的，只是会先返回 Promise 对象，作为中介。</p><p>由于异步遍历器的<code>next</code>方法，返回的是一个 Promise 对象。因此，可以把它放在<code>await</code>命令后面。</p><pre class="hljs"><code><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> asyncIterable = createAsyncIterable([<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>]);
+  <span class="hljs-keyword">const</span> asyncIterator = asyncIterable[<span class="hljs-built_in">Symbol</span>.asyncIterator]();
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">await</span> asyncIterator.next());
+  <span class="hljs-comment">// { value: 'a', done: false }</span>
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">await</span> asyncIterator.next());
+  <span class="hljs-comment">// { value: 'b', done: false }</span>
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">await</span> asyncIterator.next());
+  <span class="hljs-comment">// { value: undefined, done: true }</span>
+}
+</code></pre><p>上面代码中，<code>next</code>方法用<code>await</code>处理以后，就不必使用<code>then</code>方法了。整个流程已经很接近同步处理了。</p><p>注意，异步遍历器的<code>next</code>方法是可以连续调用的，不必等到上一步产生的 Promise 对象<code>resolve</code>以后再调用。这种情况下，<code>next</code>方法会累积起来，自动按照每一步的顺序运行下去。下面是一个例子，把所有的<code>next</code>方法放在<code>Promise.all</code>方法里面。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> asyncIterable = createAsyncIterable([<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>]);
+<span class="hljs-keyword">const</span> asyncIterator = asyncIterable[<span class="hljs-built_in">Symbol</span>.asyncIterator]();
+<span class="hljs-keyword">const</span> [{<span class="hljs-attr">value</span>: v1}, {<span class="hljs-attr">value</span>: v2}] = <span class="hljs-keyword">await</span> <span class="hljs-built_in">Promise</span>.all([
+  asyncIterator.next(), asyncIterator.next()
+]);
+
+<span class="hljs-built_in">console</span>.log(v1, v2); <span class="hljs-comment">// a b</span>
+</code></pre><p>另一种用法是一次性调用所有的<code>next</code>方法，然后<code>await</code>最后一步操作。</p><pre class="hljs"><code><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">runner</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> writer = openFile(<span class="hljs-string">'someFile.txt'</span>);
+  writer.next(<span class="hljs-string">'hello'</span>);
+  writer.next(<span class="hljs-string">'world'</span>);
+  <span class="hljs-keyword">await</span> writer.return();
+}
+
+runner();
+</code></pre><h2 id="for-awaitof">for await...of <a class="markdownIt-Anchor" href="#for-awaitof">#</a></h2><p>前面介绍过，<code>for...of</code>循环用于遍历同步的 Iterator 接口。新引入的<code>for await...of</code>循环，则是用于遍历异步的 Iterator 接口。</p><pre class="hljs"><code><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">for</span> <span class="hljs-keyword">await</span> (<span class="hljs-keyword">const</span> x <span class="hljs-keyword">of</span> createAsyncIterable([<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>])) {
+    <span class="hljs-built_in">console</span>.log(x);
+  }
+}
+<span class="hljs-comment">// a</span>
+<span class="hljs-comment">// b</span>
+</code></pre><p>上面代码中，<code>createAsyncIterable()</code>返回一个拥有异步遍历器接口的对象，<code>for...of</code>循环自动调用这个对象的异步遍历器的<code>next</code>方法，会得到一个 Promise 对象。<code>await</code>用来处理这个 Promise 对象，一旦<code>resolve</code>，就把得到的值（<code>x</code>）传入<code>for...of</code>的循环体。</p><p><code>for await...of</code>循环的一个用途，是部署了 asyncIterable 操作的异步接口，可以直接放入这个循环。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> body = <span class="hljs-string">''</span>;
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">for</span> <span class="hljs-keyword">await</span>(<span class="hljs-keyword">const</span> data <span class="hljs-keyword">of</span> req) body += data;
+  <span class="hljs-keyword">const</span> parsed = <span class="hljs-built_in">JSON</span>.parse(body);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'got'</span>, parsed);
+}
+</code></pre><p>上面代码中，<code>req</code>是一个 asyncIterable 对象，用来异步读取数据。可以看到，使用<code>for await...of</code>循环以后，代码会非常简洁。</p><p>如果<code>next</code>方法返回的 Promise 对象被<code>reject</code>，<code>for await...of</code>就会报错，要用<code>try...catch</code>捕捉。</p><pre class="hljs"><code><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">for</span> <span class="hljs-keyword">await</span> (<span class="hljs-keyword">const</span> x <span class="hljs-keyword">of</span> createRejectingIterable()) {
+      <span class="hljs-built_in">console</span>.log(x);
+    }
+  } <span class="hljs-keyword">catch</span> (e) {
+    <span class="hljs-built_in">console</span>.error(e);
+  }
+}
+</code></pre><p>注意，<code>for await...of</code>循环也可以用于同步遍历器。</p><pre class="hljs"><code>(<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">for</span> <span class="hljs-keyword">await</span> (<span class="hljs-keyword">const</span> x <span class="hljs-keyword">of</span> [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>]) {
+    <span class="hljs-built_in">console</span>.log(x);
+  }
+})();
+<span class="hljs-comment">// a</span>
+<span class="hljs-comment">// b</span>
+</code></pre><p>Node v10 支持异步遍历器，Stream 就部署了这个接口。下面是读取文件的传统写法与异步遍历器写法的差异。</p><pre class="hljs"><code><span class="hljs-comment">// 传统写法</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">main</span>(<span class="hljs-params">inputFilePath</span>) </span>{
+  <span class="hljs-keyword">const</span> readStream = fs.createReadStream(
+    inputFilePath,
+    { <span class="hljs-attr">encoding</span>: <span class="hljs-string">'utf8'</span>, <span class="hljs-attr">highWaterMark</span>: <span class="hljs-number">1024</span> }
+  );
+  readStream.on(<span class="hljs-string">'data'</span>, (chunk) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'&gt;&gt;&gt; '</span>+chunk);
+  });
+  readStream.on(<span class="hljs-string">'end'</span>, () =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'### DONE ###'</span>);
+  });
+}
+
+<span class="hljs-comment">// 异步遍历器写法</span>
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">main</span>(<span class="hljs-params">inputFilePath</span>) </span>{
+  <span class="hljs-keyword">const</span> readStream = fs.createReadStream(
+    inputFilePath,
+    { <span class="hljs-attr">encoding</span>: <span class="hljs-string">'utf8'</span>, <span class="hljs-attr">highWaterMark</span>: <span class="hljs-number">1024</span> }
+  );
+
+  <span class="hljs-keyword">for</span> <span class="hljs-keyword">await</span> (<span class="hljs-keyword">const</span> chunk <span class="hljs-keyword">of</span> readStream) {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'&gt;&gt;&gt; '</span>+chunk);
+  }
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'### DONE ###'</span>);
+}
+</code></pre><h2 id="异步-generator-函数">异步 Generator 函数 <a class="markdownIt-Anchor" href="#异步-generator-函数">#</a></h2><p>就像 Generator 函数返回一个同步遍历器对象一样，异步 Generator 函数的作用，是返回一个异步遍历器对象。</p><p>在语法上，异步 Generator 函数就是<code>async</code>函数与 Generator 函数的结合。</p><pre class="hljs"><code><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">gen</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">yield</span> <span class="hljs-string">'hello'</span>;
+}
+<span class="hljs-keyword">const</span> genObj = gen();
+genObj.next().then(<span class="hljs-function"><span class="hljs-params">x</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(x));
+<span class="hljs-comment">// { value: 'hello', done: false }</span>
+</code></pre><p>上面代码中，<code>gen</code>是一个异步 Generator 函数，执行后返回一个异步 Iterator 对象。对该对象调用<code>next</code>方法，返回一个 Promise 对象。</p><p>异步遍历器的设计目的之一，就是 Generator 函数处理同步操作和异步操作时，能够使用同一套接口。</p><pre class="hljs"><code><span class="hljs-comment">// 同步 Generator 函数</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">map</span>(<span class="hljs-params">iterable, func</span>) </span>{
+  <span class="hljs-keyword">const</span> iter = iterable[<span class="hljs-built_in">Symbol</span>.iterator]();
+  <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) {
+    <span class="hljs-keyword">const</span> {value, done} = iter.next();
+    <span class="hljs-keyword">if</span> (done) <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">yield</span> func(value);
+  }
+}
+
+<span class="hljs-comment">// 异步 Generator 函数</span>
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">map</span>(<span class="hljs-params">iterable, func</span>) </span>{
+  <span class="hljs-keyword">const</span> iter = iterable[<span class="hljs-built_in">Symbol</span>.asyncIterator]();
+  <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) {
+    <span class="hljs-keyword">const</span> {value, done} = <span class="hljs-keyword">await</span> iter.next();
+    <span class="hljs-keyword">if</span> (done) <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">yield</span> func(value);
+  }
+}
+</code></pre><p>上面代码中，<code>map</code>是一个 Generator 函数，第一个参数是可遍历对象<code>iterable</code>，第二个参数是一个回调函数<code>func</code>。<code>map</code>的作用是将<code>iterable</code>每一步返回的值，使用<code>func</code>进行处理。上面有两个版本的<code>map</code>，前一个处理同步遍历器，后一个处理异步遍历器，可以看到两个版本的写法基本上是一致的。</p><p>下面是另一个异步 Generator 函数的例子。</p><pre class="hljs"><code><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">readLines</span>(<span class="hljs-params">path</span>) </span>{
+  <span class="hljs-keyword">let</span> file = <span class="hljs-keyword">await</span> fileOpen(path);
+
+  <span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">while</span> (!file.EOF) {
+      <span class="hljs-keyword">yield</span> <span class="hljs-keyword">await</span> file.readLine();
+    }
+  } <span class="hljs-keyword">finally</span> {
+    <span class="hljs-keyword">await</span> file.close();
+  }
+}
+</code></pre><p>上面代码中，异步操作前面使用<code>await</code>关键字标明，即<code>await</code>后面的操作，应该返回 Promise 对象。凡是使用<code>yield</code>关键字的地方，就是<code>next</code>方法停下来的地方，它后面的表达式的值（即<code>await file.readLine()</code>的值），会作为<code>next()</code>返回对象的<code>value</code>属性，这一点是与同步 Generator 函数一致的。</p><p>异步 Generator 函数内部，能够同时使用<code>await</code>和<code>yield</code>命令。可以这样理解，<code>await</code>命令用于将外部操作产生的值输入函数内部，<code>yield</code>命令用于将函数内部的值输出。</p><p>上面代码定义的异步 Generator 函数的用法如下。</p><pre class="hljs"><code>(<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">for</span> <span class="hljs-keyword">await</span> (<span class="hljs-keyword">const</span> line <span class="hljs-keyword">of</span> readLines(filePath)) {
+    <span class="hljs-built_in">console</span>.log(line);
+  }
+})()
+</code></pre><p>异步 Generator 函数可以与<code>for await...of</code>循环结合起来使用。</p><pre class="hljs"><code><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">prefixLines</span>(<span class="hljs-params">asyncIterable</span>) </span>{
+  <span class="hljs-keyword">for</span> <span class="hljs-keyword">await</span> (<span class="hljs-keyword">const</span> line <span class="hljs-keyword">of</span> asyncIterable) {
+    <span class="hljs-keyword">yield</span> <span class="hljs-string">'&gt; '</span> + line;
+  }
+}
+</code></pre><p>异步 Generator 函数的返回值是一个异步 Iterator，即每次调用它的<code>next</code>方法，会返回一个 Promise 对象，也就是说，跟在<code>yield</code>命令后面的，应该是一个 Promise 对象。如果像上面那个例子那样，<code>yield</code>命令后面是一个字符串，会被自动包装成一个 Promise 对象。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchRandom</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> url = <span class="hljs-string">'https://www.random.org/decimal-fractions/'</span>
+    + <span class="hljs-string">'?num=1&amp;dec=10&amp;col=1&amp;format=plain&amp;rnd=new'</span>;
+  <span class="hljs-keyword">return</span> fetch(url);
+}
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">asyncGenerator</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Start'</span>);
+  <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> fetchRandom(); <span class="hljs-comment">// (A)</span>
+  <span class="hljs-keyword">yield</span> <span class="hljs-string">'Result: '</span> + <span class="hljs-keyword">await</span> result.text(); <span class="hljs-comment">// (B)</span>
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Done'</span>);
+}
+
+<span class="hljs-keyword">const</span> ag = asyncGenerator();
+ag.next().then(<span class="hljs-function">(<span class="hljs-params">{value, done}</span>) =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(value);
+})
+</code></pre><p>上面代码中，<code>ag</code>是<code>asyncGenerator</code>函数返回的异步遍历器对象。调用<code>ag.next()</code>以后，上面代码的执行顺序如下。</p><ol><li><code>ag.next()</code>立刻返回一个 Promise 对象。</li><li><code>asyncGenerator</code>函数开始执行，打印出<code>Start</code>。</li><li><code>await</code>命令返回一个 Promise 对象，<code>asyncGenerator</code>函数停在这里。</li><li>A 处变成 fulfilled 状态，产生的值放入<code>result</code>变量，<code>asyncGenerator</code>函数继续往下执行。</li><li>函数在 B 处的<code>yield</code>暂停执行，一旦<code>yield</code>命令取到值，<code>ag.next()</code>返回的那个 Promise 对象变成 fulfilled 状态。</li><li><code>ag.next()</code>后面的<code>then</code>方法指定的回调函数开始执行。该回调函数的参数是一个对象<code>{value, done}</code>，其中<code>value</code>的值是<code>yield</code>命令后面的那个表达式的值，<code>done</code>的值是<code>false</code>。</li></ol><p>A 和 B 两行的作用类似于下面的代码。</p><pre class="hljs"><code><span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
+  fetchRandom()
+  .then(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> result.text())
+  .then(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> {
+     resolve({
+       <span class="hljs-attr">value</span>: <span class="hljs-string">'Result: '</span> + result,
+       <span class="hljs-attr">done</span>: <span class="hljs-literal">false</span>,
+     });
+  });
+});
+</code></pre><p>如果异步 Generator 函数抛出错误，会导致 Promise 对象的状态变为<code>reject</code>，然后抛出的错误被<code>catch</code>方法捕获。</p><pre class="hljs"><code><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">asyncGenerator</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Problem!'</span>);
+}
+
+asyncGenerator()
+.next()
+.catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(err)); <span class="hljs-comment">// Error: Problem!</span>
+</code></pre><p>注意，普通的 async 函数返回的是一个 Promise 对象，而异步 Generator 函数返回的是一个异步 Iterator 对象。可以这样理解，async 函数和异步 Generator 函数，是封装异步操作的两种方法，都用来达到同一种目的。区别在于，前者自带执行器，后者通过<code>for await...of</code>执行，或者自己编写执行器。下面就是一个异步 Generator 函数的执行器。</p><pre class="hljs"><code><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">takeAsync</span>(<span class="hljs-params">asyncIterable, count = Infinity</span>) </span>{
+  <span class="hljs-keyword">const</span> result = [];
+  <span class="hljs-keyword">const</span> iterator = asyncIterable[<span class="hljs-built_in">Symbol</span>.asyncIterator]();
+  <span class="hljs-keyword">while</span> (result.length &lt; count) {
+    <span class="hljs-keyword">const</span> {value, done} = <span class="hljs-keyword">await</span> iterator.next();
+    <span class="hljs-keyword">if</span> (done) <span class="hljs-keyword">break</span>;
+    result.push(value);
+  }
+  <span class="hljs-keyword">return</span> result;
+}
+</code></pre><p>上面代码中，异步 Generator 函数产生的异步遍历器，会通过<code>while</code>循环自动执行，每当<code>await iterator.next()</code>完成，就会进入下一轮循环。一旦<code>done</code>属性变为<code>true</code>，就会跳出循环，异步遍历器执行结束。</p><p>下面是这个自动执行器的一个使用实例。</p><pre class="hljs"><code><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">gen</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">yield</span> <span class="hljs-string">'a'</span>;
+    <span class="hljs-keyword">yield</span> <span class="hljs-string">'b'</span>;
+    <span class="hljs-keyword">yield</span> <span class="hljs-string">'c'</span>;
+  }
+
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> takeAsync(gen());
+}
+
+f().then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">result</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(result); <span class="hljs-comment">// ['a', 'b', 'c']</span>
+})
+</code></pre><p>异步 Generator 函数出现以后，JavaScript 就有了四种函数形式：普通函数、async 函数、Generator 函数和异步 Generator 函数。请注意区分每种函数的不同之处。基本上，如果是一系列按照顺序执行的异步操作（比如读取文件，然后写入新内容，再存入硬盘），可以使用 async 函数；如果是一系列产生相同数据结构的异步操作（比如一行一行读取文件），可以使用异步 Generator 函数。</p><p>异步 Generator 函数也可以通过<code>next</code>方法的参数，接收外部传入的数据。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> writer = openFile(<span class="hljs-string">'someFile.txt'</span>);
+writer.next(<span class="hljs-string">'hello'</span>); <span class="hljs-comment">// 立即执行</span>
+writer.next(<span class="hljs-string">'world'</span>); <span class="hljs-comment">// 立即执行</span>
+<span class="hljs-keyword">await</span> writer.return(); <span class="hljs-comment">// 等待写入结束</span>
+</code></pre><p>上面代码中，<code>openFile</code>是一个异步 Generator 函数。<code>next</code>方法的参数，向该函数内部的操作传入数据。每次<code>next</code>方法都是同步执行的，最后的<code>await</code>命令用于等待整个写入操作结束。</p><p>最后，同步的数据结构，也可以使用异步 Generator 函数。</p><pre class="hljs"><code><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">createAsyncIterable</span>(<span class="hljs-params">syncIterable</span>) </span>{
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> elem <span class="hljs-keyword">of</span> syncIterable) {
+    <span class="hljs-keyword">yield</span> elem;
+  }
+}
+</code></pre><p>上面代码中，由于没有异步操作，所以也就没有使用<code>await</code>关键字。</p><h2 id="yield-语句">yield* 语句 <a class="markdownIt-Anchor" href="#yield-语句">#</a></h2><p><code>yield*</code>语句也可以跟一个异步遍历器。</p><pre class="hljs"><code><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">gen1</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">yield</span> <span class="hljs-string">'a'</span>;
+  <span class="hljs-keyword">yield</span> <span class="hljs-string">'b'</span>;
+  <span class="hljs-keyword">return</span> <span class="hljs-number">2</span>;
+}
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">gen2</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">// result 最终会等于 2</span>
+  <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">yield</span>* gen1();
+}
+</code></pre><p>上面代码中，<code>gen2</code>函数里面的<code>result</code>变量，最后的值是<code>2</code>。</p><p>与同步 Generator 函数一样，<code>for await...of</code>循环会展开<code>yield*</code>。</p><pre class="hljs"><code>(<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">for</span> <span class="hljs-keyword">await</span> (<span class="hljs-keyword">const</span> x <span class="hljs-keyword">of</span> gen2()) {
+    <span class="hljs-built_in">console</span>.log(x);
+  }
+})();
+<span class="hljs-comment">// a</span>
+<span class="hljs-comment">// b</span>
+</code></pre></article><nav class="level level-previous-next is-size-5 is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="spec.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> 读懂规格</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="arraybuffer.html">ArrayBuffer <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><div class="page-info is-size-5-desktop"><p>本教程采用<a href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh" target="_blank">知识共享 署名-相同方式共享 3.0协议</a>。</p><p>分享本文 <span class="social-share"></span></p></div></div><div class="column is-3 is-offset-1"><nav class="panel panel-menu"><p class="panel-heading"><i class="fa fa-book" aria-hidden="true"></i> ES6 教程</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="intro.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">ECMAScript 6 简介</span></a></li><li><a href="let.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">let 和 const 命令</span></a></li><li><a href="destructuring.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">变量的解构赋值</span></a></li><li><a href="string.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">字符串的扩展</span></a></li><li><a href="string-methods.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">字符串的新增方法</span></a></li><li><a href="regex.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">正则的扩展</span></a></li><li><a href="number.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数值的扩展</span></a></li><li><a href="function.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">函数的扩展</span></a></li><li><a href="array.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数组的扩展</span></a></li><li><a href="object.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">对象的扩展</span></a></li><li><a href="object-methods.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">对象的新增方法</span></a></li><li><a href="symbol.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Symbol</span></a></li><li><a href="set-map.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Set 和 Map 数据结构</span></a></li><li><a href="proxy.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Proxy</span></a></li><li><a href="reflect.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Reflect</span></a></li><li><a href="promise.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Promise 对象</span></a></li><li><a href="iterator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Iterator 和 for...of 循环</span></a></li><li><a href="generator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Generator 函数的语法</span></a></li><li><a href="generator-async.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Generator 函数的异步应用</span></a></li><li><a href="async.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">async 函数</span></a></li><li><a href="class.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Class 的基本语法</span></a></li><li><a href="class-extends.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Class 的继承</span></a></li><li><a href="module.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Module 的语法</span></a></li><li><a href="module-loader.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Module 的加载实现</span></a></li><li><a href="style.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">编程风格</span></a></li><li><a href="spec.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">读懂规格</span></a></li><li><a href="async-iterator.html" class="is-active"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">异步遍历器</span></a></li><li><a href="arraybuffer.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">ArrayBuffer</span></a></li><li><a href="proposals.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">最新提案</span></a></li><li><a href="decorator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Decorator</span></a></li><li><a href="reference.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">参考链接</span></a></li></ul></aside></div></nav><nav class="panel panel-info"><p class="panel-heading"><i class="fa fa-link" aria-hidden="true"></i> 链接</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="https://raw.githubusercontent.com/wangdoc/es6-tutorial/master/docs/async-iterator.md" target="_blank"><span class="icon"></span><i class="fa fa-code" aria-hidden="true" style="width: 14px;"></i>&nbsp;本文源码</a></li><li><a href="https://github.com/wangdoc/es6-tutorial" target="_blank"><span class="icon"></span><i class="fa fa-hdd-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;代码仓库</a></li><li><a href="https://github.com/wangdoc/es6-tutorial/issues" target="_blank"><span class="icon"></span><i class="fa fa-flag-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;反馈</a></li></ul></aside></div></nav></div></div><div class="columns"><div class="column is-8"><div id="disqus_thread"></div></div></div></div></section><footer class="footer is-size-5-desktop"><div class="container"><div class="content has-text-centered"><p>联系：contact@wangdoc.com</p></div></div></footer><script>var LOPPO={current_path:"async-iterator.md",relative_root_path:"",article_toc:'<ul class="markdownIt-TOC">\n<li><a href="#%E5%90%8C%E6%AD%A5%E9%81%8D%E5%8E%86%E5%99%A8%E7%9A%84%E9%97%AE%E9%A2%98">同步遍历器的问题</a></li>\n<li><a href="#%E5%BC%82%E6%AD%A5%E9%81%8D%E5%8E%86%E7%9A%84%E6%8E%A5%E5%8F%A3">异步遍历的接口</a></li>\n<li><a href="#for-awaitof">for await...of</a></li>\n<li><a href="#%E5%BC%82%E6%AD%A5-generator-%E5%87%BD%E6%95%B0">异步 Generator 函数</a></li>\n<li><a href="#yield-%E8%AF%AD%E5%8F%A5">yield* 语句</a></li>\n</ul>\n'}</script><script src="assets/js/app.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-111269443-1"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","UA-111269443-1")</script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?5eec262881855af3dede6a71234571f6";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><script>/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+const l = window.location;
+const url = l.protocol + '//' + l.host + (l.port ? ':' + l.port : '') + l.pathname;
+this.page.url = url;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = l.pathname; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://wangdoc-es6.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();</script><!--script src="assets/js/social-share.min.js"--><!--/script--><script>var shareDesc="我正在阅读《异步遍历器》，出自网道（WangDoc.com）的《ES6 教程》。",shareOpts={url:window.location.href,source:shareDesc,title:shareDesc,description:"",image:"",sites:["weibo","wechat","qq","qzone","twitter","facebook"],origin:"WangDoc_com",disabled:[],wechatQrcodeTitle:"微信",wechatQrcodeHelper:"扫一下二维码，分享到微信。"};socialShare(".social-share",shareOpts)</script></body></html>

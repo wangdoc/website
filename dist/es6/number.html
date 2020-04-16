@@ -1,0 +1,401 @@
+<!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>数值的扩展 - ES6 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="数值的扩展"><link rel="apple-touch-icon" sizes="57x57" href="assets/icons/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="assets/icons/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="assets/icons/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="assets/icons/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="assets/icons/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="assets/icons/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="assets/icons/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="assets/icons/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png"><link rel="manifest" href="assets/icons/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="assets/icons/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/es6-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/es6-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8"><nav class="breadcrumb is-size-5-desktop" aria-label="breadcrumbs"><ul><li><a href="index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;ES6 教程</a></li><li class="is-active"><a class="has-text-grey" href="number.html">数值的扩展</a></li></ul></nav><nav class="level level-previous-next is-size-5 is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="regex.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> 正则的扩展</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="function.html">函数的扩展 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content is-size-5-desktop"><h1 class="title">数值的扩展</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><h2 id="二进制和八进制表示法">二进制和八进制表示法 <a class="markdownIt-Anchor" href="#二进制和八进制表示法">#</a></h2><p>ES6 提供了二进制和八进制数值的新的写法，分别用前缀<code>0b</code>（或<code>0B</code>）和<code>0o</code>（或<code>0O</code>）表示。</p><pre class="hljs"><code><span class="hljs-number">0b111110111</span> === <span class="hljs-number">503</span> <span class="hljs-comment">// true</span>
+<span class="hljs-number">0o767</span> === <span class="hljs-number">503</span> <span class="hljs-comment">// true</span>
+</code></pre><p>从 ES5 开始，在严格模式之中，八进制就不再允许使用前缀<code>0</code>表示，ES6 进一步明确，要使用前缀<code>0o</code>表示。</p><pre class="hljs"><code><span class="hljs-comment">// 非严格模式</span>
+(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-number">0o11</span> === <span class="hljs-number">011</span>);
+})() <span class="hljs-comment">// true</span>
+
+<span class="hljs-comment">// 严格模式</span>
+(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+  <span class="hljs-string">'use strict'</span>;
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-number">0o11</span> === <span class="hljs-number">011</span>);
+})() <span class="hljs-comment">// Uncaught SyntaxError: Octal literals are not allowed in strict mode.</span>
+</code></pre><p>如果要将<code>0b</code>和<code>0o</code>前缀的字符串数值转为十进制，要使用<code>Number</code>方法。</p><pre class="hljs"><code><span class="hljs-built_in">Number</span>(<span class="hljs-string">'0b111'</span>)  <span class="hljs-comment">// 7</span>
+<span class="hljs-built_in">Number</span>(<span class="hljs-string">'0o10'</span>)  <span class="hljs-comment">// 8</span>
+</code></pre><h2 id="numberisfinite-numberisnan">Number.isFinite(), Number.isNaN() <a class="markdownIt-Anchor" href="#numberisfinite-numberisnan">#</a></h2><p>ES6 在<code>Number</code>对象上，新提供了<code>Number.isFinite()</code>和<code>Number.isNaN()</code>两个方法。</p><p><code>Number.isFinite()</code>用来检查一个数值是否为有限的（finite），即不是<code>Infinity</code>。</p><pre class="hljs"><code><span class="hljs-built_in">Number</span>.isFinite(<span class="hljs-number">15</span>); <span class="hljs-comment">// true</span>
+<span class="hljs-built_in">Number</span>.isFinite(<span class="hljs-number">0.8</span>); <span class="hljs-comment">// true</span>
+<span class="hljs-built_in">Number</span>.isFinite(<span class="hljs-literal">NaN</span>); <span class="hljs-comment">// false</span>
+<span class="hljs-built_in">Number</span>.isFinite(<span class="hljs-literal">Infinity</span>); <span class="hljs-comment">// false</span>
+<span class="hljs-built_in">Number</span>.isFinite(-<span class="hljs-literal">Infinity</span>); <span class="hljs-comment">// false</span>
+<span class="hljs-built_in">Number</span>.isFinite(<span class="hljs-string">'foo'</span>); <span class="hljs-comment">// false</span>
+<span class="hljs-built_in">Number</span>.isFinite(<span class="hljs-string">'15'</span>); <span class="hljs-comment">// false</span>
+<span class="hljs-built_in">Number</span>.isFinite(<span class="hljs-literal">true</span>); <span class="hljs-comment">// false</span>
+</code></pre><p>注意，如果参数类型不是数值，<code>Number.isFinite</code>一律返回<code>false</code>。</p><p><code>Number.isNaN()</code>用来检查一个值是否为<code>NaN</code>。</p><pre class="hljs"><code><span class="hljs-built_in">Number</span>.isNaN(<span class="hljs-literal">NaN</span>) <span class="hljs-comment">// true</span>
+<span class="hljs-built_in">Number</span>.isNaN(<span class="hljs-number">15</span>) <span class="hljs-comment">// false</span>
+<span class="hljs-built_in">Number</span>.isNaN(<span class="hljs-string">'15'</span>) <span class="hljs-comment">// false</span>
+<span class="hljs-built_in">Number</span>.isNaN(<span class="hljs-literal">true</span>) <span class="hljs-comment">// false</span>
+<span class="hljs-built_in">Number</span>.isNaN(<span class="hljs-number">9</span>/<span class="hljs-literal">NaN</span>) <span class="hljs-comment">// true</span>
+<span class="hljs-built_in">Number</span>.isNaN(<span class="hljs-string">'true'</span> / <span class="hljs-number">0</span>) <span class="hljs-comment">// true</span>
+<span class="hljs-built_in">Number</span>.isNaN(<span class="hljs-string">'true'</span> / <span class="hljs-string">'true'</span>) <span class="hljs-comment">// true</span>
+</code></pre><p>如果参数类型不是<code>NaN</code>，<code>Number.isNaN</code>一律返回<code>false</code>。</p><p>它们与传统的全局方法<code>isFinite()</code>和<code>isNaN()</code>的区别在于，传统方法先调用<code>Number()</code>将非数值的值转为数值，再进行判断，而这两个新方法只对数值有效，<code>Number.isFinite()</code>对于非数值一律返回<code>false</code>, <code>Number.isNaN()</code>只有对于<code>NaN</code>才返回<code>true</code>，非<code>NaN</code>一律返回<code>false</code>。</p><pre class="hljs"><code><span class="hljs-built_in">isFinite</span>(<span class="hljs-number">25</span>) <span class="hljs-comment">// true</span>
+<span class="hljs-built_in">isFinite</span>(<span class="hljs-string">"25"</span>) <span class="hljs-comment">// true</span>
+<span class="hljs-built_in">Number</span>.isFinite(<span class="hljs-number">25</span>) <span class="hljs-comment">// true</span>
+<span class="hljs-built_in">Number</span>.isFinite(<span class="hljs-string">"25"</span>) <span class="hljs-comment">// false</span>
+
+<span class="hljs-built_in">isNaN</span>(<span class="hljs-literal">NaN</span>) <span class="hljs-comment">// true</span>
+<span class="hljs-built_in">isNaN</span>(<span class="hljs-string">"NaN"</span>) <span class="hljs-comment">// true</span>
+<span class="hljs-built_in">Number</span>.isNaN(<span class="hljs-literal">NaN</span>) <span class="hljs-comment">// true</span>
+<span class="hljs-built_in">Number</span>.isNaN(<span class="hljs-string">"NaN"</span>) <span class="hljs-comment">// false</span>
+<span class="hljs-built_in">Number</span>.isNaN(<span class="hljs-number">1</span>) <span class="hljs-comment">// false</span>
+</code></pre><h2 id="numberparseint-numberparsefloat">Number.parseInt(), Number.parseFloat() <a class="markdownIt-Anchor" href="#numberparseint-numberparsefloat">#</a></h2><p>ES6 将全局方法<code>parseInt()</code>和<code>parseFloat()</code>，移植到<code>Number</code>对象上面，行为完全保持不变。</p><pre class="hljs"><code><span class="hljs-comment">// ES5的写法</span>
+<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'12.34'</span>) <span class="hljs-comment">// 12</span>
+<span class="hljs-built_in">parseFloat</span>(<span class="hljs-string">'123.45#'</span>) <span class="hljs-comment">// 123.45</span>
+
+<span class="hljs-comment">// ES6的写法</span>
+<span class="hljs-built_in">Number</span>.parseInt(<span class="hljs-string">'12.34'</span>) <span class="hljs-comment">// 12</span>
+<span class="hljs-built_in">Number</span>.parseFloat(<span class="hljs-string">'123.45#'</span>) <span class="hljs-comment">// 123.45</span>
+</code></pre><p>这样做的目的，是逐步减少全局性方法，使得语言逐步模块化。</p><pre class="hljs"><code><span class="hljs-built_in">Number</span>.parseInt === <span class="hljs-built_in">parseInt</span> <span class="hljs-comment">// true</span>
+<span class="hljs-built_in">Number</span>.parseFloat === <span class="hljs-built_in">parseFloat</span> <span class="hljs-comment">// true</span>
+</code></pre><h2 id="numberisinteger">Number.isInteger() <a class="markdownIt-Anchor" href="#numberisinteger">#</a></h2><p><code>Number.isInteger()</code>用来判断一个数值是否为整数。</p><pre class="hljs"><code><span class="hljs-built_in">Number</span>.isInteger(<span class="hljs-number">25</span>) <span class="hljs-comment">// true</span>
+<span class="hljs-built_in">Number</span>.isInteger(<span class="hljs-number">25.1</span>) <span class="hljs-comment">// false</span>
+</code></pre><p>JavaScript 内部，整数和浮点数采用的是同样的储存方法，所以 25 和 25.0 被视为同一个值。</p><pre class="hljs"><code><span class="hljs-built_in">Number</span>.isInteger(<span class="hljs-number">25</span>) <span class="hljs-comment">// true</span>
+<span class="hljs-built_in">Number</span>.isInteger(<span class="hljs-number">25.0</span>) <span class="hljs-comment">// true</span>
+</code></pre><p>如果参数不是数值，<code>Number.isInteger</code>返回<code>false</code>。</p><pre class="hljs"><code><span class="hljs-built_in">Number</span>.isInteger() <span class="hljs-comment">// false</span>
+<span class="hljs-built_in">Number</span>.isInteger(<span class="hljs-literal">null</span>) <span class="hljs-comment">// false</span>
+<span class="hljs-built_in">Number</span>.isInteger(<span class="hljs-string">'15'</span>) <span class="hljs-comment">// false</span>
+<span class="hljs-built_in">Number</span>.isInteger(<span class="hljs-literal">true</span>) <span class="hljs-comment">// false</span>
+</code></pre><p>注意，由于 JavaScript 采用 IEEE 754 标准，数值存储为64位双精度格式，数值精度最多可以达到 53 个二进制位（1 个隐藏位与 52 个有效位）。如果数值的精度超过这个限度，第54位及后面的位就会被丢弃，这种情况下，<code>Number.isInteger</code>可能会误判。</p><pre class="hljs"><code><span class="hljs-built_in">Number</span>.isInteger(<span class="hljs-number">3.0000000000000002</span>) <span class="hljs-comment">// true</span>
+</code></pre><p>上面代码中，<code>Number.isInteger</code>的参数明明不是整数，但是会返回<code>true</code>。原因就是这个小数的精度达到了小数点后16个十进制位，转成二进制位超过了53个二进制位，导致最后的那个<code>2</code>被丢弃了。</p><p>类似的情况还有，如果一个数值的绝对值小于<code>Number.MIN_VALUE</code>（5E-324），即小于 JavaScript 能够分辨的最小值，会被自动转为 0。这时，<code>Number.isInteger</code>也会误判。</p><pre class="hljs"><code><span class="hljs-built_in">Number</span>.isInteger(<span class="hljs-number">5E-324</span>) <span class="hljs-comment">// false</span>
+<span class="hljs-built_in">Number</span>.isInteger(<span class="hljs-number">5E-325</span>) <span class="hljs-comment">// true</span>
+</code></pre><p>上面代码中，<code>5E-325</code>由于值太小，会被自动转为0，因此返回<code>true</code>。</p><p>总之，如果对数据精度的要求较高，不建议使用<code>Number.isInteger()</code>判断一个数值是否为整数。</p><h2 id="numberepsilon">Number.EPSILON <a class="markdownIt-Anchor" href="#numberepsilon">#</a></h2><p>ES6 在<code>Number</code>对象上面，新增一个极小的常量<code>Number.EPSILON</code>。根据规格，它表示 1 与大于 1 的最小浮点数之间的差。</p><p>对于 64 位浮点数来说，大于 1 的最小浮点数相当于二进制的<code>1.00..001</code>，小数点后面有连续 51 个零。这个值减去 1 之后，就等于 2 的 -52 次方。</p><pre class="hljs"><code><span class="hljs-built_in">Number</span>.EPSILON === <span class="hljs-built_in">Math</span>.pow(<span class="hljs-number">2</span>, <span class="hljs-number">-52</span>)
+<span class="hljs-comment">// true</span>
+<span class="hljs-built_in">Number</span>.EPSILON
+<span class="hljs-comment">// 2.220446049250313e-16</span>
+<span class="hljs-built_in">Number</span>.EPSILON.toFixed(<span class="hljs-number">20</span>)
+<span class="hljs-comment">// "0.00000000000000022204"</span>
+</code></pre><p><code>Number.EPSILON</code>实际上是 JavaScript 能够表示的最小精度。误差如果小于这个值，就可以认为已经没有意义了，即不存在误差了。</p><p>引入一个这么小的量的目的，在于为浮点数计算，设置一个误差范围。我们知道浮点数计算是不精确的。</p><pre class="hljs"><code><span class="hljs-number">0.1</span> + <span class="hljs-number">0.2</span>
+<span class="hljs-comment">// 0.30000000000000004</span>
+
+<span class="hljs-number">0.1</span> + <span class="hljs-number">0.2</span> - <span class="hljs-number">0.3</span>
+<span class="hljs-comment">// 5.551115123125783e-17</span>
+
+<span class="hljs-number">5.551115123125783e-17</span>.toFixed(<span class="hljs-number">20</span>)
+<span class="hljs-comment">// '0.00000000000000005551'</span>
+</code></pre><p>上面代码解释了，为什么比较<code>0.1 + 0.2</code>与<code>0.3</code>得到的结果是<code>false</code>。</p><pre class="hljs"><code><span class="hljs-number">0.1</span> + <span class="hljs-number">0.2</span> === <span class="hljs-number">0.3</span> <span class="hljs-comment">// false</span>
+</code></pre><p><code>Number.EPSILON</code>可以用来设置“能够接受的误差范围”。比如，误差范围设为 2 的-50 次方（即<code>Number.EPSILON * Math.pow(2, 2)</code>），即如果两个浮点数的差小于这个值，我们就认为这两个浮点数相等。</p><pre class="hljs"><code><span class="hljs-number">5.551115123125783e-17</span> &lt; <span class="hljs-built_in">Number</span>.EPSILON * <span class="hljs-built_in">Math</span>.pow(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>)
+<span class="hljs-comment">// true</span>
+</code></pre><p>因此，<code>Number.EPSILON</code>的实质是一个可以接受的最小误差范围。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">withinErrorMargin</span> (<span class="hljs-params">left, right</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">Math</span>.abs(left - right) &lt; <span class="hljs-built_in">Number</span>.EPSILON * <span class="hljs-built_in">Math</span>.pow(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>);
+}
+
+<span class="hljs-number">0.1</span> + <span class="hljs-number">0.2</span> === <span class="hljs-number">0.3</span> <span class="hljs-comment">// false</span>
+withinErrorMargin(<span class="hljs-number">0.1</span> + <span class="hljs-number">0.2</span>, <span class="hljs-number">0.3</span>) <span class="hljs-comment">// true</span>
+
+<span class="hljs-number">1.1</span> + <span class="hljs-number">1.3</span> === <span class="hljs-number">2.4</span> <span class="hljs-comment">// false</span>
+withinErrorMargin(<span class="hljs-number">1.1</span> + <span class="hljs-number">1.3</span>, <span class="hljs-number">2.4</span>) <span class="hljs-comment">// true</span>
+</code></pre><p>上面的代码为浮点数运算，部署了一个误差检查函数。</p><h2 id="安全整数和-numberissafeinteger">安全整数和 Number.isSafeInteger() <a class="markdownIt-Anchor" href="#安全整数和-numberissafeinteger">#</a></h2><p>JavaScript 能够准确表示的整数范围在<code>-2^53</code>到<code>2^53</code>之间（不含两个端点），超过这个范围，无法精确表示这个值。</p><pre class="hljs"><code><span class="hljs-built_in">Math</span>.pow(<span class="hljs-number">2</span>, <span class="hljs-number">53</span>) <span class="hljs-comment">// 9007199254740992</span>
+
+<span class="hljs-number">9007199254740992</span>  <span class="hljs-comment">// 9007199254740992</span>
+<span class="hljs-number">9007199254740993</span>  <span class="hljs-comment">// 9007199254740992</span>
+
+<span class="hljs-built_in">Math</span>.pow(<span class="hljs-number">2</span>, <span class="hljs-number">53</span>) === <span class="hljs-built_in">Math</span>.pow(<span class="hljs-number">2</span>, <span class="hljs-number">53</span>) + <span class="hljs-number">1</span>
+<span class="hljs-comment">// true</span>
+</code></pre><p>上面代码中，超出 2 的 53 次方之后，一个数就不精确了。</p><p>ES6 引入了<code>Number.MAX_SAFE_INTEGER</code>和<code>Number.MIN_SAFE_INTEGER</code>这两个常量，用来表示这个范围的上下限。</p><pre class="hljs"><code><span class="hljs-built_in">Number</span>.MAX_SAFE_INTEGER === <span class="hljs-built_in">Math</span>.pow(<span class="hljs-number">2</span>, <span class="hljs-number">53</span>) - <span class="hljs-number">1</span>
+<span class="hljs-comment">// true</span>
+<span class="hljs-built_in">Number</span>.MAX_SAFE_INTEGER === <span class="hljs-number">9007199254740991</span>
+<span class="hljs-comment">// true</span>
+
+<span class="hljs-built_in">Number</span>.MIN_SAFE_INTEGER === -<span class="hljs-built_in">Number</span>.MAX_SAFE_INTEGER
+<span class="hljs-comment">// true</span>
+<span class="hljs-built_in">Number</span>.MIN_SAFE_INTEGER === <span class="hljs-number">-9007199254740991</span>
+<span class="hljs-comment">// true</span>
+</code></pre><p>上面代码中，可以看到 JavaScript 能够精确表示的极限。</p><p><code>Number.isSafeInteger()</code>则是用来判断一个整数是否落在这个范围之内。</p><pre class="hljs"><code><span class="hljs-built_in">Number</span>.isSafeInteger(<span class="hljs-string">'a'</span>) <span class="hljs-comment">// false</span>
+<span class="hljs-built_in">Number</span>.isSafeInteger(<span class="hljs-literal">null</span>) <span class="hljs-comment">// false</span>
+<span class="hljs-built_in">Number</span>.isSafeInteger(<span class="hljs-literal">NaN</span>) <span class="hljs-comment">// false</span>
+<span class="hljs-built_in">Number</span>.isSafeInteger(<span class="hljs-literal">Infinity</span>) <span class="hljs-comment">// false</span>
+<span class="hljs-built_in">Number</span>.isSafeInteger(-<span class="hljs-literal">Infinity</span>) <span class="hljs-comment">// false</span>
+
+<span class="hljs-built_in">Number</span>.isSafeInteger(<span class="hljs-number">3</span>) <span class="hljs-comment">// true</span>
+<span class="hljs-built_in">Number</span>.isSafeInteger(<span class="hljs-number">1.2</span>) <span class="hljs-comment">// false</span>
+<span class="hljs-built_in">Number</span>.isSafeInteger(<span class="hljs-number">9007199254740990</span>) <span class="hljs-comment">// true</span>
+<span class="hljs-built_in">Number</span>.isSafeInteger(<span class="hljs-number">9007199254740992</span>) <span class="hljs-comment">// false</span>
+
+<span class="hljs-built_in">Number</span>.isSafeInteger(<span class="hljs-built_in">Number</span>.MIN_SAFE_INTEGER - <span class="hljs-number">1</span>) <span class="hljs-comment">// false</span>
+<span class="hljs-built_in">Number</span>.isSafeInteger(<span class="hljs-built_in">Number</span>.MIN_SAFE_INTEGER) <span class="hljs-comment">// true</span>
+<span class="hljs-built_in">Number</span>.isSafeInteger(<span class="hljs-built_in">Number</span>.MAX_SAFE_INTEGER) <span class="hljs-comment">// true</span>
+<span class="hljs-built_in">Number</span>.isSafeInteger(<span class="hljs-built_in">Number</span>.MAX_SAFE_INTEGER + <span class="hljs-number">1</span>) <span class="hljs-comment">// false</span>
+</code></pre><p>这个函数的实现很简单，就是跟安全整数的两个边界值比较一下。</p><pre class="hljs"><code><span class="hljs-built_in">Number</span>.isSafeInteger = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">n</span>) </span>{
+  <span class="hljs-keyword">return</span> (<span class="hljs-keyword">typeof</span> n === <span class="hljs-string">'number'</span> &amp;&amp;
+    <span class="hljs-built_in">Math</span>.round(n) === n &amp;&amp;
+    <span class="hljs-built_in">Number</span>.MIN_SAFE_INTEGER &lt;= n &amp;&amp;
+    n &lt;= <span class="hljs-built_in">Number</span>.MAX_SAFE_INTEGER);
+}
+</code></pre><p>实际使用这个函数时，需要注意。验证运算结果是否落在安全整数的范围内，不要只验证运算结果，而要同时验证参与运算的每个值。</p><pre class="hljs"><code><span class="hljs-built_in">Number</span>.isSafeInteger(<span class="hljs-number">9007199254740993</span>)
+<span class="hljs-comment">// false</span>
+<span class="hljs-built_in">Number</span>.isSafeInteger(<span class="hljs-number">990</span>)
+<span class="hljs-comment">// true</span>
+<span class="hljs-built_in">Number</span>.isSafeInteger(<span class="hljs-number">9007199254740993</span> - <span class="hljs-number">990</span>)
+<span class="hljs-comment">// true</span>
+<span class="hljs-number">9007199254740993</span> - <span class="hljs-number">990</span>
+<span class="hljs-comment">// 返回结果 9007199254740002</span>
+<span class="hljs-comment">// 正确答案应该是 9007199254740003</span>
+</code></pre><p>上面代码中，<code>9007199254740993</code>不是一个安全整数，但是<code>Number.isSafeInteger</code>会返回结果，显示计算结果是安全的。这是因为，这个数超出了精度范围，导致在计算机内部，以<code>9007199254740992</code>的形式储存。</p><pre class="hljs"><code><span class="hljs-number">9007199254740993</span> === <span class="hljs-number">9007199254740992</span>
+<span class="hljs-comment">// true</span>
+</code></pre><p>所以，如果只验证运算结果是否为安全整数，很可能得到错误结果。下面的函数可以同时验证两个运算数和运算结果。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">trusty</span> (<span class="hljs-params">left, right, result</span>) </span>{
+  <span class="hljs-keyword">if</span> (
+    <span class="hljs-built_in">Number</span>.isSafeInteger(left) &amp;&amp;
+    <span class="hljs-built_in">Number</span>.isSafeInteger(right) &amp;&amp;
+    <span class="hljs-built_in">Number</span>.isSafeInteger(result)
+  ) {
+    <span class="hljs-keyword">return</span> result;
+  }
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">RangeError</span>(<span class="hljs-string">'Operation cannot be trusted!'</span>);
+}
+
+trusty(<span class="hljs-number">9007199254740993</span>, <span class="hljs-number">990</span>, <span class="hljs-number">9007199254740993</span> - <span class="hljs-number">990</span>)
+<span class="hljs-comment">// RangeError: Operation cannot be trusted!</span>
+
+trusty(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>)
+<span class="hljs-comment">// 3</span>
+</code></pre><h2 id="math-对象的扩展">Math 对象的扩展 <a class="markdownIt-Anchor" href="#math-对象的扩展">#</a></h2><p>ES6 在 Math 对象上新增了 17 个与数学相关的方法。所有这些方法都是静态方法，只能在 Math 对象上调用。</p><h3 id="mathtrunc">Math.trunc() <a class="markdownIt-Anchor" href="#mathtrunc">#</a></h3><p><code>Math.trunc</code>方法用于去除一个数的小数部分，返回整数部分。</p><pre class="hljs"><code><span class="hljs-built_in">Math</span>.trunc(<span class="hljs-number">4.1</span>) <span class="hljs-comment">// 4</span>
+<span class="hljs-built_in">Math</span>.trunc(<span class="hljs-number">4.9</span>) <span class="hljs-comment">// 4</span>
+<span class="hljs-built_in">Math</span>.trunc(<span class="hljs-number">-4.1</span>) <span class="hljs-comment">// -4</span>
+<span class="hljs-built_in">Math</span>.trunc(<span class="hljs-number">-4.9</span>) <span class="hljs-comment">// -4</span>
+<span class="hljs-built_in">Math</span>.trunc(<span class="hljs-number">-0.1234</span>) <span class="hljs-comment">// -0</span>
+</code></pre><p>对于非数值，<code>Math.trunc</code>内部使用<code>Number</code>方法将其先转为数值。</p><pre class="hljs"><code><span class="hljs-built_in">Math</span>.trunc(<span class="hljs-string">'123.456'</span>) <span class="hljs-comment">// 123</span>
+<span class="hljs-built_in">Math</span>.trunc(<span class="hljs-literal">true</span>) <span class="hljs-comment">//1</span>
+<span class="hljs-built_in">Math</span>.trunc(<span class="hljs-literal">false</span>) <span class="hljs-comment">// 0</span>
+<span class="hljs-built_in">Math</span>.trunc(<span class="hljs-literal">null</span>) <span class="hljs-comment">// 0</span>
+</code></pre><p>对于空值和无法截取整数的值，返回<code>NaN</code>。</p><pre class="hljs"><code><span class="hljs-built_in">Math</span>.trunc(<span class="hljs-literal">NaN</span>);      <span class="hljs-comment">// NaN</span>
+<span class="hljs-built_in">Math</span>.trunc(<span class="hljs-string">'foo'</span>);    <span class="hljs-comment">// NaN</span>
+<span class="hljs-built_in">Math</span>.trunc();         <span class="hljs-comment">// NaN</span>
+<span class="hljs-built_in">Math</span>.trunc(<span class="hljs-literal">undefined</span>) <span class="hljs-comment">// NaN</span>
+</code></pre><p>对于没有部署这个方法的环境，可以用下面的代码模拟。</p><pre class="hljs"><code><span class="hljs-built_in">Math</span>.trunc = <span class="hljs-built_in">Math</span>.trunc || <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">x</span>) </span>{
+  <span class="hljs-keyword">return</span> x &lt; <span class="hljs-number">0</span> ? <span class="hljs-built_in">Math</span>.ceil(x) : <span class="hljs-built_in">Math</span>.floor(x);
+};
+</code></pre><h3 id="mathsign">Math.sign() <a class="markdownIt-Anchor" href="#mathsign">#</a></h3><p><code>Math.sign</code>方法用来判断一个数到底是正数、负数、还是零。对于非数值，会先将其转换为数值。</p><p>它会返回五种值。</p><ul><li>参数为正数，返回<code>+1</code>；</li><li>参数为负数，返回<code>-1</code>；</li><li>参数为 0，返回<code>0</code>；</li><li>参数为-0，返回<code>-0</code>;</li><li>其他值，返回<code>NaN</code>。</li></ul><pre class="hljs"><code><span class="hljs-built_in">Math</span>.sign(<span class="hljs-number">-5</span>) <span class="hljs-comment">// -1</span>
+<span class="hljs-built_in">Math</span>.sign(<span class="hljs-number">5</span>) <span class="hljs-comment">// +1</span>
+<span class="hljs-built_in">Math</span>.sign(<span class="hljs-number">0</span>) <span class="hljs-comment">// +0</span>
+<span class="hljs-built_in">Math</span>.sign(<span class="hljs-number">-0</span>) <span class="hljs-comment">// -0</span>
+<span class="hljs-built_in">Math</span>.sign(<span class="hljs-literal">NaN</span>) <span class="hljs-comment">// NaN</span>
+</code></pre><p>如果参数是非数值，会自动转为数值。对于那些无法转为数值的值，会返回<code>NaN</code>。</p><pre class="hljs"><code><span class="hljs-built_in">Math</span>.sign(<span class="hljs-string">''</span>)  <span class="hljs-comment">// 0</span>
+<span class="hljs-built_in">Math</span>.sign(<span class="hljs-literal">true</span>)  <span class="hljs-comment">// +1</span>
+<span class="hljs-built_in">Math</span>.sign(<span class="hljs-literal">false</span>)  <span class="hljs-comment">// 0</span>
+<span class="hljs-built_in">Math</span>.sign(<span class="hljs-literal">null</span>)  <span class="hljs-comment">// 0</span>
+<span class="hljs-built_in">Math</span>.sign(<span class="hljs-string">'9'</span>)  <span class="hljs-comment">// +1</span>
+<span class="hljs-built_in">Math</span>.sign(<span class="hljs-string">'foo'</span>)  <span class="hljs-comment">// NaN</span>
+<span class="hljs-built_in">Math</span>.sign()  <span class="hljs-comment">// NaN</span>
+<span class="hljs-built_in">Math</span>.sign(<span class="hljs-literal">undefined</span>)  <span class="hljs-comment">// NaN</span>
+</code></pre><p>对于没有部署这个方法的环境，可以用下面的代码模拟。</p><pre class="hljs"><code><span class="hljs-built_in">Math</span>.sign = <span class="hljs-built_in">Math</span>.sign || <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">x</span>) </span>{
+  x = +x; <span class="hljs-comment">// convert to a number</span>
+  <span class="hljs-keyword">if</span> (x === <span class="hljs-number">0</span> || <span class="hljs-built_in">isNaN</span>(x)) {
+    <span class="hljs-keyword">return</span> x;
+  }
+  <span class="hljs-keyword">return</span> x &gt; <span class="hljs-number">0</span> ? <span class="hljs-number">1</span> : <span class="hljs-number">-1</span>;
+};
+</code></pre><h3 id="mathcbrt">Math.cbrt() <a class="markdownIt-Anchor" href="#mathcbrt">#</a></h3><p><code>Math.cbrt()</code>方法用于计算一个数的立方根。</p><pre class="hljs"><code><span class="hljs-built_in">Math</span>.cbrt(<span class="hljs-number">-1</span>) <span class="hljs-comment">// -1</span>
+<span class="hljs-built_in">Math</span>.cbrt(<span class="hljs-number">0</span>)  <span class="hljs-comment">// 0</span>
+<span class="hljs-built_in">Math</span>.cbrt(<span class="hljs-number">1</span>)  <span class="hljs-comment">// 1</span>
+<span class="hljs-built_in">Math</span>.cbrt(<span class="hljs-number">2</span>)  <span class="hljs-comment">// 1.2599210498948732</span>
+</code></pre><p>对于非数值，<code>Math.cbrt()</code>方法内部也是先使用<code>Number()</code>方法将其转为数值。</p><pre class="hljs"><code><span class="hljs-built_in">Math</span>.cbrt(<span class="hljs-string">'8'</span>) <span class="hljs-comment">// 2</span>
+<span class="hljs-built_in">Math</span>.cbrt(<span class="hljs-string">'hello'</span>) <span class="hljs-comment">// NaN</span>
+</code></pre><p>对于没有部署这个方法的环境，可以用下面的代码模拟。</p><pre class="hljs"><code><span class="hljs-built_in">Math</span>.cbrt = <span class="hljs-built_in">Math</span>.cbrt || <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">x</span>) </span>{
+  <span class="hljs-keyword">var</span> y = <span class="hljs-built_in">Math</span>.pow(<span class="hljs-built_in">Math</span>.abs(x), <span class="hljs-number">1</span>/<span class="hljs-number">3</span>);
+  <span class="hljs-keyword">return</span> x &lt; <span class="hljs-number">0</span> ? -y : y;
+};
+</code></pre><h3 id="mathclz32">Math.clz32() <a class="markdownIt-Anchor" href="#mathclz32">#</a></h3><p><code>Math.clz32()</code>方法将参数转为 32 位无符号整数的形式，然后返回这个 32 位值里面有多少个前导 0。</p><pre class="hljs"><code><span class="hljs-built_in">Math</span>.clz32(<span class="hljs-number">0</span>) <span class="hljs-comment">// 32</span>
+<span class="hljs-built_in">Math</span>.clz32(<span class="hljs-number">1</span>) <span class="hljs-comment">// 31</span>
+<span class="hljs-built_in">Math</span>.clz32(<span class="hljs-number">1000</span>) <span class="hljs-comment">// 22</span>
+<span class="hljs-built_in">Math</span>.clz32(<span class="hljs-number">0b01000000000000000000000000000000</span>) <span class="hljs-comment">// 1</span>
+<span class="hljs-built_in">Math</span>.clz32(<span class="hljs-number">0b00100000000000000000000000000000</span>) <span class="hljs-comment">// 2</span>
+</code></pre><p>上面代码中，0 的二进制形式全为 0，所以有 32 个前导 0；1 的二进制形式是<code>0b1</code>，只占 1 位，所以 32 位之中有 31 个前导 0；1000 的二进制形式是<code>0b1111101000</code>，一共有 10 位，所以 32 位之中有 22 个前导 0。</p><p><code>clz32</code>这个函数名就来自”count leading zero bits in 32-bit binary representation of a number“（计算一个数的 32 位二进制形式的前导 0 的个数）的缩写。</p><p>左移运算符（<code>&lt;&lt;</code>）与<code>Math.clz32</code>方法直接相关。</p><pre class="hljs"><code><span class="hljs-built_in">Math</span>.clz32(<span class="hljs-number">0</span>) <span class="hljs-comment">// 32</span>
+<span class="hljs-built_in">Math</span>.clz32(<span class="hljs-number">1</span>) <span class="hljs-comment">// 31</span>
+<span class="hljs-built_in">Math</span>.clz32(<span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">1</span>) <span class="hljs-comment">// 30</span>
+<span class="hljs-built_in">Math</span>.clz32(<span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">2</span>) <span class="hljs-comment">// 29</span>
+<span class="hljs-built_in">Math</span>.clz32(<span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">29</span>) <span class="hljs-comment">// 2</span>
+</code></pre><p>对于小数，<code>Math.clz32</code>方法只考虑整数部分。</p><pre class="hljs"><code><span class="hljs-built_in">Math</span>.clz32(<span class="hljs-number">3.2</span>) <span class="hljs-comment">// 30</span>
+<span class="hljs-built_in">Math</span>.clz32(<span class="hljs-number">3.9</span>) <span class="hljs-comment">// 30</span>
+</code></pre><p>对于空值或其他类型的值，<code>Math.clz32</code>方法会将它们先转为数值，然后再计算。</p><pre class="hljs"><code><span class="hljs-built_in">Math</span>.clz32() <span class="hljs-comment">// 32</span>
+<span class="hljs-built_in">Math</span>.clz32(<span class="hljs-literal">NaN</span>) <span class="hljs-comment">// 32</span>
+<span class="hljs-built_in">Math</span>.clz32(<span class="hljs-literal">Infinity</span>) <span class="hljs-comment">// 32</span>
+<span class="hljs-built_in">Math</span>.clz32(<span class="hljs-literal">null</span>) <span class="hljs-comment">// 32</span>
+<span class="hljs-built_in">Math</span>.clz32(<span class="hljs-string">'foo'</span>) <span class="hljs-comment">// 32</span>
+<span class="hljs-built_in">Math</span>.clz32([]) <span class="hljs-comment">// 32</span>
+<span class="hljs-built_in">Math</span>.clz32({}) <span class="hljs-comment">// 32</span>
+<span class="hljs-built_in">Math</span>.clz32(<span class="hljs-literal">true</span>) <span class="hljs-comment">// 31</span>
+</code></pre><h3 id="mathimul">Math.imul() <a class="markdownIt-Anchor" href="#mathimul">#</a></h3><p><code>Math.imul</code>方法返回两个数以 32 位带符号整数形式相乘的结果，返回的也是一个 32 位的带符号整数。</p><pre class="hljs"><code><span class="hljs-built_in">Math</span>.imul(<span class="hljs-number">2</span>, <span class="hljs-number">4</span>)   <span class="hljs-comment">// 8</span>
+<span class="hljs-built_in">Math</span>.imul(<span class="hljs-number">-1</span>, <span class="hljs-number">8</span>)  <span class="hljs-comment">// -8</span>
+<span class="hljs-built_in">Math</span>.imul(<span class="hljs-number">-2</span>, <span class="hljs-number">-2</span>) <span class="hljs-comment">// 4</span>
+</code></pre><p>如果只考虑最后 32 位，大多数情况下，<code>Math.imul(a, b)</code>与<code>a * b</code>的结果是相同的，即该方法等同于<code>(a * b)|0</code>的效果（超过 32 位的部分溢出）。之所以需要部署这个方法，是因为 JavaScript 有精度限制，超过 2 的 53 次方的值无法精确表示。这就是说，对于那些很大的数的乘法，低位数值往往都是不精确的，<code>Math.imul</code>方法可以返回正确的低位数值。</p><pre class="hljs"><code>(<span class="hljs-number">0x7fffffff</span> * <span class="hljs-number">0x7fffffff</span>)|<span class="hljs-number">0</span> <span class="hljs-comment">// 0</span>
+</code></pre><p>上面这个乘法算式，返回结果为 0。但是由于这两个二进制数的最低位都是 1，所以这个结果肯定是不正确的，因为根据二进制乘法，计算结果的二进制最低位应该也是 1。这个错误就是因为它们的乘积超过了 2 的 53 次方，JavaScript 无法保存额外的精度，就把低位的值都变成了 0。<code>Math.imul</code>方法可以返回正确的值 1。</p><pre class="hljs"><code><span class="hljs-built_in">Math</span>.imul(<span class="hljs-number">0x7fffffff</span>, <span class="hljs-number">0x7fffffff</span>) <span class="hljs-comment">// 1</span>
+</code></pre><h3 id="mathfround">Math.fround() <a class="markdownIt-Anchor" href="#mathfround">#</a></h3><p><code>Math.fround</code>方法返回一个数的32位单精度浮点数形式。</p><p>对于32位单精度格式来说，数值精度是24个二进制位（1 位隐藏位与 23 位有效位），所以对于 -2<sup>24</sup> 至 2<sup>24</sup> 之间的整数（不含两个端点），返回结果与参数本身一致。</p><pre class="hljs"><code><span class="hljs-built_in">Math</span>.fround(<span class="hljs-number">0</span>)   <span class="hljs-comment">// 0</span>
+<span class="hljs-built_in">Math</span>.fround(<span class="hljs-number">1</span>)   <span class="hljs-comment">// 1</span>
+<span class="hljs-built_in">Math</span>.fround(<span class="hljs-number">2</span> ** <span class="hljs-number">24</span> - <span class="hljs-number">1</span>)   <span class="hljs-comment">// 16777215</span>
+</code></pre><p>如果参数的绝对值大于 2<sup>24</sup>，返回的结果便开始丢失精度。</p><pre class="hljs"><code><span class="hljs-built_in">Math</span>.fround(<span class="hljs-number">2</span> ** <span class="hljs-number">24</span>)       <span class="hljs-comment">// 16777216</span>
+<span class="hljs-built_in">Math</span>.fround(<span class="hljs-number">2</span> ** <span class="hljs-number">24</span> + <span class="hljs-number">1</span>)   <span class="hljs-comment">// 16777216</span>
+</code></pre><p><code>Math.fround</code>方法的主要作用，是将64位双精度浮点数转为32位单精度浮点数。如果小数的精度超过24个二进制位，返回值就会不同于原值，否则返回值不变（即与64位双精度值一致）。</p><pre class="hljs"><code><span class="hljs-comment">// 未丢失有效精度</span>
+<span class="hljs-built_in">Math</span>.fround(<span class="hljs-number">1.125</span>) <span class="hljs-comment">// 1.125</span>
+<span class="hljs-built_in">Math</span>.fround(<span class="hljs-number">7.25</span>)  <span class="hljs-comment">// 7.25</span>
+
+<span class="hljs-comment">// 丢失精度</span>
+<span class="hljs-built_in">Math</span>.fround(<span class="hljs-number">0.3</span>)   <span class="hljs-comment">// 0.30000001192092896</span>
+<span class="hljs-built_in">Math</span>.fround(<span class="hljs-number">0.7</span>)   <span class="hljs-comment">// 0.699999988079071</span>
+<span class="hljs-built_in">Math</span>.fround(<span class="hljs-number">1.0000000123</span>) <span class="hljs-comment">// 1</span>
+</code></pre><p>对于 <code>NaN</code> 和 <code>Infinity</code>，此方法返回原值。对于其它类型的非数值，<code>Math.fround</code> 方法会先将其转为数值，再返回单精度浮点数。</p><pre class="hljs"><code><span class="hljs-built_in">Math</span>.fround(<span class="hljs-literal">NaN</span>)      <span class="hljs-comment">// NaN</span>
+<span class="hljs-built_in">Math</span>.fround(<span class="hljs-literal">Infinity</span>) <span class="hljs-comment">// Infinity</span>
+
+<span class="hljs-built_in">Math</span>.fround(<span class="hljs-string">'5'</span>)      <span class="hljs-comment">// 5</span>
+<span class="hljs-built_in">Math</span>.fround(<span class="hljs-literal">true</span>)     <span class="hljs-comment">// 1</span>
+<span class="hljs-built_in">Math</span>.fround(<span class="hljs-literal">null</span>)     <span class="hljs-comment">// 0</span>
+<span class="hljs-built_in">Math</span>.fround([])       <span class="hljs-comment">// 0</span>
+<span class="hljs-built_in">Math</span>.fround({})       <span class="hljs-comment">// NaN</span>
+</code></pre><p>对于没有部署这个方法的环境，可以用下面的代码模拟。</p><pre class="hljs"><code><span class="hljs-built_in">Math</span>.fround = <span class="hljs-built_in">Math</span>.fround || <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">x</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Float32Array</span>([x])[<span class="hljs-number">0</span>];
+};
+</code></pre><h3 id="mathhypot">Math.hypot() <a class="markdownIt-Anchor" href="#mathhypot">#</a></h3><p><code>Math.hypot</code>方法返回所有参数的平方和的平方根。</p><pre class="hljs"><code><span class="hljs-built_in">Math</span>.hypot(<span class="hljs-number">3</span>, <span class="hljs-number">4</span>);        <span class="hljs-comment">// 5</span>
+<span class="hljs-built_in">Math</span>.hypot(<span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>);     <span class="hljs-comment">// 7.0710678118654755</span>
+<span class="hljs-built_in">Math</span>.hypot();            <span class="hljs-comment">// 0</span>
+<span class="hljs-built_in">Math</span>.hypot(<span class="hljs-literal">NaN</span>);         <span class="hljs-comment">// NaN</span>
+<span class="hljs-built_in">Math</span>.hypot(<span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-string">'foo'</span>); <span class="hljs-comment">// NaN</span>
+<span class="hljs-built_in">Math</span>.hypot(<span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-string">'5'</span>);   <span class="hljs-comment">// 7.0710678118654755</span>
+<span class="hljs-built_in">Math</span>.hypot(<span class="hljs-number">-3</span>);          <span class="hljs-comment">// 3</span>
+</code></pre><p>上面代码中，3 的平方加上 4 的平方，等于 5 的平方。</p><p>如果参数不是数值，<code>Math.hypot</code>方法会将其转为数值。只要有一个参数无法转为数值，就会返回 NaN。</p><h3 id="对数方法">对数方法 <a class="markdownIt-Anchor" href="#对数方法">#</a></h3><p>ES6 新增了 4 个对数相关方法。</p><p><strong>（1） Math.expm1()</strong></p><p><code>Math.expm1(x)</code>返回 e<sup>x</sup> - 1，即<code>Math.exp(x) - 1</code>。</p><pre class="hljs"><code><span class="hljs-built_in">Math</span>.expm1(<span class="hljs-number">-1</span>) <span class="hljs-comment">// -0.6321205588285577</span>
+<span class="hljs-built_in">Math</span>.expm1(<span class="hljs-number">0</span>)  <span class="hljs-comment">// 0</span>
+<span class="hljs-built_in">Math</span>.expm1(<span class="hljs-number">1</span>)  <span class="hljs-comment">// 1.718281828459045</span>
+</code></pre><p>对于没有部署这个方法的环境，可以用下面的代码模拟。</p><pre class="hljs"><code><span class="hljs-built_in">Math</span>.expm1 = <span class="hljs-built_in">Math</span>.expm1 || <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">x</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">Math</span>.exp(x) - <span class="hljs-number">1</span>;
+};
+</code></pre><p><strong>（2）Math.log1p()</strong></p><p><code>Math.log1p(x)</code>方法返回<code>1 + x</code>的自然对数，即<code>Math.log(1 + x)</code>。如果<code>x</code>小于-1，返回<code>NaN</code>。</p><pre class="hljs"><code><span class="hljs-built_in">Math</span>.log1p(<span class="hljs-number">1</span>)  <span class="hljs-comment">// 0.6931471805599453</span>
+<span class="hljs-built_in">Math</span>.log1p(<span class="hljs-number">0</span>)  <span class="hljs-comment">// 0</span>
+<span class="hljs-built_in">Math</span>.log1p(<span class="hljs-number">-1</span>) <span class="hljs-comment">// -Infinity</span>
+<span class="hljs-built_in">Math</span>.log1p(<span class="hljs-number">-2</span>) <span class="hljs-comment">// NaN</span>
+</code></pre><p>对于没有部署这个方法的环境，可以用下面的代码模拟。</p><pre class="hljs"><code><span class="hljs-built_in">Math</span>.log1p = <span class="hljs-built_in">Math</span>.log1p || <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">x</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">Math</span>.log(<span class="hljs-number">1</span> + x);
+};
+</code></pre><p><strong>（3）Math.log10()</strong></p><p><code>Math.log10(x)</code>返回以 10 为底的<code>x</code>的对数。如果<code>x</code>小于 0，则返回 NaN。</p><pre class="hljs"><code><span class="hljs-built_in">Math</span>.log10(<span class="hljs-number">2</span>)      <span class="hljs-comment">// 0.3010299956639812</span>
+<span class="hljs-built_in">Math</span>.log10(<span class="hljs-number">1</span>)      <span class="hljs-comment">// 0</span>
+<span class="hljs-built_in">Math</span>.log10(<span class="hljs-number">0</span>)      <span class="hljs-comment">// -Infinity</span>
+<span class="hljs-built_in">Math</span>.log10(<span class="hljs-number">-2</span>)     <span class="hljs-comment">// NaN</span>
+<span class="hljs-built_in">Math</span>.log10(<span class="hljs-number">100000</span>) <span class="hljs-comment">// 5</span>
+</code></pre><p>对于没有部署这个方法的环境，可以用下面的代码模拟。</p><pre class="hljs"><code><span class="hljs-built_in">Math</span>.log10 = <span class="hljs-built_in">Math</span>.log10 || <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">x</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">Math</span>.log(x) / <span class="hljs-built_in">Math</span>.LN10;
+};
+</code></pre><p><strong>（4）Math.log2()</strong></p><p><code>Math.log2(x)</code>返回以 2 为底的<code>x</code>的对数。如果<code>x</code>小于 0，则返回 NaN。</p><pre class="hljs"><code><span class="hljs-built_in">Math</span>.log2(<span class="hljs-number">3</span>)       <span class="hljs-comment">// 1.584962500721156</span>
+<span class="hljs-built_in">Math</span>.log2(<span class="hljs-number">2</span>)       <span class="hljs-comment">// 1</span>
+<span class="hljs-built_in">Math</span>.log2(<span class="hljs-number">1</span>)       <span class="hljs-comment">// 0</span>
+<span class="hljs-built_in">Math</span>.log2(<span class="hljs-number">0</span>)       <span class="hljs-comment">// -Infinity</span>
+<span class="hljs-built_in">Math</span>.log2(<span class="hljs-number">-2</span>)      <span class="hljs-comment">// NaN</span>
+<span class="hljs-built_in">Math</span>.log2(<span class="hljs-number">1024</span>)    <span class="hljs-comment">// 10</span>
+<span class="hljs-built_in">Math</span>.log2(<span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">29</span>) <span class="hljs-comment">// 29</span>
+</code></pre><p>对于没有部署这个方法的环境，可以用下面的代码模拟。</p><pre class="hljs"><code><span class="hljs-built_in">Math</span>.log2 = <span class="hljs-built_in">Math</span>.log2 || <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">x</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">Math</span>.log(x) / <span class="hljs-built_in">Math</span>.LN2;
+};
+</code></pre><h3 id="双曲函数方法">双曲函数方法 <a class="markdownIt-Anchor" href="#双曲函数方法">#</a></h3><p>ES6 新增了 6 个双曲函数方法。</p><ul><li><code>Math.sinh(x)</code> 返回<code>x</code>的双曲正弦（hyperbolic sine）</li><li><code>Math.cosh(x)</code> 返回<code>x</code>的双曲余弦（hyperbolic cosine）</li><li><code>Math.tanh(x)</code> 返回<code>x</code>的双曲正切（hyperbolic tangent）</li><li><code>Math.asinh(x)</code> 返回<code>x</code>的反双曲正弦（inverse hyperbolic sine）</li><li><code>Math.acosh(x)</code> 返回<code>x</code>的反双曲余弦（inverse hyperbolic cosine）</li><li><code>Math.atanh(x)</code> 返回<code>x</code>的反双曲正切（inverse hyperbolic tangent）</li></ul><h2 id="指数运算符">指数运算符 <a class="markdownIt-Anchor" href="#指数运算符">#</a></h2><p>ES2016 新增了一个指数运算符（<code>**</code>）。</p><pre class="hljs"><code><span class="hljs-number">2</span> ** <span class="hljs-number">2</span> <span class="hljs-comment">// 4</span>
+<span class="hljs-number">2</span> ** <span class="hljs-number">3</span> <span class="hljs-comment">// 8</span>
+</code></pre><p>这个运算符的一个特点是右结合，而不是常见的左结合。多个指数运算符连用时，是从最右边开始计算的。</p><pre class="hljs"><code><span class="hljs-comment">// 相当于 2 ** (3 ** 2)</span>
+<span class="hljs-number">2</span> ** <span class="hljs-number">3</span> ** <span class="hljs-number">2</span>
+<span class="hljs-comment">// 512</span>
+</code></pre><p>上面代码中，首先计算的是第二个指数运算符，而不是第一个。</p><p>指数运算符可以与等号结合，形成一个新的赋值运算符（<code>**=</code>）。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> a = <span class="hljs-number">1.5</span>;
+a **= <span class="hljs-number">2</span>;
+<span class="hljs-comment">// 等同于 a = a * a;</span>
+
+<span class="hljs-keyword">let</span> b = <span class="hljs-number">4</span>;
+b **= <span class="hljs-number">3</span>;
+<span class="hljs-comment">// 等同于 b = b * b * b;</span>
+</code></pre><h2 id="bigint-数据类型">BigInt 数据类型 <a class="markdownIt-Anchor" href="#bigint-数据类型">#</a></h2><h3 id="简介">简介 <a class="markdownIt-Anchor" href="#简介">#</a></h3><p>JavaScript 所有数字都保存成 64 位浮点数，这给数值的表示带来了两大限制。一是数值的精度只能到 53 个二进制位（相当于 16 个十进制位），大于这个范围的整数，JavaScript 是无法精确表示的，这使得 JavaScript 不适合进行科学和金融方面的精确计算。二是大于或等于2的1024次方的数值，JavaScript 无法表示，会返回<code>Infinity</code>。</p><pre class="hljs"><code><span class="hljs-comment">// 超过 53 个二进制位的数值，无法保持精度</span>
+<span class="hljs-built_in">Math</span>.pow(<span class="hljs-number">2</span>, <span class="hljs-number">53</span>) === <span class="hljs-built_in">Math</span>.pow(<span class="hljs-number">2</span>, <span class="hljs-number">53</span>) + <span class="hljs-number">1</span> <span class="hljs-comment">// true</span>
+
+<span class="hljs-comment">// 超过 2 的 1024 次方的数值，无法表示</span>
+<span class="hljs-built_in">Math</span>.pow(<span class="hljs-number">2</span>, <span class="hljs-number">1024</span>) <span class="hljs-comment">// Infinity</span>
+</code></pre><p><a href="https://github.com/tc39/proposal-bigint" target="_blank" rel="noopener">ES2020</a> 引入了一种新的数据类型 BigInt（大整数），来解决这个问题。BigInt 只用来表示整数，没有位数的限制，任何位数的整数都可以精确表示。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> a = <span class="hljs-number">2172141653n</span>;
+<span class="hljs-keyword">const</span> b = <span class="hljs-number">15346349309n</span>;
+
+<span class="hljs-comment">// BigInt 可以保持精度</span>
+a * b <span class="hljs-comment">// 33334444555566667777n</span>
+
+<span class="hljs-comment">// 普通整数无法保持精度</span>
+<span class="hljs-built_in">Number</span>(a) * <span class="hljs-built_in">Number</span>(b) <span class="hljs-comment">// 33334444555566670000</span>
+</code></pre><p>为了与 Number 类型区别，BigInt 类型的数据必须添加后缀<code>n</code>。</p><pre class="hljs"><code><span class="hljs-number">1234</span> <span class="hljs-comment">// 普通整数</span>
+<span class="hljs-number">1234n</span> <span class="hljs-comment">// BigInt</span>
+
+<span class="hljs-comment">// BigInt 的运算</span>
+<span class="hljs-number">1n</span> + <span class="hljs-number">2n</span> <span class="hljs-comment">// 3n</span>
+</code></pre><p>BigInt 同样可以使用各种进制表示，都要加上后缀<code>n</code>。</p><pre class="hljs"><code><span class="hljs-number">0b1101n</span> <span class="hljs-comment">// 二进制</span>
+<span class="hljs-number">0o777n</span> <span class="hljs-comment">// 八进制</span>
+<span class="hljs-number">0xFFn</span> <span class="hljs-comment">// 十六进制</span>
+</code></pre><p>BigInt 与普通整数是两种值，它们之间并不相等。</p><pre class="hljs"><code><span class="hljs-number">42n</span> === <span class="hljs-number">42</span> <span class="hljs-comment">// false</span>
+</code></pre><p><code>typeof</code>运算符对于 BigInt 类型的数据返回<code>bigint</code>。</p><pre class="hljs"><code><span class="hljs-keyword">typeof</span> <span class="hljs-number">123n</span> <span class="hljs-comment">// 'bigint'</span>
+</code></pre><p>BigInt 可以使用负号（<code>-</code>），但是不能使用正号（<code>+</code>），因为会与 asm.js 冲突。</p><pre class="hljs"><code><span class="hljs-number">-42n</span> <span class="hljs-comment">// 正确</span>
++<span class="hljs-number">42n</span> <span class="hljs-comment">// 报错</span>
+</code></pre><p>JavaScript 以前不能计算70的阶乘（即<code>70!</code>），因为超出了可以表示的精度。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> p = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">70</span>; i++) {
+  p *= i;
+}
+<span class="hljs-built_in">console</span>.log(p); <span class="hljs-comment">// 1.197857166996989e+100</span>
+</code></pre><p>现在支持大整数了，就可以算了，浏览器的开发者工具运行下面代码，就OK。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> p = <span class="hljs-number">1n</span>;
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">1n</span>; i &lt;= <span class="hljs-number">70n</span>; i++) {
+  p *= i;
+}
+<span class="hljs-built_in">console</span>.log(p); <span class="hljs-comment">// 11978571...00000000n</span>
+</code></pre><h3 id="bigint-对象">BigInt 对象 <a class="markdownIt-Anchor" href="#bigint-对象">#</a></h3><p>JavaScript 原生提供<code>BigInt</code>对象，可以用作构造函数生成 BigInt 类型的数值。转换规则基本与<code>Number()</code>一致，将其他类型的值转为 BigInt。</p><pre class="hljs"><code>BigInt(<span class="hljs-number">123</span>) <span class="hljs-comment">// 123n</span>
+BigInt(<span class="hljs-string">'123'</span>) <span class="hljs-comment">// 123n</span>
+BigInt(<span class="hljs-literal">false</span>) <span class="hljs-comment">// 0n</span>
+BigInt(<span class="hljs-literal">true</span>) <span class="hljs-comment">// 1n</span>
+</code></pre><p><code>BigInt()</code>构造函数必须有参数，而且参数必须可以正常转为数值，下面的用法都会报错。</p><pre class="hljs"><code><span class="hljs-keyword">new</span> BigInt() <span class="hljs-comment">// TypeError</span>
+BigInt(<span class="hljs-literal">undefined</span>) <span class="hljs-comment">//TypeError</span>
+BigInt(<span class="hljs-literal">null</span>) <span class="hljs-comment">// TypeError</span>
+BigInt(<span class="hljs-string">'123n'</span>) <span class="hljs-comment">// SyntaxError</span>
+BigInt(<span class="hljs-string">'abc'</span>) <span class="hljs-comment">// SyntaxError</span>
+</code></pre><p>上面代码中，尤其值得注意字符串<code>123n</code>无法解析成 Number 类型，所以会报错。</p><p>参数如果是小数，也会报错。</p><pre class="hljs"><code>BigInt(<span class="hljs-number">1.5</span>) <span class="hljs-comment">// RangeError</span>
+BigInt(<span class="hljs-string">'1.5'</span>) <span class="hljs-comment">// SyntaxError</span>
+</code></pre><p>BigInt 对象继承了 Object 对象的两个实例方法。</p><ul><li><code>BigInt.prototype.toString()</code></li><li><code>BigInt.prototype.valueOf()</code></li></ul><p>它还继承了 Number 对象的一个实例方法。</p><ul><li><code>BigInt.prototype.toLocaleString()</code></li></ul><p>此外，还提供了三个静态方法。</p><ul><li><code>BigInt.asUintN(width, BigInt)</code>： 给定的 BigInt 转为 0 到 2<sup>width</sup> - 1 之间对应的值。</li><li><code>BigInt.asIntN(width, BigInt)</code>：给定的 BigInt 转为 -2<sup>width - 1</sup> 到 2<sup>width - 1</sup> - 1 之间对应的值。</li><li><code>BigInt.parseInt(string[, radix])</code>：近似于<code>Number.parseInt()</code>，将一个字符串转换成指定进制的 BigInt。</li></ul><pre class="hljs"><code><span class="hljs-keyword">const</span> max = <span class="hljs-number">2n</span> ** (<span class="hljs-number">64n</span> - <span class="hljs-number">1n</span>) - <span class="hljs-number">1n</span>;
+
+BigInt.asIntN(<span class="hljs-number">64</span>, max)
+<span class="hljs-comment">// 9223372036854775807n</span>
+BigInt.asIntN(<span class="hljs-number">64</span>, max + <span class="hljs-number">1n</span>)
+<span class="hljs-comment">// -9223372036854775808n</span>
+BigInt.asUintN(<span class="hljs-number">64</span>, max + <span class="hljs-number">1n</span>)
+<span class="hljs-comment">// 9223372036854775808n</span>
+</code></pre><p>上面代码中，<code>max</code>是64位带符号的 BigInt 所能表示的最大值。如果对这个值加<code>1n</code>，<code>BigInt.asIntN()</code>将会返回一个负值，因为这时新增的一位将被解释为符号位。而<code>BigInt.asUintN()</code>方法由于不存在符号位，所以可以正确返回结果。</p><p>如果<code>BigInt.asIntN()</code>和<code>BigInt.asUintN()</code>指定的位数，小于数值本身的位数，那么头部的位将被舍弃。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> max = <span class="hljs-number">2n</span> ** (<span class="hljs-number">64n</span> - <span class="hljs-number">1n</span>) - <span class="hljs-number">1n</span>;
+
+BigInt.asIntN(<span class="hljs-number">32</span>, max) <span class="hljs-comment">// -1n</span>
+BigInt.asUintN(<span class="hljs-number">32</span>, max) <span class="hljs-comment">// 4294967295n</span>
+</code></pre><p>上面代码中，<code>max</code>是一个64位的 BigInt，如果转为32位，前面的32位都会被舍弃。</p><p>下面是<code>BigInt.parseInt()</code>的例子。</p><pre class="hljs"><code><span class="hljs-comment">// Number.parseInt() 与 BigInt.parseInt() 的对比</span>
+<span class="hljs-built_in">Number</span>.parseInt(<span class="hljs-string">'9007199254740993'</span>, <span class="hljs-number">10</span>)
+<span class="hljs-comment">// 9007199254740992</span>
+BigInt.parseInt(<span class="hljs-string">'9007199254740993'</span>, <span class="hljs-number">10</span>)
+<span class="hljs-comment">// 9007199254740993n</span>
+</code></pre><p>上面代码中，由于有效数字超出了最大限度，<code>Number.parseInt</code>方法返回的结果是不精确的，而<code>BigInt.parseInt</code>方法正确返回了对应的 BigInt。</p><p>对于二进制数组，BigInt 新增了两个类型<code>BigUint64Array</code>和<code>BigInt64Array</code>，这两种数据类型返回的都是64位 BigInt。<code>DataView</code>对象的实例方法<code>DataView.prototype.getBigInt64()</code>和<code>DataView.prototype.getBigUint64()</code>，返回的也是 BigInt。</p><h3 id="转换规则">转换规则 <a class="markdownIt-Anchor" href="#转换规则">#</a></h3><p>可以使用<code>Boolean()</code>、<code>Number()</code>和<code>String()</code>这三个方法，将 BigInt 可以转为布尔值、数值和字符串类型。</p><pre class="hljs"><code><span class="hljs-built_in">Boolean</span>(<span class="hljs-number">0n</span>) <span class="hljs-comment">// false</span>
+<span class="hljs-built_in">Boolean</span>(<span class="hljs-number">1n</span>) <span class="hljs-comment">// true</span>
+<span class="hljs-built_in">Number</span>(<span class="hljs-number">1n</span>)  <span class="hljs-comment">// 1</span>
+<span class="hljs-built_in">String</span>(<span class="hljs-number">1n</span>)  <span class="hljs-comment">// "1"</span>
+</code></pre><p>上面代码中，注意最后一个例子，转为字符串时后缀<code>n</code>会消失。</p><p>另外，取反运算符（<code>!</code>）也可以将 BigInt 转为布尔值。</p><pre class="hljs"><code>!<span class="hljs-number">0n</span> <span class="hljs-comment">// true</span>
+!<span class="hljs-number">1n</span> <span class="hljs-comment">// false</span>
+</code></pre><h3 id="数学运算">数学运算 <a class="markdownIt-Anchor" href="#数学运算">#</a></h3><p>数学运算方面，BigInt 类型的<code>+</code>、<code>-</code>、<code>*</code>和<code>**</code>这四个二元运算符，与 Number 类型的行为一致。除法运算<code>/</code>会舍去小数部分，返回一个整数。</p><pre class="hljs"><code><span class="hljs-number">9n</span> / <span class="hljs-number">5n</span>
+<span class="hljs-comment">// 1n</span>
+</code></pre><p>几乎所有的数值运算符都可以用在 BigInt，但是有两个例外。</p><ul><li>不带符号的右移位运算符<code>&gt;&gt;&gt;</code></li><li>一元的求正运算符<code>+</code></li></ul><p>上面两个运算符用在 BigInt 会报错。前者是因为<code>&gt;&gt;&gt;</code>运算符是不带符号的，但是 BigInt 总是带有符号的，导致该运算无意义，完全等同于右移运算符<code>&gt;&gt;</code>。后者是因为一元运算符<code>+</code>在 asm.js 里面总是返回 Number 类型，为了不破坏 asm.js 就规定<code>+1n</code>会报错。</p><p>BigInt 不能与普通数值进行混合运算。</p><pre class="hljs"><code><span class="hljs-number">1n</span> + <span class="hljs-number">1.3</span> <span class="hljs-comment">// 报错</span>
+</code></pre><p>上面代码报错是因为无论返回的是 BigInt 或 Number，都会导致丢失精度信息。比如<code>(2n**53n + 1n) + 0.5</code>这个表达式，如果返回 BigInt 类型，<code>0.5</code>这个小数部分会丢失；如果返回 Number 类型，有效精度只能保持 53 位，导致精度下降。</p><p>同样的原因，如果一个标准库函数的参数预期是 Number 类型，但是得到的是一个 BigInt，就会报错。</p><pre class="hljs"><code><span class="hljs-comment">// 错误的写法</span>
+<span class="hljs-built_in">Math</span>.sqrt(<span class="hljs-number">4n</span>) <span class="hljs-comment">// 报错</span>
+
+<span class="hljs-comment">// 正确的写法</span>
+<span class="hljs-built_in">Math</span>.sqrt(<span class="hljs-built_in">Number</span>(<span class="hljs-number">4n</span>)) <span class="hljs-comment">// 2</span>
+</code></pre><p>上面代码中，<code>Math.sqrt</code>的参数预期是 Number 类型，如果是 BigInt 就会报错，必须先用<code>Number</code>方法转一下类型，才能进行计算。</p><p>asm.js 里面，<code>|0</code>跟在一个数值的后面会返回一个32位整数。根据不能与 Number 类型混合运算的规则，BigInt 如果与<code>|0</code>进行运算会报错。</p><pre class="hljs"><code><span class="hljs-number">1n</span> | <span class="hljs-number">0</span> <span class="hljs-comment">// 报错</span>
+</code></pre><h3 id="其他运算">其他运算 <a class="markdownIt-Anchor" href="#其他运算">#</a></h3><p>BigInt 对应的布尔值，与 Number 类型一致，即<code>0n</code>会转为<code>false</code>，其他值转为<code>true</code>。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> (<span class="hljs-number">0n</span>) {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'if'</span>);
+} <span class="hljs-keyword">else</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'else'</span>);
+}
+<span class="hljs-comment">// else</span>
+</code></pre><p>上面代码中，<code>0n</code>对应<code>false</code>，所以会进入<code>else</code>子句。</p><p>比较运算符（比如<code>&gt;</code>）和相等运算符（<code>==</code>）允许 BigInt 与其他类型的值混合计算，因为这样做不会损失精度。</p><pre class="hljs"><code><span class="hljs-number">0n</span> &lt; <span class="hljs-number">1</span> <span class="hljs-comment">// true</span>
+<span class="hljs-number">0n</span> &lt; <span class="hljs-literal">true</span> <span class="hljs-comment">// true</span>
+<span class="hljs-number">0n</span> == <span class="hljs-number">0</span> <span class="hljs-comment">// true</span>
+<span class="hljs-number">0n</span> == <span class="hljs-literal">false</span> <span class="hljs-comment">// true</span>
+<span class="hljs-number">0n</span> === <span class="hljs-number">0</span> <span class="hljs-comment">// false</span>
+</code></pre><p>BigInt 与字符串混合运算时，会先转为字符串，再进行运算。</p><pre class="hljs"><code><span class="hljs-string">''</span> + <span class="hljs-number">123n</span> <span class="hljs-comment">// "123"</span>
+</code></pre></article><nav class="level level-previous-next is-size-5 is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="regex.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> 正则的扩展</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="function.html">函数的扩展 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><div class="page-info is-size-5-desktop"><p>本教程采用<a href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh" target="_blank">知识共享 署名-相同方式共享 3.0协议</a>。</p><p>分享本文 <span class="social-share"></span></p></div></div><div class="column is-3 is-offset-1"><nav class="panel panel-menu"><p class="panel-heading"><i class="fa fa-book" aria-hidden="true"></i> ES6 教程</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="intro.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">ECMAScript 6 简介</span></a></li><li><a href="let.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">let 和 const 命令</span></a></li><li><a href="destructuring.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">变量的解构赋值</span></a></li><li><a href="string.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">字符串的扩展</span></a></li><li><a href="string-methods.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">字符串的新增方法</span></a></li><li><a href="regex.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">正则的扩展</span></a></li><li><a href="number.html" class="is-active"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数值的扩展</span></a></li><li><a href="function.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">函数的扩展</span></a></li><li><a href="array.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数组的扩展</span></a></li><li><a href="object.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">对象的扩展</span></a></li><li><a href="object-methods.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">对象的新增方法</span></a></li><li><a href="symbol.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Symbol</span></a></li><li><a href="set-map.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Set 和 Map 数据结构</span></a></li><li><a href="proxy.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Proxy</span></a></li><li><a href="reflect.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Reflect</span></a></li><li><a href="promise.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Promise 对象</span></a></li><li><a href="iterator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Iterator 和 for...of 循环</span></a></li><li><a href="generator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Generator 函数的语法</span></a></li><li><a href="generator-async.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Generator 函数的异步应用</span></a></li><li><a href="async.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">async 函数</span></a></li><li><a href="class.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Class 的基本语法</span></a></li><li><a href="class-extends.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Class 的继承</span></a></li><li><a href="module.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Module 的语法</span></a></li><li><a href="module-loader.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Module 的加载实现</span></a></li><li><a href="style.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">编程风格</span></a></li><li><a href="spec.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">读懂规格</span></a></li><li><a href="async-iterator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">异步遍历器</span></a></li><li><a href="arraybuffer.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">ArrayBuffer</span></a></li><li><a href="proposals.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">最新提案</span></a></li><li><a href="decorator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Decorator</span></a></li><li><a href="reference.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">参考链接</span></a></li></ul></aside></div></nav><nav class="panel panel-info"><p class="panel-heading"><i class="fa fa-link" aria-hidden="true"></i> 链接</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="https://raw.githubusercontent.com/wangdoc/es6-tutorial/master/docs/number.md" target="_blank"><span class="icon"></span><i class="fa fa-code" aria-hidden="true" style="width: 14px;"></i>&nbsp;本文源码</a></li><li><a href="https://github.com/wangdoc/es6-tutorial" target="_blank"><span class="icon"></span><i class="fa fa-hdd-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;代码仓库</a></li><li><a href="https://github.com/wangdoc/es6-tutorial/issues" target="_blank"><span class="icon"></span><i class="fa fa-flag-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;反馈</a></li></ul></aside></div></nav></div></div><div class="columns"><div class="column is-8"><div id="disqus_thread"></div></div></div></div></section><footer class="footer is-size-5-desktop"><div class="container"><div class="content has-text-centered"><p>联系：contact@wangdoc.com</p></div></div></footer><script>var LOPPO={current_path:"number.md",relative_root_path:"",article_toc:'<ul class="markdownIt-TOC">\n<li><a href="#%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%92%8C%E5%85%AB%E8%BF%9B%E5%88%B6%E8%A1%A8%E7%A4%BA%E6%B3%95">二进制和八进制表示法</a></li>\n<li><a href="#numberisfinite-numberisnan">Number.isFinite(), Number.isNaN()</a></li>\n<li><a href="#numberparseint-numberparsefloat">Number.parseInt(), Number.parseFloat()</a></li>\n<li><a href="#numberisinteger">Number.isInteger()</a></li>\n<li><a href="#numberepsilon">Number.EPSILON</a></li>\n<li><a href="#%E5%AE%89%E5%85%A8%E6%95%B4%E6%95%B0%E5%92%8C-numberissafeinteger">安全整数和 Number.isSafeInteger()</a></li>\n<li><a href="#math-%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%89%A9%E5%B1%95">Math 对象的扩展</a>\n<ul>\n<li><a href="#mathtrunc">Math.trunc()</a></li>\n<li><a href="#mathsign">Math.sign()</a></li>\n<li><a href="#mathcbrt">Math.cbrt()</a></li>\n<li><a href="#mathclz32">Math.clz32()</a></li>\n<li><a href="#mathimul">Math.imul()</a></li>\n<li><a href="#mathfround">Math.fround()</a></li>\n<li><a href="#mathhypot">Math.hypot()</a></li>\n<li><a href="#%E5%AF%B9%E6%95%B0%E6%96%B9%E6%B3%95">对数方法</a></li>\n<li><a href="#%E5%8F%8C%E6%9B%B2%E5%87%BD%E6%95%B0%E6%96%B9%E6%B3%95">双曲函数方法</a></li>\n</ul>\n</li>\n<li><a href="#%E6%8C%87%E6%95%B0%E8%BF%90%E7%AE%97%E7%AC%A6">指数运算符</a></li>\n<li><a href="#bigint-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B">BigInt 数据类型</a>\n<ul>\n<li><a href="#%E7%AE%80%E4%BB%8B">简介</a></li>\n<li><a href="#bigint-%E5%AF%B9%E8%B1%A1">BigInt 对象</a></li>\n<li><a href="#%E8%BD%AC%E6%8D%A2%E8%A7%84%E5%88%99">转换规则</a></li>\n<li><a href="#%E6%95%B0%E5%AD%A6%E8%BF%90%E7%AE%97">数学运算</a></li>\n<li><a href="#%E5%85%B6%E4%BB%96%E8%BF%90%E7%AE%97">其他运算</a></li>\n</ul>\n</li>\n</ul>\n'}</script><script src="assets/js/app.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-111269443-1"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","UA-111269443-1")</script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?5eec262881855af3dede6a71234571f6";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><script>/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+const l = window.location;
+const url = l.protocol + '//' + l.host + (l.port ? ':' + l.port : '') + l.pathname;
+this.page.url = url;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = l.pathname; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://wangdoc-es6.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();</script><!--script src="assets/js/social-share.min.js"--><!--/script--><script>var shareDesc="我正在阅读《数值的扩展》，出自网道（WangDoc.com）的《ES6 教程》。",shareOpts={url:window.location.href,source:shareDesc,title:shareDesc,description:"",image:"",sites:["weibo","wechat","qq","qzone","twitter","facebook"],origin:"WangDoc_com",disabled:[],wechatQrcodeTitle:"微信",wechatQrcodeHelper:"扫一下二维码，分享到微信。"};socialShare(".social-share",shareOpts)</script></body></html>
