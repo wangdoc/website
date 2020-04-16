@@ -163,7 +163,7 @@ Tue Jan 28 00:01:13 CST 2020
 </code></pre><p>上面命令输出所有不以数字开头的文件名。</p><p>字符类也属于文件名扩展，如果没有匹配的文件名，字符类就会原样输出。</p><pre class="hljs"><code><span class="hljs-comment"># 不存在以大写字母开头的文件</span>
 $ <span class="hljs-built_in">echo</span> [[:upper:]]*
 [[:upper:]]*
-</code></pre><p>上面例子中，由于可匹配的文件，字符类就原样输出了。</p><h2 id="使用注意点">使用注意点 <a class="markdownIt-Anchor" href="#使用注意点">#</a></h2><p>通配符有一些使用注意点，不可不知。</p><p><strong>（1）通配符是先解释，再执行。</strong></p><p>Bash 接收到命令以后，发现里面有通配符，会进行通配符扩展，然后再执行命令。</p><pre class="hljs"><code>$ ls a*.txt
+</code></pre><p>上面例子中，由于没有可匹配的文件，字符类就原样输出了。</p><h2 id="使用注意点">使用注意点 <a class="markdownIt-Anchor" href="#使用注意点">#</a></h2><p>通配符有一些使用注意点，不可不知。</p><p><strong>（1）通配符是先解释，再执行。</strong></p><p>Bash 接收到命令以后，发现里面有通配符，会进行通配符扩展，然后再执行命令。</p><pre class="hljs"><code>$ ls a*.txt
 ab.txt
 </code></pre><p>上面命令的执行过程是，Bash 先将<code>a*.txt</code>扩展成<code>ab.txt</code>，然后再执行<code>ls ab.txt</code>。</p><p><strong>（2）文件名扩展在不匹配时，会原样输出。</strong></p><p>文件名扩展在没有可匹配的文件时，会原样输出。</p><pre class="hljs"><code><span class="hljs-comment"># 不存在 r 开头的文件名</span>
 $ <span class="hljs-built_in">echo</span> r*
