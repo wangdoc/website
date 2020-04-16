@@ -93,7 +93,7 @@ ls: 无法访问<span class="hljs-string">'b.txt'</span>: 没有那个文件或�
 ls: 无法访问<span class="hljs-string">'c.txt'</span>: 没有那个文件或目录
 </code></pre><p>上面例子中，即使不存在对应的文件，<code>{a,b,c}</code>依然扩展成三个文件名，导致<code>ls</code>命令报了三个错误。</p><p>另一个需要注意的地方是，大括号内部的逗号前后不能有空格。否则，大括号扩展会失效。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> {1 , 2}
 {1 , 2}
-</code></pre><p>上面例子中，逗号前后有空格，Bash 就会认为这不是大括号扩展，而不是两个独立的参数。</p><p>逗号前面可以没有值，表示扩展的第一项为空。</p><pre class="hljs"><code>$ cp a.log{,.bak}
+</code></pre><p>上面例子中，逗号前后有空格，Bash 就会认为这不是大括号扩展，而是两个独立的参数。</p><p>逗号前面可以没有值，表示扩展的第一项为空。</p><pre class="hljs"><code>$ cp a.log{,.bak}
 
 <span class="hljs-comment"># 等同于</span>
 <span class="hljs-comment"># cp a.log a.log.bak</span>
