@@ -28,7 +28,7 @@ World
 $ <span class="hljs-built_in">echo</span> -e <span class="hljs-string">'Hello\nWorld'</span>
 Hello
 World
-</code></pre><p>上面代码中，<code>-e</code>参数使得<code>\n</code>解释为换行符，导致输出内容里面出现换行。</p><h2 id="命令格式">命令格式 <a class="markdownIt-Anchor" href="#命令格式">#</a></h2><p>命令行环境中，主要通过使用 Shell 命令，进行各种操作。Shell 命令基本都是下面的格式。</p><pre class="hljs"><code>$ <span class="hljs-built_in">command</span> [ arg1 ... [ argN ]
+</code></pre><p>上面代码中，<code>-e</code>参数使得<code>\n</code>解释为换行符，导致输出内容里面出现换行。</p><h2 id="命令格式">命令格式 <a class="markdownIt-Anchor" href="#命令格式">#</a></h2><p>命令行环境中，主要通过使用 Shell 命令，进行各种操作。Shell 命令基本都是下面的格式。</p><pre class="hljs"><code>$ <span class="hljs-built_in">command</span> [ arg1 ... [ argN ]]
 </code></pre><p>上面代码中，<code>command</code>是具体的命令或者一个可执行文件，<code>arg1 ... argN</code>是传递给命令的参数，它们是可选的。</p><pre class="hljs"><code>$ ls -l
 </code></pre><p>上面这个命令中，<code>ls</code>是命令，<code>-l</code>是参数。</p><p>有些参数是命令的配置项，这些配置项一般都以一个连词线开头，比如上面的<code>-l</code>。同一个配置项往往有长和短两种形式，比如<code>-l</code>是短形式，<code>--list</code>是长形式，它们的作用完全相同。短形式便于手动输入，长形式一般用在脚本之中，可读性更好，利于解释自身的含义。</p><pre class="hljs"><code><span class="hljs-comment"># 短形式</span>
 $ ls -r
