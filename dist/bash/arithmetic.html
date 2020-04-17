@@ -55,11 +55,11 @@ $ <span class="hljs-built_in">echo</span> $(( foo + 2 ))
 255
 $ <span class="hljs-built_in">echo</span> $((2<span class="hljs-comment">#11111111))</span>
 255
-</code></pre><p>上面例子中，<code>0xff</code>是十六进制数，<code>2#11111111</code>是二进制数。</p><h2 id="位运算">位运算 <a class="markdownIt-Anchor" href="#位运算">#</a></h2><p><code>$((...))</code>支持以下的二进制位运算符。</p><ul><li><code>&lt;&lt;</code>：位左移运算，把一个数字的所有位向左移动指定的位。</li><li><code>&gt;&gt;</code>：位右移运算，把一个数字的所有位向右移动指定的位。</li><li><code>&amp;：</code>：位的“与”运算，对两个数字的所有位执行一个<code>AND</code>操作。</li><li><code>|</code>：位的“或”运算，对两个数字的所有位执行一个<code>OR</code>操作。</li><li><code>~</code>：位的“否”运算，对一个数字的所有位取反。</li><li><code>!</code>：逻辑“否”运算</li><li><code>^</code>：位的异或运算（exclusive or），对两个数字的所有位执行一个异或操作。</li></ul><p>下面是右移运算符<code>&gt;&gt;</code>的例子。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> $((16&gt;&gt;2))
+</code></pre><p>上面例子中，<code>0xff</code>是十六进制数，<code>2#11111111</code>是二进制数。</p><h2 id="位运算">位运算 <a class="markdownIt-Anchor" href="#位运算">#</a></h2><p><code>$((...))</code>支持以下的二进制位运算符。</p><ul><li><code>&lt;&lt;</code>：位左移运算，把一个数字的所有位向左移动指定的位。</li><li><code>&gt;&gt;</code>：位右移运算，把一个数字的所有位向右移动指定的位。</li><li><code>&amp;</code>：位的“与”运算，对两个数字的所有位执行一个<code>AND</code>操作。</li><li><code>|</code>：位的“或”运算，对两个数字的所有位执行一个<code>OR</code>操作。</li><li><code>~</code>：位的“否”运算，对一个数字的所有位取反。</li><li><code>!</code>：逻辑“否”运算</li><li><code>^</code>：位的异或运算（exclusive or），对两个数字的所有位执行一个异或操作。</li></ul><p>下面是右移运算符<code>&gt;&gt;</code>的例子。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> $((16&gt;&gt;2))
 4
 </code></pre><p>下面是左移运算符<code>&lt;&lt;</code>的例子。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> $((16&lt;&lt;2))
 64
-</code></pre><p>下面是<code>17</code>（二进制<code>1001</code>）和<code>3</code>（二进制<code>11</code>）的各种二进制运算的结果。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> $((17&amp;3))
+</code></pre><p>下面是<code>17</code>（二进制<code>10001</code>）和<code>3</code>（二进制<code>11</code>）的各种二进制运算的结果。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> $((17&amp;3))
 1
 $ <span class="hljs-built_in">echo</span> $((17|3))
 19
