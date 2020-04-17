@@ -62,7 +62,7 @@ ls: doesnotexist: No such file or directory
 
 $ <span class="hljs-built_in">echo</span> $?
 1
-</code></pre><p>上面例子中，<code>ls</code>命令查看一个不存在的文件，导致报错。<code>$1</code>为1，表示上一个命令执行失败。</p><p>（2）<code>$$</code></p><p><code>$$</code>为当前 Shell 的进程 ID。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> $$
+</code></pre><p>上面例子中，<code>ls</code>命令查看一个不存在的文件，导致报错。<code>$?</code>为1，表示上一个命令执行失败。</p><p>（2）<code>$$</code></p><p><code>$$</code>为当前 Shell 的进程 ID。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> $$
 10662
 </code></pre><p>这个特殊变量可以用来命名临时文件。</p><pre class="hljs"><code>LOGFILE=/tmp/output_log.$$
 </code></pre><p>（3）<code>$_</code></p><p><code>$_</code>为上一个命令的最后一个参数。</p><pre class="hljs"><code>$ grep dictionary /usr/share/dict/words
