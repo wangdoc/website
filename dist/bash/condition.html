@@ -269,7 +269,7 @@ OS=$(uname -s)
 <span class="hljs-keyword">esac</span>
 </code></pre><p>上面的例子判断当前是什么操作系统。</p><p><code>case</code>的匹配模式可以使用各种通配符，下面是一些例子。</p><ul><li><code>a)</code>：匹配<code>a</code>。</li><li><code>a|b)</code>：匹配<code>a</code>或<code>b</code>。</li><li><code>[[:alpha:]])</code>：匹配单个字母。</li><li><code>???)</code>：匹配3个字符的单词。</li><li><code>*.txt)</code>：匹配<code>.txt</code>结尾。</li><li><code>*)</code>：匹配任意输入，通过作为<code>case</code>结构的最后一个模式。</li></ul><pre class="hljs"><code><span class="hljs-meta">#!/bin/bash
 </span>
-<span class="hljs-built_in">echo</span> -n <span class="hljs-string">"属于一个字母或数字 &gt; "</span>
+<span class="hljs-built_in">echo</span> -n <span class="hljs-string">"输入一个字母或数字 &gt; "</span>
 <span class="hljs-built_in">read</span> character
 <span class="hljs-keyword">case</span> <span class="hljs-variable">$character</span> <span class="hljs-keyword">in</span>
   [[:lower:]] | [[:upper:]] ) <span class="hljs-built_in">echo</span> <span class="hljs-string">"输入了字母 <span class="hljs-variable">$character</span>"</span>
