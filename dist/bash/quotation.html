@@ -72,7 +72,7 @@ $ <span class="hljs-built_in">echo</span> <span class="hljs-string">"<span class
 </code></pre><p>上面例子中，如果<code>$(cal)</code>不放在双引号之中，<code>echo</code>就会将所有结果以单行输出，丢弃了所有原始的格式。</p><h2 id="here-文档">Here 文档 <a class="markdownIt-Anchor" href="#here-文档">#</a></h2><p>Here 文档（here document）是一种输入多行字符串的方法，格式如下。</p><pre class="hljs"><code>&lt;&lt; token
 text
 token
-</code></pre><p>它的格式分成开始标记（<code>&lt;&lt; token</code>）和结束标记（<code>token</code>）。开始标记是两个小于号 + Here 文档的名称，名称可以随意取；结束标记是单独一行的 Here 文档名称。两者之间就是多行字符串的内容。</p><p>下面是一个通过 Here 文档输出 HTML 代码的例子。</p><pre class="hljs"><code>$ cat &lt;&lt; _EOF_
+</code></pre><p>它的格式分成开始标记（<code>&lt;&lt; token</code>）和结束标记（<code>token</code>）。开始标记是两个小于号 + Here 文档的名称，名称可以随意取，后面必须是一个换行符；结束标记是单独一行顶格写的 Here 文档名称，如果不是顶格，结束标记不起作用。两者之间就是多行字符串的内容。</p><p>下面是一个通过 Here 文档输出 HTML 代码的例子。</p><pre class="hljs"><code>$ cat &lt;&lt; _EOF_
 &lt;html&gt;
 &lt;head&gt;
     &lt;title&gt;
