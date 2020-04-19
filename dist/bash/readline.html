@@ -24,7 +24,7 @@ Goodbye H
 $ !<span class="hljs-built_in">echo</span> H G
 <span class="hljs-built_in">echo</span> Goodbye H G
 Goodbye H G
-</code></pre><p>注意，<code>!string</code>语法只会匹配命令，不会匹配参数。所以<code>!echo H</code>不会执行<code>echo Hello World</code>，而是会执行<code>echo Goobye</code>，并把参数<code>H</code>附加在这条命令之后。同理，<code>!echo H G</code>也是等同于<code>echo Goodbye</code>命令之后附件<code>H G</code>。</p><p>最后，按下<code>Ctrl + r</code>会显示操作历史，可以用方向键上下移动，选择其中要执行的命令。也可以键入命令的首字母，Shell 就会自动在历史文件中，查询并显示匹配的结果。</p><h3 id="history-命令">history 命令 <a class="markdownIt-Anchor" href="#history-命令">#</a></h3><p><code>history</code>命令能显示操作历史，即<code>.bash_history</code>文件的内容。</p><pre class="hljs"><code>$ <span class="hljs-built_in">history</span>
+</code></pre><p>注意，<code>!string</code>语法只会匹配命令，不会匹配参数。所以<code>!echo H</code>不会执行<code>echo Hello World</code>，而是会执行<code>echo Goobye</code>，并把参数<code>H</code>附加在这条命令之后。同理，<code>!echo H G</code>也是等同于<code>echo Goodbye</code>命令之后附加<code>H G</code>。</p><p>最后，按下<code>Ctrl + r</code>会显示操作历史，可以用方向键上下移动，选择其中要执行的命令。也可以键入命令的首字母，Shell 就会自动在历史文件中，查询并显示匹配的结果。</p><h3 id="history-命令">history 命令 <a class="markdownIt-Anchor" href="#history-命令">#</a></h3><p><code>history</code>命令能显示操作历史，即<code>.bash_history</code>文件的内容。</p><pre class="hljs"><code>$ <span class="hljs-built_in">history</span>
 ...
 498 <span class="hljs-built_in">echo</span> Goodbye
 499 ls ~
