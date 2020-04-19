@@ -91,11 +91,11 @@ $ <span class="hljs-built_in">declare</span> -i result
 $ result=val1*val2
 $ <span class="hljs-built_in">echo</span> <span class="hljs-variable">$result</span>
 60
-</code></pre><p>上面例子中，如果变量<code>result</code>不声明为整数，<code>val1*val2</code>会被当作字面量，不会进行整数运算。另外，<code>val1</code>和<code>val2</code>其实不需要声明为整数，因为只要<code>result</code>声明为整数，它的赋值就会自动解释为整数运算。</p><p>注意，一个变量声明为整数以后，依然可以被改写为字符串。</p><pre class="hljs"><code>$ <span class="hljs-built_in">declare</span> -i val=12
+</code></pre><p>上面例子中，如果变量<code>result</code>不声明为整数，<code>val1*val2</code>会被当作字面量，不会进行整数运算。另外，<code>val1</code>和<code>val2</code>其实不需要声明为整数，因为只要<code>result</code>声明为整数，它的赋值就会自动解释为整数运算。</p><p>注意，一个变量声明为整数以后，依然可以被改写为字符串。</p><pre class="hljs"><code>$ <span class="hljs-built_in">declare</span> -i var=12
 $ var=foo
 $ <span class="hljs-built_in">echo</span> <span class="hljs-variable">$var</span>
-foo
-</code></pre><p>上面例子中，变量<code>foo</code>声明为整数，但是覆盖以后，就变成了字符串，Bash 不会报错。</p><p><strong>（2）<code>-x</code>参数</strong></p><p><code>-x</code>参数等同于<code>export</code>命令，可以输出一个变量为子 Shell 的环境变量。</p><pre class="hljs"><code>$ <span class="hljs-built_in">declare</span> -x foo
+0
+</code></pre><p>上面例子中，变量<code>var</code>声明为整数，覆盖以后，Bash 不会报错，但会赋以不确定的值，上面的例子中可能输出0，也可能输出的是3。</p><p><strong>（2）<code>-x</code>参数</strong></p><p><code>-x</code>参数等同于<code>export</code>命令，可以输出一个变量为子 Shell 的环境变量。</p><pre class="hljs"><code>$ <span class="hljs-built_in">declare</span> -x foo
 <span class="hljs-comment"># 等同于</span>
 $ <span class="hljs-built_in">export</span> foo
 </code></pre><p><strong>（3）<code>-r</code>参数</strong></p><p><code>-r</code>参数可以声明只读变量，无法改变变量值，也不能<code>unset</code>变量。</p><pre class="hljs"><code>$ <span class="hljs-built_in">declare</span> -r bar=1
