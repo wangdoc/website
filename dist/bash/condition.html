@@ -56,7 +56,7 @@ $ <span class="hljs-built_in">echo</span> $?
 $ [ -f /etc/hosts ]
 $  <span class="hljs-built_in">echo</span> $?
 0
-</code></pre><p>上面的例子中，<code>test</code>命令采用两种写法，判断<code>/etc/hosts</code>文件是否存在，这两种写法是等价的。命令执行后，返回值为<code>0</code>，表示该文件确实存在。</p><p>下面把<code>test</code>命令的三种形式，用在<code>if</code>结构中，判断一个文件是否存在。</p><pre class="hljs"><code><span class="hljs-comment"># 写法一</span>
+</code></pre><p>上面的例子中，<code>test</code>命令采用两种写法，判断<code>/etc/hosts</code>文件是否存在，这两种写法是等价的。命令执行后，返回值为<code>0</code>，表示该文件确实存在。</p><p>实际上，<code>[</code>这个字符是<code>test</code>命令的一种简写形式，可以看作是一个独立的命令，这解释了为什么它后面必须有空格。</p><p>下面把<code>test</code>命令的三种形式，用在<code>if</code>结构中，判断一个文件是否存在。</p><pre class="hljs"><code><span class="hljs-comment"># 写法一</span>
 <span class="hljs-keyword">if</span> <span class="hljs-built_in">test</span> -e /tmp/foo.txt ; <span class="hljs-keyword">then</span>
   <span class="hljs-built_in">echo</span> <span class="hljs-string">"Found foo.txt"</span>
 <span class="hljs-keyword">fi</span>
