@@ -75,7 +75,7 @@ $ <span class="hljs-built_in">echo</span> <span class="hljs-variable">$_</span>
 
 $ <span class="hljs-built_in">echo</span> $!
 11064
-</code></pre><p>上面例子中，<code>firefox</code>是后台运行的命令，<code>$!</code>返回该命令的进程 ID。</p><p>（5）<code>$0</code></p><p><code>$0</code>为当前 Shell 的名称（在命令行直接执行是）或者脚本名（在脚本中执行时）。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> <span class="hljs-variable">$0</span>
+</code></pre><p>上面例子中，<code>firefox</code>是后台运行的命令，<code>$!</code>返回该命令的进程 ID。</p><p>（5）<code>$0</code></p><p><code>$0</code>为当前 Shell 的名称（在命令行直接执行时）或者脚本名（在脚本中执行时）。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> <span class="hljs-variable">$0</span>
 bash
 </code></pre><p>上面例子中，<code>$0</code>返回当前运行的是 Bash。</p><p>（6）<code>$-</code></p><p><code>$-</code>为当前 Shell 的启动参数。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> $-
 himBHs
