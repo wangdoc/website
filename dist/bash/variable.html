@@ -122,7 +122,7 @@ $ <span class="hljs-built_in">declare</span> -p foo
 <span class="hljs-built_in">declare</span> -- foo=<span class="hljs-string">"hello"</span>
 $ <span class="hljs-built_in">declare</span> -p bar
 bar：未找到
-</code></pre><p>上面例子中，<code>declare -p</code>可以输出已定义变量的值，对于未定义的变量，会提示找不到。</p><p>如果不提供变量名，<code>declear -p</code>输出所有变量的信息。</p><pre class="hljs"><code>$ <span class="hljs-built_in">declare</span> -p
+</code></pre><p>上面例子中，<code>declare -p</code>可以输出已定义变量的值，对于未定义的变量，会提示找不到。</p><p>如果不提供变量名，<code>declare -p</code>输出所有变量的信息。</p><pre class="hljs"><code>$ <span class="hljs-built_in">declare</span> -p
 </code></pre><p><strong>（7）<code>-f</code>参数</strong></p><p><code>-f</code>参数输出当前环境的所有函数，包括它的定义。</p><pre class="hljs"><code>$ <span class="hljs-built_in">declare</span> -f
 </code></pre><p><strong>（8）<code>-F</code>参数</strong></p><p><code>-F</code>参数输出当前环境的所有函数名，不包含函数定义。</p><pre class="hljs"><code>$ <span class="hljs-built_in">declare</span> -F
 </code></pre><h2 id="readonly-命令">readonly 命令 <a class="markdownIt-Anchor" href="#readonly-命令">#</a></h2><p><code>readonly</code>命令等同于<code>declare -r</code>，用来声明只读变量，不能改变变量值，也不能<code>unset</code>变量。</p><pre class="hljs"><code>$ <span class="hljs-built_in">readonly</span> foo=1
