@@ -31,25 +31,20 @@ a.txt
 <span class="hljs-comment"># 当前目录为空目录</span>
 $ <span class="hljs-built_in">echo</span> ?.txt
 ?.txt
-</code></pre><p>上面例子中，如果<code>?.txt</code>可以扩展成文件名，<code>echo</code>命令会输出扩展后的结果；如果不能扩展成文件名，<code>echo</code>就会原样输出<code>?.txt</code>。</p><h2 id="-字符扩展-1"><code>*</code> 字符扩展 <a class="markdownIt-Anchor" href="#-字符扩展-1">#</a></h2><p><code>*</code>字符代表文件路径里面的任意数量的字符，包括零个字符。</p><pre class="hljs"><code><span class="hljs-comment"># 存在文件 a.txt、b.txt 和 ab.txt</span>
+</code></pre><p>上面例子中，如果<code>?.txt</code>可以扩展成文件名，<code>echo</code>命令会输出扩展后的结果；如果不能扩展成文件名，<code>echo</code>就会原样输出<code>?.txt</code>。</p><h2 id="-字符扩展-1"><code>*</code> 字符扩展 <a class="markdownIt-Anchor" href="#-字符扩展-1">#</a></h2><p><code>*</code>字符代表文件路径里面的任意数量的任意字符，包括零个字符。</p><pre class="hljs"><code><span class="hljs-comment"># 存在文件 a.txt、b.txt 和 ab.txt</span>
 $ ls *.txt
 a.txt b.txt ab.txt
-
-<span class="hljs-comment"># 输出所有文件</span>
-$ ls *
-</code></pre><p>下面是<code>*</code>匹配空字符的例子。</p><pre class="hljs"><code><span class="hljs-comment"># 存在文件 a.txt、b.txt 和 ab.txt</span>
+</code></pre><p>上面例子中，<code>*.txt</code>代表后缀名为<code>.txt</code>的所有文件。</p><p>如果想输出当前目录的所有文件，直接用<code>*</code>即可。</p><pre class="hljs"><code>$ ls *
+</code></pre><p><code>*</code>可以匹配空字符，下面是一个例子。</p><pre class="hljs"><code><span class="hljs-comment"># 存在文件 a.txt、b.txt 和 ab.txt</span>
 $ ls a*.txt
 a.txt ab.txt
 
 $ ls *b*
 b.txt ab.txt
-</code></pre><p>注意，<code>*</code>不会匹配隐藏文件（以<code>.</code>开头的文件）。</p><pre class="hljs"><code><span class="hljs-comment"># 显示所有隐藏文件</span>
+</code></pre><p>注意，<code>*</code>不会匹配隐藏文件（以<code>.</code>开头的文件），即<code>ls *</code>不会输出隐藏文件。</p><p>如果要匹配隐藏文件，需要写成<code>.*</code>。</p><pre class="hljs"><code><span class="hljs-comment"># 显示所有隐藏文件</span>
 $ <span class="hljs-built_in">echo</span> .*
-
-<span class="hljs-comment"># 与方括号扩展结合使用，</span>
-<span class="hljs-comment"># 只显示正常的隐藏文件，不显示 . 和 .. 这两个特殊文件</span>
-$ <span class="hljs-built_in">echo</span> .[!.]*
-</code></pre><p><code>*</code>字符扩展也属于文件名扩展，只有文件确实存在的前提下才会扩展。如果文件不存在，就会原样输出。</p><pre class="hljs"><code><span class="hljs-comment"># 当前目录不存在 c 开头的文件</span>
+</code></pre><p>如果要匹配隐藏文件，同时要排除<code>.</code>和<code>..</code>这两个特殊的隐藏文件，可以与方括号扩展结合使用，写成<code>.[!.]*</code>。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> .[!.]*
+</code></pre><p>注意，<code>*</code>字符扩展属于文件名扩展，只有文件确实存在的前提下才会扩展。如果文件不存在，就会原样输出。</p><pre class="hljs"><code><span class="hljs-comment"># 当前目录不存在 c 开头的文件</span>
 $ <span class="hljs-built_in">echo</span> c*.txt
 c*.txt
 </code></pre><p>上面例子中，当前目录里面没有<code>c</code>开头的文件，导致<code>c*.txt</code>会原样输出。</p><p><code>*</code>只匹配当前目录，不会匹配子目录。</p><pre class="hljs"><code><span class="hljs-comment"># 子目录有一个 a.txt</span>
