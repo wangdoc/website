@@ -5,8 +5,8 @@
 
 <span class="hljs-comment">&lt;!-- 错误 --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">body</span> <span class="hljs-attr">onload</span>=<span class="hljs-string">"doSomething"</span>&gt;</span>
-</code></pre><p>一旦指定的事件发生，<code>on-</code>属性的值是原样传入 JavaScript 引擎执行。因此如果要执行函数，不要忘记加上一对圆括号。</p><p>使用这个方法指定的监听代码，只会在冒泡阶段触发。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">"console.log(2)"</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">"console.log(1)"</span>&gt;</span>点击<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+</code></pre><p>一旦指定的事件发生，<code>on-</code>属性的值是原样传入 JavaScript 引擎执行。因此如果要执行函数，不要忘记加上一对圆括号。</p><p>使用这个方法指定的监听代码，只会在冒泡阶段触发。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">"console.log(2)"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">"console.log(1)"</span>&gt;</span>点击<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre><p>上面代码中，<code>&lt;button&gt;</code>是<code>&lt;div&gt;</code>的子元素。<code>&lt;button&gt;</code>的<code>click</code>事件，也会触发<code>&lt;div&gt;</code>的<code>click</code>事件。由于<code>on-</code>属性的监听代码，只在冒泡阶段触发，所以点击结果是先输出<code>1</code>，再输出<code>2</code>，即事件从子元素开始冒泡到父元素。</p><p>直接设置<code>on-</code>属性，与通过元素节点的<code>setAttribute</code>方法设置<code>on-</code>属性，效果是一样的。</p><pre class="hljs"><code>el.setAttribute(<span class="hljs-string">'onclick'</span>, <span class="hljs-string">'doSomething()'</span>);
 <span class="hljs-comment">// 等同于</span>
