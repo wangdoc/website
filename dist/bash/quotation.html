@@ -85,7 +85,7 @@ token
 &lt;/body&gt;
 &lt;/html&gt;
 _EOF_
-</code></pre><p>Here 文档内部会发生变量替换，同时支持反斜杠转义，但是不支持扩配符扩展，双引号和单引号也失去语法作用，变成了普通字符。</p><pre class="hljs"><code>$ foo=<span class="hljs-string">'hello world'</span>
+</code></pre><p>Here 文档内部会发生变量替换，同时支持反斜杠转义，但是不支持通配符扩展，双引号和单引号也失去语法作用，变成了普通字符。</p><pre class="hljs"><code>$ foo=<span class="hljs-string">'hello world'</span>
 $ cat &lt;&lt; _example_
 <span class="hljs-variable">$foo</span>
 <span class="hljs-string">"<span class="hljs-variable">$foo</span>"</span>
