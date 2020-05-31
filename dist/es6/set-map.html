@@ -140,7 +140,7 @@ let arr = [...<span class="hljs-keyword">set</span>];
 <span class="hljs-keyword">let</span> intersect = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([...a].filter(<span class="hljs-function"><span class="hljs-params">x</span> =&gt;</span> b.has(x)));
 <span class="hljs-comment">// set {2, 3}</span>
 
-<span class="hljs-comment">// 差集</span>
+<span class="hljs-comment">// （a 相对于 b 的）差集</span>
 <span class="hljs-keyword">let</span> difference = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([...a].filter(<span class="hljs-function"><span class="hljs-params">x</span> =&gt;</span> !b.has(x)));
 <span class="hljs-comment">// Set {1}</span>
 </code></pre><p>如果想在遍历操作中，同步改变原来的 Set 结构，目前没有直接的方法，但有两种变通方法。一种是利用原 Set 结构映射出一个新的结构，然后赋值给原来的 Set 结构；另一种是利用<code>Array.from</code>方法。</p><pre class="hljs"><code><span class="hljs-comment">// 方法一</span>

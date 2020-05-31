@@ -112,7 +112,7 @@ getTitle(<span class="hljs-string">'https://tc39.github.io/ecma262/'</span>).the
 
 f().then(<span class="hljs-function"><span class="hljs-params">v</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(v))
 <span class="hljs-comment">// 123</span>
-</code></pre><p>上面代码中，<code>await</code>命令的参数是数值<code>123</code>，这时等同于<code>return 123</code>。</p><p>另一种情况是，<code>await</code>命令后面是一个<code>thenable</code>对象（即定义<code>then</code>方法的对象），那么<code>await</code>会将其等同于 Promise 对象。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Sleep</span> </span>{
+</code></pre><p>上面代码中，<code>await</code>命令的参数是数值<code>123</code>，这时等同于<code>return 123</code>。</p><p>另一种情况是，<code>await</code>命令后面是一个<code>thenable</code>对象（即定义了<code>then</code>方法的对象），那么<code>await</code>会将其等同于 Promise 对象。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Sleep</span> </span>{
   <span class="hljs-keyword">constructor</span>(timeout) {
     <span class="hljs-keyword">this</span>.timeout = timeout;
   }
