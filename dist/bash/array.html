@@ -129,16 +129,22 @@ a b c d e f
 $ <span class="hljs-built_in">unset</span> foo[2]
 $ <span class="hljs-built_in">echo</span> <span class="hljs-variable">${foo[@]}</span>
 a b d e f
-</code></pre><p>上面例子中，删除了数组中的第三个元素，下标为2。</p><p>删除成员也可以将这个成员设为空值。</p><pre class="hljs"><code>$ foo=(a b c d e f)
+</code></pre><p>上面例子中，删除了数组中的第三个元素，下标为2。</p><p>将某个成员设为空值，可以从返回值中“隐藏”这个成员。</p><pre class="hljs"><code>$ foo=(a b c d e f)
 $ foo[1]=<span class="hljs-string">''</span>
 $ <span class="hljs-built_in">echo</span> <span class="hljs-variable">${foo[@]}</span>
 a c d e f
-</code></pre><p>上面例子中，将数组的第二个成员设为空字符串，就删除了这个成员。</p><p>由于空值就是空字符串，所以下面这样写也可以，但是不建议这种写法。</p><pre class="hljs"><code>$ foo[1]=
-</code></pre><p>上面的写法也相当于删除了数组的第二个成员。</p><p>直接将数组变量赋值为空字符串，相当于删除数组的第一个成员。</p><pre class="hljs"><code>$ foo=(a b c d e f)
+</code></pre><p>上面例子中，将数组的第二个成员设为空字符串，数组的返回值中，这个成员就“隐藏”了。</p><p>注意，这里是“隐藏”，而不是删除，因为这个成员仍然存在，只是值变成了空值。</p><pre class="hljs"><code>$ foo=(a b c d e f)
+$ foo[1]=<span class="hljs-string">''</span>
+$ <span class="hljs-built_in">echo</span> <span class="hljs-variable">${#foo[@]}</span>
+6
+$ <span class="hljs-built_in">echo</span> <span class="hljs-variable">${!foo[@]}</span>
+0 1 2 3 4 5
+</code></pre><p>上面代码中，第二个成员设为空值后，数组仍然包含6个成员。</p><p>由于空值就是空字符串，所以下面这样写也有隐藏效果，但是不建议这种写法。</p><pre class="hljs"><code>$ foo[1]=
+</code></pre><p>上面的写法也相当于“隐藏”了数组的第二个成员。</p><p>直接将数组变量赋值为空字符串，相当于“隐藏”数组的第一个成员。</p><pre class="hljs"><code>$ foo=(a b c d e f)
 $ foo=<span class="hljs-string">''</span>
 $ <span class="hljs-built_in">echo</span> <span class="hljs-variable">${foo[@]}</span>
 b c d e f
-</code></pre><p>上面的写法相当于删除了数组的第一个成员。</p><p><code>unset ArrayName</code>可以清空整个数组。</p><pre class="hljs"><code>$ <span class="hljs-built_in">unset</span> ARRAY
+</code></pre><p>上面的写法相当于“隐藏”了数组的第一个成员。</p><p><code>unset ArrayName</code>可以清空整个数组。</p><pre class="hljs"><code>$ <span class="hljs-built_in">unset</span> ARRAY
 
 $ <span class="hljs-built_in">echo</span> <span class="hljs-variable">${ARRAY[*]}</span>
 &lt;--no output--&gt;
