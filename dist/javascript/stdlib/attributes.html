@@ -216,7 +216,7 @@ obj.p <span class="hljs-comment">// 1</span>
 
 obj.p1 <span class="hljs-comment">// undefined</span>
 obj.p2 <span class="hljs-comment">// 2</span>
-</code></pre><p>上面代码中，<code>obj.p1</code>的<code>configurable</code>是<code>true</code>，所以可以被删除，<code>obj.p2</code>就无法删除。</p><h2 id="存取器">存取器 <a class="markdownIt-Anchor" href="#存取器">#</a></h2><p>除了直接定义以外，属性还可以用存取器（accessor）定义。其中，存值函数称为<code>setter</code>，使用属性描述对象的<code>set</code>属性；取值函数称为<code>getter</code>，使用属性描述对象的<code>get</code>属性。</p><p>一旦对目标属性定义了存取器，那么存取的时候，都将执行对应的函数。利用这个功能，可以实现许多高级特性，比如某个属性禁止赋值。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = <span class="hljs-built_in">Object</span>.defineProperty({}, <span class="hljs-string">'p'</span>, {
+</code></pre><p>上面代码中，<code>obj.p1</code>的<code>configurable</code>是<code>true</code>，所以可以被删除，<code>obj.p2</code>就无法删除。</p><h2 id="存取器">存取器 <a class="markdownIt-Anchor" href="#存取器">#</a></h2><p>除了直接定义以外，属性还可以用存取器（accessor）定义。其中，存值函数称为<code>setter</code>，使用属性描述对象的<code>set</code>属性；取值函数称为<code>getter</code>，使用属性描述对象的<code>get</code>属性。</p><p>一旦对目标属性定义了存取器，那么存取的时候，都将执行对应的函数。利用这个功能，可以实现许多高级特性，比如定制属性的读取和赋值行为。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = <span class="hljs-built_in">Object</span>.defineProperty({}, <span class="hljs-string">'p'</span>, {
   <span class="hljs-attr">get</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">return</span> <span class="hljs-string">'getter'</span>;
   },
@@ -227,7 +227,8 @@ obj.p2 <span class="hljs-comment">// 2</span>
 
 obj.p <span class="hljs-comment">// "getter"</span>
 obj.p = <span class="hljs-number">123</span> <span class="hljs-comment">// "setter: 123"</span>
-</code></pre><p>上面代码中，<code>obj.p</code>定义了<code>get</code>和<code>set</code>属性。<code>obj.p</code>取值时，就会调用<code>get</code>；赋值时，就会调用<code>set</code>。</p><p>JavaScript 还提供了存取器的另一种写法。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = {
+</code></pre><p>上面代码中，<code>obj.p</code>定义了<code>get</code>和<code>set</code>属性。<code>obj.p</code>取值时，就会调用<code>get</code>；赋值时，就会调用<code>set</code>。</p><p>JavaScript 还提供了存取器的另一种写法。</p><pre class="hljs"><code><span class="hljs-comment">// 写法二</span>
+<span class="hljs-keyword">var</span> obj = {
   <span class="hljs-keyword">get</span> p() {
     <span class="hljs-keyword">return</span> <span class="hljs-string">'getter'</span>;
   },
@@ -235,7 +236,7 @@ obj.p = <span class="hljs-number">123</span> <span class="hljs-comment">// "sett
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'setter: '</span> + value);
   }
 };
-</code></pre><p>上面的写法与定义属性描述对象是等价的，而且使用更广泛。</p><p>注意，取值函数<code>get</code>不能接受参数，存值函数<code>set</code>只能接受一个参数（即属性的值）。</p><p>存取器往往用于，属性的值依赖对象内部数据的场合。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj ={
+</code></pre><p>上面两种写法，虽然属性<code>p</code>的读取和赋值行为是一样的，但是有一些细微的区别。第一种写法，属性<code>p</code>的<code>configurable</code>和<code>enumerable</code>都为<code>false</code>，从而导致属性<code>p</code>是不可遍历的；第二种写法，属性<code>p</code>的<code>configurable</code>和<code>enumerable</code>都为<code>true</code>，因此属性<code>p</code>是可遍历的。实际开发中，写法二更常用。</p><p>注意，取值函数<code>get</code>不能接受参数，存值函数<code>set</code>只能接受一个参数（即属性的值）。</p><p>存取器往往用于，属性的值依赖对象内部数据的场合。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj ={
   <span class="hljs-attr">$n</span> : <span class="hljs-number">5</span>,
   <span class="hljs-keyword">get</span> next() { <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.$n++ },
   <span class="hljs-keyword">set</span> next(n) {
