@@ -247,16 +247,16 @@ s.match(<span class="hljs-regexp">/yes[^]*day/</span>) <span class="hljs-comment
 /t*est/.test(<span class="hljs-string">'ttest'</span>) <span class="hljs-comment">// true</span>
 /t*est/.test(<span class="hljs-string">'tttest'</span>) <span class="hljs-comment">// true</span>
 /t*est/.test(<span class="hljs-string">'est'</span>) <span class="hljs-comment">// true</span>
-</code></pre><h3 id="贪婪模式">贪婪模式 <a class="markdownIt-Anchor" href="#贪婪模式">#</a></h3><p>上一小节的三个量词符，默认情况下都是最大可能匹配，即匹配直到下一个字符不满足匹配规则为止。这被称为贪婪模式。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> s = <span class="hljs-string">'aaa'</span>;
+</code></pre><h3 id="贪婪模式">贪婪模式 <a class="markdownIt-Anchor" href="#贪婪模式">#</a></h3><p>上一小节的三个量词符，默认情况下都是最大可能匹配，即匹配到下一个字符不满足匹配规则为止。这被称为贪婪模式。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> s = <span class="hljs-string">'aaa'</span>;
 s.match(<span class="hljs-regexp">/a+/</span>) <span class="hljs-comment">// ["aaa"]</span>
-</code></pre><p>上面代码中，模式是<code>/a+/</code>，表示匹配1个<code>a</code>或多个<code>a</code>，那么到底会匹配几个<code>a</code>呢？因为默认是贪婪模式，会一直匹配到字符<code>a</code>不出现为止，所以匹配结果是3个<code>a</code>。</p><p>如果想将贪婪模式改为非贪婪模式，可以在量词符后面加一个问号。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> s = <span class="hljs-string">'aaa'</span>;
+</code></pre><p>上面代码中，模式是<code>/a+/</code>，表示匹配1个<code>a</code>或多个<code>a</code>，那么到底会匹配几个<code>a</code>呢？因为默认是贪婪模式，会一直匹配到字符<code>a</code>不出现为止，所以匹配结果是3个<code>a</code>。</p><p>除了贪婪模式，还有非贪婪模式，即最小可能匹配。只要一发现匹配，就返回结果，不要往下检查。如果想将贪婪模式改为非贪婪模式，可以在量词符后面加一个问号。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> s = <span class="hljs-string">'aaa'</span>;
 s.match(<span class="hljs-regexp">/a+?/</span>) <span class="hljs-comment">// ["a"]</span>
-</code></pre><p>上面代码中，模式结尾添加了一个问号<code>/a+?/</code>，这时就改为非贪婪模式，一旦条件满足，就不再往下匹配。</p><p>除了非贪婪模式的加号，还有非贪婪模式的星号（<code>*</code>）和非贪婪模式的问号（<code>?</code>）。</p><ul><li><code>+?</code>：表示某个模式出现1次或多次，匹配时采用非贪婪模式。</li><li><code>*?</code>：表示某个模式出现0次或多次，匹配时采用非贪婪模式。</li><li><code>??</code>：表格某个模式出现0次或1次，匹配时采用非贪婪模式。</li></ul><pre class="hljs"><code><span class="hljs-string">'abb'</span>.match(<span class="hljs-regexp">/ab*b/</span>) <span class="hljs-comment">// ["abb"]</span>
-<span class="hljs-string">'abb'</span>.match(<span class="hljs-regexp">/ab*?b/</span>) <span class="hljs-comment">// ["ab"]</span>
+</code></pre><p>上面例子中，模式结尾添加了一个问号<code>/a+?/</code>，这时就改为非贪婪模式，一旦条件满足，就不再往下匹配，<code>+?</code>表示只要发现一个<code>a</code>，就不再往下匹配了。</p><p>除了非贪婪模式的加号（<code>+?</code>），还有非贪婪模式的星号（<code>*?</code>）和非贪婪模式的问号（<code>??</code>）。</p><ul><li><code>+?</code>：表示某个模式出现1次或多次，匹配时采用非贪婪模式。</li><li><code>*?</code>：表示某个模式出现0次或多次，匹配时采用非贪婪模式。</li><li><code>??</code>：表格某个模式出现0次或1次，匹配时采用非贪婪模式。</li></ul><pre class="hljs"><code><span class="hljs-string">'abb'</span>.match(<span class="hljs-regexp">/ab*/</span>) <span class="hljs-comment">// ["abb"]</span>
+<span class="hljs-string">'abb'</span>.match(<span class="hljs-regexp">/ab*?/</span>) <span class="hljs-comment">// ["a"]</span>
 
-<span class="hljs-string">'abb'</span>.match(<span class="hljs-regexp">/ab?b/</span>) <span class="hljs-comment">// ["abb"]</span>
-<span class="hljs-string">'abb'</span>.match(<span class="hljs-regexp">/ab??b/</span>) <span class="hljs-comment">// ["ab"]</span>
-</code></pre><h3 id="修饰符">修饰符 <a class="markdownIt-Anchor" href="#修饰符">#</a></h3><p>修饰符（modifier）表示模式的附加规则，放在正则模式的最尾部。</p><p>修饰符可以单个使用，也可以多个一起使用。</p><pre class="hljs"><code><span class="hljs-comment">// 单个修饰符</span>
+<span class="hljs-string">'abb'</span>.match(<span class="hljs-regexp">/ab?/</span>) <span class="hljs-comment">// ["ab"]</span>
+<span class="hljs-string">'abb'</span>.match(<span class="hljs-regexp">/ab??/</span>) <span class="hljs-comment">// ["a"]</span>
+</code></pre><p>上面例子中，<code>/ab*/</code>表示如果<code>a</code>后面有多个<code>b</code>，那么匹配尽可能多的<code>b</code>；<code>/ab*?/</code>表示匹配尽可能少的<code>b</code>，也就是0个<code>b</code>。</p><h3 id="修饰符">修饰符 <a class="markdownIt-Anchor" href="#修饰符">#</a></h3><p>修饰符（modifier）表示模式的附加规则，放在正则模式的最尾部。</p><p>修饰符可以单个使用，也可以多个一起使用。</p><pre class="hljs"><code><span class="hljs-comment">// 单个修饰符</span>
 <span class="hljs-keyword">var</span> regex = <span class="hljs-regexp">/test/i</span>;
 
 <span class="hljs-comment">// 多个修饰符</span>
