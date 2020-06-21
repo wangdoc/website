@@ -19,11 +19,15 @@
 </code></pre><p>上面脚本的运行结果如下。</p><pre class="hljs"><code>$ <span class="hljs-built_in">read</span>-single
 Enter one or more values &gt; a b c d
 REPLY = <span class="hljs-string">'a b c d'</span>
-</code></pre><p><code>read</code>命令除了读取键盘输入，可以用来读取文件。</p><pre class="hljs"><code><span class="hljs-keyword">while</span> <span class="hljs-built_in">read</span> myline
+</code></pre><p><code>read</code>命令除了读取键盘输入，可以用来读取文件。</p><pre class="hljs"><code><span class="hljs-meta">#!/bin/bash
+</span>
+filename=<span class="hljs-string">'/etc/hosts'</span>
+
+<span class="hljs-keyword">while</span> <span class="hljs-built_in">read</span> myline
 <span class="hljs-keyword">do</span>
   <span class="hljs-built_in">echo</span> <span class="hljs-string">"<span class="hljs-variable">$myline</span>"</span>
 <span class="hljs-keyword">done</span> &lt; <span class="hljs-variable">$filename</span>
-</code></pre><p>上面的例子通过<code>read</code>命令，读取一个文件的内容。<code>done</code>命令后面的定向符<code>&lt;</code>，将文件导向<code>read</code>命令，每次读取一行，存入变量<code>myline</code>，直到文件读取完毕。</p><h2 id="参数">参数 <a class="markdownIt-Anchor" href="#参数">#</a></h2><p><code>read</code>命令的参数如下。</p><p><strong>（1）-t 参数</strong></p><p><code>read</code>命令的<code>-t</code>参数，设置了超时的秒数。如果超过了指定时间，用户仍然没有输入，脚本将放弃等待，继续向下执行。</p><pre class="hljs"><code><span class="hljs-meta">#!/bin/bash
+</code></pre><p>上面的例子通过<code>read</code>命令，读取一个文件的内容。<code>done</code>命令后面的定向符<code>&lt;</code>，将文件内容导向<code>read</code>命令，每次读取一行，存入变量<code>myline</code>，直到文件读取完毕。</p><h2 id="参数">参数 <a class="markdownIt-Anchor" href="#参数">#</a></h2><p><code>read</code>命令的参数如下。</p><p><strong>（1）-t 参数</strong></p><p><code>read</code>命令的<code>-t</code>参数，设置了超时的秒数。如果超过了指定时间，用户仍然没有输入，脚本将放弃等待，继续向下执行。</p><pre class="hljs"><code><span class="hljs-meta">#!/bin/bash
 </span>
 <span class="hljs-built_in">echo</span> -n <span class="hljs-string">"输入一些文本 &gt; "</span>
 <span class="hljs-keyword">if</span> <span class="hljs-built_in">read</span> -t 3 response; <span class="hljs-keyword">then</span>
