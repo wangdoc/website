@@ -354,20 +354,25 @@ foo
 }
 
 <span class="hljs-keyword">let</span> aWithXGetter = { ...a }; <span class="hljs-comment">// 报错</span>
-</code></pre><p>上面例子中，取值函数<code>get</code>在扩展<code>a</code>对象时会自动执行，导致报错。</p><h2 id="链判断运算符">链判断运算符 <a class="markdownIt-Anchor" href="#链判断运算符">#</a></h2><p>编程实务中，如果读取对象内部的某个属性，往往需要判断一下该对象是否存在。比如，要读取<code>message.body.user.firstName</code>，安全的写法是写成下面这样。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> firstName = (message
+</code></pre><p>上面例子中，取值函数<code>get</code>在扩展<code>a</code>对象时会自动执行，导致报错。</p><h2 id="链判断运算符">链判断运算符 <a class="markdownIt-Anchor" href="#链判断运算符">#</a></h2><p>编程实务中，如果读取对象内部的某个属性，往往需要判断一下该对象是否存在。比如，要读取<code>message.body.user.firstName</code>，安全的写法是写成下面这样。</p><pre class="hljs"><code><span class="hljs-comment">// 错误的写法</span>
+<span class="hljs-keyword">const</span>  firstName = message.body.user.firstName;
+
+<span class="hljs-comment">// 正确的写法</span>
+<span class="hljs-keyword">const</span> firstName = (message
   &amp;&amp; message.body
   &amp;&amp; message.body.user
   &amp;&amp; message.body.user.firstName) || <span class="hljs-string">'default'</span>;
-</code></pre><p>或者使用三元运算符<code>?:</code>，判断一个对象是否存在。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> fooInput = myForm.querySelector(<span class="hljs-string">'input[name=foo]'</span>)
+</code></pre><p>上面例子中，<code>firstName</code>属性在对象的第四层，所以需要判断四次，每一层是否有值。</p><p>三元运算符<code>?:</code>也常用于判断对象是否存在。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> fooInput = myForm.querySelector(<span class="hljs-string">'input[name=foo]'</span>)
 <span class="hljs-keyword">const</span> fooValue = fooInput ? fooInput.value : <span class="hljs-literal">undefined</span>
-</code></pre><p>这样的层层判断非常麻烦，因此 <a href="https://github.com/tc39/proposal-optional-chaining" target="_blank" rel="noopener">ES2020</a> 引入了“链判断运算符”（optional chaining operator）<code>?.</code>，简化上面的写法。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> firstName = message?.body?.user?.firstName || <span class="hljs-string">'default'</span>;
+</code></pre><p>上面例子中，必须先判断<code>fooInput</code>是否存在，才能读取<code>fooInput.value</code>。</p><p>这样的层层判断非常麻烦，因此 <a href="https://github.com/tc39/proposal-optional-chaining" target="_blank" rel="noopener">ES2020</a> 引入了“链判断运算符”（optional chaining operator）<code>?.</code>，简化上面的写法。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> firstName = message?.body?.user?.firstName || <span class="hljs-string">'default'</span>;
 <span class="hljs-keyword">const</span> fooValue = myForm.querySelector(<span class="hljs-string">'input[name=foo]'</span>)?.value
-</code></pre><p>上面代码使用了<code>?.</code>运算符，直接在链式调用的时候判断，左侧的对象是否为<code>null</code>或<code>undefined</code>。如果是的，就不再往下运算，而是返回<code>undefined</code>。</p><p>链判断运算符有三种用法。</p><ul><li><code>obj?.prop</code> // 对象属性</li><li><code>obj?.[expr]</code> // 同上</li><li><code>func?.(...args)</code> // 函数或对象方法的调用</li></ul><p>下面是判断对象方法是否存在，如果存在就立即执行的例子。</p><pre class="hljs"><code>iterator.return?.()
-</code></pre><p>上面代码中，<code>iterator.return</code>如果有定义，就会调用该方法，否则直接返回<code>undefined</code>。</p><p>对于那些可能没有实现的方法，这个运算符尤其有用。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> (myForm.checkValidity?.() === <span class="hljs-literal">false</span>) {
+</code></pre><p>上面代码使用了<code>?.</code>运算符，直接在链式调用的时候判断，左侧的对象是否为<code>null</code>或<code>undefined</code>。如果是的，就不再往下运算，而是返回<code>undefined</code>。</p><p>下面是判断对象方法是否存在，如果存在就立即执行的例子。</p><pre class="hljs"><code>iterator.return?.()
+</code></pre><p>上面代码中，<code>iterator.return</code>如果有定义，就会调用该方法，否则<code>iterator.return</code>直接返回<code>undefined</code>，不再执行<code>?.</code>后面的部分。</p><p>对于那些可能没有实现的方法，这个运算符尤其有用。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> (myForm.checkValidity?.() === <span class="hljs-literal">false</span>) {
   <span class="hljs-comment">// 表单校验失败</span>
   <span class="hljs-keyword">return</span>;
 }
-</code></pre><p>上面代码中，老式浏览器的表单可能没有<code>checkValidity</code>这个方法，这时<code>?.</code>运算符就会返回<code>undefined</code>，判断语句就变成了<code>undefined === false</code>，所以就会跳过下面的代码。</p><p>下面是这个运算符常见的使用形式，以及不使用该运算符时的等价形式。</p><pre class="hljs"><code>a?.b
+</code></pre><p>上面代码中，老式浏览器的表单可能没有<code>checkValidity</code>这个方法，这时<code>?.</code>运算符就会返回<code>undefined</code>，判断语句就变成了<code>undefined === false</code>，所以就会跳过下面的代码。</p><p>链判断运算符有三种用法。</p><ul><li><code>obj?.prop</code> // 对象属性</li><li><code>obj?.[expr]</code> // 同上</li><li><code>func?.(...args)</code> // 函数或对象方法的调用</li></ul><p>下面是<code>obj?.[expr]</code>用法的一个例子。</p><pre class="hljs"><code><span class="hljs-built_in">let</span> hex = <span class="hljs-string">"#C0FFEE"</span>.match(/<span class="hljs-comment">#([A-Z]+)/i)?.[1];</span>
+</code></pre><p>上面例子中，字符串的<code>match()</code>方法，如果没有发现匹配会返回<code>null</code>，如果发现匹配会返回一个数组，<code>?.</code>运算符起到了判断作用。</p><p>下面是<code>?.</code>运算符常见形式，以及不使用该运算符时的等价形式。</p><pre class="hljs"><code>a?.b
 <span class="hljs-comment">// 等同于</span>
 a == <span class="hljs-literal">null</span> ? <span class="hljs-literal">undefined</span> : a.b
 
@@ -382,7 +387,7 @@ a == <span class="hljs-literal">null</span> ? <span class="hljs-literal">undefin
 a?.()
 <span class="hljs-comment">// 等同于</span>
 a == <span class="hljs-literal">null</span> ? <span class="hljs-literal">undefined</span> : a()
-</code></pre><p>上面代码中，特别注意后两种形式，如果<code>a?.b()</code>里面的<code>a.b</code>不是函数，不可调用，那么<code>a?.b()</code>是会报错的。<code>a?.()</code>也是如此，如果<code>a</code>不是<code>null</code>或<code>undefined</code>，但也不是函数，那么<code>a?.()</code>会报错。</p><p>使用这个运算符，有几个注意点。</p><p>（1）短路机制</p><pre class="hljs"><code>a?.[++x]
+</code></pre><p>上面代码中，特别注意后两种形式，如果<code>a?.b()</code>里面的<code>a.b</code>不是函数，不可调用，那么<code>a?.b()</code>是会报错的。<code>a?.()</code>也是如此，如果<code>a</code>不是<code>null</code>或<code>undefined</code>，但也不是函数，那么<code>a?.()</code>会报错。</p><p>使用这个运算符，有几个注意点。</p><p>（1）短路机制</p><p><code>?.</code>运算符相当于一种短路机制，只要不满足条件，就不再往下执行。</p><pre class="hljs"><code>a?.[++x]
 <span class="hljs-comment">// 等同于</span>
 a == <span class="hljs-literal">null</span> ? <span class="hljs-literal">undefined</span> : a[++x]
 </code></pre><p>上面代码中，如果<code>a</code>是<code>undefined</code>或<code>null</code>，那么<code>x</code>不会进行递增运算。也就是说，链判断运算符一旦为真，右侧的表达式就不再求值。</p><p>（2）delete 运算符</p><pre class="hljs"><code><span class="hljs-keyword">delete</span> a?.b
@@ -411,7 +416,7 @@ a?.b = c
 </code></pre><p>上面的三行代码都通过<code>||</code>运算符指定默认值，但是这样写是错的。开发者的原意是，只要属性的值为<code>null</code>或<code>undefined</code>，默认值就会生效，但是属性的值如果为空字符串或<code>false</code>或<code>0</code>，默认值也会生效。</p><p>为了避免这种情况，<a href="https://github.com/tc39/proposal-nullish-coalescing" target="_blank" rel="noopener">ES2020</a> 引入了一个新的 Null 判断运算符<code>??</code>。它的行为类似<code>||</code>，但是只有运算符左侧的值为<code>null</code>或<code>undefined</code>时，才会返回右侧的值。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> headerText = response.settings.headerText ?? <span class="hljs-string">'Hello, world!'</span>;
 <span class="hljs-keyword">const</span> animationDuration = response.settings.animationDuration ?? <span class="hljs-number">300</span>;
 <span class="hljs-keyword">const</span> showSplashScreen = response.settings.showSplashScreen ?? <span class="hljs-literal">true</span>;
-</code></pre><p>上面代码中，默认值只有在属性值为<code>null</code>或<code>undefined</code>时，才会生效。</p><p>这个运算符的一个目的，就是跟链判断运算符<code>?.</code>配合使用，为<code>null</code>或<code>undefined</code>的值设置默认值。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> animationDuration = response.settings?.animationDuration ?? <span class="hljs-number">300</span>;
+</code></pre><p>上面代码中，默认值只有在左侧属性值为<code>null</code>或<code>undefined</code>时，才会生效。</p><p>这个运算符的一个目的，就是跟链判断运算符<code>?.</code>配合使用，为<code>null</code>或<code>undefined</code>的值设置默认值。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> animationDuration = response.settings?.animationDuration ?? <span class="hljs-number">300</span>;
 </code></pre><p>上面代码中，<code>response.settings</code>如果是<code>null</code>或<code>undefined</code>，就会返回默认值300。</p><p>这个运算符很适合判断函数参数是否赋值。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Component</span>(<span class="hljs-params">props</span>) </span>{
   <span class="hljs-keyword">const</span> enable = props.enabled ?? <span class="hljs-literal">true</span>;
   <span class="hljs-comment">// …</span>
