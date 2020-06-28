@@ -61,14 +61,18 @@ fn
 </code></pre><p>上面脚本的运行结果如下。</p><pre class="hljs"><code>$ bash test.sh
 fn: foo = 1
 global: foo = 1
-</code></pre><p>上面例子中，变量<code>$foo</code>是在函数<code>fn</code>内部声明的，函数体外也可以读取。</p><p>函数体内不仅可以声明全局变量，还可以修改全局变量。</p><pre class="hljs"><code>foo=1
+</code></pre><p>上面例子中，变量<code>$foo</code>是在函数<code>fn</code>内部声明的，函数体外也可以读取。</p><p>函数体内不仅可以声明全局变量，还可以修改全局变量。</p><pre class="hljs"><code><span class="hljs-meta">#! /bin/bash</span>
+foo=1
 
 <span class="hljs-function"><span class="hljs-title">fn</span></span> () {
   foo=2
 }
 
+fn
+
 <span class="hljs-built_in">echo</span> <span class="hljs-variable">$foo</span>
-</code></pre><p>上面代码执行后，输出的变量<code>$foo</code>值为2。</p><p>函数里面可以用<code>local</code>命令声明局部变量。</p><pre class="hljs"><code><span class="hljs-comment"># 脚本 test.sh</span>
+</code></pre><p>上面代码执行后，输出的变量<code>$foo</code>值为2。</p><p>函数里面可以用<code>local</code>命令声明局部变量。</p><pre class="hljs"><code><span class="hljs-meta">#! /bin/bash</span>
+<span class="hljs-comment"># 脚本 test.sh</span>
 <span class="hljs-function"><span class="hljs-title">fn</span></span> () {
   <span class="hljs-built_in">local</span> foo
   foo=1
