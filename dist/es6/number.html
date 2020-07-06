@@ -297,7 +297,7 @@ b **= <span class="hljs-number">3</span>;
 
 <span class="hljs-comment">// 超过 2 的 1024 次方的数值，无法表示</span>
 <span class="hljs-built_in">Math</span>.pow(<span class="hljs-number">2</span>, <span class="hljs-number">1024</span>) <span class="hljs-comment">// Infinity</span>
-</code></pre><p><a href="https://github.com/tc39/proposal-bigint" target="_blank" rel="noopener">ES2020</a> 引入了一种新的数据类型 BigInt（大整数），来解决这个问题。BigInt 只用来表示整数，没有位数的限制，任何位数的整数都可以精确表示。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> a = <span class="hljs-number">2172141653n</span>;
+</code></pre><p><a href="https://github.com/tc39/proposal-bigint" target="_blank" rel="noopener">ES2020</a> 引入了一种新的数据类型 BigInt（大整数），来解决这个问题，这是 ECMAScript 的第八种数据类型。BigInt 只用来表示整数，没有位数的限制，任何位数的整数都可以精确表示。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> a = <span class="hljs-number">2172141653n</span>;
 <span class="hljs-keyword">const</span> b = <span class="hljs-number">15346349309n</span>;
 
 <span class="hljs-comment">// BigInt 可以保持精度</span>
