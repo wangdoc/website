@@ -421,7 +421,7 @@ a?.b = c
   <span class="hljs-keyword">const</span> enable = props.enabled ?? <span class="hljs-literal">true</span>;
   <span class="hljs-comment">// …</span>
 }
-</code></pre><p>上面代码判断<code>props</code>参数的<code>enabled</code>属性是否赋值，等同于下面的写法。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Component</span>(<span class="hljs-params">props</span>) </span>{
+</code></pre><p>上面代码判断<code>props</code>参数的<code>enabled</code>属性是否赋值，基本等同于下面的写法。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Component</span>(<span class="hljs-params">props</span>) </span>{
   <span class="hljs-keyword">const</span> {
     <span class="hljs-attr">enabled</span>: enable = <span class="hljs-literal">true</span>,
   } = props;
