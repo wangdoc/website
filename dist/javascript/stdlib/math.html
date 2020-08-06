@@ -12,9 +12,9 @@
 <span class="hljs-built_in">Math</span>.min(<span class="hljs-number">2</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">5</span>) <span class="hljs-comment">// -1</span>
 <span class="hljs-built_in">Math</span>.min() <span class="hljs-comment">// Infinity</span>
 <span class="hljs-built_in">Math</span>.max() <span class="hljs-comment">// -Infinity</span>
-</code></pre><h3 id="mathfloor，mathceil">Math.floor()，Math.ceil() <a class="markdownIt-Anchor" href="#mathfloor，mathceil">#</a></h3><p><code>Math.floor</code>方法返回小于参数值的最大整数（地板值）。</p><pre class="hljs"><code><span class="hljs-built_in">Math</span>.floor(<span class="hljs-number">3.2</span>) <span class="hljs-comment">// 3</span>
+</code></pre><h3 id="mathfloor，mathceil">Math.floor()，Math.ceil() <a class="markdownIt-Anchor" href="#mathfloor，mathceil">#</a></h3><p><code>Math.floor</code>方法返回小于或等于参数值的最大整数（地板值）。</p><pre class="hljs"><code><span class="hljs-built_in">Math</span>.floor(<span class="hljs-number">3.2</span>) <span class="hljs-comment">// 3</span>
 <span class="hljs-built_in">Math</span>.floor(<span class="hljs-number">-3.2</span>) <span class="hljs-comment">// -4</span>
-</code></pre><p><code>Math.ceil</code>方法返回大于参数值的最小整数（天花板值）。</p><pre class="hljs"><code><span class="hljs-built_in">Math</span>.ceil(<span class="hljs-number">3.2</span>) <span class="hljs-comment">// 4</span>
+</code></pre><p><code>Math.ceil</code>方法返回大于或等于参数值的最小整数（天花板值）。</p><pre class="hljs"><code><span class="hljs-built_in">Math</span>.ceil(<span class="hljs-number">3.2</span>) <span class="hljs-comment">// 4</span>
 <span class="hljs-built_in">Math</span>.ceil(<span class="hljs-number">-3.2</span>) <span class="hljs-comment">// -3</span>
 </code></pre><p>这两个方法可以结合起来，实现一个总是返回数值的整数部分的函数。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ToInteger</span>(<span class="hljs-params">x</span>) </span>{
   x = <span class="hljs-built_in">Number</span>(x);
