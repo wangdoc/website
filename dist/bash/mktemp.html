@@ -41,7 +41,7 @@ TMPFILE=$(mktemp) || <span class="hljs-built_in">exit</span> 1
 58) SIGRTMAX-6	59) SIGRTMAX-5	60) SIGRTMAX-4	61) SIGRTMAX-3	62) SIGRTMAX-2
 63) SIGRTMAX-1	64) SIGRTMAX
 </code></pre><p><code>trap</code>的命令格式如下。</p><pre class="hljs"><code>$ <span class="hljs-built_in">trap</span> [动作] [信号1] [信号2] ...
-</code></pre><p>上面代码中，“动作”是一个 Bash 命令，“信号”常用的有以下几个。</p><blockquote><ul><li>HUP：编号1，脚本与所在的终端脱离联系。</li><li>INT：编号2，用户按下 Ctrl + C，意图让脚本中止运行。</li><li>QUIT：编号3，用户按下 Ctrl + 斜杠，意图退出脚本。</li><li>KILL：编号9，该信号用于杀死进程。</li><li>TERM：编号15，这是<code>kill</code>命令发出的默认信号。</li><li>EXIT：编号0，这不是系统信号，而是 Bash 脚本特有的信号，不管什么情况，只要退出脚本就会产生。</li></ul></blockquote><p><code>trap</code>命令响应<code>EXIT</code>信号的写法如下。</p><pre class="hljs"><code>$ <span class="hljs-built_in">trap</span> <span class="hljs-string">'rm -f "$TMPFILE"'</span> EXIT
+</code></pre><p>上面代码中，“动作”是一个 Bash 命令，“信号”常用的有以下几个。</p><blockquote><ul><li>HUP：编号1，脚本与所在的终端脱离联系。</li><li>INT：编号2，用户按下 Ctrl + C，意图让脚本终止运行。</li><li>QUIT：编号3，用户按下 Ctrl + 斜杠，意图退出脚本。</li><li>KILL：编号9，该信号用于杀死进程。</li><li>TERM：编号15，这是<code>kill</code>命令发出的默认信号。</li><li>EXIT：编号0，这不是系统信号，而是 Bash 脚本特有的信号，不管什么情况，只要退出脚本就会产生。</li></ul></blockquote><p><code>trap</code>命令响应<code>EXIT</code>信号的写法如下。</p><pre class="hljs"><code>$ <span class="hljs-built_in">trap</span> <span class="hljs-string">'rm -f "$TMPFILE"'</span> EXIT
 </code></pre><p>上面命令中，脚本遇到<code>EXIT</code>信号时，就会执行<code>rm -f &quot;$TMPFILE&quot;</code>。</p><p>trap 命令的常见使用场景，就是在 Bash 脚本中指定退出时执行的清理命令。</p><pre class="hljs"><code><span class="hljs-meta">#!/bin/bash
 </span>
 <span class="hljs-built_in">trap</span> <span class="hljs-string">'rm -f "$TMPFILE"'</span> EXIT
