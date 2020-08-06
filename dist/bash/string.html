@@ -13,12 +13,14 @@ $ <span class="hljs-built_in">echo</span> <span class="hljs-variable">${"hello":
 </code></pre><p>上面例子中，<code>&quot;hello&quot;</code>不是变量名，导致 Bash 报错。</p><p>如果省略<code>length</code>，则从位置<code>offset</code>开始，一直返回到字符串的结尾。</p><pre class="hljs"><code>$ count=frogfootman
 $ <span class="hljs-built_in">echo</span> <span class="hljs-variable">${count:4}</span>
 footman
-</code></pre><p>上面例子是返回变量<code>count</code>从4号位置一直到结尾的子字符串。</p><p>如果<code>offset</code>为负值，表示从字符串的末尾开始算起。注意，负数前面必须有一个空格， 以防止与<code>${variable:-word}</code>的变量的设置默认值语法混淆。这时，如果还指定<code>length</code>，则<code>length</code>不能小于零。</p><pre class="hljs"><code>$ foo=<span class="hljs-string">"This string is long."</span>
+</code></pre><p>上面例子是返回变量<code>count</code>从4号位置一直到结尾的子字符串。</p><p>如果<code>offset</code>为负值，表示从字符串的末尾开始算起。注意，负数前面必须有一个空格， 以防止与<code>${variable:-word}</code>的变量的设置默认值语法混淆。这时还可以指定<code>length</code>，<code>length</code>可以是正值，也可以是负值（负值不能超过<code>offset</code>的长度）。</p><pre class="hljs"><code>$ foo=<span class="hljs-string">"This string is long."</span>
 $ <span class="hljs-built_in">echo</span> <span class="hljs-variable">${foo: -5}</span>
 long.
 $ <span class="hljs-built_in">echo</span> <span class="hljs-variable">${foo: -5:2}</span>
 lo
-</code></pre><p>上面例子中，<code>offset</code>为<code>-5</code>，表示从倒数第5个字符开始截取，所以返回<code>long.</code>。如果指定长度为<code>2</code>，则返回<code>lo</code>。</p><h2 id="搜索和替换">搜索和替换 <a class="markdownIt-Anchor" href="#搜索和替换">#</a></h2><p>Bash 提供字符串搜索和替换的多种方法。</p><p><strong>（1）字符串头部的模式匹配。</strong></p><p>以下两种语法可以检查字符串开头，是否匹配给定的模式。如果匹配成功，就删除匹配的部分，返回剩下的部分。原始变量不会发生变化。</p><pre class="hljs"><code><span class="hljs-comment"># 如果 pattern 匹配变量 variable 的开头，</span>
+$ <span class="hljs-built_in">echo</span> <span class="hljs-variable">${foo: -5:-2}</span>
+lon
+</code></pre><p>上面例子中，<code>offset</code>为<code>-5</code>，表示从倒数第5个字符开始截取，所以返回<code>long.</code>。如果指定长度<code>length</code>为<code>2</code>，则返回<code>lo</code>；如果<code>length</code>为<code>-2</code>，表示要排除从字符串末尾开始的2个字符，所以返回<code>lon</code>。</p><h2 id="搜索和替换">搜索和替换 <a class="markdownIt-Anchor" href="#搜索和替换">#</a></h2><p>Bash 提供字符串搜索和替换的多种方法。</p><p><strong>（1）字符串头部的模式匹配。</strong></p><p>以下两种语法可以检查字符串开头，是否匹配给定的模式。如果匹配成功，就删除匹配的部分，返回剩下的部分。原始变量不会发生变化。</p><pre class="hljs"><code><span class="hljs-comment"># 如果 pattern 匹配变量 variable 的开头，</span>
 <span class="hljs-comment"># 删除最短匹配（非贪婪匹配）的部分，返回剩余部分</span>
 <span class="hljs-variable">${variable#pattern}</span>
 
