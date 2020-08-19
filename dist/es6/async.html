@@ -474,7 +474,7 @@ promise.then(<span class="hljs-function"><span class="hljs-params">()</span> =&g
 
 <span class="hljs-built_in">console</span>.log(outputPlusValue(<span class="hljs-number">100</span>));
 setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(outputPlusValue(<span class="hljs-number">100</span>), <span class="hljs-number">1000</span>);
-</code></pre><p>上面代码的写法，与普通的模块加载完全一样。也就是说，模块的使用者完全不用关心，依赖模块的内部有没有异步操作，正常加载即可。</p><p>这时，模块的加载会等待依赖模块（上例是<code>awaiting.js</code>）的异步操作完成，才执行后面的代码，有点像暂停在那里。所以，它总是会得到正确的<code>output</code>，不会因为加载时机的不同，而得到不一样的值。</p><p>下面是顶层<code>await</code>的一些使用场景。</p><pre class="hljs"><code><span class="hljs-comment">// import() 方法加载</span>
+</code></pre><p>上面代码的写法，与普通的模块加载完全一样。也就是说，模块的使用者完全不用关心，依赖模块的内部有没有异步操作，正常加载即可。</p><p>这时，模块的加载会等待依赖模块（上例是<code>awaiting.js</code>）的异步操作完成，才执行后面的代码，有点像暂停在那里。所以，它总是会得到正确的<code>output</code>，不会因为加载时机的不同，而得到不一样的值。</p><p>注意，顶层<code>await</code>只能用在 ES6 模块，不能用在 CommonJS 模块。这是因为 CommonJS 模块的<code>require()</code>是同步加载，如果有顶层<code>await</code>，就没法处理加载了。</p><p>下面是顶层<code>await</code>的一些使用场景。</p><pre class="hljs"><code><span class="hljs-comment">// import() 方法加载</span>
 <span class="hljs-keyword">const</span> strings = <span class="hljs-keyword">await</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">`/i18n/<span class="hljs-subst">${navigator.language}</span>`</span>);
 
 <span class="hljs-comment">// 数据库操作</span>
