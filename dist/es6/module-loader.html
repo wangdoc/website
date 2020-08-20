@@ -197,8 +197,8 @@ $ node my-app.js
 
 <span class="hljs-comment">// 报错</span>
 <span class="hljs-keyword">import</span> { method } <span class="hljs-keyword">from</span> <span class="hljs-string">'commonjs-package'</span>;
-</code></pre><p>这是因为 ES6 模块需要支持静态代码分析，而 CommonJS 模块的输出接口是<code>module.exports</code>，是一个对象，无法被静态分析，所以只能整体加载。</p><p>加载单一的输出项，可以写成下面这样。</p><pre class="hljs"><code>import packageMain from <span class="hljs-string">'commonjs-package'</span>;
-const { method } = packageMain;:w
+</code></pre><p>这是因为 ES6 模块需要支持静态代码分析，而 CommonJS 模块的输出接口是<code>module.exports</code>，是一个对象，无法被静态分析，所以只能整体加载。</p><p>加载单一的输出项，可以写成下面这样。</p><pre class="hljs"><code><span class="hljs-keyword">import</span> packageMain <span class="hljs-keyword">from</span> <span class="hljs-string">'commonjs-package'</span>;
+<span class="hljs-keyword">const</span> { method } = packageMain;:w
 </code></pre><p>还有一种变通的加载方法，就是使用 Node.js 内置的<code>module.createRequire()</code>方法。</p><pre class="hljs"><code><span class="hljs-comment">// cjs.cjs</span>
 <span class="hljs-built_in">module</span>.exports = <span class="hljs-string">'cjs'</span>;
 
