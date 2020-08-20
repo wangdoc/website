@@ -197,7 +197,7 @@ $ node my-app.js
 
 <span class="hljs-comment">// 报错</span>
 <span class="hljs-keyword">import</span> { method } <span class="hljs-keyword">from</span> <span class="hljs-string">'commonjs-package'</span>;
-</code></pre><p>这是因为 ES6 模块需要支持静态代码分析，而 CommonJS 模块的输出接口是<code>module.exports</code>，无法被静态分析，所以只能整体加载。</p><p>加载单一的输出项，可以写成下面这样。</p><pre class="hljs"><code>import packageMain from <span class="hljs-string">'commonjs-package'</span>;
+</code></pre><p>这是因为 ES6 模块需要支持静态代码分析，而 CommonJS 模块的输出接口是<code>module.exports</code>，是一个对象，无法被静态分析，所以只能整体加载。</p><p>加载单一的输出项，可以写成下面这样。</p><pre class="hljs"><code>import packageMain from <span class="hljs-string">'commonjs-package'</span>;
 const { method } = packageMain;:w
 </code></pre><p>还有一种变通的加载方法，就是使用 Node.js 内置的<code>module.createRequire()</code>方法。</p><pre class="hljs"><code><span class="hljs-comment">// cjs.cjs</span>
 <span class="hljs-built_in">module</span>.exports = <span class="hljs-string">'cjs'</span>;
@@ -210,10 +210,10 @@ const { method } = packageMain;:w
 <span class="hljs-keyword">const</span> cjs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./cjs.cjs'</span>);
 cjs === <span class="hljs-string">'cjs'</span>; <span class="hljs-comment">// true</span>
 </code></pre><p>上面代码中，ES6 模块通过<code>module.createRequire()</code>方法可以加载 CommonJS 模块。但是，这种写法等于将 ES6 和 CommonJS 混在一起了，所以不建议使用。</p><h3 id="同时支持两种格式的模块">同时支持两种格式的模块 <a class="markdownIt-Anchor" href="#同时支持两种格式的模块">#</a></h3><p>一个模块同时要支持 CommonJS 和 ES6 两种格式，也很容易。</p><p>如果原始模块是 ES6 格式，那么需要给出一个整体输出接口，比如<code>export default obj</code>，使得 CommonJS 可以用<code>import()</code>进行加载。</p><p>如果原始模块是 CommonJS 格式，那么可以加一个包装层。</p><pre class="hljs"><code><span class="hljs-keyword">import</span> cjsModule <span class="hljs-keyword">from</span> <span class="hljs-string">'../index.js'</span>;
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> foo = cjsModule.foo; 
-</code></pre><p>上面代码先整体输入 CommonJS 模块，然后再根据需要输出具名接口。最后，可以将它放在一个子目录，再放一个单独的<code>package.json</code>文件，指明<code>{ module: &quot;type&quot; }</code>。</p><p>另一种做法是在<code>package.json</code>文件的<code>exports</code>字段，指明两种格式模块各自的加载入口。</p><pre class="hljs"><code><span class="hljs-string">"exports"</span>：{ 
-    <span class="hljs-string">"require"</span>: <span class="hljs-string">"./index.js"</span>，
-    <span class="hljs-string">"import"</span>: <span class="hljs-string">"./esm/wrapper.js"</span> 
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> foo = cjsModule.foo;
+</code></pre><p>上面代码先整体输入 CommonJS 模块，然后再根据需要输出具名接口。</p><p>你可以把这个文件的后缀名改为<code>.mjs</code>，或者将它放在一个子目录，再在这个子目录里面放一个单独的<code>package.json</code>文件，指明<code>{ module: &quot;type&quot; }</code>。</p><p>另一种做法是在<code>package.json</code>文件的<code>exports</code>字段，指明两种格式模块各自的加载入口。</p><pre class="hljs"><code><span class="hljs-string">"exports"</span>：{
+  <span class="hljs-string">"require"</span>: <span class="hljs-string">"./index.js"</span>，
+  <span class="hljs-string">"import"</span>: <span class="hljs-string">"./esm/wrapper.js"</span>
 }
 </code></pre><p>上面代码指定<code>require()</code>和<code>import</code>，加载该模块会自动切换到不一样的入口文件。</p><h3 id="nodejs-的内置模块">Node.js 的内置模块 <a class="markdownIt-Anchor" href="#nodejs-的内置模块">#</a></h3><p>Node.js 的内置模块可以整体加载，也可以加载指定的输出项。</p><pre class="hljs"><code><span class="hljs-comment">// 整体加载</span>
 <span class="hljs-keyword">import</span> EventEmitter <span class="hljs-keyword">from</span> <span class="hljs-string">'events'</span>;
