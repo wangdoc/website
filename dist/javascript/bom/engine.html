@@ -84,7 +84,7 @@
 
 foo.style.color = <span class="hljs-string">'blue'</span>;
 foo.style.marginTop = <span class="hljs-string">'30px'</span>;
-</code></pre><p>上面的代码只会导致一次重绘，因为浏览器会累积 DOM 变动，然后一次性执行。</p><p>下面是一些优化技巧。</p><ul><li>读取 DOM 或者写入 DOM，尽量写在一起，不要混杂。不要读取一个 DOM 节点，然后立刻写入，接着再读取一个 DOM 节点。</li><li>缓存 DOM 信息。</li><li>不要一项一项地改变样式，而是使用 CSS class 一次性改变样式。</li><li>使用<code>documentFragment</code>操作 DOM</li><li>动画使用<code>absolute</code>定位或<code>fixed</code>定位，这样可以减少对其他元素的影响。</li><li>只在必要时才显示隐藏元素。</li><li>使用<code>window.requestAnimationFrame()</code>，因为它可以把代码推迟到下一次重流时执行，而不是立即要求页面重流。</li><li>使用虚拟 DOM（virtual DOM）库。</li></ul><p>下面是一个<code>window.requestAnimationFrame()</code>对比效果的例子。</p><pre class="hljs"><code><span class="hljs-comment">// 重绘代价高</span>
+</code></pre><p>上面的代码只会导致一次重绘，因为浏览器会累积 DOM 变动，然后一次性执行。</p><p>下面是一些优化技巧。</p><ul><li>读取 DOM 或者写入 DOM，尽量写在一起，不要混杂。不要读取一个 DOM 节点，然后立刻写入，接着再读取一个 DOM 节点。</li><li>缓存 DOM 信息。</li><li>不要一项一项地改变样式，而是使用 CSS class 一次性改变样式。</li><li>使用<code>documentFragment</code>操作 DOM</li><li>动画使用<code>absolute</code>定位或<code>fixed</code>定位，这样可以减少对其他元素的影响。</li><li>只在必要时才显示隐藏元素。</li><li>使用<code>window.requestAnimationFrame()</code>，因为它可以把代码推迟到下一次重绘之前执行，而不是立即要求页面重绘。</li><li>使用虚拟 DOM（virtual DOM）库。</li></ul><p>下面是一个<code>window.requestAnimationFrame()</code>对比效果的例子。</p><pre class="hljs"><code><span class="hljs-comment">// 重流代价高</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">doubleHeight</span>(<span class="hljs-params">element</span>) </span>{
   <span class="hljs-keyword">var</span> currentHeight = element.clientHeight;
   element.style.height = (currentHeight * <span class="hljs-number">2</span>) + <span class="hljs-string">'px'</span>;
