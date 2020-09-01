@@ -417,7 +417,7 @@ a?.b = c
 <span class="hljs-keyword">const</span> animationDuration = response.settings.animationDuration ?? <span class="hljs-number">300</span>;
 <span class="hljs-keyword">const</span> showSplashScreen = response.settings.showSplashScreen ?? <span class="hljs-literal">true</span>;
 </code></pre><p>上面代码中，默认值只有在左侧属性值为<code>null</code>或<code>undefined</code>时，才会生效。</p><p>这个运算符的一个目的，就是跟链判断运算符<code>?.</code>配合使用，为<code>null</code>或<code>undefined</code>的值设置默认值。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> animationDuration = response.settings?.animationDuration ?? <span class="hljs-number">300</span>;
-</code></pre><p>上面代码中，<code>response.settings</code>如果是<code>null</code>或<code>undefined</code>，就会返回默认值300。</p><p>这个运算符很适合判断函数参数是否赋值。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Component</span>(<span class="hljs-params">props</span>) </span>{
+</code></pre><p>上面代码中，如果<code>response.settings</code>是<code>null</code>或<code>undefined</code>，或者<code>response.settings.animationDuration</code>是<code>null</code>或<code>undefined</code>，就会返回默认值300。也就是说，这一行代码包括了两级属性的判断。</p><p>这个运算符很适合判断函数参数是否赋值。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Component</span>(<span class="hljs-params">props</span>) </span>{
   <span class="hljs-keyword">const</span> enable = props.enabled ?? <span class="hljs-literal">true</span>;
   <span class="hljs-comment">// …</span>
 }
