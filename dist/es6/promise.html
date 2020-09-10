@@ -463,28 +463,28 @@ err.push(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error
 </code></pre><p>上面代码将 jQuery 生成的<code>deferred</code>对象，转为一个新的 Promise 对象。</p><p><code>Promise.resolve()</code>等价于下面的写法。</p><pre class="hljs"><code><span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-string">'foo'</span>)
 <span class="hljs-comment">// 等价于</span>
 <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-params">resolve</span> =&gt;</span> resolve(<span class="hljs-string">'foo'</span>))
-</code></pre><p><code>Promise.resolve</code>方法的参数分成四种情况。</p><p><strong>（1）参数是一个 Promise 实例</strong></p><p>如果参数是 Promise 实例，那么<code>Promise.resolve</code>将不做任何修改、原封不动地返回这个实例。</p><p><strong>（2）参数是一个<code>thenable</code>对象</strong></p><p><code>thenable</code>对象指的是具有<code>then</code>方法的对象，比如下面这个对象。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> thenable = {
+</code></pre><p><code>Promise.resolve()</code>方法的参数分成四种情况。</p><p><strong>（1）参数是一个 Promise 实例</strong></p><p>如果参数是 Promise 实例，那么<code>Promise.resolve</code>将不做任何修改、原封不动地返回这个实例。</p><p><strong>（2）参数是一个<code>thenable</code>对象</strong></p><p><code>thenable</code>对象指的是具有<code>then</code>方法的对象，比如下面这个对象。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> thenable = {
   <span class="hljs-attr">then</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resolve, reject</span>) </span>{
     resolve(<span class="hljs-number">42</span>);
   }
 };
-</code></pre><p><code>Promise.resolve</code>方法会将这个对象转为 Promise 对象，然后就立即执行<code>thenable</code>对象的<code>then</code>方法。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> thenable = {
+</code></pre><p><code>Promise.resolve()</code>方法会将这个对象转为 Promise 对象，然后就立即执行<code>thenable</code>对象的<code>then()</code>方法。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> thenable = {
   <span class="hljs-attr">then</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resolve, reject</span>) </span>{
     resolve(<span class="hljs-number">42</span>);
   }
 };
 
 <span class="hljs-keyword">let</span> p1 = <span class="hljs-built_in">Promise</span>.resolve(thenable);
-p1.then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">value</span>) </span>{
+p1.then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
   <span class="hljs-built_in">console</span>.log(value);  <span class="hljs-comment">// 42</span>
 });
-</code></pre><p>上面代码中，<code>thenable</code>对象的<code>then</code>方法执行后，对象<code>p1</code>的状态就变为<code>resolved</code>，从而立即执行最后那个<code>then</code>方法指定的回调函数，输出 42。</p><p><strong>（3）参数不是具有<code>then</code>方法的对象，或根本就不是对象</strong></p><p>如果参数是一个原始值，或者是一个不具有<code>then</code>方法的对象，则<code>Promise.resolve</code>方法返回一个新的 Promise 对象，状态为<code>resolved</code>。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> p = <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-string">'Hello'</span>);
+</code></pre><p>上面代码中，<code>thenable</code>对象的<code>then()</code>方法执行后，对象<code>p1</code>的状态就变为<code>resolved</code>，从而立即执行最后那个<code>then()</code>方法指定的回调函数，输出42。</p><p><strong>（3）参数不是具有<code>then()</code>方法的对象，或根本就不是对象</strong></p><p>如果参数是一个原始值，或者是一个不具有<code>then()</code>方法的对象，则<code>Promise.resolve()</code>方法返回一个新的 Promise 对象，状态为<code>resolved</code>。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> p = <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-string">'Hello'</span>);
 
-p.then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">s</span>)</span>{
+p.then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">s</span>) </span>{
   <span class="hljs-built_in">console</span>.log(s)
 });
 <span class="hljs-comment">// Hello</span>
-</code></pre><p>上面代码生成一个新的 Promise 对象的实例<code>p</code>。由于字符串<code>Hello</code>不属于异步操作（判断方法是字符串对象不具有 then 方法），返回 Promise 实例的状态从一生成就是<code>resolved</code>，所以回调函数会立即执行。<code>Promise.resolve</code>方法的参数，会同时传给回调函数。</p><p><strong>（4）不带有任何参数</strong></p><p><code>Promise.resolve()</code>方法允许调用时不带参数，直接返回一个<code>resolved</code>状态的 Promise 对象。</p><p>所以，如果希望得到一个 Promise 对象，比较方便的方法就是直接调用<code>Promise.resolve()</code>方法。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> p = <span class="hljs-built_in">Promise</span>.resolve();
+</code></pre><p>上面代码生成一个新的 Promise 对象的实例<code>p</code>。由于字符串<code>Hello</code>不属于异步操作（判断方法是字符串对象不具有 then 方法），返回 Promise 实例的状态从一生成就是<code>resolved</code>，所以回调函数会立即执行。<code>Promise.resolve()</code>方法的参数，会同时传给回调函数。</p><p><strong>（4）不带有任何参数</strong></p><p><code>Promise.resolve()</code>方法允许调用时不带参数，直接返回一个<code>resolved</code>状态的 Promise 对象。</p><p>所以，如果希望得到一个 Promise 对象，比较方便的方法就是直接调用<code>Promise.resolve()</code>方法。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> p = <span class="hljs-built_in">Promise</span>.resolve();
 
 p.then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
   <span class="hljs-comment">// ...</span>
@@ -510,18 +510,12 @@ p.then(<span class="hljs-literal">null</span>, <span class="hljs-function"><span
   <span class="hljs-built_in">console</span>.log(s)
 });
 <span class="hljs-comment">// 出错了</span>
-</code></pre><p>上面代码生成一个 Promise 对象的实例<code>p</code>，状态为<code>rejected</code>，回调函数会立即执行。</p><p>注意，<code>Promise.reject()</code>方法的参数，会原封不动地作为<code>reject</code>的理由，变成后续方法的参数。这一点与<code>Promise.resolve</code>方法不一致。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> thenable = {
-  then(resolve, reject) {
-    reject(<span class="hljs-string">'出错了'</span>);
-  }
-};
-
-<span class="hljs-built_in">Promise</span>.reject(thenable)
+</code></pre><p>上面代码生成一个 Promise 对象的实例<code>p</code>，状态为<code>rejected</code>，回调函数会立即执行。</p><p><code>Promise.reject()</code>方法的参数，会原封不动地作为<code>reject</code>的理由，变成后续方法的参数。</p><pre class="hljs"><code><span class="hljs-built_in">Promise</span>.reject(<span class="hljs-string">'出错了'</span>)
 .catch(<span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(e === thenable)
+  <span class="hljs-built_in">console</span>.log(e === <span class="hljs-string">'出错了'</span>)
 })
 <span class="hljs-comment">// true</span>
-</code></pre><p>上面代码中，<code>Promise.reject</code>方法的参数是一个<code>thenable</code>对象，执行以后，后面<code>catch</code>方法的参数不是<code>reject</code>抛出的“出错了”这个字符串，而是<code>thenable</code>对象。</p><h2 id="应用">应用 <a class="markdownIt-Anchor" href="#应用">#</a></h2><h3 id="加载图片">加载图片 <a class="markdownIt-Anchor" href="#加载图片">#</a></h3><p>我们可以将图片的加载写成一个<code>Promise</code>，一旦加载完成，<code>Promise</code>的状态就发生变化。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> preloadImage = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">path</span>) </span>{
+</code></pre><p>上面代码中，<code>Promise.reject()</code>方法的参数是一个字符串，后面<code>catch()</code>方法的参数<code>e</code>就是这个字符串。</p><h2 id="应用">应用 <a class="markdownIt-Anchor" href="#应用">#</a></h2><h3 id="加载图片">加载图片 <a class="markdownIt-Anchor" href="#加载图片">#</a></h3><p>我们可以将图片的加载写成一个<code>Promise</code>，一旦加载完成，<code>Promise</code>的状态就发生变化。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> preloadImage = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">path</span>) </span>{
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">resolve, reject</span>) </span>{
     <span class="hljs-keyword">const</span> image = <span class="hljs-keyword">new</span> Image();
     image.onload  = resolve;
