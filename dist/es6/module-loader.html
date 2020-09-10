@@ -29,7 +29,7 @@
 <span class="hljs-built_in">console</span>.log(x === <span class="hljs-built_in">window</span>.x); <span class="hljs-comment">//false</span>
 <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span> === <span class="hljs-literal">undefined</span>); <span class="hljs-comment">// true</span>
 </code></pre><p>利用顶层的<code>this</code>等于<code>undefined</code>这个语法点，可以侦测当前代码是否在 ES6 模块之中。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> isNotModuleScript = <span class="hljs-keyword">this</span> !== <span class="hljs-literal">undefined</span>;
-</code></pre><h2 id="es6-模块与-commonjs-模块的差异">ES6 模块与 CommonJS 模块的差异 <a class="markdownIt-Anchor" href="#es6-模块与-commonjs-模块的差异">#</a></h2><p>讨论 Node.js 加载 ES6 模块之前，必须了解 ES6 模块与 CommonJS 模块完全不同。</p><p>它们有三个重大差异。</p><ul><li>CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用。</li><li>CommonJS 模块是运行时加载，ES6 模块是编译时输出接口。</li><li>CommonJS 模块的<code>require()</code>是同步加载模块，ES6 模块的<code>import</code>命令是异步加载，有一个独立模块依赖的解析阶段。</li></ul><p>第二个差异是因为 CommonJS 加载的是一个对象（即<code>module.exports</code>属性），该对象只有在脚本运行完才会生成。而 ES6 模块不是对象，它的对外接口只是一种静态定义，在代码静态解析阶段就会生成。</p><p>下面重点解释第一个差异。</p><p>CommonJS 模块输出的是值的拷贝，也就是说，一旦输出一个值，模块内部的变化就影响不到这个值。请看下面这个模块文件<code>lib.js</code>的例子。</p><pre class="hljs"><code><span class="hljs-comment">// lib.js</span>
+</code></pre><h2 id="es6-模块与-commonjs-模块的差异">ES6 模块与 CommonJS 模块的差异 <a class="markdownIt-Anchor" href="#es6-模块与-commonjs-模块的差异">#</a></h2><p>讨论 Node.js 加载 ES6 模块之前，必须了解 ES6 模块与 CommonJS 模块完全不同。</p><p>它们有三个重大差异。</p><ul><li>CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用。</li><li>CommonJS 模块是运行时加载，ES6 模块是编译时输出接口。</li><li>CommonJS 模块的<code>require()</code>是同步加载模块，ES6 模块的<code>import</code>命令是异步加载，有一个独立的模块依赖的解析阶段。</li></ul><p>第二个差异是因为 CommonJS 加载的是一个对象（即<code>module.exports</code>属性），该对象只有在脚本运行完才会生成。而 ES6 模块不是对象，它的对外接口只是一种静态定义，在代码静态解析阶段就会生成。</p><p>下面重点解释第一个差异。</p><p>CommonJS 模块输出的是值的拷贝，也就是说，一旦输出一个值，模块内部的变化就影响不到这个值。请看下面这个模块文件<code>lib.js</code>的例子。</p><pre class="hljs"><code><span class="hljs-comment">// lib.js</span>
 <span class="hljs-keyword">var</span> counter = <span class="hljs-number">3</span>;
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">incCounter</span>(<span class="hljs-params"></span>) </span>{
   counter++;
@@ -176,7 +176,7 @@ $ node my-app.js
   }
 }
 </code></pre><p>上面代码中，别名<code>.</code>的<code>require</code>条件指定<code>require()</code>命令的入口文件（即 CommonJS 的入口），<code>default</code>条件指定其他情况的入口（即 ES6 的入口）。</p><p>上面的写法可以简写如下。</p><pre class="hljs"><code>{
-  <span class="hljs-string">"exports"</span>: {package.json 的
+  <span class="hljs-string">"exports"</span>: {
     <span class="hljs-string">"require"</span>: <span class="hljs-string">"./main.cjs"</span>,
     <span class="hljs-string">"default"</span>: <span class="hljs-string">"./main.js"</span>
   }
