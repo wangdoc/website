@@ -14,7 +14,7 @@
 <span class="hljs-number">2</span> &gt; <span class="hljs-literal">true</span> <span class="hljs-comment">// true</span>
 <span class="hljs-comment">// 等同于 2 &gt; Number(true)</span>
 <span class="hljs-comment">// 即 2 &gt; 1</span>
-</code></pre><p>上面代码中，字符串和布尔值都会先转成数值，再进行比较。</p><p>这里需要注意与<code>NaN</code>的比较。任何值（包括<code>NaN</code>本身）与<code>NaN</code>比较，返回的都是<code>false</code>。</p><pre class="hljs"><code><span class="hljs-number">1</span> &gt; <span class="hljs-literal">NaN</span> <span class="hljs-comment">// false</span>
+</code></pre><p>上面代码中，字符串和布尔值都会先转成数值，再进行比较。</p><p>这里需要注意与<code>NaN</code>的比较。任何值（包括<code>NaN</code>本身）与<code>NaN</code>使用非相等运算符进行比较，返回的都是<code>false</code>。</p><pre class="hljs"><code><span class="hljs-number">1</span> &gt; <span class="hljs-literal">NaN</span> <span class="hljs-comment">// false</span>
 <span class="hljs-number">1</span> &lt;= <span class="hljs-literal">NaN</span> <span class="hljs-comment">// false</span>
 <span class="hljs-string">'1'</span> &gt; <span class="hljs-literal">NaN</span> <span class="hljs-comment">// false</span>
 <span class="hljs-string">'1'</span> &lt;= <span class="hljs-literal">NaN</span> <span class="hljs-comment">// false</span>
