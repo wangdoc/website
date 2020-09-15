@@ -364,12 +364,12 @@ proxy.apply(<span class="hljs-literal">null</span>, [<span class="hljs-number">7
 }
 <span class="hljs-comment">// 李四</span>
 <span class="hljs-comment">// 99</span>
-</code></pre><p>上面代码中，<code>has</code>拦截只对<code>in</code>运算符生效，对<code>for...in</code>循环不生效，导致不符合要求的属性没有被<code>for...in</code>循环所排除。</p><h3 id="construct">construct() <a class="markdownIt-Anchor" href="#construct">#</a></h3><p><code>construct</code>方法用于拦截<code>new</code>命令，下面是拦截对象的写法。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> handler = {
+</code></pre><p>上面代码中，<code>has</code>拦截只对<code>in</code>运算符生效，对<code>for...in</code>循环不生效，导致不符合要求的属性没有被<code>for...in</code>循环所排除。</p><h3 id="construct">construct() <a class="markdownIt-Anchor" href="#construct">#</a></h3><p><code>construct()</code>方法用于拦截<code>new</code>命令，下面是拦截对象的写法。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> handler = {
   construct (target, args, newTarget) {
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> target(...args);
   }
 };
-</code></pre><p><code>construct</code>方法可以接受三个参数。</p><ul><li><code>target</code>：目标对象</li><li><code>args</code>：构造函数的参数对象</li><li><code>newTarget</code>：创造实例对象时，<code>new</code>命令作用的构造函数（下面例子的<code>p</code>）</li></ul><pre class="hljs"><code><span class="hljs-keyword">var</span> p = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{}, {
+</code></pre><p><code>construct()</code>方法可以接受三个参数。</p><ul><li><code>target</code>：目标对象。</li><li><code>args</code>：构造函数的参数数组。</li><li><code>newTarget</code>：创造实例对象时，<code>new</code>命令作用的构造函数（下面例子的<code>p</code>）。</li></ul><pre class="hljs"><code><span class="hljs-keyword">var</span> p = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{}, {
   <span class="hljs-attr">construct</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">target, args</span>) </span>{
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'called: '</span> + args.join(<span class="hljs-string">', '</span>));
     <span class="hljs-keyword">return</span> { <span class="hljs-attr">value</span>: args[<span class="hljs-number">0</span>] * <span class="hljs-number">10</span> };
@@ -379,7 +379,7 @@ proxy.apply(<span class="hljs-literal">null</span>, [<span class="hljs-number">7
 (<span class="hljs-keyword">new</span> p(<span class="hljs-number">1</span>)).value
 <span class="hljs-comment">// "called: 1"</span>
 <span class="hljs-comment">// 10</span>
-</code></pre><p><code>construct</code>方法返回的必须是一个对象，否则会报错。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> p = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{}, {
+</code></pre><p><code>construct()</code>方法返回的必须是一个对象，否则会报错。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> p = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{}, {
   <span class="hljs-attr">construct</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">target, argumentsList</span>) </span>{
     <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
   }
