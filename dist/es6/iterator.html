@@ -243,13 +243,13 @@ str[<span class="hljs-built_in">Symbol</span>.iterator] = <span class="hljs-func
 
 [...str] <span class="hljs-comment">// ["bye"]</span>
 str <span class="hljs-comment">// "hi"</span>
-</code></pre><p>上面代码中，字符串 str 的<code>Symbol.iterator</code>方法被修改了，所以扩展运算符（<code>...</code>）返回的值变成了<code>bye</code>，而字符串本身还是<code>hi</code>。</p><h2 id="iterator-接口与-generator-函数">Iterator 接口与 Generator 函数 <a class="markdownIt-Anchor" href="#iterator-接口与-generator-函数">#</a></h2><p><code>Symbol.iterator</code>方法的最简单实现，还是使用下一章要介绍的 Generator 函数。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> myIterable = {
+</code></pre><p>上面代码中，字符串 str 的<code>Symbol.iterator</code>方法被修改了，所以扩展运算符（<code>...</code>）返回的值变成了<code>bye</code>，而字符串本身还是<code>hi</code>。</p><h2 id="iterator-接口与-generator-函数">Iterator 接口与 Generator 函数 <a class="markdownIt-Anchor" href="#iterator-接口与-generator-函数">#</a></h2><p><code>Symbol.iterator()</code>方法的最简单实现，还是使用下一章要介绍的 Generator 函数。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> myIterable = {
   [<span class="hljs-built_in">Symbol</span>.iterator]: <span class="hljs-function"><span class="hljs-keyword">function</span>* (<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">yield</span> <span class="hljs-number">1</span>;
     <span class="hljs-keyword">yield</span> <span class="hljs-number">2</span>;
     <span class="hljs-keyword">yield</span> <span class="hljs-number">3</span>;
   }
-}
+};
 [...myIterable] <span class="hljs-comment">// [1, 2, 3]</span>
 
 <span class="hljs-comment">// 或者采用下面的简洁写法</span>
@@ -266,7 +266,7 @@ str <span class="hljs-comment">// "hi"</span>
 }
 <span class="hljs-comment">// "hello"</span>
 <span class="hljs-comment">// "world"</span>
-</code></pre><p>上面代码中，<code>Symbol.iterator</code>方法几乎不用部署任何代码，只要用 yield 命令给出每一步的返回值即可。</p><h2 id="遍历器对象的-return，throw">遍历器对象的 return()，throw() <a class="markdownIt-Anchor" href="#遍历器对象的-return，throw">#</a></h2><p>遍历器对象除了具有<code>next</code>方法，还可以具有<code>return</code>方法和<code>throw</code>方法。如果你自己写遍历器对象生成函数，那么<code>next</code>方法是必须部署的，<code>return</code>方法和<code>throw</code>方法是否部署是可选的。</p><p><code>return</code>方法的使用场合是，如果<code>for...of</code>循环提前退出（通常是因为出错，或者有<code>break</code>语句），就会调用<code>return</code>方法。如果一个对象在完成遍历前，需要清理或释放资源，就可以部署<code>return</code>方法。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">readLinesSync</span>(<span class="hljs-params">file</span>) </span>{
+</code></pre><p>上面代码中，<code>Symbol.iterator()</code>方法几乎不用部署任何代码，只要用 yield 命令给出每一步的返回值即可。</p><h2 id="遍历器对象的-return，throw">遍历器对象的 return()，throw() <a class="markdownIt-Anchor" href="#遍历器对象的-return，throw">#</a></h2><p>遍历器对象除了具有<code>next()</code>方法，还可以具有<code>return()</code>方法和<code>throw()</code>方法。如果你自己写遍历器对象生成函数，那么<code>next()</code>方法是必须部署的，<code>return()</code>方法和<code>throw()</code>方法是否部署是可选的。</p><p><code>return()</code>方法的使用场合是，如果<code>for...of</code>循环提前退出（通常是因为出错，或者有<code>break</code>语句），就会调用<code>return()</code>方法。如果一个对象在完成遍历前，需要清理或释放资源，就可以部署<code>return()</code>方法。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">readLinesSync</span>(<span class="hljs-params">file</span>) </span>{
   <span class="hljs-keyword">return</span> {
     [<span class="hljs-built_in">Symbol</span>.iterator]() {
       <span class="hljs-keyword">return</span> {
@@ -281,7 +281,7 @@ str <span class="hljs-comment">// "hi"</span>
     },
   };
 }
-</code></pre><p>上面代码中，函数<code>readLinesSync</code>接受一个文件对象作为参数，返回一个遍历器对象，其中除了<code>next</code>方法，还部署了<code>return</code>方法。下面的两种情况，都会触发执行<code>return</code>方法。</p><pre class="hljs"><code><span class="hljs-comment">// 情况一</span>
+</code></pre><p>上面代码中，函数<code>readLinesSync</code>接受一个文件对象作为参数，返回一个遍历器对象，其中除了<code>next()</code>方法，还部署了<code>return()</code>方法。下面的两种情况，都会触发执行<code>return()</code>方法。</p><pre class="hljs"><code><span class="hljs-comment">// 情况一</span>
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> line <span class="hljs-keyword">of</span> readLinesSync(fileName)) {
   <span class="hljs-built_in">console</span>.log(line);
   <span class="hljs-keyword">break</span>;
@@ -292,7 +292,7 @@ str <span class="hljs-comment">// "hi"</span>
   <span class="hljs-built_in">console</span>.log(line);
   <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>();
 }
-</code></pre><p>上面代码中，情况一输出文件的第一行以后，就会执行<code>return</code>方法，关闭这个文件；情况二会在执行<code>return</code>方法关闭文件之后，再抛出错误。</p><p>注意，<code>return</code>方法必须返回一个对象，这是 Generator 规格决定的。</p><p><code>throw</code>方法主要是配合 Generator 函数使用，一般的遍历器对象用不到这个方法。请参阅《Generator 函数》一章。</p><h2 id="forof-循环">for...of 循环 <a class="markdownIt-Anchor" href="#forof-循环">#</a></h2><p>ES6 借鉴 C++、Java、C# 和 Python 语言，引入了<code>for...of</code>循环，作为遍历所有数据结构的统一的方法。</p><p>一个数据结构只要部署了<code>Symbol.iterator</code>属性，就被视为具有 iterator 接口，就可以用<code>for...of</code>循环遍历它的成员。也就是说，<code>for...of</code>循环内部调用的是数据结构的<code>Symbol.iterator</code>方法。</p><p><code>for...of</code>循环可以使用的范围包括数组、Set 和 Map 结构、某些类似数组的对象（比如<code>arguments</code>对象、DOM NodeList 对象）、后文的 Generator 对象，以及字符串。</p><h3 id="数组">数组 <a class="markdownIt-Anchor" href="#数组">#</a></h3><p>数组原生具备<code>iterator</code>接口（即默认部署了<code>Symbol.iterator</code>属性），<code>for...of</code>循环本质上就是调用这个接口产生的遍历器，可以用下面的代码证明。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'red'</span>, <span class="hljs-string">'green'</span>, <span class="hljs-string">'blue'</span>];
+</code></pre><p>上面代码中，情况一输出文件的第一行以后，就会执行<code>return()</code>方法，关闭这个文件；情况二会在执行<code>return()</code>方法关闭文件之后，再抛出错误。</p><p>注意，<code>return()</code>方法必须返回一个对象，这是 Generator 语法决定的。</p><p><code>throw()</code>方法主要是配合 Generator 函数使用，一般的遍历器对象用不到这个方法。请参阅《Generator 函数》一章。</p><h2 id="forof-循环">for...of 循环 <a class="markdownIt-Anchor" href="#forof-循环">#</a></h2><p>ES6 借鉴 C++、Java、C# 和 Python 语言，引入了<code>for...of</code>循环，作为遍历所有数据结构的统一的方法。</p><p>一个数据结构只要部署了<code>Symbol.iterator</code>属性，就被视为具有 iterator 接口，就可以用<code>for...of</code>循环遍历它的成员。也就是说，<code>for...of</code>循环内部调用的是数据结构的<code>Symbol.iterator</code>方法。</p><p><code>for...of</code>循环可以使用的范围包括数组、Set 和 Map 结构、某些类似数组的对象（比如<code>arguments</code>对象、DOM NodeList 对象）、后文的 Generator 对象，以及字符串。</p><h3 id="数组">数组 <a class="markdownIt-Anchor" href="#数组">#</a></h3><p>数组原生具备<code>iterator</code>接口（即默认部署了<code>Symbol.iterator</code>属性），<code>for...of</code>循环本质上就是调用这个接口产生的遍历器，可以用下面的代码证明。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'red'</span>, <span class="hljs-string">'green'</span>, <span class="hljs-string">'blue'</span>];
 
 <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> v <span class="hljs-keyword">of</span> arr) {
   <span class="hljs-built_in">console</span>.log(v); <span class="hljs-comment">// red green blue</span>
