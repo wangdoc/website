@@ -176,12 +176,12 @@ math.add(<span class="hljs-number">2</span>, <span class="hljs-number">4</span>)
 @add
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>{
 }
-</code></pre><p>上面的代码，意图是执行后<code>counter</code>等于 1，但是实际上结果是<code>counter</code>等于 0。因为函数提升，使得实际执行的代码是下面这样。</p><pre class="hljs"><code>@add
+</code></pre><p>上面的代码，意图是执行后<code>counter</code>等于 1，但是实际上结果是<code>counter</code>等于 0。因为函数提升，使得实际执行的代码是下面这样。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> counter;
+<span class="hljs-keyword">var</span> add;
+
+@add
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>{
 }
-
-<span class="hljs-keyword">var</span> counter;
-<span class="hljs-keyword">var</span> add;
 
 counter = <span class="hljs-number">0</span>;
 
