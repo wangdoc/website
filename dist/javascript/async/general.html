@@ -18,27 +18,27 @@ f2();
 }
 
 f1(f2);
-</code></pre><p>回调函数的优点是简单、容易理解和实现，缺点是不利于代码的阅读和维护，各个部分之间高度<a href="http://en.wikipedia.org/wiki/Coupling_(computer_programming)" target="_blank" rel="noopener">耦合</a>（coupling），使得程序结构混乱、流程难以追踪（尤其是多个回调函数嵌套的情况），而且每个任务只能指定一个回调函数。</p><h3 id="事件监听">事件监听 <a class="markdownIt-Anchor" href="#事件监听">#</a></h3><p>另一种思路是采用事件驱动模式。异步任务的执行不取决于代码的顺序，而取决于某个事件是否发生。</p><p>还是以<code>f1</code>和<code>f2</code>为例。首先，为<code>f1</code>绑定一个事件（这里采用的 jQuery 的<a href="http://api.jquery.com/on/" target="_blank" rel="noopener">写法</a>）。</p><pre class="hljs"><code>f1.on(<span class="hljs-string">'done'</span>, f2);
+</code></pre><p>回调函数的优点是简单、容易理解和实现，缺点是不利于代码的阅读和维护，各个部分之间高度<a href="http://en.wikipedia.org/wiki/Coupling_(computer_programming)" target="_blank" rel="noopener">耦合</a>（coupling），使得程序结构混乱、流程难以追踪（尤其是多个回调函数嵌套的情况），而且每个任务只能指定一个回调函数。</p><h3 id="事件监听">事件监听 <a class="markdownIt-Anchor" href="#事件监听">#</a></h3><p>另一种思路是采用事件驱动模式。异步任务的执行不取决于代码的顺序，而取决于某个事件是否发生。</p><p>还是以<code>f1</code>和<code>f2</code>为例。首先，为<code>f1</code>绑定一个事件（这里采用的 jQuery 的<a href="http://api.jquery.com/on/" target="_blank" rel="noopener">写法</a>）。</p><pre class="hljs"><code>f1.on(<span class="hljs-string">&#x27;done&#x27;</span>, f2);
 </code></pre><p>上面这行代码的意思是，当<code>f1</code>发生<code>done</code>事件，就执行<code>f2</code>。然后，对<code>f1</code>进行改写：</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f1</span>(<span class="hljs-params"></span>) </span>{
-  setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
     <span class="hljs-comment">// ...</span>
-    f1.trigger(<span class="hljs-string">'done'</span>);
+    f1.trigger(<span class="hljs-string">&#x27;done&#x27;</span>);
   }, <span class="hljs-number">1000</span>);
 }
-</code></pre><p>上面代码中，<code>f1.trigger('done')</code>表示，执行完成后，立即触发<code>done</code>事件，从而开始执行<code>f2</code>。</p><p>这种方法的优点是比较容易理解，可以绑定多个事件，每个事件可以指定多个回调函数，而且可以“<a href="http://en.wikipedia.org/wiki/Decoupling" target="_blank" rel="noopener">去耦合</a>”（decoupling），有利于实现模块化。缺点是整个程序都要变成事件驱动型，运行流程会变得很不清晰。阅读代码的时候，很难看出主流程。</p><h3 id="发布订阅">发布/订阅 <a class="markdownIt-Anchor" href="#发布订阅">#</a></h3><p>事件完全可以理解成“信号”，如果存在一个“信号中心”，某个任务执行完成，就向信号中心“发布”（publish）一个信号，其他任务可以向信号中心“订阅”（subscribe）这个信号，从而知道什么时候自己可以开始执行。这就叫做”<a href="http://en.wikipedia.org/wiki/Publish-subscribe_pattern" target="_blank" rel="noopener">发布/订阅模式</a>”（publish-subscribe pattern），又称“<a href="http://en.wikipedia.org/wiki/Observer_pattern" target="_blank" rel="noopener">观察者模式</a>”（observer pattern）。</p><p>这个模式有多种<a href="http://msdn.microsoft.com/en-us/magazine/hh201955.aspx" target="_blank" rel="noopener">实现</a>，下面采用的是 Ben Alman 的 <a href="https://gist.github.com/661855" target="_blank" rel="noopener">Tiny Pub/Sub</a>，这是 jQuery 的一个插件。</p><p>首先，<code>f2</code>向信号中心<code>jQuery</code>订阅<code>done</code>信号。</p><pre class="hljs"><code>jQuery.subscribe(<span class="hljs-string">'done'</span>, f2);
+</code></pre><p>上面代码中，<code>f1.trigger('done')</code>表示，执行完成后，立即触发<code>done</code>事件，从而开始执行<code>f2</code>。</p><p>这种方法的优点是比较容易理解，可以绑定多个事件，每个事件可以指定多个回调函数，而且可以“<a href="http://en.wikipedia.org/wiki/Decoupling" target="_blank" rel="noopener">去耦合</a>”（decoupling），有利于实现模块化。缺点是整个程序都要变成事件驱动型，运行流程会变得很不清晰。阅读代码的时候，很难看出主流程。</p><h3 id="发布订阅">发布/订阅 <a class="markdownIt-Anchor" href="#发布订阅">#</a></h3><p>事件完全可以理解成“信号”，如果存在一个“信号中心”，某个任务执行完成，就向信号中心“发布”（publish）一个信号，其他任务可以向信号中心“订阅”（subscribe）这个信号，从而知道什么时候自己可以开始执行。这就叫做”<a href="http://en.wikipedia.org/wiki/Publish-subscribe_pattern" target="_blank" rel="noopener">发布/订阅模式</a>”（publish-subscribe pattern），又称“<a href="http://en.wikipedia.org/wiki/Observer_pattern" target="_blank" rel="noopener">观察者模式</a>”（observer pattern）。</p><p>这个模式有多种<a href="http://msdn.microsoft.com/en-us/magazine/hh201955.aspx" target="_blank" rel="noopener">实现</a>，下面采用的是 Ben Alman 的 <a href="https://gist.github.com/661855" target="_blank" rel="noopener">Tiny Pub/Sub</a>，这是 jQuery 的一个插件。</p><p>首先，<code>f2</code>向信号中心<code>jQuery</code>订阅<code>done</code>信号。</p><pre class="hljs"><code>jQuery.subscribe(<span class="hljs-string">&#x27;done&#x27;</span>, f2);
 </code></pre><p>然后，<code>f1</code>进行如下改写。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f1</span>(<span class="hljs-params"></span>) </span>{
-  setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
     <span class="hljs-comment">// ...</span>
-    jQuery.publish(<span class="hljs-string">'done'</span>);
+    jQuery.publish(<span class="hljs-string">&#x27;done&#x27;</span>);
   }, <span class="hljs-number">1000</span>);
 }
-</code></pre><p>上面代码中，<code>jQuery.publish('done')</code>的意思是，<code>f1</code>执行完成后，向信号中心<code>jQuery</code>发布<code>done</code>信号，从而引发<code>f2</code>的执行。</p><p><code>f2</code>完成执行后，可以取消订阅（unsubscribe）。</p><pre class="hljs"><code>jQuery.unsubscribe(<span class="hljs-string">'done'</span>, f2);
+</code></pre><p>上面代码中，<code>jQuery.publish('done')</code>的意思是，<code>f1</code>执行完成后，向信号中心<code>jQuery</code>发布<code>done</code>信号，从而引发<code>f2</code>的执行。</p><p><code>f2</code>完成执行后，可以取消订阅（unsubscribe）。</p><pre class="hljs"><code>jQuery.unsubscribe(<span class="hljs-string">&#x27;done&#x27;</span>, f2);
 </code></pre><p>这种方法的性质与“事件监听”类似，但是明显优于后者。因为可以通过查看“消息中心”，了解存在多少信号、每个信号有多少订阅者，从而监控程序的运行。</p><h2 id="异步操作的流程控制">异步操作的流程控制 <a class="markdownIt-Anchor" href="#异步操作的流程控制">#</a></h2><p>如果有多个异步操作，就存在一个流程控制的问题：如何确定异步操作执行的顺序，以及如何保证遵守这种顺序。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">async</span>(<span class="hljs-params">arg, callback</span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'参数为 '</span> + arg +<span class="hljs-string">' , 1秒后返回结果'</span>);
-  setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ callback(arg * <span class="hljs-number">2</span>); }, <span class="hljs-number">1000</span>);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;参数为 &#x27;</span> + arg +<span class="hljs-string">&#x27; , 1秒后返回结果&#x27;</span>);
+  <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ callback(arg * <span class="hljs-number">2</span>); }, <span class="hljs-number">1000</span>);
 }
 </code></pre><p>上面代码的<code>async</code>函数是一个异步任务，非常耗时，每次执行需要1秒才能完成，然后再调用回调函数。</p><p>如果有六个这样的异步任务，需要全部完成后，才能执行最后的<code>final</code>函数。请问应该如何安排操作流程？</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">final</span>(<span class="hljs-params">value</span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'完成: '</span>, value);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;完成: &#x27;</span>, value);
 }
 
 <span class="hljs-keyword">async</span>(<span class="hljs-number">1</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
@@ -63,12 +63,12 @@ f1(f2);
 <span class="hljs-keyword">var</span> results = [];
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">async</span>(<span class="hljs-params">arg, callback</span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'参数为 '</span> + arg +<span class="hljs-string">' , 1秒后返回结果'</span>);
-  setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ callback(arg * <span class="hljs-number">2</span>); }, <span class="hljs-number">1000</span>);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;参数为 &#x27;</span> + arg +<span class="hljs-string">&#x27; , 1秒后返回结果&#x27;</span>);
+  <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ callback(arg * <span class="hljs-number">2</span>); }, <span class="hljs-number">1000</span>);
 }
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">final</span>(<span class="hljs-params">value</span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'完成: '</span>, value);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;完成: &#x27;</span>, value);
 }
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">series</span>(<span class="hljs-params">item</span>) </span>{
@@ -87,12 +87,12 @@ series(items.shift());
 <span class="hljs-keyword">var</span> results = [];
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">async</span>(<span class="hljs-params">arg, callback</span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'参数为 '</span> + arg +<span class="hljs-string">' , 1秒后返回结果'</span>);
-  setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ callback(arg * <span class="hljs-number">2</span>); }, <span class="hljs-number">1000</span>);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;参数为 &#x27;</span> + arg +<span class="hljs-string">&#x27; , 1秒后返回结果&#x27;</span>);
+  <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ callback(arg * <span class="hljs-number">2</span>); }, <span class="hljs-number">1000</span>);
 }
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">final</span>(<span class="hljs-params">value</span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'完成: '</span>, value);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;完成: &#x27;</span>, value);
 }
 
 items.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">item</span>) </span>{
@@ -109,12 +109,12 @@ items.forEach(<span class="hljs-function"><span class="hljs-keyword">function</s
 <span class="hljs-keyword">var</span> limit = <span class="hljs-number">2</span>;
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">async</span>(<span class="hljs-params">arg, callback</span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'参数为 '</span> + arg +<span class="hljs-string">' , 1秒后返回结果'</span>);
-  setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ callback(arg * <span class="hljs-number">2</span>); }, <span class="hljs-number">1000</span>);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;参数为 &#x27;</span> + arg +<span class="hljs-string">&#x27; , 1秒后返回结果&#x27;</span>);
+  <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ callback(arg * <span class="hljs-number">2</span>); }, <span class="hljs-number">1000</span>);
 }
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">final</span>(<span class="hljs-params">value</span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'完成: '</span>, value);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;完成: &#x27;</span>, value);
 }
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">launcher</span>(<span class="hljs-params"></span>) </span>{

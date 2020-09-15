@@ -1,111 +1,111 @@
 <!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>同源限制 - JavaScript 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="../assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="../assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="同源限制"><link rel="apple-touch-icon" sizes="57x57" href="../assets/icons/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="../assets/icons/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="../assets/icons/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="../assets/icons/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="../assets/icons/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="../assets/icons/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="../assets/icons/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="../assets/icons/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="../assets/icons/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="../assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="../assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="../assets/icons/favicon-16x16.png"><link rel="manifest" href="../assets/icons/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="../assets/icons/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/javascript-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/javascript-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8"><nav class="breadcrumb is-size-5-desktop" aria-label="breadcrumbs"><ul><li><a href="../index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;JavaScript 教程</a></li><li><a href="../bom/index.html">浏览器模型</a></li><li class="is-active"><a class="has-text-grey" href="../bom/same-origin.html">同源限制</a></li></ul></nav><nav class="level level-previous-next is-size-5 is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="../bom/xmlhttprequest.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> XMLHttpRequest 对象</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="../bom/cors.html">CORS 通信 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content is-size-4-desktop"><h1 class="title">同源限制</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><p>浏览器安全的基石是“同源政策”（<a href="https://en.wikipedia.org/wiki/Same-origin_policy" target="_blank" rel="noopener">same-origin policy</a>）。很多开发者都知道这一点，但了解得不全面。</p><h2 id="概述">概述 <a class="markdownIt-Anchor" href="#概述">#</a></h2><h3 id="含义">含义 <a class="markdownIt-Anchor" href="#含义">#</a></h3><p>1995年，同源政策由 Netscape 公司引入浏览器。目前，所有浏览器都实行这个政策。</p><p>最初，它的含义是指，A 网页设置的 Cookie，B 网页不能打开，除非这两个网页“同源”。所谓“同源”指的是“三个相同”。</p><blockquote><ul><li>协议相同</li><li>域名相同</li><li>端口相同（这点可以忽略，详见下文）</li></ul></blockquote><p>举例来说，<code>http://www.example.com/dir/page.html</code>这个网址，协议是<code>http://</code>，域名是<code>www.example.com</code>，端口是<code>80</code>（默认端口可以省略），它的同源情况如下。</p><ul><li><code>http://www.example.com/dir2/other.html</code>：同源</li><li><code>http://example.com/dir/other.html</code>：不同源（域名不同）</li><li><code>http://v2.www.example.com/dir/other.html</code>：不同源（域名不同）</li><li><code>http://www.example.com:81/dir/other.html</code>：不同源（端口不同）</li><li><code>https://www.example.com/dir/page.html</code>：不同源（协议不同）</li></ul><p>注意，标准规定端口不同的网址不是同源（比如8000端口和8001端口不是同源），但是浏览器没有遵守这条规定。实际上，同一个网域的不同端口，是可以互相读取 Cookie 的。</p><h3 id="目的">目的 <a class="markdownIt-Anchor" href="#目的">#</a></h3><p>同源政策的目的，是为了保证用户信息的安全，防止恶意的网站窃取数据。</p><p>设想这样一种情况：A 网站是一家银行，用户登录以后，A 网站在用户的机器上设置了一个 Cookie，包含了一些隐私信息。用户离开 A 网站以后，又去访问 B 网站，如果没有同源限制，B 网站可以读取 A 网站的 Cookie，那么隐私就泄漏了。更可怕的是，Cookie 往往用来保存用户的登录状态，如果用户没有退出登录，其他网站就可以冒充用户，为所欲为。因为浏览器同时还规定，提交表单不受同源政策的限制。</p><p>由此可见，同源政策是必需的，否则 Cookie 可以共享，互联网就毫无安全可言了。</p><h3 id="限制范围">限制范围 <a class="markdownIt-Anchor" href="#限制范围">#</a></h3><p>随着互联网的发展，同源政策越来越严格。目前，如果非同源，共有三种行为受到限制。</p><blockquote><p>（1） 无法读取非同源网页的 Cookie、LocalStorage 和 IndexedDB。</p><p>（2） 无法接触非同源网页的 DOM。</p><p>（3） 无法向非同源地址发送 AJAX 请求（可以发送，但浏览器会拒绝接受响应）。</p></blockquote><p>另外，通过 JavaScript 脚本可以拿到其他窗口的<code>window</code>对象。如果是非同源的网页，目前允许一个窗口可以接触其他网页的<code>window</code>对象的九个属性和四个方法。</p><ul><li>window.closed</li><li>window.frames</li><li>window.length</li><li>window.location</li><li>window.opener</li><li>window.parent</li><li>window.self</li><li>window.top</li><li>window.window</li><li>window.blur()</li><li>window.close()</li><li>window.focus()</li><li>window.postMessage()</li></ul><p>上面的九个属性之中，只有<code>window.location</code>是可读写的，其他八个全部都是只读。而且，即使是<code>location</code>对象，非同源的情况下，也只允许调用<code>location.replace()</code>方法和写入<code>location.href</code>属性。</p><p>虽然这些限制是必要的，但是有时很不方便，合理的用途也受到影响。下面介绍如何规避上面的限制。</p><h2 id="cookie">Cookie <a class="markdownIt-Anchor" href="#cookie">#</a></h2><p>Cookie 是服务器写入浏览器的一小段信息，只有同源的网页才能共享。如果两个网页一级域名相同，只是次级域名不同，浏览器允许通过设置<code>document.domain</code>共享 Cookie。</p><p>举例来说，A 网页的网址是<code>http://w1.example.com/a.html</code>，B 网页的网址是<code>http://w2.example.com/b.html</code>，那么只要设置相同的<code>document.domain</code>，两个网页就可以共享 Cookie。因为浏览器通过<code>document.domain</code>属性来检查是否同源。</p><pre class="hljs"><code><span class="hljs-comment">// 两个网页都需要设置</span>
-<span class="hljs-built_in">document</span>.domain = <span class="hljs-string">'example.com'</span>;
-</code></pre><p>注意，A 和 B 两个网页都需要设置<code>document.domain</code>属性，才能达到同源的目的。因为设置<code>document.domain</code>的同时，会把端口重置为<code>null</code>，因此如果只设置一个网页的<code>document.domain</code>，会导致两个网址的端口不同，还是达不到同源的目的。</p><p>现在，A 网页通过脚本设置一个 Cookie。</p><pre class="hljs"><code><span class="hljs-built_in">document</span>.cookie = <span class="hljs-string">"test1=hello"</span>;
+<span class="hljs-built_in">document</span>.domain = <span class="hljs-string">&#x27;example.com&#x27;</span>;
+</code></pre><p>注意，A 和 B 两个网页都需要设置<code>document.domain</code>属性，才能达到同源的目的。因为设置<code>document.domain</code>的同时，会把端口重置为<code>null</code>，因此如果只设置一个网页的<code>document.domain</code>，会导致两个网址的端口不同，还是达不到同源的目的。</p><p>现在，A 网页通过脚本设置一个 Cookie。</p><pre class="hljs"><code><span class="hljs-built_in">document</span>.cookie = <span class="hljs-string">&quot;test1=hello&quot;</span>;
 </code></pre><p>B 网页就可以读到这个 Cookie。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> allCookie = <span class="hljs-built_in">document</span>.cookie;
 </code></pre><p>注意，这种方法只适用于 Cookie 和 iframe 窗口，LocalStorage 和 IndexedDB 无法通过这种方法，规避同源政策，而要使用下文介绍 PostMessage API。</p><p>另外，服务器也可以在设置 Cookie 的时候，指定 Cookie 的所属域名为一级域名，比如<code>.example.com</code>。</p><pre class="hljs"><code><span class="hljs-attribute">Set-Cookie</span>: key=value; domain=.example.com; path=/
 </code></pre><p>这样的话，二级域名和三级域名不用做任何设置，都可以读取这个 Cookie。</p><h2 id="iframe-和多窗口通信">iframe 和多窗口通信 <a class="markdownIt-Anchor" href="#iframe-和多窗口通信">#</a></h2><p><code>iframe</code>元素可以在当前网页之中，嵌入其他网页。每个<code>iframe</code>元素形成自己的窗口，即有自己的<code>window</code>对象。<code>iframe</code>窗口之中的脚本，可以获得父窗口和子窗口。但是，只有在同源的情况下，父窗口和子窗口才能通信；如果跨域，就无法拿到对方的 DOM。</p><p>比如，父窗口运行下面的命令，如果<code>iframe</code>窗口不是同源，就会报错。</p><pre class="hljs"><code><span class="hljs-built_in">document</span>
-.getElementById(<span class="hljs-string">"myIFrame"</span>)
+.getElementById(<span class="hljs-string">&quot;myIFrame&quot;</span>)
 .contentWindow
 .document
 <span class="hljs-comment">// Uncaught DOMException: Blocked a frame from accessing a cross-origin frame.</span>
 </code></pre><p>上面命令中，父窗口想获取子窗口的 DOM，因为跨域导致报错。</p><p>反之亦然，子窗口获取主窗口的 DOM 也会报错。</p><pre class="hljs"><code><span class="hljs-built_in">window</span>.parent.document.body
 <span class="hljs-comment">// 报错</span>
-</code></pre><p>这种情况不仅适用于<code>iframe</code>窗口，还适用于<code>window.open</code>方法打开的窗口，只要跨域，父窗口与子窗口之间就无法通信。</p><p>如果两个窗口一级域名相同，只是二级域名不同，那么设置上一节介绍的<code>document.domain</code>属性，就可以规避同源政策，拿到 DOM。</p><p>对于完全不同源的网站，目前有两种方法，可以解决跨域窗口的通信问题。</p><blockquote><ul><li>片段识别符（fragment identifier）</li><li>跨文档通信API（Cross-document messaging）</li></ul></blockquote><h3 id="片段识别符">片段识别符 <a class="markdownIt-Anchor" href="#片段识别符">#</a></h3><p>片段标识符（fragment identifier）指的是，URL 的<code>#</code>号后面的部分，比如<code>http://example.com/x.html#fragment</code>的<code>#fragment</code>。如果只是改变片段标识符，页面不会重新刷新。</p><p>父窗口可以把信息，写入子窗口的片段标识符。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> src = originURL + <span class="hljs-string">'#'</span> + data;
-<span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'myIFrame'</span>).src = src;
+</code></pre><p>这种情况不仅适用于<code>iframe</code>窗口，还适用于<code>window.open</code>方法打开的窗口，只要跨域，父窗口与子窗口之间就无法通信。</p><p>如果两个窗口一级域名相同，只是二级域名不同，那么设置上一节介绍的<code>document.domain</code>属性，就可以规避同源政策，拿到 DOM。</p><p>对于完全不同源的网站，目前有两种方法，可以解决跨域窗口的通信问题。</p><blockquote><ul><li>片段识别符（fragment identifier）</li><li>跨文档通信API（Cross-document messaging）</li></ul></blockquote><h3 id="片段识别符">片段识别符 <a class="markdownIt-Anchor" href="#片段识别符">#</a></h3><p>片段标识符（fragment identifier）指的是，URL 的<code>#</code>号后面的部分，比如<code>http://example.com/x.html#fragment</code>的<code>#fragment</code>。如果只是改变片段标识符，页面不会重新刷新。</p><p>父窗口可以把信息，写入子窗口的片段标识符。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> src = originURL + <span class="hljs-string">&#x27;#&#x27;</span> + data;
+<span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;myIFrame&#x27;</span>).src = src;
 </code></pre><p>上面代码中，父窗口把所要传递的信息，写入 iframe 窗口的片段标识符。</p><p>子窗口通过监听<code>hashchange</code>事件得到通知。</p><pre class="hljs"><code><span class="hljs-built_in">window</span>.onhashchange = checkMessage;
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">checkMessage</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">var</span> message = <span class="hljs-built_in">window</span>.location.hash;
   <span class="hljs-comment">// ...</span>
 }
-</code></pre><p>同样的，子窗口也可以改变父窗口的片段标识符。</p><pre class="hljs"><code>parent.location.href = target + <span class="hljs-string">'#'</span> + hash;
+</code></pre><p>同样的，子窗口也可以改变父窗口的片段标识符。</p><pre class="hljs"><code>parent.location.href = target + <span class="hljs-string">&#x27;#&#x27;</span> + hash;
 </code></pre><h3 id="windowpostmessage">window.postMessage() <a class="markdownIt-Anchor" href="#windowpostmessage">#</a></h3><p>上面的这种方法属于破解，HTML5 为了解决这个问题，引入了一个全新的API：跨文档通信 API（Cross-document messaging）。</p><p>这个 API 为<code>window</code>对象新增了一个<code>window.postMessage</code>方法，允许跨窗口通信，不论这两个窗口是否同源。举例来说，父窗口<code>aaa.com</code>向子窗口<code>bbb.com</code>发消息，调用<code>postMessage</code>方法就可以了。</p><pre class="hljs"><code><span class="hljs-comment">// 父窗口打开一个子窗口</span>
-<span class="hljs-keyword">var</span> popup = <span class="hljs-built_in">window</span>.open(<span class="hljs-string">'http://bbb.com'</span>, <span class="hljs-string">'title'</span>);
+<span class="hljs-keyword">var</span> popup = <span class="hljs-built_in">window</span>.open(<span class="hljs-string">&#x27;http://bbb.com&#x27;</span>, <span class="hljs-string">&#x27;title&#x27;</span>);
 <span class="hljs-comment">// 父窗口向子窗口发消息</span>
-popup.postMessage(<span class="hljs-string">'Hello World!'</span>, <span class="hljs-string">'http://bbb.com'</span>);
+popup.postMessage(<span class="hljs-string">&#x27;Hello World!&#x27;</span>, <span class="hljs-string">&#x27;http://bbb.com&#x27;</span>);
 </code></pre><p><code>postMessage</code>方法的第一个参数是具体的信息内容，第二个参数是接收消息的窗口的源（origin），即“协议 + 域名 + 端口”。也可以设为<code>*</code>，表示不限制域名，向所有窗口发送。</p><p>子窗口向父窗口发送消息的写法类似。</p><pre class="hljs"><code><span class="hljs-comment">// 子窗口向父窗口发消息</span>
-<span class="hljs-built_in">window</span>.opener.postMessage(<span class="hljs-string">'Nice to see you'</span>, <span class="hljs-string">'http://aaa.com'</span>);
+<span class="hljs-built_in">window</span>.opener.postMessage(<span class="hljs-string">&#x27;Nice to see you&#x27;</span>, <span class="hljs-string">&#x27;http://aaa.com&#x27;</span>);
 </code></pre><p>父窗口和子窗口都可以通过<code>message</code>事件，监听对方的消息。</p><pre class="hljs"><code><span class="hljs-comment">// 父窗口和子窗口都可以用下面的代码，</span>
 <span class="hljs-comment">// 监听 message 消息</span>
-<span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'message'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>{
+<span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">&#x27;message&#x27;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>{
   <span class="hljs-built_in">console</span>.log(e.data);
 },<span class="hljs-literal">false</span>);
-</code></pre><p><code>message</code>事件的参数是事件对象<code>event</code>，提供以下三个属性。</p><blockquote><ul><li><code>event.source</code>：发送消息的窗口</li><li><code>event.origin</code>: 消息发向的网址</li><li><code>event.data</code>: 消息内容</li></ul></blockquote><p>下面的例子是，子窗口通过<code>event.source</code>属性引用父窗口，然后发送消息。</p><pre class="hljs"><code><span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'message'</span>, receiveMessage);
+</code></pre><p><code>message</code>事件的参数是事件对象<code>event</code>，提供以下三个属性。</p><blockquote><ul><li><code>event.source</code>：发送消息的窗口</li><li><code>event.origin</code>: 消息发向的网址</li><li><code>event.data</code>: 消息内容</li></ul></blockquote><p>下面的例子是，子窗口通过<code>event.source</code>属性引用父窗口，然后发送消息。</p><pre class="hljs"><code><span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">&#x27;message&#x27;</span>, receiveMessage);
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">receiveMessage</span>(<span class="hljs-params">event</span>) </span>{
-  event.source.postMessage(<span class="hljs-string">'Nice to see you!'</span>, <span class="hljs-string">'*'</span>);
+  event.source.postMessage(<span class="hljs-string">&#x27;Nice to see you!&#x27;</span>, <span class="hljs-string">&#x27;*&#x27;</span>);
 }
-</code></pre><p>上面代码有几个地方需要注意。首先，<code>receiveMessage</code>函数里面没有过滤信息的来源，任意网址发来的信息都会被处理。其次，<code>postMessage</code>方法中指定的目标窗口的网址是一个星号，表示该信息可以向任意网址发送。通常来说，这两种做法是不推荐的，因为不够安全，可能会被恶意利用。</p><p><code>event.origin</code>属性可以过滤不是发给本窗口的消息。</p><pre class="hljs"><code><span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'message'</span>, receiveMessage);
+</code></pre><p>上面代码有几个地方需要注意。首先，<code>receiveMessage</code>函数里面没有过滤信息的来源，任意网址发来的信息都会被处理。其次，<code>postMessage</code>方法中指定的目标窗口的网址是一个星号，表示该信息可以向任意网址发送。通常来说，这两种做法是不推荐的，因为不够安全，可能会被恶意利用。</p><p><code>event.origin</code>属性可以过滤不是发给本窗口的消息。</p><pre class="hljs"><code><span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">&#x27;message&#x27;</span>, receiveMessage);
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">receiveMessage</span>(<span class="hljs-params">event</span>) </span>{
-  <span class="hljs-keyword">if</span> (event.origin !== <span class="hljs-string">'http://aaa.com'</span>) <span class="hljs-keyword">return</span>;
-  <span class="hljs-keyword">if</span> (event.data === <span class="hljs-string">'Hello World'</span>) {
-    event.source.postMessage(<span class="hljs-string">'Hello'</span>, event.origin);
+  <span class="hljs-keyword">if</span> (event.origin !== <span class="hljs-string">&#x27;http://aaa.com&#x27;</span>) <span class="hljs-keyword">return</span>;
+  <span class="hljs-keyword">if</span> (event.data === <span class="hljs-string">&#x27;Hello World&#x27;</span>) {
+    event.source.postMessage(<span class="hljs-string">&#x27;Hello&#x27;</span>, event.origin);
   } <span class="hljs-keyword">else</span> {
     <span class="hljs-built_in">console</span>.log(event.data);
   }
 }
 </code></pre><h3 id="localstorage">LocalStorage <a class="markdownIt-Anchor" href="#localstorage">#</a></h3><p>通过<code>window.postMessage</code>，读写其他窗口的 LocalStorage 也成为了可能。</p><p>下面是一个例子，主窗口写入 iframe 子窗口的<code>localStorage</code>。</p><pre class="hljs"><code><span class="hljs-built_in">window</span>.onmessage = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
-  <span class="hljs-keyword">if</span> (e.origin !== <span class="hljs-string">'http://bbb.com'</span>) {
+  <span class="hljs-keyword">if</span> (e.origin !== <span class="hljs-string">&#x27;http://bbb.com&#x27;</span>) {
     <span class="hljs-keyword">return</span>;
   }
   <span class="hljs-keyword">var</span> payload = <span class="hljs-built_in">JSON</span>.parse(e.data);
-  localStorage.setItem(payload.key, <span class="hljs-built_in">JSON</span>.stringify(payload.data));
+  <span class="hljs-built_in">localStorage</span>.setItem(payload.key, <span class="hljs-built_in">JSON</span>.stringify(payload.data));
 };
-</code></pre><p>上面代码中，子窗口将父窗口发来的消息，写入自己的 LocalStorage。</p><p>父窗口发送消息的代码如下。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> win = <span class="hljs-built_in">document</span>.getElementsByTagName(<span class="hljs-string">'iframe'</span>)[<span class="hljs-number">0</span>].contentWindow;
-<span class="hljs-keyword">var</span> obj = { <span class="hljs-attr">name</span>: <span class="hljs-string">'Jack'</span> };
+</code></pre><p>上面代码中，子窗口将父窗口发来的消息，写入自己的 LocalStorage。</p><p>父窗口发送消息的代码如下。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> win = <span class="hljs-built_in">document</span>.getElementsByTagName(<span class="hljs-string">&#x27;iframe&#x27;</span>)[<span class="hljs-number">0</span>].contentWindow;
+<span class="hljs-keyword">var</span> obj = { <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Jack&#x27;</span> };
 win.postMessage(
-  <span class="hljs-built_in">JSON</span>.stringify({<span class="hljs-attr">key</span>: <span class="hljs-string">'storage'</span>, <span class="hljs-attr">data</span>: obj}),
-  <span class="hljs-string">'http://bbb.com'</span>
+  <span class="hljs-built_in">JSON</span>.stringify({<span class="hljs-attr">key</span>: <span class="hljs-string">&#x27;storage&#x27;</span>, <span class="hljs-attr">data</span>: obj}),
+  <span class="hljs-string">&#x27;http://bbb.com&#x27;</span>
 );
 </code></pre><p>加强版的子窗口接收消息的代码如下。</p><pre class="hljs"><code><span class="hljs-built_in">window</span>.onmessage = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
-  <span class="hljs-keyword">if</span> (e.origin !== <span class="hljs-string">'http://bbb.com'</span>) <span class="hljs-keyword">return</span>;
+  <span class="hljs-keyword">if</span> (e.origin !== <span class="hljs-string">&#x27;http://bbb.com&#x27;</span>) <span class="hljs-keyword">return</span>;
   <span class="hljs-keyword">var</span> payload = <span class="hljs-built_in">JSON</span>.parse(e.data);
   <span class="hljs-keyword">switch</span> (payload.method) {
-    <span class="hljs-keyword">case</span> <span class="hljs-string">'set'</span>:
-      localStorage.setItem(payload.key, <span class="hljs-built_in">JSON</span>.stringify(payload.data));
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;set&#x27;</span>:
+      <span class="hljs-built_in">localStorage</span>.setItem(payload.key, <span class="hljs-built_in">JSON</span>.stringify(payload.data));
       <span class="hljs-keyword">break</span>;
-    <span class="hljs-keyword">case</span> <span class="hljs-string">'get'</span>:
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;get&#x27;</span>:
       <span class="hljs-keyword">var</span> parent = <span class="hljs-built_in">window</span>.parent;
-      <span class="hljs-keyword">var</span> data = localStorage.getItem(payload.key);
-      parent.postMessage(data, <span class="hljs-string">'http://aaa.com'</span>);
+      <span class="hljs-keyword">var</span> data = <span class="hljs-built_in">localStorage</span>.getItem(payload.key);
+      parent.postMessage(data, <span class="hljs-string">&#x27;http://aaa.com&#x27;</span>);
       <span class="hljs-keyword">break</span>;
-    <span class="hljs-keyword">case</span> <span class="hljs-string">'remove'</span>:
-      localStorage.removeItem(payload.key);
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;remove&#x27;</span>:
+      <span class="hljs-built_in">localStorage</span>.removeItem(payload.key);
       <span class="hljs-keyword">break</span>;
   }
 };
-</code></pre><p>加强版的父窗口发送消息代码如下。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> win = <span class="hljs-built_in">document</span>.getElementsByTagName(<span class="hljs-string">'iframe'</span>)[<span class="hljs-number">0</span>].contentWindow;
-<span class="hljs-keyword">var</span> obj = { <span class="hljs-attr">name</span>: <span class="hljs-string">'Jack'</span> };
+</code></pre><p>加强版的父窗口发送消息代码如下。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> win = <span class="hljs-built_in">document</span>.getElementsByTagName(<span class="hljs-string">&#x27;iframe&#x27;</span>)[<span class="hljs-number">0</span>].contentWindow;
+<span class="hljs-keyword">var</span> obj = { <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Jack&#x27;</span> };
 <span class="hljs-comment">// 存入对象</span>
 win.postMessage(
-  <span class="hljs-built_in">JSON</span>.stringify({<span class="hljs-attr">key</span>: <span class="hljs-string">'storage'</span>, <span class="hljs-attr">method</span>: <span class="hljs-string">'set'</span>, <span class="hljs-attr">data</span>: obj}),
-  <span class="hljs-string">'http://bbb.com'</span>
+  <span class="hljs-built_in">JSON</span>.stringify({<span class="hljs-attr">key</span>: <span class="hljs-string">&#x27;storage&#x27;</span>, <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;set&#x27;</span>, <span class="hljs-attr">data</span>: obj}),
+  <span class="hljs-string">&#x27;http://bbb.com&#x27;</span>
 );
 <span class="hljs-comment">// 读取对象</span>
 win.postMessage(
-  <span class="hljs-built_in">JSON</span>.stringify({<span class="hljs-attr">key</span>: <span class="hljs-string">'storage'</span>, <span class="hljs-attr">method</span>: <span class="hljs-string">"get"</span>}),
-  <span class="hljs-string">"*"</span>
+  <span class="hljs-built_in">JSON</span>.stringify({<span class="hljs-attr">key</span>: <span class="hljs-string">&#x27;storage&#x27;</span>, <span class="hljs-attr">method</span>: <span class="hljs-string">&quot;get&quot;</span>}),
+  <span class="hljs-string">&quot;*&quot;</span>
 );
 <span class="hljs-built_in">window</span>.onmessage = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
-  <span class="hljs-keyword">if</span> (e.origin != <span class="hljs-string">'http://aaa.com'</span>) <span class="hljs-keyword">return</span>;
+  <span class="hljs-keyword">if</span> (e.origin != <span class="hljs-string">&#x27;http://aaa.com&#x27;</span>) <span class="hljs-keyword">return</span>;
   <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">JSON</span>.parse(e.data).name);
 };
-</code></pre><h2 id="ajax">AJAX <a class="markdownIt-Anchor" href="#ajax">#</a></h2><p>同源政策规定，AJAX 请求只能发给同源的网址，否则就报错。</p><p>除了架设服务器代理（浏览器请求同源服务器，再由后者请求外部服务），有三种方法规避这个限制。</p><blockquote><ul><li>JSONP</li><li>WebSocket</li><li>CORS</li></ul></blockquote><h3 id="jsonp">JSONP <a class="markdownIt-Anchor" href="#jsonp">#</a></h3><p>JSONP 是服务器与客户端跨源通信的常用方法。最大特点就是简单易用，没有兼容性问题，老式浏览器全部支持，服务端改造非常小。</p><p>它的做法如下。</p><p>第一步，网页添加一个<code>&lt;script&gt;</code>元素，向服务器请求一个脚本，这不受同源政策限制，可以跨域请求。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"http://api.foo.com?callback=bar"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre><h2 id="ajax">AJAX <a class="markdownIt-Anchor" href="#ajax">#</a></h2><p>同源政策规定，AJAX 请求只能发给同源的网址，否则就报错。</p><p>除了架设服务器代理（浏览器请求同源服务器，再由后者请求外部服务），有三种方法规避这个限制。</p><blockquote><ul><li>JSONP</li><li>WebSocket</li><li>CORS</li></ul></blockquote><h3 id="jsonp">JSONP <a class="markdownIt-Anchor" href="#jsonp">#</a></h3><p>JSONP 是服务器与客户端跨源通信的常用方法。最大特点就是简单易用，没有兼容性问题，老式浏览器全部支持，服务端改造非常小。</p><p>它的做法如下。</p><p>第一步，网页添加一个<code>&lt;script&gt;</code>元素，向服务器请求一个脚本，这不受同源政策限制，可以跨域请求。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;http://api.foo.com?callback=bar&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 </code></pre><p>注意，请求的脚本网址有一个<code>callback</code>参数（<code>?callback=bar</code>），用来告诉服务器，客户端的回调函数名称（<code>bar</code>）。</p><p>第二步，服务器收到请求后，拼接一个字符串，将 JSON 数据放在函数名里面，作为字符串返回（<code>bar({...})</code>）。</p><p>第三步，客户端会将服务器返回的字符串，作为代码解析，因为浏览器认为，这是<code>&lt;script&gt;</code>标签请求的脚本内容。这时，客户端只要定义了<code>bar()</code>函数，就能在该函数体内，拿到服务器返回的 JSON 数据。</p><p>下面看一个实例。首先，网页动态插入<code>&lt;script&gt;</code>元素，由它向跨域网址发出请求。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addScriptTag</span>(<span class="hljs-params">src</span>) </span>{
-  <span class="hljs-keyword">var</span> script = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'script'</span>);
-  script.setAttribute(<span class="hljs-string">'type'</span>, <span class="hljs-string">'text/javascript'</span>);
+  <span class="hljs-keyword">var</span> script = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&#x27;script&#x27;</span>);
+  script.setAttribute(<span class="hljs-string">&#x27;type&#x27;</span>, <span class="hljs-string">&#x27;text/javascript&#x27;</span>);
   script.src = src;
   <span class="hljs-built_in">document</span>.body.appendChild(script);
 }
 
 <span class="hljs-built_in">window</span>.onload = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  addScriptTag(<span class="hljs-string">'http://example.com/ip?callback=foo'</span>);
+  addScriptTag(<span class="hljs-string">&#x27;http://example.com/ip?callback=foo&#x27;</span>);
 }
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params">data</span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Your public IP address is: '</span> + data.ip);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Your public IP address is: &#x27;</span> + data.ip);
 };
 </code></pre><p>上面代码通过动态添加<code>&lt;script&gt;</code>元素，向服务器<code>example.com</code>发出请求。注意，该请求的查询字符串有一个<code>callback</code>参数，用来指定回调函数的名字，这对于 JSONP 是必需的。</p><p>服务器收到这个请求以后，会将数据放在回调函数的参数位置返回。</p><pre class="hljs"><code>foo({
-  <span class="hljs-string">'ip'</span>: <span class="hljs-string">'8.8.8.8'</span>
+  <span class="hljs-string">&#x27;ip&#x27;</span>: <span class="hljs-string">&#x27;8.8.8.8&#x27;</span>
 });
 </code></pre><p>由于<code>&lt;script&gt;</code>元素请求的脚本，直接作为代码运行。这时，只要浏览器定义了<code>foo</code>函数，该函数就会立即调用。作为参数的 JSON 数据被视为 JavaScript 对象，而不是字符串，因此避免了使用<code>JSON.parse</code>的步骤。</p><h3 id="websocket">WebSocket <a class="markdownIt-Anchor" href="#websocket">#</a></h3><p>WebSocket 是一种通信协议，使用<code>ws://</code>（非加密）和<code>wss://</code>（加密）作为协议前缀。该协议不实行同源政策，只要服务器支持，就可以通过它进行跨源通信。</p><p>下面是一个例子，浏览器发出的 WebSocket 请求的头信息（摘自<a href="https://en.wikipedia.org/wiki/WebSocket" target="_blank" rel="noopener">维基百科</a>）。</p><pre class="hljs"><code><span class="hljs-keyword">GET</span> <span class="hljs-string">/chat</span> HTTP/1.1
 <span class="hljs-attribute">Host</span>: server.example.com

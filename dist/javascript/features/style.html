@@ -30,7 +30,7 @@
   <span class="hljs-attr">key</span> : value
 };
 </code></pre><p>因此，表示区块起首的大括号，不要另起一行。</p><h2 id="圆括号">圆括号 <a class="markdownIt-Anchor" href="#圆括号">#</a></h2><p>圆括号（parentheses）在 JavaScript 中有两种作用，一种表示函数的调用，另一种表示表达式的组合（grouping）。</p><pre class="hljs"><code><span class="hljs-comment">// 圆括号表示函数的调用</span>
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'abc'</span>);
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;abc&#x27;</span>);
 
 <span class="hljs-comment">// 圆括号表示表达式的组合</span>
 (<span class="hljs-number">1</span> + <span class="hljs-number">2</span>) * <span class="hljs-number">3</span>
@@ -69,8 +69,8 @@ a
 =
 <span class="hljs-number">3</span>
 
-<span class="hljs-comment">// 等同于 'abc'.length</span>
-<span class="hljs-string">'abc'</span>
+<span class="hljs-comment">// 等同于 &#x27;abc&#x27;.length</span>
+<span class="hljs-string">&#x27;abc&#x27;</span>
 .length
 
 <span class="hljs-comment">// 等同于 return a + b;</span>
@@ -101,10 +101,10 @@ x = y(<span class="hljs-function"><span class="hljs-keyword">function</span> (<s
 a = b
 /hi/g.exec(c).map(d);
 
-<span class="hljs-comment">// 解释为'b'['red', 'green']，</span>
+<span class="hljs-comment">// 解释为&#x27;b&#x27;[&#x27;red&#x27;, &#x27;green&#x27;]，</span>
 <span class="hljs-comment">// 即把字符串当作一个数组，按索引取值</span>
-<span class="hljs-keyword">var</span> a = <span class="hljs-string">'b'</span>
-[<span class="hljs-string">'red'</span>, <span class="hljs-string">'green'</span>].forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">c</span>) </span>{
+<span class="hljs-keyword">var</span> a = <span class="hljs-string">&#x27;b&#x27;</span>
+[<span class="hljs-string">&#x27;red&#x27;</span>, <span class="hljs-string">&#x27;green&#x27;</span>].forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">c</span>) </span>{
   <span class="hljs-built_in">console</span>.log(c);
 })
 
@@ -135,11 +135,11 @@ a;
 ++b;
 --c;
 </code></pre><p>如果<code>continue</code>、<code>break</code>、<code>return</code>和<code>throw</code>这四个语句后面，直接跟换行符，则会自动添加分号。这意味着，如果<code>return</code>语句返回的是一个对象的字面量，起首的大括号一定要写在同一行，否则得不到预期结果。</p><pre class="hljs"><code><span class="hljs-keyword">return</span>
-{ <span class="hljs-attr">first</span>: <span class="hljs-string">'Jane'</span> };
+{ <span class="hljs-attr">first</span>: <span class="hljs-string">&#x27;Jane&#x27;</span> };
 
 <span class="hljs-comment">// 解释成</span>
 <span class="hljs-keyword">return</span>;
-{ <span class="hljs-attr">first</span>: <span class="hljs-string">'Jane'</span> };
+{ <span class="hljs-attr">first</span>: <span class="hljs-string">&#x27;Jane&#x27;</span> };
 </code></pre><p>由于解释引擎自动添加分号的行为难以预测，因此编写代码的时候不应该省略行尾的分号。</p><p>不应该省略结尾的分号，还有一个原因。有些 JavaScript 代码压缩器（uglifier）不会自动添加分号，因此遇到没有分号的结尾，就会让代码保持原状，而不是压缩成一行，使得压缩无法得到最优的结果。</p><p>另外，不写结尾的分号，可能会导致脚本合并出错。所以，有的代码库在第一行语句开始前，会加上一个分号。</p><pre class="hljs"><code>;<span class="hljs-keyword">var</span> a = <span class="hljs-number">1</span>;
 <span class="hljs-comment">// ...</span>
 </code></pre><p>上面这种写法就可以避免与其他脚本合并时，排在前面的脚本最后一行语句没有分号，导致运行出错的问题。</p><h2 id="全局变量">全局变量 <a class="markdownIt-Anchor" href="#全局变量">#</a></h2><p>JavaScript 最大的语法缺点，可能就是全局变量对于任何一个代码块，都是可读可写。这对代码的模块化和重复使用，非常不利。</p><p>因此，建议避免使用全局变量。如果不得不使用，可以考虑用大写字母表示变量名，这样更容易看出这是全局变量，比如<code>UPPER_CASE</code>。</p><h2 id="变量声明">变量声明 <a class="markdownIt-Anchor" href="#变量声明">#</a></h2><p>JavaScript 会自动将变量声明“提升”（hoist）到代码块（block）的头部。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> (!x) {
@@ -167,13 +167,13 @@ a;
 o.foo = o.bar;
 foo = bar;
 foo = o.bar;
-</code></pre><p>这四种结果都可能发生，取决于不同的变量是否有定义。因此，不要使用<code>with</code>语句。</p><h2 id="相等和严格相等">相等和严格相等 <a class="markdownIt-Anchor" href="#相等和严格相等">#</a></h2><p>JavaScript 有两个表示相等的运算符：“相等”（<code>==</code>）和“严格相等”（<code>===</code>）。</p><p>相等运算符会自动转换变量类型，造成很多意想不到的情况。</p><pre class="hljs"><code><span class="hljs-number">0</span> == <span class="hljs-string">''</span><span class="hljs-comment">// true</span>
+</code></pre><p>这四种结果都可能发生，取决于不同的变量是否有定义。因此，不要使用<code>with</code>语句。</p><h2 id="相等和严格相等">相等和严格相等 <a class="markdownIt-Anchor" href="#相等和严格相等">#</a></h2><p>JavaScript 有两个表示相等的运算符：“相等”（<code>==</code>）和“严格相等”（<code>===</code>）。</p><p>相等运算符会自动转换变量类型，造成很多意想不到的情况。</p><pre class="hljs"><code><span class="hljs-number">0</span> == <span class="hljs-string">&#x27;&#x27;</span><span class="hljs-comment">// true</span>
 <span class="hljs-number">1</span> == <span class="hljs-literal">true</span> <span class="hljs-comment">// true</span>
 <span class="hljs-number">2</span> == <span class="hljs-literal">true</span> <span class="hljs-comment">// false</span>
-<span class="hljs-number">0</span> == <span class="hljs-string">'0'</span> <span class="hljs-comment">// true</span>
-<span class="hljs-literal">false</span> == <span class="hljs-string">'false'</span> <span class="hljs-comment">// false</span>
-<span class="hljs-literal">false</span> == <span class="hljs-string">'0'</span> <span class="hljs-comment">// true</span>
-<span class="hljs-string">' \t\r\n '</span> == <span class="hljs-number">0</span> <span class="hljs-comment">// true</span>
+<span class="hljs-number">0</span> == <span class="hljs-string">&#x27;0&#x27;</span> <span class="hljs-comment">// true</span>
+<span class="hljs-literal">false</span> == <span class="hljs-string">&#x27;false&#x27;</span> <span class="hljs-comment">// false</span>
+<span class="hljs-literal">false</span> == <span class="hljs-string">&#x27;0&#x27;</span> <span class="hljs-comment">// true</span>
+<span class="hljs-string">&#x27; \t\r\n &#x27;</span> == <span class="hljs-number">0</span> <span class="hljs-comment">// true</span>
 </code></pre><p>因此，建议不要使用相等运算符（<code>==</code>），只使用严格相等运算符（<code>===</code>）。</p><h2 id="语句的合并">语句的合并 <a class="markdownIt-Anchor" href="#语句的合并">#</a></h2><p>有些程序员追求简洁，喜欢合并不同目的的语句。比如，原来的语句是</p><pre class="hljs"><code>a = b;
 <span class="hljs-keyword">if</span> (a) {
   <span class="hljs-comment">// ...</span>
@@ -189,31 +189,31 @@ foo = o.bar;
 x += <span class="hljs-number">1</span>;
 </code></pre><p>改用<code>+= 1</code>，代码变得更清晰了。</p><p>建议自增（<code>++</code>）和自减（<code>--</code>）运算符尽量使用<code>+=</code>和<code>-=</code>代替。</p><h2 id="switchcase-结构">switch...case 结构 <a class="markdownIt-Anchor" href="#switchcase-结构">#</a></h2><p><code>switch...case</code>结构要求，在每一个<code>case</code>的最后一行必须是<code>break</code>语句，否则会接着运行下一个<code>case</code>。这样不仅容易忘记，还会造成代码的冗长。</p><p>而且，<code>switch...case</code>不使用大括号，不利于代码形式的统一。此外，这种结构类似于<code>goto</code>语句，容易造成程序流程的混乱，使得代码结构混乱不堪，不符合面向对象编程的原则。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">doAction</span>(<span class="hljs-params">action</span>) </span>{
   <span class="hljs-keyword">switch</span> (action) {
-    <span class="hljs-keyword">case</span> <span class="hljs-string">'hack'</span>:
-      <span class="hljs-keyword">return</span> <span class="hljs-string">'hack'</span>;
-    <span class="hljs-keyword">case</span> <span class="hljs-string">'slash'</span>:
-      <span class="hljs-keyword">return</span> <span class="hljs-string">'slash'</span>;
-    <span class="hljs-keyword">case</span> <span class="hljs-string">'run'</span>:
-      <span class="hljs-keyword">return</span> <span class="hljs-string">'run'</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;hack&#x27;</span>:
+      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;hack&#x27;</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;slash&#x27;</span>:
+      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;slash&#x27;</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;run&#x27;</span>:
+      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;run&#x27;</span>;
     <span class="hljs-keyword">default</span>:
-      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Invalid action.'</span>);
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&#x27;Invalid action.&#x27;</span>);
   }
 }
 </code></pre><p>上面的代码建议改写成对象结构。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">doAction</span>(<span class="hljs-params">action</span>) </span>{
   <span class="hljs-keyword">var</span> actions = {
-    <span class="hljs-string">'hack'</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-      <span class="hljs-keyword">return</span> <span class="hljs-string">'hack'</span>;
+    <span class="hljs-string">&#x27;hack&#x27;</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;hack&#x27;</span>;
     },
-    <span class="hljs-string">'slash'</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-      <span class="hljs-keyword">return</span> <span class="hljs-string">'slash'</span>;
+    <span class="hljs-string">&#x27;slash&#x27;</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;slash&#x27;</span>;
     },
-    <span class="hljs-string">'run'</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-      <span class="hljs-keyword">return</span> <span class="hljs-string">'run'</span>;
+    <span class="hljs-string">&#x27;run&#x27;</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;run&#x27;</span>;
     }
   };
 
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> actions[action] !== <span class="hljs-string">'function'</span>) {
-    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Invalid action.'</span>);
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> actions[action] !== <span class="hljs-string">&#x27;function&#x27;</span>) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&#x27;Invalid action.&#x27;</span>);
   }
 
   <span class="hljs-keyword">return</span> actions[action]();

@@ -2,66 +2,66 @@
 </code></pre><p>上面代码中，文档节点的类型值为9。</p><p>Node 对象定义了几个常量，对应这些类型值。</p><pre class="hljs"><code><span class="hljs-built_in">document</span>.nodeType === Node.DOCUMENT_NODE <span class="hljs-comment">// true</span>
 </code></pre><p>上面代码中，文档节点的<code>nodeType</code>属性等于常量<code>Node.DOCUMENT_NODE</code>。</p><p>不同节点的<code>nodeType</code>属性值和对应的常量如下。</p><ul><li>文档节点（document）：9，对应常量<code>Node.DOCUMENT_NODE</code></li><li>元素节点（element）：1，对应常量<code>Node.ELEMENT_NODE</code></li><li>属性节点（attr）：2，对应常量<code>Node.ATTRIBUTE_NODE</code></li><li>文本节点（text）：3，对应常量<code>Node.TEXT_NODE</code></li><li>文档片断节点（DocumentFragment）：11，对应常量<code>Node.DOCUMENT_FRAGMENT_NODE</code></li><li>文档类型节点（DocumentType）：10，对应常量<code>Node.DOCUMENT_TYPE_NODE</code></li><li>注释节点（Comment）：8，对应常量<code>Node.COMMENT_NODE</code></li></ul><p>确定节点类型时，使用<code>nodeType</code>属性是常用方法。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> node = <span class="hljs-built_in">document</span>.documentElement.firstChild;
 <span class="hljs-keyword">if</span> (node.nodeType === Node.ELEMENT_NODE) {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'该节点是元素节点'</span>);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;该节点是元素节点&#x27;</span>);
 }
 </code></pre><h3 id="nodeprototypenodename">Node.prototype.nodeName <a class="markdownIt-Anchor" href="#nodeprototypenodename">#</a></h3><p><code>nodeName</code>属性返回节点的名称。</p><pre class="hljs"><code><span class="hljs-comment">// HTML 代码如下</span>
-<span class="hljs-comment">// &lt;div id="d1"&gt;hello world&lt;/div&gt;</span>
-<span class="hljs-keyword">var</span> div = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'d1'</span>);
-div.nodeName <span class="hljs-comment">// "DIV"</span>
+<span class="hljs-comment">// &lt;div id=&quot;d1&quot;&gt;hello world&lt;/div&gt;</span>
+<span class="hljs-keyword">var</span> div = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;d1&#x27;</span>);
+div.nodeName <span class="hljs-comment">// &quot;DIV&quot;</span>
 </code></pre><p>上面代码中，元素节点<code>&lt;div&gt;</code>的<code>nodeName</code>属性就是大写的标签名<code>DIV</code>。</p><p>不同节点的<code>nodeName</code>属性值如下。</p><ul><li>文档节点（document）：<code>#document</code></li><li>元素节点（element）：大写的标签名</li><li>属性节点（attr）：属性的名称</li><li>文本节点（text）：<code>#text</code></li><li>文档片断节点（DocumentFragment）：<code>#document-fragment</code></li><li>文档类型节点（DocumentType）：文档的类型</li><li>注释节点（Comment）：<code>#comment</code></li></ul><h3 id="nodeprototypenodevalue">Node.prototype.nodeValue <a class="markdownIt-Anchor" href="#nodeprototypenodevalue">#</a></h3><p><code>nodeValue</code>属性返回一个字符串，表示当前节点本身的文本值，该属性可读写。</p><p>只有文本节点（text）、注释节点（comment）和属性节点（attr）有文本值，因此这三类节点的<code>nodeValue</code>可以返回结果，其他类型的节点一律返回<code>null</code>。同样的，也只有这三类节点可以设置<code>nodeValue</code>属性的值，其他类型的节点设置无效。</p><pre class="hljs"><code><span class="hljs-comment">// HTML 代码如下</span>
-<span class="hljs-comment">// &lt;div id="d1"&gt;hello world&lt;/div&gt;</span>
-<span class="hljs-keyword">var</span> div = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'d1'</span>);
+<span class="hljs-comment">// &lt;div id=&quot;d1&quot;&gt;hello world&lt;/div&gt;</span>
+<span class="hljs-keyword">var</span> div = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;d1&#x27;</span>);
 div.nodeValue <span class="hljs-comment">// null</span>
-div.firstChild.nodeValue <span class="hljs-comment">// "hello world"</span>
+div.firstChild.nodeValue <span class="hljs-comment">// &quot;hello world&quot;</span>
 </code></pre><p>上面代码中，<code>div</code>是元素节点，<code>nodeValue</code>属性返回<code>null</code>。<code>div.firstChild</code>是文本节点，所以可以返回文本值。</p><h3 id="nodeprototypetextcontent">Node.prototype.textContent <a class="markdownIt-Anchor" href="#nodeprototypetextcontent">#</a></h3><p><code>textContent</code>属性返回当前节点和它的所有后代节点的文本内容。</p><pre class="hljs"><code><span class="hljs-comment">// HTML 代码为</span>
-<span class="hljs-comment">// &lt;div id="divA"&gt;This is &lt;span&gt;some&lt;/span&gt; text&lt;/div&gt;</span>
+<span class="hljs-comment">// &lt;div id=&quot;divA&quot;&gt;This is &lt;span&gt;some&lt;/span&gt; text&lt;/div&gt;</span>
 
-<span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'divA'</span>).textContent
+<span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;divA&#x27;</span>).textContent
 <span class="hljs-comment">// This is some text</span>
-</code></pre><p><code>textContent</code>属性自动忽略当前节点内部的 HTML 标签，返回所有文本内容。</p><p>该属性是可读写的，设置该属性的值，会用一个新的文本节点，替换所有原来的子节点。它还有一个好处，就是自动对 HTML 标签转义。这很适合用于用户提供的内容。</p><pre class="hljs"><code><span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'foo'</span>).textContent = <span class="hljs-string">'&lt;p&gt;GoodBye!&lt;/p&gt;'</span>;
+</code></pre><p><code>textContent</code>属性自动忽略当前节点内部的 HTML 标签，返回所有文本内容。</p><p>该属性是可读写的，设置该属性的值，会用一个新的文本节点，替换所有原来的子节点。它还有一个好处，就是自动对 HTML 标签转义。这很适合用于用户提供的内容。</p><pre class="hljs"><code><span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;foo&#x27;</span>).textContent = <span class="hljs-string">&#x27;&lt;p&gt;GoodBye!&lt;/p&gt;&#x27;</span>;
 </code></pre><p>上面代码在插入文本时，会将<code>&lt;p&gt;</code>标签解释为文本，而不会当作标签处理。</p><p>对于文本节点（text）、注释节点（comment）和属性节点（attr），<code>textContent</code>属性的值与<code>nodeValue</code>属性相同。对于其他类型的节点，该属性会将每个子节点（不包括注释节点）的内容连接在一起返回。如果一个节点没有子节点，则返回空字符串。</p><p>文档节点（document）和文档类型节点（doctype）的<code>textContent</code>属性为<code>null</code>。如果要读取整个文档的内容，可以使用<code>document.documentElement.textContent</code>。</p><h3 id="nodeprototypebaseuri">Node.prototype.baseURI <a class="markdownIt-Anchor" href="#nodeprototypebaseuri">#</a></h3><p><code>baseURI</code>属性返回一个字符串，表示当前网页的绝对路径。浏览器根据这个属性，计算网页上的相对路径的 URL。该属性为只读。</p><pre class="hljs"><code><span class="hljs-comment">// 当前网页的网址为</span>
 <span class="hljs-comment">// http://www.example.com/index.html</span>
 <span class="hljs-built_in">document</span>.baseURI
-<span class="hljs-comment">// "http://www.example.com/index.html"</span>
-</code></pre><p>如果无法读到网页的 URL，<code>baseURI</code>属性返回<code>null</code>。</p><p>该属性的值一般由当前网址的 URL（即<code>window.location</code>属性）决定，但是可以使用 HTML 的<code>&lt;base&gt;</code>标签，改变该属性的值。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">base</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"http://www.example.com/page.html"</span>&gt;</span>
+<span class="hljs-comment">// &quot;http://www.example.com/index.html&quot;</span>
+</code></pre><p>如果无法读到网页的 URL，<code>baseURI</code>属性返回<code>null</code>。</p><p>该属性的值一般由当前网址的 URL（即<code>window.location</code>属性）决定，但是可以使用 HTML 的<code>&lt;base&gt;</code>标签，改变该属性的值。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">base</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;http://www.example.com/page.html&quot;</span>&gt;</span>
 </code></pre><p>设置了以后，<code>baseURI</code>属性就返回<code>&lt;base&gt;</code>标签设置的值。</p><h3 id="nodeprototypeownerdocument">Node.prototype.ownerDocument <a class="markdownIt-Anchor" href="#nodeprototypeownerdocument">#</a></h3><p><code>Node.ownerDocument</code>属性返回当前节点所在的顶层文档对象，即<code>document</code>对象。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> d = p.ownerDocument;
 d === <span class="hljs-built_in">document</span> <span class="hljs-comment">// true</span>
 </code></pre><p><code>document</code>对象本身的<code>ownerDocument</code>属性，返回<code>null</code>。</p><h3 id="nodeprototypenextsibling">Node.prototype.nextSibling <a class="markdownIt-Anchor" href="#nodeprototypenextsibling">#</a></h3><p><code>Node.nextSibling</code>属性返回紧跟在当前节点后面的第一个同级节点。如果当前节点后面没有同级节点，则返回<code>null</code>。</p><pre class="hljs"><code><span class="hljs-comment">// HTML 代码如下</span>
-<span class="hljs-comment">// &lt;div id="d1"&gt;hello&lt;/div&gt;&lt;div id="d2"&gt;world&lt;/div&gt;</span>
-<span class="hljs-keyword">var</span> d1 = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'d1'</span>);
-<span class="hljs-keyword">var</span> d2 = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'d2'</span>);
+<span class="hljs-comment">// &lt;div id=&quot;d1&quot;&gt;hello&lt;/div&gt;&lt;div id=&quot;d2&quot;&gt;world&lt;/div&gt;</span>
+<span class="hljs-keyword">var</span> d1 = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;d1&#x27;</span>);
+<span class="hljs-keyword">var</span> d2 = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;d2&#x27;</span>);
 
 d1.nextSibling === d2 <span class="hljs-comment">// true</span>
-</code></pre><p>上面代码中，<code>d1.nextSibling</code>就是紧跟在<code>d1</code>后面的同级节点<code>d2</code>。</p><p>注意，该属性还包括文本节点和注释节点（<code>&lt;!-- comment --&gt;</code>）。因此如果当前节点后面有空格，该属性会返回一个文本节点，内容为空格。</p><p><code>nextSibling</code>属性可以用来遍历所有子节点。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> el = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'div1'</span>).firstChild;
+</code></pre><p>上面代码中，<code>d1.nextSibling</code>就是紧跟在<code>d1</code>后面的同级节点<code>d2</code>。</p><p>注意，该属性还包括文本节点和注释节点（<code>&lt;!-- comment --&gt;</code>）。因此如果当前节点后面有空格，该属性会返回一个文本节点，内容为空格。</p><p><code>nextSibling</code>属性可以用来遍历所有子节点。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> el = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;div1&#x27;</span>).firstChild;
 
 <span class="hljs-keyword">while</span> (el !== <span class="hljs-literal">null</span>) {
   <span class="hljs-built_in">console</span>.log(el.nodeName);
   el = el.nextSibling;
 }
 </code></pre><p>上面代码遍历<code>div1</code>节点的所有子节点。</p><h3 id="nodeprototypeprevioussibling">Node.prototype.previousSibling <a class="markdownIt-Anchor" href="#nodeprototypeprevioussibling">#</a></h3><p><code>previousSibling</code>属性返回当前节点前面的、距离最近的一个同级节点。如果当前节点前面没有同级节点，则返回<code>null</code>。</p><pre class="hljs"><code><span class="hljs-comment">// HTML 代码如下</span>
-<span class="hljs-comment">// &lt;div id="d1"&gt;hello&lt;/div&gt;&lt;div id="d2"&gt;world&lt;/div&gt;</span>
-<span class="hljs-keyword">var</span> d1 = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'d1'</span>);
-<span class="hljs-keyword">var</span> d2 = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'d2'</span>);
+<span class="hljs-comment">// &lt;div id=&quot;d1&quot;&gt;hello&lt;/div&gt;&lt;div id=&quot;d2&quot;&gt;world&lt;/div&gt;</span>
+<span class="hljs-keyword">var</span> d1 = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;d1&#x27;</span>);
+<span class="hljs-keyword">var</span> d2 = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;d2&#x27;</span>);
 
 d2.previousSibling === d1 <span class="hljs-comment">// true</span>
 </code></pre><p>上面代码中，<code>d2.previousSibling</code>就是<code>d2</code>前面的同级节点<code>d1</code>。</p><p>注意，该属性还包括文本节点和注释节点。因此如果当前节点前面有空格，该属性会返回一个文本节点，内容为空格。</p><h3 id="nodeprototypeparentnode">Node.prototype.parentNode <a class="markdownIt-Anchor" href="#nodeprototypeparentnode">#</a></h3><p><code>parentNode</code>属性返回当前节点的父节点。对于一个节点来说，它的父节点只可能是三种类型：元素节点（element）、文档节点（document）和文档片段节点（documentfragment）。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> (node.parentNode) {
   node.parentNode.removeChild(node);
 }
 </code></pre><p>上面代码中，通过<code>node.parentNode</code>属性将<code>node</code>节点从文档里面移除。</p><p>文档节点（document）和文档片段节点（documentfragment）的父节点都是<code>null</code>。另外，对于那些生成后还没插入 DOM 树的节点，父节点也是<code>null</code>。</p><h3 id="nodeprototypeparentelement">Node.prototype.parentElement <a class="markdownIt-Anchor" href="#nodeprototypeparentelement">#</a></h3><p><code>parentElement</code>属性返回当前节点的父元素节点。如果当前节点没有父节点，或者父节点类型不是元素节点，则返回<code>null</code>。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> (node.parentElement) {
-  node.parentElement.style.color = <span class="hljs-string">'red'</span>;
+  node.parentElement.style.color = <span class="hljs-string">&#x27;red&#x27;</span>;
 }
 </code></pre><p>上面代码中，父元素节点的样式设定了红色。</p><p>由于父节点只可能是三种类型：元素节点、文档节点（document）和文档片段节点（documentfragment）。<code>parentElement</code>属性相当于把后两种父节点都排除了。</p><h3 id="nodeprototypefirstchild，nodeprototypelastchild">Node.prototype.firstChild，Node.prototype.lastChild <a class="markdownIt-Anchor" href="#nodeprototypefirstchild，nodeprototypelastchild">#</a></h3><p><code>firstChild</code>属性返回当前节点的第一个子节点，如果当前节点没有子节点，则返回<code>null</code>。</p><pre class="hljs"><code><span class="hljs-comment">// HTML 代码如下</span>
-<span class="hljs-comment">// &lt;p id="p1"&gt;&lt;span&gt;First span&lt;/span&gt;&lt;/p&gt;</span>
-<span class="hljs-keyword">var</span> p1 = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'p1'</span>);
-p1.firstChild.nodeName <span class="hljs-comment">// "SPAN"</span>
+<span class="hljs-comment">// &lt;p id=&quot;p1&quot;&gt;&lt;span&gt;First span&lt;/span&gt;&lt;/p&gt;</span>
+<span class="hljs-keyword">var</span> p1 = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;p1&#x27;</span>);
+p1.firstChild.nodeName <span class="hljs-comment">// &quot;SPAN&quot;</span>
 </code></pre><p>上面代码中，<code>p</code>元素的第一个子节点是<code>span</code>元素。</p><p>注意，<code>firstChild</code>返回的除了元素节点，还可能是文本节点或注释节点。</p><pre class="hljs"><code><span class="hljs-comment">// HTML 代码如下</span>
-<span class="hljs-comment">// &lt;p id="p1"&gt;</span>
+<span class="hljs-comment">// &lt;p id=&quot;p1&quot;&gt;</span>
 <span class="hljs-comment">//   &lt;span&gt;First span&lt;/span&gt;</span>
 <span class="hljs-comment">//  &lt;/p&gt;</span>
-<span class="hljs-keyword">var</span> p1 = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'p1'</span>);
-p1.firstChild.nodeName <span class="hljs-comment">// "#text"</span>
-</code></pre><p>上面代码中，<code>p</code>元素与<code>span</code>元素之间有空白字符，这导致<code>firstChild</code>返回的是文本节点。</p><p><code>lastChild</code>属性返回当前节点的最后一个子节点，如果当前节点没有子节点，则返回<code>null</code>。用法与<code>firstChild</code>属性相同。</p><h3 id="nodeprototypechildnodes">Node.prototype.childNodes <a class="markdownIt-Anchor" href="#nodeprototypechildnodes">#</a></h3><p><code>childNodes</code>属性返回一个类似数组的对象（<code>NodeList</code>集合），成员包括当前节点的所有子节点。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> children = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'ul'</span>).childNodes;
-</code></pre><p>上面代码中，<code>children</code>就是<code>ul</code>元素的所有子节点。</p><p>使用该属性，可以遍历某个节点的所有子节点。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> div = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'div1'</span>);
+<span class="hljs-keyword">var</span> p1 = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;p1&#x27;</span>);
+p1.firstChild.nodeName <span class="hljs-comment">// &quot;#text&quot;</span>
+</code></pre><p>上面代码中，<code>p</code>元素与<code>span</code>元素之间有空白字符，这导致<code>firstChild</code>返回的是文本节点。</p><p><code>lastChild</code>属性返回当前节点的最后一个子节点，如果当前节点没有子节点，则返回<code>null</code>。用法与<code>firstChild</code>属性相同。</p><h3 id="nodeprototypechildnodes">Node.prototype.childNodes <a class="markdownIt-Anchor" href="#nodeprototypechildnodes">#</a></h3><p><code>childNodes</code>属性返回一个类似数组的对象（<code>NodeList</code>集合），成员包括当前节点的所有子节点。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> children = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;ul&#x27;</span>).childNodes;
+</code></pre><p>上面代码中，<code>children</code>就是<code>ul</code>元素的所有子节点。</p><p>使用该属性，可以遍历某个节点的所有子节点。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> div = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;div1&#x27;</span>);
 <span class="hljs-keyword">var</span> children = div.childNodes;
 
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; children.length; i++) {
@@ -73,16 +73,16 @@ p1.firstChild.nodeName <span class="hljs-comment">// "#text"</span>
 }
 <span class="hljs-comment">// 10</span>
 <span class="hljs-comment">// 1</span>
-</code></pre><p>上面代码中，文档节点的第一个子节点的类型是10（即文档类型节点），第二个子节点的类型是1（即元素节点）。</p><p>注意，除了元素节点，<code>childNodes</code>属性的返回值还包括文本节点和注释节点。如果当前节点不包括任何子节点，则返回一个空的<code>NodeList</code>集合。由于<code>NodeList</code>对象是一个动态集合，一旦子节点发生变化，立刻会反映在返回结果之中。</p><h3 id="nodeprototypeisconnected">Node.prototype.isConnected <a class="markdownIt-Anchor" href="#nodeprototypeisconnected">#</a></h3><p><code>isConnected</code>属性返回一个布尔值，表示当前节点是否在文档之中。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> test = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'p'</span>);
+</code></pre><p>上面代码中，文档节点的第一个子节点的类型是10（即文档类型节点），第二个子节点的类型是1（即元素节点）。</p><p>注意，除了元素节点，<code>childNodes</code>属性的返回值还包括文本节点和注释节点。如果当前节点不包括任何子节点，则返回一个空的<code>NodeList</code>集合。由于<code>NodeList</code>对象是一个动态集合，一旦子节点发生变化，立刻会反映在返回结果之中。</p><h3 id="nodeprototypeisconnected">Node.prototype.isConnected <a class="markdownIt-Anchor" href="#nodeprototypeisconnected">#</a></h3><p><code>isConnected</code>属性返回一个布尔值，表示当前节点是否在文档之中。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> test = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&#x27;p&#x27;</span>);
 test.isConnected <span class="hljs-comment">// false</span>
 
 <span class="hljs-built_in">document</span>.body.appendChild(test);
 test.isConnected <span class="hljs-comment">// true</span>
-</code></pre><p>上面代码中，<code>test</code>节点是脚本生成的节点，没有插入文档之前，<code>isConnected</code>属性返回<code>false</code>，插入之后返回<code>true</code>。</p><h2 id="方法">方法 <a class="markdownIt-Anchor" href="#方法">#</a></h2><h3 id="nodeprototypeappendchild">Node.prototype.appendChild() <a class="markdownIt-Anchor" href="#nodeprototypeappendchild">#</a></h3><p><code>appendChild()</code>方法接受一个节点对象作为参数，将其作为最后一个子节点，插入当前节点。该方法的返回值就是插入文档的子节点。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> p = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'p'</span>);
+</code></pre><p>上面代码中，<code>test</code>节点是脚本生成的节点，没有插入文档之前，<code>isConnected</code>属性返回<code>false</code>，插入之后返回<code>true</code>。</p><h2 id="方法">方法 <a class="markdownIt-Anchor" href="#方法">#</a></h2><h3 id="nodeprototypeappendchild">Node.prototype.appendChild() <a class="markdownIt-Anchor" href="#nodeprototypeappendchild">#</a></h3><p><code>appendChild()</code>方法接受一个节点对象作为参数，将其作为最后一个子节点，插入当前节点。该方法的返回值就是插入文档的子节点。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> p = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&#x27;p&#x27;</span>);
 <span class="hljs-built_in">document</span>.body.appendChild(p);
-</code></pre><p>上面代码新建一个<code>&lt;p&gt;</code>节点，将其插入<code>document.body</code>的尾部。</p><p>如果参数节点是 DOM 已经存在的节点，<code>appendChild()</code>方法会将其从原来的位置，移动到新位置。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> div = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'myDiv'</span>);
+</code></pre><p>上面代码新建一个<code>&lt;p&gt;</code>节点，将其插入<code>document.body</code>的尾部。</p><p>如果参数节点是 DOM 已经存在的节点，<code>appendChild()</code>方法会将其从原来的位置，移动到新位置。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> div = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;myDiv&#x27;</span>);
 <span class="hljs-built_in">document</span>.body.appendChild(div);
-</code></pre><p>上面代码中，插入的是一个已经存在的节点<code>myDiv</code>，结果就是该节点会从原来的位置，移动到<code>document.body</code>的尾部。</p><p>如果<code>appendChild()</code>方法的参数是<code>DocumentFragment</code>节点，那么插入的是<code>DocumentFragment</code>的所有子节点，而不是<code>DocumentFragment</code>节点本身。返回值是一个空的<code>DocumentFragment</code>节点。</p><h3 id="nodeprototypehaschildnodes">Node.prototype.hasChildNodes() <a class="markdownIt-Anchor" href="#nodeprototypehaschildnodes">#</a></h3><p><code>hasChildNodes</code>方法返回一个布尔值，表示当前节点是否有子节点。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> foo = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'foo'</span>);
+</code></pre><p>上面代码中，插入的是一个已经存在的节点<code>myDiv</code>，结果就是该节点会从原来的位置，移动到<code>document.body</code>的尾部。</p><p>如果<code>appendChild()</code>方法的参数是<code>DocumentFragment</code>节点，那么插入的是<code>DocumentFragment</code>的所有子节点，而不是<code>DocumentFragment</code>节点本身。返回值是一个空的<code>DocumentFragment</code>节点。</p><h3 id="nodeprototypehaschildnodes">Node.prototype.hasChildNodes() <a class="markdownIt-Anchor" href="#nodeprototypehaschildnodes">#</a></h3><p><code>hasChildNodes</code>方法返回一个布尔值，表示当前节点是否有子节点。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> foo = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;foo&#x27;</span>);
 
 <span class="hljs-keyword">if</span> (foo.hasChildNodes()) {
   foo.removeChild(foo.childNodes[<span class="hljs-number">0</span>]);
@@ -98,56 +98,56 @@ test.isConnected <span class="hljs-comment">// true</span>
 
 <span class="hljs-comment">// 用法</span>
 DOMComb(<span class="hljs-built_in">document</span>.body, <span class="hljs-built_in">console</span>.log)
-</code></pre><p>上面代码中，<code>DOMComb</code>函数的第一个参数是某个指定的节点，第二个参数是回调函数。这个回调函数会依次作用于指定节点，以及指定节点的所有后代节点。</p><h3 id="nodeprototypeclonenode">Node.prototype.cloneNode() <a class="markdownIt-Anchor" href="#nodeprototypeclonenode">#</a></h3><p><code>cloneNode</code>方法用于克隆一个节点。它接受一个布尔值作为参数，表示是否同时克隆子节点。它的返回值是一个克隆出来的新节点。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> cloneUL = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'ul'</span>).cloneNode(<span class="hljs-literal">true</span>);
+</code></pre><p>上面代码中，<code>DOMComb</code>函数的第一个参数是某个指定的节点，第二个参数是回调函数。这个回调函数会依次作用于指定节点，以及指定节点的所有后代节点。</p><h3 id="nodeprototypeclonenode">Node.prototype.cloneNode() <a class="markdownIt-Anchor" href="#nodeprototypeclonenode">#</a></h3><p><code>cloneNode</code>方法用于克隆一个节点。它接受一个布尔值作为参数，表示是否同时克隆子节点。它的返回值是一个克隆出来的新节点。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> cloneUL = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;ul&#x27;</span>).cloneNode(<span class="hljs-literal">true</span>);
 </code></pre><p>该方法有一些使用注意点。</p><p>（1）克隆一个节点，会拷贝该节点的所有属性，但是会丧失<code>addEventListener</code>方法和<code>on-</code>属性（即<code>node.onclick = fn</code>），添加在这个节点上的事件回调函数。</p><p>（2）该方法返回的节点不在文档之中，即没有任何父节点，必须使用诸如<code>Node.appendChild</code>这样的方法添加到文档之中。</p><p>（3）克隆一个节点之后，DOM 有可能出现两个有相同<code>id</code>属性（即<code>id=&quot;xxx&quot;</code>）的网页元素，这时应该修改其中一个元素的<code>id</code>属性。如果原节点有<code>name</code>属性，可能也需要修改。</p><h3 id="nodeprototypeinsertbefore">Node.prototype.insertBefore() <a class="markdownIt-Anchor" href="#nodeprototypeinsertbefore">#</a></h3><p><code>insertBefore</code>方法用于将某个节点插入父节点内部的指定位置。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> insertedNode = parentNode.insertBefore(newNode, referenceNode);
-</code></pre><p><code>insertBefore</code>方法接受两个参数，第一个参数是所要插入的节点<code>newNode</code>，第二个参数是父节点<code>parentNode</code>内部的一个子节点<code>referenceNode</code>。<code>newNode</code>将插在<code>referenceNode</code>这个子节点的前面。返回值是插入的新节点<code>newNode</code>。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> p = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'p'</span>);
+</code></pre><p><code>insertBefore</code>方法接受两个参数，第一个参数是所要插入的节点<code>newNode</code>，第二个参数是父节点<code>parentNode</code>内部的一个子节点<code>referenceNode</code>。<code>newNode</code>将插在<code>referenceNode</code>这个子节点的前面。返回值是插入的新节点<code>newNode</code>。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> p = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&#x27;p&#x27;</span>);
 <span class="hljs-built_in">document</span>.body.insertBefore(p, <span class="hljs-built_in">document</span>.body.firstChild);
-</code></pre><p>上面代码中，新建一个<code>&lt;p&gt;</code>节点，插在<code>document.body.firstChild</code>的前面，也就是成为<code>document.body</code>的第一个子节点。</p><p>如果<code>insertBefore</code>方法的第二个参数为<code>null</code>，则新节点将插在当前节点内部的最后位置，即变成最后一个子节点。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> p = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'p'</span>);
+</code></pre><p>上面代码中，新建一个<code>&lt;p&gt;</code>节点，插在<code>document.body.firstChild</code>的前面，也就是成为<code>document.body</code>的第一个子节点。</p><p>如果<code>insertBefore</code>方法的第二个参数为<code>null</code>，则新节点将插在当前节点内部的最后位置，即变成最后一个子节点。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> p = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&#x27;p&#x27;</span>);
 <span class="hljs-built_in">document</span>.body.insertBefore(p, <span class="hljs-literal">null</span>);
 </code></pre><p>上面代码中，<code>p</code>将成为<code>document.body</code>的最后一个子节点。这也说明<code>insertBefore</code>的第二个参数不能省略。</p><p>注意，如果所要插入的节点是当前 DOM 现有的节点，则该节点将从原有的位置移除，插入新的位置。</p><p>由于不存在<code>insertAfter</code>方法，如果新节点要插在父节点的某个子节点后面，可以用<code>insertBefore</code>方法结合<code>nextSibling</code>属性模拟。</p><pre class="hljs"><code>parent.insertBefore(s1, s2.nextSibling);
-</code></pre><p>上面代码中，<code>parent</code>是父节点，<code>s1</code>是一个全新的节点，<code>s2</code>是可以将<code>s1</code>节点，插在<code>s2</code>节点的后面。如果<code>s2</code>是当前节点的最后一个子节点，则<code>s2.nextSibling</code>返回<code>null</code>，这时<code>s1</code>节点会插在当前节点的最后，变成当前节点的最后一个子节点，等于紧跟在<code>s2</code>的后面。</p><p>如果要插入的节点是<code>DocumentFragment</code>类型，那么插入的将是<code>DocumentFragment</code>的所有子节点，而不是<code>DocumentFragment</code>节点本身。返回值将是一个空的<code>DocumentFragment</code>节点。</p><h3 id="nodeprototyperemovechild">Node.prototype.removeChild() <a class="markdownIt-Anchor" href="#nodeprototyperemovechild">#</a></h3><p><code>removeChild</code>方法接受一个子节点作为参数，用于从当前节点移除该子节点。返回值是移除的子节点。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> divA = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'A'</span>);
+</code></pre><p>上面代码中，<code>parent</code>是父节点，<code>s1</code>是一个全新的节点，<code>s2</code>是可以将<code>s1</code>节点，插在<code>s2</code>节点的后面。如果<code>s2</code>是当前节点的最后一个子节点，则<code>s2.nextSibling</code>返回<code>null</code>，这时<code>s1</code>节点会插在当前节点的最后，变成当前节点的最后一个子节点，等于紧跟在<code>s2</code>的后面。</p><p>如果要插入的节点是<code>DocumentFragment</code>类型，那么插入的将是<code>DocumentFragment</code>的所有子节点，而不是<code>DocumentFragment</code>节点本身。返回值将是一个空的<code>DocumentFragment</code>节点。</p><h3 id="nodeprototyperemovechild">Node.prototype.removeChild() <a class="markdownIt-Anchor" href="#nodeprototyperemovechild">#</a></h3><p><code>removeChild</code>方法接受一个子节点作为参数，用于从当前节点移除该子节点。返回值是移除的子节点。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> divA = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;A&#x27;</span>);
 divA.parentNode.removeChild(divA);
-</code></pre><p>上面代码移除了<code>divA</code>节点。注意，这个方法是在<code>divA</code>的父节点上调用的，不是在<code>divA</code>上调用的。</p><p>下面是如何移除当前节点的所有子节点。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> element = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'top'</span>);
+</code></pre><p>上面代码移除了<code>divA</code>节点。注意，这个方法是在<code>divA</code>的父节点上调用的，不是在<code>divA</code>上调用的。</p><p>下面是如何移除当前节点的所有子节点。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> element = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;top&#x27;</span>);
 <span class="hljs-keyword">while</span> (element.firstChild) {
   element.removeChild(element.firstChild);
 }
 </code></pre><p>被移除的节点依然存在于内存之中，但不再是 DOM 的一部分。所以，一个节点移除以后，依然可以使用它，比如插入到另一个节点下面。</p><p>如果参数节点不是当前节点的子节点，<code>removeChild</code>方法将报错。</p><h3 id="nodeprototypereplacechild">Node.prototype.replaceChild() <a class="markdownIt-Anchor" href="#nodeprototypereplacechild">#</a></h3><p><code>replaceChild</code>方法用于将一个新的节点，替换当前节点的某一个子节点。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> replacedNode = parentNode.replaceChild(newChild, oldChild);
-</code></pre><p>上面代码中，<code>replaceChild</code>方法接受两个参数，第一个参数<code>newChild</code>是用来替换的新节点，第二个参数<code>oldChild</code>是将要替换走的子节点。返回值是替换走的那个节点<code>oldChild</code>。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> divA = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'divA'</span>);
-<span class="hljs-keyword">var</span> newSpan = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'span'</span>);
-newSpan.textContent = <span class="hljs-string">'Hello World!'</span>;
+</code></pre><p>上面代码中，<code>replaceChild</code>方法接受两个参数，第一个参数<code>newChild</code>是用来替换的新节点，第二个参数<code>oldChild</code>是将要替换走的子节点。返回值是替换走的那个节点<code>oldChild</code>。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> divA = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;divA&#x27;</span>);
+<span class="hljs-keyword">var</span> newSpan = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&#x27;span&#x27;</span>);
+newSpan.textContent = <span class="hljs-string">&#x27;Hello World!&#x27;</span>;
 divA.parentNode.replaceChild(newSpan, divA);
 </code></pre><p>上面代码是如何将指定节点<code>divA</code>替换走。</p><h3 id="nodeprototypecontains">Node.prototype.contains() <a class="markdownIt-Anchor" href="#nodeprototypecontains">#</a></h3><p><code>contains</code>方法返回一个布尔值，表示参数节点是否满足以下三个条件之一。</p><ul><li>参数节点为当前节点。</li><li>参数节点为当前节点的子节点。</li><li>参数节点为当前节点的后代节点。</li></ul><pre class="hljs"><code><span class="hljs-built_in">document</span>.body.contains(node)
 </code></pre><p>上面代码检查参数节点<code>node</code>，是否包含在当前文档之中。</p><p>注意，当前节点传入<code>contains</code>方法，返回<code>true</code>。</p><pre class="hljs"><code>nodeA.contains(nodeA) <span class="hljs-comment">// true</span>
 </code></pre><h3 id="nodeprototypecomparedocumentposition">Node.prototype.compareDocumentPosition() <a class="markdownIt-Anchor" href="#nodeprototypecomparedocumentposition">#</a></h3><p><code>compareDocumentPosition</code>方法的用法，与<code>contains</code>方法完全一致，返回一个六个比特位的二进制值，表示参数节点与当前节点的关系。</p><table><thead><tr><th>二进制值</th><th>十进制值</th><th>含义</th></tr></thead><tbody><tr><td>000000</td><td>0</td><td>两个节点相同</td></tr><tr><td>000001</td><td>1</td><td>两个节点不在同一个文档（即有一个节点不在当前文档）</td></tr><tr><td>000010</td><td>2</td><td>参数节点在当前节点的前面</td></tr><tr><td>000100</td><td>4</td><td>参数节点在当前节点的后面</td></tr><tr><td>001000</td><td>8</td><td>参数节点包含当前节点</td></tr><tr><td>010000</td><td>16</td><td>当前节点包含参数节点</td></tr><tr><td>100000</td><td>32</td><td>浏览器内部使用</td></tr></tbody></table><pre class="hljs"><code><span class="hljs-comment">// HTML 代码如下</span>
-<span class="hljs-comment">// &lt;div id="mydiv"&gt;</span>
-<span class="hljs-comment">//   &lt;form&gt;&lt;input id="test" /&gt;&lt;/form&gt;</span>
+<span class="hljs-comment">// &lt;div id=&quot;mydiv&quot;&gt;</span>
+<span class="hljs-comment">//   &lt;form&gt;&lt;input id=&quot;test&quot; /&gt;&lt;/form&gt;</span>
 <span class="hljs-comment">// &lt;/div&gt;</span>
 
-<span class="hljs-keyword">var</span> div = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'mydiv'</span>);
-<span class="hljs-keyword">var</span> input = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'test'</span>);
+<span class="hljs-keyword">var</span> div = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;mydiv&#x27;</span>);
+<span class="hljs-keyword">var</span> input = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;test&#x27;</span>);
 
 div.compareDocumentPosition(input) <span class="hljs-comment">// 20</span>
 input.compareDocumentPosition(div) <span class="hljs-comment">// 10</span>
 </code></pre><p>上面代码中，节点<code>div</code>包含节点<code>input</code>（二进制<code>010000</code>），而且节点<code>input</code>在节点<code>div</code>的后面（二进制<code>000100</code>），所以第一个<code>compareDocumentPosition</code>方法返回<code>20</code>（二进制<code>010100</code>，即<code>010000 + 000100</code>），第二个<code>compareDocumentPosition</code>方法返回<code>10</code>（二进制<code>001010</code>）。</p><p>由于<code>compareDocumentPosition</code>返回值的含义，定义在每一个比特位上，所以如果要检查某一种特定的含义，就需要使用比特位运算符。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> head = <span class="hljs-built_in">document</span>.head;
 <span class="hljs-keyword">var</span> body = <span class="hljs-built_in">document</span>.body;
 <span class="hljs-keyword">if</span> (head.compareDocumentPosition(body) &amp; <span class="hljs-number">4</span>) {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'文档结构正确'</span>);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;文档结构正确&#x27;</span>);
 } <span class="hljs-keyword">else</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'&lt;body&gt; 不能在 &lt;head&gt; 前面'</span>);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;&lt;body&gt; 不能在 &lt;head&gt; 前面&#x27;</span>);
 }
-</code></pre><p>上面代码中，<code>compareDocumentPosition</code>的返回值与<code>4</code>（又称掩码）进行与运算（<code>&amp;</code>），得到一个布尔值，表示<code>&lt;head&gt;</code>是否在<code>&lt;body&gt;</code>前面。</p><h3 id="nodeprototypeisequalnode，nodeprototypeissamenode">Node.prototype.isEqualNode()，Node.prototype.isSameNode() <a class="markdownIt-Anchor" href="#nodeprototypeisequalnode，nodeprototypeissamenode">#</a></h3><p><code>isEqualNode</code>方法返回一个布尔值，用于检查两个节点是否相等。所谓相等的节点，指的是两个节点的类型相同、属性相同、子节点相同。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> p1 = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'p'</span>);
-<span class="hljs-keyword">var</span> p2 = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'p'</span>);
+</code></pre><p>上面代码中，<code>compareDocumentPosition</code>的返回值与<code>4</code>（又称掩码）进行与运算（<code>&amp;</code>），得到一个布尔值，表示<code>&lt;head&gt;</code>是否在<code>&lt;body&gt;</code>前面。</p><h3 id="nodeprototypeisequalnode，nodeprototypeissamenode">Node.prototype.isEqualNode()，Node.prototype.isSameNode() <a class="markdownIt-Anchor" href="#nodeprototypeisequalnode，nodeprototypeissamenode">#</a></h3><p><code>isEqualNode</code>方法返回一个布尔值，用于检查两个节点是否相等。所谓相等的节点，指的是两个节点的类型相同、属性相同、子节点相同。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> p1 = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&#x27;p&#x27;</span>);
+<span class="hljs-keyword">var</span> p2 = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&#x27;p&#x27;</span>);
 
 p1.isEqualNode(p2) <span class="hljs-comment">// true</span>
-</code></pre><p><code>isSameNode</code>方法返回一个布尔值，表示两个节点是否为同一个节点。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> p1 = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'p'</span>);
-<span class="hljs-keyword">var</span> p2 = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'p'</span>);
+</code></pre><p><code>isSameNode</code>方法返回一个布尔值，表示两个节点是否为同一个节点。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> p1 = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&#x27;p&#x27;</span>);
+<span class="hljs-keyword">var</span> p2 = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&#x27;p&#x27;</span>);
 
 p1.isSameNode(p2) <span class="hljs-comment">// false</span>
 p1.isSameNode(p1) <span class="hljs-comment">// true</span>
-</code></pre><h3 id="nodeprototypenormalize">Node.prototype.normalize() <a class="markdownIt-Anchor" href="#nodeprototypenormalize">#</a></h3><p><code>normalize</code>方法用于清理当前节点内部的所有文本节点（text）。它会去除空的文本节点，并且将毗邻的文本节点合并成一个，也就是说不存在空的文本节点，以及毗邻的文本节点。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> wrapper = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'div'</span>);
+</code></pre><h3 id="nodeprototypenormalize">Node.prototype.normalize() <a class="markdownIt-Anchor" href="#nodeprototypenormalize">#</a></h3><p><code>normalize</code>方法用于清理当前节点内部的所有文本节点（text）。它会去除空的文本节点，并且将毗邻的文本节点合并成一个，也就是说不存在空的文本节点，以及毗邻的文本节点。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> wrapper = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&#x27;div&#x27;</span>);
 
-wrapper.appendChild(<span class="hljs-built_in">document</span>.createTextNode(<span class="hljs-string">'Part 1 '</span>));
-wrapper.appendChild(<span class="hljs-built_in">document</span>.createTextNode(<span class="hljs-string">'Part 2 '</span>));
+wrapper.appendChild(<span class="hljs-built_in">document</span>.createTextNode(<span class="hljs-string">&#x27;Part 1 &#x27;</span>));
+wrapper.appendChild(<span class="hljs-built_in">document</span>.createTextNode(<span class="hljs-string">&#x27;Part 2 &#x27;</span>));
 
 wrapper.childNodes.length <span class="hljs-comment">// 2</span>
 wrapper.normalize();

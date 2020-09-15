@@ -1,62 +1,62 @@
 <!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Event 对象 - JavaScript 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="../assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="../assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="Event 对象"><link rel="apple-touch-icon" sizes="57x57" href="../assets/icons/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="../assets/icons/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="../assets/icons/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="../assets/icons/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="../assets/icons/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="../assets/icons/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="../assets/icons/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="../assets/icons/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="../assets/icons/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="../assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="../assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="../assets/icons/favicon-16x16.png"><link rel="manifest" href="../assets/icons/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="../assets/icons/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/javascript-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/javascript-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8"><nav class="breadcrumb is-size-5-desktop" aria-label="breadcrumbs"><ul><li><a href="../index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;JavaScript 教程</a></li><li><a href="../events/index.html">事件</a></li><li class="is-active"><a class="has-text-grey" href="../events/event.html">Event 对象</a></li></ul></nav><nav class="level level-previous-next is-size-5 is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="../events/model.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> 事件模型</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="../events/mouse.html">鼠标事件 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content is-size-4-desktop"><h1 class="title">Event 对象</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><h2 id="概述">概述 <a class="markdownIt-Anchor" href="#概述">#</a></h2><p>事件发生以后，会产生一个事件对象，作为参数传给监听函数。浏览器原生提供一个<code>Event</code>对象，所有的事件都是这个对象的实例，或者说继承了<code>Event.prototype</code>对象。</p><p><code>Event</code>对象本身就是一个构造函数，可以用来生成新的实例。</p><pre class="hljs"><code>event = <span class="hljs-keyword">new</span> Event(type, options);
 </code></pre><p><code>Event</code>构造函数接受两个参数。第一个参数<code>type</code>是字符串，表示事件的名称；第二个参数<code>options</code>是一个对象，表示事件对象的配置。该对象主要有下面两个属性。</p><ul><li><code>bubbles</code>：布尔值，可选，默认为<code>false</code>，表示事件对象是否冒泡。</li><li><code>cancelable</code>：布尔值，可选，默认为<code>false</code>，表示事件是否可以被取消，即能否用<code>Event.preventDefault()</code>取消这个事件。一旦事件被取消，就好像从来没有发生过，不会触发浏览器对该事件的默认行为。</li></ul><pre class="hljs"><code><span class="hljs-keyword">var</span> ev = <span class="hljs-keyword">new</span> Event(
-  <span class="hljs-string">'look'</span>,
+  <span class="hljs-string">&#x27;look&#x27;</span>,
   {
-    <span class="hljs-string">'bubbles'</span>: <span class="hljs-literal">true</span>,
-    <span class="hljs-string">'cancelable'</span>: <span class="hljs-literal">false</span>
+    <span class="hljs-string">&#x27;bubbles&#x27;</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-string">&#x27;cancelable&#x27;</span>: <span class="hljs-literal">false</span>
   }
 );
 <span class="hljs-built_in">document</span>.dispatchEvent(ev);
 </code></pre><p>上面代码新建一个<code>look</code>事件实例，然后使用<code>dispatchEvent</code>方法触发该事件。</p><p>注意，如果不是显式指定<code>bubbles</code>属性为<code>true</code>，生成的事件就只能在“捕获阶段”触发监听函数。</p><pre class="hljs"><code><span class="hljs-comment">// HTML 代码为</span>
 <span class="hljs-comment">// &lt;div&gt;&lt;p&gt;Hello&lt;/p&gt;&lt;/div&gt;</span>
-<span class="hljs-keyword">var</span> div = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'div'</span>);
-<span class="hljs-keyword">var</span> p = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'p'</span>);
+<span class="hljs-keyword">var</span> div = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;div&#x27;</span>);
+<span class="hljs-keyword">var</span> p = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;p&#x27;</span>);
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">callback</span>(<span class="hljs-params">event</span>) </span>{
   <span class="hljs-keyword">var</span> tag = event.currentTarget.tagName;
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Tag: '</span> + tag); <span class="hljs-comment">// 没有任何输出</span>
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Tag: &#x27;</span> + tag); <span class="hljs-comment">// 没有任何输出</span>
 }
 
-div.addEventListener(<span class="hljs-string">'click'</span>, callback, <span class="hljs-literal">false</span>);
+div.addEventListener(<span class="hljs-string">&#x27;click&#x27;</span>, callback, <span class="hljs-literal">false</span>);
 
-<span class="hljs-keyword">var</span> click = <span class="hljs-keyword">new</span> Event(<span class="hljs-string">'click'</span>);
+<span class="hljs-keyword">var</span> click = <span class="hljs-keyword">new</span> Event(<span class="hljs-string">&#x27;click&#x27;</span>);
 p.dispatchEvent(click);
 </code></pre><p>上面代码中，<code>p</code>元素发出一个<code>click</code>事件，该事件默认不会冒泡。<code>div.addEventListener</code>方法指定在冒泡阶段监听，因此监听函数不会触发。如果写成<code>div.addEventListener('click', callback, true)</code>，那么在“捕获阶段”可以监听到这个事件。</p><p>另一方面，如果这个事件在<code>div</code>元素上触发。</p><pre class="hljs"><code>div.dispatchEvent(click);
 </code></pre><p>那么，不管<code>div</code>元素是在冒泡阶段监听，还是在捕获阶段监听，都会触发监听函数。因为这时<code>div</code>元素是事件的目标，不存在是否冒泡的问题，<code>div</code>元素总是会接收到事件，因此导致监听函数生效。</p><h2 id="实例属性">实例属性 <a class="markdownIt-Anchor" href="#实例属性">#</a></h2><h3 id="eventbubbles，eventeventphase">Event.bubbles，Event.eventPhase <a class="markdownIt-Anchor" href="#eventbubbles，eventeventphase">#</a></h3><p><code>Event.bubbles</code>属性返回一个布尔值，表示当前事件是否会冒泡。该属性为只读属性，一般用来了解 Event 实例是否可以冒泡。前面说过，除非显式声明，<code>Event</code>构造函数生成的事件，默认是不冒泡的。</p><p><code>Event.eventPhase</code>属性返回一个整数常量，表示事件目前所处的阶段。该属性只读。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> phase = event.eventPhase;
-</code></pre><p><code>Event.eventPhase</code>的返回值有四种可能。</p><ul><li>0，事件目前没有发生。</li><li>1，事件目前处于捕获阶段，即处于从祖先节点向目标节点的传播过程中。</li><li>2，事件到达目标节点，即<code>Event.target</code>属性指向的那个节点。</li><li>3，事件处于冒泡阶段，即处于从目标节点向祖先节点的反向传播过程中。</li></ul><h3 id="eventcancelable，eventcancelbubble，eventdefaultprevented">Event.cancelable，Event.cancelBubble，event.defaultPrevented <a class="markdownIt-Anchor" href="#eventcancelable，eventcancelbubble，eventdefaultprevented">#</a></h3><p><code>Event.cancelable</code>属性返回一个布尔值，表示事件是否可以取消。该属性为只读属性，一般用来了解 Event 实例的特性。</p><p>大多数浏览器的原生事件是可以取消的。比如，取消<code>click</code>事件，点击链接将无效。但是除非显式声明，<code>Event</code>构造函数生成的事件，默认是不可以取消的。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> evt = <span class="hljs-keyword">new</span> Event(<span class="hljs-string">'foo'</span>);
+</code></pre><p><code>Event.eventPhase</code>的返回值有四种可能。</p><ul><li>0，事件目前没有发生。</li><li>1，事件目前处于捕获阶段，即处于从祖先节点向目标节点的传播过程中。</li><li>2，事件到达目标节点，即<code>Event.target</code>属性指向的那个节点。</li><li>3，事件处于冒泡阶段，即处于从目标节点向祖先节点的反向传播过程中。</li></ul><h3 id="eventcancelable，eventcancelbubble，eventdefaultprevented">Event.cancelable，Event.cancelBubble，event.defaultPrevented <a class="markdownIt-Anchor" href="#eventcancelable，eventcancelbubble，eventdefaultprevented">#</a></h3><p><code>Event.cancelable</code>属性返回一个布尔值，表示事件是否可以取消。该属性为只读属性，一般用来了解 Event 实例的特性。</p><p>大多数浏览器的原生事件是可以取消的。比如，取消<code>click</code>事件，点击链接将无效。但是除非显式声明，<code>Event</code>构造函数生成的事件，默认是不可以取消的。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> evt = <span class="hljs-keyword">new</span> Event(<span class="hljs-string">&#x27;foo&#x27;</span>);
 evt.cancelable  <span class="hljs-comment">// false</span>
 </code></pre><p>当<code>Event.cancelable</code>属性为<code>true</code>时，调用<code>Event.preventDefault()</code>就可以取消这个事件，阻止浏览器对该事件的默认行为。</p><p>如果事件不能取消，调用<code>Event.preventDefault()</code>会没有任何效果。所以使用这个方法之前，最好用<code>Event.cancelable</code>属性判断一下是否可以取消。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">preventEvent</span>(<span class="hljs-params">event</span>) </span>{
   <span class="hljs-keyword">if</span> (event.cancelable) {
     event.preventDefault();
   } <span class="hljs-keyword">else</span> {
-    <span class="hljs-built_in">console</span>.warn(<span class="hljs-string">'This event couldn\'t be canceled.'</span>);
+    <span class="hljs-built_in">console</span>.warn(<span class="hljs-string">&#x27;This event couldn\&#x27;t be canceled.&#x27;</span>);
     <span class="hljs-built_in">console</span>.dir(event);
   }
 }
 </code></pre><p><code>Event.cancelBubble</code>属性是一个布尔值，如果设为<code>true</code>，相当于执行<code>Event.stopPropagation()</code>，可以阻止事件的传播。</p><p><code>Event.defaultPrevented</code>属性返回一个布尔值，表示该事件是否调用过<code>Event.preventDefault</code>方法。该属性只读。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> (event.defaultPrevented) {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'该事件已经取消了'</span>);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;该事件已经取消了&#x27;</span>);
 }
 </code></pre><h3 id="eventcurrenttarget，eventtarget">Event.currentTarget，Event.target <a class="markdownIt-Anchor" href="#eventcurrenttarget，eventtarget">#</a></h3><p>事件发生以后，会经过捕获和冒泡两个阶段，依次通过多个 DOM 节点。因此，任意时点都有两个与事件相关的节点，一个是事件的原始触发节点（<code>Event.target</code>），另一个是事件当前正在通过的节点（<code>Event.currentTarget</code>）。前者通常是后者的后代节点。</p><p><code>Event.currentTarget</code>属性返回事件当前所在的节点，即事件当前正在通过的节点，也就是当前正在执行的监听函数所在的那个节点。随着事件的传播，这个属性的值会变。</p><p><code>Event.target</code>属性返回原始触发事件的那个节点，即事件最初发生的节点。这个属性不会随着事件的传播而改变。</p><p>事件传播过程中，不同节点的监听函数内部的<code>Event.target</code>与<code>Event.currentTarget</code>属性的值是不一样的。</p><pre class="hljs"><code><span class="hljs-comment">// HTML 代码为</span>
-<span class="hljs-comment">// &lt;p id="para"&gt;Hello &lt;em&gt;World&lt;/em&gt;&lt;/p&gt;</span>
+<span class="hljs-comment">// &lt;p id=&quot;para&quot;&gt;Hello &lt;em&gt;World&lt;/em&gt;&lt;/p&gt;</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hide</span>(<span class="hljs-params">e</span>) </span>{
   <span class="hljs-comment">// 不管点击 Hello 或 World，总是返回 true</span>
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span> === e.currentTarget);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span> === e.currentTarget);
 
   <span class="hljs-comment">// 点击 Hello，返回 true</span>
   <span class="hljs-comment">// 点击 World，返回 false</span>
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span> === e.target);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span> === e.target);
 }
 
-<span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'para'</span>).addEventListener(<span class="hljs-string">'click'</span>, hide, <span class="hljs-literal">false</span>);
-</code></pre><p>上面代码中，<code>&lt;em&gt;</code>是<code>&lt;p&gt;</code>的子节点，点击<code>&lt;em&gt;</code>或者点击<code>&lt;p&gt;</code>，都会导致监听函数执行。这时，<code>e.target</code>总是指向原始点击位置的那个节点，而<code>e.currentTarget</code>指向事件传播过程中正在经过的那个节点。由于监听函数只有事件经过时才会触发，所以<code>e.currentTarget</code>总是等同于监听函数内部的<code>this</code>。</p><h3 id="eventtype">Event.type <a class="markdownIt-Anchor" href="#eventtype">#</a></h3><p><code>Event.type</code>属性返回一个字符串，表示事件类型。事件的类型是在生成事件的时候指定的。该属性只读。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> evt = <span class="hljs-keyword">new</span> Event(<span class="hljs-string">'foo'</span>);
-evt.type <span class="hljs-comment">// "foo"</span>
-</code></pre><h3 id="eventtimestamp">Event.timeStamp <a class="markdownIt-Anchor" href="#eventtimestamp">#</a></h3><p><code>Event.timeStamp</code>属性返回一个毫秒时间戳，表示事件发生的时间。它是相对于网页加载成功开始计算的。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> evt = <span class="hljs-keyword">new</span> Event(<span class="hljs-string">'foo'</span>);
+<span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;para&#x27;</span>).addEventListener(<span class="hljs-string">&#x27;click&#x27;</span>, hide, <span class="hljs-literal">false</span>);
+</code></pre><p>上面代码中，<code>&lt;em&gt;</code>是<code>&lt;p&gt;</code>的子节点，点击<code>&lt;em&gt;</code>或者点击<code>&lt;p&gt;</code>，都会导致监听函数执行。这时，<code>e.target</code>总是指向原始点击位置的那个节点，而<code>e.currentTarget</code>指向事件传播过程中正在经过的那个节点。由于监听函数只有事件经过时才会触发，所以<code>e.currentTarget</code>总是等同于监听函数内部的<code>this</code>。</p><h3 id="eventtype">Event.type <a class="markdownIt-Anchor" href="#eventtype">#</a></h3><p><code>Event.type</code>属性返回一个字符串，表示事件类型。事件的类型是在生成事件的时候指定的。该属性只读。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> evt = <span class="hljs-keyword">new</span> Event(<span class="hljs-string">&#x27;foo&#x27;</span>);
+evt.type <span class="hljs-comment">// &quot;foo&quot;</span>
+</code></pre><h3 id="eventtimestamp">Event.timeStamp <a class="markdownIt-Anchor" href="#eventtimestamp">#</a></h3><p><code>Event.timeStamp</code>属性返回一个毫秒时间戳，表示事件发生的时间。它是相对于网页加载成功开始计算的。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> evt = <span class="hljs-keyword">new</span> Event(<span class="hljs-string">&#x27;foo&#x27;</span>);
 evt.timeStamp <span class="hljs-comment">// 3683.6999999995896</span>
 </code></pre><p>它的返回值有可能是整数，也有可能是小数（高精度时间戳），取决于浏览器的设置。</p><p>下面是一个计算鼠标移动速度的例子，显示每秒移动的像素数量。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> previousX;
 <span class="hljs-keyword">var</span> previousY;
 <span class="hljs-keyword">var</span> previousT;
 
-<span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'mousemove'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>) </span>{
+<span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">&#x27;mousemove&#x27;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>) </span>{
   <span class="hljs-keyword">if</span> (
     previousX !== <span class="hljs-literal">undefined</span> &amp;&amp;
     previousY !== <span class="hljs-literal">undefined</span> &amp;&amp;
@@ -74,7 +74,7 @@ evt.timeStamp <span class="hljs-comment">// 3683.6999999995896</span>
   previousY = event.screenY;
   previousT = event.timeStamp;
 });
-</code></pre><h3 id="eventistrusted">Event.isTrusted <a class="markdownIt-Anchor" href="#eventistrusted">#</a></h3><p><code>Event.isTrusted</code>属性返回一个布尔值，表示该事件是否由真实的用户行为产生。比如，用户点击链接会产生一个<code>click</code>事件，该事件是用户产生的；<code>Event</code>构造函数生成的事件，则是脚本产生的。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> evt = <span class="hljs-keyword">new</span> Event(<span class="hljs-string">'foo'</span>);
+</code></pre><h3 id="eventistrusted">Event.isTrusted <a class="markdownIt-Anchor" href="#eventistrusted">#</a></h3><p><code>Event.isTrusted</code>属性返回一个布尔值，表示该事件是否由真实的用户行为产生。比如，用户点击链接会产生一个<code>click</code>事件，该事件是用户产生的；<code>Event</code>构造函数生成的事件，则是脚本产生的。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> evt = <span class="hljs-keyword">new</span> Event(<span class="hljs-string">&#x27;foo&#x27;</span>);
 evt.isTrusted <span class="hljs-comment">// false</span>
 </code></pre><p>上面代码中，<code>evt</code>对象是脚本产生的，所以<code>isTrusted</code>属性返回<code>false</code>。</p><h3 id="eventdetail">Event.detail <a class="markdownIt-Anchor" href="#eventdetail">#</a></h3><p><code>Event.detail</code>属性只有浏览器的 UI （用户界面）事件才具有。该属性返回一个数值，表示事件的某种信息。具体含义与事件类型相关。比如，对于<code>click</code>和<code>dblclick</code>事件，<code>Event.detail</code>是鼠标按下的次数（<code>1</code>表示单击，<code>2</code>表示双击，<code>3</code>表示三击）；对于鼠标滚轮事件，<code>Event.detail</code>是滚轮正向滚动的距离，负值就是负向滚动的距离，返回值总是3的倍数。</p><pre class="hljs"><code><span class="hljs-comment">// HTML 代码如下</span>
 <span class="hljs-comment">// &lt;p&gt;Hello&lt;/p&gt;</span>
@@ -82,20 +82,20 @@ evt.isTrusted <span class="hljs-comment">// false</span>
   <span class="hljs-built_in">console</span>.log(e.detail);
 }
 
-<span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'p'</span>).onclick = giveDetails;
+<span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;p&#x27;</span>).onclick = giveDetails;
 </code></pre><h2 id="实例方法">实例方法 <a class="markdownIt-Anchor" href="#实例方法">#</a></h2><h3 id="eventpreventdefault">Event.preventDefault() <a class="markdownIt-Anchor" href="#eventpreventdefault">#</a></h3><p><code>Event.preventDefault</code>方法取消浏览器对当前事件的默认行为。比如点击链接后，浏览器默认会跳转到另一个页面，使用这个方法以后，就不会跳转了；再比如，按一下空格键，页面向下滚动一段距离，使用这个方法以后也不会滚动了。该方法生效的前提是，事件对象的<code>cancelable</code>属性为<code>true</code>，如果为<code>false</code>，调用该方法没有任何效果。</p><p>注意，该方法只是取消事件对当前元素的默认影响，不会阻止事件的传播。如果要阻止传播，可以使用<code>stopPropagation()</code>或<code>stopImmediatePropagation()</code>方法。</p><pre class="hljs"><code><span class="hljs-comment">// HTML 代码为</span>
-<span class="hljs-comment">// &lt;input type="checkbox" id="my-checkbox" /&gt;</span>
-<span class="hljs-keyword">var</span> cb = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'my-checkbox'</span>);
+<span class="hljs-comment">// &lt;input type=&quot;checkbox&quot; id=&quot;my-checkbox&quot; /&gt;</span>
+<span class="hljs-keyword">var</span> cb = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;my-checkbox&#x27;</span>);
 
 cb.addEventListener(
-  <span class="hljs-string">'click'</span>,
+  <span class="hljs-string">&#x27;click&#x27;</span>,
   <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>)</span>{ e.preventDefault(); },
   <span class="hljs-literal">false</span>
 );
 </code></pre><p>上面代码中，浏览器的默认行为是单击会选中单选框，取消这个行为，就导致无法选中单选框。</p><p>利用这个方法，可以为文本输入框设置校验条件。如果用户的输入不符合条件，就无法将字符输入文本框。</p><pre class="hljs"><code><span class="hljs-comment">// HTML 代码为</span>
-<span class="hljs-comment">// &lt;input type="text" id="my-input" /&gt;</span>
-<span class="hljs-keyword">var</span> input = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'my-input'</span>);
-input.addEventListener(<span class="hljs-string">'keypress'</span>, checkName, <span class="hljs-literal">false</span>);
+<span class="hljs-comment">// &lt;input type=&quot;text&quot; id=&quot;my-input&quot; /&gt;</span>
+<span class="hljs-keyword">var</span> input = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;my-input&#x27;</span>);
+input.addEventListener(<span class="hljs-string">&#x27;keypress&#x27;</span>, checkName, <span class="hljs-literal">false</span>);
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">checkName</span>(<span class="hljs-params">e</span>) </span>{
   <span class="hljs-keyword">if</span> (e.charCode &lt; <span class="hljs-number">97</span> || e.charCode &gt; <span class="hljs-number">122</span>) {
@@ -106,25 +106,25 @@ input.addEventListener(<span class="hljs-string">'keypress'</span>, checkName, <
   e.stopPropagation();
 }
 
-el.addEventListener(<span class="hljs-string">'click'</span>, stopEvent, <span class="hljs-literal">false</span>);
+el.addEventListener(<span class="hljs-string">&#x27;click&#x27;</span>, stopEvent, <span class="hljs-literal">false</span>);
 </code></pre><p>上面代码中，<code>click</code>事件将不会进一步冒泡到<code>el</code>节点的父节点。</p><h3 id="eventstopimmediatepropagation">Event.stopImmediatePropagation() <a class="markdownIt-Anchor" href="#eventstopimmediatepropagation">#</a></h3><p><code>Event.stopImmediatePropagation</code>方法阻止同一个事件的其他监听函数被调用，不管监听函数定义在当前节点还是其他节点。也就是说，该方法阻止事件的传播，比<code>Event.stopPropagation()</code>更彻底。</p><p>如果同一个节点对于同一个事件指定了多个监听函数，这些函数会根据添加的顺序依次调用。只要其中有一个监听函数调用了<code>Event.stopImmediatePropagation</code>方法，其他的监听函数就不会再执行了。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">l1</span>(<span class="hljs-params">e</span>)</span>{
   e.stopImmediatePropagation();
 }
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">l2</span>(<span class="hljs-params">e</span>)</span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'hello world'</span>);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;hello world&#x27;</span>);
 }
 
-el.addEventListener(<span class="hljs-string">'click'</span>, l1, <span class="hljs-literal">false</span>);
-el.addEventListener(<span class="hljs-string">'click'</span>, l2, <span class="hljs-literal">false</span>);
+el.addEventListener(<span class="hljs-string">&#x27;click&#x27;</span>, l1, <span class="hljs-literal">false</span>);
+el.addEventListener(<span class="hljs-string">&#x27;click&#x27;</span>, l2, <span class="hljs-literal">false</span>);
 </code></pre><p>上面代码在<code>el</code>节点上，为<code>click</code>事件添加了两个监听函数<code>l1</code>和<code>l2</code>。由于<code>l1</code>调用了<code>event.stopImmediatePropagation</code>方法，所以<code>l2</code>不会被调用。</p><h3 id="eventcomposedpath">Event.composedPath() <a class="markdownIt-Anchor" href="#eventcomposedpath">#</a></h3><p><code>Event.composedPath()</code>返回一个数组，成员是事件的最底层节点和依次冒泡经过的所有上层节点。</p><pre class="hljs"><code><span class="hljs-comment">// HTML 代码如下</span>
 <span class="hljs-comment">// &lt;div&gt;</span>
 <span class="hljs-comment">//   &lt;p&gt;Hello&lt;/p&gt;</span>
 <span class="hljs-comment">// &lt;/div&gt;</span>
-<span class="hljs-keyword">var</span> div = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'div'</span>);
-<span class="hljs-keyword">var</span> p = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'p'</span>);
+<span class="hljs-keyword">var</span> div = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;div&#x27;</span>);
+<span class="hljs-keyword">var</span> p = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;p&#x27;</span>);
 
-div.addEventListener(<span class="hljs-string">'click'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>{
+div.addEventListener(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>{
   <span class="hljs-built_in">console</span>.log(e.composedPath());
 }, <span class="hljs-literal">false</span>);
 <span class="hljs-comment">// [p, div, body, html, document, Window]</span>

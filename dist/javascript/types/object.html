@@ -1,14 +1,14 @@
 <!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>对象 - JavaScript 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="../assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="../assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="对象"><link rel="apple-touch-icon" sizes="57x57" href="../assets/icons/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="../assets/icons/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="../assets/icons/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="../assets/icons/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="../assets/icons/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="../assets/icons/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="../assets/icons/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="../assets/icons/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="../assets/icons/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="../assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="../assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="../assets/icons/favicon-16x16.png"><link rel="manifest" href="../assets/icons/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="../assets/icons/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/javascript-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/javascript-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8"><nav class="breadcrumb is-size-5-desktop" aria-label="breadcrumbs"><ul><li><a href="../index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;JavaScript 教程</a></li><li><a href="../types/index.html">数据类型</a></li><li class="is-active"><a class="has-text-grey" href="../types/object.html">对象</a></li></ul></nav><nav class="level level-previous-next is-size-5 is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="../types/string.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> 字符串</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="../types/function.html">函数 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content is-size-4-desktop"><h1 class="title">对象</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><h2 id="概述">概述 <a class="markdownIt-Anchor" href="#概述">#</a></h2><h3 id="生成方法">生成方法 <a class="markdownIt-Anchor" href="#生成方法">#</a></h3><p>对象（object）是 JavaScript 语言的核心概念，也是最重要的数据类型。</p><p>什么是对象？简单说，对象就是一组“键值对”（key-value）的集合，是一种无序的复合数据集合。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = {
-  <span class="hljs-attr">foo</span>: <span class="hljs-string">'Hello'</span>,
-  <span class="hljs-attr">bar</span>: <span class="hljs-string">'World'</span>
+  <span class="hljs-attr">foo</span>: <span class="hljs-string">&#x27;Hello&#x27;</span>,
+  <span class="hljs-attr">bar</span>: <span class="hljs-string">&#x27;World&#x27;</span>
 };
 </code></pre><p>上面代码中，大括号就定义了一个对象，它被赋值给变量<code>obj</code>，所以变量<code>obj</code>就指向一个对象。该对象内部包含两个键值对（又称为两个“成员”），第一个键值对是<code>foo: 'Hello'</code>，其中<code>foo</code>是“键名”（成员的名称），字符串<code>Hello</code>是“键值”（成员的值）。键名与键值之间用冒号分隔。第二个键值对是<code>bar: 'World'</code>，<code>bar</code>是键名，<code>World</code>是键值。两个键值对之间用逗号分隔。</p><h3 id="键名">键名 <a class="markdownIt-Anchor" href="#键名">#</a></h3><p>对象的所有键名都是字符串（ES6 又引入了 Symbol 值也可以作为键名），所以加不加引号都可以。上面的代码也可以写成下面这样。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = {
-  <span class="hljs-string">'foo'</span>: <span class="hljs-string">'Hello'</span>,
-  <span class="hljs-string">'bar'</span>: <span class="hljs-string">'World'</span>
+  <span class="hljs-string">&#x27;foo&#x27;</span>: <span class="hljs-string">&#x27;Hello&#x27;</span>,
+  <span class="hljs-string">&#x27;bar&#x27;</span>: <span class="hljs-string">&#x27;World&#x27;</span>
 };
 </code></pre><p>如果键名是数值，会被自动转为字符串。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = {
-  <span class="hljs-number">1</span>: <span class="hljs-string">'a'</span>,
-  <span class="hljs-number">3.2</span>: <span class="hljs-string">'b'</span>,
+  <span class="hljs-number">1</span>: <span class="hljs-string">&#x27;a&#x27;</span>,
+  <span class="hljs-number">3.2</span>: <span class="hljs-string">&#x27;b&#x27;</span>,
   <span class="hljs-number">1e2</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-number">1e-2</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-number">.234</span>: <span class="hljs-literal">true</span>,
@@ -17,25 +17,25 @@
 
 obj
 <span class="hljs-comment">// Object {</span>
-<span class="hljs-comment">//   1: "a",</span>
-<span class="hljs-comment">//   3.2: "b",</span>
+<span class="hljs-comment">//   1: &quot;a&quot;,</span>
+<span class="hljs-comment">//   3.2: &quot;b&quot;,</span>
 <span class="hljs-comment">//   100: true,</span>
 <span class="hljs-comment">//   0.01: true,</span>
 <span class="hljs-comment">//   0.234: true,</span>
 <span class="hljs-comment">//   255: true</span>
 <span class="hljs-comment">// }</span>
 
-obj[<span class="hljs-string">'100'</span>] <span class="hljs-comment">// true</span>
+obj[<span class="hljs-string">&#x27;100&#x27;</span>] <span class="hljs-comment">// true</span>
 </code></pre><p>上面代码中，对象<code>obj</code>的所有键名虽然看上去像数值，实际上都被自动转成了字符串。</p><p>如果键名不符合标识名的条件（比如第一个字符为数字，或者含有空格或运算符），且也不是数字，则必须加上引号，否则会报错。</p><pre class="hljs"><code><span class="hljs-comment">// 报错</span>
 <span class="hljs-keyword">var</span> obj = {
-  <span class="hljs-number">1</span>p: <span class="hljs-string">'Hello World'</span>
+  <span class="hljs-number">1</span>p: <span class="hljs-string">&#x27;Hello World&#x27;</span>
 };
 
 <span class="hljs-comment">// 不报错</span>
 <span class="hljs-keyword">var</span> obj = {
-  <span class="hljs-string">'1p'</span>: <span class="hljs-string">'Hello World'</span>,
-  <span class="hljs-string">'h w'</span>: <span class="hljs-string">'Hello World'</span>,
-  <span class="hljs-string">'p+q'</span>: <span class="hljs-string">'Hello World'</span>
+  <span class="hljs-string">&#x27;1p&#x27;</span>: <span class="hljs-string">&#x27;Hello World&#x27;</span>,
+  <span class="hljs-string">&#x27;h w&#x27;</span>: <span class="hljs-string">&#x27;Hello World&#x27;</span>,
+  <span class="hljs-string">&#x27;p+q&#x27;</span>: <span class="hljs-string">&#x27;Hello World&#x27;</span>
 };
 </code></pre><p>上面对象的三个键名，都不符合标识名的条件，所以必须加上引号。</p><p>对象的每一个键名又称为“属性”（property），它的“键值”可以是任何数据类型。如果一个属性的值为函数，通常把这个属性称为“方法”，它可以像函数那样调用。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = {
   <span class="hljs-attr">p</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">x</span>) </span>{
@@ -45,10 +45,10 @@ obj[<span class="hljs-string">'100'</span>] <span class="hljs-comment">// true</
 
 obj.p(<span class="hljs-number">1</span>) <span class="hljs-comment">// 2</span>
 </code></pre><p>上面代码中，对象<code>obj</code>的属性<code>p</code>，就指向一个函数。</p><p>如果属性的值还是一个对象，就形成了链式引用。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> o1 = {};
-<span class="hljs-keyword">var</span> o2 = { <span class="hljs-attr">bar</span>: <span class="hljs-string">'hello'</span> };
+<span class="hljs-keyword">var</span> o2 = { <span class="hljs-attr">bar</span>: <span class="hljs-string">&#x27;hello&#x27;</span> };
 
 o1.foo = o2;
-o1.foo.bar <span class="hljs-comment">// "hello"</span>
+o1.foo.bar <span class="hljs-comment">// &quot;hello&quot;</span>
 </code></pre><p>上面代码中，对象<code>o1</code>的属性<code>foo</code>指向对象<code>o2</code>，就可以链式引用<code>o2</code>的属性。</p><p>对象的属性之间用逗号分隔，最后一个属性后面可以加逗号（trailing comma），也可以不加。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = {
   <span class="hljs-attr">p</span>: <span class="hljs-number">123</span>,
   <span class="hljs-attr">m</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ ... },
@@ -78,15 +78,15 @@ y <span class="hljs-comment">// 1</span>
 </code></pre><p>JavaScript 引擎读到上面这行代码，会发现可能有两种含义。第一种可能是，这是一个表达式，表示一个包含<code>foo</code>属性的对象；第二种可能是，这是一个语句，表示一个代码区块，里面有一个标签<code>foo</code>，指向表达式<code>123</code>。</p><p>为了避免这种歧义，JavaScript 引擎的做法是，如果遇到这种情况，无法确定是对象还是代码块，一律解释为代码块。</p><pre class="hljs"><code>{ <span class="hljs-built_in">console</span>.log(<span class="hljs-number">123</span>) } <span class="hljs-comment">// 123</span>
 </code></pre><p>上面的语句是一个代码块，而且只有解释为代码块，才能执行。</p><p>如果要解释为对象，最好在大括号前加上圆括号。因为圆括号的里面，只能是表达式，所以确保大括号只能解释为对象。</p><pre class="hljs"><code>({ <span class="hljs-attr">foo</span>: <span class="hljs-number">123</span> }) <span class="hljs-comment">// 正确</span>
 ({ <span class="hljs-built_in">console</span>.log(<span class="hljs-number">123</span>) }) <span class="hljs-comment">// 报错</span>
-</code></pre><p>这种差异在<code>eval</code>语句（作用是对字符串求值）中反映得最明显。</p><pre class="hljs"><code><span class="hljs-built_in">eval</span>(<span class="hljs-string">'{foo: 123}'</span>) <span class="hljs-comment">// 123</span>
-<span class="hljs-built_in">eval</span>(<span class="hljs-string">'({foo: 123})'</span>) <span class="hljs-comment">// {foo: 123}</span>
+</code></pre><p>这种差异在<code>eval</code>语句（作用是对字符串求值）中反映得最明显。</p><pre class="hljs"><code><span class="hljs-built_in">eval</span>(<span class="hljs-string">&#x27;{foo: 123}&#x27;</span>) <span class="hljs-comment">// 123</span>
+<span class="hljs-built_in">eval</span>(<span class="hljs-string">&#x27;({foo: 123})&#x27;</span>) <span class="hljs-comment">// {foo: 123}</span>
 </code></pre><p>上面代码中，如果没有圆括号，<code>eval</code>将其理解为一个代码块；加上圆括号以后，就理解成一个对象。</p><h2 id="属性的操作">属性的操作 <a class="markdownIt-Anchor" href="#属性的操作">#</a></h2><h3 id="属性的读取">属性的读取 <a class="markdownIt-Anchor" href="#属性的读取">#</a></h3><p>读取对象的属性，有两种方法，一种是使用点运算符，还有一种是使用方括号运算符。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = {
-  <span class="hljs-attr">p</span>: <span class="hljs-string">'Hello World'</span>
+  <span class="hljs-attr">p</span>: <span class="hljs-string">&#x27;Hello World&#x27;</span>
 };
 
-obj.p <span class="hljs-comment">// "Hello World"</span>
-obj[<span class="hljs-string">'p'</span>] <span class="hljs-comment">// "Hello World"</span>
-</code></pre><p>上面代码分别采用点运算符和方括号运算符，读取属性<code>p</code>。</p><p>请注意，如果使用方括号运算符，键名必须放在引号里面，否则会被当作变量处理。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> foo = <span class="hljs-string">'bar'</span>;
+obj.p <span class="hljs-comment">// &quot;Hello World&quot;</span>
+obj[<span class="hljs-string">&#x27;p&#x27;</span>] <span class="hljs-comment">// &quot;Hello World&quot;</span>
+</code></pre><p>上面代码分别采用点运算符和方括号运算符，读取属性<code>p</code>。</p><p>请注意，如果使用方括号运算符，键名必须放在引号里面，否则会被当作变量处理。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> foo = <span class="hljs-string">&#x27;bar&#x27;</span>;
 
 <span class="hljs-keyword">var</span> obj = {
   <span class="hljs-attr">foo</span>: <span class="hljs-number">1</span>,
@@ -95,24 +95,24 @@ obj[<span class="hljs-string">'p'</span>] <span class="hljs-comment">// "Hello W
 
 obj.foo  <span class="hljs-comment">// 1</span>
 obj[foo]  <span class="hljs-comment">// 2</span>
-</code></pre><p>上面代码中，引用对象<code>obj</code>的<code>foo</code>属性时，如果使用点运算符，<code>foo</code>就是字符串；如果使用方括号运算符，但是不使用引号，那么<code>foo</code>就是一个变量，指向字符串<code>bar</code>。</p><p>方括号运算符内部还可以使用表达式。</p><pre class="hljs"><code>obj[<span class="hljs-string">'hello'</span> + <span class="hljs-string">' world'</span>]
+</code></pre><p>上面代码中，引用对象<code>obj</code>的<code>foo</code>属性时，如果使用点运算符，<code>foo</code>就是字符串；如果使用方括号运算符，但是不使用引号，那么<code>foo</code>就是一个变量，指向字符串<code>bar</code>。</p><p>方括号运算符内部还可以使用表达式。</p><pre class="hljs"><code>obj[<span class="hljs-string">&#x27;hello&#x27;</span> + <span class="hljs-string">&#x27; world&#x27;</span>]
 obj[<span class="hljs-number">3</span> + <span class="hljs-number">3</span>]
 </code></pre><p>数字键可以不加引号，因为会自动转成字符串。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = {
-  <span class="hljs-number">0.7</span>: <span class="hljs-string">'Hello World'</span>
+  <span class="hljs-number">0.7</span>: <span class="hljs-string">&#x27;Hello World&#x27;</span>
 };
 
-obj[<span class="hljs-string">'0.7'</span>] <span class="hljs-comment">// "Hello World"</span>
-obj[<span class="hljs-number">0.7</span>] <span class="hljs-comment">// "Hello World"</span>
+obj[<span class="hljs-string">&#x27;0.7&#x27;</span>] <span class="hljs-comment">// &quot;Hello World&quot;</span>
+obj[<span class="hljs-number">0.7</span>] <span class="hljs-comment">// &quot;Hello World&quot;</span>
 </code></pre><p>上面代码中，对象<code>obj</code>的数字键<code>0.7</code>，加不加引号都可以，因为会被自动转为字符串。</p><p>注意，数值键名不能使用点运算符（因为会被当成小数点），只能使用方括号运算符。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = {
-  <span class="hljs-number">123</span>: <span class="hljs-string">'hello world'</span>
+  <span class="hljs-number">123</span>: <span class="hljs-string">&#x27;hello world&#x27;</span>
 };
 
 obj<span class="hljs-number">.123</span> <span class="hljs-comment">// 报错</span>
-obj[<span class="hljs-number">123</span>] <span class="hljs-comment">// "hello world"</span>
+obj[<span class="hljs-number">123</span>] <span class="hljs-comment">// &quot;hello world&quot;</span>
 </code></pre><p>上面代码的第一个表达式，对数值键名<code>123</code>使用点运算符，结果报错。第二个表达式使用方括号运算符，结果就是正确的。</p><h3 id="属性的赋值">属性的赋值 <a class="markdownIt-Anchor" href="#属性的赋值">#</a></h3><p>点运算符和方括号运算符，不仅可以用来读取值，还可以用来赋值。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = {};
 
-obj.foo = <span class="hljs-string">'Hello'</span>;
-obj[<span class="hljs-string">'bar'</span>] = <span class="hljs-string">'World'</span>;
+obj.foo = <span class="hljs-string">&#x27;Hello&#x27;</span>;
+obj[<span class="hljs-string">&#x27;bar&#x27;</span>] = <span class="hljs-string">&#x27;World&#x27;</span>;
 </code></pre><p>上面代码中，分别使用点运算符和方括号运算符，对属性赋值。</p><p>JavaScript 允许属性的“后绑定”，也就是说，你可以在任意时刻新增属性，没必要在定义对象的时候，就定义好属性。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = { <span class="hljs-attr">p</span>: <span class="hljs-number">1</span> };
 
 <span class="hljs-comment">// 等价于</span>
@@ -125,16 +125,16 @@ obj.p = <span class="hljs-number">1</span>;
 };
 
 <span class="hljs-built_in">Object</span>.keys(obj);
-<span class="hljs-comment">// ['key1', 'key2']</span>
+<span class="hljs-comment">// [&#x27;key1&#x27;, &#x27;key2&#x27;]</span>
 </code></pre><h3 id="属性的删除：delete-命令">属性的删除：delete 命令 <a class="markdownIt-Anchor" href="#属性的删除：delete-命令">#</a></h3><p><code>delete</code>命令用于删除对象的属性，删除成功后返回<code>true</code>。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = { <span class="hljs-attr">p</span>: <span class="hljs-number">1</span> };
-<span class="hljs-built_in">Object</span>.keys(obj) <span class="hljs-comment">// ["p"]</span>
+<span class="hljs-built_in">Object</span>.keys(obj) <span class="hljs-comment">// [&quot;p&quot;]</span>
 
 <span class="hljs-keyword">delete</span> obj.p <span class="hljs-comment">// true</span>
 obj.p <span class="hljs-comment">// undefined</span>
 <span class="hljs-built_in">Object</span>.keys(obj) <span class="hljs-comment">// []</span>
 </code></pre><p>上面代码中，<code>delete</code>命令删除对象<code>obj</code>的<code>p</code>属性。删除后，再读取<code>p</code>属性就会返回<code>undefined</code>，而且<code>Object.keys</code>方法的返回值也不再包括该属性。</p><p>注意，删除一个不存在的属性，<code>delete</code>不报错，而且返回<code>true</code>。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = {};
 <span class="hljs-keyword">delete</span> obj.p <span class="hljs-comment">// true</span>
-</code></pre><p>上面代码中，对象<code>obj</code>并没有<code>p</code>属性，但是<code>delete</code>命令照样返回<code>true</code>。因此，不能根据<code>delete</code>命令的结果，认定某个属性是存在的。</p><p>只有一种情况，<code>delete</code>命令会返回<code>false</code>，那就是该属性存在，且不得删除。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = <span class="hljs-built_in">Object</span>.defineProperty({}, <span class="hljs-string">'p'</span>, {
+</code></pre><p>上面代码中，对象<code>obj</code>并没有<code>p</code>属性，但是<code>delete</code>命令照样返回<code>true</code>。因此，不能根据<code>delete</code>命令的结果，认定某个属性是存在的。</p><p>只有一种情况，<code>delete</code>命令会返回<code>false</code>，那就是该属性存在，且不得删除。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = <span class="hljs-built_in">Object</span>.defineProperty({}, <span class="hljs-string">&#x27;p&#x27;</span>, {
   <span class="hljs-attr">value</span>: <span class="hljs-number">123</span>,
   <span class="hljs-attr">configurable</span>: <span class="hljs-literal">false</span>
 });
@@ -145,17 +145,17 @@ obj.p <span class="hljs-comment">// 123</span>
 <span class="hljs-keyword">delete</span> obj.toString <span class="hljs-comment">// true</span>
 obj.toString <span class="hljs-comment">// function toString() { [native code] }</span>
 </code></pre><p>上面代码中，<code>toString</code>是对象<code>obj</code>继承的属性，虽然<code>delete</code>命令返回<code>true</code>，但该属性并没有被删除，依然存在。这个例子还说明，即使<code>delete</code>返回<code>true</code>，该属性依然可能读取到值。</p><h3 id="属性是否存在：in-运算符">属性是否存在：in 运算符 <a class="markdownIt-Anchor" href="#属性是否存在：in-运算符">#</a></h3><p><code>in</code>运算符用于检查对象是否包含某个属性（注意，检查的是键名，不是键值），如果包含就返回<code>true</code>，否则返回<code>false</code>。它的左边是一个字符串，表示属性名，右边是一个对象。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = { <span class="hljs-attr">p</span>: <span class="hljs-number">1</span> };
-<span class="hljs-string">'p'</span> <span class="hljs-keyword">in</span> obj <span class="hljs-comment">// true</span>
-<span class="hljs-string">'toString'</span> <span class="hljs-keyword">in</span> obj <span class="hljs-comment">// true</span>
+<span class="hljs-string">&#x27;p&#x27;</span> <span class="hljs-keyword">in</span> obj <span class="hljs-comment">// true</span>
+<span class="hljs-string">&#x27;toString&#x27;</span> <span class="hljs-keyword">in</span> obj <span class="hljs-comment">// true</span>
 </code></pre><p><code>in</code>运算符的一个问题是，它不能识别哪些属性是对象自身的，哪些属性是继承的。就像上面代码中，对象<code>obj</code>本身并没有<code>toString</code>属性，但是<code>in</code>运算符会返回<code>true</code>，因为这个属性是继承的。</p><p>这时，可以使用对象的<code>hasOwnProperty</code>方法判断一下，是否为对象自身的属性。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = {};
-<span class="hljs-keyword">if</span> (<span class="hljs-string">'toString'</span> <span class="hljs-keyword">in</span> obj) {
-  <span class="hljs-built_in">console</span>.log(obj.hasOwnProperty(<span class="hljs-string">'toString'</span>)) <span class="hljs-comment">// false</span>
+<span class="hljs-keyword">if</span> (<span class="hljs-string">&#x27;toString&#x27;</span> <span class="hljs-keyword">in</span> obj) {
+  <span class="hljs-built_in">console</span>.log(obj.hasOwnProperty(<span class="hljs-string">&#x27;toString&#x27;</span>)) <span class="hljs-comment">// false</span>
 }
 </code></pre><h3 id="属性的遍历：forin-循环">属性的遍历：for...in 循环 <a class="markdownIt-Anchor" href="#属性的遍历：forin-循环">#</a></h3><p><code>for...in</code>循环用来遍历一个对象的全部属性。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = {<span class="hljs-attr">a</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">b</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">c</span>: <span class="hljs-number">3</span>};
 
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i <span class="hljs-keyword">in</span> obj) {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'键名：'</span>, i);
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'键值：'</span>, obj[i]);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;键名：&#x27;</span>, i);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;键值：&#x27;</span>, obj[i]);
 }
 <span class="hljs-comment">// 键名： a</span>
 <span class="hljs-comment">// 键值： 1</span>
@@ -171,7 +171,7 @@ obj.toString <span class="hljs-comment">// toString() { [native code] }</span>
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> p <span class="hljs-keyword">in</span> obj) {
   <span class="hljs-built_in">console</span>.log(p);
 } <span class="hljs-comment">// 没有任何输出</span>
-</code></pre><p>上面代码中，对象<code>obj</code>继承了<code>toString</code>属性，该属性不会被<code>for...in</code>循环遍历到，因为它默认是“不可遍历”的。关于对象属性的可遍历性，参见《标准库》章节中 Object 一章的介绍。</p><p>如果继承的属性是可遍历的，那么就会被<code>for...in</code>循环遍历到。但是，一般情况下，都是只想遍历对象自身的属性，所以使用<code>for...in</code>的时候，应该结合使用<code>hasOwnProperty</code>方法，在循环内部判断一下，某个属性是否为对象自身的属性。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> person = { <span class="hljs-attr">name</span>: <span class="hljs-string">'老张'</span> };
+</code></pre><p>上面代码中，对象<code>obj</code>继承了<code>toString</code>属性，该属性不会被<code>for...in</code>循环遍历到，因为它默认是“不可遍历”的。关于对象属性的可遍历性，参见《标准库》章节中 Object 一章的介绍。</p><p>如果继承的属性是可遍历的，那么就会被<code>for...in</code>循环遍历到。但是，一般情况下，都是只想遍历对象自身的属性，所以使用<code>for...in</code>的时候，应该结合使用<code>hasOwnProperty</code>方法，在循环内部判断一下，某个属性是否为对象自身的属性。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> person = { <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;老张&#x27;</span> };
 
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> key <span class="hljs-keyword">in</span> person) {
   <span class="hljs-keyword">if</span> (person.hasOwnProperty(key)) {

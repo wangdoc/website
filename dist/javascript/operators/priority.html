@@ -5,21 +5,21 @@
 x <span class="hljs-comment">// 5</span>
 </code></pre><p>这个运算符的主要用途是浏览器的书签工具（Bookmarklet），以及在超级链接中插入代码防止网页跳转。</p><p>请看下面的代码。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Hello World'</span>);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Hello World&#x27;</span>);
 }
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"http://example.com"</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">"f(); return false;"</span>&gt;</span>点击<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
-</code></pre><p>上面代码中，点击链接后，会先执行<code>onclick</code>的代码，由于<code>onclick</code>返回<code>false</code>，所以浏览器不会跳转到 example.com。</p><p><code>void</code>运算符可以取代上面的写法。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"javascript: void(f())"</span>&gt;</span>文字<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
-</code></pre><p>下面是一个更实际的例子，用户点击链接提交表单，但是不产生页面跳转。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"javascript: void(document.form.submit())"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;http://example.com&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;f(); return false;&quot;</span>&gt;</span>点击<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+</code></pre><p>上面代码中，点击链接后，会先执行<code>onclick</code>的代码，由于<code>onclick</code>返回<code>false</code>，所以浏览器不会跳转到 example.com。</p><p><code>void</code>运算符可以取代上面的写法。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;javascript: void(f())&quot;</span>&gt;</span>文字<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+</code></pre><p>下面是一个更实际的例子，用户点击链接提交表单，但是不产生页面跳转。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;javascript: void(document.form.submit())&quot;</span>&gt;</span>
   提交
 <span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
-</code></pre><h2 id="逗号运算符">逗号运算符 <a class="markdownIt-Anchor" href="#逗号运算符">#</a></h2><p>逗号运算符用于对两个表达式求值，并返回后一个表达式的值。</p><pre class="hljs"><code><span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span> <span class="hljs-comment">// "b"</span>
+</code></pre><h2 id="逗号运算符">逗号运算符 <a class="markdownIt-Anchor" href="#逗号运算符">#</a></h2><p>逗号运算符用于对两个表达式求值，并返回后一个表达式的值。</p><pre class="hljs"><code><span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span> <span class="hljs-comment">// &quot;b&quot;</span>
 
 <span class="hljs-keyword">var</span> x = <span class="hljs-number">0</span>;
 <span class="hljs-keyword">var</span> y = (x++, <span class="hljs-number">10</span>);
 x <span class="hljs-comment">// 1</span>
 y <span class="hljs-comment">// 10</span>
-</code></pre><p>上面代码中，逗号运算符返回后一个表达式的值。</p><p>逗号运算符的一个用途是，在返回一个值之前，进行一些辅助操作。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> value = (<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Hi!'</span>), <span class="hljs-literal">true</span>);
+</code></pre><p>上面代码中，逗号运算符返回后一个表达式的值。</p><p>逗号运算符的一个用途是，在返回一个值之前，进行一些辅助操作。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> value = (<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Hi!&#x27;</span>), <span class="hljs-literal">true</span>);
 <span class="hljs-comment">// Hi!</span>
 
 value <span class="hljs-comment">// true</span>

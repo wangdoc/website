@@ -17,7 +17,7 @@
 <span class="hljs-built_in">Object</span>.getPrototypeOf(a) === b <span class="hljs-comment">// true</span>
 a.x <span class="hljs-comment">// 1</span>
 </code></pre><p>上面代码中，<code>Object.setPrototypeOf</code>方法将对象<code>a</code>的原型，设置为对象<code>b</code>，因此<code>a</code>可以共享<code>b</code>的属性。</p><p><code>new</code>命令可以使用<code>Object.setPrototypeOf</code>方法模拟。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> F = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">this</span>.foo = <span class="hljs-string">'bar'</span>;
+  <span class="hljs-built_in">this</span>.foo = <span class="hljs-string">&#x27;bar&#x27;</span>;
 };
 
 <span class="hljs-keyword">var</span> f = <span class="hljs-keyword">new</span> F();
@@ -27,7 +27,7 @@ F.call(f);
 </code></pre><p>上面代码中，<code>new</code>命令新建实例对象，其实可以分成两步。第一步，将一个空对象的原型设为构造函数的<code>prototype</code>属性（上例是<code>F.prototype</code>）；第二步，将构造函数内部的<code>this</code>绑定这个空对象，然后执行构造函数，使得定义在<code>this</code>上面的方法和属性（上例是<code>this.foo</code>），都转移到这个空对象上。</p><h2 id="objectcreate">Object.create() <a class="markdownIt-Anchor" href="#objectcreate">#</a></h2><p>生成实例对象的常用方法是，使用<code>new</code>命令让构造函数返回一个实例。但是很多时候，只能拿到一个实例对象，它可能根本不是由构建函数生成的，那么能不能从一个实例对象，生成另一个实例对象呢？</p><p>JavaScript 提供了<code>Object.create</code>方法，用来满足这种需求。该方法接受一个对象作为参数，然后以它为原型，返回一个实例对象。该实例完全继承原型对象的属性。</p><pre class="hljs"><code><span class="hljs-comment">// 原型对象</span>
 <span class="hljs-keyword">var</span> A = {
   <span class="hljs-attr">print</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'hello'</span>);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;hello&#x27;</span>);
   }
 };
 
@@ -37,7 +37,7 @@ F.call(f);
 <span class="hljs-built_in">Object</span>.getPrototypeOf(B) === A <span class="hljs-comment">// true</span>
 B.print() <span class="hljs-comment">// hello</span>
 B.print === A.print <span class="hljs-comment">// true</span>
-</code></pre><p>上面代码中，<code>Object.create</code>方法以<code>A</code>对象为原型，生成了<code>B</code>对象。<code>B</code>继承了<code>A</code>的所有属性和方法。</p><p>实际上，<code>Object.create</code>方法可以用下面的代码代替。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Object</span>.create !== <span class="hljs-string">'function'</span>) {
+</code></pre><p>上面代码中，<code>Object.create</code>方法以<code>A</code>对象为原型，生成了<code>B</code>对象。<code>B</code>继承了<code>A</code>的所有属性和方法。</p><p>实际上，<code>Object.create</code>方法可以用下面的代码代替。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Object</span>.create !== <span class="hljs-string">&#x27;function&#x27;</span>) {
   <span class="hljs-built_in">Object</span>.create = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">obj</span>) </span>{
     <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">F</span>(<span class="hljs-params"></span>) </span>{}
     F.prototype = obj;
@@ -50,7 +50,7 @@ B.print === A.print <span class="hljs-comment">// true</span>
 </code></pre><p>如果想要生成一个不继承任何属性（比如没有<code>toString</code>和<code>valueOf</code>方法）的对象，可以将<code>Object.create</code>的参数设为<code>null</code>。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = <span class="hljs-built_in">Object</span>.create(<span class="hljs-literal">null</span>);
 
 obj.valueOf()
-<span class="hljs-comment">// TypeError: Object [object Object] has no method 'valueOf'</span>
+<span class="hljs-comment">// TypeError: Object [object Object] has no method &#x27;valueOf&#x27;</span>
 </code></pre><p>上面代码中，对象<code>obj</code>的原型是<code>null</code>，它就不具备一些定义在<code>Object.prototype</code>对象上面的属性，比如<code>valueOf</code>方法。</p><p>使用<code>Object.create</code>方法的时候，必须提供对象原型，即参数不能为空，或者不是对象，否则会报错。</p><pre class="hljs"><code><span class="hljs-built_in">Object</span>.create()
 <span class="hljs-comment">// TypeError: Object prototype may only be an Object or null</span>
 <span class="hljs-built_in">Object</span>.create(<span class="hljs-number">123</span>)
@@ -68,7 +68,7 @@ obj2.p <span class="hljs-comment">// 2</span>
     <span class="hljs-attr">writable</span>: <span class="hljs-literal">true</span>,
   },
   <span class="hljs-attr">p2</span>: {
-    <span class="hljs-attr">value</span>: <span class="hljs-string">'abc'</span>,
+    <span class="hljs-attr">value</span>: <span class="hljs-string">&#x27;abc&#x27;</span>,
     <span class="hljs-attr">enumerable</span>: <span class="hljs-literal">true</span>,
     <span class="hljs-attr">configurable</span>: <span class="hljs-literal">true</span>,
     <span class="hljs-attr">writable</span>: <span class="hljs-literal">true</span>,
@@ -78,7 +78,7 @@ obj2.p <span class="hljs-comment">// 2</span>
 <span class="hljs-comment">// 等同于</span>
 <span class="hljs-keyword">var</span> obj = <span class="hljs-built_in">Object</span>.create({});
 obj.p1 = <span class="hljs-number">123</span>;
-obj.p2 = <span class="hljs-string">'abc'</span>;
+obj.p2 = <span class="hljs-string">&#x27;abc&#x27;</span>;
 </code></pre><p><code>Object.create</code>方法生成的对象，继承了它的原型对象的构造函数。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">A</span>(<span class="hljs-params"></span>) </span>{}
 <span class="hljs-keyword">var</span> a = <span class="hljs-keyword">new</span> A();
 <span class="hljs-keyword">var</span> b = <span class="hljs-built_in">Object</span>.create(a);
@@ -101,15 +101,15 @@ o1.isPrototypeOf(o3) <span class="hljs-comment">// true</span>
 obj.__proto__ = p;
 <span class="hljs-built_in">Object</span>.getPrototypeOf(obj) === p <span class="hljs-comment">// true</span>
 </code></pre><p>上面代码通过<code>__proto__</code>属性，将<code>p</code>对象设为<code>obj</code>对象的原型。</p><p>根据语言标准，<code>__proto__</code>属性只有浏览器才需要部署，其他环境可以没有这个属性。它前后的两根下划线，表明它本质是一个内部属性，不应该对使用者暴露。因此，应该尽量少用这个属性，而是用<code>Object.getPrototypeOf()</code>和<code>Object.setPrototypeOf()</code>，进行原型对象的读写操作。</p><p>原型链可以用<code>__proto__</code>很直观地表示。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> A = {
-  <span class="hljs-attr">name</span>: <span class="hljs-string">'张三'</span>
+  <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;张三&#x27;</span>
 };
 <span class="hljs-keyword">var</span> B = {
-  <span class="hljs-attr">name</span>: <span class="hljs-string">'李四'</span>
+  <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;李四&#x27;</span>
 };
 
 <span class="hljs-keyword">var</span> proto = {
   <span class="hljs-attr">print</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.name);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.name);
   }
 };
 
@@ -142,16 +142,16 @@ C.prototype.constructor = C;
 <span class="hljs-keyword">var</span> c = <span class="hljs-keyword">new</span> C();
 c.constructor.prototype === p <span class="hljs-comment">// true</span>
 </code></pre><p>因此，推荐使用第三种<code>Object.getPrototypeOf</code>方法，获取原型对象。</p><h2 id="objectgetownpropertynames">Object.getOwnPropertyNames() <a class="markdownIt-Anchor" href="#objectgetownpropertynames">#</a></h2><p><code>Object.getOwnPropertyNames</code>方法返回一个数组，成员是参数对象本身的所有属性的键名，不包含继承的属性键名。</p><pre class="hljs"><code><span class="hljs-built_in">Object</span>.getOwnPropertyNames(<span class="hljs-built_in">Date</span>)
-<span class="hljs-comment">// ["parse", "arguments", "UTC", "caller", "name", "prototype", "now", "length"]</span>
+<span class="hljs-comment">// [&quot;parse&quot;, &quot;arguments&quot;, &quot;UTC&quot;, &quot;caller&quot;, &quot;name&quot;, &quot;prototype&quot;, &quot;now&quot;, &quot;length&quot;]</span>
 </code></pre><p>上面代码中，<code>Object.getOwnPropertyNames</code>方法返回<code>Date</code>所有自身的属性名。</p><p>对象本身的属性之中，有的是可以遍历的（enumerable），有的是不可以遍历的。<code>Object.getOwnPropertyNames</code>方法返回所有键名，不管是否可以遍历。只获取那些可以遍历的属性，使用<code>Object.keys</code>方法。</p><pre class="hljs"><code><span class="hljs-built_in">Object</span>.keys(<span class="hljs-built_in">Date</span>) <span class="hljs-comment">// []</span>
-</code></pre><p>上面代码表明，<code>Date</code>对象所有自身的属性，都是不可以遍历的。</p><h2 id="objectprototypehasownproperty">Object.prototype.hasOwnProperty() <a class="markdownIt-Anchor" href="#objectprototypehasownproperty">#</a></h2><p>对象实例的<code>hasOwnProperty</code>方法返回一个布尔值，用于判断某个属性定义在对象自身，还是定义在原型链上。</p><pre class="hljs"><code><span class="hljs-built_in">Date</span>.hasOwnProperty(<span class="hljs-string">'length'</span>) <span class="hljs-comment">// true</span>
-<span class="hljs-built_in">Date</span>.hasOwnProperty(<span class="hljs-string">'toString'</span>) <span class="hljs-comment">// false</span>
-</code></pre><p>上面代码表明，<code>Date.length</code>（构造函数<code>Date</code>可以接受多少个参数）是<code>Date</code>自身的属性，<code>Date.toString</code>是继承的属性。</p><p>另外，<code>hasOwnProperty</code>方法是 JavaScript 之中唯一一个处理对象属性时，不会遍历原型链的方法。</p><h2 id="in-运算符和-forin-循环">in 运算符和 for...in 循环 <a class="markdownIt-Anchor" href="#in-运算符和-forin-循环">#</a></h2><p><code>in</code>运算符返回一个布尔值，表示一个对象是否具有某个属性。它不区分该属性是对象自身的属性，还是继承的属性。</p><pre class="hljs"><code><span class="hljs-string">'length'</span> <span class="hljs-keyword">in</span> <span class="hljs-built_in">Date</span> <span class="hljs-comment">// true</span>
-<span class="hljs-string">'toString'</span> <span class="hljs-keyword">in</span> <span class="hljs-built_in">Date</span> <span class="hljs-comment">// true</span>
+</code></pre><p>上面代码表明，<code>Date</code>对象所有自身的属性，都是不可以遍历的。</p><h2 id="objectprototypehasownproperty">Object.prototype.hasOwnProperty() <a class="markdownIt-Anchor" href="#objectprototypehasownproperty">#</a></h2><p>对象实例的<code>hasOwnProperty</code>方法返回一个布尔值，用于判断某个属性定义在对象自身，还是定义在原型链上。</p><pre class="hljs"><code><span class="hljs-built_in">Date</span>.hasOwnProperty(<span class="hljs-string">&#x27;length&#x27;</span>) <span class="hljs-comment">// true</span>
+<span class="hljs-built_in">Date</span>.hasOwnProperty(<span class="hljs-string">&#x27;toString&#x27;</span>) <span class="hljs-comment">// false</span>
+</code></pre><p>上面代码表明，<code>Date.length</code>（构造函数<code>Date</code>可以接受多少个参数）是<code>Date</code>自身的属性，<code>Date.toString</code>是继承的属性。</p><p>另外，<code>hasOwnProperty</code>方法是 JavaScript 之中唯一一个处理对象属性时，不会遍历原型链的方法。</p><h2 id="in-运算符和-forin-循环">in 运算符和 for...in 循环 <a class="markdownIt-Anchor" href="#in-运算符和-forin-循环">#</a></h2><p><code>in</code>运算符返回一个布尔值，表示一个对象是否具有某个属性。它不区分该属性是对象自身的属性，还是继承的属性。</p><pre class="hljs"><code><span class="hljs-string">&#x27;length&#x27;</span> <span class="hljs-keyword">in</span> <span class="hljs-built_in">Date</span> <span class="hljs-comment">// true</span>
+<span class="hljs-string">&#x27;toString&#x27;</span> <span class="hljs-keyword">in</span> <span class="hljs-built_in">Date</span> <span class="hljs-comment">// true</span>
 </code></pre><p><code>in</code>运算符常用于检查一个属性是否存在。</p><p>获得对象的所有可遍历属性（不管是自身的还是继承的），可以使用<code>for...in</code>循环。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> o1 = { <span class="hljs-attr">p1</span>: <span class="hljs-number">123</span> };
 
 <span class="hljs-keyword">var</span> o2 = <span class="hljs-built_in">Object</span>.create(o1, {
-  <span class="hljs-attr">p2</span>: { <span class="hljs-attr">value</span>: <span class="hljs-string">"abc"</span>, <span class="hljs-attr">enumerable</span>: <span class="hljs-literal">true</span> }
+  <span class="hljs-attr">p2</span>: { <span class="hljs-attr">value</span>: <span class="hljs-string">&quot;abc&quot;</span>, <span class="hljs-attr">enumerable</span>: <span class="hljs-literal">true</span> }
 });
 
 <span class="hljs-keyword">for</span> (p <span class="hljs-keyword">in</span> o2) {
@@ -176,10 +176,10 @@ c.constructor.prototype === p <span class="hljs-comment">// true</span>
 }
 </code></pre><p>上面代码依次获取<code>obj</code>对象的每一级原型对象“自身”的属性，从而获取<code>obj</code>对象的“所有”属性，不管是否可遍历。</p><p>下面是一个例子，列出<code>Date</code>对象的所有属性。</p><pre class="hljs"><code>inheritedPropertyNames(<span class="hljs-built_in">Date</span>)
 <span class="hljs-comment">// [</span>
-<span class="hljs-comment">//  "caller",</span>
-<span class="hljs-comment">//  "constructor",</span>
-<span class="hljs-comment">//  "toString",</span>
-<span class="hljs-comment">//  "UTC",</span>
+<span class="hljs-comment">//  &quot;caller&quot;,</span>
+<span class="hljs-comment">//  &quot;constructor&quot;,</span>
+<span class="hljs-comment">//  &quot;toString&quot;,</span>
+<span class="hljs-comment">//  &quot;UTC&quot;,</span>
 <span class="hljs-comment">//  ...</span>
 <span class="hljs-comment">// ]</span>
 </code></pre><h2 id="对象的拷贝">对象的拷贝 <a class="markdownIt-Anchor" href="#对象的拷贝">#</a></h2><p>如果要拷贝一个对象，需要做到下面两件事情。</p><ul><li>确保拷贝后的对象，与原对象具有同样的原型。</li><li>确保拷贝后的对象，与原对象具有同样的实例属性。</li></ul><p>下面就是根据上面两点，实现的对象拷贝函数。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">copyObject</span>(<span class="hljs-params">orig</span>) </span>{

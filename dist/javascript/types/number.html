@@ -67,15 +67,15 @@ x <span class="hljs-comment">// 0</span>
 <span class="hljs-number">0</span> === +<span class="hljs-number">0</span> <span class="hljs-comment">// true</span>
 </code></pre><p>几乎所有场合，正零和负零都会被当作正常的<code>0</code>。</p><pre class="hljs"><code>+<span class="hljs-number">0</span> <span class="hljs-comment">// 0</span>
 <span class="hljs-number">-0</span> <span class="hljs-comment">// 0</span>
-(<span class="hljs-number">-0</span>).toString() <span class="hljs-comment">// '0'</span>
-(+<span class="hljs-number">0</span>).toString() <span class="hljs-comment">// '0'</span>
+(<span class="hljs-number">-0</span>).toString() <span class="hljs-comment">// &#x27;0&#x27;</span>
+(+<span class="hljs-number">0</span>).toString() <span class="hljs-comment">// &#x27;0&#x27;</span>
 </code></pre><p>唯一有区别的场合是，<code>+0</code>或<code>-0</code>当作分母，返回的值是不相等的。</p><pre class="hljs"><code>(<span class="hljs-number">1</span> / +<span class="hljs-number">0</span>) === (<span class="hljs-number">1</span> / <span class="hljs-number">-0</span>) <span class="hljs-comment">// false</span>
-</code></pre><p>上面的代码之所以出现这样结果，是因为除以正零得到<code>+Infinity</code>，除以负零得到<code>-Infinity</code>，这两者是不相等的（关于<code>Infinity</code>详见下文）。</p><h3 id="nan">NaN <a class="markdownIt-Anchor" href="#nan">#</a></h3><p><strong>（1）含义</strong></p><p><code>NaN</code>是 JavaScript 的特殊值，表示“非数字”（Not a Number），主要出现在将字符串解析成数字出错的场合。</p><pre class="hljs"><code><span class="hljs-number">5</span> - <span class="hljs-string">'x'</span> <span class="hljs-comment">// NaN</span>
+</code></pre><p>上面的代码之所以出现这样结果，是因为除以正零得到<code>+Infinity</code>，除以负零得到<code>-Infinity</code>，这两者是不相等的（关于<code>Infinity</code>详见下文）。</p><h3 id="nan">NaN <a class="markdownIt-Anchor" href="#nan">#</a></h3><p><strong>（1）含义</strong></p><p><code>NaN</code>是 JavaScript 的特殊值，表示“非数字”（Not a Number），主要出现在将字符串解析成数字出错的场合。</p><pre class="hljs"><code><span class="hljs-number">5</span> - <span class="hljs-string">&#x27;x&#x27;</span> <span class="hljs-comment">// NaN</span>
 </code></pre><p>上面代码运行时，会自动将字符串<code>x</code>转为数值，但是由于<code>x</code>不是数值，所以最后得到结果为<code>NaN</code>，表示它是“非数字”（<code>NaN</code>）。</p><p>另外，一些数学函数的运算结果会出现<code>NaN</code>。</p><pre class="hljs"><code><span class="hljs-built_in">Math</span>.acos(<span class="hljs-number">2</span>) <span class="hljs-comment">// NaN</span>
 <span class="hljs-built_in">Math</span>.log(<span class="hljs-number">-1</span>) <span class="hljs-comment">// NaN</span>
 <span class="hljs-built_in">Math</span>.sqrt(<span class="hljs-number">-1</span>) <span class="hljs-comment">// NaN</span>
 </code></pre><p><code>0</code>除以<code>0</code>也会得到<code>NaN</code>。</p><pre class="hljs"><code><span class="hljs-number">0</span> / <span class="hljs-number">0</span> <span class="hljs-comment">// NaN</span>
-</code></pre><p>需要注意的是，<code>NaN</code>不是独立的数据类型，而是一个特殊数值，它的数据类型依然属于<code>Number</code>，使用<code>typeof</code>运算符可以看得很清楚。</p><pre class="hljs"><code><span class="hljs-keyword">typeof</span> <span class="hljs-literal">NaN</span> <span class="hljs-comment">// 'number'</span>
+</code></pre><p>需要注意的是，<code>NaN</code>不是独立的数据类型，而是一个特殊数值，它的数据类型依然属于<code>Number</code>，使用<code>typeof</code>运算符可以看得很清楚。</p><pre class="hljs"><code><span class="hljs-keyword">typeof</span> <span class="hljs-literal">NaN</span> <span class="hljs-comment">// &#x27;number&#x27;</span>
 </code></pre><p><strong>（2）运算规则</strong></p><p><code>NaN</code>不等于任何值，包括它本身。</p><pre class="hljs"><code><span class="hljs-literal">NaN</span> === <span class="hljs-literal">NaN</span> <span class="hljs-comment">// false</span>
 </code></pre><p>数组的<code>indexOf</code>方法内部使用的是严格相等运算符，所以该方法对<code>NaN</code>不成立。</p><pre class="hljs"><code>[<span class="hljs-literal">NaN</span>].indexOf(<span class="hljs-literal">NaN</span>) <span class="hljs-comment">// -1</span>
 </code></pre><p><code>NaN</code>在布尔运算时被当作<code>false</code>。</p><pre class="hljs"><code><span class="hljs-built_in">Boolean</span>(<span class="hljs-literal">NaN</span>) <span class="hljs-comment">// false</span>
@@ -120,43 +120,43 @@ x <span class="hljs-comment">// 0</span>
 <span class="hljs-literal">undefined</span> * <span class="hljs-literal">Infinity</span> <span class="hljs-comment">// NaN</span>
 <span class="hljs-literal">undefined</span> / <span class="hljs-literal">Infinity</span> <span class="hljs-comment">// NaN</span>
 <span class="hljs-literal">Infinity</span> / <span class="hljs-literal">undefined</span> <span class="hljs-comment">// NaN</span>
-</code></pre><h2 id="与数值相关的全局方法">与数值相关的全局方法 <a class="markdownIt-Anchor" href="#与数值相关的全局方法">#</a></h2><h3 id="parseint">parseInt() <a class="markdownIt-Anchor" href="#parseint">#</a></h3><p><strong>（1）基本用法</strong></p><p><code>parseInt</code>方法用于将字符串转为整数。</p><pre class="hljs"><code><span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'123'</span>) <span class="hljs-comment">// 123</span>
-</code></pre><p>如果字符串头部有空格，空格会被自动去除。</p><pre class="hljs"><code><span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'   81'</span>) <span class="hljs-comment">// 81</span>
+</code></pre><h2 id="与数值相关的全局方法">与数值相关的全局方法 <a class="markdownIt-Anchor" href="#与数值相关的全局方法">#</a></h2><h3 id="parseint">parseInt() <a class="markdownIt-Anchor" href="#parseint">#</a></h3><p><strong>（1）基本用法</strong></p><p><code>parseInt</code>方法用于将字符串转为整数。</p><pre class="hljs"><code><span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&#x27;123&#x27;</span>) <span class="hljs-comment">// 123</span>
+</code></pre><p>如果字符串头部有空格，空格会被自动去除。</p><pre class="hljs"><code><span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&#x27;   81&#x27;</span>) <span class="hljs-comment">// 81</span>
 </code></pre><p>如果<code>parseInt</code>的参数不是字符串，则会先转为字符串再转换。</p><pre class="hljs"><code><span class="hljs-built_in">parseInt</span>(<span class="hljs-number">1.23</span>) <span class="hljs-comment">// 1</span>
 <span class="hljs-comment">// 等同于</span>
-<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'1.23'</span>) <span class="hljs-comment">// 1</span>
-</code></pre><p>字符串转为整数的时候，是一个个字符依次转换，如果遇到不能转为数字的字符，就不再进行下去，返回已经转好的部分。</p><pre class="hljs"><code><span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'8a'</span>) <span class="hljs-comment">// 8</span>
-<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'12**'</span>) <span class="hljs-comment">// 12</span>
-<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'12.34'</span>) <span class="hljs-comment">// 12</span>
-<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'15e2'</span>) <span class="hljs-comment">// 15</span>
-<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'15px'</span>) <span class="hljs-comment">// 15</span>
-</code></pre><p>上面代码中，<code>parseInt</code>的参数都是字符串，结果只返回字符串头部可以转为数字的部分。</p><p>如果字符串的第一个字符不能转化为数字（后面跟着数字的正负号除外），返回<code>NaN</code>。</p><pre class="hljs"><code><span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'abc'</span>) <span class="hljs-comment">// NaN</span>
-<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'.3'</span>) <span class="hljs-comment">// NaN</span>
-<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">''</span>) <span class="hljs-comment">// NaN</span>
-<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'+'</span>) <span class="hljs-comment">// NaN</span>
-<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'+1'</span>) <span class="hljs-comment">// 1</span>
-</code></pre><p>所以，<code>parseInt</code>的返回值只有两种可能，要么是一个十进制整数，要么是<code>NaN</code>。</p><p>如果字符串以<code>0x</code>或<code>0X</code>开头，<code>parseInt</code>会将其按照十六进制数解析。</p><pre class="hljs"><code><span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'0x10'</span>) <span class="hljs-comment">// 16</span>
-</code></pre><p>如果字符串以<code>0</code>开头，将其按照10进制解析。</p><pre class="hljs"><code><span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'011'</span>) <span class="hljs-comment">// 11</span>
+<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&#x27;1.23&#x27;</span>) <span class="hljs-comment">// 1</span>
+</code></pre><p>字符串转为整数的时候，是一个个字符依次转换，如果遇到不能转为数字的字符，就不再进行下去，返回已经转好的部分。</p><pre class="hljs"><code><span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&#x27;8a&#x27;</span>) <span class="hljs-comment">// 8</span>
+<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&#x27;12**&#x27;</span>) <span class="hljs-comment">// 12</span>
+<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&#x27;12.34&#x27;</span>) <span class="hljs-comment">// 12</span>
+<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&#x27;15e2&#x27;</span>) <span class="hljs-comment">// 15</span>
+<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&#x27;15px&#x27;</span>) <span class="hljs-comment">// 15</span>
+</code></pre><p>上面代码中，<code>parseInt</code>的参数都是字符串，结果只返回字符串头部可以转为数字的部分。</p><p>如果字符串的第一个字符不能转化为数字（后面跟着数字的正负号除外），返回<code>NaN</code>。</p><pre class="hljs"><code><span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&#x27;abc&#x27;</span>) <span class="hljs-comment">// NaN</span>
+<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&#x27;.3&#x27;</span>) <span class="hljs-comment">// NaN</span>
+<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&#x27;&#x27;</span>) <span class="hljs-comment">// NaN</span>
+<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&#x27;+&#x27;</span>) <span class="hljs-comment">// NaN</span>
+<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&#x27;+1&#x27;</span>) <span class="hljs-comment">// 1</span>
+</code></pre><p>所以，<code>parseInt</code>的返回值只有两种可能，要么是一个十进制整数，要么是<code>NaN</code>。</p><p>如果字符串以<code>0x</code>或<code>0X</code>开头，<code>parseInt</code>会将其按照十六进制数解析。</p><pre class="hljs"><code><span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&#x27;0x10&#x27;</span>) <span class="hljs-comment">// 16</span>
+</code></pre><p>如果字符串以<code>0</code>开头，将其按照10进制解析。</p><pre class="hljs"><code><span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&#x27;011&#x27;</span>) <span class="hljs-comment">// 11</span>
 </code></pre><p>对于那些会自动转为科学计数法的数字，<code>parseInt</code>会将科学计数法的表示方法视为字符串，因此导致一些奇怪的结果。</p><pre class="hljs"><code><span class="hljs-built_in">parseInt</span>(<span class="hljs-number">1000000000000000000000.5</span>) <span class="hljs-comment">// 1</span>
 <span class="hljs-comment">// 等同于</span>
-<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'1e+21'</span>) <span class="hljs-comment">// 1</span>
+<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&#x27;1e+21&#x27;</span>) <span class="hljs-comment">// 1</span>
 
 <span class="hljs-built_in">parseInt</span>(<span class="hljs-number">0.0000008</span>) <span class="hljs-comment">// 8</span>
 <span class="hljs-comment">// 等同于</span>
-<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'8e-7'</span>) <span class="hljs-comment">// 8</span>
-</code></pre><p><strong>（2）进制转换</strong></p><p><code>parseInt</code>方法还可以接受第二个参数（2到36之间），表示被解析的值的进制，返回该值对应的十进制数。默认情况下，<code>parseInt</code>的第二个参数为10，即默认是十进制转十进制。</p><pre class="hljs"><code><span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'1000'</span>) <span class="hljs-comment">// 1000</span>
+<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&#x27;8e-7&#x27;</span>) <span class="hljs-comment">// 8</span>
+</code></pre><p><strong>（2）进制转换</strong></p><p><code>parseInt</code>方法还可以接受第二个参数（2到36之间），表示被解析的值的进制，返回该值对应的十进制数。默认情况下，<code>parseInt</code>的第二个参数为10，即默认是十进制转十进制。</p><pre class="hljs"><code><span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&#x27;1000&#x27;</span>) <span class="hljs-comment">// 1000</span>
 <span class="hljs-comment">// 等同于</span>
-<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'1000'</span>, <span class="hljs-number">10</span>) <span class="hljs-comment">// 1000</span>
-</code></pre><p>下面是转换指定进制的数的例子。</p><pre class="hljs"><code><span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'1000'</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// 8</span>
-<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'1000'</span>, <span class="hljs-number">6</span>) <span class="hljs-comment">// 216</span>
-<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'1000'</span>, <span class="hljs-number">8</span>) <span class="hljs-comment">// 512</span>
-</code></pre><p>上面代码中，二进制、六进制、八进制的<code>1000</code>，分别等于十进制的8、216和512。这意味着，可以用<code>parseInt</code>方法进行进制的转换。</p><p>如果第二个参数不是数值，会被自动转为一个整数。这个整数只有在2到36之间，才能得到有意义的结果，超出这个范围，则返回<code>NaN</code>。如果第二个参数是<code>0</code>、<code>undefined</code>和<code>null</code>，则直接忽略。</p><pre class="hljs"><code><span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'10'</span>, <span class="hljs-number">37</span>) <span class="hljs-comment">// NaN</span>
-<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'10'</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// NaN</span>
-<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'10'</span>, <span class="hljs-number">0</span>) <span class="hljs-comment">// 10</span>
-<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'10'</span>, <span class="hljs-literal">null</span>) <span class="hljs-comment">// 10</span>
-<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'10'</span>, <span class="hljs-literal">undefined</span>) <span class="hljs-comment">// 10</span>
-</code></pre><p>如果字符串包含对于指定进制无意义的字符，则从最高位开始，只返回可以转换的数值。如果最高位无法转换，则直接返回<code>NaN</code>。</p><pre class="hljs"><code><span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'1546'</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// 1</span>
-<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'546'</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// NaN</span>
+<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&#x27;1000&#x27;</span>, <span class="hljs-number">10</span>) <span class="hljs-comment">// 1000</span>
+</code></pre><p>下面是转换指定进制的数的例子。</p><pre class="hljs"><code><span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&#x27;1000&#x27;</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// 8</span>
+<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&#x27;1000&#x27;</span>, <span class="hljs-number">6</span>) <span class="hljs-comment">// 216</span>
+<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&#x27;1000&#x27;</span>, <span class="hljs-number">8</span>) <span class="hljs-comment">// 512</span>
+</code></pre><p>上面代码中，二进制、六进制、八进制的<code>1000</code>，分别等于十进制的8、216和512。这意味着，可以用<code>parseInt</code>方法进行进制的转换。</p><p>如果第二个参数不是数值，会被自动转为一个整数。这个整数只有在2到36之间，才能得到有意义的结果，超出这个范围，则返回<code>NaN</code>。如果第二个参数是<code>0</code>、<code>undefined</code>和<code>null</code>，则直接忽略。</p><pre class="hljs"><code><span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&#x27;10&#x27;</span>, <span class="hljs-number">37</span>) <span class="hljs-comment">// NaN</span>
+<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&#x27;10&#x27;</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// NaN</span>
+<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&#x27;10&#x27;</span>, <span class="hljs-number">0</span>) <span class="hljs-comment">// 10</span>
+<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&#x27;10&#x27;</span>, <span class="hljs-literal">null</span>) <span class="hljs-comment">// 10</span>
+<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&#x27;10&#x27;</span>, <span class="hljs-literal">undefined</span>) <span class="hljs-comment">// 10</span>
+</code></pre><p>如果字符串包含对于指定进制无意义的字符，则从最高位开始，只返回可以转换的数值。如果最高位无法转换，则直接返回<code>NaN</code>。</p><pre class="hljs"><code><span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&#x27;1546&#x27;</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// 1</span>
+<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&#x27;546&#x27;</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// NaN</span>
 </code></pre><p>上面代码中，对于二进制来说，<code>1</code>是有意义的字符，<code>5</code>、<code>4</code>、<code>6</code>都是无意义的字符，所以第一行返回1，第二行返回<code>NaN</code>。</p><p>前面说过，如果<code>parseInt</code>的第一个参数不是字符串，会被先转为字符串。这会导致一些令人意外的结果。</p><pre class="hljs"><code><span class="hljs-built_in">parseInt</span>(<span class="hljs-number">0x11</span>, <span class="hljs-number">36</span>) <span class="hljs-comment">// 43</span>
 <span class="hljs-built_in">parseInt</span>(<span class="hljs-number">0x11</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// 1</span>
 
@@ -165,8 +165,8 @@ x <span class="hljs-comment">// 0</span>
 <span class="hljs-built_in">parseInt</span>(<span class="hljs-built_in">String</span>(<span class="hljs-number">0x11</span>), <span class="hljs-number">2</span>)
 
 <span class="hljs-comment">// 等同于</span>
-<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'17'</span>, <span class="hljs-number">36</span>)
-<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'17'</span>, <span class="hljs-number">2</span>)
+<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&#x27;17&#x27;</span>, <span class="hljs-number">36</span>)
+<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&#x27;17&#x27;</span>, <span class="hljs-number">2</span>)
 </code></pre><p>上面代码中，十六进制的<code>0x11</code>会被先转为十进制的17，再转为字符串。然后，再用36进制或二进制解读字符串<code>17</code>，最后返回结果<code>43</code>和<code>1</code>。</p><p>这种处理方式，对于八进制的前缀0，尤其需要注意。</p><pre class="hljs"><code><span class="hljs-built_in">parseInt</span>(<span class="hljs-number">011</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// NaN</span>
 
 <span class="hljs-comment">// 等同于</span>
@@ -174,42 +174,42 @@ x <span class="hljs-comment">// 0</span>
 
 <span class="hljs-comment">// 等同于</span>
 <span class="hljs-built_in">parseInt</span>(<span class="hljs-built_in">String</span>(<span class="hljs-number">9</span>), <span class="hljs-number">2</span>)
-</code></pre><p>上面代码中，第一行的<code>011</code>会被先转为字符串<code>9</code>，因为<code>9</code>不是二进制的有效字符，所以返回<code>NaN</code>。如果直接计算<code>parseInt('011', 2)</code>，<code>011</code>则是会被当作二进制处理，返回3。</p><p>JavaScript 不再允许将带有前缀0的数字视为八进制数，而是要求忽略这个<code>0</code>。但是，为了保证兼容性，大部分浏览器并没有部署这一条规定。</p><h3 id="parsefloat">parseFloat() <a class="markdownIt-Anchor" href="#parsefloat">#</a></h3><p><code>parseFloat</code>方法用于将一个字符串转为浮点数。</p><pre class="hljs"><code><span class="hljs-built_in">parseFloat</span>(<span class="hljs-string">'3.14'</span>) <span class="hljs-comment">// 3.14</span>
-</code></pre><p>如果字符串符合科学计数法，则会进行相应的转换。</p><pre class="hljs"><code><span class="hljs-built_in">parseFloat</span>(<span class="hljs-string">'314e-2'</span>) <span class="hljs-comment">// 3.14</span>
-<span class="hljs-built_in">parseFloat</span>(<span class="hljs-string">'0.0314E+2'</span>) <span class="hljs-comment">// 3.14</span>
-</code></pre><p>如果字符串包含不能转为浮点数的字符，则不再进行往后转换，返回已经转好的部分。</p><pre class="hljs"><code><span class="hljs-built_in">parseFloat</span>(<span class="hljs-string">'3.14more non-digit characters'</span>) <span class="hljs-comment">// 3.14</span>
-</code></pre><p><code>parseFloat</code>方法会自动过滤字符串前导的空格。</p><pre class="hljs"><code><span class="hljs-built_in">parseFloat</span>(<span class="hljs-string">'\t\v\r12.34\n '</span>) <span class="hljs-comment">// 12.34</span>
+</code></pre><p>上面代码中，第一行的<code>011</code>会被先转为字符串<code>9</code>，因为<code>9</code>不是二进制的有效字符，所以返回<code>NaN</code>。如果直接计算<code>parseInt('011', 2)</code>，<code>011</code>则是会被当作二进制处理，返回3。</p><p>JavaScript 不再允许将带有前缀0的数字视为八进制数，而是要求忽略这个<code>0</code>。但是，为了保证兼容性，大部分浏览器并没有部署这一条规定。</p><h3 id="parsefloat">parseFloat() <a class="markdownIt-Anchor" href="#parsefloat">#</a></h3><p><code>parseFloat</code>方法用于将一个字符串转为浮点数。</p><pre class="hljs"><code><span class="hljs-built_in">parseFloat</span>(<span class="hljs-string">&#x27;3.14&#x27;</span>) <span class="hljs-comment">// 3.14</span>
+</code></pre><p>如果字符串符合科学计数法，则会进行相应的转换。</p><pre class="hljs"><code><span class="hljs-built_in">parseFloat</span>(<span class="hljs-string">&#x27;314e-2&#x27;</span>) <span class="hljs-comment">// 3.14</span>
+<span class="hljs-built_in">parseFloat</span>(<span class="hljs-string">&#x27;0.0314E+2&#x27;</span>) <span class="hljs-comment">// 3.14</span>
+</code></pre><p>如果字符串包含不能转为浮点数的字符，则不再进行往后转换，返回已经转好的部分。</p><pre class="hljs"><code><span class="hljs-built_in">parseFloat</span>(<span class="hljs-string">&#x27;3.14more non-digit characters&#x27;</span>) <span class="hljs-comment">// 3.14</span>
+</code></pre><p><code>parseFloat</code>方法会自动过滤字符串前导的空格。</p><pre class="hljs"><code><span class="hljs-built_in">parseFloat</span>(<span class="hljs-string">&#x27;\t\v\r12.34\n &#x27;</span>) <span class="hljs-comment">// 12.34</span>
 </code></pre><p>如果参数不是字符串，或者字符串的第一个字符不能转化为浮点数，则返回<code>NaN</code>。</p><pre class="hljs"><code><span class="hljs-built_in">parseFloat</span>([]) <span class="hljs-comment">// NaN</span>
-<span class="hljs-built_in">parseFloat</span>(<span class="hljs-string">'FF2'</span>) <span class="hljs-comment">// NaN</span>
-<span class="hljs-built_in">parseFloat</span>(<span class="hljs-string">''</span>) <span class="hljs-comment">// NaN</span>
+<span class="hljs-built_in">parseFloat</span>(<span class="hljs-string">&#x27;FF2&#x27;</span>) <span class="hljs-comment">// NaN</span>
+<span class="hljs-built_in">parseFloat</span>(<span class="hljs-string">&#x27;&#x27;</span>) <span class="hljs-comment">// NaN</span>
 </code></pre><p>上面代码中，尤其值得注意，<code>parseFloat</code>会将空字符串转为<code>NaN</code>。</p><p>这些特点使得<code>parseFloat</code>的转换结果不同于<code>Number</code>函数。</p><pre class="hljs"><code><span class="hljs-built_in">parseFloat</span>(<span class="hljs-literal">true</span>)  <span class="hljs-comment">// NaN</span>
 <span class="hljs-built_in">Number</span>(<span class="hljs-literal">true</span>) <span class="hljs-comment">// 1</span>
 
 <span class="hljs-built_in">parseFloat</span>(<span class="hljs-literal">null</span>) <span class="hljs-comment">// NaN</span>
 <span class="hljs-built_in">Number</span>(<span class="hljs-literal">null</span>) <span class="hljs-comment">// 0</span>
 
-<span class="hljs-built_in">parseFloat</span>(<span class="hljs-string">''</span>) <span class="hljs-comment">// NaN</span>
-<span class="hljs-built_in">Number</span>(<span class="hljs-string">''</span>) <span class="hljs-comment">// 0</span>
+<span class="hljs-built_in">parseFloat</span>(<span class="hljs-string">&#x27;&#x27;</span>) <span class="hljs-comment">// NaN</span>
+<span class="hljs-built_in">Number</span>(<span class="hljs-string">&#x27;&#x27;</span>) <span class="hljs-comment">// 0</span>
 
-<span class="hljs-built_in">parseFloat</span>(<span class="hljs-string">'123.45#'</span>) <span class="hljs-comment">// 123.45</span>
-<span class="hljs-built_in">Number</span>(<span class="hljs-string">'123.45#'</span>) <span class="hljs-comment">// NaN</span>
+<span class="hljs-built_in">parseFloat</span>(<span class="hljs-string">&#x27;123.45#&#x27;</span>) <span class="hljs-comment">// 123.45</span>
+<span class="hljs-built_in">Number</span>(<span class="hljs-string">&#x27;123.45#&#x27;</span>) <span class="hljs-comment">// NaN</span>
 </code></pre><h3 id="isnan">isNaN() <a class="markdownIt-Anchor" href="#isnan">#</a></h3><p><code>isNaN</code>方法可以用来判断一个值是否为<code>NaN</code>。</p><pre class="hljs"><code><span class="hljs-built_in">isNaN</span>(<span class="hljs-literal">NaN</span>) <span class="hljs-comment">// true</span>
 <span class="hljs-built_in">isNaN</span>(<span class="hljs-number">123</span>) <span class="hljs-comment">// false</span>
-</code></pre><p>但是，<code>isNaN</code>只对数值有效，如果传入其他值，会被先转成数值。比如，传入字符串的时候，字符串会被先转成<code>NaN</code>，所以最后返回<code>true</code>，这一点要特别引起注意。也就是说，<code>isNaN</code>为<code>true</code>的值，有可能不是<code>NaN</code>，而是一个字符串。</p><pre class="hljs"><code><span class="hljs-built_in">isNaN</span>(<span class="hljs-string">'Hello'</span>) <span class="hljs-comment">// true</span>
+</code></pre><p>但是，<code>isNaN</code>只对数值有效，如果传入其他值，会被先转成数值。比如，传入字符串的时候，字符串会被先转成<code>NaN</code>，所以最后返回<code>true</code>，这一点要特别引起注意。也就是说，<code>isNaN</code>为<code>true</code>的值，有可能不是<code>NaN</code>，而是一个字符串。</p><pre class="hljs"><code><span class="hljs-built_in">isNaN</span>(<span class="hljs-string">&#x27;Hello&#x27;</span>) <span class="hljs-comment">// true</span>
 <span class="hljs-comment">// 相当于</span>
-<span class="hljs-built_in">isNaN</span>(<span class="hljs-built_in">Number</span>(<span class="hljs-string">'Hello'</span>)) <span class="hljs-comment">// true</span>
+<span class="hljs-built_in">isNaN</span>(<span class="hljs-built_in">Number</span>(<span class="hljs-string">&#x27;Hello&#x27;</span>)) <span class="hljs-comment">// true</span>
 </code></pre><p>出于同样的原因，对于对象和数组，<code>isNaN</code>也返回<code>true</code>。</p><pre class="hljs"><code><span class="hljs-built_in">isNaN</span>({}) <span class="hljs-comment">// true</span>
 <span class="hljs-comment">// 等同于</span>
 <span class="hljs-built_in">isNaN</span>(<span class="hljs-built_in">Number</span>({})) <span class="hljs-comment">// true</span>
 
-<span class="hljs-built_in">isNaN</span>([<span class="hljs-string">'xzy'</span>]) <span class="hljs-comment">// true</span>
+<span class="hljs-built_in">isNaN</span>([<span class="hljs-string">&#x27;xzy&#x27;</span>]) <span class="hljs-comment">// true</span>
 <span class="hljs-comment">// 等同于</span>
-<span class="hljs-built_in">isNaN</span>(<span class="hljs-built_in">Number</span>([<span class="hljs-string">'xzy'</span>])) <span class="hljs-comment">// true</span>
+<span class="hljs-built_in">isNaN</span>(<span class="hljs-built_in">Number</span>([<span class="hljs-string">&#x27;xzy&#x27;</span>])) <span class="hljs-comment">// true</span>
 </code></pre><p>但是，对于空数组和只有一个数值成员的数组，<code>isNaN</code>返回<code>false</code>。</p><pre class="hljs"><code><span class="hljs-built_in">isNaN</span>([]) <span class="hljs-comment">// false</span>
 <span class="hljs-built_in">isNaN</span>([<span class="hljs-number">123</span>]) <span class="hljs-comment">// false</span>
-<span class="hljs-built_in">isNaN</span>([<span class="hljs-string">'123'</span>]) <span class="hljs-comment">// false</span>
+<span class="hljs-built_in">isNaN</span>([<span class="hljs-string">&#x27;123&#x27;</span>]) <span class="hljs-comment">// false</span>
 </code></pre><p>上面代码之所以返回<code>false</code>，原因是这些数组能被<code>Number</code>函数转成数值，请参见《数据类型转换》一章。</p><p>因此，使用<code>isNaN</code>之前，最好判断一下数据类型。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">myIsNaN</span>(<span class="hljs-params">value</span>) </span>{
-  <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> value === <span class="hljs-string">'number'</span> &amp;&amp; <span class="hljs-built_in">isNaN</span>(value);
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> value === <span class="hljs-string">&#x27;number&#x27;</span> &amp;&amp; <span class="hljs-built_in">isNaN</span>(value);
 }
 </code></pre><p>判断<code>NaN</code>更可靠的方法是，利用<code>NaN</code>为唯一不等于自身的值的这个特点，进行判断。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">myIsNaN</span>(<span class="hljs-params">value</span>) </span>{
   <span class="hljs-keyword">return</span> value !== value;

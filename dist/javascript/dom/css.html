@@ -1,80 +1,80 @@
 <!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CSS 操作 - JavaScript 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="../assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="../assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="CSS 操作"><link rel="apple-touch-icon" sizes="57x57" href="../assets/icons/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="../assets/icons/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="../assets/icons/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="../assets/icons/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="../assets/icons/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="../assets/icons/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="../assets/icons/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="../assets/icons/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="../assets/icons/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="../assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="../assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="../assets/icons/favicon-16x16.png"><link rel="manifest" href="../assets/icons/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="../assets/icons/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/javascript-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/javascript-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8"><nav class="breadcrumb is-size-5-desktop" aria-label="breadcrumbs"><ul><li><a href="../index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;JavaScript 教程</a></li><li><a href="../dom/index.html">DOM</a></li><li class="is-active"><a class="has-text-grey" href="../dom/css.html">CSS 操作</a></li></ul></nav><nav class="level level-previous-next is-size-5 is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="../dom/text.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> Text 节点和 DocumentFragment 节点</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="../dom/mutationobserver.html">Mutation Observer API <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content is-size-4-desktop"><h1 class="title">CSS 操作</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><p>CSS 与 JavaScript 是两个有着明确分工的领域，前者负责页面的视觉效果，后者负责与用户的行为互动。但是，它们毕竟同属网页开发的前端，因此不可避免有着交叉和互相配合。本章介绍如何通过 JavaScript 操作 CSS。</p><h2 id="html-元素的-style-属性">HTML 元素的 style 属性 <a class="markdownIt-Anchor" href="#html-元素的-style-属性">#</a></h2><p>操作 CSS 样式最简单的方法，就是使用网页元素节点的<code>getAttribute()</code>方法、<code>setAttribute()</code>方法和<code>removeAttribute()</code>方法，直接读写或删除网页元素的<code>style</code>属性。</p><pre class="hljs"><code>div.setAttribute(
-  <span class="hljs-string">'style'</span>,
-  <span class="hljs-string">'background-color:red;'</span> + <span class="hljs-string">'border:1px solid black;'</span>
+  <span class="hljs-string">&#x27;style&#x27;</span>,
+  <span class="hljs-string">&#x27;background-color:red;&#x27;</span> + <span class="hljs-string">&#x27;border:1px solid black;&#x27;</span>
 );
-</code></pre><p>上面的代码相当于下面的 HTML 代码。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"background-color:red; border:1px solid black;"</span> /&gt;</span>
-</code></pre><p><code>style</code>不仅可以使用字符串读写，它本身还是一个对象，部署了 CSSStyleDeclaration 接口（详见下面的介绍），可以直接读写个别属性。</p><pre class="hljs"><code>e.style.fontSize = <span class="hljs-string">'18px'</span>;
-e.style.color = <span class="hljs-string">'black'</span>;
-</code></pre><h2 id="cssstyledeclaration-接口">CSSStyleDeclaration 接口 <a class="markdownIt-Anchor" href="#cssstyledeclaration-接口">#</a></h2><h3 id="简介">简介 <a class="markdownIt-Anchor" href="#简介">#</a></h3><p>CSSStyleDeclaration 接口用来操作元素的样式。三个地方部署了这个接口。</p><ul><li>元素节点的<code>style</code>属性（<code>Element.style</code>）</li><li><code>CSSStyle</code>实例的<code>style</code>属性</li><li><code>window.getComputedStyle()</code>的返回值</li></ul><p>CSSStyleDeclaration 接口可以直接读写 CSS 的样式属性，不过，连词号需要变成骆驼拼写法。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> divStyle = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'div'</span>).style;
+</code></pre><p>上面的代码相当于下面的 HTML 代码。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;background-color:red; border:1px solid black;&quot;</span> /&gt;</span>
+</code></pre><p><code>style</code>不仅可以使用字符串读写，它本身还是一个对象，部署了 CSSStyleDeclaration 接口（详见下面的介绍），可以直接读写个别属性。</p><pre class="hljs"><code>e.style.fontSize = <span class="hljs-string">&#x27;18px&#x27;</span>;
+e.style.color = <span class="hljs-string">&#x27;black&#x27;</span>;
+</code></pre><h2 id="cssstyledeclaration-接口">CSSStyleDeclaration 接口 <a class="markdownIt-Anchor" href="#cssstyledeclaration-接口">#</a></h2><h3 id="简介">简介 <a class="markdownIt-Anchor" href="#简介">#</a></h3><p>CSSStyleDeclaration 接口用来操作元素的样式。三个地方部署了这个接口。</p><ul><li>元素节点的<code>style</code>属性（<code>Element.style</code>）</li><li><code>CSSStyle</code>实例的<code>style</code>属性</li><li><code>window.getComputedStyle()</code>的返回值</li></ul><p>CSSStyleDeclaration 接口可以直接读写 CSS 的样式属性，不过，连词号需要变成骆驼拼写法。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> divStyle = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;div&#x27;</span>).style;
 
-divStyle.backgroundColor = <span class="hljs-string">'red'</span>;
-divStyle.border = <span class="hljs-string">'1px solid black'</span>;
-divStyle.width = <span class="hljs-string">'100px'</span>;
-divStyle.height = <span class="hljs-string">'100px'</span>;
-divStyle.fontSize = <span class="hljs-string">'10em'</span>;
+divStyle.backgroundColor = <span class="hljs-string">&#x27;red&#x27;</span>;
+divStyle.border = <span class="hljs-string">&#x27;1px solid black&#x27;</span>;
+divStyle.width = <span class="hljs-string">&#x27;100px&#x27;</span>;
+divStyle.height = <span class="hljs-string">&#x27;100px&#x27;</span>;
+divStyle.fontSize = <span class="hljs-string">&#x27;10em&#x27;</span>;
 
 divStyle.backgroundColor <span class="hljs-comment">// red</span>
 divStyle.border <span class="hljs-comment">// 1px solid black</span>
 divStyle.height <span class="hljs-comment">// 100px</span>
 divStyle.width <span class="hljs-comment">// 100px</span>
-</code></pre><p>上面代码中，<code>style</code>属性的值是一个 CSSStyleDeclaration 实例。这个对象所包含的属性与 CSS 规则一一对应，但是名字需要改写，比如<code>background-color</code>写成<code>backgroundColor</code>。改写的规则是将横杠从 CSS 属性名中去除，然后将横杠后的第一个字母大写。如果 CSS 属性名是 JavaScript 保留字，则规则名之前需要加上字符串<code>css</code>，比如<code>float</code>写成<code>cssFloat</code>。</p><p>注意，该对象的属性值都是字符串，设置时必须包括单位，但是不含规则结尾的分号。比如，<code>divStyle.width</code>不能写为<code>100</code>，而要写为<code>100px</code>。</p><p>另外，<code>Element.style</code>返回的只是行内样式，并不是该元素的全部样式。通过样式表设置的样式，或者从父元素继承的样式，无法通过这个属性得到。元素的全部样式要通过<code>window.getComputedStyle()</code>得到。</p><h3 id="cssstyledeclaration-实例属性">CSSStyleDeclaration 实例属性 <a class="markdownIt-Anchor" href="#cssstyledeclaration-实例属性">#</a></h3><p><strong>（1）CSSStyleDeclaration.cssText</strong></p><p><code>CSSStyleDeclaration.cssText</code>属性用来读写当前规则的所有样式声明文本。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> divStyle = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'div'</span>).style;
+</code></pre><p>上面代码中，<code>style</code>属性的值是一个 CSSStyleDeclaration 实例。这个对象所包含的属性与 CSS 规则一一对应，但是名字需要改写，比如<code>background-color</code>写成<code>backgroundColor</code>。改写的规则是将横杠从 CSS 属性名中去除，然后将横杠后的第一个字母大写。如果 CSS 属性名是 JavaScript 保留字，则规则名之前需要加上字符串<code>css</code>，比如<code>float</code>写成<code>cssFloat</code>。</p><p>注意，该对象的属性值都是字符串，设置时必须包括单位，但是不含规则结尾的分号。比如，<code>divStyle.width</code>不能写为<code>100</code>，而要写为<code>100px</code>。</p><p>另外，<code>Element.style</code>返回的只是行内样式，并不是该元素的全部样式。通过样式表设置的样式，或者从父元素继承的样式，无法通过这个属性得到。元素的全部样式要通过<code>window.getComputedStyle()</code>得到。</p><h3 id="cssstyledeclaration-实例属性">CSSStyleDeclaration 实例属性 <a class="markdownIt-Anchor" href="#cssstyledeclaration-实例属性">#</a></h3><p><strong>（1）CSSStyleDeclaration.cssText</strong></p><p><code>CSSStyleDeclaration.cssText</code>属性用来读写当前规则的所有样式声明文本。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> divStyle = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;div&#x27;</span>).style;
 
-divStyle.cssText = <span class="hljs-string">'background-color: red;'</span>
-  + <span class="hljs-string">'border: 1px solid black;'</span>
-  + <span class="hljs-string">'height: 100px;'</span>
-  + <span class="hljs-string">'width: 100px;'</span>;
-</code></pre><p>注意，<code>cssText</code>的属性值不用改写 CSS 属性名。</p><p>删除一个元素的所有行内样式，最简便的方法就是设置<code>cssText</code>为空字符串。</p><pre class="hljs"><code>divStyle.cssText = <span class="hljs-string">''</span>;
+divStyle.cssText = <span class="hljs-string">&#x27;background-color: red;&#x27;</span>
+  + <span class="hljs-string">&#x27;border: 1px solid black;&#x27;</span>
+  + <span class="hljs-string">&#x27;height: 100px;&#x27;</span>
+  + <span class="hljs-string">&#x27;width: 100px;&#x27;</span>;
+</code></pre><p>注意，<code>cssText</code>的属性值不用改写 CSS 属性名。</p><p>删除一个元素的所有行内样式，最简便的方法就是设置<code>cssText</code>为空字符串。</p><pre class="hljs"><code>divStyle.cssText = <span class="hljs-string">&#x27;&#x27;</span>;
 </code></pre><p><strong>（2）CSSStyleDeclaration.length</strong></p><p><code>CSSStyleDeclaration.length</code>属性返回一个整数值，表示当前规则包含多少条样式声明。</p><pre class="hljs"><code><span class="hljs-comment">// HTML 代码如下</span>
-<span class="hljs-comment">// &lt;div id="myDiv"</span>
-<span class="hljs-comment">//   style="height: 1px;width: 100%;background-color: #CA1;"</span>
+<span class="hljs-comment">// &lt;div id=&quot;myDiv&quot;</span>
+<span class="hljs-comment">//   style=&quot;height: 1px;width: 100%;background-color: #CA1;&quot;</span>
 <span class="hljs-comment">// &gt;&lt;/div&gt;</span>
-<span class="hljs-keyword">var</span> myDiv = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'myDiv'</span>);
+<span class="hljs-keyword">var</span> myDiv = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;myDiv&#x27;</span>);
 <span class="hljs-keyword">var</span> divStyle = myDiv.style;
 divStyle.length <span class="hljs-comment">// 3</span>
 </code></pre><p>上面代码中，<code>myDiv</code>元素的行内样式共包含3条样式规则。</p><p><strong>（3）CSSStyleDeclaration.parentRule</strong></p><p><code>CSSStyleDeclaration.parentRule</code>属性返回当前规则所属的那个样式块（CSSRule 实例）。如果不存在所属的样式块，该属性返回<code>null</code>。</p><p>该属性只读，且只在使用 CSSRule 接口时有意义。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> declaration = <span class="hljs-built_in">document</span>.styleSheets[<span class="hljs-number">0</span>].rules[<span class="hljs-number">0</span>].style;
 declaration.parentRule === <span class="hljs-built_in">document</span>.styleSheets[<span class="hljs-number">0</span>].rules[<span class="hljs-number">0</span>]
 <span class="hljs-comment">// true</span>
 </code></pre><h3 id="cssstyledeclaration-实例方法">CSSStyleDeclaration 实例方法 <a class="markdownIt-Anchor" href="#cssstyledeclaration-实例方法">#</a></h3><p><strong>（1）CSSStyleDeclaration.getPropertyPriority()</strong></p><p><code>CSSStyleDeclaration.getPropertyPriority</code>方法接受 CSS 样式的属性名作为参数，返回一个字符串，表示有没有设置<code>important</code>优先级。如果有就返回<code>important</code>，否则返回空字符串。</p><pre class="hljs"><code><span class="hljs-comment">// HTML 代码为</span>
-<span class="hljs-comment">// &lt;div id="myDiv" style="margin: 10px!important; color: red;"/&gt;</span>
-<span class="hljs-keyword">var</span> style = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'myDiv'</span>).style;
-style.margin <span class="hljs-comment">// "10px"</span>
-style.getPropertyPriority(<span class="hljs-string">'margin'</span>) <span class="hljs-comment">// "important"</span>
-style.getPropertyPriority(<span class="hljs-string">'color'</span>) <span class="hljs-comment">// ""</span>
+<span class="hljs-comment">// &lt;div id=&quot;myDiv&quot; style=&quot;margin: 10px!important; color: red;&quot;/&gt;</span>
+<span class="hljs-keyword">var</span> style = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;myDiv&#x27;</span>).style;
+style.margin <span class="hljs-comment">// &quot;10px&quot;</span>
+style.getPropertyPriority(<span class="hljs-string">&#x27;margin&#x27;</span>) <span class="hljs-comment">// &quot;important&quot;</span>
+style.getPropertyPriority(<span class="hljs-string">&#x27;color&#x27;</span>) <span class="hljs-comment">// &quot;&quot;</span>
 </code></pre><p>上面代码中，<code>margin</code>属性有<code>important</code>优先级，<code>color</code>属性没有。</p><p><strong>（2）CSSStyleDeclaration.getPropertyValue()</strong></p><p><code>CSSStyleDeclaration.getPropertyValue</code>方法接受 CSS 样式属性名作为参数，返回一个字符串，表示该属性的属性值。</p><pre class="hljs"><code><span class="hljs-comment">// HTML 代码为</span>
-<span class="hljs-comment">// &lt;div id="myDiv" style="margin: 10px!important; color: red;"/&gt;</span>
-<span class="hljs-keyword">var</span> style = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'myDiv'</span>).style;
-style.margin <span class="hljs-comment">// "10px"</span>
-style.getPropertyValue(<span class="hljs-string">"margin"</span>) <span class="hljs-comment">// "10px"</span>
+<span class="hljs-comment">// &lt;div id=&quot;myDiv&quot; style=&quot;margin: 10px!important; color: red;&quot;/&gt;</span>
+<span class="hljs-keyword">var</span> style = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;myDiv&#x27;</span>).style;
+style.margin <span class="hljs-comment">// &quot;10px&quot;</span>
+style.getPropertyValue(<span class="hljs-string">&quot;margin&quot;</span>) <span class="hljs-comment">// &quot;10px&quot;</span>
 </code></pre><p><strong>（3）CSSStyleDeclaration.item()</strong></p><p><code>CSSStyleDeclaration.item</code>方法接受一个整数值作为参数，返回该位置的 CSS 属性名。</p><pre class="hljs"><code><span class="hljs-comment">// HTML 代码为</span>
-<span class="hljs-comment">// &lt;div id="myDiv" style="color: red; background-color: white;"/&gt;</span>
-<span class="hljs-keyword">var</span> style = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'myDiv'</span>).style;
-style.item(<span class="hljs-number">0</span>) <span class="hljs-comment">// "color"</span>
-style.item(<span class="hljs-number">1</span>) <span class="hljs-comment">// "background-color"</span>
+<span class="hljs-comment">// &lt;div id=&quot;myDiv&quot; style=&quot;color: red; background-color: white;&quot;/&gt;</span>
+<span class="hljs-keyword">var</span> style = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;myDiv&#x27;</span>).style;
+style.item(<span class="hljs-number">0</span>) <span class="hljs-comment">// &quot;color&quot;</span>
+style.item(<span class="hljs-number">1</span>) <span class="hljs-comment">// &quot;background-color&quot;</span>
 </code></pre><p>上面代码中，<code>0</code>号位置的 CSS 属性名是<code>color</code>，<code>1</code>号位置的 CSS 属性名是<code>background-color</code>。</p><p>如果没有提供参数，这个方法会报错。如果参数值超过实际的属性数目，这个方法返回一个空字符值。</p><p><strong>（4）CSSStyleDeclaration.removeProperty()</strong></p><p><code>CSSStyleDeclaration.removeProperty</code>方法接受一个属性名作为参数，在 CSS 规则里面移除这个属性，返回这个属性原来的值。</p><pre class="hljs"><code><span class="hljs-comment">// HTML 代码为</span>
-<span class="hljs-comment">// &lt;div id="myDiv" style="color: red; background-color: white;"&gt;</span>
+<span class="hljs-comment">// &lt;div id=&quot;myDiv&quot; style=&quot;color: red; background-color: white;&quot;&gt;</span>
 <span class="hljs-comment">//   111</span>
 <span class="hljs-comment">// &lt;/div&gt;</span>
-<span class="hljs-keyword">var</span> style = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'myDiv'</span>).style;
-style.removeProperty(<span class="hljs-string">'color'</span>) <span class="hljs-comment">// 'red'</span>
+<span class="hljs-keyword">var</span> style = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;myDiv&#x27;</span>).style;
+style.removeProperty(<span class="hljs-string">&#x27;color&#x27;</span>) <span class="hljs-comment">// &#x27;red&#x27;</span>
 <span class="hljs-comment">// HTML 代码变为</span>
-<span class="hljs-comment">// &lt;div id="myDiv" style="background-color: white;"&gt;</span>
+<span class="hljs-comment">// &lt;div id=&quot;myDiv&quot; style=&quot;background-color: white;&quot;&gt;</span>
 </code></pre><p>上面代码中，删除<code>color</code>属性以后，字体颜色从红色变成默认颜色。</p><p><strong>（5）CSSStyleDeclaration.setProperty()</strong></p><p><code>CSSStyleDeclaration.setProperty</code>方法用来设置新的 CSS 属性。该方法没有返回值。</p><p>该方法可以接受三个参数。</p><ul><li>第一个参数：属性名，该参数是必需的。</li><li>第二个参数：属性值，该参数可选。如果省略，则参数值默认为空字符串。</li><li>第三个参数：优先级，该参数可选。如果设置，唯一的合法值是<code>important</code>，表示 CSS 规则里面的<code>!important</code>。</li></ul><pre class="hljs"><code><span class="hljs-comment">// HTML 代码为</span>
-<span class="hljs-comment">// &lt;div id="myDiv" style="color: red; background-color: white;"&gt;</span>
+<span class="hljs-comment">// &lt;div id=&quot;myDiv&quot; style=&quot;color: red; background-color: white;&quot;&gt;</span>
 <span class="hljs-comment">//   111</span>
 <span class="hljs-comment">// &lt;/div&gt;</span>
-<span class="hljs-keyword">var</span> style = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'myDiv'</span>).style;
-style.setProperty(<span class="hljs-string">'border'</span>, <span class="hljs-string">'1px solid blue'</span>);
-</code></pre><p>上面代码执行后，<code>myDiv</code>元素就会出现蓝色的边框。</p><h2 id="css-模块的侦测">CSS 模块的侦测 <a class="markdownIt-Anchor" href="#css-模块的侦测">#</a></h2><p>CSS 的规格发展太快，新的模块层出不穷。不同浏览器的不同版本，对 CSS 模块的支持情况都不一样。有时候，需要知道当前浏览器是否支持某个模块，这就叫做“CSS模块的侦测”。</p><p>一个比较普遍适用的方法是，判断元素的<code>style</code>对象的某个属性值是否为字符串。</p><pre class="hljs"><code><span class="hljs-keyword">typeof</span> element.style.animationName === <span class="hljs-string">'string'</span>;
-<span class="hljs-keyword">typeof</span> element.style.transform === <span class="hljs-string">'string'</span>;
-</code></pre><p>如果该 CSS 属性确实存在，会返回一个字符串。即使该属性实际上并未设置，也会返回一个空字符串。如果该属性不存在，则会返回<code>undefined</code>。</p><pre class="hljs"><code><span class="hljs-built_in">document</span>.body.style[<span class="hljs-string">'maxWidth'</span>] <span class="hljs-comment">// ""</span>
-<span class="hljs-built_in">document</span>.body.style[<span class="hljs-string">'maximumWidth'</span>] <span class="hljs-comment">// undefined</span>
-</code></pre><p>上面代码说明，这个浏览器支持<code>max-width</code>属性，但是不支持<code>maximum-width</code>属性。</p><p>注意，不管 CSS 属性名的写法带不带连词线，<code>style</code>属性上都能反映出该属性是否存在。</p><pre class="hljs"><code><span class="hljs-built_in">document</span>.body.style[<span class="hljs-string">'backgroundColor'</span>] <span class="hljs-comment">// ""</span>
-<span class="hljs-built_in">document</span>.body.style[<span class="hljs-string">'background-color'</span>] <span class="hljs-comment">// ""</span>
-</code></pre><p>另外，使用的时候，需要把不同浏览器的 CSS 前缀也考虑进去。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> content = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'content'</span>);
-<span class="hljs-keyword">typeof</span> content.style[<span class="hljs-string">'webkitAnimation'</span>] === <span class="hljs-string">'string'</span>
+<span class="hljs-keyword">var</span> style = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;myDiv&#x27;</span>).style;
+style.setProperty(<span class="hljs-string">&#x27;border&#x27;</span>, <span class="hljs-string">&#x27;1px solid blue&#x27;</span>);
+</code></pre><p>上面代码执行后，<code>myDiv</code>元素就会出现蓝色的边框。</p><h2 id="css-模块的侦测">CSS 模块的侦测 <a class="markdownIt-Anchor" href="#css-模块的侦测">#</a></h2><p>CSS 的规格发展太快，新的模块层出不穷。不同浏览器的不同版本，对 CSS 模块的支持情况都不一样。有时候，需要知道当前浏览器是否支持某个模块，这就叫做“CSS模块的侦测”。</p><p>一个比较普遍适用的方法是，判断元素的<code>style</code>对象的某个属性值是否为字符串。</p><pre class="hljs"><code><span class="hljs-keyword">typeof</span> element.style.animationName === <span class="hljs-string">&#x27;string&#x27;</span>;
+<span class="hljs-keyword">typeof</span> element.style.transform === <span class="hljs-string">&#x27;string&#x27;</span>;
+</code></pre><p>如果该 CSS 属性确实存在，会返回一个字符串。即使该属性实际上并未设置，也会返回一个空字符串。如果该属性不存在，则会返回<code>undefined</code>。</p><pre class="hljs"><code><span class="hljs-built_in">document</span>.body.style[<span class="hljs-string">&#x27;maxWidth&#x27;</span>] <span class="hljs-comment">// &quot;&quot;</span>
+<span class="hljs-built_in">document</span>.body.style[<span class="hljs-string">&#x27;maximumWidth&#x27;</span>] <span class="hljs-comment">// undefined</span>
+</code></pre><p>上面代码说明，这个浏览器支持<code>max-width</code>属性，但是不支持<code>maximum-width</code>属性。</p><p>注意，不管 CSS 属性名的写法带不带连词线，<code>style</code>属性上都能反映出该属性是否存在。</p><pre class="hljs"><code><span class="hljs-built_in">document</span>.body.style[<span class="hljs-string">&#x27;backgroundColor&#x27;</span>] <span class="hljs-comment">// &quot;&quot;</span>
+<span class="hljs-built_in">document</span>.body.style[<span class="hljs-string">&#x27;background-color&#x27;</span>] <span class="hljs-comment">// &quot;&quot;</span>
+</code></pre><p>另外，使用的时候，需要把不同浏览器的 CSS 前缀也考虑进去。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> content = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;content&#x27;</span>);
+<span class="hljs-keyword">typeof</span> content.style[<span class="hljs-string">&#x27;webkitAnimation&#x27;</span>] === <span class="hljs-string">&#x27;string&#x27;</span>
 </code></pre><p>这种侦测方法可以写成一个函数。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isPropertySupported</span>(<span class="hljs-params">property</span>) </span>{
   <span class="hljs-keyword">if</span> (property <span class="hljs-keyword">in</span> <span class="hljs-built_in">document</span>.body.style) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
-  <span class="hljs-keyword">var</span> prefixes = [<span class="hljs-string">'Moz'</span>, <span class="hljs-string">'Webkit'</span>, <span class="hljs-string">'O'</span>, <span class="hljs-string">'ms'</span>, <span class="hljs-string">'Khtml'</span>];
+  <span class="hljs-keyword">var</span> prefixes = [<span class="hljs-string">&#x27;Moz&#x27;</span>, <span class="hljs-string">&#x27;Webkit&#x27;</span>, <span class="hljs-string">&#x27;O&#x27;</span>, <span class="hljs-string">&#x27;ms&#x27;</span>, <span class="hljs-string">&#x27;Khtml&#x27;</span>];
   <span class="hljs-keyword">var</span> prefProperty = property.charAt(<span class="hljs-number">0</span>).toUpperCase() + property.substr(<span class="hljs-number">1</span>);
 
   <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; prefixes.length; i++){
@@ -84,97 +84,97 @@ style.setProperty(<span class="hljs-string">'border'</span>, <span class="hljs-s
   <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
 }
 
-isPropertySupported(<span class="hljs-string">'background-clip'</span>)
+isPropertySupported(<span class="hljs-string">&#x27;background-clip&#x27;</span>)
 <span class="hljs-comment">// true</span>
-</code></pre><h2 id="css-对象">CSS 对象 <a class="markdownIt-Anchor" href="#css-对象">#</a></h2><p>浏览器原生提供 CSS 对象，为 JavaScript 操作 CSS 提供一些工具方法。</p><p>这个对象目前有两个静态方法。</p><h3 id="cssescape">CSS.escape() <a class="markdownIt-Anchor" href="#cssescape">#</a></h3><p><code>CSS.escape</code>方法用于转义 CSS 选择器里面的特殊字符。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"foo#bar"</span>&gt;</span>
-</code></pre><p>上面代码中，该元素的<code>id</code>属性包含一个<code>#</code>号，该字符在 CSS 选择器里面有特殊含义。不能直接写成<code>document.querySelector('#foo#bar')</code>，只能写成<code>document.querySelector('#foo\\#bar')</code>。这里必须使用双斜杠的原因是，单引号字符串本身会转义一次斜杠。</p><p><code>CSS.escape</code>方法就用来转义那些特殊字符。</p><pre class="hljs"><code><span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#'</span> + CSS.escape(<span class="hljs-string">'foo#bar'</span>))
+</code></pre><h2 id="css-对象">CSS 对象 <a class="markdownIt-Anchor" href="#css-对象">#</a></h2><p>浏览器原生提供 CSS 对象，为 JavaScript 操作 CSS 提供一些工具方法。</p><p>这个对象目前有两个静态方法。</p><h3 id="cssescape">CSS.escape() <a class="markdownIt-Anchor" href="#cssescape">#</a></h3><p><code>CSS.escape</code>方法用于转义 CSS 选择器里面的特殊字符。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;foo#bar&quot;</span>&gt;</span>
+</code></pre><p>上面代码中，该元素的<code>id</code>属性包含一个<code>#</code>号，该字符在 CSS 选择器里面有特殊含义。不能直接写成<code>document.querySelector('#foo#bar')</code>，只能写成<code>document.querySelector('#foo\\#bar')</code>。这里必须使用双斜杠的原因是，单引号字符串本身会转义一次斜杠。</p><p><code>CSS.escape</code>方法就用来转义那些特殊字符。</p><pre class="hljs"><code><span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;#&#x27;</span> + CSS.escape(<span class="hljs-string">&#x27;foo#bar&#x27;</span>))
 </code></pre><h3 id="csssupports">CSS.supports() <a class="markdownIt-Anchor" href="#csssupports">#</a></h3><p><code>CSS.supports</code>方法返回一个布尔值，表示当前环境是否支持某一句 CSS 规则。</p><p>它的参数有两种写法，一种是第一个参数是属性名，第二个参数是属性值；另一种是整个参数就是一行完整的 CSS 语句。</p><pre class="hljs"><code><span class="hljs-comment">// 第一种写法</span>
-CSS.supports(<span class="hljs-string">'transform-origin'</span>, <span class="hljs-string">'5px'</span>) <span class="hljs-comment">// true</span>
+CSS.supports(<span class="hljs-string">&#x27;transform-origin&#x27;</span>, <span class="hljs-string">&#x27;5px&#x27;</span>) <span class="hljs-comment">// true</span>
 
 <span class="hljs-comment">// 第二种写法</span>
-CSS.supports(<span class="hljs-string">'display: table-cell'</span>) <span class="hljs-comment">// true</span>
-</code></pre><p>注意，第二种写法的参数结尾不能带有分号，否则结果不准确。</p><pre class="hljs"><code>CSS.supports(<span class="hljs-string">'display: table-cell;'</span>) <span class="hljs-comment">// false</span>
-</code></pre><h2 id="windowgetcomputedstyle">window.getComputedStyle() <a class="markdownIt-Anchor" href="#windowgetcomputedstyle">#</a></h2><p>行内样式（inline style）具有最高的优先级，改变行内样式，通常会立即反映出来。但是，网页元素最终的样式是综合各种规则计算出来的。因此，如果想得到元素实际的样式，只读取行内样式是不够的，需要得到浏览器最终计算出来的样式规则。</p><p><code>window.getComputedStyle</code>方法，就用来返回浏览器计算后得到的最终规则。它接受一个节点对象作为参数，返回一个 CSSStyleDeclaration 实例，包含了指定节点的最终样式信息。所谓“最终样式信息”，指的是各种 CSS 规则叠加后的结果。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> div = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'div'</span>);
+CSS.supports(<span class="hljs-string">&#x27;display: table-cell&#x27;</span>) <span class="hljs-comment">// true</span>
+</code></pre><p>注意，第二种写法的参数结尾不能带有分号，否则结果不准确。</p><pre class="hljs"><code>CSS.supports(<span class="hljs-string">&#x27;display: table-cell;&#x27;</span>) <span class="hljs-comment">// false</span>
+</code></pre><h2 id="windowgetcomputedstyle">window.getComputedStyle() <a class="markdownIt-Anchor" href="#windowgetcomputedstyle">#</a></h2><p>行内样式（inline style）具有最高的优先级，改变行内样式，通常会立即反映出来。但是，网页元素最终的样式是综合各种规则计算出来的。因此，如果想得到元素实际的样式，只读取行内样式是不够的，需要得到浏览器最终计算出来的样式规则。</p><p><code>window.getComputedStyle</code>方法，就用来返回浏览器计算后得到的最终规则。它接受一个节点对象作为参数，返回一个 CSSStyleDeclaration 实例，包含了指定节点的最终样式信息。所谓“最终样式信息”，指的是各种 CSS 规则叠加后的结果。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> div = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;div&#x27;</span>);
 <span class="hljs-keyword">var</span> styleObj = <span class="hljs-built_in">window</span>.getComputedStyle(div);
 styleObj.backgroundColor
-</code></pre><p>上面代码中，得到的背景色就是<code>div</code>元素真正的背景色。</p><p>注意，CSSStyleDeclaration 实例是一个活的对象，任何对于样式的修改，会实时反映到这个实例上面。另外，这个实例是只读的。</p><p><code>getComputedStyle</code>方法还可以接受第二个参数，表示当前元素的伪元素（比如<code>:before</code>、<code>:after</code>、<code>:first-line</code>、<code>:first-letter</code>等）。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> result = <span class="hljs-built_in">window</span>.getComputedStyle(div, <span class="hljs-string">':before'</span>);
-</code></pre><p>下面的例子是如何获取元素的高度。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> elem = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'elem-container'</span>);
+</code></pre><p>上面代码中，得到的背景色就是<code>div</code>元素真正的背景色。</p><p>注意，CSSStyleDeclaration 实例是一个活的对象，任何对于样式的修改，会实时反映到这个实例上面。另外，这个实例是只读的。</p><p><code>getComputedStyle</code>方法还可以接受第二个参数，表示当前元素的伪元素（比如<code>:before</code>、<code>:after</code>、<code>:first-line</code>、<code>:first-letter</code>等）。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> result = <span class="hljs-built_in">window</span>.getComputedStyle(div, <span class="hljs-string">&#x27;:before&#x27;</span>);
+</code></pre><p>下面的例子是如何获取元素的高度。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> elem = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;elem-container&#x27;</span>);
 <span class="hljs-keyword">var</span> styleObj = <span class="hljs-built_in">window</span>.getComputedStyle(elem, <span class="hljs-literal">null</span>)
 <span class="hljs-keyword">var</span> height = styleObj.height;
 <span class="hljs-comment">// 等同于</span>
-<span class="hljs-keyword">var</span> height = styleObj[<span class="hljs-string">'height'</span>];
-<span class="hljs-keyword">var</span> height = styleObj.getPropertyValue(<span class="hljs-string">'height'</span>);
-</code></pre><p>上面代码得到的<code>height</code>属性，是浏览器最终渲染出来的高度，比其他方法得到的高度更可靠。由于<code>styleObj</code>是 CSSStyleDeclaration 实例，所以可以使用各种 CSSStyleDeclaration 的实例属性和方法。</p><p>有几点需要注意。</p><ul><li>CSSStyleDeclaration 实例返回的 CSS 值都是绝对单位。比如，长度都是像素单位（返回值包括<code>px</code>后缀），颜色是<code>rgb(#, #, #)</code>或<code>rgba(#, #, #, #)</code>格式。</li><li>CSS 规则的简写形式无效。比如，想读取<code>margin</code>属性的值，不能直接读，只能读<code>marginLeft</code>、<code>marginTop</code>等属性；再比如，<code>font</code>属性也是不能直接读的，只能读<code>font-size</code>等单个属性。</li><li>如果读取 CSS 原始的属性名，要用方括号运算符，比如<code>styleObj['z-index']</code>；如果读取骆驼拼写法的 CSS 属性名，可以直接读取<code>styleObj.zIndex</code>。</li><li>该方法返回的 CSSStyleDeclaration 实例的<code>cssText</code>属性无效，返回<code>undefined</code>。</li></ul><h2 id="css-伪元素">CSS 伪元素 <a class="markdownIt-Anchor" href="#css-伪元素">#</a></h2><p>CSS 伪元素是通过 CSS 向 DOM 添加的元素，主要是通过<code>:before</code>和<code>:after</code>选择器生成，然后用<code>content</code>属性指定伪元素的内容。</p><p>下面是一段 HTML 代码。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"test"</span>&gt;</span>Test content<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-keyword">var</span> height = styleObj[<span class="hljs-string">&#x27;height&#x27;</span>];
+<span class="hljs-keyword">var</span> height = styleObj.getPropertyValue(<span class="hljs-string">&#x27;height&#x27;</span>);
+</code></pre><p>上面代码得到的<code>height</code>属性，是浏览器最终渲染出来的高度，比其他方法得到的高度更可靠。由于<code>styleObj</code>是 CSSStyleDeclaration 实例，所以可以使用各种 CSSStyleDeclaration 的实例属性和方法。</p><p>有几点需要注意。</p><ul><li>CSSStyleDeclaration 实例返回的 CSS 值都是绝对单位。比如，长度都是像素单位（返回值包括<code>px</code>后缀），颜色是<code>rgb(#, #, #)</code>或<code>rgba(#, #, #, #)</code>格式。</li><li>CSS 规则的简写形式无效。比如，想读取<code>margin</code>属性的值，不能直接读，只能读<code>marginLeft</code>、<code>marginTop</code>等属性；再比如，<code>font</code>属性也是不能直接读的，只能读<code>font-size</code>等单个属性。</li><li>如果读取 CSS 原始的属性名，要用方括号运算符，比如<code>styleObj['z-index']</code>；如果读取骆驼拼写法的 CSS 属性名，可以直接读取<code>styleObj.zIndex</code>。</li><li>该方法返回的 CSSStyleDeclaration 实例的<code>cssText</code>属性无效，返回<code>undefined</code>。</li></ul><h2 id="css-伪元素">CSS 伪元素 <a class="markdownIt-Anchor" href="#css-伪元素">#</a></h2><p>CSS 伪元素是通过 CSS 向 DOM 添加的元素，主要是通过<code>:before</code>和<code>:after</code>选择器生成，然后用<code>content</code>属性指定伪元素的内容。</p><p>下面是一段 HTML 代码。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;test&quot;</span>&gt;</span>Test content<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre><p>CSS 添加伪元素<code>:before</code>的写法如下。</p><pre class="hljs"><code><span class="hljs-selector-id">#test</span><span class="hljs-selector-pseudo">:before</span> {
-  <span class="hljs-attribute">content</span>: <span class="hljs-string">'Before '</span>;
+  <span class="hljs-attribute">content</span>: <span class="hljs-string">&#x27;Before &#x27;</span>;
   <span class="hljs-attribute">color</span>: <span class="hljs-number">#FF0</span>;
 }
-</code></pre><p>节点元素的<code>style</code>对象无法读写伪元素的样式，这时就要用到<code>window.getComputedStyle()</code>。JavaScript 获取伪元素，可以使用下面的方法。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> test = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#test'</span>);
+</code></pre><p>节点元素的<code>style</code>对象无法读写伪元素的样式，这时就要用到<code>window.getComputedStyle()</code>。JavaScript 获取伪元素，可以使用下面的方法。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> test = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;#test&#x27;</span>);
 
-<span class="hljs-keyword">var</span> result = <span class="hljs-built_in">window</span>.getComputedStyle(test, <span class="hljs-string">':before'</span>).content;
-<span class="hljs-keyword">var</span> color = <span class="hljs-built_in">window</span>.getComputedStyle(test, <span class="hljs-string">':before'</span>).color;
-</code></pre><p>此外，也可以使用 CSSStyleDeclaration 实例的<code>getPropertyValue</code>方法，获取伪元素的属性。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> result = <span class="hljs-built_in">window</span>.getComputedStyle(test, <span class="hljs-string">':before'</span>)
-  .getPropertyValue(<span class="hljs-string">'content'</span>);
-<span class="hljs-keyword">var</span> color = <span class="hljs-built_in">window</span>.getComputedStyle(test, <span class="hljs-string">':before'</span>)
-  .getPropertyValue(<span class="hljs-string">'color'</span>);
+<span class="hljs-keyword">var</span> result = <span class="hljs-built_in">window</span>.getComputedStyle(test, <span class="hljs-string">&#x27;:before&#x27;</span>).content;
+<span class="hljs-keyword">var</span> color = <span class="hljs-built_in">window</span>.getComputedStyle(test, <span class="hljs-string">&#x27;:before&#x27;</span>).color;
+</code></pre><p>此外，也可以使用 CSSStyleDeclaration 实例的<code>getPropertyValue</code>方法，获取伪元素的属性。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> result = <span class="hljs-built_in">window</span>.getComputedStyle(test, <span class="hljs-string">&#x27;:before&#x27;</span>)
+  .getPropertyValue(<span class="hljs-string">&#x27;content&#x27;</span>);
+<span class="hljs-keyword">var</span> color = <span class="hljs-built_in">window</span>.getComputedStyle(test, <span class="hljs-string">&#x27;:before&#x27;</span>)
+  .getPropertyValue(<span class="hljs-string">&#x27;color&#x27;</span>);
 </code></pre><h2 id="stylesheet-接口">StyleSheet 接口 <a class="markdownIt-Anchor" href="#stylesheet-接口">#</a></h2><h3 id="概述">概述 <a class="markdownIt-Anchor" href="#概述">#</a></h3><p><code>StyleSheet</code>接口代表网页的一张样式表，包括<code>&lt;link&gt;</code>元素加载的样式表和<code>&lt;style&gt;</code>元素内嵌的样式表。</p><p><code>document</code>对象的<code>styleSheets</code>属性，可以返回当前页面的所有<code>StyleSheet</code>实例（即所有样式表）。它是一个类似数组的对象。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> sheets = <span class="hljs-built_in">document</span>.styleSheets;
 <span class="hljs-keyword">var</span> sheet = <span class="hljs-built_in">document</span>.styleSheets[<span class="hljs-number">0</span>];
 sheet <span class="hljs-keyword">instanceof</span> StyleSheet <span class="hljs-comment">// true</span>
-</code></pre><p>如果是<code>&lt;style&gt;</code>元素嵌入的样式表，还有另一种获取<code>StyleSheet</code>实例的方法，就是这个节点元素的<code>sheet</code>属性。</p><pre class="hljs"><code><span class="hljs-comment">// HTML 代码为 &lt;style id="myStyle"&gt;&lt;/style&gt;</span>
-<span class="hljs-keyword">var</span> myStyleSheet = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'myStyle'</span>).sheet;
+</code></pre><p>如果是<code>&lt;style&gt;</code>元素嵌入的样式表，还有另一种获取<code>StyleSheet</code>实例的方法，就是这个节点元素的<code>sheet</code>属性。</p><pre class="hljs"><code><span class="hljs-comment">// HTML 代码为 &lt;style id=&quot;myStyle&quot;&gt;&lt;/style&gt;</span>
+<span class="hljs-keyword">var</span> myStyleSheet = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;myStyle&#x27;</span>).sheet;
 myStyleSheet <span class="hljs-keyword">instanceof</span> StyleSheet <span class="hljs-comment">// true</span>
 </code></pre><p>严格地说，<code>StyleSheet</code>接口不仅包括网页样式表，还包括 XML 文档的样式表。所以，它有一个子类<code>CSSStyleSheet</code>表示网页的 CSS 样式表。我们在网页里面拿到的样式表实例，实际上是<code>CSSStyleSheet</code>的实例。这个子接口继承了<code>StyleSheet</code>的所有属性和方法，并且定义了几个自己的属性，下面把这两个接口放在一起介绍。</p><h3 id="实例属性">实例属性 <a class="markdownIt-Anchor" href="#实例属性">#</a></h3><p><code>StyleSheet</code>实例有以下属性。</p><p><strong>（1）StyleSheet.disabled</strong></p><p><code>StyleSheet.disabled</code>返回一个布尔值，表示该样式表是否处于禁用状态。手动设置<code>disabled</code>属性为<code>true</code>，等同于在<code>&lt;link&gt;</code>元素里面，将这张样式表设为<code>alternate stylesheet</code>，即该样式表将不会生效。</p><p>注意，<code>disabled</code>属性只能在 JavaScript 脚本中设置，不能在 HTML 语句中设置。</p><p><strong>（2）Stylesheet.href</strong></p><p><code>Stylesheet.href</code>返回样式表的网址。对于内嵌样式表，该属性返回<code>null</code>。该属性只读。</p><pre class="hljs"><code><span class="hljs-built_in">document</span>.styleSheets[<span class="hljs-number">0</span>].href
 </code></pre><p><strong>（3）StyleSheet.media</strong></p><p><code>StyleSheet.media</code>属性返回一个类似数组的对象（<code>MediaList</code>实例），成员是表示适用媒介的字符串。表示当前样式表是用于屏幕（screen），还是用于打印（print）或手持设备（handheld），或各种媒介都适用（all）。该属性只读，默认值是<code>screen</code>。</p><pre class="hljs"><code><span class="hljs-built_in">document</span>.styleSheets[<span class="hljs-number">0</span>].media.mediaText
-<span class="hljs-comment">// "all"</span>
-</code></pre><p><code>MediaList</code>实例的<code>appendMedium</code>方法，用于增加媒介；<code>deleteMedium</code>方法用于删除媒介。</p><pre class="hljs"><code><span class="hljs-built_in">document</span>.styleSheets[<span class="hljs-number">0</span>].media.appendMedium(<span class="hljs-string">'handheld'</span>);
-<span class="hljs-built_in">document</span>.styleSheets[<span class="hljs-number">0</span>].media.deleteMedium(<span class="hljs-string">'print'</span>);
-</code></pre><p><strong>（4）StyleSheet.title</strong></p><p><code>StyleSheet.title</code>属性返回样式表的<code>title</code>属性。</p><p><strong>（5）StyleSheet.type</strong></p><p><code>StyleSheet.type</code>属性返回样式表的<code>type</code>属性，通常是<code>text/css</code>。</p><pre class="hljs"><code><span class="hljs-built_in">document</span>.styleSheets[<span class="hljs-number">0</span>].type  <span class="hljs-comment">// "text/css"</span>
+<span class="hljs-comment">// &quot;all&quot;</span>
+</code></pre><p><code>MediaList</code>实例的<code>appendMedium</code>方法，用于增加媒介；<code>deleteMedium</code>方法用于删除媒介。</p><pre class="hljs"><code><span class="hljs-built_in">document</span>.styleSheets[<span class="hljs-number">0</span>].media.appendMedium(<span class="hljs-string">&#x27;handheld&#x27;</span>);
+<span class="hljs-built_in">document</span>.styleSheets[<span class="hljs-number">0</span>].media.deleteMedium(<span class="hljs-string">&#x27;print&#x27;</span>);
+</code></pre><p><strong>（4）StyleSheet.title</strong></p><p><code>StyleSheet.title</code>属性返回样式表的<code>title</code>属性。</p><p><strong>（5）StyleSheet.type</strong></p><p><code>StyleSheet.type</code>属性返回样式表的<code>type</code>属性，通常是<code>text/css</code>。</p><pre class="hljs"><code><span class="hljs-built_in">document</span>.styleSheets[<span class="hljs-number">0</span>].type  <span class="hljs-comment">// &quot;text/css&quot;</span>
 </code></pre><p><strong>（6）StyleSheet.parentStyleSheet</strong></p><p>CSS 的<code>@import</code>命令允许在样式表中加载其他样式表。<code>StyleSheet.parentStyleSheet</code>属性返回包含了当前样式表的那张样式表。如果当前样式表是顶层样式表，则该属性返回<code>null</code>。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> (stylesheet.parentStyleSheet) {
   sheet = stylesheet.parentStyleSheet;
 } <span class="hljs-keyword">else</span> {
   sheet = stylesheet;
 }
 </code></pre><p><strong>（7）StyleSheet.ownerNode</strong></p><p><code>StyleSheet.ownerNode</code>属性返回<code>StyleSheet</code>对象所在的 DOM 节点，通常是<code>&lt;link&gt;</code>或<code>&lt;style&gt;</code>。对于那些由其他样式表引用的样式表，该属性为<code>null</code>。</p><pre class="hljs"><code><span class="hljs-comment">// HTML代码为</span>
-<span class="hljs-comment">// &lt;link rel="StyleSheet" href="example.css" type="text/css" /&gt;</span>
+<span class="hljs-comment">// &lt;link rel=&quot;StyleSheet&quot; href=&quot;example.css&quot; type=&quot;text/css&quot; /&gt;</span>
 <span class="hljs-built_in">document</span>.styleSheets[<span class="hljs-number">0</span>].ownerNode <span class="hljs-comment">// [object HTMLLinkElement]</span>
-</code></pre><p><strong>（8）CSSStyleSheet.cssRules</strong></p><p><code>CSSStyleSheet.cssRules</code>属性指向一个类似数组的对象（<code>CSSRuleList</code>实例），里面每一个成员就是当前样式表的一条 CSS 规则。使用该规则的<code>cssText</code>属性，可以得到 CSS 规则对应的字符串。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> sheet = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#styleElement'</span>).sheet;
+</code></pre><p><strong>（8）CSSStyleSheet.cssRules</strong></p><p><code>CSSStyleSheet.cssRules</code>属性指向一个类似数组的对象（<code>CSSRuleList</code>实例），里面每一个成员就是当前样式表的一条 CSS 规则。使用该规则的<code>cssText</code>属性，可以得到 CSS 规则对应的字符串。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> sheet = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;#styleElement&#x27;</span>).sheet;
 
 sheet.cssRules[<span class="hljs-number">0</span>].cssText
-<span class="hljs-comment">// "body { background-color: red; margin: 20px; }"</span>
+<span class="hljs-comment">// &quot;body { background-color: red; margin: 20px; }&quot;</span>
 
 sheet.cssRules[<span class="hljs-number">1</span>].cssText
-<span class="hljs-comment">// "p { line-height: 1.4em; color: blue; }"</span>
-</code></pre><p>每条 CSS 规则还有一个<code>style</code>属性，指向一个对象，用来读写具体的 CSS 命令。</p><pre class="hljs"><code>cssStyleSheet.cssRules[<span class="hljs-number">0</span>].style.color = <span class="hljs-string">'red'</span>;
-cssStyleSheet.cssRules[<span class="hljs-number">1</span>].style.color = <span class="hljs-string">'purple'</span>;
-</code></pre><p><strong>（9）CSSStyleSheet.ownerRule</strong></p><p>有些样式表是通过<code>@import</code>规则输入的，它的<code>ownerRule</code>属性会返回一个<code>CSSRule</code>实例，代表那行<code>@import</code>规则。如果当前样式表不是通过<code>@import</code>引入的，<code>ownerRule</code>属性返回<code>null</code>。</p><h3 id="实例方法">实例方法 <a class="markdownIt-Anchor" href="#实例方法">#</a></h3><p><strong>（1）CSSStyleSheet.insertRule()</strong></p><p><code>CSSStyleSheet.insertRule</code>方法用于在当前样式表的插入一个新的 CSS 规则。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> sheet = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#styleElement'</span>).sheet;
-sheet.insertRule(<span class="hljs-string">'#block { color: white }'</span>, <span class="hljs-number">0</span>);
-sheet.insertRule(<span class="hljs-string">'p { color: red }'</span>, <span class="hljs-number">1</span>);
+<span class="hljs-comment">// &quot;p { line-height: 1.4em; color: blue; }&quot;</span>
+</code></pre><p>每条 CSS 规则还有一个<code>style</code>属性，指向一个对象，用来读写具体的 CSS 命令。</p><pre class="hljs"><code>cssStyleSheet.cssRules[<span class="hljs-number">0</span>].style.color = <span class="hljs-string">&#x27;red&#x27;</span>;
+cssStyleSheet.cssRules[<span class="hljs-number">1</span>].style.color = <span class="hljs-string">&#x27;purple&#x27;</span>;
+</code></pre><p><strong>（9）CSSStyleSheet.ownerRule</strong></p><p>有些样式表是通过<code>@import</code>规则输入的，它的<code>ownerRule</code>属性会返回一个<code>CSSRule</code>实例，代表那行<code>@import</code>规则。如果当前样式表不是通过<code>@import</code>引入的，<code>ownerRule</code>属性返回<code>null</code>。</p><h3 id="实例方法">实例方法 <a class="markdownIt-Anchor" href="#实例方法">#</a></h3><p><strong>（1）CSSStyleSheet.insertRule()</strong></p><p><code>CSSStyleSheet.insertRule</code>方法用于在当前样式表的插入一个新的 CSS 规则。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> sheet = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;#styleElement&#x27;</span>).sheet;
+sheet.insertRule(<span class="hljs-string">&#x27;#block { color: white }&#x27;</span>, <span class="hljs-number">0</span>);
+sheet.insertRule(<span class="hljs-string">&#x27;p { color: red }&#x27;</span>, <span class="hljs-number">1</span>);
 </code></pre><p>该方法可以接受两个参数，第一个参数是表示 CSS 规则的字符串，这里只能有一条规则，否则会报错。第二个参数是该规则在样式表的插入位置（从0开始），该参数可选，默认为0（即默认插在样式表的头部）。注意，如果插入位置大于现有规则的数目，会报错。</p><p>该方法的返回值是新插入规则的位置序号。</p><p>注意，浏览器对脚本在样式表里面插入规则有很多<a href="https://drafts.csswg.org/cssom/#insert-a-css-rule" target="_blank" rel="noopener">限制</a>。所以，这个方法最好放在<code>try...catch</code>里使用。</p><p><strong>（2）CSSStyleSheet.deleteRule()</strong></p><p><code>CSSStyleSheet.deleteRule</code>方法用来在样式表里面移除一条规则，它的参数是该条规则在<code>cssRules</code>对象中的位置。该方法没有返回值。</p><pre class="hljs"><code><span class="hljs-built_in">document</span>.styleSheets[<span class="hljs-number">0</span>].deleteRule(<span class="hljs-number">1</span>);
 </code></pre><h2 id="实例：添加样式表">实例：添加样式表 <a class="markdownIt-Anchor" href="#实例：添加样式表">#</a></h2><p>网页添加样式表有两种方式。一种是添加一张内置样式表，即在文档中添加一个<code>&lt;style&gt;</code>节点。</p><pre class="hljs"><code><span class="hljs-comment">// 写法一</span>
-<span class="hljs-keyword">var</span> style = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'style'</span>);
-style.setAttribute(<span class="hljs-string">'media'</span>, <span class="hljs-string">'screen'</span>);
-style.innerHTML = <span class="hljs-string">'body{color:red}'</span>;
+<span class="hljs-keyword">var</span> style = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&#x27;style&#x27;</span>);
+style.setAttribute(<span class="hljs-string">&#x27;media&#x27;</span>, <span class="hljs-string">&#x27;screen&#x27;</span>);
+style.innerHTML = <span class="hljs-string">&#x27;body{color:red}&#x27;</span>;
 <span class="hljs-built_in">document</span>.head.appendChild(style);
 
 <span class="hljs-comment">// 写法二</span>
 <span class="hljs-keyword">var</span> style = (<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">var</span> style = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'style'</span>);
+  <span class="hljs-keyword">var</span> style = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&#x27;style&#x27;</span>);
   <span class="hljs-built_in">document</span>.head.appendChild(style);
   <span class="hljs-keyword">return</span> style;
 })();
-style.sheet.insertRule(<span class="hljs-string">'.foo{color:red;}'</span>, <span class="hljs-number">0</span>);
-</code></pre><p>另一种是添加外部样式表，即在文档中添加一个<code>&lt;link&gt;</code>节点，然后将<code>href</code>属性指向外部样式表的 URL。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> linkElm = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'link'</span>);
-linkElm.setAttribute(<span class="hljs-string">'rel'</span>, <span class="hljs-string">'stylesheet'</span>);
-linkElm.setAttribute(<span class="hljs-string">'type'</span>, <span class="hljs-string">'text/css'</span>);
-linkElm.setAttribute(<span class="hljs-string">'href'</span>, <span class="hljs-string">'reset-min.css'</span>);
+style.sheet.insertRule(<span class="hljs-string">&#x27;.foo{color:red;}&#x27;</span>, <span class="hljs-number">0</span>);
+</code></pre><p>另一种是添加外部样式表，即在文档中添加一个<code>&lt;link&gt;</code>节点，然后将<code>href</code>属性指向外部样式表的 URL。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> linkElm = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&#x27;link&#x27;</span>);
+linkElm.setAttribute(<span class="hljs-string">&#x27;rel&#x27;</span>, <span class="hljs-string">&#x27;stylesheet&#x27;</span>);
+linkElm.setAttribute(<span class="hljs-string">&#x27;type&#x27;</span>, <span class="hljs-string">&#x27;text/css&#x27;</span>);
+linkElm.setAttribute(<span class="hljs-string">&#x27;href&#x27;</span>, <span class="hljs-string">&#x27;reset-min.css&#x27;</span>);
 
 <span class="hljs-built_in">document</span>.head.appendChild(linkElm);
 </code></pre><h2 id="cssrulelist-接口">CSSRuleList 接口 <a class="markdownIt-Anchor" href="#cssrulelist-接口">#</a></h2><p>CSSRuleList 接口是一个类似数组的对象，表示一组 CSS 规则，成员都是 CSSRule 实例。</p><p>获取 CSSRuleList 实例，一般是通过<code>StyleSheet.cssRules</code>属性。</p><pre class="hljs"><code><span class="hljs-comment">// HTML 代码如下</span>
-<span class="hljs-comment">// &lt;style id="myStyle"&gt;</span>
+<span class="hljs-comment">// &lt;style id=&quot;myStyle&quot;&gt;</span>
 <span class="hljs-comment">//   h1 { color: red; }</span>
 <span class="hljs-comment">//   p { color: blue; }</span>
 <span class="hljs-comment">// &lt;/style&gt;</span>
-<span class="hljs-keyword">var</span> myStyleSheet = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'myStyle'</span>).sheet;
+<span class="hljs-keyword">var</span> myStyleSheet = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;myStyle&#x27;</span>).sheet;
 <span class="hljs-keyword">var</span> crl = myStyleSheet.cssRules;
 crl <span class="hljs-keyword">instanceof</span> CSSRuleList <span class="hljs-comment">// true</span>
 </code></pre><p>CSSRuleList 实例里面，每一条规则（CSSRule 实例）可以通过<code>rules.item(index)</code>或者<code>rules[index]</code>拿到。CSS 规则的条数通过<code>rules.length</code>拿到。还是用上面的例子。</p><pre class="hljs"><code>crl[<span class="hljs-number">0</span>] <span class="hljs-keyword">instanceof</span> CSSRule <span class="hljs-comment">// true</span>
@@ -184,21 +184,21 @@ crl.length <span class="hljs-comment">// 2</span>
   <span class="hljs-attribute">background-color</span>: yellow;
 }
 </code></pre><p>JavaScript 通过 CSSRule 接口操作 CSS 规则。一般通过 CSSRuleList 接口（<code>StyleSheet.cssRules</code>）获取 CSSRule 实例。</p><pre class="hljs"><code><span class="hljs-comment">// HTML 代码如下</span>
-<span class="hljs-comment">// &lt;style id="myStyle"&gt;</span>
+<span class="hljs-comment">// &lt;style id=&quot;myStyle&quot;&gt;</span>
 <span class="hljs-comment">//   .myClass {</span>
 <span class="hljs-comment">//     color: red;</span>
 <span class="hljs-comment">//     background-color: yellow;</span>
 <span class="hljs-comment">//   }</span>
 <span class="hljs-comment">// &lt;/style&gt;</span>
-<span class="hljs-keyword">var</span> myStyleSheet = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'myStyle'</span>).sheet;
+<span class="hljs-keyword">var</span> myStyleSheet = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;myStyle&#x27;</span>).sheet;
 <span class="hljs-keyword">var</span> ruleList = myStyleSheet.cssRules;
 <span class="hljs-keyword">var</span> rule = ruleList[<span class="hljs-number">0</span>];
 rule <span class="hljs-keyword">instanceof</span> CSSRule <span class="hljs-comment">// true</span>
 </code></pre><h3 id="cssrule-实例的属性">CSSRule 实例的属性 <a class="markdownIt-Anchor" href="#cssrule-实例的属性">#</a></h3><p><strong>（1）CSSRule.cssText</strong></p><p><code>CSSRule.cssText</code>属性返回当前规则的文本，还是使用上面的例子。</p><pre class="hljs"><code>rule.cssText
-<span class="hljs-comment">// ".myClass { color: red; background-color: yellow; }"</span>
+<span class="hljs-comment">// &quot;.myClass { color: red; background-color: yellow; }&quot;</span>
 </code></pre><p>如果规则是加载（<code>@import</code>）其他样式表，<code>cssText</code>属性返回<code>@import 'url'</code>。</p><p><strong>（2）CSSRule.parentStyleSheet</strong></p><p><code>CSSRule.parentStyleSheet</code>属性返回当前规则所在的样式表对象（StyleSheet 实例），还是使用上面的例子。</p><pre class="hljs"><code>rule.parentStyleSheet === myStyleSheet <span class="hljs-comment">// true</span>
 </code></pre><p><strong>（3）CSSRule.parentRule</strong></p><p><code>CSSRule.parentRule</code>属性返回包含当前规则的父规则，如果不存在父规则（即当前规则是顶层规则），则返回<code>null</code>。</p><p>父规则最常见的情况是，当前规则包含在<code>@media</code>规则代码块之中。</p><pre class="hljs"><code><span class="hljs-comment">// HTML 代码如下</span>
-<span class="hljs-comment">// &lt;style id="myStyle"&gt;</span>
+<span class="hljs-comment">// &lt;style id=&quot;myStyle&quot;&gt;</span>
 <span class="hljs-comment">//   @supports (display: flex) {</span>
 <span class="hljs-comment">//     @media screen and (min-width: 900px) {</span>
 <span class="hljs-comment">//       article {</span>
@@ -207,16 +207,16 @@ rule <span class="hljs-keyword">instanceof</span> CSSRule <span class="hljs-comm
 <span class="hljs-comment">//     }</span>
 <span class="hljs-comment">//  }</span>
 <span class="hljs-comment">// &lt;/style&gt;</span>
-<span class="hljs-keyword">var</span> myStyleSheet = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'myStyle'</span>).sheet;
+<span class="hljs-keyword">var</span> myStyleSheet = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;myStyle&#x27;</span>).sheet;
 <span class="hljs-keyword">var</span> ruleList = myStyleSheet.cssRules;
 
 <span class="hljs-keyword">var</span> rule0 = ruleList[<span class="hljs-number">0</span>];
 rule0.cssText
-<span class="hljs-comment">// "@supports (display: flex) {</span>
+<span class="hljs-comment">// &quot;@supports (display: flex) {</span>
 <span class="hljs-comment">//    @media screen and (min-width: 900px) {</span>
 <span class="hljs-comment">//      article { display: flex; }</span>
 <span class="hljs-comment">//    }</span>
-<span class="hljs-comment">// }"</span>
+<span class="hljs-comment">// }&quot;</span>
 
 <span class="hljs-comment">// 由于这条规则内嵌其他规则，</span>
 <span class="hljs-comment">// 所以它有 cssRules 属性，且该属性是 CSSRuleList 实例</span>
@@ -224,72 +224,72 @@ rule0.cssRules <span class="hljs-keyword">instanceof</span> CSSRuleList <span cl
 
 <span class="hljs-keyword">var</span> rule1 = rule0.cssRules[<span class="hljs-number">0</span>];
 rule1.cssText
-<span class="hljs-comment">// "@media screen and (min-width: 900px) {</span>
+<span class="hljs-comment">// &quot;@media screen and (min-width: 900px) {</span>
 <span class="hljs-comment">//   article { display: flex; }</span>
-<span class="hljs-comment">// }"</span>
+<span class="hljs-comment">// }&quot;</span>
 
 <span class="hljs-keyword">var</span> rule2 = rule1.cssRules[<span class="hljs-number">0</span>];
 rule2.cssText
-<span class="hljs-comment">// "article { display: flex; }"</span>
+<span class="hljs-comment">// &quot;article { display: flex; }&quot;</span>
 
 rule1.parentRule === rule0 <span class="hljs-comment">// true</span>
 rule2.parentRule === rule1 <span class="hljs-comment">// true</span>
 </code></pre><p><strong>（4）CSSRule.type</strong></p><p><code>CSSRule.type</code>属性返回一个整数值，表示当前规则的类型。</p><p>最常见的类型有以下几种。</p><ul><li>1：普通样式规则（CSSStyleRule 实例）</li><li>3：<code>@import</code>规则</li><li>4：<code>@media</code>规则（CSSMediaRule 实例）</li><li>5：<code>@font-face</code>规则</li></ul><h3 id="cssstylerule-接口">CSSStyleRule 接口 <a class="markdownIt-Anchor" href="#cssstylerule-接口">#</a></h3><p>如果一条 CSS 规则是普通的样式规则（不含特殊的 CSS 命令），那么除了 CSSRule 接口，它还部署了 CSSStyleRule 接口。</p><p>CSSStyleRule 接口有以下两个属性。</p><p><strong>（1）CSSStyleRule.selectorText</strong></p><p><code>CSSStyleRule.selectorText</code>属性返回当前规则的选择器。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> stylesheet = <span class="hljs-built_in">document</span>.styleSheets[<span class="hljs-number">0</span>];
-stylesheet.cssRules[<span class="hljs-number">0</span>].selectorText <span class="hljs-comment">// ".myClass"</span>
+stylesheet.cssRules[<span class="hljs-number">0</span>].selectorText <span class="hljs-comment">// &quot;.myClass&quot;</span>
 </code></pre><p>注意，这个属性是可写的。</p><p><strong>（2）CSSStyleRule.style</strong></p><p><code>CSSStyleRule.style</code>属性返回一个对象（CSSStyleDeclaration 实例），代表当前规则的样式声明，也就是选择器后面的大括号里面的部分。</p><pre class="hljs"><code><span class="hljs-comment">// HTML 代码为</span>
-<span class="hljs-comment">// &lt;style id="myStyle"&gt;</span>
+<span class="hljs-comment">// &lt;style id=&quot;myStyle&quot;&gt;</span>
 <span class="hljs-comment">//   p { color: red; }</span>
 <span class="hljs-comment">// &lt;/style&gt;</span>
-<span class="hljs-keyword">var</span> styleSheet = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'myStyle'</span>).sheet;
+<span class="hljs-keyword">var</span> styleSheet = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;myStyle&#x27;</span>).sheet;
 styleSheet.cssRules[<span class="hljs-number">0</span>].style <span class="hljs-keyword">instanceof</span> CSSStyleDeclaration
 <span class="hljs-comment">// true</span>
 </code></pre><p>CSSStyleDeclaration 实例的<code>cssText</code>属性，可以返回所有样式声明，格式为字符串。</p><pre class="hljs"><code>styleSheet.cssRules[<span class="hljs-number">0</span>].style.cssText
-<span class="hljs-comment">// "color: red;"</span>
+<span class="hljs-comment">// &quot;color: red;&quot;</span>
 styleSheet.cssRules[<span class="hljs-number">0</span>].selectorText
-<span class="hljs-comment">// "p"</span>
+<span class="hljs-comment">// &quot;p&quot;</span>
 </code></pre><h3 id="cssmediarule-接口">CSSMediaRule 接口 <a class="markdownIt-Anchor" href="#cssmediarule-接口">#</a></h3><p>如果一条 CSS 规则是<code>@media</code>代码块，那么它除了 CSSRule 接口，还部署了 CSSMediaRule 接口。</p><p>该接口主要提供<code>media</code>属性和<code>conditionText</code>属性。前者返回代表<code>@media</code>规则的一个对象（MediaList 实例），后者返回<code>@media</code>规则的生效条件。</p><pre class="hljs"><code><span class="hljs-comment">// HTML 代码如下</span>
-<span class="hljs-comment">// &lt;style id="myStyle"&gt;</span>
+<span class="hljs-comment">// &lt;style id=&quot;myStyle&quot;&gt;</span>
 <span class="hljs-comment">//   @media screen and (min-width: 900px) {</span>
 <span class="hljs-comment">//     article { display: flex; }</span>
 <span class="hljs-comment">//   }</span>
 <span class="hljs-comment">// &lt;/style&gt;</span>
-<span class="hljs-keyword">var</span> styleSheet = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'myStyle'</span>).sheet;
+<span class="hljs-keyword">var</span> styleSheet = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;myStyle&#x27;</span>).sheet;
 styleSheet.cssRules[<span class="hljs-number">0</span>] <span class="hljs-keyword">instanceof</span> CSSMediaRule
 <span class="hljs-comment">// true</span>
 
 styleSheet.cssRules[<span class="hljs-number">0</span>].media
 <span class="hljs-comment">//  {</span>
-<span class="hljs-comment">//    0: "screen and (min-width: 900px)",</span>
+<span class="hljs-comment">//    0: &quot;screen and (min-width: 900px)&quot;,</span>
 <span class="hljs-comment">//    appendMedium: function,</span>
 <span class="hljs-comment">//    deleteMedium: function,</span>
 <span class="hljs-comment">//    item: function,</span>
 <span class="hljs-comment">//    length: 1,</span>
-<span class="hljs-comment">//    mediaText: "screen and (min-width: 900px)"</span>
+<span class="hljs-comment">//    mediaText: &quot;screen and (min-width: 900px)&quot;</span>
 <span class="hljs-comment">// }</span>
 
 styleSheet.cssRules[<span class="hljs-number">0</span>].conditionText
-<span class="hljs-comment">// "screen and (min-width: 900px)"</span>
-</code></pre><h2 id="windowmatchmedia">window.matchMedia() <a class="markdownIt-Anchor" href="#windowmatchmedia">#</a></h2><h3 id="基本用法">基本用法 <a class="markdownIt-Anchor" href="#基本用法">#</a></h3><p><code>window.matchMedia</code>方法用来将 CSS 的<a href="https://developer.mozilla.org/en-US/docs/DOM/Using_media_queries_from_code" target="_blank" rel="noopener"><code>MediaQuery</code></a>条件语句，转换成一个 MediaQueryList 实例。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> mdl = <span class="hljs-built_in">window</span>.matchMedia(<span class="hljs-string">'(min-width: 400px)'</span>);
+<span class="hljs-comment">// &quot;screen and (min-width: 900px)&quot;</span>
+</code></pre><h2 id="windowmatchmedia">window.matchMedia() <a class="markdownIt-Anchor" href="#windowmatchmedia">#</a></h2><h3 id="基本用法">基本用法 <a class="markdownIt-Anchor" href="#基本用法">#</a></h3><p><code>window.matchMedia</code>方法用来将 CSS 的<a href="https://developer.mozilla.org/en-US/docs/DOM/Using_media_queries_from_code" target="_blank" rel="noopener"><code>MediaQuery</code></a>条件语句，转换成一个 MediaQueryList 实例。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> mdl = <span class="hljs-built_in">window</span>.matchMedia(<span class="hljs-string">&#x27;(min-width: 400px)&#x27;</span>);
 mdl <span class="hljs-keyword">instanceof</span> MediaQueryList <span class="hljs-comment">// true</span>
-</code></pre><p>上面代码中，变量<code>mdl</code>就是 mediaQueryList 的实例。</p><p>注意，如果参数不是有效的<code>MediaQuery</code>条件语句，<code>window.matchMedia</code>不会报错，依然返回一个 MediaQueryList 实例。</p><pre class="hljs"><code><span class="hljs-built_in">window</span>.matchMedia(<span class="hljs-string">'bad string'</span>) <span class="hljs-keyword">instanceof</span> MediaQueryList <span class="hljs-comment">// true</span>
-</code></pre><h3 id="mediaquerylist-接口的实例属性">MediaQueryList 接口的实例属性 <a class="markdownIt-Anchor" href="#mediaquerylist-接口的实例属性">#</a></h3><p>MediaQueryList 实例有三个属性。</p><p><strong>（1）MediaQueryList.media</strong></p><p><code>MediaQueryList.media</code>属性返回一个字符串，表示对应的 MediaQuery 条件语句。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> mql = <span class="hljs-built_in">window</span>.matchMedia(<span class="hljs-string">'(min-width: 400px)'</span>);
-mql.media <span class="hljs-comment">// "(min-width: 400px)"</span>
-</code></pre><p><strong>（2）MediaQueryList.matches</strong></p><p><code>MediaQueryList.matches</code>属性返回一个布尔值，表示当前页面是否符合指定的 MediaQuery 条件语句。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> (<span class="hljs-built_in">window</span>.matchMedia(<span class="hljs-string">'(min-width: 400px)'</span>).matches) {
+</code></pre><p>上面代码中，变量<code>mdl</code>就是 mediaQueryList 的实例。</p><p>注意，如果参数不是有效的<code>MediaQuery</code>条件语句，<code>window.matchMedia</code>不会报错，依然返回一个 MediaQueryList 实例。</p><pre class="hljs"><code><span class="hljs-built_in">window</span>.matchMedia(<span class="hljs-string">&#x27;bad string&#x27;</span>) <span class="hljs-keyword">instanceof</span> MediaQueryList <span class="hljs-comment">// true</span>
+</code></pre><h3 id="mediaquerylist-接口的实例属性">MediaQueryList 接口的实例属性 <a class="markdownIt-Anchor" href="#mediaquerylist-接口的实例属性">#</a></h3><p>MediaQueryList 实例有三个属性。</p><p><strong>（1）MediaQueryList.media</strong></p><p><code>MediaQueryList.media</code>属性返回一个字符串，表示对应的 MediaQuery 条件语句。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> mql = <span class="hljs-built_in">window</span>.matchMedia(<span class="hljs-string">&#x27;(min-width: 400px)&#x27;</span>);
+mql.media <span class="hljs-comment">// &quot;(min-width: 400px)&quot;</span>
+</code></pre><p><strong>（2）MediaQueryList.matches</strong></p><p><code>MediaQueryList.matches</code>属性返回一个布尔值，表示当前页面是否符合指定的 MediaQuery 条件语句。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> (<span class="hljs-built_in">window</span>.matchMedia(<span class="hljs-string">&#x27;(min-width: 400px)&#x27;</span>).matches) {
   <span class="hljs-comment">/* 当前视口不小于 400 像素 */</span>
 } <span class="hljs-keyword">else</span> {
   <span class="hljs-comment">/* 当前视口小于 400 像素 */</span>
 }
-</code></pre><p>下面的例子根据<code>mediaQuery</code>是否匹配当前环境，加载相应的 CSS 样式表。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> result = <span class="hljs-built_in">window</span>.matchMedia(<span class="hljs-string">"(max-width: 700px)"</span>);
+</code></pre><p>下面的例子根据<code>mediaQuery</code>是否匹配当前环境，加载相应的 CSS 样式表。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> result = <span class="hljs-built_in">window</span>.matchMedia(<span class="hljs-string">&quot;(max-width: 700px)&quot;</span>);
 
 <span class="hljs-keyword">if</span> (result.matches){
-  <span class="hljs-keyword">var</span> linkElm = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'link'</span>);
-  linkElm.setAttribute(<span class="hljs-string">'rel'</span>, <span class="hljs-string">'stylesheet'</span>);
-  linkElm.setAttribute(<span class="hljs-string">'type'</span>, <span class="hljs-string">'text/css'</span>);
-  linkElm.setAttribute(<span class="hljs-string">'href'</span>, <span class="hljs-string">'small.css'</span>);
+  <span class="hljs-keyword">var</span> linkElm = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&#x27;link&#x27;</span>);
+  linkElm.setAttribute(<span class="hljs-string">&#x27;rel&#x27;</span>, <span class="hljs-string">&#x27;stylesheet&#x27;</span>);
+  linkElm.setAttribute(<span class="hljs-string">&#x27;type&#x27;</span>, <span class="hljs-string">&#x27;text/css&#x27;</span>);
+  linkElm.setAttribute(<span class="hljs-string">&#x27;href&#x27;</span>, <span class="hljs-string">&#x27;small.css&#x27;</span>);
 
   <span class="hljs-built_in">document</span>.head.appendChild(linkElm);
 }
-</code></pre><p><strong>（3）MediaQueryList.onchange</strong></p><p>如果 MediaQuery 条件语句的适配环境发生变化，会触发<code>change</code>事件。<code>MediaQueryList.onchange</code>属性用来指定<code>change</code>事件的监听函数。该函数的参数是<code>change</code>事件对象（MediaQueryListEvent 实例），该对象与 MediaQueryList 实例类似，也有<code>media</code>和<code>matches</code>属性。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> mql = <span class="hljs-built_in">window</span>.matchMedia(<span class="hljs-string">'(max-width: 600px)'</span>);
+</code></pre><p><strong>（3）MediaQueryList.onchange</strong></p><p>如果 MediaQuery 条件语句的适配环境发生变化，会触发<code>change</code>事件。<code>MediaQueryList.onchange</code>属性用来指定<code>change</code>事件的监听函数。该函数的参数是<code>change</code>事件对象（MediaQueryListEvent 实例），该对象与 MediaQueryList 实例类似，也有<code>media</code>和<code>matches</code>属性。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> mql = <span class="hljs-built_in">window</span>.matchMedia(<span class="hljs-string">&#x27;(max-width: 600px)&#x27;</span>);
 
 mql.onchange = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
   <span class="hljs-keyword">if</span> (e.matches) {
@@ -298,7 +298,7 @@ mql.onchange = <span class="hljs-function"><span class="hljs-keyword">function</
     <span class="hljs-comment">/* 视口超过 600 像素 */</span>
   }
 }
-</code></pre><p>上面代码中，<code>change</code>事件发生后，存在两种可能。一种是显示宽度从600像素以上变为以下，另一种是从600像素以下变为以上，所以在监听函数内部要判断一下当前是哪一种情况。</p><h3 id="mediaquerylist-接口的实例方法">MediaQueryList 接口的实例方法 <a class="markdownIt-Anchor" href="#mediaquerylist-接口的实例方法">#</a></h3><p>MediaQueryList 实例有两个方法<code>MediaQueryList.addListener()</code>和<code>MediaQueryList.removeListener()</code>，用来为<code>change</code>事件添加或撤销监听函数。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> mql = <span class="hljs-built_in">window</span>.matchMedia(<span class="hljs-string">'(max-width: 600px)'</span>);
+</code></pre><p>上面代码中，<code>change</code>事件发生后，存在两种可能。一种是显示宽度从600像素以上变为以下，另一种是从600像素以下变为以上，所以在监听函数内部要判断一下当前是哪一种情况。</p><h3 id="mediaquerylist-接口的实例方法">MediaQueryList 接口的实例方法 <a class="markdownIt-Anchor" href="#mediaquerylist-接口的实例方法">#</a></h3><p>MediaQueryList 实例有两个方法<code>MediaQueryList.addListener()</code>和<code>MediaQueryList.removeListener()</code>，用来为<code>change</code>事件添加或撤销监听函数。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> mql = <span class="hljs-built_in">window</span>.matchMedia(<span class="hljs-string">&#x27;(max-width: 600px)&#x27;</span>);
 
 <span class="hljs-comment">// 指定监听函数</span>
 mql.addListener(mqCallback);

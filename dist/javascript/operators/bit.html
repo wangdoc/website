@@ -21,17 +21,17 @@ toInt32(<span class="hljs-built_in">Math</span>.pow(<span class="hljs-number">2<
 ~~<span class="hljs-number">47.11</span> <span class="hljs-comment">// 47</span>
 ~~<span class="hljs-number">1.9999</span> <span class="hljs-comment">// 1</span>
 ~~<span class="hljs-number">3</span> <span class="hljs-comment">// 3</span>
-</code></pre><p>使用二进制否运算取整，是所有取整方法中最快的一种。</p><p>对字符串进行二进制否运算，JavaScript 引擎会先调用<code>Number</code>函数，将字符串转为数值。</p><pre class="hljs"><code><span class="hljs-comment">// 相当于~Number('011')</span>
-~<span class="hljs-string">'011'</span>  <span class="hljs-comment">// -12</span>
+</code></pre><p>使用二进制否运算取整，是所有取整方法中最快的一种。</p><p>对字符串进行二进制否运算，JavaScript 引擎会先调用<code>Number</code>函数，将字符串转为数值。</p><pre class="hljs"><code><span class="hljs-comment">// 相当于~Number(&#x27;011&#x27;)</span>
+~<span class="hljs-string">&#x27;011&#x27;</span>  <span class="hljs-comment">// -12</span>
 
-<span class="hljs-comment">// 相当于~Number('42 cats')</span>
-~<span class="hljs-string">'42 cats'</span> <span class="hljs-comment">// -1</span>
+<span class="hljs-comment">// 相当于~Number(&#x27;42 cats&#x27;)</span>
+~<span class="hljs-string">&#x27;42 cats&#x27;</span> <span class="hljs-comment">// -1</span>
 
-<span class="hljs-comment">// 相当于~Number('0xcafebabe')</span>
-~<span class="hljs-string">'0xcafebabe'</span> <span class="hljs-comment">// 889275713</span>
+<span class="hljs-comment">// 相当于~Number(&#x27;0xcafebabe&#x27;)</span>
+~<span class="hljs-string">&#x27;0xcafebabe&#x27;</span> <span class="hljs-comment">// 889275713</span>
 
-<span class="hljs-comment">// 相当于~Number('deadbeef')</span>
-~<span class="hljs-string">'deadbeef'</span> <span class="hljs-comment">// -1</span>
+<span class="hljs-comment">// 相当于~Number(&#x27;deadbeef&#x27;)</span>
+~<span class="hljs-string">&#x27;deadbeef&#x27;</span> <span class="hljs-comment">// -1</span>
 </code></pre><p><code>Number</code>函数将字符串转为数值的规则，参见《数据的类型转换》一章。</p><p>对于其他类型的值，二进制否运算也是先用<code>Number</code>转为数值，然后再进行处理。</p><pre class="hljs"><code><span class="hljs-comment">// 相当于 ~Number([])</span>
 ~[] <span class="hljs-comment">// -1</span>
 
@@ -67,13 +67,13 @@ b <span class="hljs-comment">// 10</span>
 <span class="hljs-comment">// RGB to HEX</span>
 <span class="hljs-comment">// (1 &lt;&lt; 24)的作用为保证结果是6位数</span>
 <span class="hljs-keyword">var</span> rgb2hex = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">r, g, b</span>) </span>{
-  <span class="hljs-keyword">return</span> <span class="hljs-string">'#'</span> + ((<span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">24</span>) + (r &lt;&lt; <span class="hljs-number">16</span>) + (g &lt;&lt; <span class="hljs-number">8</span>) + b)
+  <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;#&#x27;</span> + ((<span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">24</span>) + (r &lt;&lt; <span class="hljs-number">16</span>) + (g &lt;&lt; <span class="hljs-number">8</span>) + b)
     .toString(<span class="hljs-number">16</span>) <span class="hljs-comment">// 先转成十六进制，然后返回字符串</span>
     .substr(<span class="hljs-number">1</span>);   <span class="hljs-comment">// 去除字符串的最高位，返回后面六个字符串</span>
 }
 
 rgb2hex(color.r, color.g, color.b)
-<span class="hljs-comment">// "#bada55"</span>
+<span class="hljs-comment">// &quot;#bada55&quot;</span>
 </code></pre><p>上面代码使用左移运算符，将颜色的 RGB 值转为 HEX 值。</p><h2 id="右移运算符">右移运算符 <a class="markdownIt-Anchor" href="#右移运算符">#</a></h2><p>右移运算符（<code>&gt;&gt;</code>）表示将一个数的二进制值向右移动指定的位数。如果是正数，头部全部补<code>0</code>；如果是负数，头部全部补<code>1</code>。右移运算符基本上相当于除以<code>2</code>的指定次方（最高位即符号位参与移动）。</p><pre class="hljs"><code><span class="hljs-number">4</span> &gt;&gt; <span class="hljs-number">1</span>
 <span class="hljs-comment">// 2</span>
 <span class="hljs-comment">/*

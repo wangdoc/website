@@ -1,60 +1,60 @@
 <!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Text 节点和 DocumentFragment 节点 - JavaScript 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="../assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="../assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="Text 节点和 DocumentFragment 节点"><link rel="apple-touch-icon" sizes="57x57" href="../assets/icons/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="../assets/icons/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="../assets/icons/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="../assets/icons/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="../assets/icons/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="../assets/icons/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="../assets/icons/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="../assets/icons/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="../assets/icons/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="../assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="../assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="../assets/icons/favicon-16x16.png"><link rel="manifest" href="../assets/icons/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="../assets/icons/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/javascript-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/javascript-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8"><nav class="breadcrumb is-size-5-desktop" aria-label="breadcrumbs"><ul><li><a href="../index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;JavaScript 教程</a></li><li><a href="../dom/index.html">DOM</a></li><li class="is-active"><a class="has-text-grey" href="../dom/text.html">Text 节点和 DocumentFragment 节点</a></li></ul></nav><nav class="level level-previous-next is-size-5 is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="../dom/attributes.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> 属性的操作</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="../dom/css.html">CSS 操作 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content is-size-4-desktop"><h1 class="title">Text 节点和 DocumentFragment 节点</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><h2 id="text-节点的概念">Text 节点的概念 <a class="markdownIt-Anchor" href="#text-节点的概念">#</a></h2><p>文本节点（<code>Text</code>）代表元素节点（<code>Element</code>）和属性节点（<code>Attribute</code>）的文本内容。如果一个节点只包含一段文本，那么它就有一个文本子节点，代表该节点的文本内容。</p><p>通常我们使用父节点的<code>firstChild</code>、<code>nextSibling</code>等属性获取文本节点，或者使用<code>Document</code>节点的<code>createTextNode</code>方法创造一个文本节点。</p><pre class="hljs"><code><span class="hljs-comment">// 获取文本节点</span>
-<span class="hljs-keyword">var</span> textNode = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'p'</span>).firstChild;
+<span class="hljs-keyword">var</span> textNode = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;p&#x27;</span>).firstChild;
 
 <span class="hljs-comment">// 创造文本节点</span>
-<span class="hljs-keyword">var</span> textNode = <span class="hljs-built_in">document</span>.createTextNode(<span class="hljs-string">'Hi'</span>);
-<span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'div'</span>).appendChild(textNode);
+<span class="hljs-keyword">var</span> textNode = <span class="hljs-built_in">document</span>.createTextNode(<span class="hljs-string">&#x27;Hi&#x27;</span>);
+<span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;div&#x27;</span>).appendChild(textNode);
 </code></pre><p>浏览器原生提供一个<code>Text</code>构造函数。它返回一个文本节点实例。它的参数就是该文本节点的文本内容。</p><pre class="hljs"><code><span class="hljs-comment">// 空字符串</span>
 <span class="hljs-keyword">var</span> text1 = <span class="hljs-keyword">new</span> Text();
 
 <span class="hljs-comment">// 非空字符串</span>
-<span class="hljs-keyword">var</span> text2 = <span class="hljs-keyword">new</span> Text(<span class="hljs-string">'This is a text node'</span>);
+<span class="hljs-keyword">var</span> text2 = <span class="hljs-keyword">new</span> Text(<span class="hljs-string">&#x27;This is a text node&#x27;</span>);
 </code></pre><p>注意，由于空格也是一个字符，所以哪怕只有一个空格，也会形成文本节点。比如，<code>&lt;p&gt; &lt;/p&gt;</code>包含一个空格，它的子节点就是一个文本节点。</p><p>文本节点除了继承<code>Node</code>接口，还继承了<code>CharacterData</code>接口。<code>Node</code>接口的属性和方法请参考《Node 接口》一章，这里不再重复介绍了，以下的属性和方法大部分来自<code>CharacterData</code>接口。</p><h2 id="text-节点的属性">Text 节点的属性 <a class="markdownIt-Anchor" href="#text-节点的属性">#</a></h2><h3 id="data">data <a class="markdownIt-Anchor" href="#data">#</a></h3><p><code>data</code>属性等同于<code>nodeValue</code>属性，用来设置或读取文本节点的内容。</p><pre class="hljs"><code><span class="hljs-comment">// 读取文本内容</span>
-<span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'p'</span>).firstChild.data
+<span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;p&#x27;</span>).firstChild.data
 <span class="hljs-comment">// 等同于</span>
-<span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'p'</span>).firstChild.nodeValue
+<span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;p&#x27;</span>).firstChild.nodeValue
 
 <span class="hljs-comment">// 设置文本内容</span>
-<span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'p'</span>).firstChild.data = <span class="hljs-string">'Hello World'</span>;
-</code></pre><h3 id="wholetext">wholeText <a class="markdownIt-Anchor" href="#wholetext">#</a></h3><p><code>wholeText</code>属性将当前文本节点与毗邻的文本节点，作为一个整体返回。大多数情况下，<code>wholeText</code>属性的返回值，与<code>data</code>属性和<code>textContent</code>属性相同。但是，某些特殊情况会有差异。</p><p>举例来说，HTML 代码如下。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"para"</span>&gt;</span>A <span class="hljs-tag">&lt;<span class="hljs-name">em</span>&gt;</span>B<span class="hljs-tag">&lt;/<span class="hljs-name">em</span>&gt;</span> C<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
-</code></pre><p>这时，文本节点的<code>wholeText</code>属性和<code>data</code>属性，返回值相同。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> el = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'para'</span>);
-el.firstChild.wholeText <span class="hljs-comment">// "A "</span>
-el.firstChild.data <span class="hljs-comment">// "A "</span>
+<span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;p&#x27;</span>).firstChild.data = <span class="hljs-string">&#x27;Hello World&#x27;</span>;
+</code></pre><h3 id="wholetext">wholeText <a class="markdownIt-Anchor" href="#wholetext">#</a></h3><p><code>wholeText</code>属性将当前文本节点与毗邻的文本节点，作为一个整体返回。大多数情况下，<code>wholeText</code>属性的返回值，与<code>data</code>属性和<code>textContent</code>属性相同。但是，某些特殊情况会有差异。</p><p>举例来说，HTML 代码如下。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;para&quot;</span>&gt;</span>A <span class="hljs-tag">&lt;<span class="hljs-name">em</span>&gt;</span>B<span class="hljs-tag">&lt;/<span class="hljs-name">em</span>&gt;</span> C<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+</code></pre><p>这时，文本节点的<code>wholeText</code>属性和<code>data</code>属性，返回值相同。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> el = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;para&#x27;</span>);
+el.firstChild.wholeText <span class="hljs-comment">// &quot;A &quot;</span>
+el.firstChild.data <span class="hljs-comment">// &quot;A &quot;</span>
 </code></pre><p>但是，一旦移除<code>&lt;em&gt;</code>节点，<code>wholeText</code>属性与<code>data</code>属性就会有差异，因为这时其实<code>&lt;p&gt;</code>节点下面包含了两个毗邻的文本节点。</p><pre class="hljs"><code>el.removeChild(para.childNodes[<span class="hljs-number">1</span>]);
-el.firstChild.wholeText <span class="hljs-comment">// "A C"</span>
-el.firstChild.data <span class="hljs-comment">// "A "</span>
-</code></pre><h3 id="length">length <a class="markdownIt-Anchor" href="#length">#</a></h3><p><code>length</code>属性返回当前文本节点的文本长度。</p><pre class="hljs"><code>(<span class="hljs-keyword">new</span> Text(<span class="hljs-string">'Hello'</span>)).length <span class="hljs-comment">// 5</span>
+el.firstChild.wholeText <span class="hljs-comment">// &quot;A C&quot;</span>
+el.firstChild.data <span class="hljs-comment">// &quot;A &quot;</span>
+</code></pre><h3 id="length">length <a class="markdownIt-Anchor" href="#length">#</a></h3><p><code>length</code>属性返回当前文本节点的文本长度。</p><pre class="hljs"><code>(<span class="hljs-keyword">new</span> Text(<span class="hljs-string">&#x27;Hello&#x27;</span>)).length <span class="hljs-comment">// 5</span>
 </code></pre><h3 id="nextelementsibling，previouselementsibling">nextElementSibling，previousElementSibling <a class="markdownIt-Anchor" href="#nextelementsibling，previouselementsibling">#</a></h3><p><code>nextElementSibling</code>属性返回紧跟在当前文本节点后面的那个同级元素节点。如果取不到元素节点，则返回<code>null</code>。</p><pre class="hljs"><code><span class="hljs-comment">// HTML 为</span>
 <span class="hljs-comment">// &lt;div&gt;Hello &lt;em&gt;World&lt;/em&gt;&lt;/div&gt;</span>
-<span class="hljs-keyword">var</span> tn = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'div'</span>).firstChild;
+<span class="hljs-keyword">var</span> tn = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;div&#x27;</span>).firstChild;
 tn.nextElementSibling
 <span class="hljs-comment">// &lt;em&gt;World&lt;/em&gt;</span>
 </code></pre><p><code>previousElementSibling</code>属性返回当前文本节点前面最近的同级元素节点。如果取不到元素节点，则返回<code>null：</code>。</p><h2 id="text-节点的方法">Text 节点的方法 <a class="markdownIt-Anchor" href="#text-节点的方法">#</a></h2><h3 id="appenddata，deletedata，insertdata，replacedata，substringdata">appendData()，deleteData()，insertData()，replaceData()，subStringData() <a class="markdownIt-Anchor" href="#appenddata，deletedata，insertdata，replacedata，substringdata">#</a></h3><p>以下5个方法都是编辑<code>Text</code>节点文本内容的方法。</p><ul><li><code>appendData()</code>：在<code>Text</code>节点尾部追加字符串。</li><li><code>deleteData()</code>：删除<code>Text</code>节点内部的子字符串，第一个参数为子字符串开始位置，第二个参数为子字符串长度。</li><li><code>insertData()</code>：在<code>Text</code>节点插入字符串，第一个参数为插入位置，第二个参数为插入的子字符串。</li><li><code>replaceData()</code>：用于替换文本，第一个参数为替换开始位置，第二个参数为需要被替换掉的长度，第三个参数为新加入的字符串。</li><li><code>subStringData()</code>：用于获取子字符串，第一个参数为子字符串在<code>Text</code>节点中的开始位置，第二个参数为子字符串长度。</li></ul><pre class="hljs"><code><span class="hljs-comment">// HTML 代码为</span>
 <span class="hljs-comment">// &lt;p&gt;Hello World&lt;/p&gt;</span>
-<span class="hljs-keyword">var</span> pElementText = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'p'</span>).firstChild;
+<span class="hljs-keyword">var</span> pElementText = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;p&#x27;</span>).firstChild;
 
-pElementText.appendData(<span class="hljs-string">'!'</span>);
+pElementText.appendData(<span class="hljs-string">&#x27;!&#x27;</span>);
 <span class="hljs-comment">// 页面显示 Hello World!</span>
 pElementText.deleteData(<span class="hljs-number">7</span>, <span class="hljs-number">5</span>);
 <span class="hljs-comment">// 页面显示 Hello W</span>
-pElementText.insertData(<span class="hljs-number">7</span>, <span class="hljs-string">'Hello '</span>);
+pElementText.insertData(<span class="hljs-number">7</span>, <span class="hljs-string">&#x27;Hello &#x27;</span>);
 <span class="hljs-comment">// 页面显示 Hello WHello</span>
-pElementText.replaceData(<span class="hljs-number">7</span>, <span class="hljs-number">5</span>, <span class="hljs-string">'World'</span>);
+pElementText.replaceData(<span class="hljs-number">7</span>, <span class="hljs-number">5</span>, <span class="hljs-string">&#x27;World&#x27;</span>);
 <span class="hljs-comment">// 页面显示 Hello WWorld</span>
 pElementText.substringData(<span class="hljs-number">7</span>, <span class="hljs-number">10</span>);
-<span class="hljs-comment">// 页面显示不变，返回"World "</span>
+<span class="hljs-comment">// 页面显示不变，返回&quot;World &quot;</span>
 </code></pre><h3 id="remove">remove() <a class="markdownIt-Anchor" href="#remove">#</a></h3><p><code>remove</code>方法用于移除当前<code>Text</code>节点。</p><pre class="hljs"><code><span class="hljs-comment">// HTML 代码为</span>
 <span class="hljs-comment">// &lt;p&gt;Hello World&lt;/p&gt;</span>
-<span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'p'</span>).firstChild.remove()
+<span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;p&#x27;</span>).firstChild.remove()
 <span class="hljs-comment">// 现在 HTML 代码为</span>
 <span class="hljs-comment">// &lt;p&gt;&lt;/p&gt;</span>
-</code></pre><h3 id="splittext">splitText() <a class="markdownIt-Anchor" href="#splittext">#</a></h3><p><code>splitText</code>方法将<code>Text</code>节点一分为二，变成两个毗邻的<code>Text</code>节点。它的参数就是分割位置（从零开始），分割到该位置的字符前结束。如果分割位置不存在，将报错。</p><p>分割后，该方法返回分割位置后方的字符串，而原<code>Text</code>节点变成只包含分割位置前方的字符串。</p><pre class="hljs"><code><span class="hljs-comment">// html 代码为 &lt;p id="p"&gt;foobar&lt;/p&gt;</span>
-<span class="hljs-keyword">var</span> p = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'p'</span>);
+</code></pre><h3 id="splittext">splitText() <a class="markdownIt-Anchor" href="#splittext">#</a></h3><p><code>splitText</code>方法将<code>Text</code>节点一分为二，变成两个毗邻的<code>Text</code>节点。它的参数就是分割位置（从零开始），分割到该位置的字符前结束。如果分割位置不存在，将报错。</p><p>分割后，该方法返回分割位置后方的字符串，而原<code>Text</code>节点变成只包含分割位置前方的字符串。</p><pre class="hljs"><code><span class="hljs-comment">// html 代码为 &lt;p id=&quot;p&quot;&gt;foobar&lt;/p&gt;</span>
+<span class="hljs-keyword">var</span> p = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;p&#x27;</span>);
 <span class="hljs-keyword">var</span> textnode = p.firstChild;
 
 <span class="hljs-keyword">var</span> newText = textnode.splitText(<span class="hljs-number">3</span>);
-newText <span class="hljs-comment">// "bar"</span>
-textnode <span class="hljs-comment">// "foo"</span>
+newText <span class="hljs-comment">// &quot;bar&quot;</span>
+textnode <span class="hljs-comment">// &quot;foo&quot;</span>
 </code></pre><p>父元素节点的<code>normalize</code>方法可以将毗邻的两个<code>Text</code>节点合并。</p><p>接上面的例子，文本节点的<code>splitText</code>方法将一个<code>Text</code>节点分割成两个，父元素的<code>normalize</code>方法可以实现逆操作，将它们合并。</p><pre class="hljs"><code>p.childNodes.length <span class="hljs-comment">// 2</span>
 
 <span class="hljs-comment">// 将毗邻的两个 Text 节点合并</span>
@@ -64,13 +64,13 @@ p.childNodes.length <span class="hljs-comment">// 1</span>
 <span class="hljs-comment">// 等同于</span>
 <span class="hljs-keyword">var</span> docFrag = <span class="hljs-keyword">new</span> DocumentFragment();
 
-<span class="hljs-keyword">var</span> li = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'li'</span>);
-li.textContent = <span class="hljs-string">'Hello World'</span>;
+<span class="hljs-keyword">var</span> li = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&#x27;li&#x27;</span>);
+li.textContent = <span class="hljs-string">&#x27;Hello World&#x27;</span>;
 docFrag.appendChild(li);
 
-<span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'ul'</span>).appendChild(docFrag);
+<span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;ul&#x27;</span>).appendChild(docFrag);
 </code></pre><p>上面代码创建了一个<code>DocumentFragment</code>节点，然后将一个<code>li</code>节点添加在它里面，最后将<code>DocumentFragment</code>节点移动到原文档。</p><p>注意，<code>DocumentFragment</code>节点本身不能被插入当前文档。当它作为<code>appendChild()</code>、<code>insertBefore()</code>、<code>replaceChild()</code>等方法的参数时，是它的所有子节点插入当前文档，而不是它自身。一旦<code>DocumentFragment</code>节点被添加进当前文档，它自身就变成了空节点（<code>textContent</code>属性为空字符串），可以被再次使用。如果想要保存<code>DocumentFragment</code>节点的内容，可以使用<code>cloneNode</code>方法。</p><pre class="hljs"><code><span class="hljs-built_in">document</span>
-  .querySelector(<span class="hljs-string">'ul'</span>)
+  .querySelector(<span class="hljs-string">&#x27;ul&#x27;</span>)
   .appendChild(docFrag.cloneNode(<span class="hljs-literal">true</span>));
 </code></pre><p>上面这样添加<code>DocumentFragment</code>节点进入当前文档，不会清空<code>DocumentFragment</code>节点。</p><p>下面是一个例子，使用<code>DocumentFragment</code>反转一个指定节点的所有子节点的顺序。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">reverse</span>(<span class="hljs-params">n</span>) </span>{
   <span class="hljs-keyword">var</span> f = <span class="hljs-built_in">document</span>.createDocumentFragment();
