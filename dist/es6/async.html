@@ -93,8 +93,8 @@ f().then(<span class="hljs-function"><span class="hljs-params">v</span> =&gt;</s
 }
 
 f().then(
-  <span class="hljs-function"><span class="hljs-params">v</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(‘resolve’,v),
-  e =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'reject'</span>,e)
+  <span class="hljs-function"><span class="hljs-params">v</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'resolve'</span>, v),
+  e =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'reject'</span>, e)
 )
 <span class="hljs-comment">//reject Error: 出错了</span>
 </code></pre><h3 id="promise-对象的状态变化">Promise 对象的状态变化 <a class="markdownIt-Anchor" href="#promise-对象的状态变化">#</a></h3><p><code>async</code>函数返回的 Promise 对象，必须等到内部所有<code>await</code>命令后面的 Promise 对象执行完，才会发生状态改变，除非遇到<code>return</code>语句或者抛出错误。也就是说，只有<code>async</code>函数内部的异步操作执行完，才会执行<code>then</code>方法指定的回调函数。</p><p>下面是一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getTitle</span>(<span class="hljs-params">url</span>) </span>{
