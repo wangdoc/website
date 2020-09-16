@@ -309,7 +309,7 @@ proxy(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>) <s
 proxy.call(<span class="hljs-literal">null</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>) <span class="hljs-comment">// 22</span>
 proxy.apply(<span class="hljs-literal">null</span>, [<span class="hljs-number">7</span>, <span class="hljs-number">8</span>]) <span class="hljs-comment">// 30</span>
 </code></pre><p>上面代码中，每当执行<code>proxy</code>函数（直接调用或<code>call</code>和<code>apply</code>调用），就会被<code>apply</code>方法拦截。</p><p>另外，直接调用<code>Reflect.apply</code>方法，也会被拦截。</p><pre class="hljs"><code><span class="hljs-built_in">Reflect</span>.apply(proxy, <span class="hljs-literal">null</span>, [<span class="hljs-number">9</span>, <span class="hljs-number">10</span>]) <span class="hljs-comment">// 38</span>
-</code></pre><h3 id="has">has() <a class="markdownIt-Anchor" href="#has">#</a></h3><p><code>has</code>方法用来拦截<code>HasProperty</code>操作，即判断对象是否具有某个属性时，这个方法会生效。典型的操作就是<code>in</code>运算符。</p><p><code>has</code>方法可以接受两个参数，分别是目标对象、需查询的属性名。</p><p>下面的例子使用<code>has</code>方法隐藏某些属性，不被<code>in</code>运算符发现。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> handler = {
+</code></pre><h3 id="has">has() <a class="markdownIt-Anchor" href="#has">#</a></h3><p><code>has()</code>方法用来拦截<code>HasProperty</code>操作，即判断对象是否具有某个属性时，这个方法会生效。典型的操作就是<code>in</code>运算符。</p><p><code>has()</code>方法可以接受两个参数，分别是目标对象、需查询的属性名。</p><p>下面的例子使用<code>has()</code>方法隐藏某些属性，不被<code>in</code>运算符发现。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> handler = {
   has (target, key) {
     <span class="hljs-keyword">if</span> (key[<span class="hljs-number">0</span>] === <span class="hljs-string">'_'</span>) {
       <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
@@ -320,7 +320,7 @@ proxy.apply(<span class="hljs-literal">null</span>, [<span class="hljs-number">7
 <span class="hljs-keyword">var</span> target = { <span class="hljs-attr">_prop</span>: <span class="hljs-string">'foo'</span>, <span class="hljs-attr">prop</span>: <span class="hljs-string">'foo'</span> };
 <span class="hljs-keyword">var</span> proxy = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>(target, handler);
 <span class="hljs-string">'_prop'</span> <span class="hljs-keyword">in</span> proxy <span class="hljs-comment">// false</span>
-</code></pre><p>上面代码中，如果原对象的属性名的第一个字符是下划线，<code>proxy.has</code>就会返回<code>false</code>，从而不会被<code>in</code>运算符发现。</p><p>如果原对象不可配置或者禁止扩展，这时<code>has</code>拦截会报错。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = { <span class="hljs-attr">a</span>: <span class="hljs-number">10</span> };
+</code></pre><p>上面代码中，如果原对象的属性名的第一个字符是下划线，<code>proxy.has()</code>就会返回<code>false</code>，从而不会被<code>in</code>运算符发现。</p><p>如果原对象不可配置或者禁止扩展，这时<code>has()</code>拦截会报错。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = { <span class="hljs-attr">a</span>: <span class="hljs-number">10</span> };
 <span class="hljs-built_in">Object</span>.preventExtensions(obj);
 
 <span class="hljs-keyword">var</span> p = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>(obj, {
@@ -330,7 +330,7 @@ proxy.apply(<span class="hljs-literal">null</span>, [<span class="hljs-number">7
 });
 
 <span class="hljs-string">'a'</span> <span class="hljs-keyword">in</span> p <span class="hljs-comment">// TypeError is thrown</span>
-</code></pre><p>上面代码中，<code>obj</code>对象禁止扩展，结果使用<code>has</code>拦截就会报错。也就是说，如果某个属性不可配置（或者目标对象不可扩展），则<code>has</code>方法就不得“隐藏”（即返回<code>false</code>）目标对象的该属性。</p><p>值得注意的是，<code>has</code>方法拦截的是<code>HasProperty</code>操作，而不是<code>HasOwnProperty</code>操作，即<code>has</code>方法不判断一个属性是对象自身的属性，还是继承的属性。</p><p>另外，虽然<code>for...in</code>循环也用到了<code>in</code>运算符，但是<code>has</code>拦截对<code>for...in</code>循环不生效。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> stu1 = {<span class="hljs-attr">name</span>: <span class="hljs-string">'张三'</span>, <span class="hljs-attr">score</span>: <span class="hljs-number">59</span>};
+</code></pre><p>上面代码中，<code>obj</code>对象禁止扩展，结果使用<code>has</code>拦截就会报错。也就是说，如果某个属性不可配置（或者目标对象不可扩展），则<code>has()</code>方法就不得“隐藏”（即返回<code>false</code>）目标对象的该属性。</p><p>值得注意的是，<code>has()</code>方法拦截的是<code>HasProperty</code>操作，而不是<code>HasOwnProperty</code>操作，即<code>has()</code>方法不判断一个属性是对象自身的属性，还是继承的属性。</p><p>另外，虽然<code>for...in</code>循环也用到了<code>in</code>运算符，但是<code>has()</code>拦截对<code>for...in</code>循环不生效。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> stu1 = {<span class="hljs-attr">name</span>: <span class="hljs-string">'张三'</span>, <span class="hljs-attr">score</span>: <span class="hljs-number">59</span>};
 <span class="hljs-keyword">let</span> stu2 = {<span class="hljs-attr">name</span>: <span class="hljs-string">'李四'</span>, <span class="hljs-attr">score</span>: <span class="hljs-number">99</span>};
 
 <span class="hljs-keyword">let</span> handler = {
@@ -364,12 +364,12 @@ proxy.apply(<span class="hljs-literal">null</span>, [<span class="hljs-number">7
 }
 <span class="hljs-comment">// 李四</span>
 <span class="hljs-comment">// 99</span>
-</code></pre><p>上面代码中，<code>has</code>拦截只对<code>in</code>运算符生效，对<code>for...in</code>循环不生效，导致不符合要求的属性没有被<code>for...in</code>循环所排除。</p><h3 id="construct">construct() <a class="markdownIt-Anchor" href="#construct">#</a></h3><p><code>construct()</code>方法用于拦截<code>new</code>命令，下面是拦截对象的写法。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> handler = {
+</code></pre><p>上面代码中，<code>has()</code>拦截只对<code>in</code>运算符生效，对<code>for...in</code>循环不生效，导致不符合要求的属性没有被<code>for...in</code>循环所排除。</p><h3 id="construct">construct() <a class="markdownIt-Anchor" href="#construct">#</a></h3><p><code>construct()</code>方法用于拦截<code>new</code>命令，下面是拦截对象的写法。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> handler = {
   construct (target, args, newTarget) {
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> target(...args);
   }
 };
-</code></pre><p><code>construct()</code>方法可以接受三个参数。</p><ul><li><code>target</code>：目标对象。</li><li><code>args</code>：构造函数的参数数组。</li><li><code>newTarget</code>：创造实例对象时，<code>new</code>命令作用的构造函数（下面例子的<code>p</code>）。</li></ul><pre class="hljs"><code><span class="hljs-keyword">var</span> p = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{}, {
+</code></pre><p><code>construct()</code>方法可以接受三个参数。</p><ul><li><code>target</code>：目标对象。</li><li><code>args</code>：构造函数的参数数组。</li><li><code>newTarget</code>：创造实例对象时，<code>new</code>命令作用的构造函数（下面例子的<code>p</code>）。</li></ul><pre class="hljs"><code><span class="hljs-keyword">const</span> p = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{}, {
   <span class="hljs-attr">construct</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">target, args</span>) </span>{
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'called: '</span> + args.join(<span class="hljs-string">', '</span>));
     <span class="hljs-keyword">return</span> { <span class="hljs-attr">value</span>: args[<span class="hljs-number">0</span>] * <span class="hljs-number">10</span> };
@@ -379,7 +379,7 @@ proxy.apply(<span class="hljs-literal">null</span>, [<span class="hljs-number">7
 (<span class="hljs-keyword">new</span> p(<span class="hljs-number">1</span>)).value
 <span class="hljs-comment">// "called: 1"</span>
 <span class="hljs-comment">// 10</span>
-</code></pre><p><code>construct()</code>方法返回的必须是一个对象，否则会报错。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> p = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{}, {
+</code></pre><p><code>construct()</code>方法返回的必须是一个对象，否则会报错。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> p = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{}, {
   <span class="hljs-attr">construct</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">target, argumentsList</span>) </span>{
     <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
   }
@@ -387,6 +387,23 @@ proxy.apply(<span class="hljs-literal">null</span>, [<span class="hljs-number">7
 
 <span class="hljs-keyword">new</span> p() <span class="hljs-comment">// 报错</span>
 <span class="hljs-comment">// Uncaught TypeError: 'construct' on proxy: trap returned non-object ('1')</span>
+</code></pre><p>另外，由于<code>construct()</code>拦截的是构造函数，所以它的目标对象必须是函数，否则就会报错。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> p = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>({}, {
+  <span class="hljs-attr">construct</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">target, argumentsList</span>) </span>{
+    <span class="hljs-keyword">return</span> {};
+  }
+});
+
+<span class="hljs-keyword">new</span> p() <span class="hljs-comment">// 报错</span>
+<span class="hljs-comment">// Uncaught TypeError: p is not a constructor</span>
+</code></pre><p>上面例子中，拦截的目标对象不是一个函数，而是一个对象（<code>new Proxy()</code>的第一个参数），导致报错。</p><p>注意，<code>construct()</code>方法中的<code>this</code>指向的是<code>handler</code>，而不是实例对象。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> handler = {
+  <span class="hljs-attr">construct</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">target, args</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span> ===  handler);
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> target(...args);
+  }
+}
+
+<span class="hljs-keyword">let</span> p = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{}, handler);
+<span class="hljs-keyword">new</span> p() <span class="hljs-comment">// true</span>
 </code></pre><h3 id="deleteproperty">deleteProperty() <a class="markdownIt-Anchor" href="#deleteproperty">#</a></h3><p><code>deleteProperty</code>方法用于拦截<code>delete</code>操作，如果这个方法抛出错误或者返回<code>false</code>，当前属性就无法被<code>delete</code>命令删除。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> handler = {
   deleteProperty (target, key) {
     invariant(key, <span class="hljs-string">'delete'</span>);
@@ -607,7 +624,7 @@ proxy.foo <span class="hljs-comment">// 123</span>
 
 revoke();
 proxy.foo <span class="hljs-comment">// TypeError: Revoked</span>
-</code></pre><p><code>Proxy.revocable()</code>方法返回一个对象，该对象的<code>proxy</code>属性是<code>Proxy</code>实例，<code>revoke</code>属性是一个函数，可以取消<code>Proxy</code>实例。上面代码中，当执行<code>revoke</code>函数之后，再访问<code>Proxy</code>实例，就会抛出一个错误。</p><p><code>Proxy.revocable()</code>的一个使用场景是，目标对象不允许直接访问，必须通过代理访问，一旦访问结束，就收回代理权，不允许再次访问。</p><h2 id="this-问题">this 问题 <a class="markdownIt-Anchor" href="#this-问题">#</a></h2><p>虽然 Proxy 可以代理针对目标对象的访问，但它不是目标对象的透明代理，即不做任何拦截的情况下，也无法保证与目标对象的行为一致。主要原因就是在 Proxy 代理的情况下，目标对象内部的<code>this</code>关键字会指向 Proxy 代理。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> target = {
+</code></pre><p><code>Proxy.revocable()</code>方法返回一个对象，该对象的<code>proxy</code>属性是<code>Proxy</code>实例，<code>revoke</code>属性是一个函数，可以取消<code>Proxy</code>实例。上面代码中，当执行<code>revoke</code>函数之后，再访问<code>Proxy</code>实例，就会抛出一个错误。</p><p><code>Proxy.revocable()</code>的一个使用场景是，目标对象不允许直接访问，必须通过代理访问，一旦访问结束，就收回代理权，不允许再次访问。</p><h2 id="this-问题">this 问题 <a class="markdownIt-Anchor" href="#this-问题">#</a></h2><p>正常情况下，Proxy代理的钩子函数中的<code>this</code>指向的是Proxy代理实例（construct钩子函数除外，该钩子函数中<code>this</code>指向的是handler)</p><p>虽然 Proxy 可以代理针对目标对象的访问，但它不是目标对象的透明代理，即不做任何拦截的情况下，也无法保证与目标对象的行为一致。主要原因就是在 Proxy 代理的情况下，目标对象内部的<code>this</code>关键字会指向 Proxy 代理。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> target = {
   <span class="hljs-attr">m</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
     <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span> === proxy);
   }
