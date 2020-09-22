@@ -564,7 +564,7 @@ wm.clear <span class="hljs-comment">// undefined</span>
   <span class="hljs-attr">heapTotal</span>: <span class="hljs-number">8425472</span>,
   <span class="hljs-attr">heapUsed</span>: <span class="hljs-number">3979792</span>,
   <span class="hljs-attr">external</span>: <span class="hljs-number">8956</span> }
-</code></pre><p>上面代码中，只要外部的引用消失，WeakMap 内部的引用，就会自动被垃圾回收清除。由此可见，有了 WeakMap 的帮助，解决内存泄漏就会简单很多。</p><h3 id="weakmap-的用途">WeakMap 的用途 <a class="markdownIt-Anchor" href="#weakmap-的用途">#</a></h3><p>前文说过，WeakMap 应用的典型场合就是 DOM 节点作为键名。下面是一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> myWeakmap = <span class="hljs-keyword">new</span> <span class="hljs-built_in">WeakMap</span>();
+</code></pre><p>上面代码中，只要外部的引用消失，WeakMap 内部的引用，就会自动被垃圾回收清除。由此可见，有了 WeakMap 的帮助，解决内存泄漏就会简单很多。</p><p>Chrome 浏览器的 Dev Tools 的 Memory 面板，有一个垃圾桶的按钮，可以强制垃圾回收（garbage collect）。这个按钮也能用来观察 WeakMap 里面的引用是否消失。</p><h3 id="weakmap-的用途">WeakMap 的用途 <a class="markdownIt-Anchor" href="#weakmap-的用途">#</a></h3><p>前文说过，WeakMap 应用的典型场合就是 DOM 节点作为键名。下面是一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> myWeakmap = <span class="hljs-keyword">new</span> <span class="hljs-built_in">WeakMap</span>();
 
 myWeakmap.set(
   <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'logo'</span>),
