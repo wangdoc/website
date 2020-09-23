@@ -142,7 +142,7 @@ p.addEventListener(
 );
 </code></pre><p>上面代码中，页面高度为2000像素，会产生垂直滚动条。滚动到页面底部，点击鼠标输出的<code>pageY</code>值会接近2000。</p><h3 id="mouseeventrelatedtarget">MouseEvent.relatedTarget <a class="markdownIt-Anchor" href="#mouseeventrelatedtarget">#</a></h3><p><code>MouseEvent.relatedTarget</code>属性返回事件的相关节点。对于那些没有相关节点的事件，该属性返回<code>null</code>。该属性只读。</p><p>下表列出不同事件的<code>target</code>属性值和<code>relatedTarget</code>属性值义。</p><table><thead><tr><th>事件名称</th><th>target 属性</th><th>relatedTarget 属性</th></tr></thead><tbody><tr><td>focusin</td><td>接受焦点的节点</td><td>丧失焦点的节点</td></tr><tr><td>focusout</td><td>丧失焦点的节点</td><td>接受焦点的节点</td></tr><tr><td>mouseenter</td><td>将要进入的节点</td><td>将要离开的节点</td></tr><tr><td>mouseleave</td><td>将要离开的节点</td><td>将要进入的节点</td></tr><tr><td>mouseout</td><td>将要离开的节点</td><td>将要进入的节点</td></tr><tr><td>mouseover</td><td>将要进入的节点</td><td>将要离开的节点</td></tr><tr><td>dragenter</td><td>将要进入的节点</td><td>将要离开的节点</td></tr><tr><td>dragexit</td><td>将要离开的节点</td><td>将要进入的节点</td></tr></tbody></table><p>下面是一个例子。</p><pre class="hljs"><code><span class="hljs-comment">/*
   HTML 代码如下
-  &lt;div id=&quot;outer&quot; style=&quot;height:50px;width:50px;border-width:1px solid black;&quot;&gt;
+  &lt;div id=&quot;outer&quot; style=&quot;height:50px;width:50px;border:1px solid black;&quot;&gt;
     &lt;div id=&quot;inner&quot; style=&quot;height:25px;width:25px;border:1px solid black;&quot;&gt;&lt;/div&gt;
   &lt;/div&gt;
 */</span>
