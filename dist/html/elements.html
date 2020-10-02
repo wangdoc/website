@@ -5,20 +5,20 @@
   Hello world
 <span class="hljs-tag">&lt;/<span class="hljs-name">dialog</span>&gt;</span>
 </code></pre><p>上面代码会在网页显示一个方框，内容是<code>Hello world</code>。</p><p><code>&lt;dialog&gt;</code>元素里面，可以放入其他 HTML 元素。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">dialog</span> <span class="hljs-attr">open</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">method</span>=<span class="hljs-string">"dialog"</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"submit"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"foo"</span>&gt;</span>提交<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">method</span>=<span class="hljs-string">&quot;dialog&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submit&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;foo&quot;</span>&gt;</span>提交<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">dialog</span>&gt;</span>
-</code></pre><p>上面的对话框里面，有一个输入框和提交按钮。</p><p>注意，上例中<code>&lt;form&gt;</code>的<code>method</code>属性设为<code>dialog</code>，这时点击提交按钮，对话框就会消失。但是，表单不会提交到服务器，浏览器会将表单元素的<code>returnValue</code>属性设为 Submit 按钮的<code>value</code>属性（上例是<code>foo</code>）。</p><h3 id="javascript-api">JavaScript API <a class="markdownIt-Anchor" href="#javascript-api">#</a></h3><p><code>&lt;dialog&gt;</code>元素的 JavaScript API 提供<code>Dialog.showModal()</code>和<code>Dialog.close()</code>两个方法，用于打开/关闭对话框。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> modal = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'dialog'</span>);
+</code></pre><p>上面的对话框里面，有一个输入框和提交按钮。</p><p>注意，上例中<code>&lt;form&gt;</code>的<code>method</code>属性设为<code>dialog</code>，这时点击提交按钮，对话框就会消失。但是，表单不会提交到服务器，浏览器会将表单元素的<code>returnValue</code>属性设为 Submit 按钮的<code>value</code>属性（上例是<code>foo</code>）。</p><h3 id="javascript-api">JavaScript API <a class="markdownIt-Anchor" href="#javascript-api">#</a></h3><p><code>&lt;dialog&gt;</code>元素的 JavaScript API 提供<code>Dialog.showModal()</code>和<code>Dialog.close()</code>两个方法，用于打开/关闭对话框。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> modal = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;dialog&#x27;</span>);
 
 <span class="hljs-comment">// 对话框显示，相当于增加 open 属性</span>
 modal.showModal();
 
 <span class="hljs-comment">// 对话框关闭，相当于移除 open 属性</span>
 modal.close();
-</code></pre><p>开发者可以提供关闭按钮，让其调用<code>Dialog.close()</code>方法，关闭对话框。</p><p><code>Dialog.close()</code>方法可以接受一个字符串作为参数，用于传递信息。<code>&lt;dialog&gt;</code>接口的<code>returnValue</code>属性可以读取这个字符串，否则<code>returnValue</code>属性等于提交按钮的<code>value</code>属性。</p><pre class="hljs"><code>modal.close(<span class="hljs-string">'Accepted'</span>);
-modal.returnValue <span class="hljs-comment">// "Accepted"</span>
+</code></pre><p>开发者可以提供关闭按钮，让其调用<code>Dialog.close()</code>方法，关闭对话框。</p><p><code>Dialog.close()</code>方法可以接受一个字符串作为参数，用于传递信息。<code>&lt;dialog&gt;</code>接口的<code>returnValue</code>属性可以读取这个字符串，否则<code>returnValue</code>属性等于提交按钮的<code>value</code>属性。</p><pre class="hljs"><code>modal.close(<span class="hljs-string">&#x27;Accepted&#x27;</span>);
+modal.returnValue <span class="hljs-comment">// &quot;Accepted&quot;</span>
 </code></pre><p><code>Dialog.showModal()</code>方法唤起对话框时，会有一个透明层，阻止用户与对话框外部的内容互动。CSS 提供了一个 Dialog 元素的<code>::backdrop</code>伪类，用于选中这个透明层，因此可以编写样式让透明层变得可见。</p><pre class="hljs"><code><span class="hljs-selector-tag">dialog</span> {
   <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
   <span class="hljs-attribute">border</span>: <span class="hljs-number">0</span>;
@@ -30,9 +30,9 @@ modal.returnValue <span class="hljs-comment">// "Accepted"</span>
   <span class="hljs-comment">/* make the backdrop a semi-transparent black */</span>
   <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.4</span>);
 }
-</code></pre><p>上面代码不仅为<code>&lt;dialog&gt;</code>指定了样式，还将对话框的透明层变成了灰色透明。</p><p><code>&lt;dialog&gt;</code>元素还有一个<code>Dialog.show()</code>方法，也能唤起对话框，但是没有透明层，用户可以与对话框外部的内容互动。</p><h3 id="事件">事件 <a class="markdownIt-Anchor" href="#事件">#</a></h3><p><code>&lt;dialog&gt;</code>元素有两个事件，可以监听。</p><ul><li><code>close</code>：对话框关闭时触发</li><li><code>cancel</code>：用户按下<code>esc</code>键关闭对话框时触发</li></ul><p>如果希望用户点击透明层，就关闭对话框，可以用下面的代码。</p><pre class="hljs"><code>modal.addEventListener(<span class="hljs-string">'click'</span>, (event) =&gt; {
+</code></pre><p>上面代码不仅为<code>&lt;dialog&gt;</code>指定了样式，还将对话框的透明层变成了灰色透明。</p><p><code>&lt;dialog&gt;</code>元素还有一个<code>Dialog.show()</code>方法，也能唤起对话框，但是没有透明层，用户可以与对话框外部的内容互动。</p><h3 id="事件">事件 <a class="markdownIt-Anchor" href="#事件">#</a></h3><p><code>&lt;dialog&gt;</code>元素有两个事件，可以监听。</p><ul><li><code>close</code>：对话框关闭时触发</li><li><code>cancel</code>：用户按下<code>esc</code>键关闭对话框时触发</li></ul><p>如果希望用户点击透明层，就关闭对话框，可以用下面的代码。</p><pre class="hljs"><code>modal.addEventListener(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
   <span class="hljs-keyword">if</span> (event.target === modal) {
-    modal.close(<span class="hljs-string">'cancelled'</span>);
+    modal.close(<span class="hljs-string">&#x27;cancelled&#x27;</span>);
   }
 });
 </code></pre><h2 id="details，summary"><code>&lt;details&gt;</code>，<code>&lt;summary&gt;</code> <a class="markdownIt-Anchor" href="#details，summary">#</a></h2><h3 id="基本用法-1">基本用法 <a class="markdownIt-Anchor" href="#基本用法-1">#</a></h3><p><code>&lt;details&gt;</code>标签用来折叠内容，浏览器会折叠显示该标签的内容。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">details</span>&gt;</span>
@@ -59,18 +59,18 @@ modal.returnValue <span class="hljs-comment">// "Accepted"</span>
   <span class="hljs-attribute">display</span>: none;
 }
 <span class="hljs-selector-tag">summary</span><span class="hljs-selector-pseudo">:before</span> {
-  <span class="hljs-attribute">content</span>: <span class="hljs-string">"\2714"</span>;
+  <span class="hljs-attribute">content</span>: <span class="hljs-string">&quot;\2714&quot;</span>;
   <span class="hljs-attribute">color</span>: <span class="hljs-number">#696f7c</span>;
   <span class="hljs-attribute">margin-right</span>: <span class="hljs-number">5px</span>;
 }
-</code></pre><h3 id="javascript-api-1">JavaScript API <a class="markdownIt-Anchor" href="#javascript-api-1">#</a></h3><p><code>Details</code>元素的<code>open</code>属性返回<code>&lt;details&gt;</code>当前是打开还是关闭。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> details = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'details'</span>);
+</code></pre><h3 id="javascript-api-1">JavaScript API <a class="markdownIt-Anchor" href="#javascript-api-1">#</a></h3><p><code>Details</code>元素的<code>open</code>属性返回<code>&lt;details&gt;</code>当前是打开还是关闭。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> details = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;details&#x27;</span>);
 
 <span class="hljs-keyword">if</span> (detail.open === <span class="hljs-literal">true</span>) {
   <span class="hljs-comment">// 展开状态</span>
 } <span class="hljs-keyword">else</span> {
   <span class="hljs-comment">// 折叠状态</span>
 }
-</code></pre><p><code>Details</code>元素有一个<code>toggle</code>事件，打开或关闭折叠时，都会触发这个事件。</p><pre class="hljs"><code>details.addEventListener(<span class="hljs-string">'toggle'</span>, event =&gt; {
+</code></pre><p><code>Details</code>元素有一个<code>toggle</code>事件，打开或关闭折叠时，都会触发这个事件。</p><pre class="hljs"><code>details.addEventListener(<span class="hljs-string">&#x27;toggle&#x27;</span>, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
   <span class="hljs-keyword">if</span> (details.open) {
     <span class="hljs-comment">/* 展开状况 */</span>
   } <span class="hljs-keyword">else</span> {
