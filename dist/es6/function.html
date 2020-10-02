@@ -368,7 +368,7 @@ headAndTail(<span class="hljs-number">1</span>, <span class="hljs-number">2</spa
 
 foo.call({ <span class="hljs-attr">id</span>: <span class="hljs-number">42</span> });
 <span class="hljs-comment">// id: 42</span>
-</code></pre><p>上面代码中，<code>setTimeout</code>的参数是一个箭头函数，这个箭头函数的定义生效是在<code>foo</code>函数生成时，而它的真正执行要等到 100 毫秒后。如果是普通函数，执行时<code>this</code>应该指向全局对象<code>window</code>，这时应该输出<code>21</code>。但是，箭头函数导致<code>this</code>总是指向函数定义生效时所在的对象（本例是<code>{id: 42}</code>），所以输出的是<code>42</code>。</p><p>箭头函数可以让<code>setTimeout</code>里面的<code>this</code>，绑定定义时所在的作用域，而不是指向运行时所在的作用域。下面是另一个例子。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Timer</span>(<span class="hljs-params"></span>) </span>{
+</code></pre><p>上面代码中，<code>setTimeout()</code>的参数是一个箭头函数，这个箭头函数的定义生效是在<code>foo</code>函数生成时，而它的真正执行要等到 100 毫秒后。如果是普通函数，执行时<code>this</code>应该指向全局对象<code>window</code>，这时应该输出<code>21</code>。但是，箭头函数导致<code>this</code>总是指向函数定义生效时所在的对象（本例是<code>{id: 42}</code>），所以打印出来的是<code>42</code>。</p><p>箭头函数可以让<code>setTimeout</code>里面的<code>this</code>，绑定定义时所在的作用域，而不是指向运行时所在的作用域。下面是另一个例子。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Timer</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">this</span>.s1 = <span class="hljs-number">0</span>;
   <span class="hljs-keyword">this</span>.s2 = <span class="hljs-number">0</span>;
   <span class="hljs-comment">// 箭头函数</span>
