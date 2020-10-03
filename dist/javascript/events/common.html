@@ -80,7 +80,7 @@ location.hash = <span class="hljs-string">&#x27;part2&#x27;</span>;
 <span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">&#x27;optimizedScroll&#x27;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Resource conscious scroll callback!&#x27;</span>);
 });
-</code></pre><p>上面代码中，<code>throttle</code>函数用于控制事件触发频率，<code>requestAnimationFrame</code>方法保证每次页面重绘（每秒60次），只会触发一次<code>scroll</code>事件的监听函数。也就是说，上面方法将<code>scroll</code>事件的触发频率，限制在每秒60次。具体来说，就是<code>scroll</code>事件只要频率低于每秒60次，就会触发<code>optimizedScroll</code>事件，从而执行<code>optimizedScroll</code>事件的监听函数。</p><p>改用<code>setTimeout</code>方法，可以放置更大的时间间隔。</p><pre class="hljs"><code>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+</code></pre><p>上面代码中，<code>throttle</code>函数用于控制事件触发频率，它有一个内部函数<code>func</code>，每次<code>scroll</code>事件实际上触发的是这个函数。<code>func</code>函数内部使用<code>requestAnimationFrame()</code>方法，保证只有每次页面重绘时（每秒60次），才可能会触发<code>optimizedScroll</code>事件，从而实际上将<code>scroll</code>事件转换为<code>optimizedScroll</code>事件，触发频率被控制在每秒最多60次。</p><p>改用<code>setTimeout</code>方法，可以放置更大的时间间隔。</p><pre class="hljs"><code>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">&#x27;scroll&#x27;</span>, scrollThrottler, <span class="hljs-literal">false</span>);
 
   <span class="hljs-keyword">var</span> scrollTimeout;
