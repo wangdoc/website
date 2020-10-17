@@ -135,7 +135,7 @@
 }  <span class="hljs-comment">// &quot;hello&quot;</span>
 </code></pre><p>第三种情况，对非数值类型的值使用一元运算符（即<code>+</code>和<code>-</code>）。</p><pre class="hljs"><code>+ {<span class="hljs-attr">foo</span>: <span class="hljs-string">&#x27;bar&#x27;</span>} <span class="hljs-comment">// NaN</span>
 - [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>] <span class="hljs-comment">// NaN</span>
-</code></pre><p>自动转换的规则是这样的：预期什么类型的值，就调用该类型的转换函数。比如，某个位置预期为字符串，就调用<code>String</code>函数进行转换。如果该位置即可以是字符串，也可能是数值，那么默认转为数值。</p><p>由于自动转换具有不确定性，而且不易除错，建议在预期为布尔值、数值、字符串的地方，全部使用<code>Boolean</code>、<code>Number</code>和<code>String</code>函数进行显式转换。</p><h3 id="自动转换为布尔值">自动转换为布尔值 <a class="markdownIt-Anchor" href="#自动转换为布尔值">#</a></h3><p>JavaScript 遇到预期为布尔值的地方（比如<code>if</code>语句的条件部分），就会将非布尔值的参数自动转换为布尔值。系统内部会自动调用<code>Boolean</code>函数。</p><p>因此除了以下五个值，其他都是自动转为<code>true</code>。</p><ul><li><code>undefined</code></li><li><code>null</code></li><li><code>+0</code>或<code>-0</code></li><li><code>NaN</code></li><li><code>''</code>（空字符串）</li></ul><p>下面这个例子中，条件部分的每个值都相当于<code>false</code>，使用否定运算符后，就变成了<code>true</code>。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> ( !<span class="hljs-literal">undefined</span>
+</code></pre><p>自动转换的规则是这样的：预期什么类型的值，就调用该类型的转换函数。比如，某个位置预期为字符串，就调用<code>String()</code>函数进行转换。如果该位置既可以是字符串，也可能是数值，那么默认转为数值。</p><p>由于自动转换具有不确定性，而且不易除错，建议在预期为布尔值、数值、字符串的地方，全部使用<code>Boolean()</code>、<code>Number()</code>和<code>String()</code>函数进行显式转换。</p><h3 id="自动转换为布尔值">自动转换为布尔值 <a class="markdownIt-Anchor" href="#自动转换为布尔值">#</a></h3><p>JavaScript 遇到预期为布尔值的地方（比如<code>if</code>语句的条件部分），就会将非布尔值的参数自动转换为布尔值。系统内部会自动调用<code>Boolean()</code>函数。</p><p>因此除了以下五个值，其他都是自动转为<code>true</code>。</p><ul><li><code>undefined</code></li><li><code>null</code></li><li><code>+0</code>或<code>-0</code></li><li><code>NaN</code></li><li><code>''</code>（空字符串）</li></ul><p>下面这个例子中，条件部分的每个值都相当于<code>false</code>，使用否定运算符后，就变成了<code>true</code>。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> ( !<span class="hljs-literal">undefined</span>
   &amp;&amp; !<span class="hljs-literal">null</span>
   &amp;&amp; !<span class="hljs-number">0</span>
   &amp;&amp; !<span class="hljs-literal">NaN</span>
@@ -143,7 +143,7 @@
 ) {
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;true&#x27;</span>);
 } <span class="hljs-comment">// true</span>
-</code></pre><p>下面两种写法，有时也用于将一个表达式转为布尔值。它们内部调用的也是<code>Boolean</code>函数。</p><pre class="hljs"><code><span class="hljs-comment">// 写法一</span>
+</code></pre><p>下面两种写法，有时也用于将一个表达式转为布尔值。它们内部调用的也是<code>Boolean()</code>函数。</p><pre class="hljs"><code><span class="hljs-comment">// 写法一</span>
 expression ? <span class="hljs-literal">true</span> : <span class="hljs-literal">false</span>
 
 <span class="hljs-comment">// 写法二</span>
@@ -161,7 +161,7 @@ expression ? <span class="hljs-literal">true</span> : <span class="hljs-literal"
 };
 
 obj.width + <span class="hljs-number">20</span> <span class="hljs-comment">// &quot;10020&quot;</span>
-</code></pre><p>上面代码中，开发者可能期望返回<code>120</code>，但是由于自动转换，实际上返回了一个字符<code>10020</code>。</p><h3 id="自动转换为数值">自动转换为数值 <a class="markdownIt-Anchor" href="#自动转换为数值">#</a></h3><p>JavaScript 遇到预期为数值的地方，就会将参数值自动转换为数值。系统内部会自动调用<code>Number</code>函数。</p><p>除了加法运算符（<code>+</code>）有可能把运算子转为字符串，其他运算符都会把运算子自动转成数值。</p><pre class="hljs"><code><span class="hljs-string">&#x27;5&#x27;</span> - <span class="hljs-string">&#x27;2&#x27;</span> <span class="hljs-comment">// 3</span>
+</code></pre><p>上面代码中，开发者可能期望返回<code>120</code>，但是由于自动转换，实际上返回了一个字符<code>10020</code>。</p><h3 id="自动转换为数值">自动转换为数值 <a class="markdownIt-Anchor" href="#自动转换为数值">#</a></h3><p>JavaScript 遇到预期为数值的地方，就会将参数值自动转换为数值。系统内部会自动调用<code>Number()</code>函数。</p><p>除了加法运算符（<code>+</code>）有可能把运算子转为字符串，其他运算符都会把运算子自动转成数值。</p><pre class="hljs"><code><span class="hljs-string">&#x27;5&#x27;</span> - <span class="hljs-string">&#x27;2&#x27;</span> <span class="hljs-comment">// 3</span>
 <span class="hljs-string">&#x27;5&#x27;</span> * <span class="hljs-string">&#x27;2&#x27;</span> <span class="hljs-comment">// 10</span>
 <span class="hljs-literal">true</span> - <span class="hljs-number">1</span>  <span class="hljs-comment">// 0</span>
 <span class="hljs-literal">false</span> - <span class="hljs-number">1</span> <span class="hljs-comment">// -1</span>
