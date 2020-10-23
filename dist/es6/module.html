@@ -74,7 +74,7 @@ a = {}; <span class="hljs-comment">// Syntax Error : 'a' is read-only;</span>
 </code></pre><p>上面代码中，脚本加载了变量<code>a</code>，对其重新赋值就会报错，因为<code>a</code>是一个只读的接口。但是，如果<code>a</code>是一个对象，改写<code>a</code>的属性是允许的。</p><pre class="hljs"><code><span class="hljs-keyword">import</span> {a} <span class="hljs-keyword">from</span> <span class="hljs-string">'./xxx.js'</span>
 
 a.foo = <span class="hljs-string">'hello'</span>; <span class="hljs-comment">// 合法操作</span>
-</code></pre><p>上面代码中，<code>a</code>的属性可以成功改写，并且其他模块也可以读到改写后的值。不过，这种写法很难查错，建议凡是输入的变量，都当作完全只读，不要轻易改变它的属性。</p><p><code>import</code>后面的<code>from</code>指定模块文件的位置，可以是相对路径，也可以是绝对路径，<code>.js</code>后缀可以省略。如果只是模块名，不带有路径，那么必须有配置文件，告诉 JavaScript 引擎该模块的位置。</p><pre class="hljs"><code><span class="hljs-keyword">import</span> {myMethod} <span class="hljs-keyword">from</span> <span class="hljs-string">'util'</span>;
+</code></pre><p>上面代码中，<code>a</code>的属性可以成功改写，并且其他模块也可以读到改写后的值。不过，这种写法很难查错，建议凡是输入的变量，都当作完全只读，不要轻易改变它的属性。</p><p><code>import</code>后面的<code>from</code>指定模块文件的位置，可以是相对路径，也可以是绝对路径。如果不带有路径，只是一个模块名，那么必须有配置文件，告诉 JavaScript 引擎该模块的位置。</p><pre class="hljs"><code><span class="hljs-keyword">import</span> { myMethod } <span class="hljs-keyword">from</span> <span class="hljs-string">'util'</span>;
 </code></pre><p>上面代码中，<code>util</code>是模块文件名，由于不带有路径，必须通过配置，告诉引擎怎么取到这个模块。</p><p>注意，<code>import</code>命令具有提升效果，会提升到整个模块的头部，首先执行。</p><pre class="hljs"><code>foo();
 
 <span class="hljs-keyword">import</span> { foo } <span class="hljs-keyword">from</span> <span class="hljs-string">'my_module'</span>;
