@@ -14,7 +14,7 @@
 });
 </code></pre><p><code>then</code>方法可以接受两个回调函数作为参数。第一个回调函数是<code>Promise</code>对象的状态变为<code>resolved</code>时调用，第二个回调函数是<code>Promise</code>对象的状态变为<code>rejected</code>时调用。其中，第二个函数是可选的，不一定要提供。这两个函数都接受<code>Promise</code>对象传出的值作为参数。</p><p>下面是一个<code>Promise</code>对象的简单例子。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">timeout</span>(<span class="hljs-params">ms</span>) </span>{
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
-    setTimeout(resolve, ms, <span class="hljs-string">'done'</span>);
+    <span class="hljs-built_in">setTimeout</span>(resolve, ms, <span class="hljs-string">&#x27;done&#x27;</span>);
   });
 }
 
@@ -22,15 +22,15 @@ timeout(<span class="hljs-number">100</span>).then(<span class="hljs-function">(
   <span class="hljs-built_in">console</span>.log(value);
 });
 </code></pre><p>上面代码中，<code>timeout</code>方法返回一个<code>Promise</code>实例，表示一段时间以后才会发生的结果。过了指定的时间（<code>ms</code>参数）以后，<code>Promise</code>实例的状态变为<code>resolved</code>，就会触发<code>then</code>方法绑定的回调函数。</p><p>Promise 新建后就会立即执行。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> promise = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resolve, reject</span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Promise'</span>);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Promise&#x27;</span>);
   resolve();
 });
 
 promise.then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'resolved.'</span>);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;resolved.&#x27;</span>);
 });
 
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Hi!'</span>);
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Hi!&#x27;</span>);
 
 <span class="hljs-comment">// Promise</span>
 <span class="hljs-comment">// Hi!</span>
@@ -44,7 +44,7 @@ promise.then(<span class="hljs-function"><span class="hljs-keyword">function</sp
     };
 
     image.onerror = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-      reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Could not load image at '</span> + url));
+      reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&#x27;Could not load image at &#x27;</span> + url));
     };
 
     image.src = url;
@@ -53,20 +53,20 @@ promise.then(<span class="hljs-function"><span class="hljs-keyword">function</sp
 </code></pre><p>上面代码中，使用<code>Promise</code>包装了一个图片加载的异步操作。如果加载成功，就调用<code>resolve</code>方法，否则就调用<code>reject</code>方法。</p><p>下面是一个用<code>Promise</code>对象实现的 Ajax 操作的例子。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> getJSON = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">url</span>) </span>{
   <span class="hljs-keyword">const</span> promise = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resolve, reject</span>)</span>{
     <span class="hljs-keyword">const</span> handler = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.readyState !== <span class="hljs-number">4</span>) {
+      <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.readyState !== <span class="hljs-number">4</span>) {
         <span class="hljs-keyword">return</span>;
       }
-      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.status === <span class="hljs-number">200</span>) {
-        resolve(<span class="hljs-keyword">this</span>.response);
+      <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.status === <span class="hljs-number">200</span>) {
+        resolve(<span class="hljs-built_in">this</span>.response);
       } <span class="hljs-keyword">else</span> {
-        reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-keyword">this</span>.statusText));
+        reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-built_in">this</span>.statusText));
       }
     };
     <span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> XMLHttpRequest();
-    client.open(<span class="hljs-string">"GET"</span>, url);
+    client.open(<span class="hljs-string">&quot;GET&quot;</span>, url);
     client.onreadystatechange = handler;
-    client.responseType = <span class="hljs-string">"json"</span>;
-    client.setRequestHeader(<span class="hljs-string">"Accept"</span>, <span class="hljs-string">"application/json"</span>);
+    client.responseType = <span class="hljs-string">&quot;json&quot;</span>;
+    client.setRequestHeader(<span class="hljs-string">&quot;Accept&quot;</span>, <span class="hljs-string">&quot;application/json&quot;</span>);
     client.send();
 
   });
@@ -74,10 +74,10 @@ promise.then(<span class="hljs-function"><span class="hljs-keyword">function</sp
   <span class="hljs-keyword">return</span> promise;
 };
 
-getJSON(<span class="hljs-string">"/posts.json"</span>).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">json</span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Contents: '</span> + json);
+getJSON(<span class="hljs-string">&quot;/posts.json&quot;</span>).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">json</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Contents: &#x27;</span> + json);
 }, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error</span>) </span>{
-  <span class="hljs-built_in">console</span>.error(<span class="hljs-string">'出错了'</span>, error);
+  <span class="hljs-built_in">console</span>.error(<span class="hljs-string">&#x27;出错了&#x27;</span>, error);
 });
 </code></pre><p>上面代码中，<code>getJSON</code>是对 XMLHttpRequest 对象的封装，用于发出一个针对 JSON 数据的 HTTP 请求，并且返回一个<code>Promise</code>对象。需要注意的是，在<code>getJSON</code>内部，<code>resolve</code>函数和<code>reject</code>函数调用时，都带有参数。</p><p>如果调用<code>resolve</code>函数和<code>reject</code>函数时带有参数，那么它们的参数会被传递给回调函数。<code>reject</code>函数的参数通常是<code>Error</code>对象的实例，表示抛出的错误；<code>resolve</code>函数的参数除了正常的值以外，还可能是另一个 Promise 实例，比如像下面这样。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> p1 = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">resolve, reject</span>) </span>{
   <span class="hljs-comment">// ...</span>
@@ -88,11 +88,11 @@ getJSON(<span class="hljs-string">"/posts.json"</span>).then(<span class="hljs-f
   resolve(p1);
 })
 </code></pre><p>上面代码中，<code>p1</code>和<code>p2</code>都是 Promise 的实例，但是<code>p2</code>的<code>resolve</code>方法将<code>p1</code>作为参数，即一个异步操作的结果是返回另一个异步操作。</p><p>注意，这时<code>p1</code>的状态就会传递给<code>p2</code>，也就是说，<code>p1</code>的状态决定了<code>p2</code>的状态。如果<code>p1</code>的状态是<code>pending</code>，那么<code>p2</code>的回调函数就会等待<code>p1</code>的状态改变；如果<code>p1</code>的状态已经是<code>resolved</code>或者<code>rejected</code>，那么<code>p2</code>的回调函数将会立刻执行。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> p1 = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">resolve, reject</span>) </span>{
-  setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'fail'</span>)), <span class="hljs-number">3000</span>)
+  <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&#x27;fail&#x27;</span>)), <span class="hljs-number">3000</span>)
 })
 
 <span class="hljs-keyword">const</span> p2 = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">resolve, reject</span>) </span>{
-  setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> resolve(p1), <span class="hljs-number">1000</span>)
+  <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> resolve(p1), <span class="hljs-number">1000</span>)
 })
 
 p2
@@ -112,38 +112,38 @@ p2
   <span class="hljs-comment">// 后面的语句不会执行</span>
   <span class="hljs-built_in">console</span>.log(<span class="hljs-number">2</span>);
 })
-</code></pre><h2 id="promiseprototypethen">Promise.prototype.then() <a class="markdownIt-Anchor" href="#promiseprototypethen">#</a></h2><p>Promise 实例具有<code>then</code>方法，也就是说，<code>then</code>方法是定义在原型对象<code>Promise.prototype</code>上的。它的作用是为 Promise 实例添加状态改变时的回调函数。前面说过，<code>then</code>方法的第一个参数是<code>resolved</code>状态的回调函数，第二个参数（可选）是<code>rejected</code>状态的回调函数。</p><p><code>then</code>方法返回的是一个新的<code>Promise</code>实例（注意，不是原来那个<code>Promise</code>实例）。因此可以采用链式写法，即<code>then</code>方法后面再调用另一个<code>then</code>方法。</p><pre class="hljs"><code>getJSON(<span class="hljs-string">"/posts.json"</span>).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">json</span>) </span>{
+</code></pre><h2 id="promiseprototypethen">Promise.prototype.then() <a class="markdownIt-Anchor" href="#promiseprototypethen">#</a></h2><p>Promise 实例具有<code>then</code>方法，也就是说，<code>then</code>方法是定义在原型对象<code>Promise.prototype</code>上的。它的作用是为 Promise 实例添加状态改变时的回调函数。前面说过，<code>then</code>方法的第一个参数是<code>resolved</code>状态的回调函数，第二个参数（可选）是<code>rejected</code>状态的回调函数。</p><p><code>then</code>方法返回的是一个新的<code>Promise</code>实例（注意，不是原来那个<code>Promise</code>实例）。因此可以采用链式写法，即<code>then</code>方法后面再调用另一个<code>then</code>方法。</p><pre class="hljs"><code>getJSON(<span class="hljs-string">&quot;/posts.json&quot;</span>).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">json</span>) </span>{
   <span class="hljs-keyword">return</span> json.post;
 }).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">post</span>) </span>{
   <span class="hljs-comment">// ...</span>
 });
-</code></pre><p>上面的代码使用<code>then</code>方法，依次指定了两个回调函数。第一个回调函数完成以后，会将返回结果作为参数，传入第二个回调函数。</p><p>采用链式的<code>then</code>，可以指定一组按照次序调用的回调函数。这时，前一个回调函数，有可能返回的还是一个<code>Promise</code>对象（即有异步操作），这时后一个回调函数，就会等待该<code>Promise</code>对象的状态发生变化，才会被调用。</p><pre class="hljs"><code>getJSON(<span class="hljs-string">"/post/1.json"</span>).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">post</span>) </span>{
+</code></pre><p>上面的代码使用<code>then</code>方法，依次指定了两个回调函数。第一个回调函数完成以后，会将返回结果作为参数，传入第二个回调函数。</p><p>采用链式的<code>then</code>，可以指定一组按照次序调用的回调函数。这时，前一个回调函数，有可能返回的还是一个<code>Promise</code>对象（即有异步操作），这时后一个回调函数，就会等待该<code>Promise</code>对象的状态发生变化，才会被调用。</p><pre class="hljs"><code>getJSON(<span class="hljs-string">&quot;/post/1.json&quot;</span>).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">post</span>) </span>{
   <span class="hljs-keyword">return</span> getJSON(post.commentURL);
 }).then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">comments</span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"resolved: "</span>, comments);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;resolved: &quot;</span>, comments);
 }, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>)</span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"rejected: "</span>, err);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;rejected: &quot;</span>, err);
 });
-</code></pre><p>上面代码中，第一个<code>then</code>方法指定的回调函数，返回的是另一个<code>Promise</code>对象。这时，第二个<code>then</code>方法指定的回调函数，就会等待这个新的<code>Promise</code>对象状态发生变化。如果变为<code>resolved</code>，就调用第一个回调函数，如果状态变为<code>rejected</code>，就调用第二个回调函数。</p><p>如果采用箭头函数，上面的代码可以写得更简洁。</p><pre class="hljs"><code>getJSON(<span class="hljs-string">"/post/1.json"</span>).then(
+</code></pre><p>上面代码中，第一个<code>then</code>方法指定的回调函数，返回的是另一个<code>Promise</code>对象。这时，第二个<code>then</code>方法指定的回调函数，就会等待这个新的<code>Promise</code>对象状态发生变化。如果变为<code>resolved</code>，就调用第一个回调函数，如果状态变为<code>rejected</code>，就调用第二个回调函数。</p><p>如果采用箭头函数，上面的代码可以写得更简洁。</p><pre class="hljs"><code>getJSON(<span class="hljs-string">&quot;/post/1.json&quot;</span>).then(
   <span class="hljs-function"><span class="hljs-params">post</span> =&gt;</span> getJSON(post.commentURL)
 ).then(
-  <span class="hljs-function"><span class="hljs-params">comments</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"resolved: "</span>, comments),
-  err =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"rejected: "</span>, err)
+  <span class="hljs-function"><span class="hljs-params">comments</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;resolved: &quot;</span>, comments),
+  <span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;rejected: &quot;</span>, err)
 );
-</code></pre><h2 id="promiseprototypecatch">Promise.prototype.catch() <a class="markdownIt-Anchor" href="#promiseprototypecatch">#</a></h2><p><code>Promise.prototype.catch()</code>方法是<code>.then(null, rejection)</code>或<code>.then(undefined, rejection)</code>的别名，用于指定发生错误时的回调函数。</p><pre class="hljs"><code>getJSON(<span class="hljs-string">'/posts.json'</span>).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">posts</span>) </span>{
+</code></pre><h2 id="promiseprototypecatch">Promise.prototype.catch() <a class="markdownIt-Anchor" href="#promiseprototypecatch">#</a></h2><p><code>Promise.prototype.catch()</code>方法是<code>.then(null, rejection)</code>或<code>.then(undefined, rejection)</code>的别名，用于指定发生错误时的回调函数。</p><pre class="hljs"><code>getJSON(<span class="hljs-string">&#x27;/posts.json&#x27;</span>).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">posts</span>) </span>{
   <span class="hljs-comment">// ...</span>
 }).catch(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error</span>) </span>{
   <span class="hljs-comment">// 处理 getJSON 和 前一个回调函数运行时发生的错误</span>
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'发生错误！'</span>, error);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;发生错误！&#x27;</span>, error);
 });
-</code></pre><p>上面代码中，<code>getJSON()</code>方法返回一个 Promise 对象，如果该对象状态变为<code>resolved</code>，则会调用<code>then()</code>方法指定的回调函数；如果异步操作抛出错误，状态就会变为<code>rejected</code>，就会调用<code>catch()</code>方法指定的回调函数，处理这个错误。另外，<code>then()</code>方法指定的回调函数，如果运行中抛出错误，也会被<code>catch()</code>方法捕获。</p><pre class="hljs"><code>p.then(<span class="hljs-function">(<span class="hljs-params">val</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'fulfilled:'</span>, val))
-  .catch(<span class="hljs-function">(<span class="hljs-params">err</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'rejected'</span>, err));
+</code></pre><p>上面代码中，<code>getJSON()</code>方法返回一个 Promise 对象，如果该对象状态变为<code>resolved</code>，则会调用<code>then()</code>方法指定的回调函数；如果异步操作抛出错误，状态就会变为<code>rejected</code>，就会调用<code>catch()</code>方法指定的回调函数，处理这个错误。另外，<code>then()</code>方法指定的回调函数，如果运行中抛出错误，也会被<code>catch()</code>方法捕获。</p><pre class="hljs"><code>p.then(<span class="hljs-function">(<span class="hljs-params">val</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;fulfilled:&#x27;</span>, val))
+  .catch(<span class="hljs-function">(<span class="hljs-params">err</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;rejected&#x27;</span>, err));
 
 <span class="hljs-comment">// 等同于</span>
-p.then(<span class="hljs-function">(<span class="hljs-params">val</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'fulfilled:'</span>, val))
-  .then(<span class="hljs-literal">null</span>, (err) =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"rejected:"</span>, err));
+p.then(<span class="hljs-function">(<span class="hljs-params">val</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;fulfilled:&#x27;</span>, val))
+  .then(<span class="hljs-literal">null</span>, <span class="hljs-function">(<span class="hljs-params">err</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;rejected:&quot;</span>, err));
 </code></pre><p>下面是一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> promise = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resolve, reject</span>) </span>{
-  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'test'</span>);
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&#x27;test&#x27;</span>);
 });
 promise.catch(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error</span>) </span>{
   <span class="hljs-built_in">console</span>.log(error);
@@ -152,7 +152,7 @@ promise.catch(<span class="hljs-function"><span class="hljs-keyword">function</s
 </code></pre><p>上面代码中，<code>promise</code>抛出一个错误，就被<code>catch()</code>方法指定的回调函数捕获。注意，上面的写法与下面两种写法是等价的。</p><pre class="hljs"><code><span class="hljs-comment">// 写法一</span>
 <span class="hljs-keyword">const</span> promise = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resolve, reject</span>) </span>{
   <span class="hljs-keyword">try</span> {
-    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'test'</span>);
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&#x27;test&#x27;</span>);
   } <span class="hljs-keyword">catch</span>(e) {
     reject(e);
   }
@@ -163,20 +163,20 @@ promise.catch(<span class="hljs-function"><span class="hljs-keyword">function</s
 
 <span class="hljs-comment">// 写法二</span>
 <span class="hljs-keyword">const</span> promise = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resolve, reject</span>) </span>{
-  reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'test'</span>));
+  reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&#x27;test&#x27;</span>));
 });
 promise.catch(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error</span>) </span>{
   <span class="hljs-built_in">console</span>.log(error);
 });
 </code></pre><p>比较上面两种写法，可以发现<code>reject()</code>方法的作用，等同于抛出错误。</p><p>如果 Promise 状态已经变成<code>resolved</code>，再抛出错误是无效的。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> promise = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resolve, reject</span>) </span>{
-  resolve(<span class="hljs-string">'ok'</span>);
-  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'test'</span>);
+  resolve(<span class="hljs-string">&#x27;ok&#x27;</span>);
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&#x27;test&#x27;</span>);
 });
 promise
   .then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">value</span>) </span>{ <span class="hljs-built_in">console</span>.log(value) })
   .catch(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error</span>) </span>{ <span class="hljs-built_in">console</span>.log(error) });
 <span class="hljs-comment">// ok</span>
-</code></pre><p>上面代码中，Promise 在<code>resolve</code>语句后面，再抛出错误，不会被捕获，等于没有抛出。因为 Promise 的状态一旦改变，就永久保持该状态，不会再变了。</p><p>Promise 对象的错误具有“冒泡”性质，会一直向后传递，直到被捕获为止。也就是说，错误总是会被下一个<code>catch</code>语句捕获。</p><pre class="hljs"><code>getJSON(<span class="hljs-string">'/post/1.json'</span>).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">post</span>) </span>{
+</code></pre><p>上面代码中，Promise 在<code>resolve</code>语句后面，再抛出错误，不会被捕获，等于没有抛出。因为 Promise 的状态一旦改变，就永久保持该状态，不会再变了。</p><p>Promise 对象的错误具有“冒泡”性质，会一直向后传递，直到被捕获为止。也就是说，错误总是会被下一个<code>catch</code>语句捕获。</p><pre class="hljs"><code>getJSON(<span class="hljs-string">&#x27;/post/1.json&#x27;</span>).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">post</span>) </span>{
   <span class="hljs-keyword">return</span> getJSON(post.commentURL);
 }).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">comments</span>) </span>{
   <span class="hljs-comment">// some code</span>
@@ -207,18 +207,18 @@ promise
 };
 
 someAsyncThing().then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'everything is great'</span>);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;everything is great&#x27;</span>);
 });
 
-setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> { <span class="hljs-built_in">console</span>.log(<span class="hljs-number">123</span>) }, <span class="hljs-number">2000</span>);
+<span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> { <span class="hljs-built_in">console</span>.log(<span class="hljs-number">123</span>) }, <span class="hljs-number">2000</span>);
 <span class="hljs-comment">// Uncaught (in promise) ReferenceError: x is not defined</span>
 <span class="hljs-comment">// 123</span>
-</code></pre><p>上面代码中，<code>someAsyncThing()</code>函数产生的 Promise 对象，内部有语法错误。浏览器运行到这一行，会打印出错误提示<code>ReferenceError: x is not defined</code>，但是不会退出进程、终止脚本执行，2 秒之后还是会输出<code>123</code>。这就是说，Promise 内部的错误不会影响到 Promise 外部的代码，通俗的说法就是“Promise 会吃掉错误”。</p><p>这个脚本放在服务器执行，退出码就是<code>0</code>（即表示执行成功）。不过，Node.js 有一个<code>unhandledRejection</code>事件，专门监听未捕获的<code>reject</code>错误，上面的脚本会触发这个事件的监听函数，可以在监听函数里面抛出错误。</p><pre class="hljs"><code>process.on(<span class="hljs-string">'unhandledRejection'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, p</span>) </span>{
+</code></pre><p>上面代码中，<code>someAsyncThing()</code>函数产生的 Promise 对象，内部有语法错误。浏览器运行到这一行，会打印出错误提示<code>ReferenceError: x is not defined</code>，但是不会退出进程、终止脚本执行，2 秒之后还是会输出<code>123</code>。这就是说，Promise 内部的错误不会影响到 Promise 外部的代码，通俗的说法就是“Promise 会吃掉错误”。</p><p>这个脚本放在服务器执行，退出码就是<code>0</code>（即表示执行成功）。不过，Node.js 有一个<code>unhandledRejection</code>事件，专门监听未捕获的<code>reject</code>错误，上面的脚本会触发这个事件的监听函数，可以在监听函数里面抛出错误。</p><pre class="hljs"><code>process.on(<span class="hljs-string">&#x27;unhandledRejection&#x27;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, p</span>) </span>{
   <span class="hljs-keyword">throw</span> err;
 });
 </code></pre><p>上面代码中，<code>unhandledRejection</code>事件的监听函数有两个参数，第一个是错误对象，第二个是报错的 Promise 实例，它可以用来了解发生错误的环境信息。</p><p>注意，Node 有计划在未来废除<code>unhandledRejection</code>事件。如果 Promise 内部有未捕获的错误，会直接终止进程，并且进程的退出码不为 0。</p><p>再看下面的例子。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> promise = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">resolve, reject</span>) </span>{
-  resolve(<span class="hljs-string">'ok'</span>);
-  setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'test'</span>) }, <span class="hljs-number">0</span>)
+  resolve(<span class="hljs-string">&#x27;ok&#x27;</span>);
+  <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&#x27;test&#x27;</span>) }, <span class="hljs-number">0</span>)
 });
 promise.then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{ <span class="hljs-built_in">console</span>.log(value) });
 <span class="hljs-comment">// ok</span>
@@ -232,19 +232,19 @@ promise.then(<span class="hljs-function"><span class="hljs-keyword">function</sp
 
 someAsyncThing()
 .catch(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error</span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'oh no'</span>, error);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;oh no&#x27;</span>, error);
 })
 .then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'carry on'</span>);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;carry on&#x27;</span>);
 });
 <span class="hljs-comment">// oh no [ReferenceError: x is not defined]</span>
 <span class="hljs-comment">// carry on</span>
 </code></pre><p>上面代码运行完<code>catch()</code>方法指定的回调函数，会接着运行后面那个<code>then()</code>方法指定的回调函数。如果没有报错，则会跳过<code>catch()</code>方法。</p><pre class="hljs"><code><span class="hljs-built_in">Promise</span>.resolve()
 .catch(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error</span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'oh no'</span>, error);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;oh no&#x27;</span>, error);
 })
 .then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'carry on'</span>);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;carry on&#x27;</span>);
 });
 <span class="hljs-comment">// carry on</span>
 </code></pre><p>上面的代码因为没有报错，跳过了<code>catch()</code>方法，直接执行后面的<code>then()</code>方法。此时，要是<code>then()</code>方法里面报错，就与前面的<code>catch()</code>无关了。</p><p><code>catch()</code>方法之中，还能再抛出错误。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> someAsyncThing = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
@@ -257,35 +257,35 @@ someAsyncThing()
 someAsyncThing().then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">return</span> someOtherAsyncThing();
 }).catch(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error</span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'oh no'</span>, error);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;oh no&#x27;</span>, error);
   <span class="hljs-comment">// 下面一行会报错，因为 y 没有声明</span>
   y + <span class="hljs-number">2</span>;
 }).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'carry on'</span>);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;carry on&#x27;</span>);
 });
 <span class="hljs-comment">// oh no [ReferenceError: x is not defined]</span>
 </code></pre><p>上面代码中，<code>catch()</code>方法抛出一个错误，因为后面没有别的<code>catch()</code>方法了，导致这个错误不会被捕获，也不会传递到外层。如果改写一下，结果就不一样了。</p><pre class="hljs"><code>someAsyncThing().then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">return</span> someOtherAsyncThing();
 }).catch(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error</span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'oh no'</span>, error);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;oh no&#x27;</span>, error);
   <span class="hljs-comment">// 下面一行会报错，因为y没有声明</span>
   y + <span class="hljs-number">2</span>;
 }).catch(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error</span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'carry on'</span>, error);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;carry on&#x27;</span>, error);
 });
 <span class="hljs-comment">// oh no [ReferenceError: x is not defined]</span>
 <span class="hljs-comment">// carry on [ReferenceError: y is not defined]</span>
 </code></pre><p>上面代码中，第二个<code>catch()</code>方法用来捕获前一个<code>catch()</code>方法抛出的错误。</p><h2 id="promiseprototypefinally">Promise.prototype.finally() <a class="markdownIt-Anchor" href="#promiseprototypefinally">#</a></h2><p><code>finally()</code>方法用于指定不管 Promise 对象最后状态如何，都会执行的操作。该方法是 ES2018 引入标准的。</p><pre class="hljs"><code>promise
 .then(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> {···})
 .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {···})
-.finally(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {···});
+.finally(<span class="hljs-function">() =&gt;</span> {···});
 </code></pre><p>上面代码中，不管<code>promise</code>最后的状态，在执行完<code>then</code>或<code>catch</code>指定的回调函数以后，都会执行<code>finally</code>方法指定的回调函数。</p><p>下面是一个例子，服务器使用 Promise 处理请求，然后使用<code>finally</code>方法关掉服务器。</p><pre class="hljs"><code>server.listen(port)
   .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
     <span class="hljs-comment">// ...</span>
   })
   .finally(server.stop);
 </code></pre><p><code>finally</code>方法的回调函数不接受任何参数，这意味着没有办法知道，前面的 Promise 状态到底是<code>fulfilled</code>还是<code>rejected</code>。这表明，<code>finally</code>方法里面的操作，应该是与状态无关的，不依赖于 Promise 的执行结果。</p><p><code>finally</code>本质上是<code>then</code>方法的特例。</p><pre class="hljs"><code>promise
-.finally(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+.finally(<span class="hljs-function">() =&gt;</span> {
   <span class="hljs-comment">// 语句</span>
 });
 
@@ -296,33 +296,33 @@ promise
     <span class="hljs-comment">// 语句</span>
     <span class="hljs-keyword">return</span> result;
   },
-  error =&gt; {
+  <span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
     <span class="hljs-comment">// 语句</span>
     <span class="hljs-keyword">throw</span> error;
   }
 );
 </code></pre><p>上面代码中，如果不使用<code>finally</code>方法，同样的语句需要为成功和失败两种情况各写一次。有了<code>finally</code>方法，则只需要写一次。</p><p>它的实现也很简单。</p><pre class="hljs"><code><span class="hljs-built_in">Promise</span>.prototype.finally = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">callback</span>) </span>{
-  <span class="hljs-keyword">let</span> P = <span class="hljs-keyword">this</span>.constructor;
-  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.then(
-    <span class="hljs-function"><span class="hljs-params">value</span>  =&gt;</span> P.resolve(callback()).then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> value),
-    reason =&gt; P.resolve(callback()).then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> { <span class="hljs-keyword">throw</span> reason })
+  <span class="hljs-keyword">let</span> P = <span class="hljs-built_in">this</span>.constructor;
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.then(
+    <span class="hljs-function"><span class="hljs-params">value</span>  =&gt;</span> P.resolve(callback()).then(<span class="hljs-function">() =&gt;</span> value),
+    <span class="hljs-function"><span class="hljs-params">reason</span> =&gt;</span> P.resolve(callback()).then(<span class="hljs-function">() =&gt;</span> { <span class="hljs-keyword">throw</span> reason })
   );
 };
 </code></pre><p>上面代码中，不管前面的 Promise 是<code>fulfilled</code>还是<code>rejected</code>，都会执行回调函数<code>callback</code>。</p><p>从上面的实现还可以看到，<code>finally</code>方法总是会返回原来的值。</p><pre class="hljs"><code><span class="hljs-comment">// resolve 的值是 undefined</span>
-<span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-number">2</span>).then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {}, () =&gt; {})
+<span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-number">2</span>).then(<span class="hljs-function">() =&gt;</span> {}, <span class="hljs-function">() =&gt;</span> {})
 
 <span class="hljs-comment">// resolve 的值是 2</span>
-<span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-number">2</span>).finally(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {})
+<span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-number">2</span>).finally(<span class="hljs-function">() =&gt;</span> {})
 
 <span class="hljs-comment">// reject 的值是 undefined</span>
-<span class="hljs-built_in">Promise</span>.reject(<span class="hljs-number">3</span>).then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {}, () =&gt; {})
+<span class="hljs-built_in">Promise</span>.reject(<span class="hljs-number">3</span>).then(<span class="hljs-function">() =&gt;</span> {}, <span class="hljs-function">() =&gt;</span> {})
 
 <span class="hljs-comment">// reject 的值是 3</span>
-<span class="hljs-built_in">Promise</span>.reject(<span class="hljs-number">3</span>).finally(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {})
+<span class="hljs-built_in">Promise</span>.reject(<span class="hljs-number">3</span>).finally(<span class="hljs-function">() =&gt;</span> {})
 </code></pre><h2 id="promiseall">Promise.all() <a class="markdownIt-Anchor" href="#promiseall">#</a></h2><p><code>Promise.all()</code>方法用于将多个 Promise 实例，包装成一个新的 Promise 实例。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> p = <span class="hljs-built_in">Promise</span>.all([p1, p2, p3]);
 </code></pre><p>上面代码中，<code>Promise.all()</code>方法接受一个数组作为参数，<code>p1</code>、<code>p2</code>、<code>p3</code>都是 Promise 实例，如果不是，就会先调用下面讲到的<code>Promise.resolve</code>方法，将参数转为 Promise 实例，再进一步处理。另外，<code>Promise.all()</code>方法的参数可以不是数组，但必须具有 Iterator 接口，且返回的每个成员都是 Promise 实例。</p><p><code>p</code>的状态由<code>p1</code>、<code>p2</code>、<code>p3</code>决定，分成两种情况。</p><p>（1）只有<code>p1</code>、<code>p2</code>、<code>p3</code>的状态都变成<code>fulfilled</code>，<code>p</code>的状态才会变成<code>fulfilled</code>，此时<code>p1</code>、<code>p2</code>、<code>p3</code>的返回值组成一个数组，传递给<code>p</code>的回调函数。</p><p>（2）只要<code>p1</code>、<code>p2</code>、<code>p3</code>之中有一个被<code>rejected</code>，<code>p</code>的状态就变成<code>rejected</code>，此时第一个被<code>reject</code>的实例的返回值，会传递给<code>p</code>的回调函数。</p><p>下面是一个具体的例子。</p><pre class="hljs"><code><span class="hljs-comment">// 生成一个Promise对象的数组</span>
 <span class="hljs-keyword">const</span> promises = [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>, <span class="hljs-number">11</span>, <span class="hljs-number">13</span>].map(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">id</span>) </span>{
-  <span class="hljs-keyword">return</span> getJSON(<span class="hljs-string">'/post/'</span> + id + <span class="hljs-string">".json"</span>);
+  <span class="hljs-keyword">return</span> getJSON(<span class="hljs-string">&#x27;/post/&#x27;</span> + id + <span class="hljs-string">&quot;.json&quot;</span>);
 });
 
 <span class="hljs-built_in">Promise</span>.all(promises).then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">posts</span>) </span>{
@@ -344,13 +344,13 @@ promise
 ])
 .then(<span class="hljs-function">(<span class="hljs-params">[books, user]</span>) =&gt;</span> pickTopRecommendations(books, user));
 </code></pre><p>上面代码中，<code>booksPromise</code>和<code>userPromise</code>是两个异步操作，只有等到它们的结果都返回了，才会触发<code>pickTopRecommendations</code>这个回调函数。</p><p>注意，如果作为参数的 Promise 实例，自己定义了<code>catch</code>方法，那么它一旦被<code>rejected</code>，并不会触发<code>Promise.all()</code>的<code>catch</code>方法。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> p1 = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
-  resolve(<span class="hljs-string">'hello'</span>);
+  resolve(<span class="hljs-string">&#x27;hello&#x27;</span>);
 })
 .then(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> result)
 .catch(<span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> e);
 
 <span class="hljs-keyword">const</span> p2 = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
-  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'报错了'</span>);
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&#x27;报错了&#x27;</span>);
 })
 .then(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> result)
 .catch(<span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> e);
@@ -358,14 +358,14 @@ promise
 <span class="hljs-built_in">Promise</span>.all([p1, p2])
 .then(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(result))
 .catch(<span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(e));
-<span class="hljs-comment">// ["hello", Error: 报错了]</span>
+<span class="hljs-comment">// [&quot;hello&quot;, Error: 报错了]</span>
 </code></pre><p>上面代码中，<code>p1</code>会<code>resolved</code>，<code>p2</code>首先会<code>rejected</code>，但是<code>p2</code>有自己的<code>catch</code>方法，该方法返回的是一个新的 Promise 实例，<code>p2</code>指向的实际上是这个实例。该实例执行完<code>catch</code>方法后，也会变成<code>resolved</code>，导致<code>Promise.all()</code>方法参数里面的两个实例都会<code>resolved</code>，因此会调用<code>then</code>方法指定的回调函数，而不会调用<code>catch</code>方法指定的回调函数。</p><p>如果<code>p2</code>没有自己的<code>catch</code>方法，就会调用<code>Promise.all()</code>的<code>catch</code>方法。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> p1 = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
-  resolve(<span class="hljs-string">'hello'</span>);
+  resolve(<span class="hljs-string">&#x27;hello&#x27;</span>);
 })
 .then(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> result);
 
 <span class="hljs-keyword">const</span> p2 = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
-  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'报错了'</span>);
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&#x27;报错了&#x27;</span>);
 })
 .then(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> result);
 
@@ -375,9 +375,9 @@ promise
 <span class="hljs-comment">// Error: 报错了</span>
 </code></pre><h2 id="promiserace">Promise.race() <a class="markdownIt-Anchor" href="#promiserace">#</a></h2><p><code>Promise.race()</code>方法同样是将多个 Promise 实例，包装成一个新的 Promise 实例。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> p = <span class="hljs-built_in">Promise</span>.race([p1, p2, p3]);
 </code></pre><p>上面代码中，只要<code>p1</code>、<code>p2</code>、<code>p3</code>之中有一个实例率先改变状态，<code>p</code>的状态就跟着改变。那个率先改变的 Promise 实例的返回值，就传递给<code>p</code>的回调函数。</p><p><code>Promise.race()</code>方法的参数与<code>Promise.all()</code>方法一样，如果不是 Promise 实例，就会先调用下面讲到的<code>Promise.resolve()</code>方法，将参数转为 Promise 实例，再进一步处理。</p><p>下面是一个例子，如果指定时间内没有获得结果，就将 Promise 的状态变为<code>reject</code>，否则变为<code>resolve</code>。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> p = <span class="hljs-built_in">Promise</span>.race([
-  fetch(<span class="hljs-string">'/resource-that-may-take-a-while'</span>),
+  fetch(<span class="hljs-string">&#x27;/resource-that-may-take-a-while&#x27;</span>),
   <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">resolve, reject</span>) </span>{
-    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'request timeout'</span>)), <span class="hljs-number">5000</span>)
+    <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&#x27;request timeout&#x27;</span>)), <span class="hljs-number">5000</span>)
   })
 ]);
 
@@ -385,9 +385,9 @@ p
 .then(<span class="hljs-built_in">console</span>.log)
 .catch(<span class="hljs-built_in">console</span>.error);
 </code></pre><p>上面代码中，如果 5 秒之内<code>fetch</code>方法无法返回结果，变量<code>p</code>的状态就会变为<code>rejected</code>，从而触发<code>catch</code>方法指定的回调函数。</p><h2 id="promiseallsettled">Promise.allSettled() <a class="markdownIt-Anchor" href="#promiseallsettled">#</a></h2><p><code>Promise.allSettled()</code>方法接受一组 Promise 实例作为参数，包装成一个新的 Promise 实例。只有等到所有这些参数实例都返回结果，不管是<code>fulfilled</code>还是<code>rejected</code>，包装实例才会结束。该方法由 <a href="https://github.com/tc39/proposal-promise-allSettled" target="_blank" rel="noopener">ES2020</a> 引入。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> promises = [
-  fetch(<span class="hljs-string">'/api-1'</span>),
-  fetch(<span class="hljs-string">'/api-2'</span>),
-  fetch(<span class="hljs-string">'/api-3'</span>),
+  fetch(<span class="hljs-string">&#x27;/api-1&#x27;</span>),
+  fetch(<span class="hljs-string">&#x27;/api-2&#x27;</span>),
+  fetch(<span class="hljs-string">&#x27;/api-3&#x27;</span>),
 ];
 
 <span class="hljs-keyword">await</span> <span class="hljs-built_in">Promise</span>.allSettled(promises);
@@ -401,32 +401,32 @@ allSettledPromise.then(<span class="hljs-function"><span class="hljs-keyword">fu
   <span class="hljs-built_in">console</span>.log(results);
 });
 <span class="hljs-comment">// [</span>
-<span class="hljs-comment">//    { status: 'fulfilled', value: 42 },</span>
-<span class="hljs-comment">//    { status: 'rejected', reason: -1 }</span>
+<span class="hljs-comment">//    { status: &#x27;fulfilled&#x27;, value: 42 },</span>
+<span class="hljs-comment">//    { status: &#x27;rejected&#x27;, reason: -1 }</span>
 <span class="hljs-comment">// ]</span>
-</code></pre><p>上面代码中，<code>Promise.allSettled()</code>的返回值<code>allSettledPromise</code>，状态只可能变成<code>fulfilled</code>。它的监听函数接收到的参数是数组<code>results</code>。该数组的每个成员都是一个对象，对应传入<code>Promise.allSettled()</code>的两个 Promise 实例。每个对象都有<code>status</code>属性，该属性的值只可能是字符串<code>fulfilled</code>或字符串<code>rejected</code>。<code>fulfilled</code>时，对象有<code>value</code>属性，<code>rejected</code>时有<code>reason</code>属性，对应两种状态的返回值。</p><p>下面是返回值用法的例子。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> promises = [ fetch(<span class="hljs-string">'index.html'</span>), fetch(<span class="hljs-string">'https://does-not-exist/'</span>) ];
+</code></pre><p>上面代码中，<code>Promise.allSettled()</code>的返回值<code>allSettledPromise</code>，状态只可能变成<code>fulfilled</code>。它的监听函数接收到的参数是数组<code>results</code>。该数组的每个成员都是一个对象，对应传入<code>Promise.allSettled()</code>的两个 Promise 实例。每个对象都有<code>status</code>属性，该属性的值只可能是字符串<code>fulfilled</code>或字符串<code>rejected</code>。<code>fulfilled</code>时，对象有<code>value</code>属性，<code>rejected</code>时有<code>reason</code>属性，对应两种状态的返回值。</p><p>下面是返回值用法的例子。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> promises = [ fetch(<span class="hljs-string">&#x27;index.html&#x27;</span>), fetch(<span class="hljs-string">&#x27;https://does-not-exist/&#x27;</span>) ];
 <span class="hljs-keyword">const</span> results = <span class="hljs-keyword">await</span> <span class="hljs-built_in">Promise</span>.allSettled(promises);
 
 <span class="hljs-comment">// 过滤出成功的请求</span>
-<span class="hljs-keyword">const</span> successfulPromises = results.filter(<span class="hljs-function"><span class="hljs-params">p</span> =&gt;</span> p.status === <span class="hljs-string">'fulfilled'</span>);
+<span class="hljs-keyword">const</span> successfulPromises = results.filter(<span class="hljs-function"><span class="hljs-params">p</span> =&gt;</span> p.status === <span class="hljs-string">&#x27;fulfilled&#x27;</span>);
 
 <span class="hljs-comment">// 过滤出失败的请求，并输出原因</span>
 <span class="hljs-keyword">const</span> errors = results
-  .filter(<span class="hljs-function"><span class="hljs-params">p</span> =&gt;</span> p.status === <span class="hljs-string">'rejected'</span>)
+  .filter(<span class="hljs-function"><span class="hljs-params">p</span> =&gt;</span> p.status === <span class="hljs-string">&#x27;rejected&#x27;</span>)
   .map(<span class="hljs-function"><span class="hljs-params">p</span> =&gt;</span> p.reason);
 </code></pre><p>有时候，我们不关心异步操作的结果，只关心这些操作有没有结束。这时，<code>Promise.allSettled()</code>方法就很有用。如果没有这个方法，想要确保所有操作都结束，就很麻烦。<code>Promise.all()</code>方法无法做到这一点。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> urls = [ <span class="hljs-comment">/* ... */</span> ];
 <span class="hljs-keyword">const</span> requests = urls.map(<span class="hljs-function"><span class="hljs-params">x</span> =&gt;</span> fetch(x));
 
 <span class="hljs-keyword">try</span> {
   <span class="hljs-keyword">await</span> <span class="hljs-built_in">Promise</span>.all(requests);
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'所有请求都成功。'</span>);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;所有请求都成功。&#x27;</span>);
 } <span class="hljs-keyword">catch</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'至少一个请求失败，其他请求可能还没结束。'</span>);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;至少一个请求失败，其他请求可能还没结束。&#x27;</span>);
 }
 </code></pre><p>上面代码中，<code>Promise.all()</code>无法确定所有请求都结束。想要达到这个目的，写起来很麻烦，有了<code>Promise.allSettled()</code>，这就很容易了。</p><h2 id="promiseany">Promise.any() <a class="markdownIt-Anchor" href="#promiseany">#</a></h2><p><code>Promise.any()</code>方法接受一组 Promise 实例作为参数，包装成一个新的 Promise 实例。只要参数实例有一个变成<code>fulfilled</code>状态，包装实例就会变成<code>fulfilled</code>状态；如果所有参数实例都变成<code>rejected</code>状态，包装实例就会变成<code>rejected</code>状态。该方法目前是一个第三阶段的<a href="https://github.com/tc39/proposal-promise-any" target="_blank" rel="noopener">提案</a> 。</p><p><code>Promise.any()</code>跟<code>Promise.race()</code>方法很像，只有一点不同，就是不会因为某个 Promise 变成<code>rejected</code>状态而结束。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> promises = [
-  fetch(<span class="hljs-string">'/endpoint-a'</span>).then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-string">'a'</span>),
-  fetch(<span class="hljs-string">'/endpoint-b'</span>).then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-string">'b'</span>),
-  fetch(<span class="hljs-string">'/endpoint-c'</span>).then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-string">'c'</span>),
+  fetch(<span class="hljs-string">&#x27;/endpoint-a&#x27;</span>).then(<span class="hljs-function">() =&gt;</span> <span class="hljs-string">&#x27;a&#x27;</span>),
+  fetch(<span class="hljs-string">&#x27;/endpoint-b&#x27;</span>).then(<span class="hljs-function">() =&gt;</span> <span class="hljs-string">&#x27;b&#x27;</span>),
+  fetch(<span class="hljs-string">&#x27;/endpoint-c&#x27;</span>).then(<span class="hljs-function">() =&gt;</span> <span class="hljs-string">&#x27;c&#x27;</span>),
 ];
 <span class="hljs-keyword">try</span> {
   <span class="hljs-keyword">const</span> first = <span class="hljs-keyword">await</span> <span class="hljs-built_in">Promise</span>.any(promises);
@@ -434,17 +434,17 @@ allSettledPromise.then(<span class="hljs-function"><span class="hljs-keyword">fu
 } <span class="hljs-keyword">catch</span> (error) {
   <span class="hljs-built_in">console</span>.log(error);
 }
-</code></pre><p>上面代码中，<code>Promise.any()</code>方法的参数数组包含三个 Promise 操作。其中只要有一个变成<code>fulfilled</code>，<code>Promise.any()</code>返回的 Promise 对象就变成<code>fulfilled</code>。如果所有三个操作都变成<code>rejected</code>，那么<code>await</code>命令就会抛出错误。</p><p><code>Promise.any()</code>抛出的错误，不是一个一般的错误，而是一个 AggregateError 实例。它相当于一个数组，每个成员对应一个被<code>rejected</code>的操作所抛出的错误。下面是 AggregateError 的实现示例。</p><pre class="hljs"><code><span class="hljs-keyword">new</span> AggregateError() extends <span class="hljs-built_in">Array</span> -&gt; AggregateError
+</code></pre><p>上面代码中，<code>Promise.any()</code>方法的参数数组包含三个 Promise 操作。其中只要有一个变成<code>fulfilled</code>，<code>Promise.any()</code>返回的 Promise 对象就变成<code>fulfilled</code>。如果所有三个操作都变成<code>rejected</code>，那么<code>await</code>命令就会抛出错误。</p><p><code>Promise.any()</code>抛出的错误，不是一个一般的错误，而是一个 AggregateError 实例。它相当于一个数组，每个成员对应一个被<code>rejected</code>的操作所抛出的错误。下面是 AggregateError 的实现示例。</p><pre class="hljs"><code><span class="hljs-keyword">new</span> AggregateError() <span class="hljs-keyword">extends</span> <span class="hljs-built_in">Array</span> -&gt; AggregateError
 
 <span class="hljs-keyword">const</span> err = <span class="hljs-keyword">new</span> AggregateError();
-err.push(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">"first error"</span>));
-err.push(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">"second error"</span>));
+err.push(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&quot;first error&quot;</span>));
+err.push(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&quot;second error&quot;</span>));
 <span class="hljs-keyword">throw</span> err;
 </code></pre><p>捕捉错误时，如果不用<code>try...catch</code>结构和 await 命令，可以像下面这样写。</p><pre class="hljs"><code><span class="hljs-built_in">Promise</span>.any(promises).then(
   <span class="hljs-function">(<span class="hljs-params">first</span>) =&gt;</span> {
     <span class="hljs-comment">// Any of the promises was fulfilled.</span>
   },
-  (error) =&gt; {
+  <span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> {
     <span class="hljs-comment">// All of the promises were rejected.</span>
   }
 );
@@ -459,10 +459,10 @@ err.push(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error
 <span class="hljs-built_in">Promise</span>.any([rejected, alsoRejected]).catch(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">results</span>) </span>{
   <span class="hljs-built_in">console</span>.log(results); <span class="hljs-comment">// [-1, Infinity]</span>
 });
-</code></pre><h2 id="promiseresolve">Promise.resolve() <a class="markdownIt-Anchor" href="#promiseresolve">#</a></h2><p>有时需要将现有对象转为 Promise 对象，<code>Promise.resolve()</code>方法就起到这个作用。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> jsPromise = <span class="hljs-built_in">Promise</span>.resolve($.ajax(<span class="hljs-string">'/whatever.json'</span>));
-</code></pre><p>上面代码将 jQuery 生成的<code>deferred</code>对象，转为一个新的 Promise 对象。</p><p><code>Promise.resolve()</code>等价于下面的写法。</p><pre class="hljs"><code><span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-string">'foo'</span>)
+</code></pre><h2 id="promiseresolve">Promise.resolve() <a class="markdownIt-Anchor" href="#promiseresolve">#</a></h2><p>有时需要将现有对象转为 Promise 对象，<code>Promise.resolve()</code>方法就起到这个作用。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> jsPromise = <span class="hljs-built_in">Promise</span>.resolve($.ajax(<span class="hljs-string">&#x27;/whatever.json&#x27;</span>));
+</code></pre><p>上面代码将 jQuery 生成的<code>deferred</code>对象，转为一个新的 Promise 对象。</p><p><code>Promise.resolve()</code>等价于下面的写法。</p><pre class="hljs"><code><span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-string">&#x27;foo&#x27;</span>)
 <span class="hljs-comment">// 等价于</span>
-<span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-params">resolve</span> =&gt;</span> resolve(<span class="hljs-string">'foo'</span>))
+<span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-params">resolve</span> =&gt;</span> resolve(<span class="hljs-string">&#x27;foo&#x27;</span>))
 </code></pre><p><code>Promise.resolve()</code>方法的参数分成四种情况。</p><p><strong>（1）参数是一个 Promise 实例</strong></p><p>如果参数是 Promise 实例，那么<code>Promise.resolve</code>将不做任何修改、原封不动地返回这个实例。</p><p><strong>（2）参数是一个<code>thenable</code>对象</strong></p><p><code>thenable</code>对象指的是具有<code>then</code>方法的对象，比如下面这个对象。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> thenable = {
   <span class="hljs-attr">then</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resolve, reject</span>) </span>{
     resolve(<span class="hljs-number">42</span>);
@@ -478,7 +478,7 @@ err.push(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error
 p1.then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
   <span class="hljs-built_in">console</span>.log(value);  <span class="hljs-comment">// 42</span>
 });
-</code></pre><p>上面代码中，<code>thenable</code>对象的<code>then()</code>方法执行后，对象<code>p1</code>的状态就变为<code>resolved</code>，从而立即执行最后那个<code>then()</code>方法指定的回调函数，输出42。</p><p><strong>（3）参数不是具有<code>then()</code>方法的对象，或根本就不是对象</strong></p><p>如果参数是一个原始值，或者是一个不具有<code>then()</code>方法的对象，则<code>Promise.resolve()</code>方法返回一个新的 Promise 对象，状态为<code>resolved</code>。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> p = <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-string">'Hello'</span>);
+</code></pre><p>上面代码中，<code>thenable</code>对象的<code>then()</code>方法执行后，对象<code>p1</code>的状态就变为<code>resolved</code>，从而立即执行最后那个<code>then()</code>方法指定的回调函数，输出42。</p><p><strong>（3）参数不是具有<code>then()</code>方法的对象，或根本就不是对象</strong></p><p>如果参数是一个原始值，或者是一个不具有<code>then()</code>方法的对象，则<code>Promise.resolve()</code>方法返回一个新的 Promise 对象，状态为<code>resolved</code>。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> p = <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-string">&#x27;Hello&#x27;</span>);
 
 p.then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">s</span>) </span>{
   <span class="hljs-built_in">console</span>.log(s)
@@ -489,30 +489,30 @@ p.then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<
 p.then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
   <span class="hljs-comment">// ...</span>
 });
-</code></pre><p>上面代码的变量<code>p</code>就是一个 Promise 对象。</p><p>需要注意的是，立即<code>resolve()</code>的 Promise 对象，是在本轮“事件循环”（event loop）的结束时执行，而不是在下一轮“事件循环”的开始时。</p><pre class="hljs"><code>setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'three'</span>);
+</code></pre><p>上面代码的变量<code>p</code>就是一个 Promise 对象。</p><p>需要注意的是，立即<code>resolve()</code>的 Promise 对象，是在本轮“事件循环”（event loop）的结束时执行，而不是在下一轮“事件循环”的开始时。</p><pre class="hljs"><code><span class="hljs-built_in">setTimeout</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;three&#x27;</span>);
 }, <span class="hljs-number">0</span>);
 
 <span class="hljs-built_in">Promise</span>.resolve().then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'two'</span>);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;two&#x27;</span>);
 });
 
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'one'</span>);
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;one&#x27;</span>);
 
 <span class="hljs-comment">// one</span>
 <span class="hljs-comment">// two</span>
 <span class="hljs-comment">// three</span>
-</code></pre><p>上面代码中，<code>setTimeout(fn, 0)</code>在下一轮“事件循环”开始时执行，<code>Promise.resolve()</code>在本轮“事件循环”结束时执行，<code>console.log('one')</code>则是立即执行，因此最先输出。</p><h2 id="promisereject">Promise.reject() <a class="markdownIt-Anchor" href="#promisereject">#</a></h2><p><code>Promise.reject(reason)</code>方法也会返回一个新的 Promise 实例，该实例的状态为<code>rejected</code>。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> p = <span class="hljs-built_in">Promise</span>.reject(<span class="hljs-string">'出错了'</span>);
+</code></pre><p>上面代码中，<code>setTimeout(fn, 0)</code>在下一轮“事件循环”开始时执行，<code>Promise.resolve()</code>在本轮“事件循环”结束时执行，<code>console.log('one')</code>则是立即执行，因此最先输出。</p><h2 id="promisereject">Promise.reject() <a class="markdownIt-Anchor" href="#promisereject">#</a></h2><p><code>Promise.reject(reason)</code>方法也会返回一个新的 Promise 实例，该实例的状态为<code>rejected</code>。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> p = <span class="hljs-built_in">Promise</span>.reject(<span class="hljs-string">&#x27;出错了&#x27;</span>);
 <span class="hljs-comment">// 等同于</span>
-<span class="hljs-keyword">const</span> p = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> reject(<span class="hljs-string">'出错了'</span>))
+<span class="hljs-keyword">const</span> p = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> reject(<span class="hljs-string">&#x27;出错了&#x27;</span>))
 
 p.then(<span class="hljs-literal">null</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">s</span>) </span>{
   <span class="hljs-built_in">console</span>.log(s)
 });
 <span class="hljs-comment">// 出错了</span>
-</code></pre><p>上面代码生成一个 Promise 对象的实例<code>p</code>，状态为<code>rejected</code>，回调函数会立即执行。</p><p><code>Promise.reject()</code>方法的参数，会原封不动地作为<code>reject</code>的理由，变成后续方法的参数。</p><pre class="hljs"><code><span class="hljs-built_in">Promise</span>.reject(<span class="hljs-string">'出错了'</span>)
+</code></pre><p>上面代码生成一个 Promise 对象的实例<code>p</code>，状态为<code>rejected</code>，回调函数会立即执行。</p><p><code>Promise.reject()</code>方法的参数，会原封不动地作为<code>reject</code>的理由，变成后续方法的参数。</p><pre class="hljs"><code><span class="hljs-built_in">Promise</span>.reject(<span class="hljs-string">&#x27;出错了&#x27;</span>)
 .catch(<span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(e === <span class="hljs-string">'出错了'</span>)
+  <span class="hljs-built_in">console</span>.log(e === <span class="hljs-string">&#x27;出错了&#x27;</span>)
 })
 <span class="hljs-comment">// true</span>
 </code></pre><p>上面代码中，<code>Promise.reject()</code>方法的参数是一个字符串，后面<code>catch()</code>方法的参数<code>e</code>就是这个字符串。</p><h2 id="应用">应用 <a class="markdownIt-Anchor" href="#应用">#</a></h2><h3 id="加载图片">加载图片 <a class="markdownIt-Anchor" href="#加载图片">#</a></h3><p>我们可以将图片的加载写成一个<code>Promise</code>，一旦加载完成，<code>Promise</code>的状态就发生变化。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> preloadImage = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">path</span>) </span>{
@@ -525,7 +525,7 @@ p.then(<span class="hljs-literal">null</span>, <span class="hljs-function"><span
 };
 </code></pre><h3 id="generator-函数与-promise-的结合">Generator 函数与 Promise 的结合 <a class="markdownIt-Anchor" href="#generator-函数与-promise-的结合">#</a></h3><p>使用 Generator 函数管理流程，遇到异步操作的时候，通常返回一个<code>Promise</code>对象。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getFoo</span> (<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">resolve, reject</span>)</span>{
-    resolve(<span class="hljs-string">'foo'</span>);
+    resolve(<span class="hljs-string">&#x27;foo&#x27;</span>);
   });
 }
 
@@ -556,14 +556,14 @@ p.then(<span class="hljs-literal">null</span>, <span class="hljs-function"><span
 
 run(g);
 </code></pre><p>上面代码的 Generator 函数<code>g</code>之中，有一个异步操作<code>getFoo</code>，它返回的就是一个<code>Promise</code>对象。函数<code>run</code>用来处理这个<code>Promise</code>对象，并调用下一个<code>next</code>方法。</p><h2 id="promisetry">Promise.try() <a class="markdownIt-Anchor" href="#promisetry">#</a></h2><p>实际开发中，经常遇到一种情况：不知道或者不想区分，函数<code>f</code>是同步函数还是异步操作，但是想用 Promise 来处理它。因为这样就可以不管<code>f</code>是否包含异步操作，都用<code>then</code>方法指定下一步流程，用<code>catch</code>方法处理<code>f</code>抛出的错误。一般就会采用下面的写法。</p><pre class="hljs"><code><span class="hljs-built_in">Promise</span>.resolve().then(f)
-</code></pre><p>上面的写法有一个缺点，就是如果<code>f</code>是同步函数，那么它会在本轮事件循环的末尾执行。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> f = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'now'</span>);
+</code></pre><p>上面的写法有一个缺点，就是如果<code>f</code>是同步函数，那么它会在本轮事件循环的末尾执行。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> f = <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;now&#x27;</span>);
 <span class="hljs-built_in">Promise</span>.resolve().then(f);
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'next'</span>);
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;next&#x27;</span>);
 <span class="hljs-comment">// next</span>
 <span class="hljs-comment">// now</span>
-</code></pre><p>上面代码中，函数<code>f</code>是同步的，但是用 Promise 包装了以后，就变成异步执行了。</p><p>那么有没有一种方法，让同步函数同步执行，异步函数异步执行，并且让它们具有统一的 API 呢？回答是可以的，并且还有两种写法。第一种写法是用<code>async</code>函数来写。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> f = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'now'</span>);
-<span class="hljs-function">(<span class="hljs-params"><span class="hljs-keyword">async</span> (</span>) =&gt;</span> f())();
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'next'</span>);
+</code></pre><p>上面代码中，函数<code>f</code>是同步的，但是用 Promise 包装了以后，就变成异步执行了。</p><p>那么有没有一种方法，让同步函数同步执行，异步函数异步执行，并且让它们具有统一的 API 呢？回答是可以的，并且还有两种写法。第一种写法是用<code>async</code>函数来写。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> f = <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;now&#x27;</span>);
+(<span class="hljs-keyword">async</span> () =&gt; f())();
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;next&#x27;</span>);
 <span class="hljs-comment">// now</span>
 <span class="hljs-comment">// next</span>
 </code></pre><p>上面代码中，第二行是一个立即执行的匿名函数，会立即执行里面的<code>async</code>函数，因此如果<code>f</code>是同步的，就会得到同步的结果；如果<code>f</code>是异步的，就可以用<code>then</code>指定下一步，就像下面的写法。</p><pre class="hljs"><code>(<span class="hljs-keyword">async</span> () =&gt; f())()
@@ -571,18 +571,18 @@ run(g);
 </code></pre><p>需要注意的是，<code>async () =&gt; f()</code>会吃掉<code>f()</code>抛出的错误。所以，如果想捕获错误，要使用<code>promise.catch</code>方法。</p><pre class="hljs"><code>(<span class="hljs-keyword">async</span> () =&gt; f())()
 .then(...)
 .catch(...)
-</code></pre><p>第二种写法是使用<code>new Promise()</code>。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> f = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'now'</span>);
+</code></pre><p>第二种写法是使用<code>new Promise()</code>。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> f = <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;now&#x27;</span>);
 (
-  <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(
+  <span class="hljs-function">() =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(
     <span class="hljs-function"><span class="hljs-params">resolve</span> =&gt;</span> resolve(f())
   )
 )();
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'next'</span>);
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;next&#x27;</span>);
 <span class="hljs-comment">// now</span>
 <span class="hljs-comment">// next</span>
-</code></pre><p>上面代码也是使用立即执行的匿名函数，执行<code>new Promise()</code>。这种情况下，同步函数也是同步执行的。</p><p>鉴于这是一个很常见的需求，所以现在有一个<a href="https://github.com/ljharb/proposal-promise-try" target="_blank" rel="noopener">提案</a>，提供<code>Promise.try</code>方法替代上面的写法。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> f = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'now'</span>);
+</code></pre><p>上面代码也是使用立即执行的匿名函数，执行<code>new Promise()</code>。这种情况下，同步函数也是同步执行的。</p><p>鉴于这是一个很常见的需求，所以现在有一个<a href="https://github.com/ljharb/proposal-promise-try" target="_blank" rel="noopener">提案</a>，提供<code>Promise.try</code>方法替代上面的写法。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> f = <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;now&#x27;</span>);
 <span class="hljs-built_in">Promise</span>.try(f);
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'next'</span>);
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;next&#x27;</span>);
 <span class="hljs-comment">// now</span>
 <span class="hljs-comment">// next</span>
 </code></pre><p>事实上，<code>Promise.try</code>存在已久，Promise 库<a href="http://bluebirdjs.com/docs/api/promise.try.html" target="_blank" rel="noopener"><code>Bluebird</code></a>、<a href="https://github.com/kriskowal/q/wiki/API-Reference#promisefcallargs" target="_blank" rel="noopener"><code>Q</code></a>和<a href="https://github.com/cujojs/when/blob/master/docs/api.md#whentry" target="_blank" rel="noopener"><code>when</code></a>，早就提供了这个方法。</p><p>由于<code>Promise.try</code>为所有操作提供了统一的处理机制，所以如果想用<code>then</code>方法管理流程，最好都用<code>Promise.try</code>包装一下。这样有<a href="http://cryto.net/~joepie91/blog/2016/05/11/what-is-promise-try-and-why-does-it-matter/" target="_blank" rel="noopener">许多好处</a>，其中一点就是可以更好地管理异常。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getUsername</span>(<span class="hljs-params">userId</span>) </span>{
@@ -601,7 +601,7 @@ run(g);
 } <span class="hljs-keyword">catch</span> (e) {
   <span class="hljs-comment">// ...</span>
 }
-</code></pre><p>上面这样的写法就很笨拙了，这时就可以统一用<code>promise.catch()</code>捕获所有同步和异步的错误。</p><pre class="hljs"><code><span class="hljs-built_in">Promise</span>.try(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> database.users.get({<span class="hljs-attr">id</span>: userId}))
+</code></pre><p>上面这样的写法就很笨拙了，这时就可以统一用<code>promise.catch()</code>捕获所有同步和异步的错误。</p><pre class="hljs"><code><span class="hljs-built_in">Promise</span>.try(<span class="hljs-function">() =&gt;</span> database.users.get({<span class="hljs-attr">id</span>: userId}))
   .then(...)
   .catch(...)
 </code></pre><p>事实上，<code>Promise.try</code>就是模拟<code>try</code>代码块，就像<code>promise.catch</code>模拟的是<code>catch</code>代码块。</p></article><nav class="level level-previous-next is-size-5 is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="reflect.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> Reflect</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="iterator.html">Iterator 和 for...of 循环 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><div class="page-info is-size-5-desktop"><p>本教程采用<a href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh" target="_blank">知识共享 署名-相同方式共享 3.0协议</a>。</p><p>分享本文 <span class="social-share"></span></p></div></div><div class="column is-3 is-offset-1"><nav class="panel panel-menu"><p class="panel-heading"><i class="fa fa-book" aria-hidden="true"></i> ES6 教程</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="intro.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">ECMAScript 6 简介</span></a></li><li><a href="let.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">let 和 const 命令</span></a></li><li><a href="destructuring.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">变量的解构赋值</span></a></li><li><a href="string.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">字符串的扩展</span></a></li><li><a href="string-methods.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">字符串的新增方法</span></a></li><li><a href="regex.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">正则的扩展</span></a></li><li><a href="number.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数值的扩展</span></a></li><li><a href="function.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">函数的扩展</span></a></li><li><a href="array.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数组的扩展</span></a></li><li><a href="object.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">对象的扩展</span></a></li><li><a href="object-methods.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">对象的新增方法</span></a></li><li><a href="symbol.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Symbol</span></a></li><li><a href="set-map.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Set 和 Map 数据结构</span></a></li><li><a href="proxy.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Proxy</span></a></li><li><a href="reflect.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Reflect</span></a></li><li><a href="promise.html" class="is-active"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Promise 对象</span></a></li><li><a href="iterator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Iterator 和 for...of 循环</span></a></li><li><a href="generator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Generator 函数的语法</span></a></li><li><a href="generator-async.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Generator 函数的异步应用</span></a></li><li><a href="async.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">async 函数</span></a></li><li><a href="class.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Class 的基本语法</span></a></li><li><a href="class-extends.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Class 的继承</span></a></li><li><a href="module.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Module 的语法</span></a></li><li><a href="module-loader.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Module 的加载实现</span></a></li><li><a href="style.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">编程风格</span></a></li><li><a href="spec.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">读懂规格</span></a></li><li><a href="async-iterator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">异步遍历器</span></a></li><li><a href="arraybuffer.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">ArrayBuffer</span></a></li><li><a href="proposals.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">最新提案</span></a></li><li><a href="decorator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Decorator</span></a></li><li><a href="reference.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">参考链接</span></a></li></ul></aside></div></nav><nav class="panel panel-info"><p class="panel-heading"><i class="fa fa-link" aria-hidden="true"></i> 链接</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="https://raw.githubusercontent.com/wangdoc/es6-tutorial/master/docs/promise.md" target="_blank"><span class="icon"></span><i class="fa fa-code" aria-hidden="true" style="width: 14px;"></i>&nbsp;本文源码</a></li><li><a href="https://github.com/wangdoc/es6-tutorial" target="_blank"><span class="icon"></span><i class="fa fa-hdd-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;代码仓库</a></li><li><a href="https://github.com/wangdoc/es6-tutorial/issues" target="_blank"><span class="icon"></span><i class="fa fa-flag-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;反馈</a></li></ul></aside></div></nav></div></div><div class="columns"><div class="column is-8"><div id="disqus_thread"></div></div></div></div></section><footer class="footer is-size-5-desktop"><div class="container"><div class="content has-text-centered"><p>联系：contact@wangdoc.com</p></div></div></footer><script>var LOPPO={current_path:"promise.md",relative_root_path:"",article_toc:'<ul class="markdownIt-TOC">\n<li><a href="#promise-%E7%9A%84%E5%90%AB%E4%B9%89">Promise 的含义</a></li>\n<li><a href="#%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95">基本用法</a></li>\n<li><a href="#promiseprototypethen">Promise.prototype.then()</a></li>\n<li><a href="#promiseprototypecatch">Promise.prototype.catch()</a></li>\n<li><a href="#promiseprototypefinally">Promise.prototype.finally()</a></li>\n<li><a href="#promiseall">Promise.all()</a></li>\n<li><a href="#promiserace">Promise.race()</a></li>\n<li><a href="#promiseallsettled">Promise.allSettled()</a></li>\n<li><a href="#promiseany">Promise.any()</a></li>\n<li><a href="#promiseresolve">Promise.resolve()</a></li>\n<li><a href="#promisereject">Promise.reject()</a></li>\n<li><a href="#%E5%BA%94%E7%94%A8">应用</a>\n<ul>\n<li><a href="#%E5%8A%A0%E8%BD%BD%E5%9B%BE%E7%89%87">加载图片</a></li>\n<li><a href="#generator-%E5%87%BD%E6%95%B0%E4%B8%8E-promise-%E7%9A%84%E7%BB%93%E5%90%88">Generator 函数与 Promise 的结合</a></li>\n</ul>\n</li>\n<li><a href="#promisetry">Promise.try()</a></li>\n</ul>\n'}</script><script src="assets/js/app.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-111269443-1"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","UA-111269443-1")</script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?5eec262881855af3dede6a71234571f6";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><script>/**

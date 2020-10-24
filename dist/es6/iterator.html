@@ -1,7 +1,7 @@
-<!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Iterator 和 for...of 循环 - ES6 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="Iterator 和 for...of 循环"><link rel="apple-touch-icon" sizes="57x57" href="assets/icons/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="assets/icons/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="assets/icons/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="assets/icons/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="assets/icons/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="assets/icons/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="assets/icons/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="assets/icons/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png"><link rel="manifest" href="assets/icons/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="assets/icons/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/es6-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/es6-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8"><nav class="breadcrumb is-size-5-desktop" aria-label="breadcrumbs"><ul><li><a href="index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;ES6 教程</a></li><li class="is-active"><a class="has-text-grey" href="iterator.html">Iterator 和 for...of 循环</a></li></ul></nav><nav class="level level-previous-next is-size-5 is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="promise.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> Promise 对象</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="generator.html">Generator 函数的语法 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content is-size-4-desktop"><h1 class="title">Iterator 和 for...of 循环</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><h2 id="iterator（遍历器）的概念">Iterator（遍历器）的概念 <a class="markdownIt-Anchor" href="#iterator（遍历器）的概念">#</a></h2><p>JavaScript 原有的表示“集合”的数据结构，主要是数组（<code>Array</code>）和对象（<code>Object</code>），ES6 又添加了<code>Map</code>和<code>Set</code>。这样就有了四种数据集合，用户还可以组合使用它们，定义自己的数据结构，比如数组的成员是<code>Map</code>，<code>Map</code>的成员是对象。这样就需要一种统一的接口机制，来处理所有不同的数据结构。</p><p>遍历器（Iterator）就是这样一种机制。它是一种接口，为各种不同的数据结构提供统一的访问机制。任何数据结构只要部署 Iterator 接口，就可以完成遍历操作（即依次处理该数据结构的所有成员）。</p><p>Iterator 的作用有三个：一是为各种数据结构，提供一个统一的、简便的访问接口；二是使得数据结构的成员能够按某种次序排列；三是 ES6 创造了一种新的遍历命令<code>for...of</code>循环，Iterator 接口主要供<code>for...of</code>消费。</p><p>Iterator 的遍历过程是这样的。</p><p>（1）创建一个指针对象，指向当前数据结构的起始位置。也就是说，遍历器对象本质上，就是一个指针对象。</p><p>（2）第一次调用指针对象的<code>next</code>方法，可以将指针指向数据结构的第一个成员。</p><p>（3）第二次调用指针对象的<code>next</code>方法，指针就指向数据结构的第二个成员。</p><p>（4）不断调用指针对象的<code>next</code>方法，直到它指向数据结构的结束位置。</p><p>每一次调用<code>next</code>方法，都会返回数据结构的当前成员的信息。具体来说，就是返回一个包含<code>value</code>和<code>done</code>两个属性的对象。其中，<code>value</code>属性是当前成员的值，<code>done</code>属性是一个布尔值，表示遍历是否结束。</p><p>下面是一个模拟<code>next</code>方法返回值的例子。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> it = makeIterator([<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>]);
+<!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Iterator 和 for...of 循环 - ES6 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="Iterator 和 for...of 循环"><link rel="apple-touch-icon" sizes="57x57" href="assets/icons/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="assets/icons/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="assets/icons/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="assets/icons/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="assets/icons/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="assets/icons/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="assets/icons/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="assets/icons/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png"><link rel="manifest" href="assets/icons/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="assets/icons/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/es6-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/es6-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8"><nav class="breadcrumb is-size-5-desktop" aria-label="breadcrumbs"><ul><li><a href="index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;ES6 教程</a></li><li class="is-active"><a class="has-text-grey" href="iterator.html">Iterator 和 for...of 循环</a></li></ul></nav><nav class="level level-previous-next is-size-5 is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="promise.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> Promise 对象</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="generator.html">Generator 函数的语法 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content is-size-4-desktop"><h1 class="title">Iterator 和 for...of 循环</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><h2 id="iterator（遍历器）的概念">Iterator（遍历器）的概念 <a class="markdownIt-Anchor" href="#iterator（遍历器）的概念">#</a></h2><p>JavaScript 原有的表示“集合”的数据结构，主要是数组（<code>Array</code>）和对象（<code>Object</code>），ES6 又添加了<code>Map</code>和<code>Set</code>。这样就有了四种数据集合，用户还可以组合使用它们，定义自己的数据结构，比如数组的成员是<code>Map</code>，<code>Map</code>的成员是对象。这样就需要一种统一的接口机制，来处理所有不同的数据结构。</p><p>遍历器（Iterator）就是这样一种机制。它是一种接口，为各种不同的数据结构提供统一的访问机制。任何数据结构只要部署 Iterator 接口，就可以完成遍历操作（即依次处理该数据结构的所有成员）。</p><p>Iterator 的作用有三个：一是为各种数据结构，提供一个统一的、简便的访问接口；二是使得数据结构的成员能够按某种次序排列；三是 ES6 创造了一种新的遍历命令<code>for...of</code>循环，Iterator 接口主要供<code>for...of</code>消费。</p><p>Iterator 的遍历过程是这样的。</p><p>（1）创建一个指针对象，指向当前数据结构的起始位置。也就是说，遍历器对象本质上，就是一个指针对象。</p><p>（2）第一次调用指针对象的<code>next</code>方法，可以将指针指向数据结构的第一个成员。</p><p>（3）第二次调用指针对象的<code>next</code>方法，指针就指向数据结构的第二个成员。</p><p>（4）不断调用指针对象的<code>next</code>方法，直到它指向数据结构的结束位置。</p><p>每一次调用<code>next</code>方法，都会返回数据结构的当前成员的信息。具体来说，就是返回一个包含<code>value</code>和<code>done</code>两个属性的对象。其中，<code>value</code>属性是当前成员的值，<code>done</code>属性是一个布尔值，表示遍历是否结束。</p><p>下面是一个模拟<code>next</code>方法返回值的例子。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> it = makeIterator([<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>]);
 
-it.next() <span class="hljs-comment">// { value: "a", done: false }</span>
-it.next() <span class="hljs-comment">// { value: "b", done: false }</span>
+it.next() <span class="hljs-comment">// { value: &quot;a&quot;, done: false }</span>
+it.next() <span class="hljs-comment">// { value: &quot;b&quot;, done: false }</span>
 it.next() <span class="hljs-comment">// { value: undefined, done: true }</span>
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">makeIterator</span>(<span class="hljs-params">array</span>) </span>{
@@ -36,7 +36,7 @@ it.next().value <span class="hljs-comment">// 2</span>
 
   <span class="hljs-keyword">return</span> {
     <span class="hljs-attr">next</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-      <span class="hljs-keyword">return</span> {<span class="hljs-attr">value</span>: index++, <span class="hljs-attr">done</span>: <span class="hljs-literal">false</span>};
+      <span class="hljs-keyword">return</span> {<span class="hljs-attr">value</span>: index++, done: <span class="hljs-literal">false</span>};
     }
   };
 }
@@ -64,25 +64,25 @@ interface IterationResult {
     };
   }
 };
-</code></pre><p>上面代码中，对象<code>obj</code>是可遍历的（iterable），因为具有<code>Symbol.iterator</code>属性。执行这个属性，会返回一个遍历器对象。该对象的根本特征就是具有<code>next</code>方法。每次调用<code>next</code>方法，都会返回一个代表当前成员的信息对象，具有<code>value</code>和<code>done</code>两个属性。</p><p>ES6 的有些数据结构原生具备 Iterator 接口（比如数组），即不用任何处理，就可以被<code>for...of</code>循环遍历。原因在于，这些数据结构原生部署了<code>Symbol.iterator</code>属性（详见下文），另外一些数据结构没有（比如对象）。凡是部署了<code>Symbol.iterator</code>属性的数据结构，就称为部署了遍历器接口。调用这个接口，就会返回一个遍历器对象。</p><p>原生具备 Iterator 接口的数据结构如下。</p><ul><li>Array</li><li>Map</li><li>Set</li><li>String</li><li>TypedArray</li><li>函数的 arguments 对象</li><li>NodeList 对象</li></ul><p>下面的例子是数组的<code>Symbol.iterator</code>属性。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> arr = [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>];
+</code></pre><p>上面代码中，对象<code>obj</code>是可遍历的（iterable），因为具有<code>Symbol.iterator</code>属性。执行这个属性，会返回一个遍历器对象。该对象的根本特征就是具有<code>next</code>方法。每次调用<code>next</code>方法，都会返回一个代表当前成员的信息对象，具有<code>value</code>和<code>done</code>两个属性。</p><p>ES6 的有些数据结构原生具备 Iterator 接口（比如数组），即不用任何处理，就可以被<code>for...of</code>循环遍历。原因在于，这些数据结构原生部署了<code>Symbol.iterator</code>属性（详见下文），另外一些数据结构没有（比如对象）。凡是部署了<code>Symbol.iterator</code>属性的数据结构，就称为部署了遍历器接口。调用这个接口，就会返回一个遍历器对象。</p><p>原生具备 Iterator 接口的数据结构如下。</p><ul><li>Array</li><li>Map</li><li>Set</li><li>String</li><li>TypedArray</li><li>函数的 arguments 对象</li><li>NodeList 对象</li></ul><p>下面的例子是数组的<code>Symbol.iterator</code>属性。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> arr = [<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;c&#x27;</span>];
 <span class="hljs-keyword">let</span> iter = arr[<span class="hljs-built_in">Symbol</span>.iterator]();
 
-iter.next() <span class="hljs-comment">// { value: 'a', done: false }</span>
-iter.next() <span class="hljs-comment">// { value: 'b', done: false }</span>
-iter.next() <span class="hljs-comment">// { value: 'c', done: false }</span>
+iter.next() <span class="hljs-comment">// { value: &#x27;a&#x27;, done: false }</span>
+iter.next() <span class="hljs-comment">// { value: &#x27;b&#x27;, done: false }</span>
+iter.next() <span class="hljs-comment">// { value: &#x27;c&#x27;, done: false }</span>
 iter.next() <span class="hljs-comment">// { value: undefined, done: true }</span>
 </code></pre><p>上面代码中，变量<code>arr</code>是一个数组，原生就具有遍历器接口，部署在<code>arr</code>的<code>Symbol.iterator</code>属性上面。所以，调用这个属性，就得到遍历器对象。</p><p>对于原生部署 Iterator 接口的数据结构，不用自己写遍历器生成函数，<code>for...of</code>循环会自动遍历它们。除此之外，其他数据结构（主要是对象）的 Iterator 接口，都需要自己在<code>Symbol.iterator</code>属性上面部署，这样才会被<code>for...of</code>循环遍历。</p><p>对象（Object）之所以没有默认部署 Iterator 接口，是因为对象的哪个属性先遍历，哪个属性后遍历是不确定的，需要开发者手动指定。本质上，遍历器是一种线性处理，对于任何非线性的数据结构，部署遍历器接口，就等于部署一种线性转换。不过，严格地说，对象部署遍历器接口并不是很必要，因为这时对象实际上被当作 Map 结构使用，ES5 没有 Map 结构，而 ES6 原生提供了。</p><p>一个对象如果要具备可被<code>for...of</code>循环调用的 Iterator 接口，就必须在<code>Symbol.iterator</code>的属性上部署遍历器生成方法（原型链上的对象具有该方法也可）。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RangeIterator</span> </span>{
   <span class="hljs-keyword">constructor</span>(start, stop) {
-    <span class="hljs-keyword">this</span>.value = start;
-    <span class="hljs-keyword">this</span>.stop = stop;
+    <span class="hljs-built_in">this</span>.value = start;
+    <span class="hljs-built_in">this</span>.stop = stop;
   }
 
-  [<span class="hljs-built_in">Symbol</span>.iterator]() { <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>; }
+  [<span class="hljs-built_in">Symbol</span>.iterator]() { <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>; }
 
   next() {
-    <span class="hljs-keyword">var</span> value = <span class="hljs-keyword">this</span>.value;
-    <span class="hljs-keyword">if</span> (value &lt; <span class="hljs-keyword">this</span>.stop) {
-      <span class="hljs-keyword">this</span>.value++;
+    <span class="hljs-keyword">var</span> value = <span class="hljs-built_in">this</span>.value;
+    <span class="hljs-keyword">if</span> (value &lt; <span class="hljs-built_in">this</span>.stop) {
+      <span class="hljs-built_in">this</span>.value++;
       <span class="hljs-keyword">return</span> {<span class="hljs-attr">done</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">value</span>: value};
     }
     <span class="hljs-keyword">return</span> {<span class="hljs-attr">done</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">value</span>: <span class="hljs-literal">undefined</span>};
@@ -97,14 +97,14 @@ iter.next() <span class="hljs-comment">// { value: undefined, done: true }</span
   <span class="hljs-built_in">console</span>.log(value); <span class="hljs-comment">// 0, 1, 2</span>
 }
 </code></pre><p>上面代码是一个类部署 Iterator 接口的写法。<code>Symbol.iterator</code>属性对应一个函数，执行后返回当前对象的遍历器对象。</p><p>下面是通过遍历器实现指针结构的例子。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Obj</span>(<span class="hljs-params">value</span>) </span>{
-  <span class="hljs-keyword">this</span>.value = value;
-  <span class="hljs-keyword">this</span>.next = <span class="hljs-literal">null</span>;
+  <span class="hljs-built_in">this</span>.value = value;
+  <span class="hljs-built_in">this</span>.next = <span class="hljs-literal">null</span>;
 }
 
 Obj.prototype[<span class="hljs-built_in">Symbol</span>.iterator] = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">var</span> iterator = { <span class="hljs-attr">next</span>: next };
 
-  <span class="hljs-keyword">var</span> current = <span class="hljs-keyword">this</span>;
+  <span class="hljs-keyword">var</span> current = <span class="hljs-built_in">this</span>;
 
   <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">next</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">if</span> (current) {
@@ -129,9 +129,9 @@ two.next = three;
   <span class="hljs-built_in">console</span>.log(i); <span class="hljs-comment">// 1, 2, 3</span>
 }
 </code></pre><p>上面代码首先在构造函数的原型链上部署<code>Symbol.iterator</code>方法，调用该方法会返回遍历器对象<code>iterator</code>，调用该对象的<code>next</code>方法，在返回一个值的同时，自动将内部指针移到下一个实例。</p><p>下面是另一个为对象添加 Iterator 接口的例子。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> obj = {
-  <span class="hljs-attr">data</span>: [ <span class="hljs-string">'hello'</span>, <span class="hljs-string">'world'</span> ],
+  <span class="hljs-attr">data</span>: [ <span class="hljs-string">&#x27;hello&#x27;</span>, <span class="hljs-string">&#x27;world&#x27;</span> ],
   [<span class="hljs-built_in">Symbol</span>.iterator]() {
-    <span class="hljs-keyword">const</span> self = <span class="hljs-keyword">this</span>;
+    <span class="hljs-keyword">const</span> self = <span class="hljs-built_in">this</span>;
     <span class="hljs-keyword">let</span> index = <span class="hljs-number">0</span>;
     <span class="hljs-keyword">return</span> {
       next() {
@@ -151,21 +151,21 @@ two.next = three;
 <span class="hljs-comment">// 或者</span>
 NodeList.prototype[<span class="hljs-built_in">Symbol</span>.iterator] = [][<span class="hljs-built_in">Symbol</span>.iterator];
 
-[...document.querySelectorAll(<span class="hljs-string">'div'</span>)] <span class="hljs-comment">// 可以执行了</span>
+[...document.querySelectorAll(<span class="hljs-string">&#x27;div&#x27;</span>)] <span class="hljs-comment">// 可以执行了</span>
 </code></pre><p>NodeList 对象是类似数组的对象，本来就具有遍历接口，可以直接遍历。上面代码中，我们将它的遍历接口改成数组的<code>Symbol.iterator</code>属性，可以看到没有任何影响。</p><p>下面是另一个类似数组的对象调用数组的<code>Symbol.iterator</code>方法的例子。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> iterable = {
-  <span class="hljs-number">0</span>: <span class="hljs-string">'a'</span>,
-  <span class="hljs-number">1</span>: <span class="hljs-string">'b'</span>,
-  <span class="hljs-number">2</span>: <span class="hljs-string">'c'</span>,
+  <span class="hljs-number">0</span>: <span class="hljs-string">&#x27;a&#x27;</span>,
+  <span class="hljs-number">1</span>: <span class="hljs-string">&#x27;b&#x27;</span>,
+  <span class="hljs-number">2</span>: <span class="hljs-string">&#x27;c&#x27;</span>,
   <span class="hljs-attr">length</span>: <span class="hljs-number">3</span>,
   [<span class="hljs-built_in">Symbol</span>.iterator]: <span class="hljs-built_in">Array</span>.prototype[<span class="hljs-built_in">Symbol</span>.iterator]
 };
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> item <span class="hljs-keyword">of</span> iterable) {
-  <span class="hljs-built_in">console</span>.log(item); <span class="hljs-comment">// 'a', 'b', 'c'</span>
+  <span class="hljs-built_in">console</span>.log(item); <span class="hljs-comment">// &#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;</span>
 }
 </code></pre><p>注意，普通对象部署数组的<code>Symbol.iterator</code>方法，并无效果。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> iterable = {
-  <span class="hljs-attr">a</span>: <span class="hljs-string">'a'</span>,
-  <span class="hljs-attr">b</span>: <span class="hljs-string">'b'</span>,
-  <span class="hljs-attr">c</span>: <span class="hljs-string">'c'</span>,
+  <span class="hljs-attr">a</span>: <span class="hljs-string">&#x27;a&#x27;</span>,
+  <span class="hljs-attr">b</span>: <span class="hljs-string">&#x27;b&#x27;</span>,
+  <span class="hljs-attr">c</span>: <span class="hljs-string">&#x27;c&#x27;</span>,
   <span class="hljs-attr">length</span>: <span class="hljs-number">3</span>,
   [<span class="hljs-built_in">Symbol</span>.iterator]: <span class="hljs-built_in">Array</span>.prototype[<span class="hljs-built_in">Symbol</span>.iterator]
 };
@@ -174,7 +174,7 @@ NodeList.prototype[<span class="hljs-built_in">Symbol</span>.iterator] = [][<spa
 }
 </code></pre><p>如果<code>Symbol.iterator</code>方法对应的不是遍历器生成函数（即会返回一个遍历器对象），解释引擎将会报错。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = {};
 
-obj[<span class="hljs-built_in">Symbol</span>.iterator] = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-number">1</span>;
+obj[<span class="hljs-built_in">Symbol</span>.iterator] = <span class="hljs-function">() =&gt;</span> <span class="hljs-number">1</span>;
 
 [...obj] <span class="hljs-comment">// TypeError: [] is not a function</span>
 </code></pre><p>上面代码中，变量<code>obj</code>的<code>Symbol.iterator</code>方法对应的不是遍历器生成函数，因此报错。</p><p>有了遍历器接口，数据结构就可以用<code>for...of</code>循环遍历（详见下文），也可以使用<code>while</code>循环遍历。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> $iterator = ITERABLE[<span class="hljs-built_in">Symbol</span>.iterator]();
@@ -184,21 +184,21 @@ obj[<span class="hljs-built_in">Symbol</span>.iterator] = <span class="hljs-func
   <span class="hljs-comment">// ...</span>
   $result = $iterator.next();
 }
-</code></pre><p>上面代码中，<code>ITERABLE</code>代表某种可遍历的数据结构，<code>$iterator</code>是它的遍历器对象。遍历器对象每次移动指针（<code>next</code>方法），都检查一下返回值的<code>done</code>属性，如果遍历还没结束，就移动遍历器对象的指针到下一步（<code>next</code>方法），不断循环。</p><h2 id="调用-iterator-接口的场合">调用 Iterator 接口的场合 <a class="markdownIt-Anchor" href="#调用-iterator-接口的场合">#</a></h2><p>有一些场合会默认调用 Iterator 接口（即<code>Symbol.iterator</code>方法），除了下文会介绍的<code>for...of</code>循环，还有几个别的场合。</p><p><strong>（1）解构赋值</strong></p><p>对数组和 Set 结构进行解构赋值时，会默认调用<code>Symbol.iterator</code>方法。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> <span class="hljs-keyword">set</span> = new Set().add('a').add('b').add('c');
+</code></pre><p>上面代码中，<code>ITERABLE</code>代表某种可遍历的数据结构，<code>$iterator</code>是它的遍历器对象。遍历器对象每次移动指针（<code>next</code>方法），都检查一下返回值的<code>done</code>属性，如果遍历还没结束，就移动遍历器对象的指针到下一步（<code>next</code>方法），不断循环。</p><h2 id="调用-iterator-接口的场合">调用 Iterator 接口的场合 <a class="markdownIt-Anchor" href="#调用-iterator-接口的场合">#</a></h2><p>有一些场合会默认调用 Iterator 接口（即<code>Symbol.iterator</code>方法），除了下文会介绍的<code>for...of</code>循环，还有几个别的场合。</p><p><strong>（1）解构赋值</strong></p><p>对数组和 Set 结构进行解构赋值时，会默认调用<code>Symbol.iterator</code>方法。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> set = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>().add(<span class="hljs-string">&#x27;a&#x27;</span>).add(<span class="hljs-string">&#x27;b&#x27;</span>).add(<span class="hljs-string">&#x27;c&#x27;</span>);
 
-let [x,y] = <span class="hljs-keyword">set</span>;
-// x='a'; y='b'
+<span class="hljs-keyword">let</span> [x,y] = set;
+<span class="hljs-comment">// x=&#x27;a&#x27;; y=&#x27;b&#x27;</span>
 
-let [first, ...rest] = <span class="hljs-keyword">set</span>;
-// first='a'; rest=['b','c'];
+<span class="hljs-keyword">let</span> [first, ...rest] = set;
+<span class="hljs-comment">// first=&#x27;a&#x27;; rest=[&#x27;b&#x27;,&#x27;c&#x27;];</span>
 </code></pre><p><strong>（2）扩展运算符</strong></p><p>扩展运算符（...）也会调用默认的 Iterator 接口。</p><pre class="hljs"><code><span class="hljs-comment">// 例一</span>
-<span class="hljs-keyword">var</span> str = <span class="hljs-string">'hello'</span>;
-[...str] <span class="hljs-comment">//  ['h','e','l','l','o']</span>
+<span class="hljs-keyword">var</span> str = <span class="hljs-string">&#x27;hello&#x27;</span>;
+[...str] <span class="hljs-comment">//  [&#x27;h&#x27;,&#x27;e&#x27;,&#x27;l&#x27;,&#x27;l&#x27;,&#x27;o&#x27;]</span>
 
 <span class="hljs-comment">// 例二</span>
-<span class="hljs-keyword">let</span> arr = [<span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>];
-[<span class="hljs-string">'a'</span>, ...arr, <span class="hljs-string">'d'</span>]
-<span class="hljs-comment">// ['a', 'b', 'c', 'd']</span>
+<span class="hljs-keyword">let</span> arr = [<span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;c&#x27;</span>];
+[<span class="hljs-string">&#x27;a&#x27;</span>, ...arr, <span class="hljs-string">&#x27;d&#x27;</span>]
+<span class="hljs-comment">// [&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;, &#x27;d&#x27;]</span>
 </code></pre><p>上面代码的扩展运算符内部就调用 Iterator 接口。</p><p>实际上，这提供了一种简便机制，可以将任何部署了 Iterator 接口的数据结构，转为数组。也就是说，只要某个数据结构部署了 Iterator 接口，就可以对它使用扩展运算符，将其转为数组。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> arr = [...iterable];
 </code></pre><p><strong>（3）yield*</strong></p><p><code>yield*</code>后面跟的是一个可遍历的结构，它会调用该结构的遍历器接口。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> generator = <span class="hljs-function"><span class="hljs-keyword">function</span>* (<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">yield</span> <span class="hljs-number">1</span>;
@@ -214,25 +214,25 @@ iterator.next() <span class="hljs-comment">// { value: 3, done: false }</span>
 iterator.next() <span class="hljs-comment">// { value: 4, done: false }</span>
 iterator.next() <span class="hljs-comment">// { value: 5, done: false }</span>
 iterator.next() <span class="hljs-comment">// { value: undefined, done: true }</span>
-</code></pre><p><strong>（4）其他场合</strong></p><p>由于数组的遍历会调用遍历器接口，所以任何接受数组作为参数的场合，其实都调用了遍历器接口。下面是一些例子。</p><ul><li>for...of</li><li>Array.from()</li><li>Map(), Set(), WeakMap(), WeakSet()（比如<code>new Map([['a',1],['b',2]])</code>）</li><li>Promise.all()</li><li>Promise.race()</li></ul><h2 id="字符串的-iterator-接口">字符串的 Iterator 接口 <a class="markdownIt-Anchor" href="#字符串的-iterator-接口">#</a></h2><p>字符串是一个类似数组的对象，也原生具有 Iterator 接口。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> someString = <span class="hljs-string">"hi"</span>;
+</code></pre><p><strong>（4）其他场合</strong></p><p>由于数组的遍历会调用遍历器接口，所以任何接受数组作为参数的场合，其实都调用了遍历器接口。下面是一些例子。</p><ul><li>for...of</li><li>Array.from()</li><li>Map(), Set(), WeakMap(), WeakSet()（比如<code>new Map([['a',1],['b',2]])</code>）</li><li>Promise.all()</li><li>Promise.race()</li></ul><h2 id="字符串的-iterator-接口">字符串的 Iterator 接口 <a class="markdownIt-Anchor" href="#字符串的-iterator-接口">#</a></h2><p>字符串是一个类似数组的对象，也原生具有 Iterator 接口。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> someString = <span class="hljs-string">&quot;hi&quot;</span>;
 <span class="hljs-keyword">typeof</span> someString[<span class="hljs-built_in">Symbol</span>.iterator]
-<span class="hljs-comment">// "function"</span>
+<span class="hljs-comment">// &quot;function&quot;</span>
 
 <span class="hljs-keyword">var</span> iterator = someString[<span class="hljs-built_in">Symbol</span>.iterator]();
 
-iterator.next()  <span class="hljs-comment">// { value: "h", done: false }</span>
-iterator.next()  <span class="hljs-comment">// { value: "i", done: false }</span>
+iterator.next()  <span class="hljs-comment">// { value: &quot;h&quot;, done: false }</span>
+iterator.next()  <span class="hljs-comment">// { value: &quot;i&quot;, done: false }</span>
 iterator.next()  <span class="hljs-comment">// { value: undefined, done: true }</span>
-</code></pre><p>上面代码中，调用<code>Symbol.iterator</code>方法返回一个遍历器对象，在这个遍历器上可以调用 next 方法，实现对于字符串的遍历。</p><p>可以覆盖原生的<code>Symbol.iterator</code>方法，达到修改遍历器行为的目的。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> str = <span class="hljs-keyword">new</span> <span class="hljs-built_in">String</span>(<span class="hljs-string">"hi"</span>);
+</code></pre><p>上面代码中，调用<code>Symbol.iterator</code>方法返回一个遍历器对象，在这个遍历器上可以调用 next 方法，实现对于字符串的遍历。</p><p>可以覆盖原生的<code>Symbol.iterator</code>方法，达到修改遍历器行为的目的。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> str = <span class="hljs-keyword">new</span> <span class="hljs-built_in">String</span>(<span class="hljs-string">&quot;hi&quot;</span>);
 
-[...str] <span class="hljs-comment">// ["h", "i"]</span>
+[...str] <span class="hljs-comment">// [&quot;h&quot;, &quot;i&quot;]</span>
 
 str[<span class="hljs-built_in">Symbol</span>.iterator] = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">return</span> {
     <span class="hljs-attr">next</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._first) {
-        <span class="hljs-keyword">this</span>._first = <span class="hljs-literal">false</span>;
-        <span class="hljs-keyword">return</span> { <span class="hljs-attr">value</span>: <span class="hljs-string">"bye"</span>, <span class="hljs-attr">done</span>: <span class="hljs-literal">false</span> };
+      <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>._first) {
+        <span class="hljs-built_in">this</span>._first = <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">return</span> { <span class="hljs-attr">value</span>: <span class="hljs-string">&quot;bye&quot;</span>, <span class="hljs-attr">done</span>: <span class="hljs-literal">false</span> };
       } <span class="hljs-keyword">else</span> {
         <span class="hljs-keyword">return</span> { <span class="hljs-attr">done</span>: <span class="hljs-literal">true</span> };
       }
@@ -241,8 +241,8 @@ str[<span class="hljs-built_in">Symbol</span>.iterator] = <span class="hljs-func
   };
 };
 
-[...str] <span class="hljs-comment">// ["bye"]</span>
-str <span class="hljs-comment">// "hi"</span>
+[...str] <span class="hljs-comment">// [&quot;bye&quot;]</span>
+str <span class="hljs-comment">// &quot;hi&quot;</span>
 </code></pre><p>上面代码中，字符串 str 的<code>Symbol.iterator</code>方法被修改了，所以扩展运算符（<code>...</code>）返回的值变成了<code>bye</code>，而字符串本身还是<code>hi</code>。</p><h2 id="iterator-接口与-generator-函数">Iterator 接口与 Generator 函数 <a class="markdownIt-Anchor" href="#iterator-接口与-generator-函数">#</a></h2><p><code>Symbol.iterator()</code>方法的最简单实现，还是使用下一章要介绍的 Generator 函数。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> myIterable = {
   [<span class="hljs-built_in">Symbol</span>.iterator]: <span class="hljs-function"><span class="hljs-keyword">function</span>* (<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">yield</span> <span class="hljs-number">1</span>;
@@ -256,16 +256,16 @@ str <span class="hljs-comment">// "hi"</span>
 
 <span class="hljs-keyword">let</span> obj = {
   * [<span class="hljs-built_in">Symbol</span>.iterator]() {
-    <span class="hljs-keyword">yield</span> <span class="hljs-string">'hello'</span>;
-    <span class="hljs-keyword">yield</span> <span class="hljs-string">'world'</span>;
+    <span class="hljs-keyword">yield</span> <span class="hljs-string">&#x27;hello&#x27;</span>;
+    <span class="hljs-keyword">yield</span> <span class="hljs-string">&#x27;world&#x27;</span>;
   }
 };
 
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> x <span class="hljs-keyword">of</span> obj) {
   <span class="hljs-built_in">console</span>.log(x);
 }
-<span class="hljs-comment">// "hello"</span>
-<span class="hljs-comment">// "world"</span>
+<span class="hljs-comment">// &quot;hello&quot;</span>
+<span class="hljs-comment">// &quot;world&quot;</span>
 </code></pre><p>上面代码中，<code>Symbol.iterator()</code>方法几乎不用部署任何代码，只要用 yield 命令给出每一步的返回值即可。</p><h2 id="遍历器对象的-return，throw">遍历器对象的 return()，throw() <a class="markdownIt-Anchor" href="#遍历器对象的-return，throw">#</a></h2><p>遍历器对象除了具有<code>next()</code>方法，还可以具有<code>return()</code>方法和<code>throw()</code>方法。如果你自己写遍历器对象生成函数，那么<code>next()</code>方法是必须部署的，<code>return()</code>方法和<code>throw()</code>方法是否部署是可选的。</p><p><code>return()</code>方法的使用场合是，如果<code>for...of</code>循环提前退出（通常是因为出错，或者有<code>break</code>语句），就会调用<code>return()</code>方法。如果一个对象在完成遍历前，需要清理或释放资源，就可以部署<code>return()</code>方法。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">readLinesSync</span>(<span class="hljs-params">file</span>) </span>{
   <span class="hljs-keyword">return</span> {
     [<span class="hljs-built_in">Symbol</span>.iterator]() {
@@ -292,7 +292,7 @@ str <span class="hljs-comment">// "hi"</span>
   <span class="hljs-built_in">console</span>.log(line);
   <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>();
 }
-</code></pre><p>上面代码中，情况一输出文件的第一行以后，就会执行<code>return()</code>方法，关闭这个文件；情况二会在执行<code>return()</code>方法关闭文件之后，再抛出错误。</p><p>注意，<code>return()</code>方法必须返回一个对象，这是 Generator 语法决定的。</p><p><code>throw()</code>方法主要是配合 Generator 函数使用，一般的遍历器对象用不到这个方法。请参阅《Generator 函数》一章。</p><h2 id="forof-循环">for...of 循环 <a class="markdownIt-Anchor" href="#forof-循环">#</a></h2><p>ES6 借鉴 C++、Java、C# 和 Python 语言，引入了<code>for...of</code>循环，作为遍历所有数据结构的统一的方法。</p><p>一个数据结构只要部署了<code>Symbol.iterator</code>属性，就被视为具有 iterator 接口，就可以用<code>for...of</code>循环遍历它的成员。也就是说，<code>for...of</code>循环内部调用的是数据结构的<code>Symbol.iterator</code>方法。</p><p><code>for...of</code>循环可以使用的范围包括数组、Set 和 Map 结构、某些类似数组的对象（比如<code>arguments</code>对象、DOM NodeList 对象）、后文的 Generator 对象，以及字符串。</p><h3 id="数组">数组 <a class="markdownIt-Anchor" href="#数组">#</a></h3><p>数组原生具备<code>iterator</code>接口（即默认部署了<code>Symbol.iterator</code>属性），<code>for...of</code>循环本质上就是调用这个接口产生的遍历器，可以用下面的代码证明。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'red'</span>, <span class="hljs-string">'green'</span>, <span class="hljs-string">'blue'</span>];
+</code></pre><p>上面代码中，情况一输出文件的第一行以后，就会执行<code>return()</code>方法，关闭这个文件；情况二会在执行<code>return()</code>方法关闭文件之后，再抛出错误。</p><p>注意，<code>return()</code>方法必须返回一个对象，这是 Generator 语法决定的。</p><p><code>throw()</code>方法主要是配合 Generator 函数使用，一般的遍历器对象用不到这个方法。请参阅《Generator 函数》一章。</p><h2 id="forof-循环">for...of 循环 <a class="markdownIt-Anchor" href="#forof-循环">#</a></h2><p>ES6 借鉴 C++、Java、C# 和 Python 语言，引入了<code>for...of</code>循环，作为遍历所有数据结构的统一的方法。</p><p>一个数据结构只要部署了<code>Symbol.iterator</code>属性，就被视为具有 iterator 接口，就可以用<code>for...of</code>循环遍历它的成员。也就是说，<code>for...of</code>循环内部调用的是数据结构的<code>Symbol.iterator</code>方法。</p><p><code>for...of</code>循环可以使用的范围包括数组、Set 和 Map 结构、某些类似数组的对象（比如<code>arguments</code>对象、DOM NodeList 对象）、后文的 Generator 对象，以及字符串。</p><h3 id="数组">数组 <a class="markdownIt-Anchor" href="#数组">#</a></h3><p>数组原生具备<code>iterator</code>接口（即默认部署了<code>Symbol.iterator</code>属性），<code>for...of</code>循环本质上就是调用这个接口产生的遍历器，可以用下面的代码证明。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> arr = [<span class="hljs-string">&#x27;red&#x27;</span>, <span class="hljs-string">&#x27;green&#x27;</span>, <span class="hljs-string">&#x27;blue&#x27;</span>];
 
 <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> v <span class="hljs-keyword">of</span> arr) {
   <span class="hljs-built_in">console</span>.log(v); <span class="hljs-comment">// red green blue</span>
@@ -304,13 +304,13 @@ obj[<span class="hljs-built_in">Symbol</span>.iterator] = arr[<span class="hljs-
 <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> v <span class="hljs-keyword">of</span> obj) {
   <span class="hljs-built_in">console</span>.log(v); <span class="hljs-comment">// red green blue</span>
 }
-</code></pre><p>上面代码中，空对象<code>obj</code>部署了数组<code>arr</code>的<code>Symbol.iterator</code>属性，结果<code>obj</code>的<code>for...of</code>循环，产生了与<code>arr</code>完全一样的结果。</p><p><code>for...of</code>循环可以代替数组实例的<code>forEach</code>方法。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'red'</span>, <span class="hljs-string">'green'</span>, <span class="hljs-string">'blue'</span>];
+</code></pre><p>上面代码中，空对象<code>obj</code>部署了数组<code>arr</code>的<code>Symbol.iterator</code>属性，结果<code>obj</code>的<code>for...of</code>循环，产生了与<code>arr</code>完全一样的结果。</p><p><code>for...of</code>循环可以代替数组实例的<code>forEach</code>方法。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> arr = [<span class="hljs-string">&#x27;red&#x27;</span>, <span class="hljs-string">&#x27;green&#x27;</span>, <span class="hljs-string">&#x27;blue&#x27;</span>];
 
 arr.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">element, index</span>) </span>{
   <span class="hljs-built_in">console</span>.log(element); <span class="hljs-comment">// red green blue</span>
   <span class="hljs-built_in">console</span>.log(index);   <span class="hljs-comment">// 0 1 2</span>
 });
-</code></pre><p>JavaScript 原有的<code>for...in</code>循环，只能获得对象的键名，不能直接获取键值。ES6 提供<code>for...of</code>循环，允许遍历获得键值。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> arr = [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>, <span class="hljs-string">'d'</span>];
+</code></pre><p>JavaScript 原有的<code>for...in</code>循环，只能获得对象的键名，不能直接获取键值。ES6 提供<code>for...of</code>循环，允许遍历获得键值。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> arr = [<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;c&#x27;</span>, <span class="hljs-string">&#x27;d&#x27;</span>];
 
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> a <span class="hljs-keyword">in</span> arr) {
   <span class="hljs-built_in">console</span>.log(a); <span class="hljs-comment">// 0 1 2 3</span>
@@ -320,16 +320,16 @@ arr.forEach(<span class="hljs-function"><span class="hljs-keyword">function</spa
   <span class="hljs-built_in">console</span>.log(a); <span class="hljs-comment">// a b c d</span>
 }
 </code></pre><p>上面代码表明，<code>for...in</code>循环读取键名，<code>for...of</code>循环读取键值。如果要通过<code>for...of</code>循环，获取数组的索引，可以借助数组实例的<code>entries</code>方法和<code>keys</code>方法（参见《数组的扩展》一章）。</p><p><code>for...of</code>循环调用遍历器接口，数组的遍历器接口只返回具有数字索引的属性。这一点跟<code>for...in</code>循环也不一样。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> arr = [<span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>];
-arr.foo = <span class="hljs-string">'hello'</span>;
+arr.foo = <span class="hljs-string">&#x27;hello&#x27;</span>;
 
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i <span class="hljs-keyword">in</span> arr) {
-  <span class="hljs-built_in">console</span>.log(i); <span class="hljs-comment">// "0", "1", "2", "foo"</span>
+  <span class="hljs-built_in">console</span>.log(i); <span class="hljs-comment">// &quot;0&quot;, &quot;1&quot;, &quot;2&quot;, &quot;foo&quot;</span>
 }
 
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i <span class="hljs-keyword">of</span> arr) {
-  <span class="hljs-built_in">console</span>.log(i); <span class="hljs-comment">//  "3", "5", "7"</span>
+  <span class="hljs-built_in">console</span>.log(i); <span class="hljs-comment">//  &quot;3&quot;, &quot;5&quot;, &quot;7&quot;</span>
 }
-</code></pre><p>上面代码中，<code>for...of</code>循环不会返回数组<code>arr</code>的<code>foo</code>属性。</p><h3 id="set-和-map-结构">Set 和 Map 结构 <a class="markdownIt-Anchor" href="#set-和-map-结构">#</a></h3><p>Set 和 Map 结构也原生具有 Iterator 接口，可以直接使用<code>for...of</code>循环。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> engines = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([<span class="hljs-string">"Gecko"</span>, <span class="hljs-string">"Trident"</span>, <span class="hljs-string">"Webkit"</span>, <span class="hljs-string">"Webkit"</span>]);
+</code></pre><p>上面代码中，<code>for...of</code>循环不会返回数组<code>arr</code>的<code>foo</code>属性。</p><h3 id="set-和-map-结构">Set 和 Map 结构 <a class="markdownIt-Anchor" href="#set-和-map-结构">#</a></h3><p>Set 和 Map 结构也原生具有 Iterator 接口，可以直接使用<code>for...of</code>循环。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> engines = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([<span class="hljs-string">&quot;Gecko&quot;</span>, <span class="hljs-string">&quot;Trident&quot;</span>, <span class="hljs-string">&quot;Webkit&quot;</span>, <span class="hljs-string">&quot;Webkit&quot;</span>]);
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> e <span class="hljs-keyword">of</span> engines) {
   <span class="hljs-built_in">console</span>.log(e);
 }
@@ -338,46 +338,46 @@ arr.foo = <span class="hljs-string">'hello'</span>;
 <span class="hljs-comment">// Webkit</span>
 
 <span class="hljs-keyword">var</span> es6 = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>();
-es6.set(<span class="hljs-string">"edition"</span>, <span class="hljs-number">6</span>);
-es6.set(<span class="hljs-string">"committee"</span>, <span class="hljs-string">"TC39"</span>);
-es6.set(<span class="hljs-string">"standard"</span>, <span class="hljs-string">"ECMA-262"</span>);
+es6.set(<span class="hljs-string">&quot;edition&quot;</span>, <span class="hljs-number">6</span>);
+es6.set(<span class="hljs-string">&quot;committee&quot;</span>, <span class="hljs-string">&quot;TC39&quot;</span>);
+es6.set(<span class="hljs-string">&quot;standard&quot;</span>, <span class="hljs-string">&quot;ECMA-262&quot;</span>);
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> [name, value] <span class="hljs-keyword">of</span> es6) {
-  <span class="hljs-built_in">console</span>.log(name + <span class="hljs-string">": "</span> + value);
+  <span class="hljs-built_in">console</span>.log(name + <span class="hljs-string">&quot;: &quot;</span> + value);
 }
 <span class="hljs-comment">// edition: 6</span>
 <span class="hljs-comment">// committee: TC39</span>
 <span class="hljs-comment">// standard: ECMA-262</span>
-</code></pre><p>上面代码演示了如何遍历 Set 结构和 Map 结构。值得注意的地方有两个，首先，遍历的顺序是按照各个成员被添加进数据结构的顺序。其次，Set 结构遍历时，返回的是一个值，而 Map 结构遍历时，返回的是一个数组，该数组的两个成员分别为当前 Map 成员的键名和键值。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> map = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>().set(<span class="hljs-string">'a'</span>, <span class="hljs-number">1</span>).set(<span class="hljs-string">'b'</span>, <span class="hljs-number">2</span>);
+</code></pre><p>上面代码演示了如何遍历 Set 结构和 Map 结构。值得注意的地方有两个，首先，遍历的顺序是按照各个成员被添加进数据结构的顺序。其次，Set 结构遍历时，返回的是一个值，而 Map 结构遍历时，返回的是一个数组，该数组的两个成员分别为当前 Map 成员的键名和键值。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> map = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>().set(<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-number">1</span>).set(<span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-number">2</span>);
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> pair <span class="hljs-keyword">of</span> map) {
   <span class="hljs-built_in">console</span>.log(pair);
 }
-<span class="hljs-comment">// ['a', 1]</span>
-<span class="hljs-comment">// ['b', 2]</span>
+<span class="hljs-comment">// [&#x27;a&#x27;, 1]</span>
+<span class="hljs-comment">// [&#x27;b&#x27;, 2]</span>
 
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> [key, value] <span class="hljs-keyword">of</span> map) {
-  <span class="hljs-built_in">console</span>.log(key + <span class="hljs-string">' : '</span> + value);
+  <span class="hljs-built_in">console</span>.log(key + <span class="hljs-string">&#x27; : &#x27;</span> + value);
 }
 <span class="hljs-comment">// a : 1</span>
 <span class="hljs-comment">// b : 2</span>
-</code></pre><h3 id="计算生成的数据结构">计算生成的数据结构 <a class="markdownIt-Anchor" href="#计算生成的数据结构">#</a></h3><p>有些数据结构是在现有数据结构的基础上，计算生成的。比如，ES6 的数组、Set、Map 都部署了以下三个方法，调用后都返回遍历器对象。</p><ul><li><code>entries()</code> 返回一个遍历器对象，用来遍历<code>[键名, 键值]</code>组成的数组。对于数组，键名就是索引值；对于 Set，键名与键值相同。Map 结构的 Iterator 接口，默认就是调用<code>entries</code>方法。</li><li><code>keys()</code> 返回一个遍历器对象，用来遍历所有的键名。</li><li><code>values()</code> 返回一个遍历器对象，用来遍历所有的键值。</li></ul><p>这三个方法调用后生成的遍历器对象，所遍历的都是计算生成的数据结构。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> arr = [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>];
+</code></pre><h3 id="计算生成的数据结构">计算生成的数据结构 <a class="markdownIt-Anchor" href="#计算生成的数据结构">#</a></h3><p>有些数据结构是在现有数据结构的基础上，计算生成的。比如，ES6 的数组、Set、Map 都部署了以下三个方法，调用后都返回遍历器对象。</p><ul><li><code>entries()</code> 返回一个遍历器对象，用来遍历<code>[键名, 键值]</code>组成的数组。对于数组，键名就是索引值；对于 Set，键名与键值相同。Map 结构的 Iterator 接口，默认就是调用<code>entries</code>方法。</li><li><code>keys()</code> 返回一个遍历器对象，用来遍历所有的键名。</li><li><code>values()</code> 返回一个遍历器对象，用来遍历所有的键值。</li></ul><p>这三个方法调用后生成的遍历器对象，所遍历的都是计算生成的数据结构。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> arr = [<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;c&#x27;</span>];
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> pair <span class="hljs-keyword">of</span> arr.entries()) {
   <span class="hljs-built_in">console</span>.log(pair);
 }
-<span class="hljs-comment">// [0, 'a']</span>
-<span class="hljs-comment">// [1, 'b']</span>
-<span class="hljs-comment">// [2, 'c']</span>
+<span class="hljs-comment">// [0, &#x27;a&#x27;]</span>
+<span class="hljs-comment">// [1, &#x27;b&#x27;]</span>
+<span class="hljs-comment">// [2, &#x27;c&#x27;]</span>
 </code></pre><h3 id="类似数组的对象">类似数组的对象 <a class="markdownIt-Anchor" href="#类似数组的对象">#</a></h3><p>类似数组的对象包括好几类。下面是<code>for...of</code>循环用于字符串、DOM NodeList 对象、<code>arguments</code>对象的例子。</p><pre class="hljs"><code><span class="hljs-comment">// 字符串</span>
-<span class="hljs-keyword">let</span> str = <span class="hljs-string">"hello"</span>;
+<span class="hljs-keyword">let</span> str = <span class="hljs-string">&quot;hello&quot;</span>;
 
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> s <span class="hljs-keyword">of</span> str) {
   <span class="hljs-built_in">console</span>.log(s); <span class="hljs-comment">// h e l l o</span>
 }
 
 <span class="hljs-comment">// DOM NodeList对象</span>
-<span class="hljs-keyword">let</span> paras = <span class="hljs-built_in">document</span>.querySelectorAll(<span class="hljs-string">"p"</span>);
+<span class="hljs-keyword">let</span> paras = <span class="hljs-built_in">document</span>.querySelectorAll(<span class="hljs-string">&quot;p&quot;</span>);
 
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> p <span class="hljs-keyword">of</span> paras) {
-  p.classList.add(<span class="hljs-string">"test"</span>);
+  p.classList.add(<span class="hljs-string">&quot;test&quot;</span>);
 }
 
 <span class="hljs-comment">// arguments对象</span>
@@ -386,15 +386,15 @@ es6.set(<span class="hljs-string">"standard"</span>, <span class="hljs-string">"
     <span class="hljs-built_in">console</span>.log(x);
   }
 }
-printArgs(<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>);
-<span class="hljs-comment">// 'a'</span>
-<span class="hljs-comment">// 'b'</span>
-</code></pre><p>对于字符串来说，<code>for...of</code>循环还有一个特点，就是会正确识别 32 位 UTF-16 字符。</p><pre class="hljs"><code><span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> x <span class="hljs-keyword">of</span> <span class="hljs-string">'a\uD83D\uDC0A'</span>) {
+printArgs(<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>);
+<span class="hljs-comment">// &#x27;a&#x27;</span>
+<span class="hljs-comment">// &#x27;b&#x27;</span>
+</code></pre><p>对于字符串来说，<code>for...of</code>循环还有一个特点，就是会正确识别 32 位 UTF-16 字符。</p><pre class="hljs"><code><span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> x <span class="hljs-keyword">of</span> <span class="hljs-string">&#x27;a\uD83D\uDC0A&#x27;</span>) {
   <span class="hljs-built_in">console</span>.log(x);
 }
-<span class="hljs-comment">// 'a'</span>
-<span class="hljs-comment">// '\uD83D\uDC0A'</span>
-</code></pre><p>并不是所有类似数组的对象都具有 Iterator 接口，一个简便的解决方法，就是使用<code>Array.from</code>方法将其转为数组。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> arrayLike = { <span class="hljs-attr">length</span>: <span class="hljs-number">2</span>, <span class="hljs-number">0</span>: <span class="hljs-string">'a'</span>, <span class="hljs-number">1</span>: <span class="hljs-string">'b'</span> };
+<span class="hljs-comment">// &#x27;a&#x27;</span>
+<span class="hljs-comment">// &#x27;\uD83D\uDC0A&#x27;</span>
+</code></pre><p>并不是所有类似数组的对象都具有 Iterator 接口，一个简便的解决方法，就是使用<code>Array.from</code>方法将其转为数组。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> arrayLike = { <span class="hljs-attr">length</span>: <span class="hljs-number">2</span>, <span class="hljs-number">0</span>: <span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-number">1</span>: <span class="hljs-string">&#x27;b&#x27;</span> };
 
 <span class="hljs-comment">// 报错</span>
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> x <span class="hljs-keyword">of</span> arrayLike) {
@@ -407,8 +407,8 @@ printArgs(<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</s
 }
 </code></pre><h3 id="对象">对象 <a class="markdownIt-Anchor" href="#对象">#</a></h3><p>对于普通的对象，<code>for...of</code>结构不能直接使用，会报错，必须部署了 Iterator 接口后才能使用。但是，这样情况下，<code>for...in</code>循环依然可以用来遍历键名。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> es6 = {
   <span class="hljs-attr">edition</span>: <span class="hljs-number">6</span>,
-  <span class="hljs-attr">committee</span>: <span class="hljs-string">"TC39"</span>,
-  <span class="hljs-attr">standard</span>: <span class="hljs-string">"ECMA-262"</span>
+  <span class="hljs-attr">committee</span>: <span class="hljs-string">&quot;TC39&quot;</span>,
+  <span class="hljs-attr">standard</span>: <span class="hljs-string">&quot;ECMA-262&quot;</span>
 };
 
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> e <span class="hljs-keyword">in</span> es6) {
@@ -423,7 +423,7 @@ printArgs(<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</s
 }
 <span class="hljs-comment">// TypeError: es6[Symbol.iterator] is not a function</span>
 </code></pre><p>上面代码表示，对于普通的对象，<code>for...in</code>循环可以遍历键名，<code>for...of</code>循环会报错。</p><p>一种解决方法是，使用<code>Object.keys</code>方法将对象的键名生成一个数组，然后遍历这个数组。</p><pre class="hljs"><code><span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> key <span class="hljs-keyword">of</span> <span class="hljs-built_in">Object</span>.keys(someObject)) {
-  <span class="hljs-built_in">console</span>.log(key + <span class="hljs-string">': '</span> + someObject[key]);
+  <span class="hljs-built_in">console</span>.log(key + <span class="hljs-string">&#x27;: &#x27;</span> + someObject[key]);
 }
 </code></pre><p>另一个方法是使用 Generator 函数将对象重新包装一下。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">entries</span>(<span class="hljs-params">obj</span>) </span>{
   <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> key <span class="hljs-keyword">of</span> <span class="hljs-built_in">Object</span>.keys(obj)) {
@@ -432,7 +432,7 @@ printArgs(<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</s
 }
 
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> [key, value] <span class="hljs-keyword">of</span> entries(obj)) {
-  <span class="hljs-built_in">console</span>.log(key, <span class="hljs-string">'-&gt;'</span>, value);
+  <span class="hljs-built_in">console</span>.log(key, <span class="hljs-string">&#x27;-&gt;&#x27;</span>, value);
 }
 <span class="hljs-comment">// a -&gt; 1</span>
 <span class="hljs-comment">// b -&gt; 2</span>

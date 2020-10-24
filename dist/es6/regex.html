@@ -1,67 +1,67 @@
-<!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>正则的扩展 - ES6 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="正则的扩展"><link rel="apple-touch-icon" sizes="57x57" href="assets/icons/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="assets/icons/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="assets/icons/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="assets/icons/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="assets/icons/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="assets/icons/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="assets/icons/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="assets/icons/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png"><link rel="manifest" href="assets/icons/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="assets/icons/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/es6-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/es6-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8"><nav class="breadcrumb is-size-5-desktop" aria-label="breadcrumbs"><ul><li><a href="index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;ES6 教程</a></li><li class="is-active"><a class="has-text-grey" href="regex.html">正则的扩展</a></li></ul></nav><nav class="level level-previous-next is-size-5 is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="string-methods.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> 字符串的新增方法</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="number.html">数值的扩展 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content is-size-4-desktop"><h1 class="title">正则的扩展</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><h2 id="regexp-构造函数">RegExp 构造函数 <a class="markdownIt-Anchor" href="#regexp-构造函数">#</a></h2><p>在 ES5 中，<code>RegExp</code>构造函数的参数有两种情况。</p><p>第一种情况是，参数是字符串，这时第二个参数表示正则表达式的修饰符（flag）。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> regex = <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'xyz'</span>, <span class="hljs-string">'i'</span>);
+<!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>正则的扩展 - ES6 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="正则的扩展"><link rel="apple-touch-icon" sizes="57x57" href="assets/icons/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="assets/icons/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="assets/icons/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="assets/icons/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="assets/icons/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="assets/icons/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="assets/icons/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="assets/icons/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png"><link rel="manifest" href="assets/icons/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="assets/icons/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/es6-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/es6-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8"><nav class="breadcrumb is-size-5-desktop" aria-label="breadcrumbs"><ul><li><a href="index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;ES6 教程</a></li><li class="is-active"><a class="has-text-grey" href="regex.html">正则的扩展</a></li></ul></nav><nav class="level level-previous-next is-size-5 is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="string-methods.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> 字符串的新增方法</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="number.html">数值的扩展 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content is-size-4-desktop"><h1 class="title">正则的扩展</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><h2 id="regexp-构造函数">RegExp 构造函数 <a class="markdownIt-Anchor" href="#regexp-构造函数">#</a></h2><p>在 ES5 中，<code>RegExp</code>构造函数的参数有两种情况。</p><p>第一种情况是，参数是字符串，这时第二个参数表示正则表达式的修饰符（flag）。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> regex = <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">&#x27;xyz&#x27;</span>, <span class="hljs-string">&#x27;i&#x27;</span>);
 <span class="hljs-comment">// 等价于</span>
 <span class="hljs-keyword">var</span> regex = <span class="hljs-regexp">/xyz/i</span>;
 </code></pre><p>第二种情况是，参数是一个正则表示式，这时会返回一个原有正则表达式的拷贝。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> regex = <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-regexp">/xyz/i</span>);
 <span class="hljs-comment">// 等价于</span>
 <span class="hljs-keyword">var</span> regex = <span class="hljs-regexp">/xyz/i</span>;
-</code></pre><p>但是，ES5 不允许此时使用第二个参数添加修饰符，否则会报错。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> regex = <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-regexp">/xyz/</span>, <span class="hljs-string">'i'</span>);
+</code></pre><p>但是，ES5 不允许此时使用第二个参数添加修饰符，否则会报错。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> regex = <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-regexp">/xyz/</span>, <span class="hljs-string">&#x27;i&#x27;</span>);
 <span class="hljs-comment">// Uncaught TypeError: Cannot supply flags when constructing one RegExp from another</span>
-</code></pre><p>ES6 改变了这种行为。如果<code>RegExp</code>构造函数第一个参数是一个正则对象，那么可以使用第二个参数指定修饰符。而且，返回的正则表达式会忽略原有的正则表达式的修饰符，只使用新指定的修饰符。</p><pre class="hljs"><code><span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-regexp">/abc/ig</span>, <span class="hljs-string">'i'</span>).flags
-<span class="hljs-comment">// "i"</span>
-</code></pre><p>上面代码中，原有正则对象的修饰符是<code>ig</code>，它会被第二个参数<code>i</code>覆盖。</p><h2 id="字符串的正则方法">字符串的正则方法 <a class="markdownIt-Anchor" href="#字符串的正则方法">#</a></h2><p>字符串对象共有 4 个方法，可以使用正则表达式：<code>match()</code>、<code>replace()</code>、<code>search()</code>和<code>split()</code>。</p><p>ES6 将这 4 个方法，在语言内部全部调用<code>RegExp</code>的实例方法，从而做到所有与正则相关的方法，全都定义在<code>RegExp</code>对象上。</p><ul><li><code>String.prototype.match</code> 调用 <code>RegExp.prototype[Symbol.match]</code></li><li><code>String.prototype.replace</code> 调用 <code>RegExp.prototype[Symbol.replace]</code></li><li><code>String.prototype.search</code> 调用 <code>RegExp.prototype[Symbol.search]</code></li><li><code>String.prototype.split</code> 调用 <code>RegExp.prototype[Symbol.split]</code></li></ul><h2 id="u-修饰符">u 修饰符 <a class="markdownIt-Anchor" href="#u-修饰符">#</a></h2><p>ES6 对正则表达式添加了<code>u</code>修饰符，含义为“Unicode 模式”，用来正确处理大于<code>\uFFFF</code>的 Unicode 字符。也就是说，会正确处理四个字节的 UTF-16 编码。</p><pre class="hljs"><code>/^\uD83D/u.test(<span class="hljs-string">'\uD83D\uDC2A'</span>) <span class="hljs-comment">// false</span>
-/^\uD83D/.test(<span class="hljs-string">'\uD83D\uDC2A'</span>) <span class="hljs-comment">// true</span>
-</code></pre><p>上面代码中，<code>\uD83D\uDC2A</code>是一个四个字节的 UTF-16 编码，代表一个字符。但是，ES5 不支持四个字节的 UTF-16 编码，会将其识别为两个字符，导致第二行代码结果为<code>true</code>。加了<code>u</code>修饰符以后，ES6 就会识别其为一个字符，所以第一行代码结果为<code>false</code>。</p><p>一旦加上<code>u</code>修饰符号，就会修改下面这些正则表达式的行为。</p><p><strong>（1）点字符</strong></p><p>点（<code>.</code>）字符在正则表达式中，含义是除了换行符以外的任意单个字符。对于码点大于<code>0xFFFF</code>的 Unicode 字符，点字符不能识别，必须加上<code>u</code>修饰符。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> s = <span class="hljs-string">'𠮷'</span>;
+</code></pre><p>ES6 改变了这种行为。如果<code>RegExp</code>构造函数第一个参数是一个正则对象，那么可以使用第二个参数指定修饰符。而且，返回的正则表达式会忽略原有的正则表达式的修饰符，只使用新指定的修饰符。</p><pre class="hljs"><code><span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-regexp">/abc/ig</span>, <span class="hljs-string">&#x27;i&#x27;</span>).flags
+<span class="hljs-comment">// &quot;i&quot;</span>
+</code></pre><p>上面代码中，原有正则对象的修饰符是<code>ig</code>，它会被第二个参数<code>i</code>覆盖。</p><h2 id="字符串的正则方法">字符串的正则方法 <a class="markdownIt-Anchor" href="#字符串的正则方法">#</a></h2><p>字符串对象共有 4 个方法，可以使用正则表达式：<code>match()</code>、<code>replace()</code>、<code>search()</code>和<code>split()</code>。</p><p>ES6 将这 4 个方法，在语言内部全部调用<code>RegExp</code>的实例方法，从而做到所有与正则相关的方法，全都定义在<code>RegExp</code>对象上。</p><ul><li><code>String.prototype.match</code> 调用 <code>RegExp.prototype[Symbol.match]</code></li><li><code>String.prototype.replace</code> 调用 <code>RegExp.prototype[Symbol.replace]</code></li><li><code>String.prototype.search</code> 调用 <code>RegExp.prototype[Symbol.search]</code></li><li><code>String.prototype.split</code> 调用 <code>RegExp.prototype[Symbol.split]</code></li></ul><h2 id="u-修饰符">u 修饰符 <a class="markdownIt-Anchor" href="#u-修饰符">#</a></h2><p>ES6 对正则表达式添加了<code>u</code>修饰符，含义为“Unicode 模式”，用来正确处理大于<code>\uFFFF</code>的 Unicode 字符。也就是说，会正确处理四个字节的 UTF-16 编码。</p><pre class="hljs"><code>/^\uD83D/u.test(<span class="hljs-string">&#x27;\uD83D\uDC2A&#x27;</span>) <span class="hljs-comment">// false</span>
+/^\uD83D/.test(<span class="hljs-string">&#x27;\uD83D\uDC2A&#x27;</span>) <span class="hljs-comment">// true</span>
+</code></pre><p>上面代码中，<code>\uD83D\uDC2A</code>是一个四个字节的 UTF-16 编码，代表一个字符。但是，ES5 不支持四个字节的 UTF-16 编码，会将其识别为两个字符，导致第二行代码结果为<code>true</code>。加了<code>u</code>修饰符以后，ES6 就会识别其为一个字符，所以第一行代码结果为<code>false</code>。</p><p>一旦加上<code>u</code>修饰符号，就会修改下面这些正则表达式的行为。</p><p><strong>（1）点字符</strong></p><p>点（<code>.</code>）字符在正则表达式中，含义是除了换行符以外的任意单个字符。对于码点大于<code>0xFFFF</code>的 Unicode 字符，点字符不能识别，必须加上<code>u</code>修饰符。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> s = <span class="hljs-string">&#x27;𠮷&#x27;</span>;
 
 <span class="hljs-regexp">/^.$/</span>.test(s) <span class="hljs-comment">// false</span>
 /^.$/u.test(s) <span class="hljs-comment">// true</span>
-</code></pre><p>上面代码表示，如果不添加<code>u</code>修饰符，正则表达式就会认为字符串为两个字符，从而匹配失败。</p><p><strong>（2）Unicode 字符表示法</strong></p><p>ES6 新增了使用大括号表示 Unicode 字符，这种表示法在正则表达式中必须加上<code>u</code>修饰符，才能识别当中的大括号，否则会被解读为量词。</p><pre class="hljs"><code>/\u{<span class="hljs-number">61</span>}/.test(<span class="hljs-string">'a'</span>) <span class="hljs-comment">// false</span>
-/\u{<span class="hljs-number">61</span>}/u.test(<span class="hljs-string">'a'</span>) <span class="hljs-comment">// true</span>
-/\u{<span class="hljs-number">20</span>BB7}/u.test(<span class="hljs-string">'𠮷'</span>) <span class="hljs-comment">// true</span>
-</code></pre><p>上面代码表示，如果不加<code>u</code>修饰符，正则表达式无法识别<code>\u{61}</code>这种表示法，只会认为这匹配 61 个连续的<code>u</code>。</p><p><strong>（3）量词</strong></p><p>使用<code>u</code>修饰符后，所有量词都会正确识别码点大于<code>0xFFFF</code>的 Unicode 字符。</p><pre class="hljs"><code>/a{<span class="hljs-number">2</span>}/.test(<span class="hljs-string">'aa'</span>) <span class="hljs-comment">// true</span>
-/a{<span class="hljs-number">2</span>}/u.test(<span class="hljs-string">'aa'</span>) <span class="hljs-comment">// true</span>
-/𠮷{<span class="hljs-number">2</span>}/.test(<span class="hljs-string">'𠮷𠮷'</span>) <span class="hljs-comment">// false</span>
-/𠮷{<span class="hljs-number">2</span>}/u.test(<span class="hljs-string">'𠮷𠮷'</span>) <span class="hljs-comment">// true</span>
-</code></pre><p><strong>（4）预定义模式</strong></p><p><code>u</code>修饰符也影响到预定义模式，能否正确识别码点大于<code>0xFFFF</code>的 Unicode 字符。</p><pre class="hljs"><code>/^\S$/.test(<span class="hljs-string">'𠮷'</span>) <span class="hljs-comment">// false</span>
-/^\S$/u.test(<span class="hljs-string">'𠮷'</span>) <span class="hljs-comment">// true</span>
+</code></pre><p>上面代码表示，如果不添加<code>u</code>修饰符，正则表达式就会认为字符串为两个字符，从而匹配失败。</p><p><strong>（2）Unicode 字符表示法</strong></p><p>ES6 新增了使用大括号表示 Unicode 字符，这种表示法在正则表达式中必须加上<code>u</code>修饰符，才能识别当中的大括号，否则会被解读为量词。</p><pre class="hljs"><code>/\u{<span class="hljs-number">61</span>}/.test(<span class="hljs-string">&#x27;a&#x27;</span>) <span class="hljs-comment">// false</span>
+/\u{<span class="hljs-number">61</span>}/u.test(<span class="hljs-string">&#x27;a&#x27;</span>) <span class="hljs-comment">// true</span>
+/\u{<span class="hljs-number">20</span>BB7}/u.test(<span class="hljs-string">&#x27;𠮷&#x27;</span>) <span class="hljs-comment">// true</span>
+</code></pre><p>上面代码表示，如果不加<code>u</code>修饰符，正则表达式无法识别<code>\u{61}</code>这种表示法，只会认为这匹配 61 个连续的<code>u</code>。</p><p><strong>（3）量词</strong></p><p>使用<code>u</code>修饰符后，所有量词都会正确识别码点大于<code>0xFFFF</code>的 Unicode 字符。</p><pre class="hljs"><code>/a{<span class="hljs-number">2</span>}/.test(<span class="hljs-string">&#x27;aa&#x27;</span>) <span class="hljs-comment">// true</span>
+/a{<span class="hljs-number">2</span>}/u.test(<span class="hljs-string">&#x27;aa&#x27;</span>) <span class="hljs-comment">// true</span>
+/𠮷{<span class="hljs-number">2</span>}/.test(<span class="hljs-string">&#x27;𠮷𠮷&#x27;</span>) <span class="hljs-comment">// false</span>
+/𠮷{<span class="hljs-number">2</span>}/u.test(<span class="hljs-string">&#x27;𠮷𠮷&#x27;</span>) <span class="hljs-comment">// true</span>
+</code></pre><p><strong>（4）预定义模式</strong></p><p><code>u</code>修饰符也影响到预定义模式，能否正确识别码点大于<code>0xFFFF</code>的 Unicode 字符。</p><pre class="hljs"><code>/^\S$/.test(<span class="hljs-string">&#x27;𠮷&#x27;</span>) <span class="hljs-comment">// false</span>
+/^\S$/u.test(<span class="hljs-string">&#x27;𠮷&#x27;</span>) <span class="hljs-comment">// true</span>
 </code></pre><p>上面代码的<code>\S</code>是预定义模式，匹配所有非空白字符。只有加了<code>u</code>修饰符，它才能正确匹配码点大于<code>0xFFFF</code>的 Unicode 字符。</p><p>利用这一点，可以写出一个正确返回字符串长度的函数。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">codePointLength</span>(<span class="hljs-params">text</span>) </span>{
   <span class="hljs-keyword">var</span> result = text.match(<span class="hljs-regexp">/[\s\S]/gu</span>);
   <span class="hljs-keyword">return</span> result ? result.length : <span class="hljs-number">0</span>;
 }
 
-<span class="hljs-keyword">var</span> s = <span class="hljs-string">'𠮷𠮷'</span>;
+<span class="hljs-keyword">var</span> s = <span class="hljs-string">&#x27;𠮷𠮷&#x27;</span>;
 
 s.length <span class="hljs-comment">// 4</span>
 codePointLength(s) <span class="hljs-comment">// 2</span>
-</code></pre><p><strong>（5）i 修饰符</strong></p><p>有些 Unicode 字符的编码不同，但是字型很相近，比如，<code>\u004B</code>与<code>\u212A</code>都是大写的<code>K</code>。</p><pre class="hljs"><code>/[a-z]/i.test(<span class="hljs-string">'\u212A'</span>) <span class="hljs-comment">// false</span>
-/[a-z]/iu.test(<span class="hljs-string">'\u212A'</span>) <span class="hljs-comment">// true</span>
-</code></pre><p>上面代码中，不加<code>u</code>修饰符，就无法识别非规范的<code>K</code>字符。</p><p><strong>（6）转义</strong></p><p>没有<code>u</code>修饰符的情况下，正则中没有定义的转义（如逗号的转义<code>\,</code>）无效，而在<code>u</code>模式会报错。</p><pre class="hljs"><code>/\,/ <span class="hljs-comment">// /\,/</span>
+</code></pre><p><strong>（5）i 修饰符</strong></p><p>有些 Unicode 字符的编码不同，但是字型很相近，比如，<code>\u004B</code>与<code>\u212A</code>都是大写的<code>K</code>。</p><pre class="hljs"><code>/[a-z]/i.test(<span class="hljs-string">&#x27;\u212A&#x27;</span>) <span class="hljs-comment">// false</span>
+/[a-z]/iu.test(<span class="hljs-string">&#x27;\u212A&#x27;</span>) <span class="hljs-comment">// true</span>
+</code></pre><p>上面代码中，不加<code>u</code>修饰符，就无法识别非规范的<code>K</code>字符。</p><p><strong>（6）转义</strong></p><p>没有<code>u</code>修饰符的情况下，正则中没有定义的转义（如逗号的转义<code>\,</code>）无效，而在<code>u</code>模式会报错。</p><pre class="hljs"><code>/\,<span class="hljs-regexp">/ /</span><span class="hljs-regexp">/ /</span>\,/
 <span class="hljs-regexp">/\,/u</span> <span class="hljs-comment">// 报错</span>
 </code></pre><p>上面代码中，没有<code>u</code>修饰符时，逗号前面的反斜杠是无效的，加了<code>u</code>修饰符就报错。</p><h2 id="regexpprototypeunicode-属性">RegExp.prototype.unicode 属性 <a class="markdownIt-Anchor" href="#regexpprototypeunicode-属性">#</a></h2><p>正则实例对象新增<code>unicode</code>属性，表示是否设置了<code>u</code>修饰符。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> r1 = <span class="hljs-regexp">/hello/</span>;
 <span class="hljs-keyword">const</span> r2 = <span class="hljs-regexp">/hello/u</span>;
 
 r1.unicode <span class="hljs-comment">// false</span>
 r2.unicode <span class="hljs-comment">// true</span>
-</code></pre><p>上面代码中，正则表达式是否设置了<code>u</code>修饰符，可以从<code>unicode</code>属性看出来。</p><h2 id="y-修饰符">y 修饰符 <a class="markdownIt-Anchor" href="#y-修饰符">#</a></h2><p>除了<code>u</code>修饰符，ES6 还为正则表达式添加了<code>y</code>修饰符，叫做“粘连”（sticky）修饰符。</p><p><code>y</code>修饰符的作用与<code>g</code>修饰符类似，也是全局匹配，后一次匹配都从上一次匹配成功的下一个位置开始。不同之处在于，<code>g</code>修饰符只要剩余位置中存在匹配就可，而<code>y</code>修饰符确保匹配必须从剩余的第一个位置开始，这也就是“粘连”的涵义。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> s = <span class="hljs-string">'aaa_aa_a'</span>;
+</code></pre><p>上面代码中，正则表达式是否设置了<code>u</code>修饰符，可以从<code>unicode</code>属性看出来。</p><h2 id="y-修饰符">y 修饰符 <a class="markdownIt-Anchor" href="#y-修饰符">#</a></h2><p>除了<code>u</code>修饰符，ES6 还为正则表达式添加了<code>y</code>修饰符，叫做“粘连”（sticky）修饰符。</p><p><code>y</code>修饰符的作用与<code>g</code>修饰符类似，也是全局匹配，后一次匹配都从上一次匹配成功的下一个位置开始。不同之处在于，<code>g</code>修饰符只要剩余位置中存在匹配就可，而<code>y</code>修饰符确保匹配必须从剩余的第一个位置开始，这也就是“粘连”的涵义。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> s = <span class="hljs-string">&#x27;aaa_aa_a&#x27;</span>;
 <span class="hljs-keyword">var</span> r1 = <span class="hljs-regexp">/a+/g</span>;
 <span class="hljs-keyword">var</span> r2 = <span class="hljs-regexp">/a+/y</span>;
 
-r1.exec(s) <span class="hljs-comment">// ["aaa"]</span>
-r2.exec(s) <span class="hljs-comment">// ["aaa"]</span>
+r1.exec(s) <span class="hljs-comment">// [&quot;aaa&quot;]</span>
+r2.exec(s) <span class="hljs-comment">// [&quot;aaa&quot;]</span>
 
-r1.exec(s) <span class="hljs-comment">// ["aa"]</span>
+r1.exec(s) <span class="hljs-comment">// [&quot;aa&quot;]</span>
 r2.exec(s) <span class="hljs-comment">// null</span>
-</code></pre><p>上面代码有两个正则表达式，一个使用<code>g</code>修饰符，另一个使用<code>y</code>修饰符。这两个正则表达式各执行了两次，第一次执行的时候，两者行为相同，剩余字符串都是<code>_aa_a</code>。由于<code>g</code>修饰没有位置要求，所以第二次执行会返回结果，而<code>y</code>修饰符要求匹配必须从头部开始，所以返回<code>null</code>。</p><p>如果改一下正则表达式，保证每次都能头部匹配，<code>y</code>修饰符就会返回结果了。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> s = <span class="hljs-string">'aaa_aa_a'</span>;
+</code></pre><p>上面代码有两个正则表达式，一个使用<code>g</code>修饰符，另一个使用<code>y</code>修饰符。这两个正则表达式各执行了两次，第一次执行的时候，两者行为相同，剩余字符串都是<code>_aa_a</code>。由于<code>g</code>修饰没有位置要求，所以第二次执行会返回结果，而<code>y</code>修饰符要求匹配必须从头部开始，所以返回<code>null</code>。</p><p>如果改一下正则表达式，保证每次都能头部匹配，<code>y</code>修饰符就会返回结果了。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> s = <span class="hljs-string">&#x27;aaa_aa_a&#x27;</span>;
 <span class="hljs-keyword">var</span> r = <span class="hljs-regexp">/a+_/y</span>;
 
-r.exec(s) <span class="hljs-comment">// ["aaa_"]</span>
-r.exec(s) <span class="hljs-comment">// ["aa_"]</span>
+r.exec(s) <span class="hljs-comment">// [&quot;aaa_&quot;]</span>
+r.exec(s) <span class="hljs-comment">// [&quot;aa_&quot;]</span>
 </code></pre><p>上面代码每次匹配，都是从剩余字符串的头部开始。</p><p>使用<code>lastIndex</code>属性，可以更好地说明<code>y</code>修饰符。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> REGEX = <span class="hljs-regexp">/a/g</span>;
 
 <span class="hljs-comment">// 指定从2号位置（y）开始匹配</span>
 REGEX.lastIndex = <span class="hljs-number">2</span>;
 
 <span class="hljs-comment">// 匹配成功</span>
-<span class="hljs-keyword">const</span> match = REGEX.exec(<span class="hljs-string">'xaya'</span>);
+<span class="hljs-keyword">const</span> match = REGEX.exec(<span class="hljs-string">&#x27;xaya&#x27;</span>);
 
 <span class="hljs-comment">// 在3号位置匹配成功</span>
 match.index <span class="hljs-comment">// 3</span>
@@ -70,35 +70,35 @@ match.index <span class="hljs-comment">// 3</span>
 REGEX.lastIndex <span class="hljs-comment">// 4</span>
 
 <span class="hljs-comment">// 4号位开始匹配失败</span>
-REGEX.exec(<span class="hljs-string">'xaya'</span>) <span class="hljs-comment">// null</span>
+REGEX.exec(<span class="hljs-string">&#x27;xaya&#x27;</span>) <span class="hljs-comment">// null</span>
 </code></pre><p>上面代码中，<code>lastIndex</code>属性指定每次搜索的开始位置，<code>g</code>修饰符从这个位置开始向后搜索，直到发现匹配为止。</p><p><code>y</code>修饰符同样遵守<code>lastIndex</code>属性，但是要求必须在<code>lastIndex</code>指定的位置发现匹配。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> REGEX = <span class="hljs-regexp">/a/y</span>;
 
 <span class="hljs-comment">// 指定从2号位置开始匹配</span>
 REGEX.lastIndex = <span class="hljs-number">2</span>;
 
 <span class="hljs-comment">// 不是粘连，匹配失败</span>
-REGEX.exec(<span class="hljs-string">'xaya'</span>) <span class="hljs-comment">// null</span>
+REGEX.exec(<span class="hljs-string">&#x27;xaya&#x27;</span>) <span class="hljs-comment">// null</span>
 
 <span class="hljs-comment">// 指定从3号位置开始匹配</span>
 REGEX.lastIndex = <span class="hljs-number">3</span>;
 
 <span class="hljs-comment">// 3号位置是粘连，匹配成功</span>
-<span class="hljs-keyword">const</span> match = REGEX.exec(<span class="hljs-string">'xaya'</span>);
+<span class="hljs-keyword">const</span> match = REGEX.exec(<span class="hljs-string">&#x27;xaya&#x27;</span>);
 match.index <span class="hljs-comment">// 3</span>
 REGEX.lastIndex <span class="hljs-comment">// 4</span>
-</code></pre><p>实际上，<code>y</code>修饰符号隐含了头部匹配的标志<code>^</code>。</p><pre class="hljs"><code>/b/y.exec(<span class="hljs-string">'aba'</span>)
+</code></pre><p>实际上，<code>y</code>修饰符号隐含了头部匹配的标志<code>^</code>。</p><pre class="hljs"><code>/b/y.exec(<span class="hljs-string">&#x27;aba&#x27;</span>)
 <span class="hljs-comment">// null</span>
 </code></pre><p>上面代码由于不能保证头部匹配，所以返回<code>null</code>。<code>y</code>修饰符的设计本意，就是让头部匹配的标志<code>^</code>在全局匹配中都有效。</p><p>下面是字符串对象的<code>replace</code>方法的例子。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> REGEX = <span class="hljs-regexp">/a/gy</span>;
-<span class="hljs-string">'aaxa'</span>.replace(REGEX, <span class="hljs-string">'-'</span>) <span class="hljs-comment">// '--xa'</span>
-</code></pre><p>上面代码中，最后一个<code>a</code>因为不是出现在下一次匹配的头部，所以不会被替换。</p><p>单单一个<code>y</code>修饰符对<code>match</code>方法，只能返回第一个匹配，必须与<code>g</code>修饰符联用，才能返回所有匹配。</p><pre class="hljs"><code><span class="hljs-string">'a1a2a3'</span>.match(<span class="hljs-regexp">/a\d/y</span>) <span class="hljs-comment">// ["a1"]</span>
-<span class="hljs-string">'a1a2a3'</span>.match(<span class="hljs-regexp">/a\d/gy</span>) <span class="hljs-comment">// ["a1", "a2", "a3"]</span>
+<span class="hljs-string">&#x27;aaxa&#x27;</span>.replace(REGEX, <span class="hljs-string">&#x27;-&#x27;</span>) <span class="hljs-comment">// &#x27;--xa&#x27;</span>
+</code></pre><p>上面代码中，最后一个<code>a</code>因为不是出现在下一次匹配的头部，所以不会被替换。</p><p>单单一个<code>y</code>修饰符对<code>match</code>方法，只能返回第一个匹配，必须与<code>g</code>修饰符联用，才能返回所有匹配。</p><pre class="hljs"><code><span class="hljs-string">&#x27;a1a2a3&#x27;</span>.match(<span class="hljs-regexp">/a\d/y</span>) <span class="hljs-comment">// [&quot;a1&quot;]</span>
+<span class="hljs-string">&#x27;a1a2a3&#x27;</span>.match(<span class="hljs-regexp">/a\d/gy</span>) <span class="hljs-comment">// [&quot;a1&quot;, &quot;a2&quot;, &quot;a3&quot;]</span>
 </code></pre><p><code>y</code>修饰符的一个应用，是从字符串提取 token（词元），<code>y</code>修饰符确保了匹配之间不会有漏掉的字符。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> TOKEN_Y = <span class="hljs-regexp">/\s*(\+|[0-9]+)\s*/y</span>;
 <span class="hljs-keyword">const</span> TOKEN_G  = <span class="hljs-regexp">/\s*(\+|[0-9]+)\s*/g</span>;
 
-tokenize(TOKEN_Y, <span class="hljs-string">'3 + 4'</span>)
-<span class="hljs-comment">// [ '3', '+', '4' ]</span>
-tokenize(TOKEN_G, <span class="hljs-string">'3 + 4'</span>)
-<span class="hljs-comment">// [ '3', '+', '4' ]</span>
+tokenize(TOKEN_Y, <span class="hljs-string">&#x27;3 + 4&#x27;</span>)
+<span class="hljs-comment">// [ &#x27;3&#x27;, &#x27;+&#x27;, &#x27;4&#x27; ]</span>
+tokenize(TOKEN_G, <span class="hljs-string">&#x27;3 + 4&#x27;</span>)
+<span class="hljs-comment">// [ &#x27;3&#x27;, &#x27;+&#x27;, &#x27;4&#x27; ]</span>
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">tokenize</span>(<span class="hljs-params">TOKEN_REGEX, str</span>) </span>{
   <span class="hljs-keyword">let</span> result = [];
@@ -108,56 +108,56 @@ tokenize(TOKEN_G, <span class="hljs-string">'3 + 4'</span>)
   }
   <span class="hljs-keyword">return</span> result;
 }
-</code></pre><p>上面代码中，如果字符串里面没有非法字符，<code>y</code>修饰符与<code>g</code>修饰符的提取结果是一样的。但是，一旦出现非法字符，两者的行为就不一样了。</p><pre class="hljs"><code>tokenize(TOKEN_Y, <span class="hljs-string">'3x + 4'</span>)
-<span class="hljs-comment">// [ '3' ]</span>
-tokenize(TOKEN_G, <span class="hljs-string">'3x + 4'</span>)
-<span class="hljs-comment">// [ '3', '+', '4' ]</span>
+</code></pre><p>上面代码中，如果字符串里面没有非法字符，<code>y</code>修饰符与<code>g</code>修饰符的提取结果是一样的。但是，一旦出现非法字符，两者的行为就不一样了。</p><pre class="hljs"><code>tokenize(TOKEN_Y, <span class="hljs-string">&#x27;3x + 4&#x27;</span>)
+<span class="hljs-comment">// [ &#x27;3&#x27; ]</span>
+tokenize(TOKEN_G, <span class="hljs-string">&#x27;3x + 4&#x27;</span>)
+<span class="hljs-comment">// [ &#x27;3&#x27;, &#x27;+&#x27;, &#x27;4&#x27; ]</span>
 </code></pre><p>上面代码中，<code>g</code>修饰符会忽略非法字符，而<code>y</code>修饰符不会，这样就很容易发现错误。</p><h2 id="regexpprototypesticky-属性">RegExp.prototype.sticky 属性 <a class="markdownIt-Anchor" href="#regexpprototypesticky-属性">#</a></h2><p>与<code>y</code>修饰符相匹配，ES6 的正则实例对象多了<code>sticky</code>属性，表示是否设置了<code>y</code>修饰符。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> r = <span class="hljs-regexp">/hello\d/y</span>;
 r.sticky <span class="hljs-comment">// true</span>
 </code></pre><h2 id="regexpprototypeflags-属性">RegExp.prototype.flags 属性 <a class="markdownIt-Anchor" href="#regexpprototypeflags-属性">#</a></h2><p>ES6 为正则表达式新增了<code>flags</code>属性，会返回正则表达式的修饰符。</p><pre class="hljs"><code><span class="hljs-comment">// ES5 的 source 属性</span>
 <span class="hljs-comment">// 返回正则表达式的正文</span>
 /abc/ig.source
-<span class="hljs-comment">// "abc"</span>
+<span class="hljs-comment">// &quot;abc&quot;</span>
 
 <span class="hljs-comment">// ES6 的 flags 属性</span>
 <span class="hljs-comment">// 返回正则表达式的修饰符</span>
 /abc/ig.flags
-<span class="hljs-comment">// 'gi'</span>
-</code></pre><h2 id="s-修饰符：dotall-模式">s 修饰符：dotAll 模式 <a class="markdownIt-Anchor" href="#s-修饰符：dotall-模式">#</a></h2><p>正则表达式中，点（<code>.</code>）是一个特殊字符，代表任意的单个字符，但是有两个例外。一个是四个字节的 UTF-16 字符，这个可以用<code>u</code>修饰符解决；另一个是行终止符（line terminator character）。</p><p>所谓行终止符，就是该字符表示一行的终结。以下四个字符属于“行终止符”。</p><ul><li>U+000A 换行符（<code>\n</code>）</li><li>U+000D 回车符（<code>\r</code>）</li><li>U+2028 行分隔符（line separator）</li><li>U+2029 段分隔符（paragraph separator）</li></ul><pre class="hljs"><code>/foo.bar/.test(<span class="hljs-string">'foo\nbar'</span>)
+<span class="hljs-comment">// &#x27;gi&#x27;</span>
+</code></pre><h2 id="s-修饰符：dotall-模式">s 修饰符：dotAll 模式 <a class="markdownIt-Anchor" href="#s-修饰符：dotall-模式">#</a></h2><p>正则表达式中，点（<code>.</code>）是一个特殊字符，代表任意的单个字符，但是有两个例外。一个是四个字节的 UTF-16 字符，这个可以用<code>u</code>修饰符解决；另一个是行终止符（line terminator character）。</p><p>所谓行终止符，就是该字符表示一行的终结。以下四个字符属于“行终止符”。</p><ul><li>U+000A 换行符（<code>\n</code>）</li><li>U+000D 回车符（<code>\r</code>）</li><li>U+2028 行分隔符（line separator）</li><li>U+2029 段分隔符（paragraph separator）</li></ul><pre class="hljs"><code>/foo.bar/.test(<span class="hljs-string">&#x27;foo\nbar&#x27;</span>)
 <span class="hljs-comment">// false</span>
-</code></pre><p>上面代码中，因为<code>.</code>不匹配<code>\n</code>，所以正则表达式返回<code>false</code>。</p><p>但是，很多时候我们希望匹配的是任意单个字符，这时有一种变通的写法。</p><pre class="hljs"><code>/foo[^]bar/.test(<span class="hljs-string">'foo\nbar'</span>)
+</code></pre><p>上面代码中，因为<code>.</code>不匹配<code>\n</code>，所以正则表达式返回<code>false</code>。</p><p>但是，很多时候我们希望匹配的是任意单个字符，这时有一种变通的写法。</p><pre class="hljs"><code>/foo[^]bar/.test(<span class="hljs-string">&#x27;foo\nbar&#x27;</span>)
 <span class="hljs-comment">// true</span>
-</code></pre><p>这种解决方案毕竟不太符合直觉，ES2018 <a href="https://github.com/tc39/proposal-regexp-dotall-flag" target="_blank" rel="noopener">引入</a><code>s</code>修饰符，使得<code>.</code>可以匹配任意单个字符。</p><pre class="hljs"><code>/foo.bar/s.test(<span class="hljs-string">'foo\nbar'</span>) <span class="hljs-comment">// true</span>
+</code></pre><p>这种解决方案毕竟不太符合直觉，ES2018 <a href="https://github.com/tc39/proposal-regexp-dotall-flag" target="_blank" rel="noopener">引入</a><code>s</code>修饰符，使得<code>.</code>可以匹配任意单个字符。</p><pre class="hljs"><code>/foo.bar/s.test(<span class="hljs-string">&#x27;foo\nbar&#x27;</span>) <span class="hljs-comment">// true</span>
 </code></pre><p>这被称为<code>dotAll</code>模式，即点（dot）代表一切字符。所以，正则表达式还引入了一个<code>dotAll</code>属性，返回一个布尔值，表示该正则表达式是否处在<code>dotAll</code>模式。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> re = <span class="hljs-regexp">/foo.bar/</span>s;
 <span class="hljs-comment">// 另一种写法</span>
-<span class="hljs-comment">// const re = new RegExp('foo.bar', 's');</span>
+<span class="hljs-comment">// const re = new RegExp(&#x27;foo.bar&#x27;, &#x27;s&#x27;);</span>
 
-re.test(<span class="hljs-string">'foo\nbar'</span>) <span class="hljs-comment">// true</span>
+re.test(<span class="hljs-string">&#x27;foo\nbar&#x27;</span>) <span class="hljs-comment">// true</span>
 re.dotAll <span class="hljs-comment">// true</span>
-re.flags <span class="hljs-comment">// 's'</span>
-</code></pre><p><code>/s</code>修饰符和多行修饰符<code>/m</code>不冲突，两者一起使用的情况下，<code>.</code>匹配所有字符，而<code>^</code>和<code>$</code>匹配每一行的行首和行尾。</p><h2 id="后行断言">后行断言 <a class="markdownIt-Anchor" href="#后行断言">#</a></h2><p>JavaScript 语言的正则表达式，只支持先行断言（lookahead）和先行否定断言（negative lookahead），不支持后行断言（lookbehind）和后行否定断言（negative lookbehind）。ES2018 引入<a href="https://github.com/tc39/proposal-regexp-lookbehind" target="_blank" rel="noopener">后行断言</a>，V8 引擎 4.9 版（Chrome 62）已经支持。</p><p>“先行断言”指的是，<code>x</code>只有在<code>y</code>前面才匹配，必须写成<code>/x(?=y)/</code>。比如，只匹配百分号之前的数字，要写成<code>/\d+(?=%)/</code>。“先行否定断言”指的是，<code>x</code>只有不在<code>y</code>前面才匹配，必须写成<code>/x(?!y)/</code>。比如，只匹配不在百分号之前的数字，要写成<code>/\d+(?!%)/</code>。</p><pre class="hljs"><code>/\d+(?=%)/.exec(<span class="hljs-string">'100% of US presidents have been male'</span>)  <span class="hljs-comment">// ["100"]</span>
-/\d+(?!%)/.exec(<span class="hljs-string">'that’s all 44 of them'</span>)                 <span class="hljs-comment">// ["44"]</span>
-</code></pre><p>上面两个字符串，如果互换正则表达式，就不会得到相同结果。另外，还可以看到，“先行断言”括号之中的部分（<code>(?=%)</code>），是不计入返回结果的。</p><p>“后行断言”正好与“先行断言”相反，<code>x</code>只有在<code>y</code>后面才匹配，必须写成<code>/(?&lt;=y)x/</code>。比如，只匹配美元符号之后的数字，要写成<code>/(?&lt;=\$)\d+/</code>。“后行否定断言”则与“先行否定断言”相反，<code>x</code>只有不在<code>y</code>后面才匹配，必须写成<code>/(?&lt;!y)x/</code>。比如，只匹配不在美元符号后面的数字，要写成<code>/(?&lt;!\$)\d+/</code>。</p><pre class="hljs"><code>/(?&lt;=\$)\d+<span class="hljs-regexp">/.exec('Benjamin Franklin is on the $100 bill')  /</span><span class="hljs-regexp">/ ["100"]
-/</span>(?&lt;!\$)\d+<span class="hljs-regexp">/.exec('it’s is worth about €90')                /</span><span class="hljs-regexp">/ ["90"]
+re.flags <span class="hljs-comment">// &#x27;s&#x27;</span>
+</code></pre><p><code>/s</code>修饰符和多行修饰符<code>/m</code>不冲突，两者一起使用的情况下，<code>.</code>匹配所有字符，而<code>^</code>和<code>$</code>匹配每一行的行首和行尾。</p><h2 id="后行断言">后行断言 <a class="markdownIt-Anchor" href="#后行断言">#</a></h2><p>JavaScript 语言的正则表达式，只支持先行断言（lookahead）和先行否定断言（negative lookahead），不支持后行断言（lookbehind）和后行否定断言（negative lookbehind）。ES2018 引入<a href="https://github.com/tc39/proposal-regexp-lookbehind" target="_blank" rel="noopener">后行断言</a>，V8 引擎 4.9 版（Chrome 62）已经支持。</p><p>“先行断言”指的是，<code>x</code>只有在<code>y</code>前面才匹配，必须写成<code>/x(?=y)/</code>。比如，只匹配百分号之前的数字，要写成<code>/\d+(?=%)/</code>。“先行否定断言”指的是，<code>x</code>只有不在<code>y</code>前面才匹配，必须写成<code>/x(?!y)/</code>。比如，只匹配不在百分号之前的数字，要写成<code>/\d+(?!%)/</code>。</p><pre class="hljs"><code>/\d+(?=%)/.exec(<span class="hljs-string">&#x27;100% of US presidents have been male&#x27;</span>)  <span class="hljs-comment">// [&quot;100&quot;]</span>
+/\d+(?!%)/.exec(<span class="hljs-string">&#x27;that’s all 44 of them&#x27;</span>)                 <span class="hljs-comment">// [&quot;44&quot;]</span>
+</code></pre><p>上面两个字符串，如果互换正则表达式，就不会得到相同结果。另外，还可以看到，“先行断言”括号之中的部分（<code>(?=%)</code>），是不计入返回结果的。</p><p>“后行断言”正好与“先行断言”相反，<code>x</code>只有在<code>y</code>后面才匹配，必须写成<code>/(?&lt;=y)x/</code>。比如，只匹配美元符号之后的数字，要写成<code>/(?&lt;=\$)\d+/</code>。“后行否定断言”则与“先行否定断言”相反，<code>x</code>只有不在<code>y</code>后面才匹配，必须写成<code>/(?&lt;!y)x/</code>。比如，只匹配不在美元符号后面的数字，要写成<code>/(?&lt;!\$)\d+/</code>。</p><pre class="hljs"><code>/(?&lt;=\$)\d+<span class="hljs-regexp">/.exec(&#x27;Benjamin Franklin is on the $100 bill&#x27;)  /</span><span class="hljs-regexp">/ [&quot;100&quot;]
+/</span>(?&lt;!\$)\d+<span class="hljs-regexp">/.exec(&#x27;it’s is worth about €90&#x27;)                /</span><span class="hljs-regexp">/ [&quot;90&quot;]
 </span></code></pre><p>上面的例子中，“后行断言”的括号之中的部分（<code>(?&lt;=\$)</code>），也是不计入返回结果。</p><p>下面的例子是使用后行断言进行字符串替换。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> RE_DOLLAR_PREFIX = <span class="hljs-regexp">/(?&lt;=\$)foo/g</span>;
-<span class="hljs-string">'$foo %foo foo'</span>.replace(RE_DOLLAR_PREFIX, <span class="hljs-string">'bar'</span>);
-<span class="hljs-comment">// '$bar %foo foo'</span>
-</code></pre><p>上面代码中，只有在美元符号后面的<code>foo</code>才会被替换。</p><p>“后行断言”的实现，需要先匹配<code>/(?&lt;=y)x/</code>的<code>x</code>，然后再回到左边，匹配<code>y</code>的部分。这种“先右后左”的执行顺序，与所有其他正则操作相反，导致了一些不符合预期的行为。</p><p>首先，后行断言的组匹配，与正常情况下结果是不一样的。</p><pre class="hljs"><code>/(?&lt;=(\d+)(\d+))$/.exec(<span class="hljs-string">'1053'</span>) <span class="hljs-comment">// ["", "1", "053"]</span>
-/^(\d+)(\d+)$/.exec(<span class="hljs-string">'1053'</span>) <span class="hljs-comment">// ["1053", "105", "3"]</span>
-</code></pre><p>上面代码中，需要捕捉两个组匹配。没有“后行断言”时，第一个括号是贪婪模式，第二个括号只能捕获一个字符，所以结果是<code>105</code>和<code>3</code>。而“后行断言”时，由于执行顺序是从右到左，第二个括号是贪婪模式，第一个括号只能捕获一个字符，所以结果是<code>1</code>和<code>053</code>。</p><p>其次，“后行断言”的反斜杠引用，也与通常的顺序相反，必须放在对应的那个括号之前。</p><pre class="hljs"><code>/(?&lt;=(o)d\<span class="hljs-number">1</span>)r/.exec(<span class="hljs-string">'hodor'</span>)  <span class="hljs-comment">// null</span>
-/(?&lt;=\<span class="hljs-number">1</span>d(o))r/.exec(<span class="hljs-string">'hodor'</span>)  <span class="hljs-comment">// ["r", "o"]</span>
+<span class="hljs-string">&#x27;$foo %foo foo&#x27;</span>.replace(RE_DOLLAR_PREFIX, <span class="hljs-string">&#x27;bar&#x27;</span>);
+<span class="hljs-comment">// &#x27;$bar %foo foo&#x27;</span>
+</code></pre><p>上面代码中，只有在美元符号后面的<code>foo</code>才会被替换。</p><p>“后行断言”的实现，需要先匹配<code>/(?&lt;=y)x/</code>的<code>x</code>，然后再回到左边，匹配<code>y</code>的部分。这种“先右后左”的执行顺序，与所有其他正则操作相反，导致了一些不符合预期的行为。</p><p>首先，后行断言的组匹配，与正常情况下结果是不一样的。</p><pre class="hljs"><code>/(?&lt;=(\d+)(\d+))$/.exec(<span class="hljs-string">&#x27;1053&#x27;</span>) <span class="hljs-comment">// [&quot;&quot;, &quot;1&quot;, &quot;053&quot;]</span>
+/^(\d+)(\d+)$/.exec(<span class="hljs-string">&#x27;1053&#x27;</span>) <span class="hljs-comment">// [&quot;1053&quot;, &quot;105&quot;, &quot;3&quot;]</span>
+</code></pre><p>上面代码中，需要捕捉两个组匹配。没有“后行断言”时，第一个括号是贪婪模式，第二个括号只能捕获一个字符，所以结果是<code>105</code>和<code>3</code>。而“后行断言”时，由于执行顺序是从右到左，第二个括号是贪婪模式，第一个括号只能捕获一个字符，所以结果是<code>1</code>和<code>053</code>。</p><p>其次，“后行断言”的反斜杠引用，也与通常的顺序相反，必须放在对应的那个括号之前。</p><pre class="hljs"><code>/(?&lt;=(o)d\<span class="hljs-number">1</span>)r/.exec(<span class="hljs-string">&#x27;hodor&#x27;</span>)  <span class="hljs-comment">// null</span>
+/(?&lt;=\<span class="hljs-number">1</span>d(o))r/.exec(<span class="hljs-string">&#x27;hodor&#x27;</span>)  <span class="hljs-comment">// [&quot;r&quot;, &quot;o&quot;]</span>
 </code></pre><p>上面代码中，如果后行断言的反斜杠引用（<code>\1</code>）放在括号的后面，就不会得到匹配结果，必须放在前面才可以。因为后行断言是先从左到右扫描，发现匹配以后再回过头，从右到左完成反斜杠引用。</p><h2 id="unicode-属性类">Unicode 属性类 <a class="markdownIt-Anchor" href="#unicode-属性类">#</a></h2><p>ES2018 <a href="https://github.com/tc39/proposal-regexp-unicode-property-escapes" target="_blank" rel="noopener">引入</a>了一种新的类的写法<code>\p{...}</code>和<code>\P{...}</code>，允许正则表达式匹配符合 Unicode 某种属性的所有字符。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> regexGreekSymbol = <span class="hljs-regexp">/\p{Script=Greek}/u</span>;
-regexGreekSymbol.test(<span class="hljs-string">'π'</span>) <span class="hljs-comment">// true</span>
+regexGreekSymbol.test(<span class="hljs-string">&#x27;π&#x27;</span>) <span class="hljs-comment">// true</span>
 </code></pre><p>上面代码中，<code>\p{Script=Greek}</code>指定匹配一个希腊文字母，所以匹配<code>π</code>成功。</p><p>Unicode 属性类要指定属性名和属性值。</p><pre class="hljs"><code>\p{UnicodePropertyName=UnicodePropertyValue}
 </code></pre><p>对于某些属性，可以只写属性名，或者只写属性值。</p><pre class="hljs"><code>\p{UnicodePropertyName}
 \p{UnicodePropertyValue}
 </code></pre><p><code>\P{…}</code>是<code>\p{…}</code>的反向匹配，即匹配不满足条件的字符。</p><p>注意，这两种类只对 Unicode 有效，所以使用的时候一定要加上<code>u</code>修饰符。如果不加<code>u</code>修饰符，正则表达式使用<code>\p</code>和<code>\P</code>会报错，ECMAScript 预留了这两个类。</p><p>由于 Unicode 的各种属性非常多，所以这种新的类的表达能力非常强。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> regex = <span class="hljs-regexp">/^\p{Decimal_Number}+$/u</span>;
-regex.test(<span class="hljs-string">'𝟏𝟐𝟑𝟜𝟝𝟞𝟩𝟪𝟫𝟬𝟭𝟮𝟯𝟺𝟻𝟼'</span>) <span class="hljs-comment">// true</span>
+regex.test(<span class="hljs-string">&#x27;𝟏𝟐𝟑𝟜𝟝𝟞𝟩𝟪𝟫𝟬𝟭𝟮𝟯𝟺𝟻𝟼&#x27;</span>) <span class="hljs-comment">// true</span>
 </code></pre><p>上面代码中，属性类指定匹配所有十进制字符，可以看到各种字型的十进制字符都会匹配成功。</p><p><code>\p{Number}</code>甚至能匹配罗马数字。</p><pre class="hljs"><code><span class="hljs-comment">// 匹配所有数字</span>
 <span class="hljs-keyword">const</span> regex = <span class="hljs-regexp">/^\p{Number}+$/u</span>;
-regex.test(<span class="hljs-string">'²³¹¼½¾'</span>) <span class="hljs-comment">// true</span>
-regex.test(<span class="hljs-string">'㉛㉜㉝'</span>) <span class="hljs-comment">// true</span>
-regex.test(<span class="hljs-string">'ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩⅪⅫ'</span>) <span class="hljs-comment">// true</span>
+regex.test(<span class="hljs-string">&#x27;²³¹¼½¾&#x27;</span>) <span class="hljs-comment">// true</span>
+regex.test(<span class="hljs-string">&#x27;㉛㉜㉝&#x27;</span>) <span class="hljs-comment">// true</span>
+regex.test(<span class="hljs-string">&#x27;ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩⅪⅫ&#x27;</span>) <span class="hljs-comment">// true</span>
 </code></pre><p>下面是其他一些例子。</p><pre class="hljs"><code><span class="hljs-comment">// 匹配所有空格</span>
 \p{White_Space}
 
@@ -172,82 +172,82 @@ regex.test(<span class="hljs-string">'ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩⅪⅫ'</spa
 
 <span class="hljs-comment">// 匹配所有的箭头字符</span>
 <span class="hljs-keyword">const</span> regexArrows = <span class="hljs-regexp">/^\p{Block=Arrows}+$/u</span>;
-regexArrows.test(<span class="hljs-string">'←↑→↓↔↕↖↗↘↙⇏⇐⇑⇒⇓⇔⇕⇖⇗⇘⇙⇧⇩'</span>) <span class="hljs-comment">// true</span>
+regexArrows.test(<span class="hljs-string">&#x27;←↑→↓↔↕↖↗↘↙⇏⇐⇑⇒⇓⇔⇕⇖⇗⇘⇙⇧⇩&#x27;</span>) <span class="hljs-comment">// true</span>
 </code></pre><h2 id="具名组匹配">具名组匹配 <a class="markdownIt-Anchor" href="#具名组匹配">#</a></h2><h3 id="简介">简介 <a class="markdownIt-Anchor" href="#简介">#</a></h3><p>正则表达式使用圆括号进行组匹配。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> RE_DATE = <span class="hljs-regexp">/(\d{4})-(\d{2})-(\d{2})/</span>;
 </code></pre><p>上面代码中，正则表达式里面有三组圆括号。使用<code>exec</code>方法，就可以将这三组匹配结果提取出来。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> RE_DATE = <span class="hljs-regexp">/(\d{4})-(\d{2})-(\d{2})/</span>;
 
-<span class="hljs-keyword">const</span> matchObj = RE_DATE.exec(<span class="hljs-string">'1999-12-31'</span>);
+<span class="hljs-keyword">const</span> matchObj = RE_DATE.exec(<span class="hljs-string">&#x27;1999-12-31&#x27;</span>);
 <span class="hljs-keyword">const</span> year = matchObj[<span class="hljs-number">1</span>]; <span class="hljs-comment">// 1999</span>
 <span class="hljs-keyword">const</span> month = matchObj[<span class="hljs-number">2</span>]; <span class="hljs-comment">// 12</span>
 <span class="hljs-keyword">const</span> day = matchObj[<span class="hljs-number">3</span>]; <span class="hljs-comment">// 31</span>
 </code></pre><p>组匹配的一个问题是，每一组的匹配含义不容易看出来，而且只能用数字序号（比如<code>matchObj[1]</code>）引用，要是组的顺序变了，引用的时候就必须修改序号。</p><p>ES2018 引入了<a href="https://github.com/tc39/proposal-regexp-named-groups" target="_blank" rel="noopener">具名组匹配</a>（Named Capture Groups），允许为每一个组匹配指定一个名字，既便于阅读代码，又便于引用。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> RE_DATE = <span class="hljs-regexp">/(?&lt;year&gt;\d{4})-(?&lt;month&gt;\d{2})-(?&lt;day&gt;\d{2})/</span>;
 
-<span class="hljs-keyword">const</span> matchObj = RE_DATE.exec(<span class="hljs-string">'1999-12-31'</span>);
+<span class="hljs-keyword">const</span> matchObj = RE_DATE.exec(<span class="hljs-string">&#x27;1999-12-31&#x27;</span>);
 <span class="hljs-keyword">const</span> year = matchObj.groups.year; <span class="hljs-comment">// 1999</span>
 <span class="hljs-keyword">const</span> month = matchObj.groups.month; <span class="hljs-comment">// 12</span>
 <span class="hljs-keyword">const</span> day = matchObj.groups.day; <span class="hljs-comment">// 31</span>
 </code></pre><p>上面代码中，“具名组匹配”在圆括号内部，模式的头部添加“问号 + 尖括号 + 组名”（<code>?&lt;year&gt;</code>），然后就可以在<code>exec</code>方法返回结果的<code>groups</code>属性上引用该组名。同时，数字序号（<code>matchObj[1]</code>）依然有效。</p><p>具名组匹配等于为每一组匹配加上了 ID，便于描述匹配的目的。如果组的顺序变了，也不用改变匹配后的处理代码。</p><p>如果具名组没有匹配，那么对应的<code>groups</code>对象属性会是<code>undefined</code>。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> RE_OPT_A = <span class="hljs-regexp">/^(?&lt;as&gt;a+)?$/</span>;
-<span class="hljs-keyword">const</span> matchObj = RE_OPT_A.exec(<span class="hljs-string">''</span>);
+<span class="hljs-keyword">const</span> matchObj = RE_OPT_A.exec(<span class="hljs-string">&#x27;&#x27;</span>);
 
 matchObj.groups.as <span class="hljs-comment">// undefined</span>
-<span class="hljs-string">'as'</span> <span class="hljs-keyword">in</span> matchObj.groups <span class="hljs-comment">// true</span>
-</code></pre><p>上面代码中，具名组<code>as</code>没有找到匹配，那么<code>matchObj.groups.as</code>属性值就是<code>undefined</code>，并且<code>as</code>这个键名在<code>groups</code>是始终存在的。</p><h3 id="解构赋值和替换">解构赋值和替换 <a class="markdownIt-Anchor" href="#解构赋值和替换">#</a></h3><p>有了具名组匹配以后，可以使用解构赋值直接从匹配结果上为变量赋值。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> {<span class="hljs-attr">groups</span>: {one, two}} = <span class="hljs-regexp">/^(?&lt;one&gt;.*):(?&lt;two&gt;.*)$/u</span>.exec(<span class="hljs-string">'foo:bar'</span>);
+<span class="hljs-string">&#x27;as&#x27;</span> <span class="hljs-keyword">in</span> matchObj.groups <span class="hljs-comment">// true</span>
+</code></pre><p>上面代码中，具名组<code>as</code>没有找到匹配，那么<code>matchObj.groups.as</code>属性值就是<code>undefined</code>，并且<code>as</code>这个键名在<code>groups</code>是始终存在的。</p><h3 id="解构赋值和替换">解构赋值和替换 <a class="markdownIt-Anchor" href="#解构赋值和替换">#</a></h3><p>有了具名组匹配以后，可以使用解构赋值直接从匹配结果上为变量赋值。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> {<span class="hljs-attr">groups</span>: {one, two}} = <span class="hljs-regexp">/^(?&lt;one&gt;.*):(?&lt;two&gt;.*)$/u</span>.exec(<span class="hljs-string">&#x27;foo:bar&#x27;</span>);
 one  <span class="hljs-comment">// foo</span>
 two  <span class="hljs-comment">// bar</span>
 </code></pre><p>字符串替换时，使用<code>$&lt;组名&gt;</code>引用具名组。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> re = <span class="hljs-regexp">/(?&lt;year&gt;\d{4})-(?&lt;month&gt;\d{2})-(?&lt;day&gt;\d{2})/u</span>;
 
-<span class="hljs-string">'2015-01-02'</span>.replace(re, <span class="hljs-string">'$&lt;day&gt;/$&lt;month&gt;/$&lt;year&gt;'</span>)
-<span class="hljs-comment">// '02/01/2015'</span>
-</code></pre><p>上面代码中，<code>replace</code>方法的第二个参数是一个字符串，而不是正则表达式。</p><p><code>replace</code>方法的第二个参数也可以是函数，该函数的参数序列如下。</p><pre class="hljs"><code><span class="hljs-string">'2015-01-02'</span>.replace(re, (
-   matched, <span class="hljs-comment">// 整个匹配结果 2015-01-02</span>
-   capture1, <span class="hljs-comment">// 第一个组匹配 2015</span>
-   capture2, <span class="hljs-comment">// 第二个组匹配 01</span>
-   capture3, <span class="hljs-comment">// 第三个组匹配 02</span>
-   position, <span class="hljs-comment">// 匹配开始的位置 0</span>
-   S, <span class="hljs-comment">// 原字符串 2015-01-02</span>
-   groups <span class="hljs-comment">// 具名组构成的一个对象 {year, month, day}</span>
- ) =&gt; {
+<span class="hljs-string">&#x27;2015-01-02&#x27;</span>.replace(re, <span class="hljs-string">&#x27;$&lt;day&gt;/$&lt;month&gt;/$&lt;year&gt;&#x27;</span>)
+<span class="hljs-comment">// &#x27;02/01/2015&#x27;</span>
+</code></pre><p>上面代码中，<code>replace</code>方法的第二个参数是一个字符串，而不是正则表达式。</p><p><code>replace</code>方法的第二个参数也可以是函数，该函数的参数序列如下。</p><pre class="hljs"><code><span class="hljs-string">&#x27;2015-01-02&#x27;</span>.replace(re, <span class="hljs-function">(<span class="hljs-params">
+   matched, <span class="hljs-regexp">//</span> 整个匹配结果 <span class="hljs-number">2015</span><span class="hljs-number">-01</span><span class="hljs-number">-02</span>
+   capture1, <span class="hljs-regexp">//</span> 第一个组匹配 <span class="hljs-number">2015</span>
+   capture2, <span class="hljs-regexp">//</span> 第二个组匹配 <span class="hljs-number">01</span>
+   capture3, <span class="hljs-regexp">//</span> 第三个组匹配 <span class="hljs-number">02</span>
+   position, <span class="hljs-regexp">//</span> 匹配开始的位置 <span class="hljs-number">0</span>
+   S, <span class="hljs-regexp">//</span> 原字符串 <span class="hljs-number">2015</span><span class="hljs-number">-01</span><span class="hljs-number">-02</span>
+   groups <span class="hljs-regexp">//</span> 具名组构成的一个对象 {year, month, day}
+ </span>) =&gt;</span> {
  <span class="hljs-keyword">let</span> {day, month, year} = groups;
  <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${day}</span>/<span class="hljs-subst">${month}</span>/<span class="hljs-subst">${year}</span>`</span>;
 });
 </code></pre><p>具名组匹配在原来的基础上，新增了最后一个函数参数：具名组构成的一个对象。函数内部可以直接对这个对象进行解构赋值。</p><h3 id="引用">引用 <a class="markdownIt-Anchor" href="#引用">#</a></h3><p>如果要在正则表达式内部引用某个“具名组匹配”，可以使用<code>\k&lt;组名&gt;</code>的写法。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> RE_TWICE = <span class="hljs-regexp">/^(?&lt;word&gt;[a-z]+)!\k&lt;word&gt;$/</span>;
-RE_TWICE.test(<span class="hljs-string">'abc!abc'</span>) <span class="hljs-comment">// true</span>
-RE_TWICE.test(<span class="hljs-string">'abc!ab'</span>) <span class="hljs-comment">// false</span>
+RE_TWICE.test(<span class="hljs-string">&#x27;abc!abc&#x27;</span>) <span class="hljs-comment">// true</span>
+RE_TWICE.test(<span class="hljs-string">&#x27;abc!ab&#x27;</span>) <span class="hljs-comment">// false</span>
 </code></pre><p>数字引用（<code>\1</code>）依然有效。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> RE_TWICE = <span class="hljs-regexp">/^(?&lt;word&gt;[a-z]+)!\1$/</span>;
-RE_TWICE.test(<span class="hljs-string">'abc!abc'</span>) <span class="hljs-comment">// true</span>
-RE_TWICE.test(<span class="hljs-string">'abc!ab'</span>) <span class="hljs-comment">// false</span>
+RE_TWICE.test(<span class="hljs-string">&#x27;abc!abc&#x27;</span>) <span class="hljs-comment">// true</span>
+RE_TWICE.test(<span class="hljs-string">&#x27;abc!ab&#x27;</span>) <span class="hljs-comment">// false</span>
 </code></pre><p>这两种引用语法还可以同时使用。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> RE_TWICE = <span class="hljs-regexp">/^(?&lt;word&gt;[a-z]+)!\k&lt;word&gt;!\1$/</span>;
-RE_TWICE.test(<span class="hljs-string">'abc!abc!abc'</span>) <span class="hljs-comment">// true</span>
-RE_TWICE.test(<span class="hljs-string">'abc!abc!ab'</span>) <span class="hljs-comment">// false</span>
-</code></pre><h2 id="正则匹配索引">正则匹配索引 <a class="markdownIt-Anchor" href="#正则匹配索引">#</a></h2><p>正则匹配结果的开始位置和结束位置，目前获取并不是很方便。正则实例的<code>exec()</code>方法，返回结果有一个<code>index</code>属性，可以获取整个匹配结果的开始位置，但是如果包含组匹配，每个组匹配的开始位置，很难拿到。</p><p>现在有一个<a href="https://github.com/tc39/proposal-regexp-match-Indices" target="_blank" rel="noopener">第三阶段提案</a>，为<code>exec()</code>方法的返回结果加上<code>indices</code>属性，在这个属性上面可以拿到匹配的开始位置和结束位置。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> text = <span class="hljs-string">'zabbcdef'</span>;
+RE_TWICE.test(<span class="hljs-string">&#x27;abc!abc!abc&#x27;</span>) <span class="hljs-comment">// true</span>
+RE_TWICE.test(<span class="hljs-string">&#x27;abc!abc!ab&#x27;</span>) <span class="hljs-comment">// false</span>
+</code></pre><h2 id="正则匹配索引">正则匹配索引 <a class="markdownIt-Anchor" href="#正则匹配索引">#</a></h2><p>正则匹配结果的开始位置和结束位置，目前获取并不是很方便。正则实例的<code>exec()</code>方法，返回结果有一个<code>index</code>属性，可以获取整个匹配结果的开始位置，但是如果包含组匹配，每个组匹配的开始位置，很难拿到。</p><p>现在有一个<a href="https://github.com/tc39/proposal-regexp-match-Indices" target="_blank" rel="noopener">第三阶段提案</a>，为<code>exec()</code>方法的返回结果加上<code>indices</code>属性，在这个属性上面可以拿到匹配的开始位置和结束位置。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> text = <span class="hljs-string">&#x27;zabbcdef&#x27;</span>;
 <span class="hljs-keyword">const</span> re = <span class="hljs-regexp">/ab/</span>;
 <span class="hljs-keyword">const</span> result = re.exec(text);
 
 result.index <span class="hljs-comment">// 1</span>
 result.indices <span class="hljs-comment">// [ [1, 3] ]</span>
-</code></pre><p>上面例子中，<code>exec()</code>方法的返回结果<code>result</code>，它的<code>index</code>属性是整个匹配结果（<code>ab</code>）的开始位置，而它的<code>indices</code>属性是一个数组，成员是每个匹配的开始位置和结束位置的数组。由于该例子的正则表达式没有组匹配，所以<code>indices</code>数组只有一个成员，表示整个匹配的开始位置是<code>1</code>，结束位置是<code>3</code>。</p><p>注意，开始位置包含在匹配结果之中，但是结束位置不包含在匹配结果之中。比如，匹配结果为<code>ab</code>，分别是原始字符串的第1位和第2位，那么结束位置就是第3位。</p><p>如果正则表达式包含组匹配，那么<code>indices</code>属性对应的数组就会包含多个成员，提供每个组匹配的开始位置和结束位置。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> text = <span class="hljs-string">'zabbcdef'</span>;
+</code></pre><p>上面例子中，<code>exec()</code>方法的返回结果<code>result</code>，它的<code>index</code>属性是整个匹配结果（<code>ab</code>）的开始位置，而它的<code>indices</code>属性是一个数组，成员是每个匹配的开始位置和结束位置的数组。由于该例子的正则表达式没有组匹配，所以<code>indices</code>数组只有一个成员，表示整个匹配的开始位置是<code>1</code>，结束位置是<code>3</code>。</p><p>注意，开始位置包含在匹配结果之中，但是结束位置不包含在匹配结果之中。比如，匹配结果为<code>ab</code>，分别是原始字符串的第1位和第2位，那么结束位置就是第3位。</p><p>如果正则表达式包含组匹配，那么<code>indices</code>属性对应的数组就会包含多个成员，提供每个组匹配的开始位置和结束位置。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> text = <span class="hljs-string">&#x27;zabbcdef&#x27;</span>;
 <span class="hljs-keyword">const</span> re = <span class="hljs-regexp">/ab+(cd)/</span>;
 <span class="hljs-keyword">const</span> result = re.exec(text);
 
 result.indices <span class="hljs-comment">// [ [ 1, 6 ], [ 4, 6 ] ]</span>
-</code></pre><p>上面例子中，正则表达式包含一个组匹配，那么<code>indices</code>属性数组就有两个成员，第一个成员是整个匹配结果（<code>abbcd</code>）的开始位置和结束位置，第二个成员是组匹配（<code>cd</code>）的开始位置和结束位置。</p><p>下面是多个组匹配的例子。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> text = <span class="hljs-string">'zabbcdef'</span>;
+</code></pre><p>上面例子中，正则表达式包含一个组匹配，那么<code>indices</code>属性数组就有两个成员，第一个成员是整个匹配结果（<code>abbcd</code>）的开始位置和结束位置，第二个成员是组匹配（<code>cd</code>）的开始位置和结束位置。</p><p>下面是多个组匹配的例子。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> text = <span class="hljs-string">&#x27;zabbcdef&#x27;</span>;
 <span class="hljs-keyword">const</span> re = <span class="hljs-regexp">/ab+(cd(ef))/</span>;
 <span class="hljs-keyword">const</span> result = re.exec(text);
 
 result.indices <span class="hljs-comment">// [ [1, 8], [4, 8], [6, 8] ]</span>
-</code></pre><p>上面例子中，正则表达式包含两个组匹配，所以<code>indices</code>属性数组就有三个成员。</p><p>如果正则表达式包含具名组匹配，<code>indices</code>属性数组还会有一个<code>groups</code>属性。该属性是一个对象，可以从该对象获取具名组匹配的开始位置和结束位置。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> text = <span class="hljs-string">'zabbcdef'</span>;
+</code></pre><p>上面例子中，正则表达式包含两个组匹配，所以<code>indices</code>属性数组就有三个成员。</p><p>如果正则表达式包含具名组匹配，<code>indices</code>属性数组还会有一个<code>groups</code>属性。该属性是一个对象，可以从该对象获取具名组匹配的开始位置和结束位置。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> text = <span class="hljs-string">&#x27;zabbcdef&#x27;</span>;
 <span class="hljs-keyword">const</span> re = <span class="hljs-regexp">/ab+(?&lt;Z&gt;cd)/</span>;
 <span class="hljs-keyword">const</span> result = re.exec(text);
 
 result.indices.groups <span class="hljs-comment">// { Z: [ 4, 6 ] }</span>
-</code></pre><p>上面例子中，<code>exec()</code>方法返回结果的<code>indices.groups</code>属性是一个对象，提供具名组匹配<code>Z</code>的开始位置和结束位置。</p><p>如果获取组匹配不成功，<code>indices</code>属性数组的对应成员则为<code>undefined</code>，<code>indices.groups</code>属性对象的对应成员也是<code>undefined</code>。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> text = <span class="hljs-string">'zabbcdef'</span>;
+</code></pre><p>上面例子中，<code>exec()</code>方法返回结果的<code>indices.groups</code>属性是一个对象，提供具名组匹配<code>Z</code>的开始位置和结束位置。</p><p>如果获取组匹配不成功，<code>indices</code>属性数组的对应成员则为<code>undefined</code>，<code>indices.groups</code>属性对象的对应成员也是<code>undefined</code>。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> text = <span class="hljs-string">&#x27;zabbcdef&#x27;</span>;
 <span class="hljs-keyword">const</span> re = <span class="hljs-regexp">/ab+(?&lt;Z&gt;ce)?/</span>;
 <span class="hljs-keyword">const</span> result = re.exec(text);
 
 result.indices[<span class="hljs-number">1</span>] <span class="hljs-comment">// undefined</span>
-result.indices.groups[<span class="hljs-string">'Z'</span>] <span class="hljs-comment">// undefined</span>
+result.indices.groups[<span class="hljs-string">&#x27;Z&#x27;</span>] <span class="hljs-comment">// undefined</span>
 </code></pre><p>上面例子中，由于组匹配不成功，所以<code>indices</code>属性数组和<code>indices.groups</code>属性对象对应的组匹配成员都是<code>undefined</code>。</p><h2 id="stringprototypematchall">String.prototype.matchAll() <a class="markdownIt-Anchor" href="#stringprototypematchall">#</a></h2><p>如果一个正则表达式在字符串里面有多个匹配，现在一般使用<code>g</code>修饰符或<code>y</code>修饰符，在循环里面逐一取出。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> regex = <span class="hljs-regexp">/t(e)(st(\d?))/g</span>;
-<span class="hljs-keyword">var</span> string = <span class="hljs-string">'test1test2test3'</span>;
+<span class="hljs-keyword">var</span> string = <span class="hljs-string">&#x27;test1test2test3&#x27;</span>;
 
 <span class="hljs-keyword">var</span> matches = [];
 <span class="hljs-keyword">var</span> match;
@@ -257,19 +257,19 @@ result.indices.groups[<span class="hljs-string">'Z'</span>] <span class="hljs-co
 
 matches
 <span class="hljs-comment">// [</span>
-<span class="hljs-comment">//   ["test1", "e", "st1", "1", index: 0, input: "test1test2test3"],</span>
-<span class="hljs-comment">//   ["test2", "e", "st2", "2", index: 5, input: "test1test2test3"],</span>
-<span class="hljs-comment">//   ["test3", "e", "st3", "3", index: 10, input: "test1test2test3"]</span>
+<span class="hljs-comment">//   [&quot;test1&quot;, &quot;e&quot;, &quot;st1&quot;, &quot;1&quot;, index: 0, input: &quot;test1test2test3&quot;],</span>
+<span class="hljs-comment">//   [&quot;test2&quot;, &quot;e&quot;, &quot;st2&quot;, &quot;2&quot;, index: 5, input: &quot;test1test2test3&quot;],</span>
+<span class="hljs-comment">//   [&quot;test3&quot;, &quot;e&quot;, &quot;st3&quot;, &quot;3&quot;, index: 10, input: &quot;test1test2test3&quot;]</span>
 <span class="hljs-comment">// ]</span>
-</code></pre><p>上面代码中，<code>while</code>循环取出每一轮的正则匹配，一共三轮。</p><p><a href="https://github.com/tc39/proposal-string-matchall" target="_blank" rel="noopener">ES2020</a> 增加了<code>String.prototype.matchAll()</code>方法，可以一次性取出所有匹配。不过，它返回的是一个遍历器（Iterator），而不是数组。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> string = <span class="hljs-string">'test1test2test3'</span>;
+</code></pre><p>上面代码中，<code>while</code>循环取出每一轮的正则匹配，一共三轮。</p><p><a href="https://github.com/tc39/proposal-string-matchall" target="_blank" rel="noopener">ES2020</a> 增加了<code>String.prototype.matchAll()</code>方法，可以一次性取出所有匹配。不过，它返回的是一个遍历器（Iterator），而不是数组。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> string = <span class="hljs-string">&#x27;test1test2test3&#x27;</span>;
 <span class="hljs-keyword">const</span> regex = <span class="hljs-regexp">/t(e)(st(\d?))/g</span>;
 
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> match <span class="hljs-keyword">of</span> string.matchAll(regex)) {
   <span class="hljs-built_in">console</span>.log(match);
 }
-<span class="hljs-comment">// ["test1", "e", "st1", "1", index: 0, input: "test1test2test3"]</span>
-<span class="hljs-comment">// ["test2", "e", "st2", "2", index: 5, input: "test1test2test3"]</span>
-<span class="hljs-comment">// ["test3", "e", "st3", "3", index: 10, input: "test1test2test3"]</span>
+<span class="hljs-comment">// [&quot;test1&quot;, &quot;e&quot;, &quot;st1&quot;, &quot;1&quot;, index: 0, input: &quot;test1test2test3&quot;]</span>
+<span class="hljs-comment">// [&quot;test2&quot;, &quot;e&quot;, &quot;st2&quot;, &quot;2&quot;, index: 5, input: &quot;test1test2test3&quot;]</span>
+<span class="hljs-comment">// [&quot;test3&quot;, &quot;e&quot;, &quot;st3&quot;, &quot;3&quot;, index: 10, input: &quot;test1test2test3&quot;]</span>
 </code></pre><p>上面代码中，由于<code>string.matchAll(regex)</code>返回的是遍历器，所以可以用<code>for...of</code>循环取出。相对于返回数组，返回遍历器的好处在于，如果匹配结果是一个很大的数组，那么遍历器比较节省资源。</p><p>遍历器转为数组是非常简单的，使用<code>...</code>运算符和<code>Array.from()</code>方法就可以了。</p><pre class="hljs"><code><span class="hljs-comment">// 转为数组的方法一</span>
 [...string.matchAll(regex)]
 

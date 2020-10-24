@@ -1,24 +1,24 @@
 <!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>函数的扩展 - ES6 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="函数的扩展"><link rel="apple-touch-icon" sizes="57x57" href="assets/icons/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="assets/icons/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="assets/icons/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="assets/icons/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="assets/icons/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="assets/icons/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="assets/icons/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="assets/icons/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png"><link rel="manifest" href="assets/icons/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="assets/icons/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/es6-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/es6-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8"><nav class="breadcrumb is-size-5-desktop" aria-label="breadcrumbs"><ul><li><a href="index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;ES6 教程</a></li><li class="is-active"><a class="has-text-grey" href="function.html">函数的扩展</a></li></ul></nav><nav class="level level-previous-next is-size-5 is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="number.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> 数值的扩展</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="array.html">数组的扩展 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content is-size-4-desktop"><h1 class="title">函数的扩展</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><h2 id="函数参数的默认值">函数参数的默认值 <a class="markdownIt-Anchor" href="#函数参数的默认值">#</a></h2><h3 id="基本用法">基本用法 <a class="markdownIt-Anchor" href="#基本用法">#</a></h3><p>ES6 之前，不能直接为函数的参数指定默认值，只能采用变通的方法。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">log</span>(<span class="hljs-params">x, y</span>) </span>{
-  y = y || <span class="hljs-string">'World'</span>;
+  y = y || <span class="hljs-string">&#x27;World&#x27;</span>;
   <span class="hljs-built_in">console</span>.log(x, y);
 }
 
-log(<span class="hljs-string">'Hello'</span>) <span class="hljs-comment">// Hello World</span>
-log(<span class="hljs-string">'Hello'</span>, <span class="hljs-string">'China'</span>) <span class="hljs-comment">// Hello China</span>
-log(<span class="hljs-string">'Hello'</span>, <span class="hljs-string">''</span>) <span class="hljs-comment">// Hello World</span>
-</code></pre><p>上面代码检查函数<code>log</code>的参数<code>y</code>有没有赋值，如果没有，则指定默认值为<code>World</code>。这种写法的缺点在于，如果参数<code>y</code>赋值了，但是对应的布尔值为<code>false</code>，则该赋值不起作用。就像上面代码的最后一行，参数<code>y</code>等于空字符，结果被改为默认值。</p><p>为了避免这个问题，通常需要先判断一下参数<code>y</code>是否被赋值，如果没有，再等于默认值。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> y === <span class="hljs-string">'undefined'</span>) {
-  y = <span class="hljs-string">'World'</span>;
+log(<span class="hljs-string">&#x27;Hello&#x27;</span>) <span class="hljs-comment">// Hello World</span>
+log(<span class="hljs-string">&#x27;Hello&#x27;</span>, <span class="hljs-string">&#x27;China&#x27;</span>) <span class="hljs-comment">// Hello China</span>
+log(<span class="hljs-string">&#x27;Hello&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>) <span class="hljs-comment">// Hello World</span>
+</code></pre><p>上面代码检查函数<code>log</code>的参数<code>y</code>有没有赋值，如果没有，则指定默认值为<code>World</code>。这种写法的缺点在于，如果参数<code>y</code>赋值了，但是对应的布尔值为<code>false</code>，则该赋值不起作用。就像上面代码的最后一行，参数<code>y</code>等于空字符，结果被改为默认值。</p><p>为了避免这个问题，通常需要先判断一下参数<code>y</code>是否被赋值，如果没有，再等于默认值。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> y === <span class="hljs-string">&#x27;undefined&#x27;</span>) {
+  y = <span class="hljs-string">&#x27;World&#x27;</span>;
 }
-</code></pre><p>ES6 允许为函数的参数设置默认值，即直接写在参数定义的后面。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">log</span>(<span class="hljs-params">x, y = <span class="hljs-string">'World'</span></span>) </span>{
+</code></pre><p>ES6 允许为函数的参数设置默认值，即直接写在参数定义的后面。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">log</span>(<span class="hljs-params">x, y = <span class="hljs-string">&#x27;World&#x27;</span></span>) </span>{
   <span class="hljs-built_in">console</span>.log(x, y);
 }
 
-log(<span class="hljs-string">'Hello'</span>) <span class="hljs-comment">// Hello World</span>
-log(<span class="hljs-string">'Hello'</span>, <span class="hljs-string">'China'</span>) <span class="hljs-comment">// Hello China</span>
-log(<span class="hljs-string">'Hello'</span>, <span class="hljs-string">''</span>) <span class="hljs-comment">// Hello</span>
+log(<span class="hljs-string">&#x27;Hello&#x27;</span>) <span class="hljs-comment">// Hello World</span>
+log(<span class="hljs-string">&#x27;Hello&#x27;</span>, <span class="hljs-string">&#x27;China&#x27;</span>) <span class="hljs-comment">// Hello China</span>
+log(<span class="hljs-string">&#x27;Hello&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>) <span class="hljs-comment">// Hello</span>
 </code></pre><p>可以看到，ES6 的写法比 ES5 简洁许多，而且非常自然。下面是另一个例子。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Point</span>(<span class="hljs-params">x = <span class="hljs-number">0</span>, y = <span class="hljs-number">0</span></span>) </span>{
-  <span class="hljs-keyword">this</span>.x = x;
-  <span class="hljs-keyword">this</span>.y = y;
+  <span class="hljs-built_in">this</span>.x = x;
+  <span class="hljs-built_in">this</span>.y = y;
 }
 
 <span class="hljs-keyword">const</span> p = <span class="hljs-keyword">new</span> Point();
@@ -53,27 +53,27 @@ foo() <span class="hljs-comment">// 101</span>
 foo({}) <span class="hljs-comment">// undefined 5</span>
 foo({<span class="hljs-attr">x</span>: <span class="hljs-number">1</span>}) <span class="hljs-comment">// 1 5</span>
 foo({<span class="hljs-attr">x</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">2</span>}) <span class="hljs-comment">// 1 2</span>
-foo() <span class="hljs-comment">// TypeError: Cannot read property 'x' of undefined</span>
+foo() <span class="hljs-comment">// TypeError: Cannot read property &#x27;x&#x27; of undefined</span>
 </code></pre><p>上面代码只使用了对象的解构赋值默认值，没有使用函数参数的默认值。只有当函数<code>foo</code>的参数是一个对象时，变量<code>x</code>和<code>y</code>才会通过解构赋值生成。如果函数<code>foo</code>调用时没提供参数，变量<code>x</code>和<code>y</code>就不会生成，从而报错。通过提供函数参数的默认值，就可以避免这种情况。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params">{x, y = <span class="hljs-number">5</span>} = {}</span>) </span>{
   <span class="hljs-built_in">console</span>.log(x, y);
 }
 
 foo() <span class="hljs-comment">// undefined 5</span>
-</code></pre><p>上面代码指定，如果没有提供参数，函数<code>foo</code>的参数默认为一个空对象。</p><p>下面是另一个解构赋值默认值的例子。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetch</span>(<span class="hljs-params">url, { body = <span class="hljs-string">''</span>, method = <span class="hljs-string">'GET'</span>, headers = {} }</span>) </span>{
+</code></pre><p>上面代码指定，如果没有提供参数，函数<code>foo</code>的参数默认为一个空对象。</p><p>下面是另一个解构赋值默认值的例子。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetch</span>(<span class="hljs-params">url, { body = <span class="hljs-string">&#x27;&#x27;</span>, method = <span class="hljs-string">&#x27;GET&#x27;</span>, headers = {} }</span>) </span>{
   <span class="hljs-built_in">console</span>.log(method);
 }
 
-fetch(<span class="hljs-string">'http://example.com'</span>, {})
-<span class="hljs-comment">// "GET"</span>
+fetch(<span class="hljs-string">&#x27;http://example.com&#x27;</span>, {})
+<span class="hljs-comment">// &quot;GET&quot;</span>
 
-fetch(<span class="hljs-string">'http://example.com'</span>)
+fetch(<span class="hljs-string">&#x27;http://example.com&#x27;</span>)
 <span class="hljs-comment">// 报错</span>
-</code></pre><p>上面代码中，如果函数<code>fetch</code>的第二个参数是一个对象，就可以为它的三个属性设置默认值。这种写法不能省略第二个参数，如果结合函数参数的默认值，就可以省略第二个参数。这时，就出现了双重默认值。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetch</span>(<span class="hljs-params">url, { body = <span class="hljs-string">''</span>, method = <span class="hljs-string">'GET'</span>, headers = {} } = {}</span>) </span>{
+</code></pre><p>上面代码中，如果函数<code>fetch</code>的第二个参数是一个对象，就可以为它的三个属性设置默认值。这种写法不能省略第二个参数，如果结合函数参数的默认值，就可以省略第二个参数。这时，就出现了双重默认值。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetch</span>(<span class="hljs-params">url, { body = <span class="hljs-string">&#x27;&#x27;</span>, method = <span class="hljs-string">&#x27;GET&#x27;</span>, headers = {} } = {}</span>) </span>{
   <span class="hljs-built_in">console</span>.log(method);
 }
 
-fetch(<span class="hljs-string">'http://example.com'</span>)
-<span class="hljs-comment">// "GET"</span>
+fetch(<span class="hljs-string">&#x27;http://example.com&#x27;</span>)
+<span class="hljs-comment">// &quot;GET&quot;</span>
 </code></pre><p>上面代码中，函数<code>fetch</code>没有第二个参数时，函数参数的默认值就会生效，然后才是解构赋值的默认值生效，变量<code>method</code>才会取到默认值<code>GET</code>。</p><p>作为练习，请问下面两种写法有什么差别？</p><pre class="hljs"><code><span class="hljs-comment">// 写法一</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">m1</span>(<span class="hljs-params">{x = <span class="hljs-number">0</span>, y = <span class="hljs-number">0</span>} = {}</span>) </span>{
   <span class="hljs-keyword">return</span> [x, y];
@@ -160,22 +160,22 @@ f() <span class="hljs-comment">// ReferenceError: x is not defined</span>
 }
 
 foo() <span class="hljs-comment">// ReferenceError: x is not defined</span>
-</code></pre><p>上面代码中，参数<code>x = x</code>形成一个单独作用域。实际执行的是<code>let x = x</code>，由于暂时性死区的原因，这行代码会报错”x 未定义“。</p><p>如果参数的默认值是一个函数，该函数的作用域也遵守这个规则。请看下面的例子。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> foo = <span class="hljs-string">'outer'</span>;
+</code></pre><p>上面代码中，参数<code>x = x</code>形成一个单独作用域。实际执行的是<code>let x = x</code>，由于暂时性死区的原因，这行代码会报错”x 未定义“。</p><p>如果参数的默认值是一个函数，该函数的作用域也遵守这个规则。请看下面的例子。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> foo = <span class="hljs-string">&#x27;outer&#x27;</span>;
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bar</span>(<span class="hljs-params">func = (</span>) =&gt; <span class="hljs-title">foo</span>) </span>{
-  <span class="hljs-keyword">let</span> foo = <span class="hljs-string">'inner'</span>;
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bar</span>(<span class="hljs-params">func = () =&gt; foo</span>) </span>{
+  <span class="hljs-keyword">let</span> foo = <span class="hljs-string">&#x27;inner&#x27;</span>;
   <span class="hljs-built_in">console</span>.log(func());
 }
 
 bar(); <span class="hljs-comment">// outer</span>
-</code></pre><p>上面代码中，函数<code>bar</code>的参数<code>func</code>的默认值是一个匿名函数，返回值为变量<code>foo</code>。函数参数形成的单独作用域里面，并没有定义变量<code>foo</code>，所以<code>foo</code>指向外层的全局变量<code>foo</code>，因此输出<code>outer</code>。</p><p>如果写成下面这样，就会报错。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bar</span>(<span class="hljs-params">func = (</span>) =&gt; <span class="hljs-title">foo</span>) </span>{
-  <span class="hljs-keyword">let</span> foo = <span class="hljs-string">'inner'</span>;
+</code></pre><p>上面代码中，函数<code>bar</code>的参数<code>func</code>的默认值是一个匿名函数，返回值为变量<code>foo</code>。函数参数形成的单独作用域里面，并没有定义变量<code>foo</code>，所以<code>foo</code>指向外层的全局变量<code>foo</code>，因此输出<code>outer</code>。</p><p>如果写成下面这样，就会报错。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bar</span>(<span class="hljs-params">func = () =&gt; foo</span>) </span>{
+  <span class="hljs-keyword">let</span> foo = <span class="hljs-string">&#x27;inner&#x27;</span>;
   <span class="hljs-built_in">console</span>.log(func());
 }
 
 bar() <span class="hljs-comment">// ReferenceError: foo is not defined</span>
 </code></pre><p>上面代码中，匿名函数里面的<code>foo</code>指向函数外层，但是函数外层并没有声明变量<code>foo</code>，所以就报错了。</p><p>下面是一个更复杂的例子。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> x = <span class="hljs-number">1</span>;
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params">x, y = function(</span>) </span>{ x = <span class="hljs-number">2</span>; }) {
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params">x, y = function() { x = <span class="hljs-number">2</span>; }</span>) </span>{
   <span class="hljs-keyword">var</span> x = <span class="hljs-number">3</span>;
   y();
   <span class="hljs-built_in">console</span>.log(x);
@@ -184,7 +184,7 @@ bar() <span class="hljs-comment">// ReferenceError: foo is not defined</span>
 foo() <span class="hljs-comment">// 3</span>
 x <span class="hljs-comment">// 1</span>
 </code></pre><p>上面代码中，函数<code>foo</code>的参数形成一个单独作用域。这个作用域里面，首先声明了变量<code>x</code>，然后声明了变量<code>y</code>，<code>y</code>的默认值是一个匿名函数。这个匿名函数内部的变量<code>x</code>，指向同一个作用域的第一个参数<code>x</code>。函数<code>foo</code>内部又声明了一个内部变量<code>x</code>，该变量与第一个参数<code>x</code>由于不是同一个作用域，所以不是同一个变量，因此执行<code>y</code>后，内部变量<code>x</code>和外部全局变量<code>x</code>的值都没变。</p><p>如果将<code>var x = 3</code>的<code>var</code>去除，函数<code>foo</code>的内部变量<code>x</code>就指向第一个参数<code>x</code>，与匿名函数内部的<code>x</code>是一致的，所以最后输出的就是<code>2</code>，而外层的全局变量<code>x</code>依然不受影响。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> x = <span class="hljs-number">1</span>;
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params">x, y = function(</span>) </span>{ x = <span class="hljs-number">2</span>; }) {
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params">x, y = function() { x = <span class="hljs-number">2</span>; }</span>) </span>{
   x = <span class="hljs-number">3</span>;
   y();
   <span class="hljs-built_in">console</span>.log(x);
@@ -193,10 +193,10 @@ x <span class="hljs-comment">// 1</span>
 foo() <span class="hljs-comment">// 2</span>
 x <span class="hljs-comment">// 1</span>
 </code></pre><h3 id="应用">应用 <a class="markdownIt-Anchor" href="#应用">#</a></h3><p>利用参数默认值，可以指定某一个参数不得省略，如果省略就抛出一个错误。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">throwIfMissing</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Missing parameter'</span>);
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&#x27;Missing parameter&#x27;</span>);
 }
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params">mustBeProvided = throwIfMissing(</span>)) </span>{
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params">mustBeProvided = throwIfMissing()</span>) </span>{
   <span class="hljs-keyword">return</span> mustBeProvided;
 }
 
@@ -238,78 +238,78 @@ push(a, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, 
 (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">...a</span>) </span>{}).length  <span class="hljs-comment">// 0</span>
 (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a, ...b</span>) </span>{}).length  <span class="hljs-comment">// 1</span>
 </code></pre><h2 id="严格模式">严格模式 <a class="markdownIt-Anchor" href="#严格模式">#</a></h2><p>从 ES5 开始，函数内部可以设定为严格模式。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">doSomething</span>(<span class="hljs-params">a, b</span>) </span>{
-  <span class="hljs-string">'use strict'</span>;
+<span class="hljs-meta">  &#x27;use strict&#x27;</span>;
   <span class="hljs-comment">// code</span>
 }
 </code></pre><p>ES2016 做了一点修改，规定只要函数参数使用了默认值、解构赋值、或者扩展运算符，那么函数内部就不能显式设定为严格模式，否则会报错。</p><pre class="hljs"><code><span class="hljs-comment">// 报错</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">doSomething</span>(<span class="hljs-params">a, b = a</span>) </span>{
-  <span class="hljs-string">'use strict'</span>;
+<span class="hljs-meta">  &#x27;use strict&#x27;</span>;
   <span class="hljs-comment">// code</span>
 }
 
 <span class="hljs-comment">// 报错</span>
 <span class="hljs-keyword">const</span> doSomething = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">{a, b}</span>) </span>{
-  <span class="hljs-string">'use strict'</span>;
+<span class="hljs-meta">  &#x27;use strict&#x27;</span>;
   <span class="hljs-comment">// code</span>
 };
 
 <span class="hljs-comment">// 报错</span>
 <span class="hljs-keyword">const</span> doSomething = <span class="hljs-function">(<span class="hljs-params">...a</span>) =&gt;</span> {
-  <span class="hljs-string">'use strict'</span>;
+  <span class="hljs-string">&#x27;use strict&#x27;</span>;
   <span class="hljs-comment">// code</span>
 };
 
 <span class="hljs-keyword">const</span> obj = {
   <span class="hljs-comment">// 报错</span>
   doSomething({a, b}) {
-    <span class="hljs-string">'use strict'</span>;
+    <span class="hljs-string">&#x27;use strict&#x27;</span>;
     <span class="hljs-comment">// code</span>
   }
 };
 </code></pre><p>这样规定的原因是，函数内部的严格模式，同时适用于函数体和函数参数。但是，函数执行的时候，先执行函数参数，然后再执行函数体。这样就有一个不合理的地方，只有从函数体之中，才能知道参数是否应该以严格模式执行，但是参数却应该先于函数体执行。</p><pre class="hljs"><code><span class="hljs-comment">// 报错</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">doSomething</span>(<span class="hljs-params">value = <span class="hljs-number">070</span></span>) </span>{
-  <span class="hljs-string">'use strict'</span>;
+<span class="hljs-meta">  &#x27;use strict&#x27;</span>;
   <span class="hljs-keyword">return</span> value;
 }
-</code></pre><p>上面代码中，参数<code>value</code>的默认值是八进制数<code>070</code>，但是严格模式下不能用前缀<code>0</code>表示八进制，所以应该报错。但是实际上，JavaScript 引擎会先成功执行<code>value = 070</code>，然后进入函数体内部，发现需要用严格模式执行，这时才会报错。</p><p>虽然可以先解析函数体代码，再执行参数代码，但是这样无疑就增加了复杂性。因此，标准索性禁止了这种用法，只要参数使用了默认值、解构赋值、或者扩展运算符，就不能显式指定严格模式。</p><p>两种方法可以规避这种限制。第一种是设定全局性的严格模式，这是合法的。</p><pre class="hljs"><code><span class="hljs-meta">'use strict'</span>;
+</code></pre><p>上面代码中，参数<code>value</code>的默认值是八进制数<code>070</code>，但是严格模式下不能用前缀<code>0</code>表示八进制，所以应该报错。但是实际上，JavaScript 引擎会先成功执行<code>value = 070</code>，然后进入函数体内部，发现需要用严格模式执行，这时才会报错。</p><p>虽然可以先解析函数体代码，再执行参数代码，但是这样无疑就增加了复杂性。因此，标准索性禁止了这种用法，只要参数使用了默认值、解构赋值、或者扩展运算符，就不能显式指定严格模式。</p><p>两种方法可以规避这种限制。第一种是设定全局性的严格模式，这是合法的。</p><pre class="hljs"><code><span class="hljs-meta">&#x27;use strict&#x27;</span>;
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">doSomething</span>(<span class="hljs-params">a, b = a</span>) </span>{
   <span class="hljs-comment">// code</span>
 }
 </code></pre><p>第二种是把函数包在一个无参数的立即执行函数里面。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> doSomething = (<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-string">'use strict'</span>;
+<span class="hljs-meta">  &#x27;use strict&#x27;</span>;
   <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">value = <span class="hljs-number">42</span></span>) </span>{
     <span class="hljs-keyword">return</span> value;
   };
 }());
 </code></pre><h2 id="name-属性">name 属性 <a class="markdownIt-Anchor" href="#name-属性">#</a></h2><p>函数的<code>name</code>属性，返回该函数的函数名。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>{}
-foo.name <span class="hljs-comment">// "foo"</span>
+foo.name <span class="hljs-comment">// &quot;foo&quot;</span>
 </code></pre><p>这个属性早就被浏览器广泛支持，但是直到 ES6，才将其写入了标准。</p><p>需要注意的是，ES6 对这个属性的行为做出了一些修改。如果将一个匿名函数赋值给一个变量，ES5 的<code>name</code>属性，会返回空字符串，而 ES6 的<code>name</code>属性会返回实际的函数名。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> f = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{};
 
 <span class="hljs-comment">// ES5</span>
-f.name <span class="hljs-comment">// ""</span>
+f.name <span class="hljs-comment">// &quot;&quot;</span>
 
 <span class="hljs-comment">// ES6</span>
-f.name <span class="hljs-comment">// "f"</span>
+f.name <span class="hljs-comment">// &quot;f&quot;</span>
 </code></pre><p>上面代码中，变量<code>f</code>等于一个匿名函数，ES5 和 ES6 的<code>name</code>属性返回的值不一样。</p><p>如果将一个具名函数赋值给一个变量，则 ES5 和 ES6 的<code>name</code>属性都返回这个具名函数原本的名字。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> bar = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">baz</span>(<span class="hljs-params"></span>) </span>{};
 
 <span class="hljs-comment">// ES5</span>
-bar.name <span class="hljs-comment">// "baz"</span>
+bar.name <span class="hljs-comment">// &quot;baz&quot;</span>
 
 <span class="hljs-comment">// ES6</span>
-bar.name <span class="hljs-comment">// "baz"</span>
-</code></pre><p><code>Function</code>构造函数返回的函数实例，<code>name</code>属性的值为<code>anonymous</code>。</p><pre class="hljs"><code>(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Function</span>).name <span class="hljs-comment">// "anonymous"</span>
+bar.name <span class="hljs-comment">// &quot;baz&quot;</span>
+</code></pre><p><code>Function</code>构造函数返回的函数实例，<code>name</code>属性的值为<code>anonymous</code>。</p><pre class="hljs"><code>(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Function</span>).name <span class="hljs-comment">// &quot;anonymous&quot;</span>
 </code></pre><p><code>bind</code>返回的函数，<code>name</code>属性值会加上<code>bound</code>前缀。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>{};
-foo.bind({}).name <span class="hljs-comment">// "bound foo"</span>
+foo.bind({}).name <span class="hljs-comment">// &quot;bound foo&quot;</span>
 
-(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{}).bind({}).name <span class="hljs-comment">// "bound "</span>
+(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{}).bind({}).name <span class="hljs-comment">// &quot;bound &quot;</span>
 </code></pre><h2 id="箭头函数">箭头函数 <a class="markdownIt-Anchor" href="#箭头函数">#</a></h2><h3 id="基本用法-1">基本用法 <a class="markdownIt-Anchor" href="#基本用法-1">#</a></h3><p>ES6 允许使用“箭头”（<code>=&gt;</code>）定义函数。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> f = <span class="hljs-function"><span class="hljs-params">v</span> =&gt;</span> v;
 
 <span class="hljs-comment">// 等同于</span>
 <span class="hljs-keyword">var</span> f = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">v</span>) </span>{
   <span class="hljs-keyword">return</span> v;
 };
-</code></pre><p>如果箭头函数不需要参数或需要多个参数，就使用一个圆括号代表参数部分。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> f = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-number">5</span>;
+</code></pre><p>如果箭头函数不需要参数或需要多个参数，就使用一个圆括号代表参数部分。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> f = <span class="hljs-function">() =&gt;</span> <span class="hljs-number">5</span>;
 <span class="hljs-comment">// 等同于</span>
 <span class="hljs-keyword">var</span> f = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">return</span> <span class="hljs-number">5</span> };
 
@@ -320,18 +320,18 @@ foo.bind({}).name <span class="hljs-comment">// "bound foo"</span>
 };
 </code></pre><p>如果箭头函数的代码块部分多于一条语句，就要使用大括号将它们括起来，并且使用<code>return</code>语句返回。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> sum = <span class="hljs-function">(<span class="hljs-params">num1, num2</span>) =&gt;</span> { <span class="hljs-keyword">return</span> num1 + num2; }
 </code></pre><p>由于大括号被解释为代码块，所以如果箭头函数直接返回一个对象，必须在对象外面加上括号，否则会报错。</p><pre class="hljs"><code><span class="hljs-comment">// 报错</span>
-<span class="hljs-keyword">let</span> getTempItem = <span class="hljs-function"><span class="hljs-params">id</span> =&gt;</span> { <span class="hljs-attr">id</span>: id, <span class="hljs-attr">name</span>: <span class="hljs-string">"Temp"</span> };
+<span class="hljs-keyword">let</span> getTempItem = <span class="hljs-function"><span class="hljs-params">id</span> =&gt;</span> { <span class="hljs-attr">id</span>: id, <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;Temp&quot;</span> };
 
 <span class="hljs-comment">// 不报错</span>
-<span class="hljs-keyword">let</span> getTempItem = <span class="hljs-function"><span class="hljs-params">id</span> =&gt;</span> ({ <span class="hljs-attr">id</span>: id, <span class="hljs-attr">name</span>: <span class="hljs-string">"Temp"</span> });
-</code></pre><p>下面是一种特殊情况，虽然可以运行，但会得到错误的结果。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> foo = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> { <span class="hljs-attr">a</span>: <span class="hljs-number">1</span> };
+<span class="hljs-keyword">let</span> getTempItem = <span class="hljs-function"><span class="hljs-params">id</span> =&gt;</span> ({ <span class="hljs-attr">id</span>: id, <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;Temp&quot;</span> });
+</code></pre><p>下面是一种特殊情况，虽然可以运行，但会得到错误的结果。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> foo = <span class="hljs-function">() =&gt;</span> { <span class="hljs-attr">a</span>: <span class="hljs-number">1</span> };
 foo() <span class="hljs-comment">// undefined</span>
-</code></pre><p>上面代码中，原始意图是返回一个对象<code>{ a: 1 }</code>，但是由于引擎认为大括号是代码块，所以执行了一行语句<code>a: 1</code>。这时，<code>a</code>可以被解释为语句的标签，因此实际执行的语句是<code>1;</code>，然后函数就结束了，没有返回值。</p><p>如果箭头函数只有一行语句，且不需要返回值，可以采用下面的写法，就不用写大括号了。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> fn = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-keyword">void</span> doesNotReturn();
-</code></pre><p>箭头函数可以与变量解构结合使用。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> full = <span class="hljs-function">(<span class="hljs-params">{ first, last }</span>) =&gt;</span> first + <span class="hljs-string">' '</span> + last;
+</code></pre><p>上面代码中，原始意图是返回一个对象<code>{ a: 1 }</code>，但是由于引擎认为大括号是代码块，所以执行了一行语句<code>a: 1</code>。这时，<code>a</code>可以被解释为语句的标签，因此实际执行的语句是<code>1;</code>，然后函数就结束了，没有返回值。</p><p>如果箭头函数只有一行语句，且不需要返回值，可以采用下面的写法，就不用写大括号了。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> fn = <span class="hljs-function">() =&gt;</span> <span class="hljs-keyword">void</span> doesNotReturn();
+</code></pre><p>箭头函数可以与变量解构结合使用。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> full = <span class="hljs-function">(<span class="hljs-params">{ first, last }</span>) =&gt;</span> first + <span class="hljs-string">&#x27; &#x27;</span> + last;
 
 <span class="hljs-comment">// 等同于</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">full</span>(<span class="hljs-params">person</span>) </span>{
-  <span class="hljs-keyword">return</span> person.first + <span class="hljs-string">' '</span> + person.last;
+  <span class="hljs-keyword">return</span> person.first + <span class="hljs-string">&#x27; &#x27;</span> + person.last;
 }
 </code></pre><p>箭头函数使得表达更加简洁。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> isEven = <span class="hljs-function"><span class="hljs-params">n</span> =&gt;</span> n % <span class="hljs-number">2</span> === <span class="hljs-number">0</span>;
 <span class="hljs-keyword">const</span> square = <span class="hljs-function"><span class="hljs-params">n</span> =&gt;</span> n * n;
@@ -359,8 +359,8 @@ numbers(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, 
 headAndTail(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>)
 <span class="hljs-comment">// [1,[2,3,4,5]]</span>
 </code></pre><h3 id="使用注意点">使用注意点 <a class="markdownIt-Anchor" href="#使用注意点">#</a></h3><p>箭头函数有几个使用注意点。</p><p>（1）函数体内的<code>this</code>对象，就是定义时所在的对象，而不是使用时所在的对象。</p><p>（2）不可以当作构造函数，也就是说，不可以使用<code>new</code>命令，否则会抛出一个错误。</p><p>（3）不可以使用<code>arguments</code>对象，该对象在函数体内不存在。如果要用，可以用 rest 参数代替。</p><p>（4）不可以使用<code>yield</code>命令，因此箭头函数不能用作 Generator 函数。</p><p>上面四点中，第一点尤其值得注意。<code>this</code>对象的指向是可变的，但是在箭头函数中，它是固定的。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>{
-  setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'id:'</span>, <span class="hljs-keyword">this</span>.id);
+  <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;id:&#x27;</span>, <span class="hljs-built_in">this</span>.id);
   }, <span class="hljs-number">100</span>);
 }
 
@@ -369,54 +369,54 @@ headAndTail(<span class="hljs-number">1</span>, <span class="hljs-number">2</spa
 foo.call({ <span class="hljs-attr">id</span>: <span class="hljs-number">42</span> });
 <span class="hljs-comment">// id: 42</span>
 </code></pre><p>上面代码中，<code>setTimeout()</code>的参数是一个箭头函数，这个箭头函数的定义生效是在<code>foo</code>函数生成时，而它的真正执行要等到 100 毫秒后。如果是普通函数，执行时<code>this</code>应该指向全局对象<code>window</code>，这时应该输出<code>21</code>。但是，箭头函数导致<code>this</code>总是指向函数定义生效时所在的对象（本例是<code>{id: 42}</code>），所以打印出来的是<code>42</code>。</p><p>箭头函数可以让<code>setTimeout</code>里面的<code>this</code>，绑定定义时所在的作用域，而不是指向运行时所在的作用域。下面是另一个例子。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Timer</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">this</span>.s1 = <span class="hljs-number">0</span>;
-  <span class="hljs-keyword">this</span>.s2 = <span class="hljs-number">0</span>;
+  <span class="hljs-built_in">this</span>.s1 = <span class="hljs-number">0</span>;
+  <span class="hljs-built_in">this</span>.s2 = <span class="hljs-number">0</span>;
   <span class="hljs-comment">// 箭头函数</span>
-  setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-keyword">this</span>.s1++, <span class="hljs-number">1000</span>);
+  <span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">this</span>.s1++, <span class="hljs-number">1000</span>);
   <span class="hljs-comment">// 普通函数</span>
-  setInterval(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-    <span class="hljs-keyword">this</span>.s2++;
+  <span class="hljs-built_in">setInterval</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-built_in">this</span>.s2++;
   }, <span class="hljs-number">1000</span>);
 }
 
 <span class="hljs-keyword">var</span> timer = <span class="hljs-keyword">new</span> Timer();
 
-setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'s1: '</span>, timer.s1), <span class="hljs-number">3100</span>);
-setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'s2: '</span>, timer.s2), <span class="hljs-number">3100</span>);
+<span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;s1: &#x27;</span>, timer.s1), <span class="hljs-number">3100</span>);
+<span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;s2: &#x27;</span>, timer.s2), <span class="hljs-number">3100</span>);
 <span class="hljs-comment">// s1: 3</span>
 <span class="hljs-comment">// s2: 0</span>
 </code></pre><p>上面代码中，<code>Timer</code>函数内部设置了两个定时器，分别使用了箭头函数和普通函数。前者的<code>this</code>绑定定义时所在的作用域（即<code>Timer</code>函数），后者的<code>this</code>指向运行时所在的作用域（即全局对象）。所以，3100 毫秒之后，<code>timer.s1</code>被更新了 3 次，而<code>timer.s2</code>一次都没更新。</p><p>箭头函数可以让<code>this</code>指向固定化，这种特性很有利于封装回调函数。下面是一个例子，DOM 事件的回调函数封装在一个对象里面。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> handler = {
-  <span class="hljs-attr">id</span>: <span class="hljs-string">'123456'</span>,
+  <span class="hljs-attr">id</span>: <span class="hljs-string">&#x27;123456&#x27;</span>,
 
   <span class="hljs-attr">init</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-    <span class="hljs-built_in">document</span>.addEventListener(<span class="hljs-string">'click'</span>,
-      event =&gt; <span class="hljs-keyword">this</span>.doSomething(event.type), <span class="hljs-literal">false</span>);
+    <span class="hljs-built_in">document</span>.addEventListener(<span class="hljs-string">&#x27;click&#x27;</span>,
+      <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> <span class="hljs-built_in">this</span>.doSomething(event.type), <span class="hljs-literal">false</span>);
   },
 
   <span class="hljs-attr">doSomething</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">type</span>) </span>{
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Handling '</span> + type  + <span class="hljs-string">' for '</span> + <span class="hljs-keyword">this</span>.id);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Handling &#x27;</span> + type  + <span class="hljs-string">&#x27; for &#x27;</span> + <span class="hljs-built_in">this</span>.id);
   }
 };
 </code></pre><p>上面代码的<code>init</code>方法中，使用了箭头函数，这导致这个箭头函数里面的<code>this</code>，总是指向<code>handler</code>对象。否则，回调函数运行时，<code>this.doSomething</code>这一行会报错，因为此时<code>this</code>指向<code>document</code>对象。</p><p><code>this</code>指向的固定化，并不是因为箭头函数内部有绑定<code>this</code>的机制，实际原因是箭头函数根本没有自己的<code>this</code>，导致内部的<code>this</code>就是外层代码块的<code>this</code>。正是因为它没有<code>this</code>，所以也就不能用作构造函数。</p><p>所以，箭头函数转成 ES5 的代码如下。</p><pre class="hljs"><code><span class="hljs-comment">// ES6</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>{
-  setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'id:'</span>, <span class="hljs-keyword">this</span>.id);
+  <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;id:&#x27;</span>, <span class="hljs-built_in">this</span>.id);
   }, <span class="hljs-number">100</span>);
 }
 
 <span class="hljs-comment">// ES5</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">var</span> _this = <span class="hljs-keyword">this</span>;
+  <span class="hljs-keyword">var</span> _this = <span class="hljs-built_in">this</span>;
 
-  setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'id:'</span>, _this.id);
+  <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;id:&#x27;</span>, _this.id);
   }, <span class="hljs-number">100</span>);
 }
 </code></pre><p>上面代码中，转换后的 ES5 版本清楚地说明了，箭头函数里面根本没有自己的<code>this</code>，而是引用外层的<code>this</code>。</p><p>请问下面的代码之中有几个<code>this</code>？</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-      <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'id:'</span>, <span class="hljs-keyword">this</span>.id);
+  <span class="hljs-keyword">return</span> <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-keyword">return</span> <span class="hljs-function">() =&gt;</span> {
+      <span class="hljs-keyword">return</span> <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;id:&#x27;</span>, <span class="hljs-built_in">this</span>.id);
       };
     };
   };
@@ -428,8 +428,8 @@ setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;
 <span class="hljs-keyword">var</span> t2 = f().call({<span class="hljs-attr">id</span>: <span class="hljs-number">3</span>})(); <span class="hljs-comment">// id: 1</span>
 <span class="hljs-keyword">var</span> t3 = f()().call({<span class="hljs-attr">id</span>: <span class="hljs-number">4</span>}); <span class="hljs-comment">// id: 1</span>
 </code></pre><p>上面代码之中，只有一个<code>this</code>，就是函数<code>foo</code>的<code>this</code>，所以<code>t1</code>、<code>t2</code>、<code>t3</code>都输出同样的结果。因为所有的内层函数都是箭头函数，都没有自己的<code>this</code>，它们的<code>this</code>其实都是最外层<code>foo</code>函数的<code>this</code>。</p><p>除了<code>this</code>，以下三个变量在箭头函数之中也是不存在的，指向外层函数的对应变量：<code>arguments</code>、<code>super</code>、<code>new.target</code>。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>{
-  setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'args:'</span>, <span class="hljs-built_in">arguments</span>);
+  <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;args:&#x27;</span>, <span class="hljs-built_in">arguments</span>);
   }, <span class="hljs-number">100</span>);
 }
 
@@ -437,19 +437,19 @@ foo(<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <spa
 <span class="hljs-comment">// args: [2, 4, 6, 8]</span>
 </code></pre><p>上面代码中，箭头函数内部的变量<code>arguments</code>，其实是函数<code>foo</code>的<code>arguments</code>变量。</p><p>另外，由于箭头函数没有自己的<code>this</code>，所以当然也就不能用<code>call()</code>、<code>apply()</code>、<code>bind()</code>这些方法去改变<code>this</code>的指向。</p><pre class="hljs"><code>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">return</span> [
-    <span class="hljs-function">(<span class="hljs-params">(</span>) =&gt;</span> <span class="hljs-keyword">this</span>.x).bind({ <span class="hljs-attr">x</span>: <span class="hljs-string">'inner'</span> })()
+    (<span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">this</span>.x).bind({ <span class="hljs-attr">x</span>: <span class="hljs-string">&#x27;inner&#x27;</span> })()
   ];
-}).call({ <span class="hljs-attr">x</span>: <span class="hljs-string">'outer'</span> });
-<span class="hljs-comment">// ['outer']</span>
+}).call({ <span class="hljs-attr">x</span>: <span class="hljs-string">&#x27;outer&#x27;</span> });
+<span class="hljs-comment">// [&#x27;outer&#x27;]</span>
 </code></pre><p>上面代码中，箭头函数没有自己的<code>this</code>，所以<code>bind</code>方法无效，内部的<code>this</code>指向外部的<code>this</code>。</p><p>长期以来，JavaScript 语言的<code>this</code>对象一直是一个令人头痛的问题，在对象方法中使用<code>this</code>，必须非常小心。箭头函数”绑定”<code>this</code>，很大程度上解决了这个困扰。</p><h3 id="不适用场合">不适用场合 <a class="markdownIt-Anchor" href="#不适用场合">#</a></h3><p>由于箭头函数使得<code>this</code>从“动态”变成“静态”，下面两个场合不应该使用箭头函数。</p><p>第一个场合是定义对象的方法，且该方法内部包括<code>this</code>。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> cat = {
   <span class="hljs-attr">lives</span>: <span class="hljs-number">9</span>,
-  <span class="hljs-attr">jumps</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-    <span class="hljs-keyword">this</span>.lives--;
+  <span class="hljs-attr">jumps</span>: <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-built_in">this</span>.lives--;
   }
 }
-</code></pre><p>上面代码中，<code>cat.jumps()</code>方法是一个箭头函数，这是错误的。调用<code>cat.jumps()</code>时，如果是普通函数，该方法内部的<code>this</code>指向<code>cat</code>；如果写成上面那样的箭头函数，使得<code>this</code>指向全局对象，因此不会得到预期结果。这是因为对象不构成单独的作用域，导致<code>jumps</code>箭头函数定义时的作用域就是全局作用域。</p><p>第二个场合是需要动态<code>this</code>的时候，也不应使用箭头函数。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> button = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'press'</span>);
-button.addEventListener(<span class="hljs-string">'click'</span>, () =&gt; {
-  <span class="hljs-keyword">this</span>.classList.toggle(<span class="hljs-string">'on'</span>);
+</code></pre><p>上面代码中，<code>cat.jumps()</code>方法是一个箭头函数，这是错误的。调用<code>cat.jumps()</code>时，如果是普通函数，该方法内部的<code>this</code>指向<code>cat</code>；如果写成上面那样的箭头函数，使得<code>this</code>指向全局对象，因此不会得到预期结果。这是因为对象不构成单独的作用域，导致<code>jumps</code>箭头函数定义时的作用域就是全局作用域。</p><p>第二个场合是需要动态<code>this</code>的时候，也不应使用箭头函数。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> button = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;press&#x27;</span>);
+button.addEventListener(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-built_in">this</span>.classList.toggle(<span class="hljs-string">&#x27;on&#x27;</span>);
 });
 </code></pre><p>上面代码运行时，点击按钮会报错，因为<code>button</code>的监听函数是一个箭头函数，导致里面的<code>this</code>就是全局对象。如果改成普通函数，<code>this</code>就会动态指向被点击的按钮对象。</p><p>另外，如果函数体很复杂，有许多行，或者函数内部有大量的读写操作，不单纯是为了计算值，这时也不应该使用箭头函数，而是要使用普通函数，这样可以提高代码可读性。</p><h3 id="嵌套的箭头函数">嵌套的箭头函数 <a class="markdownIt-Anchor" href="#嵌套的箭头函数">#</a></h3><p>箭头函数内部，还可以再使用箭头函数。下面是一个 ES5 语法的多重嵌套函数。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">insert</span>(<span class="hljs-params">value</span>) </span>{
   <span class="hljs-keyword">return</span> {<span class="hljs-attr">into</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">array</span>) </span>{
@@ -461,7 +461,7 @@ button.addEventListener(<span class="hljs-string">'click'</span>, () =&gt; {
 }
 
 insert(<span class="hljs-number">2</span>).into([<span class="hljs-number">1</span>, <span class="hljs-number">3</span>]).after(<span class="hljs-number">1</span>); <span class="hljs-comment">//[1, 2, 3]</span>
-</code></pre><p>上面这个函数，可以使用箭头函数改写。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> insert = <span class="hljs-function">(<span class="hljs-params">value</span>) =&gt;</span> <span class="hljs-function">(<span class="hljs-params">{into: (array</span>) =&gt;</span> <span class="hljs-function">(<span class="hljs-params">{after: (afterValue</span>) =&gt;</span> {
+</code></pre><p>上面这个函数，可以使用箭头函数改写。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> insert = <span class="hljs-function">(<span class="hljs-params">value</span>) =&gt;</span> ({<span class="hljs-attr">into</span>: <span class="hljs-function">(<span class="hljs-params">array</span>) =&gt;</span> ({<span class="hljs-attr">after</span>: <span class="hljs-function">(<span class="hljs-params">afterValue</span>) =&gt;</span> {
   array.splice(array.indexOf(afterValue) + <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, value);
   <span class="hljs-keyword">return</span> array;
 }})});
@@ -579,7 +579,7 @@ Fibonacci2(<span class="hljs-number">10000</span>) <span class="hljs-comment">//
 factorial(<span class="hljs-number">5</span>) <span class="hljs-comment">// 120</span>
 </code></pre><p>上面代码通过一个正常形式的阶乘函数<code>factorial</code>，调用尾递归函数<code>tailFactorial</code>，看起来就正常多了。</p><p>函数式编程有一个概念，叫做柯里化（currying），意思是将多参数的函数转换成单参数的形式。这里也可以使用柯里化。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">currying</span>(<span class="hljs-params">fn, n</span>) </span>{
   <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">m</span>) </span>{
-    <span class="hljs-keyword">return</span> fn.call(<span class="hljs-keyword">this</span>, m, n);
+    <span class="hljs-keyword">return</span> fn.call(<span class="hljs-built_in">this</span>, m, n);
   };
 }
 
@@ -598,7 +598,7 @@ factorial(<span class="hljs-number">5</span>) <span class="hljs-comment">// 120<
 
 factorial(<span class="hljs-number">5</span>) <span class="hljs-comment">// 120</span>
 </code></pre><p>上面代码中，参数<code>total</code>有默认值<code>1</code>，所以调用时不用提供这个值。</p><p>总结一下，递归本质上是一种循环操作。纯粹的函数式编程语言没有循环操作命令，所有的循环都用递归实现，这就是为什么尾递归对这些语言极其重要。对于其他支持“尾调用优化”的语言（比如 Lua，ES6），只需要知道循环可以用递归代替，而一旦使用递归，就最好使用尾递归。</p><h3 id="严格模式-1">严格模式 <a class="markdownIt-Anchor" href="#严格模式-1">#</a></h3><p>ES6 的尾调用优化只在严格模式下开启，正常模式是无效的。</p><p>这是因为在正常模式下，函数内部有两个变量，可以跟踪函数的调用栈。</p><ul><li><code>func.arguments</code>：返回调用时函数的参数。</li><li><code>func.caller</code>：返回调用当前函数的那个函数。</li></ul><p>尾调用优化发生时，函数的调用栈会改写，因此上面两个变量就会失真。严格模式禁用这两个变量，所以尾调用模式仅在严格模式下生效。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">restricted</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-string">'use strict'</span>;
+<span class="hljs-meta">  &#x27;use strict&#x27;</span>;
   restricted.caller;    <span class="hljs-comment">// 报错</span>
   restricted.arguments; <span class="hljs-comment">// 报错</span>
 }
@@ -638,7 +638,7 @@ sum(<span class="hljs-number">1</span>, <span class="hljs-number">100000</span>)
     <span class="hljs-keyword">if</span> (!active) {
       active = <span class="hljs-literal">true</span>;
       <span class="hljs-keyword">while</span> (accumulated.length) {
-        value = f.apply(<span class="hljs-keyword">this</span>, accumulated.shift());
+        value = f.apply(<span class="hljs-built_in">this</span>, accumulated.shift());
       }
       active = <span class="hljs-literal">false</span>;
       <span class="hljs-keyword">return</span> value;
@@ -663,8 +663,8 @@ sum(<span class="hljs-number">1</span>, <span class="hljs-number">100000</span>)
 </span>) </span>{ <span class="hljs-comment">/* ... */</span> }
 
 clownsEverywhere(
-  <span class="hljs-string">'foo'</span>,
-  <span class="hljs-string">'bar'</span>
+  <span class="hljs-string">&#x27;foo&#x27;</span>,
+  <span class="hljs-string">&#x27;bar&#x27;</span>
 );
 </code></pre><p>上面代码中，如果在<code>param2</code>或<code>bar</code>后面加一个逗号，就会报错。</p><p>如果像上面这样，将参数写成多行（即每个参数占据一行），以后修改代码的时候，想为函数<code>clownsEverywhere</code>添加第三个参数，或者调整参数的次序，就势必要在原来最后一个参数后面添加一个逗号。这对于版本管理系统来说，就会显示添加逗号的那一行也发生了变动。这看上去有点冗余，因此新的语法允许定义和调用时，尾部直接有一个逗号。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">clownsEverywhere</span>(<span class="hljs-params">
   param1,
@@ -672,8 +672,8 @@ clownsEverywhere(
 </span>) </span>{ <span class="hljs-comment">/* ... */</span> }
 
 clownsEverywhere(
-  <span class="hljs-string">'foo'</span>,
-  <span class="hljs-string">'bar'</span>,
+  <span class="hljs-string">&#x27;foo&#x27;</span>,
+  <span class="hljs-string">&#x27;bar&#x27;</span>,
 );
 </code></pre><p>这样的规定也使得，函数参数与数组和对象的尾逗号规则，保持一致了。</p><h2 id="functionprototypetostring">Function.prototype.toString() <a class="markdownIt-Anchor" href="#functionprototypetostring">#</a></h2><p><a href="https://github.com/tc39/Function-prototype-toString-revision" target="_blank" rel="noopener">ES2019</a> 对函数实例的<code>toString()</code>方法做出了修改。</p><p><code>toString()</code>方法返回函数代码本身，以前会省略注释和空格。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> /* <span class="hljs-title">foo</span> <span class="hljs-title">comment</span> */ <span class="hljs-title">foo</span> (<span class="hljs-params"></span>) </span>{}
 
@@ -682,7 +682,7 @@ foo.toString()
 </code></pre><p>上面代码中，函数<code>foo</code>的原始代码包含注释，函数名<code>foo</code>和圆括号之间有空格，但是<code>toString()</code>方法都把它们省略了。</p><p>修改后的<code>toString()</code>方法，明确要求返回一模一样的原始代码。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> /* <span class="hljs-title">foo</span> <span class="hljs-title">comment</span> */ <span class="hljs-title">foo</span> (<span class="hljs-params"></span>) </span>{}
 
 foo.toString()
-<span class="hljs-comment">// "function /* foo comment */ foo () {}"</span>
+<span class="hljs-comment">// &quot;function /* foo comment */ foo () {}&quot;</span>
 </code></pre><h2 id="catch-命令的参数省略">catch 命令的参数省略 <a class="markdownIt-Anchor" href="#catch-命令的参数省略">#</a></h2><p>JavaScript 语言的<code>try...catch</code>结构，以前明确要求<code>catch</code>命令后面必须跟参数，接受<code>try</code>代码块抛出的错误对象。</p><pre class="hljs"><code><span class="hljs-keyword">try</span> {
   <span class="hljs-comment">// ...</span>
 } <span class="hljs-keyword">catch</span> (err) {

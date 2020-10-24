@@ -101,7 +101,7 @@ concatenate(<span class="hljs-built_in">Uint8Array</span>, <span class="hljs-bui
 </code></pre><p>上面代码生成一个 16 字节的<code>ArrayBuffer</code>对象，然后在它的基础上，建立了一个 32 位整数的视图。由于每个 32 位整数占据 4 个字节，所以一共可以写入 4 个整数，依次为 0，2，4，6。</p><p>如果在这段数据上接着建立一个 16 位整数的视图，则可以读出完全不一样的结果。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> int16View = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Int16Array</span>(buffer);
 
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; int16View.length; i++) {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Entry "</span> + i + <span class="hljs-string">": "</span> + int16View[i]);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;Entry &quot;</span> + i + <span class="hljs-string">&quot;: &quot;</span> + int16View[i]);
 }
 <span class="hljs-comment">// Entry 0: 0</span>
 <span class="hljs-comment">// Entry 1: 0</span>
@@ -124,15 +124,15 @@ v1[<span class="hljs-number">3</span>] = <span class="hljs-number">7</span>;
 <span class="hljs-comment">// 计算机采用小端字节序</span>
 <span class="hljs-comment">// 所以头两个字节等于258</span>
 <span class="hljs-keyword">if</span> (uInt16View[<span class="hljs-number">0</span>] === <span class="hljs-number">258</span>) {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'OK'</span>); <span class="hljs-comment">// "OK"</span>
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;OK&#x27;</span>); <span class="hljs-comment">// &quot;OK&quot;</span>
 }
 
 <span class="hljs-comment">// 赋值运算</span>
 uInt16View[<span class="hljs-number">0</span>] = <span class="hljs-number">255</span>;    <span class="hljs-comment">// 字节变为[0xFF, 0x00, 0x03, 0x07]</span>
 uInt16View[<span class="hljs-number">0</span>] = <span class="hljs-number">0xff05</span>; <span class="hljs-comment">// 字节变为[0x05, 0xFF, 0x03, 0x07]</span>
 uInt16View[<span class="hljs-number">1</span>] = <span class="hljs-number">0x0210</span>; <span class="hljs-comment">// 字节变为[0x05, 0xFF, 0x10, 0x02]</span>
-</code></pre><p>下面的函数可以用来判断，当前视图是小端字节序，还是大端字节序。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> BIG_ENDIAN = <span class="hljs-built_in">Symbol</span>(<span class="hljs-string">'BIG_ENDIAN'</span>);
-<span class="hljs-keyword">const</span> LITTLE_ENDIAN = <span class="hljs-built_in">Symbol</span>(<span class="hljs-string">'LITTLE_ENDIAN'</span>);
+</code></pre><p>下面的函数可以用来判断，当前视图是小端字节序，还是大端字节序。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> BIG_ENDIAN = <span class="hljs-built_in">Symbol</span>(<span class="hljs-string">&#x27;BIG_ENDIAN&#x27;</span>);
+<span class="hljs-keyword">const</span> LITTLE_ENDIAN = <span class="hljs-built_in">Symbol</span>(<span class="hljs-string">&#x27;LITTLE_ENDIAN&#x27;</span>);
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getPlatformEndianness</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">let</span> arr32 = <span class="hljs-built_in">Uint32Array</span>.of(<span class="hljs-number">0x12345678</span>);
@@ -143,7 +143,7 @@ uInt16View[<span class="hljs-number">1</span>] = <span class="hljs-number">0x021
     <span class="hljs-keyword">case</span> <span class="hljs-number">0x78563412</span>:
       <span class="hljs-keyword">return</span> LITTLE_ENDIAN;
     <span class="hljs-keyword">default</span>:
-      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Unknown endianness'</span>);
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&#x27;Unknown endianness&#x27;</span>);
   }
 }
 </code></pre><p>总之，与普通数组相比，TypedArray 数组的最大优点就是可以直接操作内存，不需要数据类型转换，所以速度快得多。</p><h3 id="bytes_per_element-属性">BYTES_PER_ELEMENT 属性 <a class="markdownIt-Anchor" href="#bytes_per_element-属性">#</a></h3><p>每一种视图的构造函数，都有一个<code>BYTES_PER_ELEMENT</code>属性，表示这种数据类型占据的字节数。</p><pre class="hljs"><code><span class="hljs-built_in">Int8Array</span>.BYTES_PER_ELEMENT <span class="hljs-comment">// 1</span>
@@ -162,7 +162,7 @@ uInt16View[<span class="hljs-number">1</span>] = <span class="hljs-number">0x021
  */</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ab2str</span>(<span class="hljs-params">
   input: ArrayBuffer | Uint8Array | Int8Array | Uint16Array | Int16Array | Uint32Array | Int32Array,
-  outputEncoding: string = <span class="hljs-string">'utf8'</span>,
+  outputEncoding: string = <span class="hljs-string">&#x27;utf8&#x27;</span>,
 </span>): <span class="hljs-title">string</span> </span>{
   <span class="hljs-keyword">const</span> decoder = <span class="hljs-keyword">new</span> TextDecoder(outputEncoding)
   <span class="hljs-keyword">return</span> decoder.decode(input)
@@ -262,7 +262,7 @@ ui16 <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Ui
 </code></pre><p><code>from</code>方法还可以接受一个函数，作为第二个参数，用来对每个元素进行遍历，功能类似<code>map</code>方法。</p><pre class="hljs"><code><span class="hljs-built_in">Int8Array</span>.of(<span class="hljs-number">127</span>, <span class="hljs-number">126</span>, <span class="hljs-number">125</span>).map(<span class="hljs-function"><span class="hljs-params">x</span> =&gt;</span> <span class="hljs-number">2</span> * x)
 <span class="hljs-comment">// Int8Array [ -2, -4, -6 ]</span>
 
-<span class="hljs-built_in">Int16Array</span>.from(<span class="hljs-built_in">Int8Array</span>.of(<span class="hljs-number">127</span>, <span class="hljs-number">126</span>, <span class="hljs-number">125</span>), x =&gt; <span class="hljs-number">2</span> * x)
+<span class="hljs-built_in">Int16Array</span>.from(<span class="hljs-built_in">Int8Array</span>.of(<span class="hljs-number">127</span>, <span class="hljs-number">126</span>, <span class="hljs-number">125</span>), <span class="hljs-function"><span class="hljs-params">x</span> =&gt;</span> <span class="hljs-number">2</span> * x)
 <span class="hljs-comment">// Int16Array [ 254, 252, 250 ]</span>
 </code></pre><p>上面的例子中，<code>from</code>方法没有发生溢出，这说明遍历不是针对原来的 8 位整数数组。也就是说，<code>from</code>会将第一个参数指定的 TypedArray 数组，拷贝到另一段内存之中，处理之后再将结果转成指定的数组格式。</p><h2 id="复合视图">复合视图 <a class="markdownIt-Anchor" href="#复合视图">#</a></h2><p>由于视图的构造函数可以指定起始位置和长度，所以在同一段内存之中，可以依次存放不同类型的数据，这叫做“复合视图”。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> buffer = <span class="hljs-keyword">new</span> <span class="hljs-built_in">ArrayBuffer</span>(<span class="hljs-number">24</span>);
 
@@ -310,8 +310,8 @@ dv.setFloat32(<span class="hljs-number">8</span>, <span class="hljs-number">2.5<
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Int16Array</span>(buffer)[<span class="hljs-number">0</span>] === <span class="hljs-number">256</span>;
 })();
 </code></pre><p>如果返回<code>true</code>，就是小端字节序；如果返回<code>false</code>，就是大端字节序。</p><h2 id="二进制数组的应用">二进制数组的应用 <a class="markdownIt-Anchor" href="#二进制数组的应用">#</a></h2><p>大量的 Web API 用到了<code>ArrayBuffer</code>对象和它的视图对象。</p><h3 id="ajax">AJAX <a class="markdownIt-Anchor" href="#ajax">#</a></h3><p>传统上，服务器通过 AJAX 操作只能返回文本数据，即<code>responseType</code>属性默认为<code>text</code>。<code>XMLHttpRequest</code>第二版<code>XHR2</code>允许服务器返回二进制数据，这时分成两种情况。如果明确知道返回的二进制数据类型，可以把返回类型（<code>responseType</code>）设为<code>arraybuffer</code>；如果不知道，就设为<code>blob</code>。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
-xhr.open(<span class="hljs-string">'GET'</span>, someUrl);
-xhr.responseType = <span class="hljs-string">'arraybuffer'</span>;
+xhr.open(<span class="hljs-string">&#x27;GET&#x27;</span>, someUrl);
+xhr.responseType = <span class="hljs-string">&#x27;arraybuffer&#x27;</span>;
 
 xhr.onload = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">let</span> arrayBuffer = xhr.response;
@@ -325,29 +325,29 @@ xhr.send();
     <span class="hljs-keyword">const</span> dataView = <span class="hljs-keyword">new</span> <span class="hljs-built_in">DataView</span>(arrayResponse);
     <span class="hljs-keyword">const</span> ints = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Uint32Array</span>(dataView.byteLength / <span class="hljs-number">4</span>);
 
-    xhrDiv.style.backgroundColor = <span class="hljs-string">"#00FF00"</span>;
-    xhrDiv.innerText = <span class="hljs-string">"Array is "</span> + ints.length + <span class="hljs-string">"uints long"</span>;
+    xhrDiv.style.backgroundColor = <span class="hljs-string">&quot;#00FF00&quot;</span>;
+    xhrDiv.innerText = <span class="hljs-string">&quot;Array is &quot;</span> + ints.length + <span class="hljs-string">&quot;uints long&quot;</span>;
   }
 }
-</code></pre><h3 id="canvas">Canvas <a class="markdownIt-Anchor" href="#canvas">#</a></h3><p>网页<code>Canvas</code>元素输出的二进制像素数据，就是 TypedArray 数组。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> canvas = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'myCanvas'</span>);
-<span class="hljs-keyword">const</span> ctx = canvas.getContext(<span class="hljs-string">'2d'</span>);
+</code></pre><h3 id="canvas">Canvas <a class="markdownIt-Anchor" href="#canvas">#</a></h3><p>网页<code>Canvas</code>元素输出的二进制像素数据，就是 TypedArray 数组。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> canvas = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;myCanvas&#x27;</span>);
+<span class="hljs-keyword">const</span> ctx = canvas.getContext(<span class="hljs-string">&#x27;2d&#x27;</span>);
 
 <span class="hljs-keyword">const</span> imageData = ctx.getImageData(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, canvas.width, canvas.height);
 <span class="hljs-keyword">const</span> uint8ClampedArray = imageData.data;
 </code></pre><p>需要注意的是，上面代码的<code>uint8ClampedArray</code>虽然是一个 TypedArray 数组，但是它的视图类型是一种针对<code>Canvas</code>元素的专有类型<code>Uint8ClampedArray</code>。这个视图类型的特点，就是专门针对颜色，把每个字节解读为无符号的 8 位整数，即只能取值 0 ～ 255，而且发生运算的时候自动过滤高位溢出。这为图像处理带来了巨大的方便。</p><p>举例来说，如果把像素的颜色值设为<code>Uint8Array</code>类型，那么乘以一个 gamma 值的时候，就必须这样计算：</p><pre class="hljs"><code>u8[i] = <span class="hljs-built_in">Math</span>.min(<span class="hljs-number">255</span>, <span class="hljs-built_in">Math</span>.max(<span class="hljs-number">0</span>, u8[i] * gamma));
 </code></pre><p>因为<code>Uint8Array</code>类型对于大于 255 的运算结果（比如<code>0xFF+1</code>），会自动变为<code>0x00</code>，所以图像处理必须要像上面这样算。这样做很麻烦，而且影响性能。如果将颜色值设为<code>Uint8ClampedArray</code>类型，计算就简化许多。</p><pre class="hljs"><code>pixels[i] *= gamma;
-</code></pre><p><code>Uint8ClampedArray</code>类型确保将小于 0 的值设为 0，将大于 255 的值设为 255。注意，IE 10 不支持该类型。</p><h3 id="websocket">WebSocket <a class="markdownIt-Anchor" href="#websocket">#</a></h3><p><code>WebSocket</code>可以通过<code>ArrayBuffer</code>，发送或接收二进制数据。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> socket = <span class="hljs-keyword">new</span> WebSocket(<span class="hljs-string">'ws://127.0.0.1:8081'</span>);
-socket.binaryType = <span class="hljs-string">'arraybuffer'</span>;
+</code></pre><p><code>Uint8ClampedArray</code>类型确保将小于 0 的值设为 0，将大于 255 的值设为 255。注意，IE 10 不支持该类型。</p><h3 id="websocket">WebSocket <a class="markdownIt-Anchor" href="#websocket">#</a></h3><p><code>WebSocket</code>可以通过<code>ArrayBuffer</code>，发送或接收二进制数据。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> socket = <span class="hljs-keyword">new</span> WebSocket(<span class="hljs-string">&#x27;ws://127.0.0.1:8081&#x27;</span>);
+socket.binaryType = <span class="hljs-string">&#x27;arraybuffer&#x27;</span>;
 
 <span class="hljs-comment">// Wait until socket is open</span>
-socket.addEventListener(<span class="hljs-string">'open'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) </span>{
+socket.addEventListener(<span class="hljs-string">&#x27;open&#x27;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) </span>{
   <span class="hljs-comment">// Send binary data</span>
   <span class="hljs-keyword">const</span> typedArray = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Uint8Array</span>(<span class="hljs-number">4</span>);
   socket.send(typedArray.buffer);
 });
 
 <span class="hljs-comment">// Receive binary data</span>
-socket.addEventListener(<span class="hljs-string">'message'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) </span>{
+socket.addEventListener(<span class="hljs-string">&#x27;message&#x27;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) </span>{
   <span class="hljs-keyword">const</span> arrayBuffer = event.data;
   <span class="hljs-comment">// ···</span>
 });
@@ -358,7 +358,7 @@ socket.addEventListener(<span class="hljs-string">'message'</span>, <span class=
 .then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">arrayBuffer</span>)</span>{
   <span class="hljs-comment">// ...</span>
 });
-</code></pre><h3 id="file-api">File API <a class="markdownIt-Anchor" href="#file-api">#</a></h3><p>如果知道一个文件的二进制数据类型，也可以将这个文件读取为<code>ArrayBuffer</code>对象。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> fileInput = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'fileInput'</span>);
+</code></pre><h3 id="file-api">File API <a class="markdownIt-Anchor" href="#file-api">#</a></h3><p>如果知道一个文件的二进制数据类型，也可以将这个文件读取为<code>ArrayBuffer</code>对象。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> fileInput = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;fileInput&#x27;</span>);
 <span class="hljs-keyword">const</span> file = fileInput.files[<span class="hljs-number">0</span>];
 <span class="hljs-keyword">const</span> reader = <span class="hljs-keyword">new</span> FileReader();
 reader.readAsArrayBuffer(file);
@@ -367,7 +367,7 @@ reader.onload = <span class="hljs-function"><span class="hljs-keyword">function<
   <span class="hljs-comment">// ···</span>
 };
 </code></pre><p>下面以处理 bmp 文件为例。假定<code>file</code>变量是一个指向 bmp 文件的文件对象，首先读取文件。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> reader = <span class="hljs-keyword">new</span> FileReader();
-reader.addEventListener(<span class="hljs-string">"load"</span>, processimage, <span class="hljs-literal">false</span>);
+reader.addEventListener(<span class="hljs-string">&quot;load&quot;</span>, processimage, <span class="hljs-literal">false</span>);
 reader.readAsArrayBuffer(file);
 </code></pre><p>然后，定义处理图像的回调函数：先在二进制数据之上建立一个<code>DataView</code>视图，再建立一个<code>bitmap</code>对象，用于存放处理后的数据，最后将图像展示在<code>Canvas</code>元素之中。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">processimage</span>(<span class="hljs-params">e</span>) </span>{
   <span class="hljs-keyword">const</span> buffer = e.target.result;
@@ -396,16 +396,16 @@ bitmap.infoheader.biClrImportant = datav.getUint32(<span class="hljs-number">50<
 </code></pre><p>最后处理图像本身的像素信息。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> start = bitmap.fileheader.bfOffBits;
 bitmap.pixels = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Uint8Array</span>(buffer, start);
 </code></pre><p>至此，图像文件的数据全部处理完成。下一步，可以根据需要，进行图像变形，或者转换格式，或者展示在<code>Canvas</code>网页元素之中。</p><h2 id="sharedarraybuffer">SharedArrayBuffer <a class="markdownIt-Anchor" href="#sharedarraybuffer">#</a></h2><p>JavaScript 是单线程的，Web worker 引入了多线程：主线程用来与用户互动，Worker 线程用来承担计算任务。每个线程的数据都是隔离的，通过<code>postMessage()</code>通信。下面是一个例子。</p><pre class="hljs"><code><span class="hljs-comment">// 主线程</span>
-<span class="hljs-keyword">const</span> w = <span class="hljs-keyword">new</span> Worker(<span class="hljs-string">'myworker.js'</span>);
+<span class="hljs-keyword">const</span> w = <span class="hljs-keyword">new</span> Worker(<span class="hljs-string">&#x27;myworker.js&#x27;</span>);
 </code></pre><p>上面代码中，主线程新建了一个 Worker 线程。该线程与主线程之间会有一个通信渠道，主线程通过<code>w.postMessage</code>向 Worker 线程发消息，同时通过<code>message</code>事件监听 Worker 线程的回应。</p><pre class="hljs"><code><span class="hljs-comment">// 主线程</span>
-w.postMessage(<span class="hljs-string">'hi'</span>);
+w.postMessage(<span class="hljs-string">&#x27;hi&#x27;</span>);
 w.onmessage = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">ev</span>) </span>{
   <span class="hljs-built_in">console</span>.log(ev.data);
 }
 </code></pre><p>上面代码中，主线程先发一个消息<code>hi</code>，然后在监听到 Worker 线程的回应后，就将其打印出来。</p><p>Worker 线程也是通过监听<code>message</code>事件，来获取主线程发来的消息，并作出反应。</p><pre class="hljs"><code><span class="hljs-comment">// Worker 线程</span>
 onmessage = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">ev</span>) </span>{
   <span class="hljs-built_in">console</span>.log(ev.data);
-  postMessage(<span class="hljs-string">'ho'</span>);
+  postMessage(<span class="hljs-string">&#x27;ho&#x27;</span>);
 }
 </code></pre><p>线程之间的数据交换可以是各种格式，不仅仅是字符串，也可以是二进制数据。这种交换采用的是复制机制，即一个进程将需要分享的数据复制一份，通过<code>postMessage</code>方法交给另一个进程。如果数据量比较大，这种通信的效率显然比较低。很容易想到，这时可以留出一块内存区域，由主线程与 Worker 线程共享，两方都可以读写，那么就会大大提高效率，协作起来也会比较简单（不像<code>postMessage</code>那么麻烦）。</p><p>ES2017 引入<a href="https://github.com/tc39/ecmascript_sharedmem/blob/master/TUTORIAL.md" target="_blank" rel="noopener"><code>SharedArrayBuffer</code></a>，允许 Worker 线程与主线程共享同一块内存。<code>SharedArrayBuffer</code>的 API 与<code>ArrayBuffer</code>一模一样，唯一的区别是后者无法共享数据。</p><pre class="hljs"><code><span class="hljs-comment">// 主线程</span>
 
@@ -481,7 +481,7 @@ Atomics.store(ia, <span class="hljs-number">37</span>, <span class="hljs-number"
 <span class="hljs-built_in">console</span>.log(ia[<span class="hljs-number">37</span>]);  <span class="hljs-comment">// 123456</span>
 <span class="hljs-built_in">console</span>.log(ia[<span class="hljs-number">42</span>]);  <span class="hljs-comment">// 314159</span>
 </code></pre><p>上面代码中，主线程的<code>Atomics.store</code>向 42 号位置的赋值，一定是早于 37 位置的赋值。只要 37 号位置等于 163，Worker 线程就不会终止循环，而对 37 号位置和 42 号位置的取值，一定是在<code>Atomics.load</code>操作之后。</p><p>下面是另一个例子。</p><pre class="hljs"><code><span class="hljs-comment">// 主线程</span>
-<span class="hljs-keyword">const</span> worker = <span class="hljs-keyword">new</span> Worker(<span class="hljs-string">'worker.js'</span>);
+<span class="hljs-keyword">const</span> worker = <span class="hljs-keyword">new</span> Worker(<span class="hljs-string">&#x27;worker.js&#x27;</span>);
 <span class="hljs-keyword">const</span> length = <span class="hljs-number">10</span>;
 <span class="hljs-keyword">const</span> size = <span class="hljs-built_in">Int32Array</span>.BYTES_PER_ELEMENT * length;
 <span class="hljs-comment">// 新建一段共享内存</span>
@@ -493,7 +493,7 @@ Atomics.store(ia, <span class="hljs-number">37</span>, <span class="hljs-number"
 }
 worker.postMessage(sharedBuffer);
 </code></pre><p>上面代码中，主线程用<code>Atomics.store()</code>方法写入数据。下面是 Worker 线程用<code>Atomics.load()</code>方法读取数据。</p><pre class="hljs"><code><span class="hljs-comment">// worker.js</span>
-self.addEventListener(<span class="hljs-string">'message'</span>, (event) =&gt; {
+self.addEventListener(<span class="hljs-string">&#x27;message&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
   <span class="hljs-keyword">const</span> sharedArray = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Int32Array</span>(event.data);
   <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++) {
     <span class="hljs-keyword">const</span> arrayValue = Atomics.load(sharedArray, i);
@@ -501,7 +501,7 @@ self.addEventListener(<span class="hljs-string">'message'</span>, (event) =&gt; 
   }
 }, <span class="hljs-literal">false</span>);
 </code></pre><p><strong>（2）Atomics.exchange()</strong></p><p>Worker 线程如果要写入数据，可以使用上面的<code>Atomics.store()</code>方法，也可以使用<code>Atomics.exchange()</code>方法。它们的区别是，<code>Atomics.store()</code>返回写入的值，而<code>Atomics.exchange()</code>返回被替换的值。</p><pre class="hljs"><code><span class="hljs-comment">// Worker 线程</span>
-self.addEventListener(<span class="hljs-string">'message'</span>, (event) =&gt; {
+self.addEventListener(<span class="hljs-string">&#x27;message&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
   <span class="hljs-keyword">const</span> sharedArray = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Int32Array</span>(event.data);
   <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++) {
     <span class="hljs-keyword">if</span> (i % <span class="hljs-number">2</span> === <span class="hljs-number">0</span>) {
@@ -514,7 +514,7 @@ self.addEventListener(<span class="hljs-string">'message'</span>, (event) =&gt; 
   }
 }, <span class="hljs-literal">false</span>);
 </code></pre><p>上面代码将共享内存的偶数位置的值改成<code>1</code>，奇数位置的值改成<code>2</code>。</p><p><strong>（3）Atomics.wait()，Atomics.notify()</strong></p><p>使用<code>while</code>循环等待主线程的通知，不是很高效，如果用在主线程，就会造成卡顿，<code>Atomics</code>对象提供了<code>wait()</code>和<code>notify()</code>两个方法用于等待通知。这两个方法相当于锁内存，即在一个线程进行操作时，让其他线程休眠（建立锁），等到操作结束，再唤醒那些休眠的线程（解除锁）。</p><p><code>Atomics.notify()</code>方法以前叫做<code>Atomics.wake()</code>，后来进行了改名。</p><pre class="hljs"><code><span class="hljs-comment">// Worker 线程</span>
-self.addEventListener(<span class="hljs-string">'message'</span>, (event) =&gt; {
+self.addEventListener(<span class="hljs-string">&#x27;message&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
   <span class="hljs-keyword">const</span> sharedArray = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Int32Array</span>(event.data);
   <span class="hljs-keyword">const</span> arrayIndex = <span class="hljs-number">0</span>;
   <span class="hljs-keyword">const</span> expectedStoredValue = <span class="hljs-number">50</span>;

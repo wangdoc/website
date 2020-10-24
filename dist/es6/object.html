@@ -1,6 +1,6 @@
-<!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>对象的扩展 - ES6 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="对象的扩展"><link rel="apple-touch-icon" sizes="57x57" href="assets/icons/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="assets/icons/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="assets/icons/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="assets/icons/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="assets/icons/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="assets/icons/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="assets/icons/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="assets/icons/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png"><link rel="manifest" href="assets/icons/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="assets/icons/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/es6-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/es6-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8"><nav class="breadcrumb is-size-5-desktop" aria-label="breadcrumbs"><ul><li><a href="index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;ES6 教程</a></li><li class="is-active"><a class="has-text-grey" href="object.html">对象的扩展</a></li></ul></nav><nav class="level level-previous-next is-size-5 is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="array.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> 数组的扩展</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="object-methods.html">对象的新增方法 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content is-size-4-desktop"><h1 class="title">对象的扩展</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><p>对象（object）是 JavaScript 最重要的数据结构。ES6 对它进行了重大升级，本章介绍数据结构本身的改变，下一章介绍<code>Object</code>对象的新增方法。</p><h2 id="属性的简洁表示法">属性的简洁表示法 <a class="markdownIt-Anchor" href="#属性的简洁表示法">#</a></h2><p>ES6 允许在大括号里面，直接写入变量和函数，作为对象的属性和方法。这样的书写更加简洁。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> foo = <span class="hljs-string">'bar'</span>;
+<!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>对象的扩展 - ES6 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="对象的扩展"><link rel="apple-touch-icon" sizes="57x57" href="assets/icons/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="assets/icons/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="assets/icons/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="assets/icons/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="assets/icons/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="assets/icons/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="assets/icons/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="assets/icons/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png"><link rel="manifest" href="assets/icons/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="assets/icons/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/es6-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/es6-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8"><nav class="breadcrumb is-size-5-desktop" aria-label="breadcrumbs"><ul><li><a href="index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;ES6 教程</a></li><li class="is-active"><a class="has-text-grey" href="object.html">对象的扩展</a></li></ul></nav><nav class="level level-previous-next is-size-5 is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="array.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> 数组的扩展</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="object-methods.html">对象的新增方法 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content is-size-4-desktop"><h1 class="title">对象的扩展</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><p>对象（object）是 JavaScript 最重要的数据结构。ES6 对它进行了重大升级，本章介绍数据结构本身的改变，下一章介绍<code>Object</code>对象的新增方法。</p><h2 id="属性的简洁表示法">属性的简洁表示法 <a class="markdownIt-Anchor" href="#属性的简洁表示法">#</a></h2><p>ES6 允许在大括号里面，直接写入变量和函数，作为对象的属性和方法。这样的书写更加简洁。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> foo = <span class="hljs-string">&#x27;bar&#x27;</span>;
 <span class="hljs-keyword">const</span> baz = {foo};
-baz <span class="hljs-comment">// {foo: "bar"}</span>
+baz <span class="hljs-comment">// {foo: &quot;bar&quot;}</span>
 
 <span class="hljs-comment">// 等同于</span>
 <span class="hljs-keyword">const</span> baz = {<span class="hljs-attr">foo</span>: foo};
@@ -17,7 +17,7 @@ baz <span class="hljs-comment">// {foo: "bar"}</span>
 f(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// Object {x: 1, y: 2}</span>
 </code></pre><p>除了属性简写，方法也可以简写。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> o = {
   method() {
-    <span class="hljs-keyword">return</span> <span class="hljs-string">"Hello!"</span>;
+    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Hello!&quot;</span>;
   }
 };
 
@@ -25,20 +25,20 @@ f(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>) <span 
 
 <span class="hljs-keyword">const</span> o = {
   <span class="hljs-attr">method</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-string">"Hello!"</span>;
+    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Hello!&quot;</span>;
   }
 };
-</code></pre><p>下面是一个实际的例子。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> birth = <span class="hljs-string">'2000/01/01'</span>;
+</code></pre><p>下面是一个实际的例子。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> birth = <span class="hljs-string">&#x27;2000/01/01&#x27;</span>;
 
 <span class="hljs-keyword">const</span> Person = {
 
-  <span class="hljs-attr">name</span>: <span class="hljs-string">'张三'</span>,
+  <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;张三&#x27;</span>,
 
   <span class="hljs-comment">//等同于birth: birth</span>
   birth,
 
   <span class="hljs-comment">// 等同于hello: function ()...</span>
-  hello() { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'我的名字是'</span>, <span class="hljs-keyword">this</span>.name); }
+  hello() { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;我的名字是&#x27;</span>, <span class="hljs-built_in">this</span>.name); }
 
 };
 </code></pre><p>这种写法用于函数的返回值，将会非常方便。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getPoint</span>(<span class="hljs-params"></span>) </span>{
@@ -73,32 +73,32 @@ getPoint()
 </code></pre><p>属性的赋值器（setter）和取值器（getter），事实上也是采用这种写法。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> cart = {
   <span class="hljs-attr">_wheels</span>: <span class="hljs-number">4</span>,
 
-  <span class="hljs-keyword">get</span> wheels () {
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._wheels;
+  get wheels () {
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>._wheels;
   },
 
-  <span class="hljs-keyword">set</span> wheels (value) {
-    <span class="hljs-keyword">if</span> (value &lt; <span class="hljs-keyword">this</span>._wheels) {
-      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'数值太小了！'</span>);
+  set wheels (value) {
+    <span class="hljs-keyword">if</span> (value &lt; <span class="hljs-built_in">this</span>._wheels) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&#x27;数值太小了！&#x27;</span>);
     }
-    <span class="hljs-keyword">this</span>._wheels = value;
+    <span class="hljs-built_in">this</span>._wheels = value;
   }
 }
 </code></pre><p>简洁写法在打印对象时也很有用。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> user = {
-  <span class="hljs-attr">name</span>: <span class="hljs-string">'test'</span>
+  <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;test&#x27;</span>
 };
 
 <span class="hljs-keyword">let</span> foo = {
-  <span class="hljs-attr">bar</span>: <span class="hljs-string">'baz'</span>
+  <span class="hljs-attr">bar</span>: <span class="hljs-string">&#x27;baz&#x27;</span>
 };
 
 <span class="hljs-built_in">console</span>.log(user, foo)
-<span class="hljs-comment">// {name: "test"} {bar: "baz"}</span>
+<span class="hljs-comment">// {name: &quot;test&quot;} {bar: &quot;baz&quot;}</span>
 <span class="hljs-built_in">console</span>.log({user, foo})
-<span class="hljs-comment">// {user: {name: "test"}, foo: {bar: "baz"}}</span>
+<span class="hljs-comment">// {user: {name: &quot;test&quot;}, foo: {bar: &quot;baz&quot;}}</span>
 </code></pre><p>上面代码中，<code>console.log</code>直接输出<code>user</code>和<code>foo</code>两个对象时，就是两组键值对，可能会混淆。把它们放在大括号里面输出，就变成了对象的简洁表示法，每组键值对前面会打印对象名，这样就比较清晰了。</p><p>注意，简写的对象方法不能用作构造函数，会报错。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> obj = {
   f() {
-    <span class="hljs-keyword">this</span>.foo = <span class="hljs-string">'bar'</span>;
+    <span class="hljs-built_in">this</span>.foo = <span class="hljs-string">&#x27;bar&#x27;</span>;
   }
 };
 
@@ -107,147 +107,147 @@ getPoint()
 obj.foo = <span class="hljs-literal">true</span>;
 
 <span class="hljs-comment">// 方法二</span>
-obj[<span class="hljs-string">'a'</span> + <span class="hljs-string">'bc'</span>] = <span class="hljs-number">123</span>;
+obj[<span class="hljs-string">&#x27;a&#x27;</span> + <span class="hljs-string">&#x27;bc&#x27;</span>] = <span class="hljs-number">123</span>;
 </code></pre><p>上面代码的方法一是直接用标识符作为属性名，方法二是用表达式作为属性名，这时要将表达式放在方括号之内。</p><p>但是，如果使用字面量方式定义对象（使用大括号），在 ES5 中只能使用方法一（标识符）定义属性。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = {
   <span class="hljs-attr">foo</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">abc</span>: <span class="hljs-number">123</span>
 };
-</code></pre><p>ES6 允许字面量定义对象时，用方法二（表达式）作为对象的属性名，即把表达式放在方括号内。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> propKey = <span class="hljs-string">'foo'</span>;
+</code></pre><p>ES6 允许字面量定义对象时，用方法二（表达式）作为对象的属性名，即把表达式放在方括号内。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> propKey = <span class="hljs-string">&#x27;foo&#x27;</span>;
 
 <span class="hljs-keyword">let</span> obj = {
   [propKey]: <span class="hljs-literal">true</span>,
-  [<span class="hljs-string">'a'</span> + <span class="hljs-string">'bc'</span>]: <span class="hljs-number">123</span>
+  [<span class="hljs-string">&#x27;a&#x27;</span> + <span class="hljs-string">&#x27;bc&#x27;</span>]: <span class="hljs-number">123</span>
 };
-</code></pre><p>下面是另一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> lastWord = <span class="hljs-string">'last word'</span>;
+</code></pre><p>下面是另一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> lastWord = <span class="hljs-string">&#x27;last word&#x27;</span>;
 
 <span class="hljs-keyword">const</span> a = {
-  <span class="hljs-string">'first word'</span>: <span class="hljs-string">'hello'</span>,
-  [lastWord]: <span class="hljs-string">'world'</span>
+  <span class="hljs-string">&#x27;first word&#x27;</span>: <span class="hljs-string">&#x27;hello&#x27;</span>,
+  [lastWord]: <span class="hljs-string">&#x27;world&#x27;</span>
 };
 
-a[<span class="hljs-string">'first word'</span>] <span class="hljs-comment">// "hello"</span>
-a[lastWord] <span class="hljs-comment">// "world"</span>
-a[<span class="hljs-string">'last word'</span>] <span class="hljs-comment">// "world"</span>
+a[<span class="hljs-string">&#x27;first word&#x27;</span>] <span class="hljs-comment">// &quot;hello&quot;</span>
+a[lastWord] <span class="hljs-comment">// &quot;world&quot;</span>
+a[<span class="hljs-string">&#x27;last word&#x27;</span>] <span class="hljs-comment">// &quot;world&quot;</span>
 </code></pre><p>表达式还可以用于定义方法名。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> obj = {
-  [<span class="hljs-string">'h'</span> + <span class="hljs-string">'ello'</span>]() {
-    <span class="hljs-keyword">return</span> <span class="hljs-string">'hi'</span>;
+  [<span class="hljs-string">&#x27;h&#x27;</span> + <span class="hljs-string">&#x27;ello&#x27;</span>]() {
+    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;hi&#x27;</span>;
   }
 };
 
 obj.hello() <span class="hljs-comment">// hi</span>
 </code></pre><p>注意，属性名表达式与简洁表示法，不能同时使用，会报错。</p><pre class="hljs"><code><span class="hljs-comment">// 报错</span>
-<span class="hljs-keyword">const</span> foo = <span class="hljs-string">'bar'</span>;
-<span class="hljs-keyword">const</span> bar = <span class="hljs-string">'abc'</span>;
+<span class="hljs-keyword">const</span> foo = <span class="hljs-string">&#x27;bar&#x27;</span>;
+<span class="hljs-keyword">const</span> bar = <span class="hljs-string">&#x27;abc&#x27;</span>;
 <span class="hljs-keyword">const</span> baz = { [foo] };
 
 <span class="hljs-comment">// 正确</span>
-<span class="hljs-keyword">const</span> foo = <span class="hljs-string">'bar'</span>;
-<span class="hljs-keyword">const</span> baz = { [foo]: <span class="hljs-string">'abc'</span>};
+<span class="hljs-keyword">const</span> foo = <span class="hljs-string">&#x27;bar&#x27;</span>;
+<span class="hljs-keyword">const</span> baz = { [foo]: <span class="hljs-string">&#x27;abc&#x27;</span>};
 </code></pre><p>注意，属性名表达式如果是一个对象，默认情况下会自动将对象转为字符串<code>[object Object]</code>，这一点要特别小心。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> keyA = {<span class="hljs-attr">a</span>: <span class="hljs-number">1</span>};
 <span class="hljs-keyword">const</span> keyB = {<span class="hljs-attr">b</span>: <span class="hljs-number">2</span>};
 
 <span class="hljs-keyword">const</span> myObject = {
-  [keyA]: <span class="hljs-string">'valueA'</span>,
-  [keyB]: <span class="hljs-string">'valueB'</span>
+  [keyA]: <span class="hljs-string">&#x27;valueA&#x27;</span>,
+  [keyB]: <span class="hljs-string">&#x27;valueB&#x27;</span>
 };
 
-myObject <span class="hljs-comment">// Object {[object Object]: "valueB"}</span>
+myObject <span class="hljs-comment">// Object {[object Object]: &quot;valueB&quot;}</span>
 </code></pre><p>上面代码中，<code>[keyA]</code>和<code>[keyB]</code>得到的都是<code>[object Object]</code>，所以<code>[keyB]</code>会把<code>[keyA]</code>覆盖掉，而<code>myObject</code>最后只有一个<code>[object Object]</code>属性。</p><h2 id="方法的-name-属性">方法的 name 属性 <a class="markdownIt-Anchor" href="#方法的-name-属性">#</a></h2><p>函数的<code>name</code>属性，返回函数名。对象方法也是函数，因此也有<code>name</code>属性。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> person = {
   sayName() {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'hello!'</span>);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;hello!&#x27;</span>);
   },
 };
 
-person.sayName.name   <span class="hljs-comment">// "sayName"</span>
+person.sayName.name   <span class="hljs-comment">// &quot;sayName&quot;</span>
 </code></pre><p>上面代码中，方法的<code>name</code>属性返回函数名（即方法名）。</p><p>如果对象的方法使用了取值函数（<code>getter</code>）和存值函数（<code>setter</code>），则<code>name</code>属性不是在该方法上面，而是该方法的属性的描述对象的<code>get</code>和<code>set</code>属性上面，返回值是方法名前加上<code>get</code>和<code>set</code>。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> obj = {
-  <span class="hljs-keyword">get</span> foo() {},
-  <span class="hljs-keyword">set</span> foo(x) {}
+  <span class="hljs-keyword">get</span> <span class="hljs-title">foo</span>() {},
+  <span class="hljs-keyword">set</span> <span class="hljs-title">foo</span>(<span class="hljs-params">x</span>) {}
 };
 
 obj.foo.name
-<span class="hljs-comment">// TypeError: Cannot read property 'name' of undefined</span>
+<span class="hljs-comment">// TypeError: Cannot read property &#x27;name&#x27; of undefined</span>
 
-<span class="hljs-keyword">const</span> descriptor = <span class="hljs-built_in">Object</span>.getOwnPropertyDescriptor(obj, <span class="hljs-string">'foo'</span>);
+<span class="hljs-keyword">const</span> descriptor = <span class="hljs-built_in">Object</span>.getOwnPropertyDescriptor(obj, <span class="hljs-string">&#x27;foo&#x27;</span>);
 
-descriptor.get.name <span class="hljs-comment">// "get foo"</span>
-descriptor.set.name <span class="hljs-comment">// "set foo"</span>
-</code></pre><p>有两种特殊情况：<code>bind</code>方法创造的函数，<code>name</code>属性返回<code>bound</code>加上原函数的名字；<code>Function</code>构造函数创造的函数，<code>name</code>属性返回<code>anonymous</code>。</p><pre class="hljs"><code>(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Function</span>()).name <span class="hljs-comment">// "anonymous"</span>
+descriptor.get.name <span class="hljs-comment">// &quot;get foo&quot;</span>
+descriptor.set.name <span class="hljs-comment">// &quot;set foo&quot;</span>
+</code></pre><p>有两种特殊情况：<code>bind</code>方法创造的函数，<code>name</code>属性返回<code>bound</code>加上原函数的名字；<code>Function</code>构造函数创造的函数，<code>name</code>属性返回<code>anonymous</code>。</p><pre class="hljs"><code>(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Function</span>()).name <span class="hljs-comment">// &quot;anonymous&quot;</span>
 
 <span class="hljs-keyword">var</span> doSomething = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-comment">// ...</span>
 };
-doSomething.bind().name <span class="hljs-comment">// "bound doSomething"</span>
-</code></pre><p>如果对象的方法是一个 Symbol 值，那么<code>name</code>属性返回的是这个 Symbol 值的描述。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> key1 = <span class="hljs-built_in">Symbol</span>(<span class="hljs-string">'description'</span>);
+doSomething.bind().name <span class="hljs-comment">// &quot;bound doSomething&quot;</span>
+</code></pre><p>如果对象的方法是一个 Symbol 值，那么<code>name</code>属性返回的是这个 Symbol 值的描述。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> key1 = <span class="hljs-built_in">Symbol</span>(<span class="hljs-string">&#x27;description&#x27;</span>);
 <span class="hljs-keyword">const</span> key2 = <span class="hljs-built_in">Symbol</span>();
 <span class="hljs-keyword">let</span> obj = {
   [key1]() {},
   [key2]() {},
 };
-obj[key1].name <span class="hljs-comment">// "[description]"</span>
-obj[key2].name <span class="hljs-comment">// ""</span>
+obj[key1].name <span class="hljs-comment">// &quot;[description]&quot;</span>
+obj[key2].name <span class="hljs-comment">// &quot;&quot;</span>
 </code></pre><p>上面代码中，<code>key1</code>对应的 Symbol 值有描述，<code>key2</code>没有。</p><h2 id="属性的可枚举性和遍历">属性的可枚举性和遍历 <a class="markdownIt-Anchor" href="#属性的可枚举性和遍历">#</a></h2><h3 id="可枚举性">可枚举性 <a class="markdownIt-Anchor" href="#可枚举性">#</a></h3><p>对象的每个属性都有一个描述对象（Descriptor），用来控制该属性的行为。<code>Object.getOwnPropertyDescriptor</code>方法可以获取该属性的描述对象。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> obj = { <span class="hljs-attr">foo</span>: <span class="hljs-number">123</span> };
-<span class="hljs-built_in">Object</span>.getOwnPropertyDescriptor(obj, <span class="hljs-string">'foo'</span>)
+<span class="hljs-built_in">Object</span>.getOwnPropertyDescriptor(obj, <span class="hljs-string">&#x27;foo&#x27;</span>)
 <span class="hljs-comment">//  {</span>
 <span class="hljs-comment">//    value: 123,</span>
 <span class="hljs-comment">//    writable: true,</span>
 <span class="hljs-comment">//    enumerable: true,</span>
 <span class="hljs-comment">//    configurable: true</span>
 <span class="hljs-comment">//  }</span>
-</code></pre><p>描述对象的<code>enumerable</code>属性，称为“可枚举性”，如果该属性为<code>false</code>，就表示某些操作会忽略当前属性。</p><p>目前，有四个操作会忽略<code>enumerable</code>为<code>false</code>的属性。</p><ul><li><code>for...in</code>循环：只遍历对象自身的和继承的可枚举的属性。</li><li><code>Object.keys()</code>：返回对象自身的所有可枚举的属性的键名。</li><li><code>JSON.stringify()</code>：只串行化对象自身的可枚举的属性。</li><li><code>Object.assign()</code>： 忽略<code>enumerable</code>为<code>false</code>的属性，只拷贝对象自身的可枚举的属性。</li></ul><p>这四个操作之中，前三个是 ES5 就有的，最后一个<code>Object.assign()</code>是 ES6 新增的。其中，只有<code>for...in</code>会返回继承的属性，其他三个方法都会忽略继承的属性，只处理对象自身的属性。实际上，引入“可枚举”（<code>enumerable</code>）这个概念的最初目的，就是让某些属性可以规避掉<code>for...in</code>操作，不然所有内部属性和方法都会被遍历到。比如，对象原型的<code>toString</code>方法，以及数组的<code>length</code>属性，就通过“可枚举性”，从而避免被<code>for...in</code>遍历到。</p><pre class="hljs"><code><span class="hljs-built_in">Object</span>.getOwnPropertyDescriptor(<span class="hljs-built_in">Object</span>.prototype, <span class="hljs-string">'toString'</span>).enumerable
+</code></pre><p>描述对象的<code>enumerable</code>属性，称为“可枚举性”，如果该属性为<code>false</code>，就表示某些操作会忽略当前属性。</p><p>目前，有四个操作会忽略<code>enumerable</code>为<code>false</code>的属性。</p><ul><li><code>for...in</code>循环：只遍历对象自身的和继承的可枚举的属性。</li><li><code>Object.keys()</code>：返回对象自身的所有可枚举的属性的键名。</li><li><code>JSON.stringify()</code>：只串行化对象自身的可枚举的属性。</li><li><code>Object.assign()</code>： 忽略<code>enumerable</code>为<code>false</code>的属性，只拷贝对象自身的可枚举的属性。</li></ul><p>这四个操作之中，前三个是 ES5 就有的，最后一个<code>Object.assign()</code>是 ES6 新增的。其中，只有<code>for...in</code>会返回继承的属性，其他三个方法都会忽略继承的属性，只处理对象自身的属性。实际上，引入“可枚举”（<code>enumerable</code>）这个概念的最初目的，就是让某些属性可以规避掉<code>for...in</code>操作，不然所有内部属性和方法都会被遍历到。比如，对象原型的<code>toString</code>方法，以及数组的<code>length</code>属性，就通过“可枚举性”，从而避免被<code>for...in</code>遍历到。</p><pre class="hljs"><code><span class="hljs-built_in">Object</span>.getOwnPropertyDescriptor(<span class="hljs-built_in">Object</span>.prototype, <span class="hljs-string">&#x27;toString&#x27;</span>).enumerable
 <span class="hljs-comment">// false</span>
 
-<span class="hljs-built_in">Object</span>.getOwnPropertyDescriptor([], <span class="hljs-string">'length'</span>).enumerable
+<span class="hljs-built_in">Object</span>.getOwnPropertyDescriptor([], <span class="hljs-string">&#x27;length&#x27;</span>).enumerable
 <span class="hljs-comment">// false</span>
-</code></pre><p>上面代码中，<code>toString</code>和<code>length</code>属性的<code>enumerable</code>都是<code>false</code>，因此<code>for...in</code>不会遍历到这两个继承自原型的属性。</p><p>另外，ES6 规定，所有 Class 的原型的方法都是不可枚举的。</p><pre class="hljs"><code><span class="hljs-built_in">Object</span>.getOwnPropertyDescriptor(<span class="hljs-class"><span class="hljs-keyword">class</span> </span>{foo() {}}.prototype, <span class="hljs-string">'foo'</span>).enumerable
+</code></pre><p>上面代码中，<code>toString</code>和<code>length</code>属性的<code>enumerable</code>都是<code>false</code>，因此<code>for...in</code>不会遍历到这两个继承自原型的属性。</p><p>另外，ES6 规定，所有 Class 的原型的方法都是不可枚举的。</p><pre class="hljs"><code><span class="hljs-built_in">Object</span>.getOwnPropertyDescriptor(<span class="hljs-class"><span class="hljs-keyword">class</span> </span>{foo() {}}.prototype, <span class="hljs-string">&#x27;foo&#x27;</span>).enumerable
 <span class="hljs-comment">// false</span>
 </code></pre><p>总的来说，操作中引入继承的属性会让问题复杂化，大多数时候，我们只关心对象自身的属性。所以，尽量不要用<code>for...in</code>循环，而用<code>Object.keys()</code>代替。</p><h3 id="属性的遍历">属性的遍历 <a class="markdownIt-Anchor" href="#属性的遍历">#</a></h3><p>ES6 一共有 5 种方法可以遍历对象的属性。</p><p><strong>（1）for...in</strong></p><p><code>for...in</code>循环遍历对象自身的和继承的可枚举属性（不含 Symbol 属性）。</p><p><strong>（2）Object.keys(obj)</strong></p><p><code>Object.keys</code>返回一个数组，包括对象自身的（不含继承的）所有可枚举属性（不含 Symbol 属性）的键名。</p><p><strong>（3）Object.getOwnPropertyNames(obj)</strong></p><p><code>Object.getOwnPropertyNames</code>返回一个数组，包含对象自身的所有属性（不含 Symbol 属性，但是包括不可枚举属性）的键名。</p><p><strong>（4）Object.getOwnPropertySymbols(obj)</strong></p><p><code>Object.getOwnPropertySymbols</code>返回一个数组，包含对象自身的所有 Symbol 属性的键名。</p><p><strong>（5）Reflect.ownKeys(obj)</strong></p><p><code>Reflect.ownKeys</code>返回一个数组，包含对象自身的（不含继承的）所有键名，不管键名是 Symbol 或字符串，也不管是否可枚举。</p><p>以上的 5 种方法遍历对象的键名，都遵守同样的属性遍历的次序规则。</p><ul><li>首先遍历所有数值键，按照数值升序排列。</li><li>其次遍历所有字符串键，按照加入时间升序排列。</li><li>最后遍历所有 Symbol 键，按照加入时间升序排列。</li></ul><pre class="hljs"><code><span class="hljs-built_in">Reflect</span>.ownKeys({ [<span class="hljs-built_in">Symbol</span>()]:<span class="hljs-number">0</span>, <span class="hljs-attr">b</span>:<span class="hljs-number">0</span>, <span class="hljs-number">10</span>:<span class="hljs-number">0</span>, <span class="hljs-number">2</span>:<span class="hljs-number">0</span>, <span class="hljs-attr">a</span>:<span class="hljs-number">0</span> })
-<span class="hljs-comment">// ['2', '10', 'b', 'a', Symbol()]</span>
+<span class="hljs-comment">// [&#x27;2&#x27;, &#x27;10&#x27;, &#x27;b&#x27;, &#x27;a&#x27;, Symbol()]</span>
 </code></pre><p>上面代码中，<code>Reflect.ownKeys</code>方法返回一个数组，包含了参数对象的所有属性。这个数组的属性次序是这样的，首先是数值属性<code>2</code>和<code>10</code>，其次是字符串属性<code>b</code>和<code>a</code>，最后是 Symbol 属性。</p><h2 id="super-关键字">super 关键字 <a class="markdownIt-Anchor" href="#super-关键字">#</a></h2><p>我们知道，<code>this</code>关键字总是指向函数所在的当前对象，ES6 又新增了另一个类似的关键字<code>super</code>，指向当前对象的原型对象。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> proto = {
-  <span class="hljs-attr">foo</span>: <span class="hljs-string">'hello'</span>
+  <span class="hljs-attr">foo</span>: <span class="hljs-string">&#x27;hello&#x27;</span>
 };
 
 <span class="hljs-keyword">const</span> obj = {
-  <span class="hljs-attr">foo</span>: <span class="hljs-string">'world'</span>,
+  <span class="hljs-attr">foo</span>: <span class="hljs-string">&#x27;world&#x27;</span>,
   find() {
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">super</span>.foo;
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">super</span>.foo;
   }
 };
 
 <span class="hljs-built_in">Object</span>.setPrototypeOf(obj, proto);
-obj.find() <span class="hljs-comment">// "hello"</span>
+obj.find() <span class="hljs-comment">// &quot;hello&quot;</span>
 </code></pre><p>上面代码中，对象<code>obj.find()</code>方法之中，通过<code>super.foo</code>引用了原型对象<code>proto</code>的<code>foo</code>属性。</p><p>注意，<code>super</code>关键字表示原型对象时，只能用在对象的方法之中，用在其他地方都会报错。</p><pre class="hljs"><code><span class="hljs-comment">// 报错</span>
 <span class="hljs-keyword">const</span> obj = {
-  <span class="hljs-attr">foo</span>: <span class="hljs-keyword">super</span>.foo
+  <span class="hljs-attr">foo</span>: <span class="hljs-built_in">super</span>.foo
 }
 
 <span class="hljs-comment">// 报错</span>
 <span class="hljs-keyword">const</span> obj = {
-  <span class="hljs-attr">foo</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-keyword">super</span>.foo
+  <span class="hljs-attr">foo</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">super</span>.foo
 }
 
 <span class="hljs-comment">// 报错</span>
 <span class="hljs-keyword">const</span> obj = {
   <span class="hljs-attr">foo</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">super</span>.foo
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">super</span>.foo
   }
 }
 </code></pre><p>上面三种<code>super</code>的用法都会报错，因为对于 JavaScript 引擎来说，这里的<code>super</code>都没有用在对象的方法之中。第一种写法是<code>super</code>用在属性里面，第二种和第三种写法是<code>super</code>用在一个函数里面，然后赋值给<code>foo</code>属性。目前，只有对象方法的简写法可以让 JavaScript 引擎确认，定义的是对象的方法。</p><p>JavaScript 引擎内部，<code>super.foo</code>等同于<code>Object.getPrototypeOf(this).foo</code>（属性）或<code>Object.getPrototypeOf(this).foo.call(this)</code>（方法）。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> proto = {
-  <span class="hljs-attr">x</span>: <span class="hljs-string">'hello'</span>,
+  <span class="hljs-attr">x</span>: <span class="hljs-string">&#x27;hello&#x27;</span>,
   foo() {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.x);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.x);
   },
 };
 
 <span class="hljs-keyword">const</span> obj = {
-  <span class="hljs-attr">x</span>: <span class="hljs-string">'world'</span>,
+  <span class="hljs-attr">x</span>: <span class="hljs-string">&#x27;world&#x27;</span>,
   foo() {
-    <span class="hljs-keyword">super</span>.foo();
+    <span class="hljs-built_in">super</span>.foo();
   }
 }
 
 <span class="hljs-built_in">Object</span>.setPrototypeOf(obj, proto);
 
-obj.foo() <span class="hljs-comment">// "world"</span>
+obj.foo() <span class="hljs-comment">// &quot;world&quot;</span>
 </code></pre><p>上面代码中，<code>super.foo</code>指向原型对象<code>proto</code>的<code>foo</code>方法，但是绑定的<code>this</code>却还是当前对象<code>obj</code>，因此输出的就是<code>world</code>。</p><h2 id="对象的扩展运算符">对象的扩展运算符 <a class="markdownIt-Anchor" href="#对象的扩展运算符">#</a></h2><p>《数组的扩展》一章中，已经介绍过扩展运算符（<code>...</code>）。ES2018 将这个运算符<a href="https://github.com/sebmarkbage/ecmascript-rest-spread" target="_blank" rel="noopener">引入</a>了对象。</p><h3 id="解构赋值">解构赋值 <a class="markdownIt-Anchor" href="#解构赋值">#</a></h3><p>对象的解构赋值用于从一个对象取值，相当于将目标对象自身的所有可遍历的（enumerable）、但尚未被读取的属性，分配到指定的对象上面。所有的键和它们的值，都会拷贝到新对象上面。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> { x, y, ...z } = { <span class="hljs-attr">x</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">a</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">b</span>: <span class="hljs-number">4</span> };
 x <span class="hljs-comment">// 1</span>
 y <span class="hljs-comment">// 2</span>
@@ -287,9 +287,9 @@ z <span class="hljs-comment">// 3</span>
 </code></pre><p>上面代码中，原始函数<code>baseFunction</code>接受<code>a</code>和<code>b</code>作为参数，函数<code>wrapperFunction</code>在<code>baseFunction</code>的基础上进行了扩展，能够接受多余的参数，并且保留原始函数的行为。</p><h3 id="扩展运算符">扩展运算符 <a class="markdownIt-Anchor" href="#扩展运算符">#</a></h3><p>对象的扩展运算符（<code>...</code>）用于取出参数对象的所有可遍历属性，拷贝到当前对象之中。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> z = { <span class="hljs-attr">a</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">b</span>: <span class="hljs-number">4</span> };
 <span class="hljs-keyword">let</span> n = { ...z };
 n <span class="hljs-comment">// { a: 3, b: 4 }</span>
-</code></pre><p>由于数组是特殊的对象，所以对象的扩展运算符也可以用于数组。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> foo = { ...[<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>] };
+</code></pre><p>由于数组是特殊的对象，所以对象的扩展运算符也可以用于数组。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> foo = { ...[<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;c&#x27;</span>] };
 foo
-<span class="hljs-comment">// {0: "a", 1: "b", 2: "c"}</span>
+<span class="hljs-comment">// {0: &quot;a&quot;, 1: &quot;b&quot;, 2: &quot;c&quot;}</span>
 </code></pre><p>如果扩展运算符后面是一个空对象，则没有任何效果。</p><pre class="hljs"><code>{...{}, <span class="hljs-attr">a</span>: <span class="hljs-number">1</span>}
 <span class="hljs-comment">// { a: 1 }</span>
 </code></pre><p>如果扩展运算符后面不是对象，则会自动将其转为对象。</p><pre class="hljs"><code><span class="hljs-comment">// 等同于 {...Object(1)}</span>
@@ -302,8 +302,8 @@ foo
 
 <span class="hljs-comment">// 等同于 {...Object(null)}</span>
 {...null} <span class="hljs-comment">// {}</span>
-</code></pre><p>但是，如果扩展运算符后面是字符串，它会自动转成一个类似数组的对象，因此返回的不是空对象。</p><pre class="hljs"><code>{...<span class="hljs-string">'hello'</span>}
-<span class="hljs-comment">// {0: "h", 1: "e", 2: "l", 3: "l", 4: "o"}</span>
+</code></pre><p>但是，如果扩展运算符后面是字符串，它会自动转成一个类似数组的对象，因此返回的不是空对象。</p><pre class="hljs"><code>{...<span class="hljs-string">&#x27;hello&#x27;</span>}
+<span class="hljs-comment">// {0: &quot;h&quot;, 1: &quot;e&quot;, 2: &quot;l&quot;, 3: &quot;l&quot;, 4: &quot;o&quot;}</span>
 </code></pre><p>对象的扩展运算符等同于使用<code>Object.assign()</code>方法。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> aClone = { ...a };
 <span class="hljs-comment">// 等同于</span>
 <span class="hljs-keyword">let</span> aClone = <span class="hljs-built_in">Object</span>.assign({}, a);
@@ -336,7 +336,7 @@ foo
 <span class="hljs-keyword">let</span> aWithOverrides = <span class="hljs-built_in">Object</span>.assign({}, a, { <span class="hljs-attr">x</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">2</span> });
 </code></pre><p>上面代码中，<code>a</code>对象的<code>x</code>属性和<code>y</code>属性，拷贝到新对象后会被覆盖掉。</p><p>这用来修改现有对象部分的属性就很方便了。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> newVersion = {
   ...previousVersion,
-  <span class="hljs-attr">name</span>: <span class="hljs-string">'New Name'</span> <span class="hljs-comment">// Override the name property</span>
+  <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;New Name&#x27;</span> <span class="hljs-comment">// Override the name property</span>
 };
 </code></pre><p>上面代码中，<code>newVersion</code>对象自定义了<code>name</code>属性，其他属性全部复制自<code>previousVersion</code>对象。</p><p>如果把自定义属性放在扩展运算符前面，就变成了设置新对象的默认属性值。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> aWithDefaults = { <span class="hljs-attr">x</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">2</span>, ...a };
 <span class="hljs-comment">// 等同于</span>
@@ -348,8 +348,8 @@ foo
   <span class="hljs-attr">b</span>: <span class="hljs-number">2</span>,
 };
 </code></pre><p>扩展运算符的参数对象之中，如果有取值函数<code>get</code>，这个函数是会执行的。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> a = {
-  <span class="hljs-keyword">get</span> x() {
-    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'not throw yet'</span>);
+  <span class="hljs-keyword">get</span> <span class="hljs-title">x</span>() {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&#x27;not throw yet&#x27;</span>);
   }
 }
 
@@ -361,17 +361,17 @@ foo
 <span class="hljs-keyword">const</span> firstName = (message
   &amp;&amp; message.body
   &amp;&amp; message.body.user
-  &amp;&amp; message.body.user.firstName) || <span class="hljs-string">'default'</span>;
-</code></pre><p>上面例子中，<code>firstName</code>属性在对象的第四层，所以需要判断四次，每一层是否有值。</p><p>三元运算符<code>?:</code>也常用于判断对象是否存在。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> fooInput = myForm.querySelector(<span class="hljs-string">'input[name=foo]'</span>)
+  &amp;&amp; message.body.user.firstName) || <span class="hljs-string">&#x27;default&#x27;</span>;
+</code></pre><p>上面例子中，<code>firstName</code>属性在对象的第四层，所以需要判断四次，每一层是否有值。</p><p>三元运算符<code>?:</code>也常用于判断对象是否存在。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> fooInput = myForm.querySelector(<span class="hljs-string">&#x27;input[name=foo]&#x27;</span>)
 <span class="hljs-keyword">const</span> fooValue = fooInput ? fooInput.value : <span class="hljs-literal">undefined</span>
-</code></pre><p>上面例子中，必须先判断<code>fooInput</code>是否存在，才能读取<code>fooInput.value</code>。</p><p>这样的层层判断非常麻烦，因此 <a href="https://github.com/tc39/proposal-optional-chaining" target="_blank" rel="noopener">ES2020</a> 引入了“链判断运算符”（optional chaining operator）<code>?.</code>，简化上面的写法。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> firstName = message?.body?.user?.firstName || <span class="hljs-string">'default'</span>;
-<span class="hljs-keyword">const</span> fooValue = myForm.querySelector(<span class="hljs-string">'input[name=foo]'</span>)?.value
+</code></pre><p>上面例子中，必须先判断<code>fooInput</code>是否存在，才能读取<code>fooInput.value</code>。</p><p>这样的层层判断非常麻烦，因此 <a href="https://github.com/tc39/proposal-optional-chaining" target="_blank" rel="noopener">ES2020</a> 引入了“链判断运算符”（optional chaining operator）<code>?.</code>，简化上面的写法。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> firstName = message?.body?.user?.firstName || <span class="hljs-string">&#x27;default&#x27;</span>;
+<span class="hljs-keyword">const</span> fooValue = myForm.querySelector(<span class="hljs-string">&#x27;input[name=foo]&#x27;</span>)?.value
 </code></pre><p>上面代码使用了<code>?.</code>运算符，直接在链式调用的时候判断，左侧的对象是否为<code>null</code>或<code>undefined</code>。如果是的，就不再往下运算，而是返回<code>undefined</code>。</p><p>下面是判断对象方法是否存在，如果存在就立即执行的例子。</p><pre class="hljs"><code>iterator.return?.()
 </code></pre><p>上面代码中，<code>iterator.return</code>如果有定义，就会调用该方法，否则<code>iterator.return</code>直接返回<code>undefined</code>，不再执行<code>?.</code>后面的部分。</p><p>对于那些可能没有实现的方法，这个运算符尤其有用。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> (myForm.checkValidity?.() === <span class="hljs-literal">false</span>) {
   <span class="hljs-comment">// 表单校验失败</span>
   <span class="hljs-keyword">return</span>;
 }
-</code></pre><p>上面代码中，老式浏览器的表单可能没有<code>checkValidity</code>这个方法，这时<code>?.</code>运算符就会返回<code>undefined</code>，判断语句就变成了<code>undefined === false</code>，所以就会跳过下面的代码。</p><p>链判断运算符有三种用法。</p><ul><li><code>obj?.prop</code> // 对象属性</li><li><code>obj?.[expr]</code> // 同上</li><li><code>func?.(...args)</code> // 函数或对象方法的调用</li></ul><p>下面是<code>obj?.[expr]</code>用法的一个例子。</p><pre class="hljs"><code><span class="hljs-built_in">let</span> hex = <span class="hljs-string">"#C0FFEE"</span>.match(/<span class="hljs-comment">#([A-Z]+)/i)?.[1];</span>
+</code></pre><p>上面代码中，老式浏览器的表单可能没有<code>checkValidity</code>这个方法，这时<code>?.</code>运算符就会返回<code>undefined</code>，判断语句就变成了<code>undefined === false</code>，所以就会跳过下面的代码。</p><p>链判断运算符有三种用法。</p><ul><li><code>obj?.prop</code> // 对象属性</li><li><code>obj?.[expr]</code> // 同上</li><li><code>func?.(...args)</code> // 函数或对象方法的调用</li></ul><p>下面是<code>obj?.[expr]</code>用法的一个例子。</p><pre class="hljs"><code><span class="hljs-built_in">let</span> hex = <span class="hljs-string">&quot;#C0FFEE&quot;</span>.match(/<span class="hljs-comment">#([A-Z]+)/i)?.[1];</span>
 </code></pre><p>上面例子中，字符串的<code>match()</code>方法，如果没有发现匹配会返回<code>null</code>，如果发现匹配会返回一个数组，<code>?.</code>运算符起到了判断作用。</p><p>下面是<code>?.</code>运算符常见形式，以及不使用该运算符时的等价形式。</p><pre class="hljs"><code>a?.b
 <span class="hljs-comment">// 等同于</span>
 a == <span class="hljs-literal">null</span> ? <span class="hljs-literal">undefined</span> : a.b
@@ -405,15 +405,15 @@ a?.<span class="hljs-string">`{b}`</span>
 a?.b<span class="hljs-string">`{c}`</span>
 
 <span class="hljs-comment">// 链判断运算符的左侧是 super</span>
-<span class="hljs-keyword">super</span>?.()
-<span class="hljs-keyword">super</span>?.foo
+<span class="hljs-built_in">super</span>?.()
+<span class="hljs-built_in">super</span>?.foo
 
 <span class="hljs-comment">// 链运算符用于赋值运算符左侧</span>
 a?.b = c
-</code></pre><p>（5）右侧不得为十进制数值</p><p>为了保证兼容以前的代码，允许<code>foo?.3:0</code>被解析成<code>foo ? .3 : 0</code>，因此规定如果<code>?.</code>后面紧跟一个十进制数字，那么<code>?.</code>不再被看成是一个完整的运算符，而会按照三元运算符进行处理，也就是说，那个小数点会归属于后面的十进制数字，形成一个小数。</p><h2 id="null-判断运算符">Null 判断运算符 <a class="markdownIt-Anchor" href="#null-判断运算符">#</a></h2><p>读取对象属性的时候，如果某个属性的值是<code>null</code>或<code>undefined</code>，有时候需要为它们指定默认值。常见做法是通过<code>||</code>运算符指定默认值。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> headerText = response.settings.headerText || <span class="hljs-string">'Hello, world!'</span>;
+</code></pre><p>（5）右侧不得为十进制数值</p><p>为了保证兼容以前的代码，允许<code>foo?.3:0</code>被解析成<code>foo ? .3 : 0</code>，因此规定如果<code>?.</code>后面紧跟一个十进制数字，那么<code>?.</code>不再被看成是一个完整的运算符，而会按照三元运算符进行处理，也就是说，那个小数点会归属于后面的十进制数字，形成一个小数。</p><h2 id="null-判断运算符">Null 判断运算符 <a class="markdownIt-Anchor" href="#null-判断运算符">#</a></h2><p>读取对象属性的时候，如果某个属性的值是<code>null</code>或<code>undefined</code>，有时候需要为它们指定默认值。常见做法是通过<code>||</code>运算符指定默认值。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> headerText = response.settings.headerText || <span class="hljs-string">&#x27;Hello, world!&#x27;</span>;
 <span class="hljs-keyword">const</span> animationDuration = response.settings.animationDuration || <span class="hljs-number">300</span>;
 <span class="hljs-keyword">const</span> showSplashScreen = response.settings.showSplashScreen || <span class="hljs-literal">true</span>;
-</code></pre><p>上面的三行代码都通过<code>||</code>运算符指定默认值，但是这样写是错的。开发者的原意是，只要属性的值为<code>null</code>或<code>undefined</code>，默认值就会生效，但是属性的值如果为空字符串或<code>false</code>或<code>0</code>，默认值也会生效。</p><p>为了避免这种情况，<a href="https://github.com/tc39/proposal-nullish-coalescing" target="_blank" rel="noopener">ES2020</a> 引入了一个新的 Null 判断运算符<code>??</code>。它的行为类似<code>||</code>，但是只有运算符左侧的值为<code>null</code>或<code>undefined</code>时，才会返回右侧的值。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> headerText = response.settings.headerText ?? <span class="hljs-string">'Hello, world!'</span>;
+</code></pre><p>上面的三行代码都通过<code>||</code>运算符指定默认值，但是这样写是错的。开发者的原意是，只要属性的值为<code>null</code>或<code>undefined</code>，默认值就会生效，但是属性的值如果为空字符串或<code>false</code>或<code>0</code>，默认值也会生效。</p><p>为了避免这种情况，<a href="https://github.com/tc39/proposal-nullish-coalescing" target="_blank" rel="noopener">ES2020</a> 引入了一个新的 Null 判断运算符<code>??</code>。它的行为类似<code>||</code>，但是只有运算符左侧的值为<code>null</code>或<code>undefined</code>时，才会返回右侧的值。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> headerText = response.settings.headerText ?? <span class="hljs-string">&#x27;Hello, world!&#x27;</span>;
 <span class="hljs-keyword">const</span> animationDuration = response.settings.animationDuration ?? <span class="hljs-number">300</span>;
 <span class="hljs-keyword">const</span> showSplashScreen = response.settings.showSplashScreen ?? <span class="hljs-literal">true</span>;
 </code></pre><p>上面代码中，默认值只有在左侧属性值为<code>null</code>或<code>undefined</code>时，才会生效。</p><p>这个运算符的一个目的，就是跟链判断运算符<code>?.</code>配合使用，为<code>null</code>或<code>undefined</code>的值设置默认值。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> animationDuration = response.settings?.animationDuration ?? <span class="hljs-number">300</span>;

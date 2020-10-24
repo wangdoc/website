@@ -17,7 +17,7 @@ a1[<span class="hljs-number">0</span>] === a2[<span class="hljs-number">0</span>
 a1.hasOwnProperty(<span class="hljs-number">0</span>) <span class="hljs-comment">// true</span>
 a2.hasOwnProperty(<span class="hljs-number">0</span>) <span class="hljs-comment">// false</span>
 
-<span class="hljs-built_in">Object</span>.keys(a1) <span class="hljs-comment">// ["0", "1", "2"]</span>
+<span class="hljs-built_in">Object</span>.keys(a1) <span class="hljs-comment">// [&quot;0&quot;, &quot;1&quot;, &quot;2&quot;]</span>
 <span class="hljs-built_in">Object</span>.keys(a2) <span class="hljs-comment">// []</span>
 
 a1.map(<span class="hljs-function"><span class="hljs-params">n</span> =&gt;</span> <span class="hljs-number">1</span>) <span class="hljs-comment">// [1, 1, 1]</span>
@@ -28,11 +28,11 @@ arr.map(<span class="hljs-function"><span class="hljs-params">n</span> =&gt;</sp
   <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
 }) <span class="hljs-comment">// [, , ,]</span>
 </code></pre><p>上面代码中，<code>arr</code>是一个全是空位的数组，<code>map</code>方法遍历成员时，发现是空位，就直接跳过，不会进入回调函数。因此，回调函数里面的<code>console.log</code>语句根本不会执行，整个<code>map</code>方法返回一个全是空位的新数组。</p><p>V8 引擎对<code>map</code>方法的<a href="https://github.com/v8/v8/blob/44c44521ae11859478b42004f57ea93df52526ee/src/js/array.js#L1347" target="_blank" rel="noopener">实现</a>如下，可以看到跟规格的算法描述完全一致。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ArrayMap</span>(<span class="hljs-params">f, receiver</span>) </span>{
-  CHECK_OBJECT_COERCIBLE(<span class="hljs-keyword">this</span>, <span class="hljs-string">"Array.prototype.map"</span>);
+  CHECK_OBJECT_COERCIBLE(<span class="hljs-built_in">this</span>, <span class="hljs-string">&quot;Array.prototype.map&quot;</span>);
 
   <span class="hljs-comment">// Pull out the length so that modifications to the length in the</span>
   <span class="hljs-comment">// loop will not affect the looping and side effects are visible.</span>
-  <span class="hljs-keyword">var</span> array = TO_OBJECT(<span class="hljs-keyword">this</span>);
+  <span class="hljs-keyword">var</span> array = TO_OBJECT(<span class="hljs-built_in">this</span>);
   <span class="hljs-keyword">var</span> length = TO_LENGTH_OR_UINT32(array.length);
   <span class="hljs-keyword">return</span> InnerArrayMap(f, receiver, array, length);
 }

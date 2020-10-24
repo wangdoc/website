@@ -7,8 +7,8 @@ foo <span class="hljs-comment">// 1</span>
 bar <span class="hljs-comment">// 2</span>
 baz <span class="hljs-comment">// 3</span>
 
-<span class="hljs-keyword">let</span> [ , , third] = [<span class="hljs-string">"foo"</span>, <span class="hljs-string">"bar"</span>, <span class="hljs-string">"baz"</span>];
-third <span class="hljs-comment">// "baz"</span>
+<span class="hljs-keyword">let</span> [ , , third] = [<span class="hljs-string">&quot;foo&quot;</span>, <span class="hljs-string">&quot;bar&quot;</span>, <span class="hljs-string">&quot;baz&quot;</span>];
+third <span class="hljs-comment">// &quot;baz&quot;</span>
 
 <span class="hljs-keyword">let</span> [x, , y] = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
 x <span class="hljs-comment">// 1</span>
@@ -18,8 +18,8 @@ y <span class="hljs-comment">// 3</span>
 head <span class="hljs-comment">// 1</span>
 tail <span class="hljs-comment">// [2, 3, 4]</span>
 
-<span class="hljs-keyword">let</span> [x, y, ...z] = [<span class="hljs-string">'a'</span>];
-x <span class="hljs-comment">// "a"</span>
+<span class="hljs-keyword">let</span> [x, y, ...z] = [<span class="hljs-string">&#x27;a&#x27;</span>];
+x <span class="hljs-comment">// &quot;a&quot;</span>
 y <span class="hljs-comment">// undefined</span>
 z <span class="hljs-comment">// []</span>
 </code></pre><p>如果解构不成功，变量的值就等于<code>undefined</code>。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> [foo] = [];
@@ -39,8 +39,8 @@ d <span class="hljs-comment">// 4</span>
 <span class="hljs-keyword">let</span> [foo] = <span class="hljs-literal">undefined</span>;
 <span class="hljs-keyword">let</span> [foo] = <span class="hljs-literal">null</span>;
 <span class="hljs-keyword">let</span> [foo] = {};
-</code></pre><p>上面的语句都会报错，因为等号右边的值，要么转为对象以后不具备 Iterator 接口（前五个表达式），要么本身就不具备 Iterator 接口（最后一个表达式）。</p><p>对于 Set 结构，也可以使用数组的解构赋值。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> [x, y, z] = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>]);
-x <span class="hljs-comment">// "a"</span>
+</code></pre><p>上面的语句都会报错，因为等号右边的值，要么转为对象以后不具备 Iterator 接口（前五个表达式），要么本身就不具备 Iterator 接口（最后一个表达式）。</p><p>对于 Set 结构，也可以使用数组的解构赋值。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> [x, y, z] = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;c&#x27;</span>]);
+x <span class="hljs-comment">// &quot;a&quot;</span>
 </code></pre><p>事实上，只要某种数据结构具有 Iterator 接口，都可以采用数组形式的解构赋值。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">fibs</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">let</span> a = <span class="hljs-number">0</span>;
   <span class="hljs-keyword">let</span> b = <span class="hljs-number">1</span>;
@@ -55,15 +55,15 @@ sixth <span class="hljs-comment">// 5</span>
 </code></pre><p>上面代码中，<code>fibs</code>是一个 Generator 函数（参见《Generator 函数》一章），原生具有 Iterator 接口。解构赋值会依次从这个接口获取值。</p><h3 id="默认值">默认值 <a class="markdownIt-Anchor" href="#默认值">#</a></h3><p>解构赋值允许指定默认值。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> [foo = <span class="hljs-literal">true</span>] = [];
 foo <span class="hljs-comment">// true</span>
 
-<span class="hljs-keyword">let</span> [x, y = <span class="hljs-string">'b'</span>] = [<span class="hljs-string">'a'</span>]; <span class="hljs-comment">// x='a', y='b'</span>
-<span class="hljs-keyword">let</span> [x, y = <span class="hljs-string">'b'</span>] = [<span class="hljs-string">'a'</span>, <span class="hljs-literal">undefined</span>]; <span class="hljs-comment">// x='a', y='b'</span>
+<span class="hljs-keyword">let</span> [x, y = <span class="hljs-string">&#x27;b&#x27;</span>] = [<span class="hljs-string">&#x27;a&#x27;</span>]; <span class="hljs-comment">// x=&#x27;a&#x27;, y=&#x27;b&#x27;</span>
+<span class="hljs-keyword">let</span> [x, y = <span class="hljs-string">&#x27;b&#x27;</span>] = [<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-literal">undefined</span>]; <span class="hljs-comment">// x=&#x27;a&#x27;, y=&#x27;b&#x27;</span>
 </code></pre><p>注意，ES6 内部使用严格相等运算符（<code>===</code>），判断一个位置是否有值。所以，只有当一个数组成员严格等于<code>undefined</code>，默认值才会生效。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> [x = <span class="hljs-number">1</span>] = [<span class="hljs-literal">undefined</span>];
 x <span class="hljs-comment">// 1</span>
 
 <span class="hljs-keyword">let</span> [x = <span class="hljs-number">1</span>] = [<span class="hljs-literal">null</span>];
 x <span class="hljs-comment">// null</span>
 </code></pre><p>上面代码中，如果一个数组成员是<code>null</code>，默认值就不会生效，因为<code>null</code>不严格等于<code>undefined</code>。</p><p>如果默认值是一个表达式，那么这个表达式是惰性求值的，即只有在用到的时候，才会求值。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'aaa'</span>);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;aaa&#x27;</span>);
 }
 
 <span class="hljs-keyword">let</span> [x = f()] = [<span class="hljs-number">1</span>];
@@ -77,55 +77,55 @@ x <span class="hljs-comment">// null</span>
 <span class="hljs-keyword">let</span> [x = <span class="hljs-number">1</span>, y = x] = [<span class="hljs-number">2</span>];    <span class="hljs-comment">// x=2; y=2</span>
 <span class="hljs-keyword">let</span> [x = <span class="hljs-number">1</span>, y = x] = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]; <span class="hljs-comment">// x=1; y=2</span>
 <span class="hljs-keyword">let</span> [x = y, y = <span class="hljs-number">1</span>] = [];     <span class="hljs-comment">// ReferenceError: y is not defined</span>
-</code></pre><p>上面最后一个表达式之所以会报错，是因为<code>x</code>用<code>y</code>做默认值时，<code>y</code>还没有声明。</p><h2 id="对象的解构赋值">对象的解构赋值 <a class="markdownIt-Anchor" href="#对象的解构赋值">#</a></h2><h3 id="简介">简介 <a class="markdownIt-Anchor" href="#简介">#</a></h3><p>解构不仅可以用于数组，还可以用于对象。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> { foo, bar } = { <span class="hljs-attr">foo</span>: <span class="hljs-string">'aaa'</span>, <span class="hljs-attr">bar</span>: <span class="hljs-string">'bbb'</span> };
-foo <span class="hljs-comment">// "aaa"</span>
-bar <span class="hljs-comment">// "bbb"</span>
-</code></pre><p>对象的解构与数组有一个重要的不同。数组的元素是按次序排列的，变量的取值由它的位置决定；而对象的属性没有次序，变量必须与属性同名，才能取到正确的值。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> { bar, foo } = { <span class="hljs-attr">foo</span>: <span class="hljs-string">'aaa'</span>, <span class="hljs-attr">bar</span>: <span class="hljs-string">'bbb'</span> };
-foo <span class="hljs-comment">// "aaa"</span>
-bar <span class="hljs-comment">// "bbb"</span>
+</code></pre><p>上面最后一个表达式之所以会报错，是因为<code>x</code>用<code>y</code>做默认值时，<code>y</code>还没有声明。</p><h2 id="对象的解构赋值">对象的解构赋值 <a class="markdownIt-Anchor" href="#对象的解构赋值">#</a></h2><h3 id="简介">简介 <a class="markdownIt-Anchor" href="#简介">#</a></h3><p>解构不仅可以用于数组，还可以用于对象。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> { foo, bar } = { <span class="hljs-attr">foo</span>: <span class="hljs-string">&#x27;aaa&#x27;</span>, <span class="hljs-attr">bar</span>: <span class="hljs-string">&#x27;bbb&#x27;</span> };
+foo <span class="hljs-comment">// &quot;aaa&quot;</span>
+bar <span class="hljs-comment">// &quot;bbb&quot;</span>
+</code></pre><p>对象的解构与数组有一个重要的不同。数组的元素是按次序排列的，变量的取值由它的位置决定；而对象的属性没有次序，变量必须与属性同名，才能取到正确的值。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> { bar, foo } = { <span class="hljs-attr">foo</span>: <span class="hljs-string">&#x27;aaa&#x27;</span>, <span class="hljs-attr">bar</span>: <span class="hljs-string">&#x27;bbb&#x27;</span> };
+foo <span class="hljs-comment">// &quot;aaa&quot;</span>
+bar <span class="hljs-comment">// &quot;bbb&quot;</span>
 
-<span class="hljs-keyword">let</span> { baz } = { <span class="hljs-attr">foo</span>: <span class="hljs-string">'aaa'</span>, <span class="hljs-attr">bar</span>: <span class="hljs-string">'bbb'</span> };
+<span class="hljs-keyword">let</span> { baz } = { <span class="hljs-attr">foo</span>: <span class="hljs-string">&#x27;aaa&#x27;</span>, <span class="hljs-attr">bar</span>: <span class="hljs-string">&#x27;bbb&#x27;</span> };
 baz <span class="hljs-comment">// undefined</span>
-</code></pre><p>上面代码的第一个例子，等号左边的两个变量的次序，与等号右边两个同名属性的次序不一致，但是对取值完全没有影响。第二个例子的变量没有对应的同名属性，导致取不到值，最后等于<code>undefined</code>。</p><p>如果解构失败，变量的值等于<code>undefined</code>。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> {foo} = {<span class="hljs-attr">bar</span>: <span class="hljs-string">'baz'</span>};
+</code></pre><p>上面代码的第一个例子，等号左边的两个变量的次序，与等号右边两个同名属性的次序不一致，但是对取值完全没有影响。第二个例子的变量没有对应的同名属性，导致取不到值，最后等于<code>undefined</code>。</p><p>如果解构失败，变量的值等于<code>undefined</code>。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> {foo} = {<span class="hljs-attr">bar</span>: <span class="hljs-string">&#x27;baz&#x27;</span>};
 foo <span class="hljs-comment">// undefined</span>
 </code></pre><p>上面代码中，等号右边的对象没有<code>foo</code>属性，所以变量<code>foo</code>取不到值，所以等于<code>undefined</code>。</p><p>对象的解构赋值，可以很方便地将现有对象的方法，赋值到某个变量。</p><pre class="hljs"><code><span class="hljs-comment">// 例一</span>
 <span class="hljs-keyword">let</span> { log, sin, cos } = <span class="hljs-built_in">Math</span>;
 
 <span class="hljs-comment">// 例二</span>
 <span class="hljs-keyword">const</span> { log } = <span class="hljs-built_in">console</span>;
-log(<span class="hljs-string">'hello'</span>) <span class="hljs-comment">// hello</span>
-</code></pre><p>上面代码的例一将<code>Math</code>对象的对数、正弦、余弦三个方法，赋值到对应的变量上，使用起来就会方便很多。例二将<code>console.log</code>赋值到<code>log</code>变量。</p><p>如果变量名与属性名不一致，必须写成下面这样。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> { <span class="hljs-attr">foo</span>: baz } = { <span class="hljs-attr">foo</span>: <span class="hljs-string">'aaa'</span>, <span class="hljs-attr">bar</span>: <span class="hljs-string">'bbb'</span> };
-baz <span class="hljs-comment">// "aaa"</span>
+log(<span class="hljs-string">&#x27;hello&#x27;</span>) <span class="hljs-comment">// hello</span>
+</code></pre><p>上面代码的例一将<code>Math</code>对象的对数、正弦、余弦三个方法，赋值到对应的变量上，使用起来就会方便很多。例二将<code>console.log</code>赋值到<code>log</code>变量。</p><p>如果变量名与属性名不一致，必须写成下面这样。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> { <span class="hljs-attr">foo</span>: baz } = { <span class="hljs-attr">foo</span>: <span class="hljs-string">&#x27;aaa&#x27;</span>, <span class="hljs-attr">bar</span>: <span class="hljs-string">&#x27;bbb&#x27;</span> };
+baz <span class="hljs-comment">// &quot;aaa&quot;</span>
 
-<span class="hljs-keyword">let</span> obj = { <span class="hljs-attr">first</span>: <span class="hljs-string">'hello'</span>, <span class="hljs-attr">last</span>: <span class="hljs-string">'world'</span> };
+<span class="hljs-keyword">let</span> obj = { <span class="hljs-attr">first</span>: <span class="hljs-string">&#x27;hello&#x27;</span>, <span class="hljs-attr">last</span>: <span class="hljs-string">&#x27;world&#x27;</span> };
 <span class="hljs-keyword">let</span> { <span class="hljs-attr">first</span>: f, <span class="hljs-attr">last</span>: l } = obj;
-f <span class="hljs-comment">// 'hello'</span>
-l <span class="hljs-comment">// 'world'</span>
-</code></pre><p>这实际上说明，对象的解构赋值是下面形式的简写（参见《对象的扩展》一章）。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> { <span class="hljs-attr">foo</span>: foo, <span class="hljs-attr">bar</span>: bar } = { <span class="hljs-attr">foo</span>: <span class="hljs-string">'aaa'</span>, <span class="hljs-attr">bar</span>: <span class="hljs-string">'bbb'</span> };
-</code></pre><p>也就是说，对象的解构赋值的内部机制，是先找到同名属性，然后再赋给对应的变量。真正被赋值的是后者，而不是前者。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> { <span class="hljs-attr">foo</span>: baz } = { <span class="hljs-attr">foo</span>: <span class="hljs-string">'aaa'</span>, <span class="hljs-attr">bar</span>: <span class="hljs-string">'bbb'</span> };
-baz <span class="hljs-comment">// "aaa"</span>
+f <span class="hljs-comment">// &#x27;hello&#x27;</span>
+l <span class="hljs-comment">// &#x27;world&#x27;</span>
+</code></pre><p>这实际上说明，对象的解构赋值是下面形式的简写（参见《对象的扩展》一章）。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> { <span class="hljs-attr">foo</span>: foo, <span class="hljs-attr">bar</span>: bar } = { <span class="hljs-attr">foo</span>: <span class="hljs-string">&#x27;aaa&#x27;</span>, <span class="hljs-attr">bar</span>: <span class="hljs-string">&#x27;bbb&#x27;</span> };
+</code></pre><p>也就是说，对象的解构赋值的内部机制，是先找到同名属性，然后再赋给对应的变量。真正被赋值的是后者，而不是前者。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> { <span class="hljs-attr">foo</span>: baz } = { <span class="hljs-attr">foo</span>: <span class="hljs-string">&#x27;aaa&#x27;</span>, <span class="hljs-attr">bar</span>: <span class="hljs-string">&#x27;bbb&#x27;</span> };
+baz <span class="hljs-comment">// &quot;aaa&quot;</span>
 foo <span class="hljs-comment">// error: foo is not defined</span>
 </code></pre><p>上面代码中，<code>foo</code>是匹配的模式，<code>baz</code>才是变量。真正被赋值的是变量<code>baz</code>，而不是模式<code>foo</code>。</p><p>与数组一样，解构也可以用于嵌套结构的对象。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> obj = {
   <span class="hljs-attr">p</span>: [
-    <span class="hljs-string">'Hello'</span>,
-    { <span class="hljs-attr">y</span>: <span class="hljs-string">'World'</span> }
+    <span class="hljs-string">&#x27;Hello&#x27;</span>,
+    { <span class="hljs-attr">y</span>: <span class="hljs-string">&#x27;World&#x27;</span> }
   ]
 };
 
 <span class="hljs-keyword">let</span> { <span class="hljs-attr">p</span>: [x, { y }] } = obj;
-x <span class="hljs-comment">// "Hello"</span>
-y <span class="hljs-comment">// "World"</span>
+x <span class="hljs-comment">// &quot;Hello&quot;</span>
+y <span class="hljs-comment">// &quot;World&quot;</span>
 </code></pre><p>注意，这时<code>p</code>是模式，不是变量，因此不会被赋值。如果<code>p</code>也要作为变量赋值，可以写成下面这样。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> obj = {
   <span class="hljs-attr">p</span>: [
-    <span class="hljs-string">'Hello'</span>,
-    { <span class="hljs-attr">y</span>: <span class="hljs-string">'World'</span> }
+    <span class="hljs-string">&#x27;Hello&#x27;</span>,
+    { <span class="hljs-attr">y</span>: <span class="hljs-string">&#x27;World&#x27;</span> }
   ]
 };
 
 <span class="hljs-keyword">let</span> { p, <span class="hljs-attr">p</span>: [x, { y }] } = obj;
-x <span class="hljs-comment">// "Hello"</span>
-y <span class="hljs-comment">// "World"</span>
-p <span class="hljs-comment">// ["Hello", {y: "World"}]</span>
+x <span class="hljs-comment">// &quot;Hello&quot;</span>
+y <span class="hljs-comment">// &quot;World&quot;</span>
+p <span class="hljs-comment">// [&quot;Hello&quot;, {y: &quot;World&quot;}]</span>
 </code></pre><p>下面是另一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> node = {
   <span class="hljs-attr">loc</span>: {
     <span class="hljs-attr">start</span>: {
@@ -147,13 +147,13 @@ start <span class="hljs-comment">// Object {line: 1, column: 5}</span>
 obj <span class="hljs-comment">// {prop:123}</span>
 arr <span class="hljs-comment">// [true]</span>
 </code></pre><p>如果解构模式是嵌套的对象，而且子对象所在的父属性不存在，那么将会报错。</p><pre class="hljs"><code><span class="hljs-comment">// 报错</span>
-<span class="hljs-keyword">let</span> {<span class="hljs-attr">foo</span>: {bar}} = {<span class="hljs-attr">baz</span>: <span class="hljs-string">'baz'</span>};
+<span class="hljs-keyword">let</span> {<span class="hljs-attr">foo</span>: {bar}} = {<span class="hljs-attr">baz</span>: <span class="hljs-string">&#x27;baz&#x27;</span>};
 </code></pre><p>上面代码中，等号左边对象的<code>foo</code>属性，对应一个子对象。该子对象的<code>bar</code>属性，解构时会报错。原因很简单，因为<code>foo</code>这时等于<code>undefined</code>，再取子属性就会报错。</p><p>注意，对象的解构赋值可以取到继承的属性。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> obj1 = {};
-<span class="hljs-keyword">const</span> obj2 = { <span class="hljs-attr">foo</span>: <span class="hljs-string">'bar'</span> };
+<span class="hljs-keyword">const</span> obj2 = { <span class="hljs-attr">foo</span>: <span class="hljs-string">&#x27;bar&#x27;</span> };
 <span class="hljs-built_in">Object</span>.setPrototypeOf(obj1, obj2);
 
 <span class="hljs-keyword">const</span> { foo } = obj1;
-foo <span class="hljs-comment">// "bar"</span>
+foo <span class="hljs-comment">// &quot;bar&quot;</span>
 </code></pre><p>上面代码中，对象<code>obj1</code>的原型对象是<code>obj2</code>。<code>foo</code>属性不是<code>obj1</code>自身的属性，而是继承自<code>obj2</code>的属性，解构赋值可以取到这个属性。</p><h3 id="默认值-1">默认值 <a class="markdownIt-Anchor" href="#默认值-1">#</a></h3><p>对象的解构也可以指定默认值。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> {x = <span class="hljs-number">3</span>} = {};
 x <span class="hljs-comment">// 3</span>
 
@@ -167,8 +167,8 @@ y <span class="hljs-comment">// 3</span>
 <span class="hljs-keyword">var</span> {<span class="hljs-attr">x</span>: y = <span class="hljs-number">3</span>} = {<span class="hljs-attr">x</span>: <span class="hljs-number">5</span>};
 y <span class="hljs-comment">// 5</span>
 
-<span class="hljs-keyword">var</span> { <span class="hljs-attr">message</span>: msg = <span class="hljs-string">'Something went wrong'</span> } = {};
-msg <span class="hljs-comment">// "Something went wrong"</span>
+<span class="hljs-keyword">var</span> { <span class="hljs-attr">message</span>: msg = <span class="hljs-string">&#x27;Something went wrong&#x27;</span> } = {};
+msg <span class="hljs-comment">// &quot;Something went wrong&quot;</span>
 </code></pre><p>默认值生效的条件是，对象的属性值严格等于<code>undefined</code>。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> {x = <span class="hljs-number">3</span>} = {<span class="hljs-attr">x</span>: <span class="hljs-literal">undefined</span>};
 x <span class="hljs-comment">// 3</span>
 
@@ -182,19 +182,19 @@ x <span class="hljs-comment">// null</span>
 <span class="hljs-keyword">let</span> x;
 ({x} = {<span class="hljs-attr">x</span>: <span class="hljs-number">1</span>});
 </code></pre><p>上面代码将整个解构赋值语句，放在一个圆括号里面，就可以正确执行。关于圆括号与解构赋值的关系，参见下文。</p><p>（2）解构赋值允许等号左边的模式之中，不放置任何变量名。因此，可以写出非常古怪的赋值表达式。</p><pre class="hljs"><code>({} = [<span class="hljs-literal">true</span>, <span class="hljs-literal">false</span>]);
-({} = <span class="hljs-string">'abc'</span>);
+({} = <span class="hljs-string">&#x27;abc&#x27;</span>);
 ({} = []);
 </code></pre><p>上面的表达式虽然毫无意义，但是语法是合法的，可以执行。</p><p>（3）由于数组本质是特殊的对象，因此可以对数组进行对象属性的解构。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> arr = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
 <span class="hljs-keyword">let</span> {<span class="hljs-number">0</span> : first, [arr.length - <span class="hljs-number">1</span>] : last} = arr;
 first <span class="hljs-comment">// 1</span>
 last <span class="hljs-comment">// 3</span>
-</code></pre><p>上面代码对数组进行对象解构。数组<code>arr</code>的<code>0</code>键对应的值是<code>1</code>，<code>[arr.length - 1]</code>就是<code>2</code>键，对应的值是<code>3</code>。方括号这种写法，属于“属性名表达式”（参见《对象的扩展》一章）。</p><h2 id="字符串的解构赋值">字符串的解构赋值 <a class="markdownIt-Anchor" href="#字符串的解构赋值">#</a></h2><p>字符串也可以解构赋值。这是因为此时，字符串被转换成了一个类似数组的对象。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> [a, b, c, d, e] = <span class="hljs-string">'hello'</span>;
-a <span class="hljs-comment">// "h"</span>
-b <span class="hljs-comment">// "e"</span>
-c <span class="hljs-comment">// "l"</span>
-d <span class="hljs-comment">// "l"</span>
-e <span class="hljs-comment">// "o"</span>
-</code></pre><p>类似数组的对象都有一个<code>length</code>属性，因此还可以对这个属性解构赋值。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> {<span class="hljs-attr">length</span> : len} = <span class="hljs-string">'hello'</span>;
+</code></pre><p>上面代码对数组进行对象解构。数组<code>arr</code>的<code>0</code>键对应的值是<code>1</code>，<code>[arr.length - 1]</code>就是<code>2</code>键，对应的值是<code>3</code>。方括号这种写法，属于“属性名表达式”（参见《对象的扩展》一章）。</p><h2 id="字符串的解构赋值">字符串的解构赋值 <a class="markdownIt-Anchor" href="#字符串的解构赋值">#</a></h2><p>字符串也可以解构赋值。这是因为此时，字符串被转换成了一个类似数组的对象。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> [a, b, c, d, e] = <span class="hljs-string">&#x27;hello&#x27;</span>;
+a <span class="hljs-comment">// &quot;h&quot;</span>
+b <span class="hljs-comment">// &quot;e&quot;</span>
+c <span class="hljs-comment">// &quot;l&quot;</span>
+d <span class="hljs-comment">// &quot;l&quot;</span>
+e <span class="hljs-comment">// &quot;o&quot;</span>
+</code></pre><p>类似数组的对象都有一个<code>length</code>属性，因此还可以对这个属性解构赋值。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> {<span class="hljs-attr">length</span> : len} = <span class="hljs-string">&#x27;hello&#x27;</span>;
 len <span class="hljs-comment">// 5</span>
 </code></pre><h2 id="数值和布尔值的解构赋值">数值和布尔值的解构赋值 <a class="markdownIt-Anchor" href="#数值和布尔值的解构赋值">#</a></h2><p>解构赋值时，如果等号右边是数值和布尔值，则会先转为对象。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> {<span class="hljs-attr">toString</span>: s} = <span class="hljs-number">123</span>;
 s === <span class="hljs-built_in">Number</span>.prototype.toString <span class="hljs-comment">// true</span>
@@ -226,8 +226,8 @@ move({<span class="hljs-attr">x</span>: <span class="hljs-number">3</span>, <spa
 move({<span class="hljs-attr">x</span>: <span class="hljs-number">3</span>}); <span class="hljs-comment">// [3, undefined]</span>
 move({}); <span class="hljs-comment">// [undefined, undefined]</span>
 move(); <span class="hljs-comment">// [0, 0]</span>
-</code></pre><p>上面代码是为函数<code>move</code>的参数指定默认值，而不是为变量<code>x</code>和<code>y</code>指定默认值，所以会得到与前一种写法不同的结果。</p><p><code>undefined</code>就会触发函数参数的默认值。</p><pre class="hljs"><code>[<span class="hljs-number">1</span>, <span class="hljs-literal">undefined</span>, <span class="hljs-number">3</span>].map(<span class="hljs-function">(<span class="hljs-params">x = <span class="hljs-string">'yes'</span></span>) =&gt;</span> x);
-<span class="hljs-comment">// [ 1, 'yes', 3 ]</span>
+</code></pre><p>上面代码是为函数<code>move</code>的参数指定默认值，而不是为变量<code>x</code>和<code>y</code>指定默认值，所以会得到与前一种写法不同的结果。</p><p><code>undefined</code>就会触发函数参数的默认值。</p><pre class="hljs"><code>[<span class="hljs-number">1</span>, <span class="hljs-literal">undefined</span>, <span class="hljs-number">3</span>].map(<span class="hljs-function">(<span class="hljs-params">x = <span class="hljs-string">&#x27;yes&#x27;</span></span>) =&gt;</span> x);
+<span class="hljs-comment">// [ 1, &#x27;yes&#x27;, 3 ]</span>
 </code></pre><h2 id="圆括号问题">圆括号问题 <a class="markdownIt-Anchor" href="#圆括号问题">#</a></h2><p>解构赋值虽然很方便，但是解析起来并不容易。对于编译器来说，一个式子到底是模式，还是表达式，没有办法从一开始就知道，必须解析到（或解析不到）等号才能知道。</p><p>由此带来的问题是，如果模式中出现圆括号怎么处理。ES6 的规则是，只要有可能导致解构的歧义，就不得使用圆括号。</p><p>但是，这条规则实际上不那么容易辨别，处理起来相当麻烦。因此，建议只要有可能，就不要在模式中放置圆括号。</p><h3 id="不能使用圆括号的情况">不能使用圆括号的情况 <a class="markdownIt-Anchor" href="#不能使用圆括号的情况">#</a></h3><p>以下三种解构赋值不得使用圆括号。</p><p>（1）变量声明语句</p><pre class="hljs"><code><span class="hljs-comment">// 全部报错</span>
 <span class="hljs-keyword">let</span> [(a)] = [<span class="hljs-number">1</span>];
 
@@ -238,9 +238,9 @@ move(); <span class="hljs-comment">// [0, 0]</span>
 
 <span class="hljs-keyword">let</span> { <span class="hljs-attr">o</span>: ({ <span class="hljs-attr">p</span>: p }) } = { <span class="hljs-attr">o</span>: { <span class="hljs-attr">p</span>: <span class="hljs-number">2</span> } };
 </code></pre><p>上面 6 个语句都会报错，因为它们都是变量声明语句，模式不能使用圆括号。</p><p>（2）函数参数</p><p>函数参数也属于变量声明，因此不能带有圆括号。</p><pre class="hljs"><code><span class="hljs-comment">// 报错</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params">[(z</span>)]) </span>{ <span class="hljs-keyword">return</span> z; }
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params">[(z)]</span>) </span>{ <span class="hljs-keyword">return</span> z; }
 <span class="hljs-comment">// 报错</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params">[z,(x</span>)]) </span>{ <span class="hljs-keyword">return</span> x; }
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params">[z,(x)]</span>) </span>{ <span class="hljs-keyword">return</span> x; }
 </code></pre><p>（3）赋值语句的模式</p><pre class="hljs"><code><span class="hljs-comment">// 全部报错</span>
 ({ <span class="hljs-attr">p</span>: a }) = { <span class="hljs-attr">p</span>: <span class="hljs-number">42</span> };
 ([a]) = [<span class="hljs-number">5</span>];
@@ -278,31 +278,31 @@ f([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span
 f({<span class="hljs-attr">z</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">x</span>: <span class="hljs-number">1</span>});
 </code></pre><p><strong>（4）提取 JSON 数据</strong></p><p>解构赋值对提取 JSON 对象中的数据，尤其有用。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> jsonData = {
   <span class="hljs-attr">id</span>: <span class="hljs-number">42</span>,
-  <span class="hljs-attr">status</span>: <span class="hljs-string">"OK"</span>,
+  <span class="hljs-attr">status</span>: <span class="hljs-string">&quot;OK&quot;</span>,
   <span class="hljs-attr">data</span>: [<span class="hljs-number">867</span>, <span class="hljs-number">5309</span>]
 };
 
 <span class="hljs-keyword">let</span> { id, status, <span class="hljs-attr">data</span>: number } = jsonData;
 
 <span class="hljs-built_in">console</span>.log(id, status, number);
-<span class="hljs-comment">// 42, "OK", [867, 5309]</span>
+<span class="hljs-comment">// 42, &quot;OK&quot;, [867, 5309]</span>
 </code></pre><p>上面代码可以快速提取 JSON 数据的值。</p><p><strong>（5）函数参数的默认值</strong></p><pre class="hljs"><code>jQuery.ajax = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">url, {
   async = true,
-  beforeSend = function (</span>) </span>{},
-  cache = <span class="hljs-literal">true</span>,
-  complete = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{},
-  crossDomain = <span class="hljs-literal">false</span>,
-  global = <span class="hljs-literal">true</span>,
-  <span class="hljs-comment">// ... more config</span>
-} = {}) {
+  beforeSend = function () {},
+  cache = true,
+  complete = function () {},
+  crossDomain = false,
+  global = true,
+  <span class="hljs-regexp">//</span> ... more config
+} = {}</span>) </span>{
   <span class="hljs-comment">// ... do stuff</span>
 };
 </code></pre><p>指定参数的默认值，就避免了在函数体内部再写<code>var foo = config.foo || 'default foo';</code>这样的语句。</p><p><strong>（6）遍历 Map 结构</strong></p><p>任何部署了 Iterator 接口的对象，都可以用<code>for...of</code>循环遍历。Map 结构原生支持 Iterator 接口，配合变量的解构赋值，获取键名和键值就非常方便。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>();
-map.set(<span class="hljs-string">'first'</span>, <span class="hljs-string">'hello'</span>);
-map.set(<span class="hljs-string">'second'</span>, <span class="hljs-string">'world'</span>);
+map.set(<span class="hljs-string">&#x27;first&#x27;</span>, <span class="hljs-string">&#x27;hello&#x27;</span>);
+map.set(<span class="hljs-string">&#x27;second&#x27;</span>, <span class="hljs-string">&#x27;world&#x27;</span>);
 
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> [key, value] <span class="hljs-keyword">of</span> map) {
-  <span class="hljs-built_in">console</span>.log(key + <span class="hljs-string">" is "</span> + value);
+  <span class="hljs-built_in">console</span>.log(key + <span class="hljs-string">&quot; is &quot;</span> + value);
 }
 <span class="hljs-comment">// first is hello</span>
 <span class="hljs-comment">// second is world</span>
@@ -315,7 +315,7 @@ map.set(<span class="hljs-string">'second'</span>, <span class="hljs-string">'wo
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> [,value] <span class="hljs-keyword">of</span> map) {
   <span class="hljs-comment">// ...</span>
 }
-</code></pre><p><strong>（7）输入模块的指定方法</strong></p><p>加载模块时，往往需要指定输入哪些方法。解构赋值使得输入语句非常清晰。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> { SourceMapConsumer, SourceNode } = <span class="hljs-built_in">require</span>(<span class="hljs-string">"source-map"</span>);
+</code></pre><p><strong>（7）输入模块的指定方法</strong></p><p>加载模块时，往往需要指定输入哪些方法。解构赋值使得输入语句非常清晰。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> { SourceMapConsumer, SourceNode } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;source-map&quot;</span>);
 </code></pre></article><nav class="level level-previous-next is-size-5 is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="let.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> let 和 const 命令</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="string.html">字符串的扩展 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><div class="page-info is-size-5-desktop"><p>本教程采用<a href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh" target="_blank">知识共享 署名-相同方式共享 3.0协议</a>。</p><p>分享本文 <span class="social-share"></span></p></div></div><div class="column is-3 is-offset-1"><nav class="panel panel-menu"><p class="panel-heading"><i class="fa fa-book" aria-hidden="true"></i> ES6 教程</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="intro.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">ECMAScript 6 简介</span></a></li><li><a href="let.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">let 和 const 命令</span></a></li><li><a href="destructuring.html" class="is-active"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">变量的解构赋值</span></a></li><li><a href="string.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">字符串的扩展</span></a></li><li><a href="string-methods.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">字符串的新增方法</span></a></li><li><a href="regex.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">正则的扩展</span></a></li><li><a href="number.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数值的扩展</span></a></li><li><a href="function.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">函数的扩展</span></a></li><li><a href="array.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数组的扩展</span></a></li><li><a href="object.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">对象的扩展</span></a></li><li><a href="object-methods.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">对象的新增方法</span></a></li><li><a href="symbol.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Symbol</span></a></li><li><a href="set-map.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Set 和 Map 数据结构</span></a></li><li><a href="proxy.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Proxy</span></a></li><li><a href="reflect.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Reflect</span></a></li><li><a href="promise.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Promise 对象</span></a></li><li><a href="iterator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Iterator 和 for...of 循环</span></a></li><li><a href="generator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Generator 函数的语法</span></a></li><li><a href="generator-async.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Generator 函数的异步应用</span></a></li><li><a href="async.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">async 函数</span></a></li><li><a href="class.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Class 的基本语法</span></a></li><li><a href="class-extends.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Class 的继承</span></a></li><li><a href="module.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Module 的语法</span></a></li><li><a href="module-loader.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Module 的加载实现</span></a></li><li><a href="style.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">编程风格</span></a></li><li><a href="spec.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">读懂规格</span></a></li><li><a href="async-iterator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">异步遍历器</span></a></li><li><a href="arraybuffer.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">ArrayBuffer</span></a></li><li><a href="proposals.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">最新提案</span></a></li><li><a href="decorator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Decorator</span></a></li><li><a href="reference.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">参考链接</span></a></li></ul></aside></div></nav><nav class="panel panel-info"><p class="panel-heading"><i class="fa fa-link" aria-hidden="true"></i> 链接</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="https://raw.githubusercontent.com/wangdoc/es6-tutorial/master/docs/destructuring.md" target="_blank"><span class="icon"></span><i class="fa fa-code" aria-hidden="true" style="width: 14px;"></i>&nbsp;本文源码</a></li><li><a href="https://github.com/wangdoc/es6-tutorial" target="_blank"><span class="icon"></span><i class="fa fa-hdd-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;代码仓库</a></li><li><a href="https://github.com/wangdoc/es6-tutorial/issues" target="_blank"><span class="icon"></span><i class="fa fa-flag-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;反馈</a></li></ul></aside></div></nav></div></div><div class="columns"><div class="column is-8"><div id="disqus_thread"></div></div></div></div></section><footer class="footer is-size-5-desktop"><div class="container"><div class="content has-text-centered"><p>联系：contact@wangdoc.com</p></div></div></footer><script>var LOPPO={current_path:"destructuring.md",relative_root_path:"",article_toc:'<ul class="markdownIt-TOC">\n<li><a href="#%E6%95%B0%E7%BB%84%E7%9A%84%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC">数组的解构赋值</a>\n<ul>\n<li><a href="#%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95">基本用法</a></li>\n<li><a href="#%E9%BB%98%E8%AE%A4%E5%80%BC">默认值</a></li>\n</ul>\n</li>\n<li><a href="#%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC">对象的解构赋值</a>\n<ul>\n<li><a href="#%E7%AE%80%E4%BB%8B">简介</a></li>\n<li><a href="#%E9%BB%98%E8%AE%A4%E5%80%BC-1">默认值</a></li>\n<li><a href="#%E6%B3%A8%E6%84%8F%E7%82%B9">注意点</a></li>\n</ul>\n</li>\n<li><a href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC">字符串的解构赋值</a></li>\n<li><a href="#%E6%95%B0%E5%80%BC%E5%92%8C%E5%B8%83%E5%B0%94%E5%80%BC%E7%9A%84%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC">数值和布尔值的解构赋值</a></li>\n<li><a href="#%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0%E7%9A%84%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC">函数参数的解构赋值</a></li>\n<li><a href="#%E5%9C%86%E6%8B%AC%E5%8F%B7%E9%97%AE%E9%A2%98">圆括号问题</a>\n<ul>\n<li><a href="#%E4%B8%8D%E8%83%BD%E4%BD%BF%E7%94%A8%E5%9C%86%E6%8B%AC%E5%8F%B7%E7%9A%84%E6%83%85%E5%86%B5">不能使用圆括号的情况</a></li>\n<li><a href="#%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8%E5%9C%86%E6%8B%AC%E5%8F%B7%E7%9A%84%E6%83%85%E5%86%B5">可以使用圆括号的情况</a></li>\n</ul>\n</li>\n<li><a href="#%E7%94%A8%E9%80%94">用途</a></li>\n</ul>\n'}</script><script src="assets/js/app.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-111269443-1"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","UA-111269443-1")</script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?5eec262881855af3dede6a71234571f6";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><script>/**
 *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/

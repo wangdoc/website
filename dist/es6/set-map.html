@@ -7,41 +7,41 @@
 }
 <span class="hljs-comment">// 2 3 5 4</span>
 </code></pre><p>上面代码通过<code>add()</code>方法向 Set 结构加入成员，结果表明 Set 结构不会添加重复的值。</p><p><code>Set</code>函数可以接受一个数组（或者具有 iterable 接口的其他数据结构）作为参数，用来初始化。</p><pre class="hljs"><code><span class="hljs-comment">// 例一</span>
-<span class="hljs-keyword">const</span> <span class="hljs-keyword">set</span> = new Set([1, 2, 3, 4, 4]);
-[...<span class="hljs-keyword">set</span>]
-// [1, 2, 3, 4]
+<span class="hljs-keyword">const</span> set = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">4</span>]);
+[...set]
+<span class="hljs-comment">// [1, 2, 3, 4]</span>
 
-// 例二
-const items = new Set([1, 2, 3, 4, 5, 5, 5, 5]);
-items.size // 5
+<span class="hljs-comment">// 例二</span>
+<span class="hljs-keyword">const</span> items = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">5</span>, <span class="hljs-number">5</span>, <span class="hljs-number">5</span>]);
+items.size <span class="hljs-comment">// 5</span>
 
-// 例三
-const <span class="hljs-keyword">set</span> = new Set(document.querySelectorAll('div'));
-<span class="hljs-keyword">set</span>.size // 56
+<span class="hljs-comment">// 例三</span>
+<span class="hljs-keyword">const</span> set = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>(<span class="hljs-built_in">document</span>.querySelectorAll(<span class="hljs-string">&#x27;div&#x27;</span>));
+set.size <span class="hljs-comment">// 56</span>
 
-// 类似于
-const <span class="hljs-keyword">set</span> = new Set();
-document
- .querySelectorAll('div')
- .forEach(div =&gt; <span class="hljs-keyword">set</span>.add(div));
-<span class="hljs-keyword">set</span>.size // 56
+<span class="hljs-comment">// 类似于</span>
+<span class="hljs-keyword">const</span> set = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>();
+<span class="hljs-built_in">document</span>
+ .querySelectorAll(<span class="hljs-string">&#x27;div&#x27;</span>)
+ .forEach(<span class="hljs-function"><span class="hljs-params">div</span> =&gt;</span> set.add(div));
+set.size <span class="hljs-comment">// 56</span>
 </code></pre><p>上面代码中，例一和例二都是<code>Set</code>函数接受数组作为参数，例三是接受类似数组的对象作为参数。</p><p>上面代码也展示了一种去除数组重复成员的方法。</p><pre class="hljs"><code><span class="hljs-comment">// 去除数组的重复成员</span>
 [...new <span class="hljs-built_in">Set</span>(array)]
-</code></pre><p>上面的方法也可以用于，去除字符串里面的重复字符。</p><pre class="hljs"><code>[...new <span class="hljs-built_in">Set</span>(<span class="hljs-string">'ababbc'</span>)].join(<span class="hljs-string">''</span>)
-<span class="hljs-comment">// "abc"</span>
-</code></pre><p>向 Set 加入值的时候，不会发生类型转换，所以<code>5</code>和<code>&quot;5&quot;</code>是两个不同的值。Set 内部判断两个值是否不同，使用的算法叫做“Same-value-zero equality”，它类似于精确相等运算符（<code>===</code>），主要的区别是向 Set 加入值时认为<code>NaN</code>等于自身，而精确相等运算符认为<code>NaN</code>不等于自身。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> <span class="hljs-keyword">set</span> = new Set();
-let a = NaN;
-let b = NaN;
-<span class="hljs-keyword">set</span>.add(a);
-<span class="hljs-keyword">set</span>.add(b);
-<span class="hljs-keyword">set</span> // Set {<span class="hljs-literal">NaN</span>}
-</code></pre><p>上面代码向 Set 实例添加了两次<code>NaN</code>，但是只会加入一个。这表明，在 Set 内部，两个<code>NaN</code>是相等的。</p><p>另外，两个对象总是不相等的。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> <span class="hljs-keyword">set</span> = new Set();
+</code></pre><p>上面的方法也可以用于，去除字符串里面的重复字符。</p><pre class="hljs"><code>[...new <span class="hljs-built_in">Set</span>(<span class="hljs-string">&#x27;ababbc&#x27;</span>)].join(<span class="hljs-string">&#x27;&#x27;</span>)
+<span class="hljs-comment">// &quot;abc&quot;</span>
+</code></pre><p>向 Set 加入值的时候，不会发生类型转换，所以<code>5</code>和<code>&quot;5&quot;</code>是两个不同的值。Set 内部判断两个值是否不同，使用的算法叫做“Same-value-zero equality”，它类似于精确相等运算符（<code>===</code>），主要的区别是向 Set 加入值时认为<code>NaN</code>等于自身，而精确相等运算符认为<code>NaN</code>不等于自身。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> set = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>();
+<span class="hljs-keyword">let</span> a = <span class="hljs-literal">NaN</span>;
+<span class="hljs-keyword">let</span> b = <span class="hljs-literal">NaN</span>;
+set.add(a);
+set.add(b);
+set <span class="hljs-comment">// Set {NaN}</span>
+</code></pre><p>上面代码向 Set 实例添加了两次<code>NaN</code>，但是只会加入一个。这表明，在 Set 内部，两个<code>NaN</code>是相等的。</p><p>另外，两个对象总是不相等的。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> set = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>();
 
-<span class="hljs-keyword">set</span>.add({});
-<span class="hljs-keyword">set</span>.size // 1
+set.add({});
+set.size <span class="hljs-comment">// 1</span>
 
-<span class="hljs-keyword">set</span>.add({});
-<span class="hljs-keyword">set</span>.size // 2
+set.add({});
+set.size <span class="hljs-comment">// 2</span>
 </code></pre><p>上面代码表示，由于两个空对象不相等，所以它们被视为两个值。</p><h3 id="set-实例的属性和方法">Set 实例的属性和方法 <a class="markdownIt-Anchor" href="#set-实例的属性和方法">#</a></h3><p>Set 结构的实例有以下属性。</p><ul><li><code>Set.prototype.constructor</code>：构造函数，默认就是<code>Set</code>函数。</li><li><code>Set.prototype.size</code>：返回<code>Set</code>实例的成员总数。</li></ul><p>Set 实例的方法分为两大类：操作方法（用于操作数据）和遍历方法（用于遍历成员）。下面先介绍四个操作方法。</p><ul><li><code>Set.prototype.add(value)</code>：添加某个值，返回 Set 结构本身。</li><li><code>Set.prototype.delete(value)</code>：删除某个值，返回一个布尔值，表示删除是否成功。</li><li><code>Set.prototype.has(value)</code>：返回一个布尔值，表示该值是否为<code>Set</code>的成员。</li><li><code>Set.prototype.clear()</code>：清除所有成员，没有返回值。</li></ul><p>上面这些属性和方法的实例如下。</p><pre class="hljs"><code>s.add(<span class="hljs-number">1</span>).add(<span class="hljs-number">2</span>).add(<span class="hljs-number">2</span>);
 <span class="hljs-comment">// 注意2被加入了两次</span>
 
@@ -55,8 +55,8 @@ s.delete(<span class="hljs-number">2</span>);
 s.has(<span class="hljs-number">2</span>) <span class="hljs-comment">// false</span>
 </code></pre><p>下面是一个对比，看看在判断是否包括一个键上面，<code>Object</code>结构和<code>Set</code>结构的写法不同。</p><pre class="hljs"><code><span class="hljs-comment">// 对象的写法</span>
 <span class="hljs-keyword">const</span> properties = {
-  <span class="hljs-string">'width'</span>: <span class="hljs-number">1</span>,
-  <span class="hljs-string">'height'</span>: <span class="hljs-number">1</span>
+  <span class="hljs-string">&#x27;width&#x27;</span>: <span class="hljs-number">1</span>,
+  <span class="hljs-string">&#x27;height&#x27;</span>: <span class="hljs-number">1</span>
 };
 
 <span class="hljs-keyword">if</span> (properties[someName]) {
@@ -66,8 +66,8 @@ s.has(<span class="hljs-number">2</span>) <span class="hljs-comment">// false</s
 <span class="hljs-comment">// Set的写法</span>
 <span class="hljs-keyword">const</span> properties = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>();
 
-properties.add(<span class="hljs-string">'width'</span>);
-properties.add(<span class="hljs-string">'height'</span>);
+properties.add(<span class="hljs-string">&#x27;width&#x27;</span>);
+properties.add(<span class="hljs-string">&#x27;height&#x27;</span>);
 
 <span class="hljs-keyword">if</span> (properties.has(someName)) {
   <span class="hljs-comment">// do something</span>
@@ -79,56 +79,56 @@ properties.add(<span class="hljs-string">'height'</span>);
 }
 
 dedupe([<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]) <span class="hljs-comment">// [1, 2, 3]</span>
-</code></pre><h3 id="遍历操作">遍历操作 <a class="markdownIt-Anchor" href="#遍历操作">#</a></h3><p>Set 结构的实例有四个遍历方法，可以用于遍历成员。</p><ul><li><code>Set.prototype.keys()</code>：返回键名的遍历器</li><li><code>Set.prototype.values()</code>：返回键值的遍历器</li><li><code>Set.prototype.entries()</code>：返回键值对的遍历器</li><li><code>Set.prototype.forEach()</code>：使用回调函数遍历每个成员</li></ul><p>需要特别指出的是，<code>Set</code>的遍历顺序就是插入顺序。这个特性有时非常有用，比如使用 Set 保存一个回调函数列表，调用时就能保证按照添加顺序调用。</p><p><strong>（1）<code>keys()</code>，<code>values()</code>，<code>entries()</code></strong></p><p><code>keys</code>方法、<code>values</code>方法、<code>entries</code>方法返回的都是遍历器对象（详见《Iterator 对象》一章）。由于 Set 结构没有键名，只有键值（或者说键名和键值是同一个值），所以<code>keys</code>方法和<code>values</code>方法的行为完全一致。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> <span class="hljs-keyword">set</span> = new Set(['red', 'green', 'blue']);
+</code></pre><h3 id="遍历操作">遍历操作 <a class="markdownIt-Anchor" href="#遍历操作">#</a></h3><p>Set 结构的实例有四个遍历方法，可以用于遍历成员。</p><ul><li><code>Set.prototype.keys()</code>：返回键名的遍历器</li><li><code>Set.prototype.values()</code>：返回键值的遍历器</li><li><code>Set.prototype.entries()</code>：返回键值对的遍历器</li><li><code>Set.prototype.forEach()</code>：使用回调函数遍历每个成员</li></ul><p>需要特别指出的是，<code>Set</code>的遍历顺序就是插入顺序。这个特性有时非常有用，比如使用 Set 保存一个回调函数列表，调用时就能保证按照添加顺序调用。</p><p><strong>（1）<code>keys()</code>，<code>values()</code>，<code>entries()</code></strong></p><p><code>keys</code>方法、<code>values</code>方法、<code>entries</code>方法返回的都是遍历器对象（详见《Iterator 对象》一章）。由于 Set 结构没有键名，只有键值（或者说键名和键值是同一个值），所以<code>keys</code>方法和<code>values</code>方法的行为完全一致。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> set = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([<span class="hljs-string">&#x27;red&#x27;</span>, <span class="hljs-string">&#x27;green&#x27;</span>, <span class="hljs-string">&#x27;blue&#x27;</span>]);
 
-for (let item of <span class="hljs-keyword">set</span>.keys()) {
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> item <span class="hljs-keyword">of</span> set.keys()) {
   <span class="hljs-built_in">console</span>.log(item);
 }
 <span class="hljs-comment">// red</span>
 <span class="hljs-comment">// green</span>
 <span class="hljs-comment">// blue</span>
 
-<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> item <span class="hljs-keyword">of</span> <span class="hljs-keyword">set</span>.values()) {
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> item <span class="hljs-keyword">of</span> set.values()) {
   <span class="hljs-built_in">console</span>.log(item);
 }
 <span class="hljs-comment">// red</span>
 <span class="hljs-comment">// green</span>
 <span class="hljs-comment">// blue</span>
 
-<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> item <span class="hljs-keyword">of</span> <span class="hljs-keyword">set</span>.entries()) {
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> item <span class="hljs-keyword">of</span> set.entries()) {
   <span class="hljs-built_in">console</span>.log(item);
 }
-<span class="hljs-comment">// ["red", "red"]</span>
-<span class="hljs-comment">// ["green", "green"]</span>
-<span class="hljs-comment">// ["blue", "blue"]</span>
+<span class="hljs-comment">// [&quot;red&quot;, &quot;red&quot;]</span>
+<span class="hljs-comment">// [&quot;green&quot;, &quot;green&quot;]</span>
+<span class="hljs-comment">// [&quot;blue&quot;, &quot;blue&quot;]</span>
 </code></pre><p>上面代码中，<code>entries</code>方法返回的遍历器，同时包括键名和键值，所以每次输出一个数组，它的两个成员完全相等。</p><p>Set 结构的实例默认可遍历，它的默认遍历器生成函数就是它的<code>values</code>方法。</p><pre class="hljs"><code><span class="hljs-built_in">Set</span>.prototype[<span class="hljs-built_in">Symbol</span>.iterator] === <span class="hljs-built_in">Set</span>.prototype.values
 <span class="hljs-comment">// true</span>
-</code></pre><p>这意味着，可以省略<code>values</code>方法，直接用<code>for...of</code>循环遍历 Set。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> <span class="hljs-keyword">set</span> = new Set(['red', 'green', 'blue']);
+</code></pre><p>这意味着，可以省略<code>values</code>方法，直接用<code>for...of</code>循环遍历 Set。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> set = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([<span class="hljs-string">&#x27;red&#x27;</span>, <span class="hljs-string">&#x27;green&#x27;</span>, <span class="hljs-string">&#x27;blue&#x27;</span>]);
 
-for (let x of <span class="hljs-keyword">set</span>) {
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> x <span class="hljs-keyword">of</span> set) {
   <span class="hljs-built_in">console</span>.log(x);
 }
 <span class="hljs-comment">// red</span>
 <span class="hljs-comment">// green</span>
 <span class="hljs-comment">// blue</span>
-</code></pre><p><strong>（2）<code>forEach()</code></strong></p><p>Set 结构的实例与数组一样，也拥有<code>forEach</code>方法，用于对每个成员执行某种操作，没有返回值。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> <span class="hljs-keyword">set</span> = new Set([1, 4, 9]);
-<span class="hljs-keyword">set</span>.forEach((value, key) =&gt; console.log(key + ' : ' + value))
-// 1 : 1
-// 4 : 4
-// 9 : 9
-</code></pre><p>上面代码说明，<code>forEach</code>方法的参数就是一个处理函数。该函数的参数与数组的<code>forEach</code>一致，依次为键值、键名、集合本身（上例省略了该参数）。这里需要注意，Set 结构的键名就是键值（两者是同一个值），因此第一个参数与第二个参数的值永远都是一样的。</p><p>另外，<code>forEach</code>方法还可以有第二个参数，表示绑定处理函数内部的<code>this</code>对象。</p><p><strong>（3）遍历的应用</strong></p><p>扩展运算符（<code>...</code>）内部使用<code>for...of</code>循环，所以也可以用于 Set 结构。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> <span class="hljs-keyword">set</span> = new Set(['red', 'green', 'blue']);
-let arr = [...<span class="hljs-keyword">set</span>];
-// ['red', 'green', 'blue']
+</code></pre><p><strong>（2）<code>forEach()</code></strong></p><p>Set 结构的实例与数组一样，也拥有<code>forEach</code>方法，用于对每个成员执行某种操作，没有返回值。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> set = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([<span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">9</span>]);
+set.forEach(<span class="hljs-function">(<span class="hljs-params">value, key</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(key + <span class="hljs-string">&#x27; : &#x27;</span> + value))
+<span class="hljs-comment">// 1 : 1</span>
+<span class="hljs-comment">// 4 : 4</span>
+<span class="hljs-comment">// 9 : 9</span>
+</code></pre><p>上面代码说明，<code>forEach</code>方法的参数就是一个处理函数。该函数的参数与数组的<code>forEach</code>一致，依次为键值、键名、集合本身（上例省略了该参数）。这里需要注意，Set 结构的键名就是键值（两者是同一个值），因此第一个参数与第二个参数的值永远都是一样的。</p><p>另外，<code>forEach</code>方法还可以有第二个参数，表示绑定处理函数内部的<code>this</code>对象。</p><p><strong>（3）遍历的应用</strong></p><p>扩展运算符（<code>...</code>）内部使用<code>for...of</code>循环，所以也可以用于 Set 结构。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> set = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([<span class="hljs-string">&#x27;red&#x27;</span>, <span class="hljs-string">&#x27;green&#x27;</span>, <span class="hljs-string">&#x27;blue&#x27;</span>]);
+<span class="hljs-keyword">let</span> arr = [...set];
+<span class="hljs-comment">// [&#x27;red&#x27;, &#x27;green&#x27;, &#x27;blue&#x27;]</span>
 </code></pre><p>扩展运算符和 Set 结构相结合，就可以去除数组的重复成员。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> arr = [<span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">5</span>, <span class="hljs-number">5</span>];
 <span class="hljs-keyword">let</span> unique = [...new <span class="hljs-built_in">Set</span>(arr)];
 <span class="hljs-comment">// [3, 5, 2]</span>
-</code></pre><p>而且，数组的<code>map</code>和<code>filter</code>方法也可以间接用于 Set 了。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> <span class="hljs-keyword">set</span> = new Set([1, 2, 3]);
-<span class="hljs-keyword">set</span> = new Set([...<span class="hljs-keyword">set</span>].map(x =&gt; x * 2));
-// 返回Set结构：{<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">6</span>}
+</code></pre><p>而且，数组的<code>map</code>和<code>filter</code>方法也可以间接用于 Set 了。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> set = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);
+set = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([...set].map(<span class="hljs-function"><span class="hljs-params">x</span> =&gt;</span> x * <span class="hljs-number">2</span>));
+<span class="hljs-comment">// 返回Set结构：{2, 4, 6}</span>
 
-<span class="hljs-keyword">let</span> <span class="hljs-keyword">set</span> = new Set([1, 2, 3, 4, 5]);
-<span class="hljs-keyword">set</span> = new Set([...<span class="hljs-keyword">set</span>].filter(x =&gt; (x % 2) == 0));
-// 返回Set结构：{<span class="hljs-number">2</span>, <span class="hljs-number">4</span>}
+<span class="hljs-keyword">let</span> set = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]);
+set = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([...set].filter(<span class="hljs-function"><span class="hljs-params">x</span> =&gt;</span> (x % <span class="hljs-number">2</span>) == <span class="hljs-number">0</span>));
+<span class="hljs-comment">// 返回Set结构：{2, 4}</span>
 </code></pre><p>因此使用 Set 可以很容易地实现并集（Union）、交集（Intersect）和差集（Difference）。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> a = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);
 <span class="hljs-keyword">let</span> b = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([<span class="hljs-number">4</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>]);
 
@@ -144,14 +144,14 @@ let arr = [...<span class="hljs-keyword">set</span>];
 <span class="hljs-keyword">let</span> difference = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([...a].filter(<span class="hljs-function"><span class="hljs-params">x</span> =&gt;</span> !b.has(x)));
 <span class="hljs-comment">// Set {1}</span>
 </code></pre><p>如果想在遍历操作中，同步改变原来的 Set 结构，目前没有直接的方法，但有两种变通方法。一种是利用原 Set 结构映射出一个新的结构，然后赋值给原来的 Set 结构；另一种是利用<code>Array.from</code>方法。</p><pre class="hljs"><code><span class="hljs-comment">// 方法一</span>
-<span class="hljs-keyword">let</span> <span class="hljs-keyword">set</span> = new Set([1, 2, 3]);
-<span class="hljs-keyword">set</span> = new Set([...<span class="hljs-keyword">set</span>].map(val =&gt; val * 2));
-// <span class="hljs-keyword">set</span>的值是2, 4, 6
+<span class="hljs-keyword">let</span> set = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);
+set = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([...set].map(<span class="hljs-function"><span class="hljs-params">val</span> =&gt;</span> val * <span class="hljs-number">2</span>));
+<span class="hljs-comment">// set的值是2, 4, 6</span>
 
-// 方法二
-let <span class="hljs-keyword">set</span> = new Set([1, 2, 3]);
-<span class="hljs-keyword">set</span> = new Set(Array.from(<span class="hljs-keyword">set</span>, val =&gt; val * 2));
-// <span class="hljs-keyword">set</span>的值是2, 4, 6
+<span class="hljs-comment">// 方法二</span>
+<span class="hljs-keyword">let</span> set = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);
+set = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>(<span class="hljs-built_in">Array</span>.from(set, <span class="hljs-function"><span class="hljs-params">val</span> =&gt;</span> val * <span class="hljs-number">2</span>));
+<span class="hljs-comment">// set的值是2, 4, 6</span>
 </code></pre><p>上面代码提供了两种方法，直接在遍历操作中改变原来的 Set 结构。</p><h2 id="weakset">WeakSet <a class="markdownIt-Anchor" href="#weakset">#</a></h2><h3 id="含义">含义 <a class="markdownIt-Anchor" href="#含义">#</a></h3><p>WeakSet 结构与 Set 类似，也是不重复的值的集合。但是，它与 Set 有两个区别。</p><p>首先，WeakSet 的成员只能是对象，而不能是其他类型的值。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> ws = <span class="hljs-keyword">new</span> <span class="hljs-built_in">WeakSet</span>();
 ws.add(<span class="hljs-number">1</span>)
 <span class="hljs-comment">// TypeError: Invalid value used in weak set</span>
@@ -179,46 +179,46 @@ ws.has(<span class="hljs-built_in">window</span>);    <span class="hljs-comment"
 </code></pre><p>WeakSet 没有<code>size</code>属性，没有办法遍历它的成员。</p><pre class="hljs"><code>ws.size <span class="hljs-comment">// undefined</span>
 ws.forEach <span class="hljs-comment">// undefined</span>
 
-ws.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">item</span>)</span>{ <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'WeakSet has '</span> + item)})
+ws.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">item</span>)</span>{ <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;WeakSet has &#x27;</span> + item)})
 <span class="hljs-comment">// TypeError: undefined is not a function</span>
 </code></pre><p>上面代码试图获取<code>size</code>和<code>forEach</code>属性，结果都不能成功。</p><p>WeakSet 不能遍历，是因为成员都是弱引用，随时可能消失，遍历机制无法保证成员的存在，很可能刚刚遍历结束，成员就取不到了。WeakSet 的一个用处，是储存 DOM 节点，而不用担心这些节点从文档移除时，会引发内存泄漏。</p><p>下面是 WeakSet 的另一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> foos = <span class="hljs-keyword">new</span> <span class="hljs-built_in">WeakSet</span>()
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> </span>{
   <span class="hljs-keyword">constructor</span>() {
-    foos.add(<span class="hljs-keyword">this</span>)
+    foos.add(<span class="hljs-built_in">this</span>)
   }
   method () {
-    <span class="hljs-keyword">if</span> (!foos.has(<span class="hljs-keyword">this</span>)) {
-      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Foo.prototype.method 只能在Foo的实例上调用！'</span>);
+    <span class="hljs-keyword">if</span> (!foos.has(<span class="hljs-built_in">this</span>)) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">&#x27;Foo.prototype.method 只能在Foo的实例上调用！&#x27;</span>);
     }
   }
 }
 </code></pre><p>上面代码保证了<code>Foo</code>的实例方法，只能在<code>Foo</code>的实例上调用。这里使用 WeakSet 的好处是，<code>foos</code>对实例的引用，不会被计入内存回收机制，所以删除实例的时候，不用考虑<code>foos</code>，也不会出现内存泄漏。</p><h2 id="map">Map <a class="markdownIt-Anchor" href="#map">#</a></h2><h3 id="含义和基本用法">含义和基本用法 <a class="markdownIt-Anchor" href="#含义和基本用法">#</a></h3><p>JavaScript 的对象（Object），本质上是键值对的集合（Hash 结构），但是传统上只能用字符串当作键。这给它的使用带来了很大的限制。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> data = {};
-<span class="hljs-keyword">const</span> element = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'myDiv'</span>);
+<span class="hljs-keyword">const</span> element = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;myDiv&#x27;</span>);
 
-data[element] = <span class="hljs-string">'metadata'</span>;
-data[<span class="hljs-string">'[object HTMLDivElement]'</span>] <span class="hljs-comment">// "metadata"</span>
+data[element] = <span class="hljs-string">&#x27;metadata&#x27;</span>;
+data[<span class="hljs-string">&#x27;[object HTMLDivElement]&#x27;</span>] <span class="hljs-comment">// &quot;metadata&quot;</span>
 </code></pre><p>上面代码原意是将一个 DOM 节点作为对象<code>data</code>的键，但是由于对象只接受字符串作为键名，所以<code>element</code>被自动转为字符串<code>[object HTMLDivElement]</code>。</p><p>为了解决这个问题，ES6 提供了 Map 数据结构。它类似于对象，也是键值对的集合，但是“键”的范围不限于字符串，各种类型的值（包括对象）都可以当作键。也就是说，Object 结构提供了“字符串—值”的对应，Map 结构提供了“值—值”的对应，是一种更完善的 Hash 结构实现。如果你需要“键值对”的数据结构，Map 比 Object 更合适。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> m = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>();
-<span class="hljs-keyword">const</span> o = {<span class="hljs-attr">p</span>: <span class="hljs-string">'Hello World'</span>};
+<span class="hljs-keyword">const</span> o = {<span class="hljs-attr">p</span>: <span class="hljs-string">&#x27;Hello World&#x27;</span>};
 
-m.set(o, <span class="hljs-string">'content'</span>)
-m.get(o) <span class="hljs-comment">// "content"</span>
+m.set(o, <span class="hljs-string">&#x27;content&#x27;</span>)
+m.get(o) <span class="hljs-comment">// &quot;content&quot;</span>
 
 m.has(o) <span class="hljs-comment">// true</span>
 m.delete(o) <span class="hljs-comment">// true</span>
 m.has(o) <span class="hljs-comment">// false</span>
 </code></pre><p>上面代码使用 Map 结构的<code>set</code>方法，将对象<code>o</code>当作<code>m</code>的一个键，然后又使用<code>get</code>方法读取这个键，接着使用<code>delete</code>方法删除了这个键。</p><p>上面的例子展示了如何向 Map 添加成员。作为构造函数，Map 也可以接受一个数组作为参数。该数组的成员是一个个表示键值对的数组。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>([
-  [<span class="hljs-string">'name'</span>, <span class="hljs-string">'张三'</span>],
-  [<span class="hljs-string">'title'</span>, <span class="hljs-string">'Author'</span>]
+  [<span class="hljs-string">&#x27;name&#x27;</span>, <span class="hljs-string">&#x27;张三&#x27;</span>],
+  [<span class="hljs-string">&#x27;title&#x27;</span>, <span class="hljs-string">&#x27;Author&#x27;</span>]
 ]);
 
 map.size <span class="hljs-comment">// 2</span>
-map.has(<span class="hljs-string">'name'</span>) <span class="hljs-comment">// true</span>
-map.get(<span class="hljs-string">'name'</span>) <span class="hljs-comment">// "张三"</span>
-map.has(<span class="hljs-string">'title'</span>) <span class="hljs-comment">// true</span>
-map.get(<span class="hljs-string">'title'</span>) <span class="hljs-comment">// "Author"</span>
+map.has(<span class="hljs-string">&#x27;name&#x27;</span>) <span class="hljs-comment">// true</span>
+map.get(<span class="hljs-string">&#x27;name&#x27;</span>) <span class="hljs-comment">// &quot;张三&quot;</span>
+map.has(<span class="hljs-string">&#x27;title&#x27;</span>) <span class="hljs-comment">// true</span>
+map.get(<span class="hljs-string">&#x27;title&#x27;</span>) <span class="hljs-comment">// &quot;Author&quot;</span>
 </code></pre><p>上面代码在新建 Map 实例时，就指定了两个键<code>name</code>和<code>title</code>。</p><p><code>Map</code>构造函数接受数组作为参数，实际上执行的是下面的算法。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> items = [
-  [<span class="hljs-string">'name'</span>, <span class="hljs-string">'张三'</span>],
-  [<span class="hljs-string">'title'</span>, <span class="hljs-string">'Author'</span>]
+  [<span class="hljs-string">&#x27;name&#x27;</span>, <span class="hljs-string">&#x27;张三&#x27;</span>],
+  [<span class="hljs-string">&#x27;title&#x27;</span>, <span class="hljs-string">&#x27;Author&#x27;</span>]
 ];
 
 <span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>();
@@ -226,33 +226,33 @@ map.get(<span class="hljs-string">'title'</span>) <span class="hljs-comment">// 
 items.forEach(
   <span class="hljs-function">(<span class="hljs-params">[key, value]</span>) =&gt;</span> map.set(key, value)
 );
-</code></pre><p>事实上，不仅仅是数组，任何具有 Iterator 接口、且每个成员都是一个双元素的数组的数据结构（详见《Iterator》一章）都可以当作<code>Map</code>构造函数的参数。这就是说，<code>Set</code>和<code>Map</code>都可以用来生成新的 Map。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> <span class="hljs-keyword">set</span> = new Set([
-  ['foo', 1],
-  ['bar', 2]
+</code></pre><p>事实上，不仅仅是数组，任何具有 Iterator 接口、且每个成员都是一个双元素的数组的数据结构（详见《Iterator》一章）都可以当作<code>Map</code>构造函数的参数。这就是说，<code>Set</code>和<code>Map</code>都可以用来生成新的 Map。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> set = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([
+  [<span class="hljs-string">&#x27;foo&#x27;</span>, <span class="hljs-number">1</span>],
+  [<span class="hljs-string">&#x27;bar&#x27;</span>, <span class="hljs-number">2</span>]
 ]);
-const m1 = new Map(<span class="hljs-keyword">set</span>);
-m1.<span class="hljs-keyword">get</span>('foo') // 1
+<span class="hljs-keyword">const</span> m1 = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>(set);
+m1.get(<span class="hljs-string">&#x27;foo&#x27;</span>) <span class="hljs-comment">// 1</span>
 
-const m2 = new Map([['baz', 3]]);
-const m3 = new Map(m2);
-m3.<span class="hljs-keyword">get</span>('baz') // 3
+<span class="hljs-keyword">const</span> m2 = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>([[<span class="hljs-string">&#x27;baz&#x27;</span>, <span class="hljs-number">3</span>]]);
+<span class="hljs-keyword">const</span> m3 = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>(m2);
+m3.get(<span class="hljs-string">&#x27;baz&#x27;</span>) <span class="hljs-comment">// 3</span>
 </code></pre><p>上面代码中，我们分别使用 Set 对象和 Map 对象，当作<code>Map</code>构造函数的参数，结果都生成了新的 Map 对象。</p><p>如果对同一个键多次赋值，后面的值将覆盖前面的值。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>();
 
 map
-.set(<span class="hljs-number">1</span>, <span class="hljs-string">'aaa'</span>)
-.set(<span class="hljs-number">1</span>, <span class="hljs-string">'bbb'</span>);
+.set(<span class="hljs-number">1</span>, <span class="hljs-string">&#x27;aaa&#x27;</span>)
+.set(<span class="hljs-number">1</span>, <span class="hljs-string">&#x27;bbb&#x27;</span>);
 
-map.get(<span class="hljs-number">1</span>) <span class="hljs-comment">// "bbb"</span>
-</code></pre><p>上面代码对键<code>1</code>连续赋值两次，后一次的值覆盖前一次的值。</p><p>如果读取一个未知的键，则返回<code>undefined</code>。</p><pre class="hljs"><code><span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>().get(<span class="hljs-string">'asfddfsasadf'</span>)
+map.get(<span class="hljs-number">1</span>) <span class="hljs-comment">// &quot;bbb&quot;</span>
+</code></pre><p>上面代码对键<code>1</code>连续赋值两次，后一次的值覆盖前一次的值。</p><p>如果读取一个未知的键，则返回<code>undefined</code>。</p><pre class="hljs"><code><span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>().get(<span class="hljs-string">&#x27;asfddfsasadf&#x27;</span>)
 <span class="hljs-comment">// undefined</span>
 </code></pre><p>注意，只有对同一个对象的引用，Map 结构才将其视为同一个键。这一点要非常小心。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>();
 
-map.set([<span class="hljs-string">'a'</span>], <span class="hljs-number">555</span>);
-map.get([<span class="hljs-string">'a'</span>]) <span class="hljs-comment">// undefined</span>
+map.set([<span class="hljs-string">&#x27;a&#x27;</span>], <span class="hljs-number">555</span>);
+map.get([<span class="hljs-string">&#x27;a&#x27;</span>]) <span class="hljs-comment">// undefined</span>
 </code></pre><p>上面代码的<code>set</code>和<code>get</code>方法，表面是针对同一个键，但实际上这是两个不同的数组实例，内存地址是不一样的，因此<code>get</code>方法无法读取该键，返回<code>undefined</code>。</p><p>同理，同样的值的两个实例，在 Map 结构中被视为两个键。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>();
 
-<span class="hljs-keyword">const</span> k1 = [<span class="hljs-string">'a'</span>];
-<span class="hljs-keyword">const</span> k2 = [<span class="hljs-string">'a'</span>];
+<span class="hljs-keyword">const</span> k1 = [<span class="hljs-string">&#x27;a&#x27;</span>];
+<span class="hljs-keyword">const</span> k2 = [<span class="hljs-string">&#x27;a&#x27;</span>];
 
 map
 .set(k1, <span class="hljs-number">111</span>)
@@ -266,7 +266,7 @@ map.set(<span class="hljs-number">-0</span>, <span class="hljs-number">123</span
 map.get(+<span class="hljs-number">0</span>) <span class="hljs-comment">// 123</span>
 
 map.set(<span class="hljs-literal">true</span>, <span class="hljs-number">1</span>);
-map.set(<span class="hljs-string">'true'</span>, <span class="hljs-number">2</span>);
+map.set(<span class="hljs-string">&#x27;true&#x27;</span>, <span class="hljs-number">2</span>);
 map.get(<span class="hljs-literal">true</span>) <span class="hljs-comment">// 1</span>
 
 map.set(<span class="hljs-literal">undefined</span>, <span class="hljs-number">3</span>);
@@ -276,141 +276,141 @@ map.get(<span class="hljs-literal">undefined</span>) <span class="hljs-comment">
 map.set(<span class="hljs-literal">NaN</span>, <span class="hljs-number">123</span>);
 map.get(<span class="hljs-literal">NaN</span>) <span class="hljs-comment">// 123</span>
 </code></pre><h3 id="实例的属性和操作方法">实例的属性和操作方法 <a class="markdownIt-Anchor" href="#实例的属性和操作方法">#</a></h3><p>Map 结构的实例有以下属性和操作方法。</p><p><strong>（1）size 属性</strong></p><p><code>size</code>属性返回 Map 结构的成员总数。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>();
-map.set(<span class="hljs-string">'foo'</span>, <span class="hljs-literal">true</span>);
-map.set(<span class="hljs-string">'bar'</span>, <span class="hljs-literal">false</span>);
+map.set(<span class="hljs-string">&#x27;foo&#x27;</span>, <span class="hljs-literal">true</span>);
+map.set(<span class="hljs-string">&#x27;bar&#x27;</span>, <span class="hljs-literal">false</span>);
 
 map.size <span class="hljs-comment">// 2</span>
 </code></pre><p><strong>（2）Map.prototype.set(key, value)</strong></p><p><code>set</code>方法设置键名<code>key</code>对应的键值为<code>value</code>，然后返回整个 Map 结构。如果<code>key</code>已经有值，则键值会被更新，否则就新生成该键。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> m = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>();
 
-m.set(<span class="hljs-string">'edition'</span>, <span class="hljs-number">6</span>)        <span class="hljs-comment">// 键是字符串</span>
-m.set(<span class="hljs-number">262</span>, <span class="hljs-string">'standard'</span>)     <span class="hljs-comment">// 键是数值</span>
-m.set(<span class="hljs-literal">undefined</span>, <span class="hljs-string">'nah'</span>)    <span class="hljs-comment">// 键是 undefined</span>
+m.set(<span class="hljs-string">&#x27;edition&#x27;</span>, <span class="hljs-number">6</span>)        <span class="hljs-comment">// 键是字符串</span>
+m.set(<span class="hljs-number">262</span>, <span class="hljs-string">&#x27;standard&#x27;</span>)     <span class="hljs-comment">// 键是数值</span>
+m.set(<span class="hljs-literal">undefined</span>, <span class="hljs-string">&#x27;nah&#x27;</span>)    <span class="hljs-comment">// 键是 undefined</span>
 </code></pre><p><code>set</code>方法返回的是当前的<code>Map</code>对象，因此可以采用链式写法。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> map = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>()
-  .set(<span class="hljs-number">1</span>, <span class="hljs-string">'a'</span>)
-  .set(<span class="hljs-number">2</span>, <span class="hljs-string">'b'</span>)
-  .set(<span class="hljs-number">3</span>, <span class="hljs-string">'c'</span>);
+  .set(<span class="hljs-number">1</span>, <span class="hljs-string">&#x27;a&#x27;</span>)
+  .set(<span class="hljs-number">2</span>, <span class="hljs-string">&#x27;b&#x27;</span>)
+  .set(<span class="hljs-number">3</span>, <span class="hljs-string">&#x27;c&#x27;</span>);
 </code></pre><p><strong>（3）Map.prototype.get(key)</strong></p><p><code>get</code>方法读取<code>key</code>对应的键值，如果找不到<code>key</code>，返回<code>undefined</code>。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> m = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>();
 
-<span class="hljs-keyword">const</span> hello = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'hello'</span>);};
-m.set(hello, <span class="hljs-string">'Hello ES6!'</span>) <span class="hljs-comment">// 键是函数</span>
+<span class="hljs-keyword">const</span> hello = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;hello&#x27;</span>);};
+m.set(hello, <span class="hljs-string">&#x27;Hello ES6!&#x27;</span>) <span class="hljs-comment">// 键是函数</span>
 
 m.get(hello)  <span class="hljs-comment">// Hello ES6!</span>
 </code></pre><p><strong>（4）Map.prototype.has(key)</strong></p><p><code>has</code>方法返回一个布尔值，表示某个键是否在当前 Map 对象之中。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> m = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>();
 
-m.set(<span class="hljs-string">'edition'</span>, <span class="hljs-number">6</span>);
-m.set(<span class="hljs-number">262</span>, <span class="hljs-string">'standard'</span>);
-m.set(<span class="hljs-literal">undefined</span>, <span class="hljs-string">'nah'</span>);
+m.set(<span class="hljs-string">&#x27;edition&#x27;</span>, <span class="hljs-number">6</span>);
+m.set(<span class="hljs-number">262</span>, <span class="hljs-string">&#x27;standard&#x27;</span>);
+m.set(<span class="hljs-literal">undefined</span>, <span class="hljs-string">&#x27;nah&#x27;</span>);
 
-m.has(<span class="hljs-string">'edition'</span>)     <span class="hljs-comment">// true</span>
-m.has(<span class="hljs-string">'years'</span>)       <span class="hljs-comment">// false</span>
+m.has(<span class="hljs-string">&#x27;edition&#x27;</span>)     <span class="hljs-comment">// true</span>
+m.has(<span class="hljs-string">&#x27;years&#x27;</span>)       <span class="hljs-comment">// false</span>
 m.has(<span class="hljs-number">262</span>)           <span class="hljs-comment">// true</span>
 m.has(<span class="hljs-literal">undefined</span>)     <span class="hljs-comment">// true</span>
 </code></pre><p><strong>（5）Map.prototype.delete(key)</strong></p><p><code>delete</code>方法删除某个键，返回<code>true</code>。如果删除失败，返回<code>false</code>。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> m = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>();
-m.set(<span class="hljs-literal">undefined</span>, <span class="hljs-string">'nah'</span>);
+m.set(<span class="hljs-literal">undefined</span>, <span class="hljs-string">&#x27;nah&#x27;</span>);
 m.has(<span class="hljs-literal">undefined</span>)     <span class="hljs-comment">// true</span>
 
 m.delete(<span class="hljs-literal">undefined</span>)
 m.has(<span class="hljs-literal">undefined</span>)       <span class="hljs-comment">// false</span>
 </code></pre><p><strong>（6）Map.prototype.clear()</strong></p><p><code>clear</code>方法清除所有成员，没有返回值。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> map = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>();
-map.set(<span class="hljs-string">'foo'</span>, <span class="hljs-literal">true</span>);
-map.set(<span class="hljs-string">'bar'</span>, <span class="hljs-literal">false</span>);
+map.set(<span class="hljs-string">&#x27;foo&#x27;</span>, <span class="hljs-literal">true</span>);
+map.set(<span class="hljs-string">&#x27;bar&#x27;</span>, <span class="hljs-literal">false</span>);
 
 map.size <span class="hljs-comment">// 2</span>
 map.clear()
 map.size <span class="hljs-comment">// 0</span>
 </code></pre><h3 id="遍历方法">遍历方法 <a class="markdownIt-Anchor" href="#遍历方法">#</a></h3><p>Map 结构原生提供三个遍历器生成函数和一个遍历方法。</p><ul><li><code>Map.prototype.keys()</code>：返回键名的遍历器。</li><li><code>Map.prototype.values()</code>：返回键值的遍历器。</li><li><code>Map.prototype.entries()</code>：返回所有成员的遍历器。</li><li><code>Map.prototype.forEach()</code>：遍历 Map 的所有成员。</li></ul><p>需要特别注意的是，Map 的遍历顺序就是插入顺序。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>([
-  [<span class="hljs-string">'F'</span>, <span class="hljs-string">'no'</span>],
-  [<span class="hljs-string">'T'</span>,  <span class="hljs-string">'yes'</span>],
+  [<span class="hljs-string">&#x27;F&#x27;</span>, <span class="hljs-string">&#x27;no&#x27;</span>],
+  [<span class="hljs-string">&#x27;T&#x27;</span>,  <span class="hljs-string">&#x27;yes&#x27;</span>],
 ]);
 
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> key <span class="hljs-keyword">of</span> map.keys()) {
   <span class="hljs-built_in">console</span>.log(key);
 }
-<span class="hljs-comment">// "F"</span>
-<span class="hljs-comment">// "T"</span>
+<span class="hljs-comment">// &quot;F&quot;</span>
+<span class="hljs-comment">// &quot;T&quot;</span>
 
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> value <span class="hljs-keyword">of</span> map.values()) {
   <span class="hljs-built_in">console</span>.log(value);
 }
-<span class="hljs-comment">// "no"</span>
-<span class="hljs-comment">// "yes"</span>
+<span class="hljs-comment">// &quot;no&quot;</span>
+<span class="hljs-comment">// &quot;yes&quot;</span>
 
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> item <span class="hljs-keyword">of</span> map.entries()) {
   <span class="hljs-built_in">console</span>.log(item[<span class="hljs-number">0</span>], item[<span class="hljs-number">1</span>]);
 }
-<span class="hljs-comment">// "F" "no"</span>
-<span class="hljs-comment">// "T" "yes"</span>
+<span class="hljs-comment">// &quot;F&quot; &quot;no&quot;</span>
+<span class="hljs-comment">// &quot;T&quot; &quot;yes&quot;</span>
 
 <span class="hljs-comment">// 或者</span>
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> [key, value] <span class="hljs-keyword">of</span> map.entries()) {
   <span class="hljs-built_in">console</span>.log(key, value);
 }
-<span class="hljs-comment">// "F" "no"</span>
-<span class="hljs-comment">// "T" "yes"</span>
+<span class="hljs-comment">// &quot;F&quot; &quot;no&quot;</span>
+<span class="hljs-comment">// &quot;T&quot; &quot;yes&quot;</span>
 
 <span class="hljs-comment">// 等同于使用map.entries()</span>
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> [key, value] <span class="hljs-keyword">of</span> map) {
   <span class="hljs-built_in">console</span>.log(key, value);
 }
-<span class="hljs-comment">// "F" "no"</span>
-<span class="hljs-comment">// "T" "yes"</span>
+<span class="hljs-comment">// &quot;F&quot; &quot;no&quot;</span>
+<span class="hljs-comment">// &quot;T&quot; &quot;yes&quot;</span>
 </code></pre><p>上面代码最后的那个例子，表示 Map 结构的默认遍历器接口（<code>Symbol.iterator</code>属性），就是<code>entries</code>方法。</p><pre class="hljs"><code>map[<span class="hljs-built_in">Symbol</span>.iterator] === map.entries
 <span class="hljs-comment">// true</span>
 </code></pre><p>Map 结构转为数组结构，比较快速的方法是使用扩展运算符（<code>...</code>）。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>([
-  [<span class="hljs-number">1</span>, <span class="hljs-string">'one'</span>],
-  [<span class="hljs-number">2</span>, <span class="hljs-string">'two'</span>],
-  [<span class="hljs-number">3</span>, <span class="hljs-string">'three'</span>],
+  [<span class="hljs-number">1</span>, <span class="hljs-string">&#x27;one&#x27;</span>],
+  [<span class="hljs-number">2</span>, <span class="hljs-string">&#x27;two&#x27;</span>],
+  [<span class="hljs-number">3</span>, <span class="hljs-string">&#x27;three&#x27;</span>],
 ]);
 
 [...map.keys()]
 <span class="hljs-comment">// [1, 2, 3]</span>
 
 [...map.values()]
-<span class="hljs-comment">// ['one', 'two', 'three']</span>
+<span class="hljs-comment">// [&#x27;one&#x27;, &#x27;two&#x27;, &#x27;three&#x27;]</span>
 
 [...map.entries()]
-<span class="hljs-comment">// [[1,'one'], [2, 'two'], [3, 'three']]</span>
+<span class="hljs-comment">// [[1,&#x27;one&#x27;], [2, &#x27;two&#x27;], [3, &#x27;three&#x27;]]</span>
 
 [...map]
-<span class="hljs-comment">// [[1,'one'], [2, 'two'], [3, 'three']]</span>
+<span class="hljs-comment">// [[1,&#x27;one&#x27;], [2, &#x27;two&#x27;], [3, &#x27;three&#x27;]]</span>
 </code></pre><p>结合数组的<code>map</code>方法、<code>filter</code>方法，可以实现 Map 的遍历和过滤（Map 本身没有<code>map</code>和<code>filter</code>方法）。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> map0 = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>()
-  .set(<span class="hljs-number">1</span>, <span class="hljs-string">'a'</span>)
-  .set(<span class="hljs-number">2</span>, <span class="hljs-string">'b'</span>)
-  .set(<span class="hljs-number">3</span>, <span class="hljs-string">'c'</span>);
+  .set(<span class="hljs-number">1</span>, <span class="hljs-string">&#x27;a&#x27;</span>)
+  .set(<span class="hljs-number">2</span>, <span class="hljs-string">&#x27;b&#x27;</span>)
+  .set(<span class="hljs-number">3</span>, <span class="hljs-string">&#x27;c&#x27;</span>);
 
 <span class="hljs-keyword">const</span> map1 = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>(
   [...map0].filter(<span class="hljs-function">(<span class="hljs-params">[k, v]</span>) =&gt;</span> k &lt; <span class="hljs-number">3</span>)
 );
-<span class="hljs-comment">// 产生 Map 结构 {1 =&gt; 'a', 2 =&gt; 'b'}</span>
+<span class="hljs-comment">// 产生 Map 结构 {1 =&gt; &#x27;a&#x27;, 2 =&gt; &#x27;b&#x27;}</span>
 
 <span class="hljs-keyword">const</span> map2 = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>(
-  [...map0].map(<span class="hljs-function">(<span class="hljs-params">[k, v]</span>) =&gt;</span> [k * <span class="hljs-number">2</span>, <span class="hljs-string">'_'</span> + v])
+  [...map0].map(<span class="hljs-function">(<span class="hljs-params">[k, v]</span>) =&gt;</span> [k * <span class="hljs-number">2</span>, <span class="hljs-string">&#x27;_&#x27;</span> + v])
     );
-<span class="hljs-comment">// 产生 Map 结构 {2 =&gt; '_a', 4 =&gt; '_b', 6 =&gt; '_c'}</span>
+<span class="hljs-comment">// 产生 Map 结构 {2 =&gt; &#x27;_a&#x27;, 4 =&gt; &#x27;_b&#x27;, 6 =&gt; &#x27;_c&#x27;}</span>
 </code></pre><p>此外，Map 还有一个<code>forEach</code>方法，与数组的<code>forEach</code>方法类似，也可以实现遍历。</p><pre class="hljs"><code>map.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">value, key, map</span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Key: %s, Value: %s"</span>, key, value);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;Key: %s, Value: %s&quot;</span>, key, value);
 });
 </code></pre><p><code>forEach</code>方法还可以接受第二个参数，用来绑定<code>this</code>。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> reporter = {
   <span class="hljs-attr">report</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">key, value</span>) </span>{
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Key: %s, Value: %s"</span>, key, value);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;Key: %s, Value: %s&quot;</span>, key, value);
   }
 };
 
 map.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">value, key, map</span>) </span>{
-  <span class="hljs-keyword">this</span>.report(key, value);
+  <span class="hljs-built_in">this</span>.report(key, value);
 }, reporter);
 </code></pre><p>上面代码中，<code>forEach</code>方法的回调函数的<code>this</code>，就指向<code>reporter</code>。</p><h3 id="与其他数据结构的互相转换">与其他数据结构的互相转换 <a class="markdownIt-Anchor" href="#与其他数据结构的互相转换">#</a></h3><p><strong>（1）Map 转为数组</strong></p><p>前面已经提过，Map 转为数组最方便的方法，就是使用扩展运算符（<code>...</code>）。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> myMap = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>()
   .set(<span class="hljs-literal">true</span>, <span class="hljs-number">7</span>)
-  .set({<span class="hljs-attr">foo</span>: <span class="hljs-number">3</span>}, [<span class="hljs-string">'abc'</span>]);
+  .set({<span class="hljs-attr">foo</span>: <span class="hljs-number">3</span>}, [<span class="hljs-string">&#x27;abc&#x27;</span>]);
 [...myMap]
-<span class="hljs-comment">// [ [ true, 7 ], [ { foo: 3 }, [ 'abc' ] ] ]</span>
+<span class="hljs-comment">// [ [ true, 7 ], [ { foo: 3 }, [ &#x27;abc&#x27; ] ] ]</span>
 </code></pre><p><strong>（2）数组 转为 Map</strong></p><p>将数组传入 Map 构造函数，就可以转为 Map。</p><pre class="hljs"><code><span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>([
   [<span class="hljs-literal">true</span>, <span class="hljs-number">7</span>],
-  [{<span class="hljs-attr">foo</span>: <span class="hljs-number">3</span>}, [<span class="hljs-string">'abc'</span>]]
+  [{<span class="hljs-attr">foo</span>: <span class="hljs-number">3</span>}, [<span class="hljs-string">&#x27;abc&#x27;</span>]]
 ])
 <span class="hljs-comment">// Map {</span>
 <span class="hljs-comment">//   true =&gt; 7,</span>
-<span class="hljs-comment">//   Object {foo: 3} =&gt; ['abc']</span>
+<span class="hljs-comment">//   Object {foo: 3} =&gt; [&#x27;abc&#x27;]</span>
 <span class="hljs-comment">// }</span>
 </code></pre><p><strong>（3）Map 转为对象</strong></p><p>如果所有 Map 的键都是字符串，它可以无损地转为对象。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">strMapToObj</span>(<span class="hljs-params">strMap</span>) </span>{
   <span class="hljs-keyword">let</span> obj = <span class="hljs-built_in">Object</span>.create(<span class="hljs-literal">null</span>);
@@ -421,11 +421,11 @@ map.forEach(<span class="hljs-function"><span class="hljs-keyword">function</spa
 }
 
 <span class="hljs-keyword">const</span> myMap = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>()
-  .set(<span class="hljs-string">'yes'</span>, <span class="hljs-literal">true</span>)
-  .set(<span class="hljs-string">'no'</span>, <span class="hljs-literal">false</span>);
+  .set(<span class="hljs-string">&#x27;yes&#x27;</span>, <span class="hljs-literal">true</span>)
+  .set(<span class="hljs-string">&#x27;no&#x27;</span>, <span class="hljs-literal">false</span>);
 strMapToObj(myMap)
 <span class="hljs-comment">// { yes: true, no: false }</span>
-</code></pre><p>如果有非字符串的键名，那么这个键名会被转成字符串，再作为对象的键名。</p><p><strong>（4）对象转为 Map</strong></p><p>对象转为 Map 可以通过<code>Object.entries()</code>。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> obj = {<span class="hljs-string">"a"</span>:<span class="hljs-number">1</span>, <span class="hljs-string">"b"</span>:<span class="hljs-number">2</span>};
+</code></pre><p>如果有非字符串的键名，那么这个键名会被转成字符串，再作为对象的键名。</p><p><strong>（4）对象转为 Map</strong></p><p>对象转为 Map 可以通过<code>Object.entries()</code>。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> obj = {<span class="hljs-string">&quot;a&quot;</span>:<span class="hljs-number">1</span>, <span class="hljs-string">&quot;b&quot;</span>:<span class="hljs-number">2</span>};
 <span class="hljs-keyword">let</span> map = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>(<span class="hljs-built_in">Object</span>.entries(obj));
 </code></pre><p>此外，也可以自己实现一个转换函数。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">objToStrMap</span>(<span class="hljs-params">obj</span>) </span>{
   <span class="hljs-keyword">let</span> strMap = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>();
@@ -436,33 +436,33 @@ strMapToObj(myMap)
 }
 
 objToStrMap({<span class="hljs-attr">yes</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">no</span>: <span class="hljs-literal">false</span>})
-<span class="hljs-comment">// Map {"yes" =&gt; true, "no" =&gt; false}</span>
+<span class="hljs-comment">// Map {&quot;yes&quot; =&gt; true, &quot;no&quot; =&gt; false}</span>
 </code></pre><p><strong>（5）Map 转为 JSON</strong></p><p>Map 转为 JSON 要区分两种情况。一种情况是，Map 的键名都是字符串，这时可以选择转为对象 JSON。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">strMapToJson</span>(<span class="hljs-params">strMap</span>) </span>{
   <span class="hljs-keyword">return</span> <span class="hljs-built_in">JSON</span>.stringify(strMapToObj(strMap));
 }
 
-<span class="hljs-keyword">let</span> myMap = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>().set(<span class="hljs-string">'yes'</span>, <span class="hljs-literal">true</span>).set(<span class="hljs-string">'no'</span>, <span class="hljs-literal">false</span>);
+<span class="hljs-keyword">let</span> myMap = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>().set(<span class="hljs-string">&#x27;yes&#x27;</span>, <span class="hljs-literal">true</span>).set(<span class="hljs-string">&#x27;no&#x27;</span>, <span class="hljs-literal">false</span>);
 strMapToJson(myMap)
-<span class="hljs-comment">// '{"yes":true,"no":false}'</span>
+<span class="hljs-comment">// &#x27;{&quot;yes&quot;:true,&quot;no&quot;:false}&#x27;</span>
 </code></pre><p>另一种情况是，Map 的键名有非字符串，这时可以选择转为数组 JSON。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapToArrayJson</span>(<span class="hljs-params">map</span>) </span>{
   <span class="hljs-keyword">return</span> <span class="hljs-built_in">JSON</span>.stringify([...map]);
 }
 
-<span class="hljs-keyword">let</span> myMap = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>().set(<span class="hljs-literal">true</span>, <span class="hljs-number">7</span>).set({<span class="hljs-attr">foo</span>: <span class="hljs-number">3</span>}, [<span class="hljs-string">'abc'</span>]);
+<span class="hljs-keyword">let</span> myMap = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>().set(<span class="hljs-literal">true</span>, <span class="hljs-number">7</span>).set({<span class="hljs-attr">foo</span>: <span class="hljs-number">3</span>}, [<span class="hljs-string">&#x27;abc&#x27;</span>]);
 mapToArrayJson(myMap)
-<span class="hljs-comment">// '[[true,7],[{"foo":3},["abc"]]]'</span>
+<span class="hljs-comment">// &#x27;[[true,7],[{&quot;foo&quot;:3},[&quot;abc&quot;]]]&#x27;</span>
 </code></pre><p><strong>（6）JSON 转为 Map</strong></p><p>JSON 转为 Map，正常情况下，所有键名都是字符串。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">jsonToStrMap</span>(<span class="hljs-params">jsonStr</span>) </span>{
   <span class="hljs-keyword">return</span> objToStrMap(<span class="hljs-built_in">JSON</span>.parse(jsonStr));
 }
 
-jsonToStrMap(<span class="hljs-string">'{"yes": true, "no": false}'</span>)
-<span class="hljs-comment">// Map {'yes' =&gt; true, 'no' =&gt; false}</span>
+jsonToStrMap(<span class="hljs-string">&#x27;{&quot;yes&quot;: true, &quot;no&quot;: false}&#x27;</span>)
+<span class="hljs-comment">// Map {&#x27;yes&#x27; =&gt; true, &#x27;no&#x27; =&gt; false}</span>
 </code></pre><p>但是，有一种特殊情况，整个 JSON 就是一个数组，且每个数组成员本身，又是一个有两个成员的数组。这时，它可以一一对应地转为 Map。这往往是 Map 转为数组 JSON 的逆操作。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">jsonToMap</span>(<span class="hljs-params">jsonStr</span>) </span>{
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>(<span class="hljs-built_in">JSON</span>.parse(jsonStr));
 }
 
-jsonToMap(<span class="hljs-string">'[[true,7],[{"foo":3},["abc"]]]'</span>)
-<span class="hljs-comment">// Map {true =&gt; 7, Object {foo: 3} =&gt; ['abc']}</span>
+jsonToMap(<span class="hljs-string">&#x27;[[true,7],[{&quot;foo&quot;:3},[&quot;abc&quot;]]]&#x27;</span>)
+<span class="hljs-comment">// Map {true =&gt; 7, Object {foo: 3} =&gt; [&#x27;abc&#x27;]}</span>
 </code></pre><h2 id="weakmap">WeakMap <a class="markdownIt-Anchor" href="#weakmap">#</a></h2><h3 id="含义-1">含义 <a class="markdownIt-Anchor" href="#含义-1">#</a></h3><p><code>WeakMap</code>结构与<code>Map</code>结构类似，也是用于生成键值对的集合。</p><pre class="hljs"><code><span class="hljs-comment">// WeakMap 可以使用 set 方法添加成员</span>
 <span class="hljs-keyword">const</span> wm1 = <span class="hljs-keyword">new</span> <span class="hljs-built_in">WeakMap</span>();
 <span class="hljs-keyword">const</span> key = {<span class="hljs-attr">foo</span>: <span class="hljs-number">1</span>};
@@ -473,8 +473,8 @@ wm1.get(key) <span class="hljs-comment">// 2</span>
 <span class="hljs-comment">// 作为构造函数的参数</span>
 <span class="hljs-keyword">const</span> k1 = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
 <span class="hljs-keyword">const</span> k2 = [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>];
-<span class="hljs-keyword">const</span> wm2 = <span class="hljs-keyword">new</span> <span class="hljs-built_in">WeakMap</span>([[k1, <span class="hljs-string">'foo'</span>], [k2, <span class="hljs-string">'bar'</span>]]);
-wm2.get(k2) <span class="hljs-comment">// "bar"</span>
+<span class="hljs-keyword">const</span> wm2 = <span class="hljs-keyword">new</span> <span class="hljs-built_in">WeakMap</span>([[k1, <span class="hljs-string">&#x27;foo&#x27;</span>], [k2, <span class="hljs-string">&#x27;bar&#x27;</span>]]);
+wm2.get(k2) <span class="hljs-comment">// &quot;bar&quot;</span>
 </code></pre><p><code>WeakMap</code>与<code>Map</code>的区别有两点。</p><p>首先，<code>WeakMap</code>只接受对象作为键名（<code>null</code>除外），不接受其他类型的值作为键名。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> <span class="hljs-built_in">WeakMap</span>();
 map.set(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)
 <span class="hljs-comment">// TypeError: 1 is not an object!</span>
@@ -482,11 +482,11 @@ map.set(<span class="hljs-built_in">Symbol</span>(), <span class="hljs-number">2
 <span class="hljs-comment">// TypeError: Invalid value used as weak map key</span>
 map.set(<span class="hljs-literal">null</span>, <span class="hljs-number">2</span>)
 <span class="hljs-comment">// TypeError: Invalid value used as weak map key</span>
-</code></pre><p>上面代码中，如果将数值<code>1</code>和<code>Symbol</code>值作为 WeakMap 的键名，都会报错。</p><p>其次，<code>WeakMap</code>的键名所指向的对象，不计入垃圾回收机制。</p><p><code>WeakMap</code>的设计目的在于，有时我们想在某个对象上面存放一些数据，但是这会形成对于这个对象的引用。请看下面的例子。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> e1 = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'foo'</span>);
-<span class="hljs-keyword">const</span> e2 = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'bar'</span>);
+</code></pre><p>上面代码中，如果将数值<code>1</code>和<code>Symbol</code>值作为 WeakMap 的键名，都会报错。</p><p>其次，<code>WeakMap</code>的键名所指向的对象，不计入垃圾回收机制。</p><p><code>WeakMap</code>的设计目的在于，有时我们想在某个对象上面存放一些数据，但是这会形成对于这个对象的引用。请看下面的例子。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> e1 = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;foo&#x27;</span>);
+<span class="hljs-keyword">const</span> e2 = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;bar&#x27;</span>);
 <span class="hljs-keyword">const</span> arr = [
-  [e1, <span class="hljs-string">'foo 元素'</span>],
-  [e2, <span class="hljs-string">'bar 元素'</span>],
+  [e1, <span class="hljs-string">&#x27;foo 元素&#x27;</span>],
+  [e2, <span class="hljs-string">&#x27;bar 元素&#x27;</span>],
 ];
 </code></pre><p>上面代码中，<code>e1</code>和<code>e2</code>是两个对象，我们通过<code>arr</code>数组对这两个对象添加一些文字说明。这就形成了<code>arr</code>对<code>e1</code>和<code>e2</code>的引用。</p><p>一旦不再需要这两个对象，我们就必须手动删除这个引用，否则垃圾回收机制就不会释放<code>e1</code>和<code>e2</code>占用的内存。</p><pre class="hljs"><code><span class="hljs-comment">// 不需要 e1 和 e2 的时候</span>
 <span class="hljs-comment">// 必须手动删除引用</span>
@@ -494,10 +494,10 @@ arr [<span class="hljs-number">0</span>] = <span class="hljs-literal">null</span
 arr [<span class="hljs-number">1</span>] = <span class="hljs-literal">null</span>;
 </code></pre><p>上面这样的写法显然很不方便。一旦忘了写，就会造成内存泄露。</p><p>WeakMap 就是为了解决这个问题而诞生的，它的键名所引用的对象都是弱引用，即垃圾回收机制不将该引用考虑在内。因此，只要所引用的对象的其他引用都被清除，垃圾回收机制就会释放该对象所占用的内存。也就是说，一旦不再需要，WeakMap 里面的键名对象和所对应的键值对会自动消失，不用手动删除引用。</p><p>基本上，如果你要往对象上添加数据，又不想干扰垃圾回收机制，就可以使用 WeakMap。一个典型应用场景是，在网页的 DOM 元素上添加数据，就可以使用<code>WeakMap</code>结构。当该 DOM 元素被清除，其所对应的<code>WeakMap</code>记录就会自动被移除。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> wm = <span class="hljs-keyword">new</span> <span class="hljs-built_in">WeakMap</span>();
 
-<span class="hljs-keyword">const</span> element = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'example'</span>);
+<span class="hljs-keyword">const</span> element = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;example&#x27;</span>);
 
-wm.set(element, <span class="hljs-string">'some information'</span>);
-wm.get(element) <span class="hljs-comment">// "some information"</span>
+wm.set(element, <span class="hljs-string">&#x27;some information&#x27;</span>);
+wm.get(element) <span class="hljs-comment">// &quot;some information&quot;</span>
 </code></pre><p>上面代码中，先新建一个 Weakmap 实例。然后，将一个 DOM 节点作为键名存入该实例，并将一些附加信息作为键值，一起存放在 WeakMap 里面。这时，WeakMap 里面对<code>element</code>的引用就是弱引用，不会被计入垃圾回收机制。</p><p>也就是说，上面的 DOM 节点对象的引用计数是<code>1</code>，而不是<code>2</code>。这时，一旦消除对该节点的引用，它占用的内存就会被垃圾回收机制释放。Weakmap 保存的这个键值对，也会自动消失。</p><p>总之，<code>WeakMap</code>的专用场合就是，它的键所对应的对象，可能会在将来消失。<code>WeakMap</code>结构有助于防止内存泄漏。</p><p>注意，WeakMap 弱引用的只是键名，而不是键值。键值依然是正常引用。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> wm = <span class="hljs-keyword">new</span> <span class="hljs-built_in">WeakMap</span>();
 <span class="hljs-keyword">let</span> key = {};
 <span class="hljs-keyword">let</span> obj = {<span class="hljs-attr">foo</span>: <span class="hljs-number">1</span>};
@@ -514,7 +514,7 @@ wm.forEach <span class="hljs-comment">// undefined</span>
 wm.clear <span class="hljs-comment">// undefined</span>
 </code></pre><h3 id="weakmap-的示例">WeakMap 的示例 <a class="markdownIt-Anchor" href="#weakmap-的示例">#</a></h3><p>WeakMap 的例子很难演示，因为无法观察它里面的引用会自动消失。此时，其他引用都解除了，已经没有引用指向 WeakMap 的键名了，导致无法证实那个键名是不是存在。</p><p>贺师俊老师<a href="https://github.com/ruanyf/es6tutorial/issues/362#issuecomment-292109104" target="_blank" rel="noopener">提示</a>，如果引用所指向的值占用特别多的内存，就可以通过 Node 的<code>process.memoryUsage</code>方法看出来。根据这个思路，网友<a href="https://github.com/ruanyf/es6tutorial/issues/362#issuecomment-292451925" target="_blank" rel="noopener">vtxf</a>补充了下面的例子。</p><p>首先，打开 Node 命令行。</p><pre class="hljs"><code>$ node --expose-gc
 </code></pre><p>上面代码中，<code>--expose-gc</code>参数表示允许手动执行垃圾回收机制。</p><p>然后，执行下面的代码。</p><pre class="hljs"><code><span class="hljs-comment">// 手动执行一次垃圾回收，保证获取的内存使用状态准确</span>
-&gt; global.gc();
+&gt; <span class="hljs-built_in">global</span>.gc();
 <span class="hljs-literal">undefined</span>
 
 <span class="hljs-comment">// 查看内存占用的初始状态，heapUsed 为 4M 左右</span>
@@ -538,7 +538,7 @@ wm.clear <span class="hljs-comment">// undefined</span>
 &gt; wm.set(key, <span class="hljs-number">1</span>);
 <span class="hljs-built_in">WeakMap</span> {}
 
-&gt; global.gc();
+&gt; <span class="hljs-built_in">global</span>.gc();
 <span class="hljs-literal">undefined</span>
 
 <span class="hljs-comment">// 这时内存占用 heapUsed 增加到 45M 了</span>
@@ -554,7 +554,7 @@ wm.clear <span class="hljs-comment">// undefined</span>
 <span class="hljs-literal">null</span>
 
 <span class="hljs-comment">// 再次执行垃圾回收</span>
-&gt; global.gc();
+&gt; <span class="hljs-built_in">global</span>.gc();
 <span class="hljs-literal">undefined</span>
 
 <span class="hljs-comment">// 内存占用 heapUsed 变回 4M 左右，</span>
@@ -567,12 +567,12 @@ wm.clear <span class="hljs-comment">// undefined</span>
 </code></pre><p>上面代码中，只要外部的引用消失，WeakMap 内部的引用，就会自动被垃圾回收清除。由此可见，有了 WeakMap 的帮助，解决内存泄漏就会简单很多。</p><p>Chrome 浏览器的 Dev Tools 的 Memory 面板，有一个垃圾桶的按钮，可以强制垃圾回收（garbage collect）。这个按钮也能用来观察 WeakMap 里面的引用是否消失。</p><h3 id="weakmap-的用途">WeakMap 的用途 <a class="markdownIt-Anchor" href="#weakmap-的用途">#</a></h3><p>前文说过，WeakMap 应用的典型场合就是 DOM 节点作为键名。下面是一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> myWeakmap = <span class="hljs-keyword">new</span> <span class="hljs-built_in">WeakMap</span>();
 
 myWeakmap.set(
-  <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'logo'</span>),
+  <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;logo&#x27;</span>),
   {<span class="hljs-attr">timesClicked</span>: <span class="hljs-number">0</span>})
 ;
 
-<span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'logo'</span>).addEventListener(<span class="hljs-string">'click'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">let</span> logoData = myWeakmap.get(<span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'logo'</span>));
+<span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;logo&#x27;</span>).addEventListener(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">let</span> logoData = myWeakmap.get(<span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;logo&#x27;</span>));
   logoData.timesClicked++;
 }, <span class="hljs-literal">false</span>);
 </code></pre><p>上面代码中，<code>document.getElementById('logo')</code>是一个 DOM 节点，每当发生<code>click</code>事件，就更新一下状态。我们将这个状态作为键值放在 WeakMap 里，对应的键名就是这个节点对象。一旦这个 DOM 节点删除，该状态就会自动消失，不存在内存泄漏风险。</p><p>WeakMap 的另一个用处是部署私有属性。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> _counter = <span class="hljs-keyword">new</span> <span class="hljs-built_in">WeakMap</span>();
@@ -580,21 +580,21 @@ myWeakmap.set(
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Countdown</span> </span>{
   <span class="hljs-keyword">constructor</span>(counter, action) {
-    _counter.set(<span class="hljs-keyword">this</span>, counter);
-    _action.set(<span class="hljs-keyword">this</span>, action);
+    _counter.set(<span class="hljs-built_in">this</span>, counter);
+    _action.set(<span class="hljs-built_in">this</span>, action);
   }
   dec() {
-    <span class="hljs-keyword">let</span> counter = _counter.get(<span class="hljs-keyword">this</span>);
+    <span class="hljs-keyword">let</span> counter = _counter.get(<span class="hljs-built_in">this</span>);
     <span class="hljs-keyword">if</span> (counter &lt; <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span>;
     counter--;
-    _counter.set(<span class="hljs-keyword">this</span>, counter);
+    _counter.set(<span class="hljs-built_in">this</span>, counter);
     <span class="hljs-keyword">if</span> (counter === <span class="hljs-number">0</span>) {
-      _action.get(<span class="hljs-keyword">this</span>)();
+      _action.get(<span class="hljs-built_in">this</span>)();
     }
   }
 }
 
-<span class="hljs-keyword">const</span> c = <span class="hljs-keyword">new</span> Countdown(<span class="hljs-number">2</span>, () =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'DONE'</span>));
+<span class="hljs-keyword">const</span> c = <span class="hljs-keyword">new</span> Countdown(<span class="hljs-number">2</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;DONE&#x27;</span>));
 
 c.dec()
 c.dec()

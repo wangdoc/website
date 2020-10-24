@@ -1,18 +1,18 @@
 <!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Generator 函数的语法 - ES6 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="Generator 函数的语法"><link rel="apple-touch-icon" sizes="57x57" href="assets/icons/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="assets/icons/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="assets/icons/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="assets/icons/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="assets/icons/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="assets/icons/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="assets/icons/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="assets/icons/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png"><link rel="manifest" href="assets/icons/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="assets/icons/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/es6-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/es6-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8"><nav class="breadcrumb is-size-5-desktop" aria-label="breadcrumbs"><ul><li><a href="index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;ES6 教程</a></li><li class="is-active"><a class="has-text-grey" href="generator.html">Generator 函数的语法</a></li></ul></nav><nav class="level level-previous-next is-size-5 is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="iterator.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> Iterator 和 for...of 循环</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="generator-async.html">Generator 函数的异步应用 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content is-size-4-desktop"><h1 class="title">Generator 函数的语法</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><h2 id="简介">简介 <a class="markdownIt-Anchor" href="#简介">#</a></h2><h3 id="基本概念">基本概念 <a class="markdownIt-Anchor" href="#基本概念">#</a></h3><p>Generator 函数是 ES6 提供的一种异步编程解决方案，语法行为与传统函数完全不同。本章详细介绍 Generator 函数的语法和 API，它的异步编程应用请看《Generator 函数的异步应用》一章。</p><p>Generator 函数有多种理解角度。语法上，首先可以把它理解成，Generator 函数是一个状态机，封装了多个内部状态。</p><p>执行 Generator 函数会返回一个遍历器对象，也就是说，Generator 函数除了状态机，还是一个遍历器对象生成函数。返回的遍历器对象，可以依次遍历 Generator 函数内部的每一个状态。</p><p>形式上，Generator 函数是一个普通函数，但是有两个特征。一是，<code>function</code>关键字与函数名之间有一个星号；二是，函数体内部使用<code>yield</code>表达式，定义不同的内部状态（<code>yield</code>在英语里的意思就是“产出”）。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">helloWorldGenerator</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">yield</span> <span class="hljs-string">'hello'</span>;
-  <span class="hljs-keyword">yield</span> <span class="hljs-string">'world'</span>;
-  <span class="hljs-keyword">return</span> <span class="hljs-string">'ending'</span>;
+  <span class="hljs-keyword">yield</span> <span class="hljs-string">&#x27;hello&#x27;</span>;
+  <span class="hljs-keyword">yield</span> <span class="hljs-string">&#x27;world&#x27;</span>;
+  <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;ending&#x27;</span>;
 }
 
 <span class="hljs-keyword">var</span> hw = helloWorldGenerator();
 </code></pre><p>上面代码定义了一个 Generator 函数<code>helloWorldGenerator</code>，它内部有两个<code>yield</code>表达式（<code>hello</code>和<code>world</code>），即该函数有三个状态：hello，world 和 return 语句（结束执行）。</p><p>然后，Generator 函数的调用方法与普通函数一样，也是在函数名后面加上一对圆括号。不同的是，调用 Generator 函数后，该函数并不执行，返回的也不是函数运行结果，而是一个指向内部状态的指针对象，也就是上一章介绍的遍历器对象（Iterator Object）。</p><p>下一步，必须调用遍历器对象的<code>next</code>方法，使得指针移向下一个状态。也就是说，每次调用<code>next</code>方法，内部指针就从函数头部或上一次停下来的地方开始执行，直到遇到下一个<code>yield</code>表达式（或<code>return</code>语句）为止。换言之，Generator 函数是分段执行的，<code>yield</code>表达式是暂停执行的标记，而<code>next</code>方法可以恢复执行。</p><pre class="hljs"><code>hw.next()
-<span class="hljs-comment">// { value: 'hello', done: false }</span>
+<span class="hljs-comment">// { value: &#x27;hello&#x27;, done: false }</span>
 
 hw.next()
-<span class="hljs-comment">// { value: 'world', done: false }</span>
+<span class="hljs-comment">// { value: &#x27;world&#x27;, done: false }</span>
 
 hw.next()
-<span class="hljs-comment">// { value: 'ending', done: true }</span>
+<span class="hljs-comment">// { value: &#x27;ending&#x27;, done: true }</span>
 
 hw.next()
 <span class="hljs-comment">// { value: undefined, done: true }</span>
@@ -24,12 +24,12 @@ hw.next()
   <span class="hljs-keyword">yield</span>  <span class="hljs-number">123</span> + <span class="hljs-number">456</span>;
 }
 </code></pre><p>上面代码中，<code>yield</code>后面的表达式<code>123 + 456</code>，不会立即求值，只会在<code>next</code>方法将指针移到这一句时，才会求值。</p><p><code>yield</code>表达式与<code>return</code>语句既有相似之处，也有区别。相似之处在于，都能返回紧跟在语句后面的那个表达式的值。区别在于每次遇到<code>yield</code>，函数暂停执行，下一次再从该位置继续向后执行，而<code>return</code>语句不具备位置记忆的功能。一个函数里面，只能执行一次（或者说一个）<code>return</code>语句，但是可以执行多次（或者说多个）<code>yield</code>表达式。正常函数只能返回一个值，因为只能执行一次<code>return</code>；Generator 函数可以返回一系列的值，因为可以有任意多个<code>yield</code>。从另一个角度看，也可以说 Generator 生成了一系列的值，这也就是它的名称的来历（英语中，generator 这个词是“生成器”的意思）。</p><p>Generator 函数可以不用<code>yield</code>表达式，这时就变成了一个单纯的暂缓执行函数。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">f</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'执行了！'</span>)
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;执行了！&#x27;</span>)
 }
 
 <span class="hljs-keyword">var</span> generator = f();
 
-setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+<span class="hljs-built_in">setTimeout</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
   generator.next()
 }, <span class="hljs-number">2000</span>);
 </code></pre><p>上面代码中，函数<code>f</code>如果是普通函数，在为变量<code>generator</code>赋值时就会执行。但是，函数<code>f</code>是一个 Generator 函数，就变成只有调用<code>next</code>方法时，函数<code>f</code>才会执行。</p><p>另外需要注意，<code>yield</code>表达式只能用在 Generator 函数里面，用在其他地方都会报错。</p><pre class="hljs"><code>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>)</span>{
@@ -40,7 +40,7 @@ setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span
 
 <span class="hljs-keyword">var</span> flat = <span class="hljs-function"><span class="hljs-keyword">function</span>* (<span class="hljs-params">a</span>) </span>{
   a.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">item</span>) </span>{
-    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> item !== <span class="hljs-string">'number'</span>) {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> item !== <span class="hljs-string">&#x27;number&#x27;</span>) {
       <span class="hljs-keyword">yield</span>* flat(item);
     } <span class="hljs-keyword">else</span> {
       <span class="hljs-keyword">yield</span> item;
@@ -57,7 +57,7 @@ setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span
   <span class="hljs-keyword">var</span> length = a.length;
   <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; length; i++) {
     <span class="hljs-keyword">var</span> item = a[i];
-    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> item !== <span class="hljs-string">'number'</span>) {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> item !== <span class="hljs-string">&#x27;number&#x27;</span>) {
       <span class="hljs-keyword">yield</span>* flat(item);
     } <span class="hljs-keyword">else</span> {
       <span class="hljs-keyword">yield</span> item;
@@ -70,14 +70,14 @@ setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span
 }
 <span class="hljs-comment">// 1, 2, 3, 4, 5, 6</span>
 </code></pre><p>另外，<code>yield</code>表达式如果用在另一个表达式之中，必须放在圆括号里面。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">demo</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Hello'</span> + <span class="hljs-keyword">yield</span>); <span class="hljs-comment">// SyntaxError</span>
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Hello'</span> + <span class="hljs-keyword">yield</span> <span class="hljs-number">123</span>); <span class="hljs-comment">// SyntaxError</span>
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Hello&#x27;</span> + <span class="hljs-keyword">yield</span>); <span class="hljs-comment">// SyntaxError</span>
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Hello&#x27;</span> + <span class="hljs-keyword">yield</span> <span class="hljs-number">123</span>); <span class="hljs-comment">// SyntaxError</span>
 
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Hello'</span> + (<span class="hljs-keyword">yield</span>)); <span class="hljs-comment">// OK</span>
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Hello'</span> + (<span class="hljs-keyword">yield</span> <span class="hljs-number">123</span>)); <span class="hljs-comment">// OK</span>
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Hello&#x27;</span> + (<span class="hljs-keyword">yield</span>)); <span class="hljs-comment">// OK</span>
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Hello&#x27;</span> + (<span class="hljs-keyword">yield</span> <span class="hljs-number">123</span>)); <span class="hljs-comment">// OK</span>
 }
 </code></pre><p><code>yield</code>表达式用作函数参数或放在赋值表达式的右边，可以不加括号。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">demo</span>(<span class="hljs-params"></span>) </span>{
-  foo(<span class="hljs-keyword">yield</span> <span class="hljs-string">'a'</span>, <span class="hljs-keyword">yield</span> <span class="hljs-string">'b'</span>); <span class="hljs-comment">// OK</span>
+  foo(<span class="hljs-keyword">yield</span> <span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-keyword">yield</span> <span class="hljs-string">&#x27;b&#x27;</span>); <span class="hljs-comment">// OK</span>
   <span class="hljs-keyword">let</span> input = <span class="hljs-keyword">yield</span>; <span class="hljs-comment">// OK</span>
 }
 </code></pre><h3 id="与-iterator-接口的关系">与 Iterator 接口的关系 <a class="markdownIt-Anchor" href="#与-iterator-接口的关系">#</a></h3><p>上一章说过，任意一个对象的<code>Symbol.iterator</code>方法，等于该对象的遍历器生成函数，调用该函数会返回该对象的一个遍历器对象。</p><p>由于 Generator 函数就是遍历器生成函数，因此可以把 Generator 赋值给对象的<code>Symbol.iterator</code>属性，从而使得该对象具有 Iterator 接口。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> myIterable = {};
@@ -124,18 +124,18 @@ b.next() <span class="hljs-comment">// { value:6, done:false }</span>
 b.next(<span class="hljs-number">12</span>) <span class="hljs-comment">// { value:8, done:false }</span>
 b.next(<span class="hljs-number">13</span>) <span class="hljs-comment">// { value:42, done:true }</span>
 </code></pre><p>上面代码中，第二次运行<code>next</code>方法的时候不带参数，导致 y 的值等于<code>2 * undefined</code>（即<code>NaN</code>），除以 3 以后还是<code>NaN</code>，因此返回对象的<code>value</code>属性也等于<code>NaN</code>。第三次运行<code>Next</code>方法的时候不带参数，所以<code>z</code>等于<code>undefined</code>，返回对象的<code>value</code>属性等于<code>5 + NaN + undefined</code>，即<code>NaN</code>。</p><p>如果向<code>next</code>方法提供参数，返回结果就完全不一样了。上面代码第一次调用<code>b</code>的<code>next</code>方法时，返回<code>x+1</code>的值<code>6</code>；第二次调用<code>next</code>方法，将上一次<code>yield</code>表达式的值设为<code>12</code>，因此<code>y</code>等于<code>24</code>，返回<code>y / 3</code>的值<code>8</code>；第三次调用<code>next</code>方法，将上一次<code>yield</code>表达式的值设为<code>13</code>，因此<code>z</code>等于<code>13</code>，这时<code>x</code>等于<code>5</code>，<code>y</code>等于<code>24</code>，所以<code>return</code>语句的值等于<code>42</code>。</p><p>注意，由于<code>next</code>方法的参数表示上一个<code>yield</code>表达式的返回值，所以在第一次使用<code>next</code>方法时，传递参数是无效的。V8 引擎直接忽略第一次使用<code>next</code>方法时的参数，只有从第二次使用<code>next</code>方法开始，参数才是有效的。从语义上讲，第一个<code>next</code>方法用来启动遍历器对象，所以不用带有参数。</p><p>再看一个通过<code>next</code>方法的参数，向 Generator 函数内部输入值的例子。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">dataConsumer</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Started'</span>);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Started&#x27;</span>);
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`1. <span class="hljs-subst">${<span class="hljs-keyword">yield</span>}</span>`</span>);
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`2. <span class="hljs-subst">${<span class="hljs-keyword">yield</span>}</span>`</span>);
-  <span class="hljs-keyword">return</span> <span class="hljs-string">'result'</span>;
+  <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;result&#x27;</span>;
 }
 
 <span class="hljs-keyword">let</span> genObj = dataConsumer();
 genObj.next();
 <span class="hljs-comment">// Started</span>
-genObj.next(<span class="hljs-string">'a'</span>)
+genObj.next(<span class="hljs-string">&#x27;a&#x27;</span>)
 <span class="hljs-comment">// 1. a</span>
-genObj.next(<span class="hljs-string">'b'</span>)
+genObj.next(<span class="hljs-string">&#x27;b&#x27;</span>)
 <span class="hljs-comment">// 2. b</span>
 </code></pre><p>上面代码是一个很直观的例子，每次通过<code>next</code>方法向 Generator 函数输入值，然后打印出来。</p><p>如果想要第一次调用<code>next</code>方法时，就能够输入值，可以在 Generator 函数外面再包一层。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">wrapper</span>(<span class="hljs-params">generatorFunction</span>) </span>{
   <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">...args</span>) </span>{
@@ -147,10 +147,10 @@ genObj.next(<span class="hljs-string">'b'</span>)
 
 <span class="hljs-keyword">const</span> wrapped = wrapper(<span class="hljs-function"><span class="hljs-keyword">function</span>* (<span class="hljs-params"></span>) </span>{
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`First input: <span class="hljs-subst">${<span class="hljs-keyword">yield</span>}</span>`</span>);
-  <span class="hljs-keyword">return</span> <span class="hljs-string">'DONE'</span>;
+  <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;DONE&#x27;</span>;
 });
 
-wrapped().next(<span class="hljs-string">'hello!'</span>)
+wrapped().next(<span class="hljs-string">&#x27;hello!&#x27;</span>)
 <span class="hljs-comment">// First input: hello!</span>
 </code></pre><p>上面代码中，Generator 函数如果不用<code>wrapper</code>先包一层，是无法第一次调用<code>next</code>方法，就输入参数的。</p><h2 id="forof-循环">for...of 循环 <a class="markdownIt-Anchor" href="#forof-循环">#</a></h2><p><code>for...of</code>循环可以自动遍历 Generator 函数运行时生成的<code>Iterator</code>对象，且此时不再需要调用<code>next</code>方法。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">yield</span> <span class="hljs-number">1</span>;
@@ -185,7 +185,7 @@ wrapped().next(<span class="hljs-string">'hello!'</span>)
   }
 }
 
-<span class="hljs-keyword">let</span> jane = { <span class="hljs-attr">first</span>: <span class="hljs-string">'Jane'</span>, <span class="hljs-attr">last</span>: <span class="hljs-string">'Doe'</span> };
+<span class="hljs-keyword">let</span> jane = { <span class="hljs-attr">first</span>: <span class="hljs-string">&#x27;Jane&#x27;</span>, <span class="hljs-attr">last</span>: <span class="hljs-string">&#x27;Doe&#x27;</span> };
 
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> [key, value] <span class="hljs-keyword">of</span> objectEntries(jane)) {
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${key}</span>: <span class="hljs-subst">${value}</span>`</span>);
@@ -193,14 +193,14 @@ wrapped().next(<span class="hljs-string">'hello!'</span>)
 <span class="hljs-comment">// first: Jane</span>
 <span class="hljs-comment">// last: Doe</span>
 </code></pre><p>上面代码中，对象<code>jane</code>原生不具备 Iterator 接口，无法用<code>for...of</code>遍历。这时，我们通过 Generator 函数<code>objectEntries</code>为它加上遍历器接口，就可以用<code>for...of</code>遍历了。加上遍历器接口的另一种写法是，将 Generator 函数加到对象的<code>Symbol.iterator</code>属性上面。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">objectEntries</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">let</span> propKeys = <span class="hljs-built_in">Object</span>.keys(<span class="hljs-keyword">this</span>);
+  <span class="hljs-keyword">let</span> propKeys = <span class="hljs-built_in">Object</span>.keys(<span class="hljs-built_in">this</span>);
 
   <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> propKey <span class="hljs-keyword">of</span> propKeys) {
-    <span class="hljs-keyword">yield</span> [propKey, <span class="hljs-keyword">this</span>[propKey]];
+    <span class="hljs-keyword">yield</span> [propKey, <span class="hljs-built_in">this</span>[propKey]];
   }
 }
 
-<span class="hljs-keyword">let</span> jane = { <span class="hljs-attr">first</span>: <span class="hljs-string">'Jane'</span>, <span class="hljs-attr">last</span>: <span class="hljs-string">'Doe'</span> };
+<span class="hljs-keyword">let</span> jane = { <span class="hljs-attr">first</span>: <span class="hljs-string">&#x27;Jane&#x27;</span>, <span class="hljs-attr">last</span>: <span class="hljs-string">&#x27;Doe&#x27;</span> };
 
 jane[<span class="hljs-built_in">Symbol</span>.iterator] = objectEntries;
 
@@ -237,7 +237,7 @@ y <span class="hljs-comment">// 2</span>
   <span class="hljs-keyword">try</span> {
     <span class="hljs-keyword">yield</span>;
   } <span class="hljs-keyword">catch</span> (e) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'内部捕获'</span>, e);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;内部捕获&#x27;</span>, e);
   }
 };
 
@@ -245,10 +245,10 @@ y <span class="hljs-comment">// 2</span>
 i.next();
 
 <span class="hljs-keyword">try</span> {
-  i.throw(<span class="hljs-string">'a'</span>);
-  i.throw(<span class="hljs-string">'b'</span>);
+  i.throw(<span class="hljs-string">&#x27;a&#x27;</span>);
+  i.throw(<span class="hljs-string">&#x27;b&#x27;</span>);
 } <span class="hljs-keyword">catch</span> (e) {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'外部捕获'</span>, e);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;外部捕获&#x27;</span>, e);
 }
 <span class="hljs-comment">// 内部捕获 a</span>
 <span class="hljs-comment">// 外部捕获 b</span>
@@ -262,15 +262,15 @@ i.next();
 
 <span class="hljs-keyword">var</span> i = g();
 i.next();
-i.throw(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'出错了！'</span>));
+i.throw(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&#x27;出错了！&#x27;</span>));
 <span class="hljs-comment">// Error: 出错了！(…)</span>
 </code></pre><p>注意，不要混淆遍历器对象的<code>throw</code>方法和全局的<code>throw</code>命令。上面代码的错误，是用遍历器对象的<code>throw</code>方法抛出的，而不是用<code>throw</code>命令抛出的。后者只能被函数体外的<code>catch</code>语句捕获。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> g = <span class="hljs-function"><span class="hljs-keyword">function</span>* (<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) {
     <span class="hljs-keyword">try</span> {
       <span class="hljs-keyword">yield</span>;
     } <span class="hljs-keyword">catch</span> (e) {
-      <span class="hljs-keyword">if</span> (e != <span class="hljs-string">'a'</span>) <span class="hljs-keyword">throw</span> e;
-      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'内部捕获'</span>, e);
+      <span class="hljs-keyword">if</span> (e != <span class="hljs-string">&#x27;a&#x27;</span>) <span class="hljs-keyword">throw</span> e;
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;内部捕获&#x27;</span>, e);
     }
   }
 };
@@ -279,16 +279,16 @@ i.throw(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error<
 i.next();
 
 <span class="hljs-keyword">try</span> {
-  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'a'</span>);
-  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'b'</span>);
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&#x27;a&#x27;</span>);
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&#x27;b&#x27;</span>);
 } <span class="hljs-keyword">catch</span> (e) {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'外部捕获'</span>, e);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;外部捕获&#x27;</span>, e);
 }
 <span class="hljs-comment">// 外部捕获 [Error: a]</span>
 </code></pre><p>上面代码之所以只捕获了<code>a</code>，是因为函数体外的<code>catch</code>语句块，捕获了抛出的<code>a</code>错误以后，就不会再继续<code>try</code>代码块里面剩余的语句了。</p><p>如果 Generator 函数内部没有部署<code>try...catch</code>代码块，那么<code>throw</code>方法抛出的错误，将被外部<code>try...catch</code>代码块捕获。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> g = <span class="hljs-function"><span class="hljs-keyword">function</span>* (<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) {
     <span class="hljs-keyword">yield</span>;
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'内部捕获'</span>, e);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;内部捕获&#x27;</span>, e);
   }
 };
 
@@ -296,15 +296,15 @@ i.next();
 i.next();
 
 <span class="hljs-keyword">try</span> {
-  i.throw(<span class="hljs-string">'a'</span>);
-  i.throw(<span class="hljs-string">'b'</span>);
+  i.throw(<span class="hljs-string">&#x27;a&#x27;</span>);
+  i.throw(<span class="hljs-string">&#x27;b&#x27;</span>);
 } <span class="hljs-keyword">catch</span> (e) {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'外部捕获'</span>, e);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;外部捕获&#x27;</span>, e);
 }
 <span class="hljs-comment">// 外部捕获 a</span>
 </code></pre><p>上面代码中，Generator 函数<code>g</code>内部没有部署<code>try...catch</code>代码块，所以抛出的错误直接被外部<code>catch</code>代码块捕获。</p><p>如果 Generator 函数内部和外部，都没有部署<code>try...catch</code>代码块，那么程序将报错，直接中断执行。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> gen = <span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">gen</span>(<span class="hljs-params"></span>)</span>{
-  <span class="hljs-keyword">yield</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'hello'</span>);
-  <span class="hljs-keyword">yield</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'world'</span>);
+  <span class="hljs-keyword">yield</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;hello&#x27;</span>);
+  <span class="hljs-keyword">yield</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;world&#x27;</span>);
 }
 
 <span class="hljs-keyword">var</span> g = gen();
@@ -316,7 +316,7 @@ g.throw();
   <span class="hljs-keyword">try</span> {
     <span class="hljs-keyword">yield</span> <span class="hljs-number">1</span>;
   } <span class="hljs-keyword">catch</span> (e) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'内部捕获'</span>);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;内部捕获&#x27;</span>);
   }
 }
 
@@ -325,12 +325,12 @@ g.throw(<span class="hljs-number">1</span>);
 <span class="hljs-comment">// Uncaught 1</span>
 </code></pre><p>上面代码中，<code>g.throw(1)</code>执行时，<code>next</code>方法一次都没有执行过。这时，抛出的错误不会被内部捕获，而是直接在外部抛出，导致程序出错。这种行为其实很好理解，因为第一次执行<code>next</code>方法，等同于启动执行 Generator 函数的内部代码，否则 Generator 函数还没有开始执行，这时<code>throw</code>方法抛错只可能抛出在函数外部。</p><p><code>throw</code>方法被捕获以后，会附带执行下一条<code>yield</code>表达式。也就是说，会附带执行一次<code>next</code>方法。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> gen = <span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">gen</span>(<span class="hljs-params"></span>)</span>{
   <span class="hljs-keyword">try</span> {
-    <span class="hljs-keyword">yield</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'a'</span>);
+    <span class="hljs-keyword">yield</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;a&#x27;</span>);
   } <span class="hljs-keyword">catch</span> (e) {
     <span class="hljs-comment">// ...</span>
   }
-  <span class="hljs-keyword">yield</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'b'</span>);
-  <span class="hljs-keyword">yield</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'c'</span>);
+  <span class="hljs-keyword">yield</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;b&#x27;</span>);
+  <span class="hljs-keyword">yield</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;c&#x27;</span>);
 }
 
 <span class="hljs-keyword">var</span> g = gen();
@@ -338,8 +338,8 @@ g.next() <span class="hljs-comment">// a</span>
 g.throw() <span class="hljs-comment">// b</span>
 g.next() <span class="hljs-comment">// c</span>
 </code></pre><p>上面代码中，<code>g.throw</code>方法被捕获以后，自动执行了一次<code>next</code>方法，所以会打印<code>b</code>。另外，也可以看到，只要 Generator 函数内部部署了<code>try...catch</code>代码块，那么遍历器的<code>throw</code>方法抛出的错误，不影响下一次遍历。</p><p>另外，<code>throw</code>命令与<code>g.throw</code>方法是无关的，两者互不影响。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> gen = <span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">gen</span>(<span class="hljs-params"></span>)</span>{
-  <span class="hljs-keyword">yield</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'hello'</span>);
-  <span class="hljs-keyword">yield</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'world'</span>);
+  <span class="hljs-keyword">yield</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;hello&#x27;</span>);
+  <span class="hljs-keyword">yield</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;world&#x27;</span>);
 }
 
 <span class="hljs-keyword">var</span> g = gen();
@@ -369,34 +369,34 @@ it.next(); <span class="hljs-comment">// { value:3, done:false }</span>
 }
 </code></pre><p>上面代码中，第二个<code>next</code>方法向函数体内传入一个参数 42，数值是没有<code>toUpperCase</code>方法的，所以会抛出一个 TypeError 错误，被函数体外的<code>catch</code>捕获。</p><p>一旦 Generator 执行过程中抛出错误，且没有被内部捕获，就不会再执行下去了。如果此后还调用<code>next</code>方法，将返回一个<code>value</code>属性等于<code>undefined</code>、<code>done</code>属性等于<code>true</code>的对象，即 JavaScript 引擎认为这个 Generator 已经运行结束了。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">g</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">yield</span> <span class="hljs-number">1</span>;
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'throwing an exception'</span>);
-  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'generator broke!'</span>);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;throwing an exception&#x27;</span>);
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&#x27;generator broke!&#x27;</span>);
   <span class="hljs-keyword">yield</span> <span class="hljs-number">2</span>;
   <span class="hljs-keyword">yield</span> <span class="hljs-number">3</span>;
 }
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">log</span>(<span class="hljs-params">generator</span>) </span>{
   <span class="hljs-keyword">var</span> v;
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'starting generator'</span>);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;starting generator&#x27;</span>);
   <span class="hljs-keyword">try</span> {
     v = generator.next();
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'第一次运行next方法'</span>, v);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;第一次运行next方法&#x27;</span>, v);
   } <span class="hljs-keyword">catch</span> (err) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'捕捉错误'</span>, v);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;捕捉错误&#x27;</span>, v);
   }
   <span class="hljs-keyword">try</span> {
     v = generator.next();
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'第二次运行next方法'</span>, v);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;第二次运行next方法&#x27;</span>, v);
   } <span class="hljs-keyword">catch</span> (err) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'捕捉错误'</span>, v);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;捕捉错误&#x27;</span>, v);
   }
   <span class="hljs-keyword">try</span> {
     v = generator.next();
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'第三次运行next方法'</span>, v);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;第三次运行next方法&#x27;</span>, v);
   } <span class="hljs-keyword">catch</span> (err) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'捕捉错误'</span>, v);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;捕捉错误&#x27;</span>, v);
   }
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'caller done'</span>);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;caller done&#x27;</span>);
 }
 
 log(g());
@@ -415,7 +415,7 @@ log(g());
 <span class="hljs-keyword">var</span> g = gen();
 
 g.next()        <span class="hljs-comment">// { value: 1, done: false }</span>
-g.return(<span class="hljs-string">'foo'</span>) <span class="hljs-comment">// { value: "foo", done: true }</span>
+g.return(<span class="hljs-string">&#x27;foo&#x27;</span>) <span class="hljs-comment">// { value: &quot;foo&quot;, done: true }</span>
 g.next()        <span class="hljs-comment">// { value: undefined, done: true }</span>
 </code></pre><p>上面代码中，遍历器对象<code>g</code>调用<code>return</code>方法后，返回值的<code>value</code>属性就是<code>return</code>方法的参数<code>foo</code>。并且，Generator 函数的遍历就终止了，返回值的<code>done</code>属性为<code>true</code>，以后再调用<code>next</code>方法，<code>done</code>属性总是返回<code>true</code>。</p><p>如果<code>return</code>方法调用时，不提供参数，则返回值的<code>value</code>属性为<code>undefined</code>。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">gen</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">yield</span> <span class="hljs-number">1</span>;
@@ -455,24 +455,24 @@ gen.next(); <span class="hljs-comment">// Object {value: 3, done: false}</span>
 gen.next(<span class="hljs-number">1</span>); <span class="hljs-comment">// Object {value: 1, done: true}</span>
 <span class="hljs-comment">// 相当于将 let result = yield x + y</span>
 <span class="hljs-comment">// 替换成 let result = 1;</span>
-</code></pre><p>上面代码中，第二个<code>next(1)</code>方法就相当于将<code>yield</code>表达式替换成一个值<code>1</code>。如果<code>next</code>方法没有参数，就相当于替换成<code>undefined</code>。</p><p><code>throw()</code>是将<code>yield</code>表达式替换成一个<code>throw</code>语句。</p><pre class="hljs"><code>gen.throw(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'出错了'</span>)); <span class="hljs-comment">// Uncaught Error: 出错了</span>
+</code></pre><p>上面代码中，第二个<code>next(1)</code>方法就相当于将<code>yield</code>表达式替换成一个值<code>1</code>。如果<code>next</code>方法没有参数，就相当于替换成<code>undefined</code>。</p><p><code>throw()</code>是将<code>yield</code>表达式替换成一个<code>throw</code>语句。</p><pre class="hljs"><code>gen.throw(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&#x27;出错了&#x27;</span>)); <span class="hljs-comment">// Uncaught Error: 出错了</span>
 <span class="hljs-comment">// 相当于将 let result = yield x + y</span>
-<span class="hljs-comment">// 替换成 let result = throw(new Error('出错了'));</span>
+<span class="hljs-comment">// 替换成 let result = throw(new Error(&#x27;出错了&#x27;));</span>
 </code></pre><p><code>return()</code>是将<code>yield</code>表达式替换成一个<code>return</code>语句。</p><pre class="hljs"><code>gen.return(<span class="hljs-number">2</span>); <span class="hljs-comment">// Object {value: 2, done: true}</span>
 <span class="hljs-comment">// 相当于将 let result = yield x + y</span>
 <span class="hljs-comment">// 替换成 let result = return 2;</span>
 </code></pre><h2 id="yield-表达式-1">yield* 表达式 <a class="markdownIt-Anchor" href="#yield-表达式-1">#</a></h2><p>如果在 Generator 函数内部，调用另一个 Generator 函数。需要在前者的函数体内部，自己手动完成遍历。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">yield</span> <span class="hljs-string">'a'</span>;
-  <span class="hljs-keyword">yield</span> <span class="hljs-string">'b'</span>;
+  <span class="hljs-keyword">yield</span> <span class="hljs-string">&#x27;a&#x27;</span>;
+  <span class="hljs-keyword">yield</span> <span class="hljs-string">&#x27;b&#x27;</span>;
 }
 
 <span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">bar</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">yield</span> <span class="hljs-string">'x'</span>;
+  <span class="hljs-keyword">yield</span> <span class="hljs-string">&#x27;x&#x27;</span>;
   <span class="hljs-comment">// 手动遍历 foo()</span>
   <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i <span class="hljs-keyword">of</span> foo()) {
     <span class="hljs-built_in">console</span>.log(i);
   }
-  <span class="hljs-keyword">yield</span> <span class="hljs-string">'y'</span>;
+  <span class="hljs-keyword">yield</span> <span class="hljs-string">&#x27;y&#x27;</span>;
 }
 
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> v <span class="hljs-keyword">of</span> bar()){
@@ -483,78 +483,78 @@ gen.next(<span class="hljs-number">1</span>); <span class="hljs-comment">// Obje
 <span class="hljs-comment">// b</span>
 <span class="hljs-comment">// y</span>
 </code></pre><p>上面代码中，<code>foo</code>和<code>bar</code>都是 Generator 函数，在<code>bar</code>里面调用<code>foo</code>，就需要手动遍历<code>foo</code>。如果有多个 Generator 函数嵌套，写起来就非常麻烦。</p><p>ES6 提供了<code>yield*</code>表达式，作为解决办法，用来在一个 Generator 函数里面执行另一个 Generator 函数。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">bar</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">yield</span> <span class="hljs-string">'x'</span>;
+  <span class="hljs-keyword">yield</span> <span class="hljs-string">&#x27;x&#x27;</span>;
   <span class="hljs-keyword">yield</span>* foo();
-  <span class="hljs-keyword">yield</span> <span class="hljs-string">'y'</span>;
+  <span class="hljs-keyword">yield</span> <span class="hljs-string">&#x27;y&#x27;</span>;
 }
 
 <span class="hljs-comment">// 等同于</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">bar</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">yield</span> <span class="hljs-string">'x'</span>;
-  <span class="hljs-keyword">yield</span> <span class="hljs-string">'a'</span>;
-  <span class="hljs-keyword">yield</span> <span class="hljs-string">'b'</span>;
-  <span class="hljs-keyword">yield</span> <span class="hljs-string">'y'</span>;
+  <span class="hljs-keyword">yield</span> <span class="hljs-string">&#x27;x&#x27;</span>;
+  <span class="hljs-keyword">yield</span> <span class="hljs-string">&#x27;a&#x27;</span>;
+  <span class="hljs-keyword">yield</span> <span class="hljs-string">&#x27;b&#x27;</span>;
+  <span class="hljs-keyword">yield</span> <span class="hljs-string">&#x27;y&#x27;</span>;
 }
 
 <span class="hljs-comment">// 等同于</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">bar</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">yield</span> <span class="hljs-string">'x'</span>;
+  <span class="hljs-keyword">yield</span> <span class="hljs-string">&#x27;x&#x27;</span>;
   <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> v <span class="hljs-keyword">of</span> foo()) {
     <span class="hljs-keyword">yield</span> v;
   }
-  <span class="hljs-keyword">yield</span> <span class="hljs-string">'y'</span>;
+  <span class="hljs-keyword">yield</span> <span class="hljs-string">&#x27;y&#x27;</span>;
 }
 
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> v <span class="hljs-keyword">of</span> bar()){
   <span class="hljs-built_in">console</span>.log(v);
 }
-<span class="hljs-comment">// "x"</span>
-<span class="hljs-comment">// "a"</span>
-<span class="hljs-comment">// "b"</span>
-<span class="hljs-comment">// "y"</span>
+<span class="hljs-comment">// &quot;x&quot;</span>
+<span class="hljs-comment">// &quot;a&quot;</span>
+<span class="hljs-comment">// &quot;b&quot;</span>
+<span class="hljs-comment">// &quot;y&quot;</span>
 </code></pre><p>再来看一个对比的例子。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">inner</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">yield</span> <span class="hljs-string">'hello!'</span>;
+  <span class="hljs-keyword">yield</span> <span class="hljs-string">&#x27;hello!&#x27;</span>;
 }
 
 <span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">outer1</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">yield</span> <span class="hljs-string">'open'</span>;
+  <span class="hljs-keyword">yield</span> <span class="hljs-string">&#x27;open&#x27;</span>;
   <span class="hljs-keyword">yield</span> inner();
-  <span class="hljs-keyword">yield</span> <span class="hljs-string">'close'</span>;
+  <span class="hljs-keyword">yield</span> <span class="hljs-string">&#x27;close&#x27;</span>;
 }
 
 <span class="hljs-keyword">var</span> gen = outer1()
-gen.next().value <span class="hljs-comment">// "open"</span>
+gen.next().value <span class="hljs-comment">// &quot;open&quot;</span>
 gen.next().value <span class="hljs-comment">// 返回一个遍历器对象</span>
-gen.next().value <span class="hljs-comment">// "close"</span>
+gen.next().value <span class="hljs-comment">// &quot;close&quot;</span>
 
 <span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">outer2</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">yield</span> <span class="hljs-string">'open'</span>
+  <span class="hljs-keyword">yield</span> <span class="hljs-string">&#x27;open&#x27;</span>
   <span class="hljs-keyword">yield</span>* inner()
-  <span class="hljs-keyword">yield</span> <span class="hljs-string">'close'</span>
+  <span class="hljs-keyword">yield</span> <span class="hljs-string">&#x27;close&#x27;</span>
 }
 
 <span class="hljs-keyword">var</span> gen = outer2()
-gen.next().value <span class="hljs-comment">// "open"</span>
-gen.next().value <span class="hljs-comment">// "hello!"</span>
-gen.next().value <span class="hljs-comment">// "close"</span>
+gen.next().value <span class="hljs-comment">// &quot;open&quot;</span>
+gen.next().value <span class="hljs-comment">// &quot;hello!&quot;</span>
+gen.next().value <span class="hljs-comment">// &quot;close&quot;</span>
 </code></pre><p>上面例子中，<code>outer2</code>使用了<code>yield*</code>，<code>outer1</code>没使用。结果就是，<code>outer1</code>返回一个遍历器对象，<code>outer2</code>返回该遍历器对象的内部值。</p><p>从语法角度看，如果<code>yield</code>表达式后面跟的是一个遍历器对象，需要在<code>yield</code>表达式后面加上星号，表明它返回的是一个遍历器对象。这被称为<code>yield*</code>表达式。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> delegatedIterator = (<span class="hljs-function"><span class="hljs-keyword">function</span>* (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">yield</span> <span class="hljs-string">'Hello!'</span>;
-  <span class="hljs-keyword">yield</span> <span class="hljs-string">'Bye!'</span>;
+  <span class="hljs-keyword">yield</span> <span class="hljs-string">&#x27;Hello!&#x27;</span>;
+  <span class="hljs-keyword">yield</span> <span class="hljs-string">&#x27;Bye!&#x27;</span>;
 }());
 
 <span class="hljs-keyword">let</span> delegatingIterator = (<span class="hljs-function"><span class="hljs-keyword">function</span>* (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">yield</span> <span class="hljs-string">'Greetings!'</span>;
+  <span class="hljs-keyword">yield</span> <span class="hljs-string">&#x27;Greetings!&#x27;</span>;
   <span class="hljs-keyword">yield</span>* delegatedIterator;
-  <span class="hljs-keyword">yield</span> <span class="hljs-string">'Ok, bye.'</span>;
+  <span class="hljs-keyword">yield</span> <span class="hljs-string">&#x27;Ok, bye.&#x27;</span>;
 }());
 
 <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> value <span class="hljs-keyword">of</span> delegatingIterator) {
   <span class="hljs-built_in">console</span>.log(value);
 }
-<span class="hljs-comment">// "Greetings!</span>
-<span class="hljs-comment">// "Hello!"</span>
-<span class="hljs-comment">// "Bye!"</span>
-<span class="hljs-comment">// "Ok, bye."</span>
+<span class="hljs-comment">// &quot;Greetings!</span>
+<span class="hljs-comment">// &quot;Hello!&quot;</span>
+<span class="hljs-comment">// &quot;Bye!&quot;</span>
+<span class="hljs-comment">// &quot;Ok, bye.&quot;</span>
 </code></pre><p>上面代码中，<code>delegatingIterator</code>是代理者，<code>delegatedIterator</code>是被代理者。由于<code>yield* delegatedIterator</code>语句得到的值，是一个遍历器，所以要用星号表示。运行结果就是使用一个遍历器，遍历了多个 Generator 函数，有递归的效果。</p><p><code>yield*</code>后面的 Generator 函数（没有<code>return</code>语句时），等同于在 Generator 函数内部，部署一个<code>for...of</code>循环。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">concat</span>(<span class="hljs-params">iter1, iter2</span>) </span>{
   <span class="hljs-keyword">yield</span>* iter1;
   <span class="hljs-keyword">yield</span>* iter2;
@@ -571,27 +571,27 @@ gen.next().value <span class="hljs-comment">// "close"</span>
   }
 }
 </code></pre><p>上面代码说明，<code>yield*</code>后面的 Generator 函数（没有<code>return</code>语句时），不过是<code>for...of</code>的一种简写形式，完全可以用后者替代前者。反之，在有<code>return</code>语句时，则需要用<code>var value = yield* iterator</code>的形式获取<code>return</code>语句的值。</p><p>如果<code>yield*</code>后面跟着一个数组，由于数组原生支持遍历器，因此就会遍历数组成员。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">gen</span>(<span class="hljs-params"></span>)</span>{
-  <span class="hljs-keyword">yield</span>* [<span class="hljs-string">"a"</span>, <span class="hljs-string">"b"</span>, <span class="hljs-string">"c"</span>];
+  <span class="hljs-keyword">yield</span>* [<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-string">&quot;c&quot;</span>];
 }
 
-gen().next() <span class="hljs-comment">// { value:"a", done:false }</span>
+gen().next() <span class="hljs-comment">// { value:&quot;a&quot;, done:false }</span>
 </code></pre><p>上面代码中，<code>yield</code>命令后面如果不加星号，返回的是整个数组，加了星号就表示返回的是数组的遍历器对象。</p><p>实际上，任何数据结构只要有 Iterator 接口，就可以被<code>yield*</code>遍历。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> read = (<span class="hljs-function"><span class="hljs-keyword">function</span>* (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">yield</span> <span class="hljs-string">'hello'</span>;
-  <span class="hljs-keyword">yield</span>* <span class="hljs-string">'hello'</span>;
+  <span class="hljs-keyword">yield</span> <span class="hljs-string">&#x27;hello&#x27;</span>;
+  <span class="hljs-keyword">yield</span>* <span class="hljs-string">&#x27;hello&#x27;</span>;
 })();
 
-read.next().value <span class="hljs-comment">// "hello"</span>
-read.next().value <span class="hljs-comment">// "h"</span>
+read.next().value <span class="hljs-comment">// &quot;hello&quot;</span>
+read.next().value <span class="hljs-comment">// &quot;h&quot;</span>
 </code></pre><p>上面代码中，<code>yield</code>表达式返回整个字符串，<code>yield*</code>语句返回单个字符。因为字符串具有 Iterator 接口，所以被<code>yield*</code>遍历。</p><p>如果被代理的 Generator 函数有<code>return</code>语句，那么就可以向代理它的 Generator 函数返回数据。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">yield</span> <span class="hljs-number">2</span>;
   <span class="hljs-keyword">yield</span> <span class="hljs-number">3</span>;
-  <span class="hljs-keyword">return</span> <span class="hljs-string">"foo"</span>;
+  <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;foo&quot;</span>;
 }
 
 <span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">bar</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">yield</span> <span class="hljs-number">1</span>;
   <span class="hljs-keyword">var</span> v = <span class="hljs-keyword">yield</span>* foo();
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"v: "</span> + v);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;v: &quot;</span> + v);
   <span class="hljs-keyword">yield</span> <span class="hljs-number">4</span>;
 }
 
@@ -604,14 +604,14 @@ it.next()
 it.next()
 <span class="hljs-comment">// {value: 3, done: false}</span>
 it.next();
-<span class="hljs-comment">// "v: foo"</span>
+<span class="hljs-comment">// &quot;v: foo&quot;</span>
 <span class="hljs-comment">// {value: 4, done: false}</span>
 it.next()
 <span class="hljs-comment">// {value: undefined, done: true}</span>
 </code></pre><p>上面代码在第四次调用<code>next</code>方法的时候，屏幕上会有输出，这是因为函数<code>foo</code>的<code>return</code>语句，向函数<code>bar</code>提供了返回值。</p><p>再看一个例子。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">genFuncWithReturn</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">yield</span> <span class="hljs-string">'a'</span>;
-  <span class="hljs-keyword">yield</span> <span class="hljs-string">'b'</span>;
-  <span class="hljs-keyword">return</span> <span class="hljs-string">'The result'</span>;
+  <span class="hljs-keyword">yield</span> <span class="hljs-string">&#x27;a&#x27;</span>;
+  <span class="hljs-keyword">yield</span> <span class="hljs-string">&#x27;b&#x27;</span>;
+  <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;The result&#x27;</span>;
 }
 <span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">logReturned</span>(<span class="hljs-params">genObj</span>) </span>{
   <span class="hljs-keyword">let</span> result = <span class="hljs-keyword">yield</span>* genObj;
@@ -620,7 +620,7 @@ it.next()
 
 [...logReturned(genFuncWithReturn())]
 <span class="hljs-comment">// The result</span>
-<span class="hljs-comment">// 值为 [ 'a', 'b' ]</span>
+<span class="hljs-comment">// 值为 [ &#x27;a&#x27;, &#x27;b&#x27; ]</span>
 </code></pre><p>上面代码中，存在两次遍历。第一次是扩展运算符遍历函数<code>logReturned</code>返回的遍历器对象，第二次是<code>yield*</code>语句遍历函数<code>genFuncWithReturn</code>返回的遍历器对象。这两次遍历的效果是叠加的，最终表现为扩展运算符遍历函数<code>genFuncWithReturn</code>返回的遍历器对象。所以，最后的数据表达式得到的值等于<code>[ 'a', 'b' ]</code>。但是，函数<code>genFuncWithReturn</code>的<code>return</code>语句的返回值<code>The result</code>，会返回给函数<code>logReturned</code>内部的<code>result</code>变量，因此会有终端输出。</p><p><code>yield*</code>命令可以很方便地取出嵌套数组的所有成员。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">iterTree</span>(<span class="hljs-params">tree</span>) </span>{
   <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Array</span>.isArray(tree)) {
     <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> i=<span class="hljs-number">0</span>; i &lt; tree.length; i++) {
@@ -631,7 +631,7 @@ it.next()
   }
 }
 
-<span class="hljs-keyword">const</span> tree = [ <span class="hljs-string">'a'</span>, [<span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>], [<span class="hljs-string">'d'</span>, <span class="hljs-string">'e'</span>] ];
+<span class="hljs-keyword">const</span> tree = [ <span class="hljs-string">&#x27;a&#x27;</span>, [<span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;c&#x27;</span>], [<span class="hljs-string">&#x27;d&#x27;</span>, <span class="hljs-string">&#x27;e&#x27;</span>] ];
 
 <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> x <span class="hljs-keyword">of</span> iterTree(tree)) {
   <span class="hljs-built_in">console</span>.log(x);
@@ -641,13 +641,13 @@ it.next()
 <span class="hljs-comment">// c</span>
 <span class="hljs-comment">// d</span>
 <span class="hljs-comment">// e</span>
-</code></pre><p>由于扩展运算符<code>...</code>默认调用 Iterator 接口，所以上面这个函数也可以用于嵌套数组的平铺。</p><pre class="hljs"><code>[...iterTree(tree)] <span class="hljs-comment">// ["a", "b", "c", "d", "e"]</span>
+</code></pre><p>由于扩展运算符<code>...</code>默认调用 Iterator 接口，所以上面这个函数也可以用于嵌套数组的平铺。</p><pre class="hljs"><code>[...iterTree(tree)] <span class="hljs-comment">// [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;]</span>
 </code></pre><p>下面是一个稍微复杂的例子，使用<code>yield*</code>语句遍历完全二叉树。</p><pre class="hljs"><code><span class="hljs-comment">// 下面是二叉树的构造函数，</span>
 <span class="hljs-comment">// 三个参数分别是左树、当前节点和右树</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Tree</span>(<span class="hljs-params">left, label, right</span>) </span>{
-  <span class="hljs-keyword">this</span>.left = left;
-  <span class="hljs-keyword">this</span>.label = label;
-  <span class="hljs-keyword">this</span>.right = right;
+  <span class="hljs-built_in">this</span>.left = left;
+  <span class="hljs-built_in">this</span>.label = label;
+  <span class="hljs-built_in">this</span>.right = right;
 }
 
 <span class="hljs-comment">// 下面是中序（inorder）遍历函数。</span>
@@ -667,7 +667,7 @@ it.next()
   <span class="hljs-keyword">if</span> (array.length == <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Tree(<span class="hljs-literal">null</span>, array[<span class="hljs-number">0</span>], <span class="hljs-literal">null</span>);
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Tree(make(array[<span class="hljs-number">0</span>]), array[<span class="hljs-number">1</span>], make(array[<span class="hljs-number">2</span>]));
 }
-<span class="hljs-keyword">let</span> tree = make([[[<span class="hljs-string">'a'</span>], <span class="hljs-string">'b'</span>, [<span class="hljs-string">'c'</span>]], <span class="hljs-string">'d'</span>, [[<span class="hljs-string">'e'</span>], <span class="hljs-string">'f'</span>, [<span class="hljs-string">'g'</span>]]]);
+<span class="hljs-keyword">let</span> tree = make([[[<span class="hljs-string">&#x27;a&#x27;</span>], <span class="hljs-string">&#x27;b&#x27;</span>, [<span class="hljs-string">&#x27;c&#x27;</span>]], <span class="hljs-string">&#x27;d&#x27;</span>, [[<span class="hljs-string">&#x27;e&#x27;</span>], <span class="hljs-string">&#x27;f&#x27;</span>, [<span class="hljs-string">&#x27;g&#x27;</span>]]]);
 
 <span class="hljs-comment">// 遍历二叉树</span>
 <span class="hljs-keyword">var</span> result = [];
@@ -676,7 +676,7 @@ it.next()
 }
 
 result
-<span class="hljs-comment">// ['a', 'b', 'c', 'd', 'e', 'f', 'g']</span>
+<span class="hljs-comment">// [&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;, &#x27;d&#x27;, &#x27;e&#x27;, &#x27;f&#x27;, &#x27;g&#x27;]</span>
 </code></pre><h2 id="作为对象属性的-generator-函数">作为对象属性的 Generator 函数 <a class="markdownIt-Anchor" href="#作为对象属性的-generator-函数">#</a></h2><p>如果一个对象的属性是 Generator 函数，可以简写成下面的形式。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> obj = {
   * myGeneratorMethod() {
     ···
@@ -690,31 +690,31 @@ result
 </code></pre><h2 id="generator-函数的this">Generator 函数的<code>this</code> <a class="markdownIt-Anchor" href="#generator-函数的this">#</a></h2><p>Generator 函数总是返回一个遍历器，ES6 规定这个遍历器是 Generator 函数的实例，也继承了 Generator 函数的<code>prototype</code>对象上的方法。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">g</span>(<span class="hljs-params"></span>) </span>{}
 
 g.prototype.hello = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">return</span> <span class="hljs-string">'hi!'</span>;
+  <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;hi!&#x27;</span>;
 };
 
 <span class="hljs-keyword">let</span> obj = g();
 
 obj <span class="hljs-keyword">instanceof</span> g <span class="hljs-comment">// true</span>
-obj.hello() <span class="hljs-comment">// 'hi!'</span>
+obj.hello() <span class="hljs-comment">// &#x27;hi!&#x27;</span>
 </code></pre><p>上面代码表明，Generator 函数<code>g</code>返回的遍历器<code>obj</code>，是<code>g</code>的实例，而且继承了<code>g.prototype</code>。但是，如果把<code>g</code>当作普通的构造函数，并不会生效，因为<code>g</code>返回的总是遍历器对象，而不是<code>this</code>对象。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">g</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">this</span>.a = <span class="hljs-number">11</span>;
+  <span class="hljs-built_in">this</span>.a = <span class="hljs-number">11</span>;
 }
 
 <span class="hljs-keyword">let</span> obj = g();
 obj.next();
 obj.a <span class="hljs-comment">// undefined</span>
 </code></pre><p>上面代码中，Generator 函数<code>g</code>在<code>this</code>对象上面添加了一个属性<code>a</code>，但是<code>obj</code>对象拿不到这个属性。</p><p>Generator 函数也不能跟<code>new</code>命令一起用，会报错。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">F</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">yield</span> <span class="hljs-keyword">this</span>.x = <span class="hljs-number">2</span>;
-  <span class="hljs-keyword">yield</span> <span class="hljs-keyword">this</span>.y = <span class="hljs-number">3</span>;
+  <span class="hljs-keyword">yield</span> <span class="hljs-built_in">this</span>.x = <span class="hljs-number">2</span>;
+  <span class="hljs-keyword">yield</span> <span class="hljs-built_in">this</span>.y = <span class="hljs-number">3</span>;
 }
 
 <span class="hljs-keyword">new</span> F()
 <span class="hljs-comment">// TypeError: F is not a constructor</span>
 </code></pre><p>上面代码中，<code>new</code>命令跟构造函数<code>F</code>一起使用，结果报错，因为<code>F</code>不是构造函数。</p><p>那么，有没有办法让 Generator 函数返回一个正常的对象实例，既可以用<code>next</code>方法，又可以获得正常的<code>this</code>？</p><p>下面是一个变通方法。首先，生成一个空对象，使用<code>call</code>方法绑定 Generator 函数内部的<code>this</code>。这样，构造函数调用以后，这个空对象就是 Generator 函数的实例对象了。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">F</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">this</span>.a = <span class="hljs-number">1</span>;
-  <span class="hljs-keyword">yield</span> <span class="hljs-keyword">this</span>.b = <span class="hljs-number">2</span>;
-  <span class="hljs-keyword">yield</span> <span class="hljs-keyword">this</span>.c = <span class="hljs-number">3</span>;
+  <span class="hljs-built_in">this</span>.a = <span class="hljs-number">1</span>;
+  <span class="hljs-keyword">yield</span> <span class="hljs-built_in">this</span>.b = <span class="hljs-number">2</span>;
+  <span class="hljs-keyword">yield</span> <span class="hljs-built_in">this</span>.c = <span class="hljs-number">3</span>;
 }
 <span class="hljs-keyword">var</span> obj = {};
 <span class="hljs-keyword">var</span> f = F.call(obj);
@@ -727,9 +727,9 @@ obj.a <span class="hljs-comment">// 1</span>
 obj.b <span class="hljs-comment">// 2</span>
 obj.c <span class="hljs-comment">// 3</span>
 </code></pre><p>上面代码中，首先是<code>F</code>内部的<code>this</code>对象绑定<code>obj</code>对象，然后调用它，返回一个 Iterator 对象。这个对象执行三次<code>next</code>方法（因为<code>F</code>内部有两个<code>yield</code>表达式），完成 F 内部所有代码的运行。这时，所有内部属性都绑定在<code>obj</code>对象上了，因此<code>obj</code>对象也就成了<code>F</code>的实例。</p><p>上面代码中，执行的是遍历器对象<code>f</code>，但是生成的对象实例是<code>obj</code>，有没有办法将这两个对象统一呢？</p><p>一个办法就是将<code>obj</code>换成<code>F.prototype</code>。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">F</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">this</span>.a = <span class="hljs-number">1</span>;
-  <span class="hljs-keyword">yield</span> <span class="hljs-keyword">this</span>.b = <span class="hljs-number">2</span>;
-  <span class="hljs-keyword">yield</span> <span class="hljs-keyword">this</span>.c = <span class="hljs-number">3</span>;
+  <span class="hljs-built_in">this</span>.a = <span class="hljs-number">1</span>;
+  <span class="hljs-keyword">yield</span> <span class="hljs-built_in">this</span>.b = <span class="hljs-number">2</span>;
+  <span class="hljs-keyword">yield</span> <span class="hljs-built_in">this</span>.c = <span class="hljs-number">3</span>;
 }
 <span class="hljs-keyword">var</span> f = F.call(F.prototype);
 
@@ -741,9 +741,9 @@ f.a <span class="hljs-comment">// 1</span>
 f.b <span class="hljs-comment">// 2</span>
 f.c <span class="hljs-comment">// 3</span>
 </code></pre><p>再将<code>F</code>改成构造函数，就可以对它执行<code>new</code>命令了。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">gen</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">this</span>.a = <span class="hljs-number">1</span>;
-  <span class="hljs-keyword">yield</span> <span class="hljs-keyword">this</span>.b = <span class="hljs-number">2</span>;
-  <span class="hljs-keyword">yield</span> <span class="hljs-keyword">this</span>.c = <span class="hljs-number">3</span>;
+  <span class="hljs-built_in">this</span>.a = <span class="hljs-number">1</span>;
+  <span class="hljs-keyword">yield</span> <span class="hljs-built_in">this</span>.b = <span class="hljs-number">2</span>;
+  <span class="hljs-keyword">yield</span> <span class="hljs-built_in">this</span>.c = <span class="hljs-number">3</span>;
 }
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">F</span>(<span class="hljs-params"></span>) </span>{
@@ -762,16 +762,16 @@ f.c <span class="hljs-comment">// 3</span>
 </code></pre><h2 id="含义">含义 <a class="markdownIt-Anchor" href="#含义">#</a></h2><h3 id="generator-与状态机">Generator 与状态机 <a class="markdownIt-Anchor" href="#generator-与状态机">#</a></h3><p>Generator 是实现状态机的最佳结构。比如，下面的<code>clock</code>函数就是一个状态机。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> ticking = <span class="hljs-literal">true</span>;
 <span class="hljs-keyword">var</span> clock = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">if</span> (ticking)
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Tick!'</span>);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Tick!&#x27;</span>);
   <span class="hljs-keyword">else</span>
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Tock!'</span>);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Tock!&#x27;</span>);
   ticking = !ticking;
 }
 </code></pre><p>上面代码的<code>clock</code>函数一共有两种状态（<code>Tick</code>和<code>Tock</code>），每运行一次，就改变一次状态。这个函数如果用 Generator 实现，就是下面这样。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> clock = <span class="hljs-function"><span class="hljs-keyword">function</span>* (<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Tick!'</span>);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Tick!&#x27;</span>);
     <span class="hljs-keyword">yield</span>;
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Tock!'</span>);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Tock!&#x27;</span>);
     <span class="hljs-keyword">yield</span>;
   }
 };
@@ -798,7 +798,7 @@ loader.next()
 <span class="hljs-comment">// 卸载UI</span>
 loader.next()
 </code></pre><p>上面代码中，第一次调用<code>loadUI</code>函数时，该函数不会执行，仅返回一个遍历器。下一次对该遍历器调用<code>next</code>方法，则会显示<code>Loading</code>界面（<code>showLoadingScreen</code>），并且异步加载数据（<code>loadUIDataAsynchronously</code>）。等到数据加载完成，再一次使用<code>next</code>方法，则会隐藏<code>Loading</code>界面。可以看到，这种写法的好处是所有<code>Loading</code>界面的逻辑，都被封装在一个函数，按部就班非常清晰。</p><p>Ajax 是典型的异步操作，通过 Generator 函数部署 Ajax 操作，可以用同步的方式表达。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">main</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">var</span> result = <span class="hljs-keyword">yield</span> request(<span class="hljs-string">"http://some.url"</span>);
+  <span class="hljs-keyword">var</span> result = <span class="hljs-keyword">yield</span> request(<span class="hljs-string">&quot;http://some.url&quot;</span>);
   <span class="hljs-keyword">var</span> resp = <span class="hljs-built_in">JSON</span>.parse(result);
     <span class="hljs-built_in">console</span>.log(resp.value);
 }
@@ -812,7 +812,7 @@ loader.next()
 <span class="hljs-keyword">var</span> it = main();
 it.next();
 </code></pre><p>上面代码的<code>main</code>函数，就是通过 Ajax 操作获取数据。可以看到，除了多了一个<code>yield</code>，它几乎与同步操作的写法完全一样。注意，<code>makeAjaxCall</code>函数中的<code>next</code>方法，必须加上<code>response</code>参数，因为<code>yield</code>表达式，本身是没有值的，总是等于<code>undefined</code>。</p><p>下面是另一个例子，通过 Generator 函数逐行读取文本文件。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">numbers</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">let</span> file = <span class="hljs-keyword">new</span> FileReader(<span class="hljs-string">"numbers.txt"</span>);
+  <span class="hljs-keyword">let</span> file = <span class="hljs-keyword">new</span> FileReader(<span class="hljs-string">&quot;numbers.txt&quot;</span>);
   <span class="hljs-keyword">try</span> {
     <span class="hljs-keyword">while</span>(!file.eof) {
       <span class="hljs-keyword">yield</span> <span class="hljs-built_in">parseInt</span>(file.readLine(), <span class="hljs-number">10</span>);
@@ -912,24 +912,24 @@ it.next();
   }
 }
 
-<span class="hljs-keyword">var</span> gen = makeSimpleGenerator([<span class="hljs-string">'yo'</span>, <span class="hljs-string">'ya'</span>]);
+<span class="hljs-keyword">var</span> gen = makeSimpleGenerator([<span class="hljs-string">&#x27;yo&#x27;</span>, <span class="hljs-string">&#x27;ya&#x27;</span>]);
 
-gen.next().value <span class="hljs-comment">// 'yo'</span>
-gen.next().value <span class="hljs-comment">// 'ya'</span>
+gen.next().value <span class="hljs-comment">// &#x27;yo&#x27;</span>
+gen.next().value <span class="hljs-comment">// &#x27;ya&#x27;</span>
 gen.next().done  <span class="hljs-comment">// true</span>
 </code></pre><h3 id="（4）作为数据结构">（4）作为数据结构 <a class="markdownIt-Anchor" href="#（4）作为数据结构">#</a></h3><p>Generator 可以看作是数据结构，更确切地说，可以看作是一个数组结构，因为 Generator 函数可以返回一系列的值，这意味着它可以对任意表达式，提供类似数组的接口。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">doStuff</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">yield</span> fs.readFile.bind(<span class="hljs-literal">null</span>, <span class="hljs-string">'hello.txt'</span>);
-  <span class="hljs-keyword">yield</span> fs.readFile.bind(<span class="hljs-literal">null</span>, <span class="hljs-string">'world.txt'</span>);
-  <span class="hljs-keyword">yield</span> fs.readFile.bind(<span class="hljs-literal">null</span>, <span class="hljs-string">'and-such.txt'</span>);
+  <span class="hljs-keyword">yield</span> fs.readFile.bind(<span class="hljs-literal">null</span>, <span class="hljs-string">&#x27;hello.txt&#x27;</span>);
+  <span class="hljs-keyword">yield</span> fs.readFile.bind(<span class="hljs-literal">null</span>, <span class="hljs-string">&#x27;world.txt&#x27;</span>);
+  <span class="hljs-keyword">yield</span> fs.readFile.bind(<span class="hljs-literal">null</span>, <span class="hljs-string">&#x27;and-such.txt&#x27;</span>);
 }
 </code></pre><p>上面代码就是依次返回三个函数，但是由于使用了 Generator 函数，导致可以像处理数组那样，处理这三个返回的函数。</p><pre class="hljs"><code><span class="hljs-keyword">for</span> (task <span class="hljs-keyword">of</span> doStuff()) {
   <span class="hljs-comment">// task是一个函数，可以像回调函数那样使用它</span>
 }
 </code></pre><p>实际上，如果用 ES5 表达，完全可以用数组模拟 Generator 的这种用法。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">doStuff</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">return</span> [
-    fs.readFile.bind(<span class="hljs-literal">null</span>, <span class="hljs-string">'hello.txt'</span>),
-    fs.readFile.bind(<span class="hljs-literal">null</span>, <span class="hljs-string">'world.txt'</span>),
-    fs.readFile.bind(<span class="hljs-literal">null</span>, <span class="hljs-string">'and-such.txt'</span>)
+    fs.readFile.bind(<span class="hljs-literal">null</span>, <span class="hljs-string">&#x27;hello.txt&#x27;</span>),
+    fs.readFile.bind(<span class="hljs-literal">null</span>, <span class="hljs-string">&#x27;world.txt&#x27;</span>),
+    fs.readFile.bind(<span class="hljs-literal">null</span>, <span class="hljs-string">&#x27;and-such.txt&#x27;</span>)
   ];
 }
 </code></pre><p>上面的函数，可以用一模一样的<code>for...of</code>循环处理！两相一比较，就不难看出 Generator 使得数据或者操作，具备了类似数组的接口。</p></article><nav class="level level-previous-next is-size-5 is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="iterator.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> Iterator 和 for...of 循环</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="generator-async.html">Generator 函数的异步应用 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><div class="page-info is-size-5-desktop"><p>本教程采用<a href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh" target="_blank">知识共享 署名-相同方式共享 3.0协议</a>。</p><p>分享本文 <span class="social-share"></span></p></div></div><div class="column is-3 is-offset-1"><nav class="panel panel-menu"><p class="panel-heading"><i class="fa fa-book" aria-hidden="true"></i> ES6 教程</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="intro.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">ECMAScript 6 简介</span></a></li><li><a href="let.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">let 和 const 命令</span></a></li><li><a href="destructuring.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">变量的解构赋值</span></a></li><li><a href="string.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">字符串的扩展</span></a></li><li><a href="string-methods.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">字符串的新增方法</span></a></li><li><a href="regex.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">正则的扩展</span></a></li><li><a href="number.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数值的扩展</span></a></li><li><a href="function.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">函数的扩展</span></a></li><li><a href="array.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数组的扩展</span></a></li><li><a href="object.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">对象的扩展</span></a></li><li><a href="object-methods.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">对象的新增方法</span></a></li><li><a href="symbol.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Symbol</span></a></li><li><a href="set-map.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Set 和 Map 数据结构</span></a></li><li><a href="proxy.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Proxy</span></a></li><li><a href="reflect.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Reflect</span></a></li><li><a href="promise.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Promise 对象</span></a></li><li><a href="iterator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Iterator 和 for...of 循环</span></a></li><li><a href="generator.html" class="is-active"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Generator 函数的语法</span></a></li><li><a href="generator-async.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Generator 函数的异步应用</span></a></li><li><a href="async.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">async 函数</span></a></li><li><a href="class.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Class 的基本语法</span></a></li><li><a href="class-extends.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Class 的继承</span></a></li><li><a href="module.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Module 的语法</span></a></li><li><a href="module-loader.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Module 的加载实现</span></a></li><li><a href="style.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">编程风格</span></a></li><li><a href="spec.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">读懂规格</span></a></li><li><a href="async-iterator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">异步遍历器</span></a></li><li><a href="arraybuffer.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">ArrayBuffer</span></a></li><li><a href="proposals.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">最新提案</span></a></li><li><a href="decorator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Decorator</span></a></li><li><a href="reference.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">参考链接</span></a></li></ul></aside></div></nav><nav class="panel panel-info"><p class="panel-heading"><i class="fa fa-link" aria-hidden="true"></i> 链接</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="https://raw.githubusercontent.com/wangdoc/es6-tutorial/master/docs/generator.md" target="_blank"><span class="icon"></span><i class="fa fa-code" aria-hidden="true" style="width: 14px;"></i>&nbsp;本文源码</a></li><li><a href="https://github.com/wangdoc/es6-tutorial" target="_blank"><span class="icon"></span><i class="fa fa-hdd-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;代码仓库</a></li><li><a href="https://github.com/wangdoc/es6-tutorial/issues" target="_blank"><span class="icon"></span><i class="fa fa-flag-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;反馈</a></li></ul></aside></div></nav></div></div><div class="columns"><div class="column is-8"><div id="disqus_thread"></div></div></div></div></section><footer class="footer is-size-5-desktop"><div class="container"><div class="content has-text-centered"><p>联系：contact@wangdoc.com</p></div></div></footer><script>var LOPPO={current_path:"generator.md",relative_root_path:"",article_toc:'<ul class="markdownIt-TOC">\n<li><a href="#%E7%AE%80%E4%BB%8B">简介</a>\n<ul>\n<li><a href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5">基本概念</a></li>\n<li><a href="#yield-%E8%A1%A8%E8%BE%BE%E5%BC%8F">yield 表达式</a></li>\n<li><a href="#%E4%B8%8E-iterator-%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%85%B3%E7%B3%BB">与 Iterator 接口的关系</a></li>\n</ul>\n</li>\n<li><a href="#next-%E6%96%B9%E6%B3%95%E7%9A%84%E5%8F%82%E6%95%B0">next 方法的参数</a></li>\n<li><a href="#forof-%E5%BE%AA%E7%8E%AF">for...of 循环</a></li>\n<li><a href="#generatorprototypethrow">Generator.prototype.throw()</a></li>\n<li><a href="#generatorprototypereturn">Generator.prototype.return()</a></li>\n<li><a href="#next%E3%80%81throw%E3%80%81return-%E7%9A%84%E5%85%B1%E5%90%8C%E7%82%B9">next()、throw()、return() 的共同点</a></li>\n<li><a href="#yield-%E8%A1%A8%E8%BE%BE%E5%BC%8F-1">yield* 表达式</a></li>\n<li><a href="#%E4%BD%9C%E4%B8%BA%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7%E7%9A%84-generator-%E5%87%BD%E6%95%B0">作为对象属性的 Generator 函数</a></li>\n<li><a href="#generator-%E5%87%BD%E6%95%B0%E7%9A%84this">Generator 函数的<code>this</code></a></li>\n<li><a href="#%E5%90%AB%E4%B9%89">含义</a>\n<ul>\n<li><a href="#generator-%E4%B8%8E%E7%8A%B6%E6%80%81%E6%9C%BA">Generator 与状态机</a></li>\n<li><a href="#generator-%E4%B8%8E%E5%8D%8F%E7%A8%8B">Generator 与协程</a></li>\n<li><a href="#generator-%E4%B8%8E%E4%B8%8A%E4%B8%8B%E6%96%87">Generator 与上下文</a></li>\n</ul>\n</li>\n<li><a href="#%E5%BA%94%E7%94%A8">应用</a>\n<ul>\n<li><a href="#%EF%BC%881%EF%BC%89%E5%BC%82%E6%AD%A5%E6%93%8D%E4%BD%9C%E7%9A%84%E5%90%8C%E6%AD%A5%E5%8C%96%E8%A1%A8%E8%BE%BE">（1）异步操作的同步化表达</a></li>\n<li><a href="#%EF%BC%882%EF%BC%89%E6%8E%A7%E5%88%B6%E6%B5%81%E7%AE%A1%E7%90%86">（2）控制流管理</a></li>\n<li><a href="#%EF%BC%883%EF%BC%89%E9%83%A8%E7%BD%B2-iterator-%E6%8E%A5%E5%8F%A3">（3）部署 Iterator 接口</a></li>\n<li><a href="#%EF%BC%884%EF%BC%89%E4%BD%9C%E4%B8%BA%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">（4）作为数据结构</a></li>\n</ul>\n</li>\n</ul>\n'}</script><script src="assets/js/app.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-111269443-1"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","UA-111269443-1")</script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?5eec262881855af3dede6a71234571f6";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><script>/**
