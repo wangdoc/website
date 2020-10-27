@@ -24,7 +24,7 @@ a.x <span class="hljs-comment">// 1</span>
 <span class="hljs-comment">// 等同于</span>
 <span class="hljs-keyword">var</span> f = <span class="hljs-built_in">Object</span>.setPrototypeOf({}, F.prototype);
 F.call(f);
-</code></pre><p>上面代码中，<code>new</code>命令新建实例对象，其实可以分成两步。第一步，将一个空对象的原型设为构造函数的<code>prototype</code>属性（上例是<code>F.prototype</code>）；第二步，将构造函数内部的<code>this</code>绑定这个空对象，然后执行构造函数，使得定义在<code>this</code>上面的方法和属性（上例是<code>this.foo</code>），都转移到这个空对象上。</p><h2 id="objectcreate">Object.create() <a class="markdownIt-Anchor" href="#objectcreate">#</a></h2><p>生成实例对象的常用方法是，使用<code>new</code>命令让构造函数返回一个实例。但是很多时候，只能拿到一个实例对象，它可能根本不是由构建函数生成的，那么能不能从一个实例对象，生成另一个实例对象呢？</p><p>JavaScript 提供了<code>Object.create</code>方法，用来满足这种需求。该方法接受一个对象作为参数，然后以它为原型，返回一个实例对象。该实例完全继承原型对象的属性。</p><pre class="hljs"><code><span class="hljs-comment">// 原型对象</span>
+</code></pre><p>上面代码中，<code>new</code>命令新建实例对象，其实可以分成两步。第一步，将一个空对象的原型设为构造函数的<code>prototype</code>属性（上例是<code>F.prototype</code>）；第二步，将构造函数内部的<code>this</code>绑定这个空对象，然后执行构造函数，使得定义在<code>this</code>上面的方法和属性（上例是<code>this.foo</code>），都转移到这个空对象上。</p><h2 id="objectcreate">Object.create() <a class="markdownIt-Anchor" href="#objectcreate">#</a></h2><p>生成实例对象的常用方法是，使用<code>new</code>命令让构造函数返回一个实例。但是很多时候，只能拿到一个实例对象，它可能根本不是由构建函数生成的，那么能不能从一个实例对象，生成另一个实例对象呢？</p><p>JavaScript 提供了<code>Object.create()</code>方法，用来满足这种需求。该方法接受一个对象作为参数，然后以它为原型，返回一个实例对象。该实例完全继承原型对象的属性。</p><pre class="hljs"><code><span class="hljs-comment">// 原型对象</span>
 <span class="hljs-keyword">var</span> A = {
   <span class="hljs-attr">print</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;hello&#x27;</span>);
@@ -37,30 +37,30 @@ F.call(f);
 <span class="hljs-built_in">Object</span>.getPrototypeOf(B) === A <span class="hljs-comment">// true</span>
 B.print() <span class="hljs-comment">// hello</span>
 B.print === A.print <span class="hljs-comment">// true</span>
-</code></pre><p>上面代码中，<code>Object.create</code>方法以<code>A</code>对象为原型，生成了<code>B</code>对象。<code>B</code>继承了<code>A</code>的所有属性和方法。</p><p>实际上，<code>Object.create</code>方法可以用下面的代码代替。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Object</span>.create !== <span class="hljs-string">&#x27;function&#x27;</span>) {
+</code></pre><p>上面代码中，<code>Object.create()</code>方法以<code>A</code>对象为原型，生成了<code>B</code>对象。<code>B</code>继承了<code>A</code>的所有属性和方法。</p><p>实际上，<code>Object.create()</code>方法可以用下面的代码代替。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Object</span>.create !== <span class="hljs-string">&#x27;function&#x27;</span>) {
   <span class="hljs-built_in">Object</span>.create = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">obj</span>) </span>{
     <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">F</span>(<span class="hljs-params"></span>) </span>{}
     F.prototype = obj;
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> F();
   };
 }
-</code></pre><p>上面代码表明，<code>Object.create</code>方法的实质是新建一个空的构造函数<code>F</code>，然后让<code>F.prototype</code>属性指向参数对象<code>obj</code>，最后返回一个<code>F</code>的实例，从而实现让该实例继承<code>obj</code>的属性。</p><p>下面三种方式生成的新对象是等价的。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj1 = <span class="hljs-built_in">Object</span>.create({});
+</code></pre><p>上面代码表明，<code>Object.create()</code>方法的实质是新建一个空的构造函数<code>F</code>，然后让<code>F.prototype</code>属性指向参数对象<code>obj</code>，最后返回一个<code>F</code>的实例，从而实现让该实例继承<code>obj</code>的属性。</p><p>下面三种方式生成的新对象是等价的。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj1 = <span class="hljs-built_in">Object</span>.create({});
 <span class="hljs-keyword">var</span> obj2 = <span class="hljs-built_in">Object</span>.create(<span class="hljs-built_in">Object</span>.prototype);
 <span class="hljs-keyword">var</span> obj3 = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Object</span>();
-</code></pre><p>如果想要生成一个不继承任何属性（比如没有<code>toString</code>和<code>valueOf</code>方法）的对象，可以将<code>Object.create</code>的参数设为<code>null</code>。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = <span class="hljs-built_in">Object</span>.create(<span class="hljs-literal">null</span>);
+</code></pre><p>如果想要生成一个不继承任何属性（比如没有<code>toString()</code>和<code>valueOf()</code>方法）的对象，可以将<code>Object.create()</code>的参数设为<code>null</code>。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = <span class="hljs-built_in">Object</span>.create(<span class="hljs-literal">null</span>);
 
 obj.valueOf()
 <span class="hljs-comment">// TypeError: Object [object Object] has no method &#x27;valueOf&#x27;</span>
-</code></pre><p>上面代码中，对象<code>obj</code>的原型是<code>null</code>，它就不具备一些定义在<code>Object.prototype</code>对象上面的属性，比如<code>valueOf</code>方法。</p><p>使用<code>Object.create</code>方法的时候，必须提供对象原型，即参数不能为空，或者不是对象，否则会报错。</p><pre class="hljs"><code><span class="hljs-built_in">Object</span>.create()
+</code></pre><p>上面代码中，对象<code>obj</code>的原型是<code>null</code>，它就不具备一些定义在<code>Object.prototype</code>对象上面的属性，比如<code>valueOf()</code>方法。</p><p>使用<code>Object.create()</code>方法的时候，必须提供对象原型，即参数不能为空，或者不是对象，否则会报错。</p><pre class="hljs"><code><span class="hljs-built_in">Object</span>.create()
 <span class="hljs-comment">// TypeError: Object prototype may only be an Object or null</span>
 <span class="hljs-built_in">Object</span>.create(<span class="hljs-number">123</span>)
 <span class="hljs-comment">// TypeError: Object prototype may only be an Object or null</span>
-</code></pre><p><code>Object.create</code>方法生成的新对象，动态继承了原型。在原型上添加或修改任何方法，会立刻反映在新对象之上。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj1 = { <span class="hljs-attr">p</span>: <span class="hljs-number">1</span> };
+</code></pre><p><code>Object.create()</code>方法生成的新对象，动态继承了原型。在原型上添加或修改任何方法，会立刻反映在新对象之上。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj1 = { <span class="hljs-attr">p</span>: <span class="hljs-number">1</span> };
 <span class="hljs-keyword">var</span> obj2 = <span class="hljs-built_in">Object</span>.create(obj1);
 
 obj1.p = <span class="hljs-number">2</span>;
 obj2.p <span class="hljs-comment">// 2</span>
-</code></pre><p>上面代码中，修改对象原型<code>obj1</code>会影响到实例对象<code>obj2</code>。</p><p>除了对象的原型，<code>Object.create</code>方法还可以接受第二个参数。该参数是一个属性描述对象，它所描述的对象属性，会添加到实例对象，作为该对象自身的属性。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = <span class="hljs-built_in">Object</span>.create({}, {
+</code></pre><p>上面代码中，修改对象原型<code>obj1</code>会影响到实例对象<code>obj2</code>。</p><p>除了对象的原型，<code>Object.create()</code>方法还可以接受第二个参数。该参数是一个属性描述对象，它所描述的对象属性，会添加到实例对象，作为该对象自身的属性。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = <span class="hljs-built_in">Object</span>.create({}, {
   <span class="hljs-attr">p1</span>: {
     <span class="hljs-attr">value</span>: <span class="hljs-number">123</span>,
     <span class="hljs-attr">enumerable</span>: <span class="hljs-literal">true</span>,
@@ -79,7 +79,7 @@ obj2.p <span class="hljs-comment">// 2</span>
 <span class="hljs-keyword">var</span> obj = <span class="hljs-built_in">Object</span>.create({});
 obj.p1 = <span class="hljs-number">123</span>;
 obj.p2 = <span class="hljs-string">&#x27;abc&#x27;</span>;
-</code></pre><p><code>Object.create</code>方法生成的对象，继承了它的原型对象的构造函数。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">A</span>(<span class="hljs-params"></span>) </span>{}
+</code></pre><p><code>Object.create()</code>方法生成的对象，继承了它的原型对象的构造函数。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">A</span>(<span class="hljs-params"></span>) </span>{}
 <span class="hljs-keyword">var</span> a = <span class="hljs-keyword">new</span> A();
 <span class="hljs-keyword">var</span> b = <span class="hljs-built_in">Object</span>.create(a);
 
