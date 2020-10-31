@@ -418,7 +418,7 @@ Foo.prop = <span class="hljs-number">1</span>;
 
   <span class="hljs-comment">// ...</span>
 }
-</code></pre><p>上面代码中，<code>_bar</code>方法前面的下划线，表示这是一个只限于内部使用的私有方法。但是，这种命名是不保险的，在类的外部，还是可以调用到这个方法。</p><p>另一种方法就是索性将私有方法移出模块，因为模块内部的所有方法都是对外可见的。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Widget</span> </span>{
+</code></pre><p>上面代码中，<code>_bar()</code>方法前面的下划线，表示这是一个只限于内部使用的私有方法。但是，这种命名是不保险的，在类的外部，还是可以调用到这个方法。</p><p>另一种方法就是索性将私有方法移出类，因为类内部的所有方法都是对外可见的。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Widget</span> </span>{
   foo (baz) {
     bar.call(<span class="hljs-built_in">this</span>, baz);
   }
@@ -429,7 +429,7 @@ Foo.prop = <span class="hljs-number">1</span>;
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bar</span>(<span class="hljs-params">baz</span>) </span>{
   <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.snaf = baz;
 }
-</code></pre><p>上面代码中，<code>foo</code>是公开方法，内部调用了<code>bar.call(this, baz)</code>。这使得<code>bar</code>实际上成为了当前模块的私有方法。</p><p>还有一种方法是利用<code>Symbol</code>值的唯一性，将私有方法的名字命名为一个<code>Symbol</code>值。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> bar = <span class="hljs-built_in">Symbol</span>(<span class="hljs-string">&#x27;bar&#x27;</span>);
+</code></pre><p>上面代码中，<code>foo</code>是公开方法，内部调用了<code>bar.call(this, baz)</code>。这使得<code>bar()</code>实际上成为了当前类的私有方法。</p><p>还有一种方法是利用<code>Symbol</code>值的唯一性，将私有方法的名字命名为一个<code>Symbol</code>值。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> bar = <span class="hljs-built_in">Symbol</span>(<span class="hljs-string">&#x27;bar&#x27;</span>);
 <span class="hljs-keyword">const</span> snaf = <span class="hljs-built_in">Symbol</span>(<span class="hljs-string">&#x27;snaf&#x27;</span>);
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">myClass</span></span>{

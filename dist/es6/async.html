@@ -434,7 +434,7 @@ main();
 <span class="hljs-keyword">export</span> { output };
 </code></pre><p>上面代码中，模块<code>awaiting.js</code>的输出值<code>output</code>，取决于异步操作。我们把异步操作包装在一个 async 函数里面，然后调用这个函数，只有等里面的异步操作都执行，变量<code>output</code>才会有值，否则就返回<code>undefined</code>。</p><p>上面的代码也可以写成立即执行函数的形式。</p><pre class="hljs"><code><span class="hljs-comment">// awaiting.js</span>
 <span class="hljs-keyword">let</span> output;
-(<span class="hljs-keyword">async</span> function1 main() {
+(<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">main</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> dynamic = <span class="hljs-keyword">await</span> <span class="hljs-keyword">import</span>(someMission);
   <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> fetch(url);
   output = someProcess(dynamic.default, data);

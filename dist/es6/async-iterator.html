@@ -42,9 +42,9 @@ it.next().value <span class="hljs-comment">// 2</span>
 
 <span class="hljs-keyword">const</span> it = idMaker();
 
+it.next().value.then(<span class="hljs-function"><span class="hljs-params">o</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(o)) <span class="hljs-comment">// 0</span>
 it.next().value.then(<span class="hljs-function"><span class="hljs-params">o</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(o)) <span class="hljs-comment">// 1</span>
 it.next().value.then(<span class="hljs-function"><span class="hljs-params">o</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(o)) <span class="hljs-comment">// 2</span>
-it.next().value.then(<span class="hljs-function"><span class="hljs-params">o</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(o)) <span class="hljs-comment">// 3</span>
 <span class="hljs-comment">// ...</span>
 </code></pre><p>上面代码中，<code>value</code>属性的返回值是一个 Promise 对象，用来放置异步操作。但是这样写很麻烦，不太符合直觉，语义也比较绕。</p><p>ES2018 <a href="https://github.com/tc39/proposal-async-iteration" target="_blank" rel="noopener">引入</a>了“异步遍历器”（Async Iterator），为异步操作提供原生的遍历器接口，即<code>value</code>和<code>done</code>这两个属性都是异步产生。</p><h2 id="异步遍历的接口">异步遍历的接口 <a class="markdownIt-Anchor" href="#异步遍历的接口">#</a></h2><p>异步遍历器的最大的语法特点，就是调用遍历器的<code>next</code>方法，返回的是一个 Promise 对象。</p><pre class="hljs"><code>asyncIterator
   .next()
