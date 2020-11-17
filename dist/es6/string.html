@@ -258,11 +258,10 @@ tag<span class="hljs-string">`Hello <span class="hljs-subst">${ a + b }</span> w
   <span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>;
 
   <span class="hljs-keyword">while</span> (i &lt; literals.length) {
-    result += literals[i];
+    result += literals[i++];
     <span class="hljs-keyword">if</span> (i &lt; <span class="hljs-built_in">arguments</span>.length) {
       result += <span class="hljs-built_in">arguments</span>[i];
     }
-    i++;
   }
 
   <span class="hljs-keyword">return</span> result;
