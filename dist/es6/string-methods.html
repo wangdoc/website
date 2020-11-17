@@ -124,9 +124,32 @@ s.trimEnd() <span class="hljs-comment">// &quot;  abc&quot;</span>
 
 <span class="hljs-comment">// 报错</span>
 <span class="hljs-string">&#x27;aabbcc&#x27;</span>.replaceAll(<span class="hljs-regexp">/b/</span>, <span class="hljs-string">&#x27;_&#x27;</span>)
-</code></pre><p>上面例子中，<code>/b/</code>不带有<code>g</code>修饰符，会导致<code>replaceAll()</code>报错。</p><p><code>replaceAll()</code>的第二个参数<code>replacement</code>是一个字符串，表示替换的文本，其中可以使用一些特殊字符串。</p><ul><li><code>$&amp;</code>：匹配的子字符串。</li><li><code>`$`</code>：匹配结果前面的文本。</li><li><code>$'</code>：匹配结果后面的文本。</li><li><code>$n</code>：匹配成功的第<code>n</code>组内容，<code>n</code>是从1开始的自然数。</li><li><code>$$</code>：指代美元符号<code>$</code>。</li></ul><pre class="hljs"><code><span class="hljs-string">&#x27;abc&#x27;</span>.replaceAll(<span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;$$&#x27;</span>)
+</code></pre><p>上面例子中，<code>/b/</code>不带有<code>g</code>修饰符，会导致<code>replaceAll()</code>报错。</p><p><code>replaceAll()</code>的第二个参数<code>replacement</code>是一个字符串，表示替换的文本，其中可以使用一些特殊字符串。</p><ul><li><code>$&amp;</code>：匹配的子字符串。</li><li><code>$`</code>：匹配结果前面的文本。</li><li><code>$'</code>：匹配结果后面的文本。</li><li><code>$n</code>：匹配成功的第<code>n</code>组内容，<code>n</code>是从1开始的自然数。这个参数生效的前提是，第一个参数必须是正则表达式。</li><li><code>$$</code>：指代美元符号<code>$</code>。</li></ul><p>下面是一些例子。</p><pre class="hljs"><code><span class="hljs-comment">// $&amp; 表示匹配的字符串，即`b`本身</span>
+<span class="hljs-comment">// 所以返回结果与原字符串一致</span>
+<span class="hljs-string">&#x27;abbc&#x27;</span>.replaceAll(<span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;$&amp;&#x27;</span>)
+<span class="hljs-comment">// &#x27;abbc&#x27;</span>
+
+<span class="hljs-comment">// $` 表示匹配结果之前的字符串</span>
+<span class="hljs-comment">// 对于第一个`b`，$` 指代`a`</span>
+<span class="hljs-comment">// 对于第二个`b`，$` 指代`ab`</span>
+<span class="hljs-string">&#x27;abbc&#x27;</span>.replaceAll(<span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;$`&#x27;</span>)
+<span class="hljs-comment">// &#x27;aaabc&#x27;</span>
+
+<span class="hljs-comment">// $&#x27; 表示匹配结果之后的字符串</span>
+<span class="hljs-comment">// 对于第一个`b`，$&#x27; 指代`bc`</span>
+<span class="hljs-comment">// 对于第二个`b`，$&#x27; 指代`c`</span>
+<span class="hljs-string">&#x27;abbc&#x27;</span>.replaceAll(<span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">`$&#x27;`</span>)
+<span class="hljs-comment">// &#x27;abccc&#x27;</span>
+
+<span class="hljs-comment">// $1 表示正则表达式的第一个组匹配，指代`ab`</span>
+<span class="hljs-comment">// $2 表示正则表达式的第二个组匹配，指代`bc`</span>
+<span class="hljs-string">&#x27;abbc&#x27;</span>.replaceAll(<span class="hljs-regexp">/(ab)(bc)/g</span>, <span class="hljs-string">&#x27;$2$1&#x27;</span>)
+<span class="hljs-comment">// &#x27;bcab&#x27;</span>
+
+<span class="hljs-comment">// $$ 指代 $</span>
+<span class="hljs-string">&#x27;abc&#x27;</span>.replaceAll(<span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;$$&#x27;</span>)
 <span class="hljs-comment">// &#x27;a$c&#x27;</span>
-</code></pre><p>上面例子中，<code>$$</code>表示替换的文本是单个美元符号<code>$</code>。</p><p><code>replaceAll()</code>的第二个参数<code>replacement</code>除了为字符串，也可以是一个函数，该函数的返回值将替换掉第一个参数<code>searchValue</code>匹配的文本。</p><pre class="hljs"><code><span class="hljs-string">&#x27;aabbcc&#x27;</span>.replaceAll(<span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-string">&#x27;_&#x27;</span>)
+</code></pre><p><code>replaceAll()</code>的第二个参数<code>replacement</code>除了为字符串，也可以是一个函数，该函数的返回值将替换掉第一个参数<code>searchValue</code>匹配的文本。</p><pre class="hljs"><code><span class="hljs-string">&#x27;aabbcc&#x27;</span>.replaceAll(<span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-string">&#x27;_&#x27;</span>)
 <span class="hljs-comment">// &#x27;aa__cc&#x27;</span>
 </code></pre><p>上面例子中，<code>replaceAll()</code>的第二个参数是一个函数，该函数的返回值会替换掉所有<code>b</code>的匹配。</p><p>这个替换函数可以接受多个参数。第一个参数是捕捉到的匹配内容，第二个参数捕捉到是组匹配（有多少个组匹配，就有多少个对应的参数）。此外，最后还可以添加两个参数，倒数第二个参数是捕捉到的内容在整个字符串中的位置，最后一个参数是原字符串。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> str = <span class="hljs-string">&#x27;123abc456&#x27;</span>;
 <span class="hljs-keyword">const</span> regex = <span class="hljs-regexp">/(\d+)([a-z]+)(\d+)/g</span>;
