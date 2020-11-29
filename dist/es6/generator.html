@@ -406,7 +406,7 @@ log(g());
 <span class="hljs-comment">// 捕捉错误 { value: 1, done: false }</span>
 <span class="hljs-comment">// 第三次运行next方法 { value: undefined, done: true }</span>
 <span class="hljs-comment">// caller done</span>
-</code></pre><p>上面代码一共三次运行<code>next</code>方法，第二次运行的时候会抛出错误，然后第三次运行的时候，Generator 函数就已经结束了，不再执行下去了。</p><h2 id="generatorprototypereturn">Generator.prototype.return() <a class="markdownIt-Anchor" href="#generatorprototypereturn">#</a></h2><p>Generator 函数返回的遍历器对象，还有一个<code>return</code>方法，可以返回给定的值，并且终结遍历 Generator 函数。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">gen</span>(<span class="hljs-params"></span>) </span>{
+</code></pre><p>上面代码一共三次运行<code>next</code>方法，第二次运行的时候会抛出错误，然后第三次运行的时候，Generator 函数就已经结束了，不再执行下去了。</p><h2 id="generatorprototypereturn">Generator.prototype.return() <a class="markdownIt-Anchor" href="#generatorprototypereturn">#</a></h2><p>Generator 函数返回的遍历器对象，还有一个<code>return()</code>方法，可以返回给定的值，并且终结遍历 Generator 函数。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">gen</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">yield</span> <span class="hljs-number">1</span>;
   <span class="hljs-keyword">yield</span> <span class="hljs-number">2</span>;
   <span class="hljs-keyword">yield</span> <span class="hljs-number">3</span>;
@@ -417,7 +417,7 @@ log(g());
 g.next()        <span class="hljs-comment">// { value: 1, done: false }</span>
 g.return(<span class="hljs-string">&#x27;foo&#x27;</span>) <span class="hljs-comment">// { value: &quot;foo&quot;, done: true }</span>
 g.next()        <span class="hljs-comment">// { value: undefined, done: true }</span>
-</code></pre><p>上面代码中，遍历器对象<code>g</code>调用<code>return</code>方法后，返回值的<code>value</code>属性就是<code>return</code>方法的参数<code>foo</code>。并且，Generator 函数的遍历就终止了，返回值的<code>done</code>属性为<code>true</code>，以后再调用<code>next</code>方法，<code>done</code>属性总是返回<code>true</code>。</p><p>如果<code>return</code>方法调用时，不提供参数，则返回值的<code>value</code>属性为<code>undefined</code>。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">gen</span>(<span class="hljs-params"></span>) </span>{
+</code></pre><p>上面代码中，遍历器对象<code>g</code>调用<code>return()</code>方法后，返回值的<code>value</code>属性就是<code>return()</code>方法的参数<code>foo</code>。并且，Generator 函数的遍历就终止了，返回值的<code>done</code>属性为<code>true</code>，以后再调用<code>next()</code>方法，<code>done</code>属性总是返回<code>true</code>。</p><p>如果<code>return()</code>方法调用时，不提供参数，则返回值的<code>value</code>属性为<code>undefined</code>。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">gen</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">yield</span> <span class="hljs-number">1</span>;
   <span class="hljs-keyword">yield</span> <span class="hljs-number">2</span>;
   <span class="hljs-keyword">yield</span> <span class="hljs-number">3</span>;
@@ -427,7 +427,7 @@ g.next()        <span class="hljs-comment">// { value: undefined, done: true }</
 
 g.next()        <span class="hljs-comment">// { value: 1, done: false }</span>
 g.return() <span class="hljs-comment">// { value: undefined, done: true }</span>
-</code></pre><p>如果 Generator 函数内部有<code>try...finally</code>代码块，且正在执行<code>try</code>代码块，那么<code>return</code>方法会导致立刻进入<code>finally</code>代码块，执行完以后，整个函数才会结束。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">numbers</span> (<span class="hljs-params"></span>) </span>{
+</code></pre><p>如果 Generator 函数内部有<code>try...finally</code>代码块，且正在执行<code>try</code>代码块，那么<code>return()</code>方法会导致立刻进入<code>finally</code>代码块，执行完以后，整个函数才会结束。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">numbers</span> (<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">yield</span> <span class="hljs-number">1</span>;
   <span class="hljs-keyword">try</span> {
     <span class="hljs-keyword">yield</span> <span class="hljs-number">2</span>;
