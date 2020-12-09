@@ -55,8 +55,8 @@ droptarget.ondrop = <span class="hljs-function"><span class="hljs-keyword">funct
   }
 }
 </code></pre><p>上面代码通过为拖放的图片文件生成一个 URL，产生它们的缩略图，从而使得用户可以预览选择的文件。</p><p>浏览器处理 Blob URL 就跟普通的 URL 一样，如果 Blob 对象不存在，返回404状态码；如果跨域请求，返回403状态码。Blob URL 只对 GET 请求有效，如果请求成功，返回200状态码。由于 Blob URL 就是普通 URL，因此可以下载。</p><h3 id="读取文件">读取文件 <a class="markdownIt-Anchor" href="#读取文件">#</a></h3><p>取得 Blob 对象以后，可以通过<code>FileReader</code>对象，读取 Blob 对象的内容，即文件内容。</p><p>FileReader 对象提供四个方法，处理 Blob 对象。Blob 对象作为参数传入这些方法，然后以指定的格式返回。</p><ul><li><code>FileReader.readAsText()</code>：返回文本，需要指定文本编码，默认为 UTF-8。</li><li><code>FileReader.readAsArrayBuffer()</code>：返回 ArrayBuffer 对象。</li><li><code>FileReader.readAsDataURL()</code>：返回 Data URL。</li><li><code>FileReader.readAsBinaryString()</code>：返回原始的二进制字符串。</li></ul><p>下面是<code>FileReader.readAsText()</code>方法的例子，用来读取文本文件。</p><pre class="hljs"><code><span class="hljs-comment">// HTML 代码如下</span>
-<span class="hljs-comment">// &lt;input type=’file&#x27; onchange=&#x27;readfile(this.files[0])&#x27;&gt;&lt;/input&gt;</span>
-<span class="hljs-comment">// &lt;pre id=&#x27;output&#x27;&gt;&lt;/pre&gt;</span>
+<span class="hljs-comment">// &lt;input type=&quot;file&quot; onchange=&quot;readfile(this.files[0])&quot;&gt;&lt;/input&gt;</span>
+<span class="hljs-comment">// &lt;pre id=&quot;output&quot;&gt;&lt;/pre&gt;</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">readfile</span>(<span class="hljs-params">f</span>) </span>{
   <span class="hljs-keyword">var</span> reader = <span class="hljs-keyword">new</span> FileReader();
   reader.readAsText(f);
