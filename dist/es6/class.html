@@ -18,7 +18,7 @@ Point.prototype.toString = <span class="hljs-function"><span class="hljs-keyword
     <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;(&#x27;</span> + <span class="hljs-built_in">this</span>.x + <span class="hljs-string">&#x27;, &#x27;</span> + <span class="hljs-built_in">this</span>.y + <span class="hljs-string">&#x27;)&#x27;</span>;
   }
 }
-</code></pre><p>上面代码定义了一个“类”，可以看到里面有一个<code>constructor</code>方法，这就是构造方法，而<code>this</code>关键字则代表实例对象。也就是说，ES5 的构造函数<code>Point</code>，对应 ES6 的<code>Point</code>类的构造方法。</p><p><code>Point</code>类除了构造方法，还定义了一个<code>toString</code>方法。注意，定义“类”的方法的时候，前面不需要加上<code>function</code>这个关键字，直接把函数定义放进去了就可以了。另外，方法之间不需要逗号分隔，加了会报错。</p><p>ES6 的类，完全可以看作构造函数的另一种写法。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span> </span>{
+</code></pre><p>上面代码定义了一个“类”，可以看到里面有一个<code>constructor()</code>方法，这就是构造方法，而<code>this</code>关键字则代表实例对象。这种新的 Class 写法，本质上与本章开头的 ES5 的构造函数<code>Point</code>是一致的。</p><p><code>Point</code>类除了构造方法，还定义了一个<code>toString()</code>方法。注意，定义<code>toString()</code>方法的时候，前面不需要加上<code>function</code>这个关键字，直接把函数定义放进去了就可以了。另外，方法与方法之间不需要逗号分隔，加了会报错。</p><p>ES6 的类，完全可以看作构造函数的另一种写法。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span> </span>{
   <span class="hljs-comment">// ...</span>
 }
 
@@ -30,7 +30,7 @@ Point === Point.prototype.constructor <span class="hljs-comment">// true</span>
   }
 }
 
-<span class="hljs-keyword">var</span> b = <span class="hljs-keyword">new</span> Bar();
+<span class="hljs-keyword">const</span> b = <span class="hljs-keyword">new</span> Bar();
 b.doStuff() <span class="hljs-comment">// &quot;stuff&quot;</span>
 </code></pre><p>构造函数的<code>prototype</code>属性，在 ES6 的“类”上面继续存在。事实上，类的所有方法都定义在类的<code>prototype</code>属性上面。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span> </span>{
   <span class="hljs-keyword">constructor</span>() {
@@ -53,11 +53,11 @@ Point.prototype = {
   toString() {},
   toValue() {},
 };
-</code></pre><p>在类的实例上面调用方法，其实就是调用原型上的方法。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">B</span> </span>{}
-<span class="hljs-keyword">let</span> b = <span class="hljs-keyword">new</span> B();
+</code></pre><p>上面代码中，<code>constructor()</code>、<code>toString()</code>、<code>toValue()</code>这三个方法，其实都是定义在<code>Point.prototype</code>上面。</p><p>因此，在类的实例上面调用方法，其实就是调用原型上的方法。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">B</span> </span>{}
+<span class="hljs-keyword">const</span> b = <span class="hljs-keyword">new</span> B();
 
 b.constructor === B.prototype.constructor <span class="hljs-comment">// true</span>
-</code></pre><p>上面代码中，<code>b</code>是<code>B</code>类的实例，它的<code>constructor</code>方法就是<code>B</code>类原型的<code>constructor</code>方法。</p><p>由于类的方法都定义在<code>prototype</code>对象上面，所以类的新方法可以添加在<code>prototype</code>对象上面。<code>Object.assign</code>方法可以很方便地一次向类添加多个方法。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span> </span>{
+</code></pre><p>上面代码中，<code>b</code>是<code>B</code>类的实例，它的<code>constructor()</code>方法就是<code>B</code>类原型的<code>constructor()</code>方法。</p><p>由于类的方法都定义在<code>prototype</code>对象上面，所以类的新方法可以添加在<code>prototype</code>对象上面。<code>Object.assign()</code>方法可以很方便地一次向类添加多个方法。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span> </span>{
   <span class="hljs-keyword">constructor</span>(){
     <span class="hljs-comment">// ...</span>
   }
@@ -67,7 +67,7 @@ b.constructor === B.prototype.constructor <span class="hljs-comment">// true</sp
   toString(){},
   toValue(){}
 });
-</code></pre><p><code>prototype</code>对象的<code>constructor</code>属性，直接指向“类”的本身，这与 ES5 的行为是一致的。</p><pre class="hljs"><code>Point.prototype.constructor === Point <span class="hljs-comment">// true</span>
+</code></pre><p><code>prototype</code>对象的<code>constructor()</code>属性，直接指向“类”的本身，这与 ES5 的行为是一致的。</p><pre class="hljs"><code>Point.prototype.constructor === Point <span class="hljs-comment">// true</span>
 </code></pre><p>另外，类的内部所有定义的方法，都是不可枚举的（non-enumerable）。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span> </span>{
   <span class="hljs-keyword">constructor</span>(x, y) {
     <span class="hljs-comment">// ...</span>
@@ -82,11 +82,11 @@ b.constructor === B.prototype.constructor <span class="hljs-comment">// true</sp
 <span class="hljs-comment">// []</span>
 <span class="hljs-built_in">Object</span>.getOwnPropertyNames(Point.prototype)
 <span class="hljs-comment">// [&quot;constructor&quot;,&quot;toString&quot;]</span>
-</code></pre><p>上面代码中，<code>toString</code>方法是<code>Point</code>类内部定义的方法，它是不可枚举的。这一点与 ES5 的行为不一致。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> Point = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">x, y</span>) </span>{
+</code></pre><p>上面代码中，<code>toString()</code>方法是<code>Point</code>类内部定义的方法，它是不可枚举的。这一点与 ES5 的行为不一致。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> Point = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">x, y</span>) </span>{
   <span class="hljs-comment">// ...</span>
 };
 
-Point.prototype.toString = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+Point.prototype.toString = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
   <span class="hljs-comment">// ...</span>
 };
 
@@ -94,14 +94,14 @@ Point.prototype.toString = <span class="hljs-function"><span class="hljs-keyword
 <span class="hljs-comment">// [&quot;toString&quot;]</span>
 <span class="hljs-built_in">Object</span>.getOwnPropertyNames(Point.prototype)
 <span class="hljs-comment">// [&quot;constructor&quot;,&quot;toString&quot;]</span>
-</code></pre><p>上面代码采用 ES5 的写法，<code>toString</code>方法就是可枚举的。</p><h3 id="constructor-方法">constructor 方法 <a class="markdownIt-Anchor" href="#constructor-方法">#</a></h3><p><code>constructor</code>方法是类的默认方法，通过<code>new</code>命令生成对象实例时，自动调用该方法。一个类必须有<code>constructor</code>方法，如果没有显式定义，一个空的<code>constructor</code>方法会被默认添加。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span> </span>{
+</code></pre><p>上面代码采用 ES5 的写法，<code>toString()</code>方法就是可枚举的。</p><h3 id="constructor-方法">constructor 方法 <a class="markdownIt-Anchor" href="#constructor-方法">#</a></h3><p><code>constructor()</code>方法是类的默认方法，通过<code>new</code>命令生成对象实例时，自动调用该方法。一个类必须有<code>constructor()</code>方法，如果没有显式定义，一个空的<code>constructor()</code>方法会被默认添加。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span> </span>{
 }
 
 <span class="hljs-comment">// 等同于</span>
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span> </span>{
   <span class="hljs-keyword">constructor</span>() {}
 }
-</code></pre><p>上面代码中，定义了一个空的类<code>Point</code>，JavaScript 引擎会自动为它添加一个空的<code>constructor</code>方法。</p><p><code>constructor</code>方法默认返回实例对象（即<code>this</code>），完全可以指定返回另外一个对象。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> </span>{
+</code></pre><p>上面代码中，定义了一个空的类<code>Point</code>，JavaScript 引擎会自动为它添加一个空的<code>constructor()</code>方法。</p><p><code>constructor()</code>方法默认返回实例对象（即<code>this</code>），完全可以指定返回另外一个对象。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> </span>{
   <span class="hljs-keyword">constructor</span>() {
     <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.create(<span class="hljs-literal">null</span>);
   }
@@ -109,7 +109,7 @@ Point.prototype.toString = <span class="hljs-function"><span class="hljs-keyword
 
 <span class="hljs-keyword">new</span> Foo() <span class="hljs-keyword">instanceof</span> Foo
 <span class="hljs-comment">// false</span>
-</code></pre><p>上面代码中，<code>constructor</code>函数返回一个全新的对象，结果导致实例对象不是<code>Foo</code>类的实例。</p><p>类必须使用<code>new</code>调用，否则会报错。这是它跟普通构造函数的一个主要区别，后者不用<code>new</code>也可以执行。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> </span>{
+</code></pre><p>上面代码中，<code>constructor()</code>函数返回一个全新的对象，结果导致实例对象不是<code>Foo</code>类的实例。</p><p>类必须使用<code>new</code>调用，否则会报错。这是它跟普通构造函数的一个主要区别，后者不用<code>new</code>也可以执行。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> </span>{
   <span class="hljs-keyword">constructor</span>() {
     <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.create(<span class="hljs-literal">null</span>);
   }
@@ -148,7 +148,7 @@ point.hasOwnProperty(<span class="hljs-string">&#x27;x&#x27;</span>) <span class
 point.hasOwnProperty(<span class="hljs-string">&#x27;y&#x27;</span>) <span class="hljs-comment">// true</span>
 point.hasOwnProperty(<span class="hljs-string">&#x27;toString&#x27;</span>) <span class="hljs-comment">// false</span>
 point.__proto__.hasOwnProperty(<span class="hljs-string">&#x27;toString&#x27;</span>) <span class="hljs-comment">// true</span>
-</code></pre><p>上面代码中，<code>x</code>和<code>y</code>都是实例对象<code>point</code>自身的属性（因为定义在<code>this</code>变量上），所以<code>hasOwnProperty</code>方法返回<code>true</code>，而<code>toString</code>是原型对象的属性（因为定义在<code>Point</code>类上），所以<code>hasOwnProperty</code>方法返回<code>false</code>。这些都与 ES5 的行为保持一致。</p><p>与 ES5 一样，类的所有实例共享一个原型对象。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> p1 = <span class="hljs-keyword">new</span> Point(<span class="hljs-number">2</span>,<span class="hljs-number">3</span>);
+</code></pre><p>上面代码中，<code>x</code>和<code>y</code>都是实例对象<code>point</code>自身的属性（因为定义在<code>this</code>变量上），所以<code>hasOwnProperty()</code>方法返回<code>true</code>，而<code>toString()</code>是原型对象的属性（因为定义在<code>Point</code>类上），所以<code>hasOwnProperty()</code>方法返回<code>false</code>。这些都与 ES5 的行为保持一致。</p><p>与 ES5 一样，类的所有实例共享一个原型对象。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> p1 = <span class="hljs-keyword">new</span> Point(<span class="hljs-number">2</span>,<span class="hljs-number">3</span>);
 <span class="hljs-keyword">var</span> p2 = <span class="hljs-keyword">new</span> Point(<span class="hljs-number">3</span>,<span class="hljs-number">2</span>);
 
 p1.__proto__ === p2.__proto__
@@ -163,7 +163,7 @@ p2.printName() <span class="hljs-comment">// &quot;Oops&quot;</span>
 
 <span class="hljs-keyword">var</span> p3 = <span class="hljs-keyword">new</span> Point(<span class="hljs-number">4</span>,<span class="hljs-number">2</span>);
 p3.printName() <span class="hljs-comment">// &quot;Oops&quot;</span>
-</code></pre><p>上面代码在<code>p1</code>的原型上添加了一个<code>printName</code>方法，由于<code>p1</code>的原型就是<code>p2</code>的原型，因此<code>p2</code>也可以调用这个方法。而且，此后新建的实例<code>p3</code>也可以调用这个方法。这意味着，使用实例的<code>__proto__</code>属性改写原型，必须相当谨慎，不推荐使用，因为这会改变“类”的原始定义，影响到所有实例。</p><h3 id="取值函数（getter）和存值函数（setter）">取值函数（getter）和存值函数（setter） <a class="markdownIt-Anchor" href="#取值函数（getter）和存值函数（setter）">#</a></h3><p>与 ES5 一样，在“类”的内部可以使用<code>get</code>和<code>set</code>关键字，对某个属性设置存值函数和取值函数，拦截该属性的存取行为。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{
+</code></pre><p>上面代码在<code>p1</code>的原型上添加了一个<code>printName()</code>方法，由于<code>p1</code>的原型就是<code>p2</code>的原型，因此<code>p2</code>也可以调用这个方法。而且，此后新建的实例<code>p3</code>也可以调用这个方法。这意味着，使用实例的<code>__proto__</code>属性改写原型，必须相当谨慎，不推荐使用，因为这会改变“类”的原始定义，影响到所有实例。</p><h3 id="取值函数（getter）和存值函数（setter）">取值函数（getter）和存值函数（setter） <a class="markdownIt-Anchor" href="#取值函数（getter）和存值函数（setter）">#</a></h3><p>与 ES5 一样，在“类”的内部可以使用<code>get</code>和<code>set</code>关键字，对某个属性设置存值函数和取值函数，拦截该属性的存取行为。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{
   <span class="hljs-keyword">constructor</span>() {
     <span class="hljs-comment">// ...</span>
   }
