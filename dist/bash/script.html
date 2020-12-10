@@ -85,7 +85,8 @@ $ ls -- <span class="hljs-variable">$myPath</span>
 </code></pre><p>上面例子中，<code>--</code>强制变量<code>$myPath</code>只能当作实体参数（即路径名）解释。</p><p>如果变量不是路径名，就会报错。</p><pre class="hljs"><code>$ myPath=<span class="hljs-string">&quot;-l&quot;</span>
 $ ls -- <span class="hljs-variable">$myPath</span>
 ls: 无法访问<span class="hljs-string">&#x27;-l&#x27;</span>: 没有那个文件或目录
-</code></pre><p>上面例子中，变量<code>myPath</code>的值为<code>-l</code>，不是路径。但是，<code>--</code>强制<code>$myPath</code>只能作为路径解释，导致报错“不存在该路径”。</p><h2 id="exit-命令">exit 命令 <a class="markdownIt-Anchor" href="#exit-命令">#</a></h2><p><code>exit</code>命令用于终止当前脚本的执行，并向 Shell 返回一个退出值。</p><pre class="hljs"><code>$ <span class="hljs-built_in">exit</span>
+</code></pre><p>上面例子中，变量<code>myPath</code>的值为<code>-l</code>，不是路径。但是，<code>--</code>强制<code>$myPath</code>只能作为路径解释，导致报错“不存在该路径”。</p><p>参数终止符的作用主要是，如果破折号开头的参数要用作实体参数，就需要用到它。</p><pre class="hljs"><code>$ grep -- <span class="hljs-string">&quot;--hello&quot;</span> example.txt
+</code></pre><p>上面命令在<code>example.txt</code>文件里面，搜索字符串<code>--hello</code>。这个字符串是破折号开头，如果不用参数终止符，<code>grep</code>命令就会把<code>--hello</code>当作配置项参数，从而报错。</p><h2 id="exit-命令">exit 命令 <a class="markdownIt-Anchor" href="#exit-命令">#</a></h2><p><code>exit</code>命令用于终止当前脚本的执行，并向 Shell 返回一个退出值。</p><pre class="hljs"><code>$ <span class="hljs-built_in">exit</span>
 </code></pre><p>上面命令中止当前脚本，将最后一条命令的退出状态，作为整个脚本的退出状态。</p><p><code>exit</code>命令后面可以跟参数，该参数就是退出状态。</p><pre class="hljs"><code><span class="hljs-comment"># 退出值为0（成功）</span>
 $ <span class="hljs-built_in">exit</span> 0
 
