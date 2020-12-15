@@ -103,9 +103,9 @@ root’s password:
 </code></pre><p><code>-v</code>可以重复多次，表示信息的详细程度，比如<code>-vv</code>和<code>-vvv</code>。</p><pre class="hljs"><code>$ ssh -vvv server.example.com
 <span class="hljs-comment"># 或者</span>
 $ ssh -v -v -v server.example.com
-</code></pre><p>上面命令会输出最详细的连接信息。</p><p><strong>-V</strong></p><p><code>-V</code>参数输出远程服务器的版本。</p><pre class="hljs"><code>$ ssh foo.com –V
+</code></pre><p>上面命令会输出最详细的连接信息。</p><p><strong>-V</strong></p><p><code>-V</code>参数输出 ssh 客户端的版本。</p><pre class="hljs"><code>$ ssh –V
 ssh: SSH Secure Shell 3.2.3 (non-commercial version) on i686-pc-linux-gnu
-</code></pre><p>上面命令输出<code>foo.com</code>的 SSH 服务器版本是<code>SSH Secure Shell 3.2.3</code>。</p><p><strong>-X</strong></p><p><code>-X</code>参数表示打开 X 窗口转发。</p><pre class="hljs"><code>$ ssh -X server.example.com
+</code></pre><p>上面命令输出本机 ssh 客户端版本是<code>SSH Secure Shell 3.2.3</code>。</p><p><strong>-X</strong></p><p><code>-X</code>参数表示打开 X 窗口转发。</p><pre class="hljs"><code>$ ssh -X server.example.com
 </code></pre><p><strong>-1，-2</strong></p><p><code>-1</code>参数指定使用 SSH 1 协议。</p><p><code>-2</code>参数指定使用 SSH 2 协议。</p><pre class="hljs"><code>$ ssh -2 server.example.com
 </code></pre><p><strong>-4，-6</strong></p><p><code>-4</code>指定使用 IPv4 协议，这是默认值。</p><pre class="hljs"><code>$ ssh -4 server.example.com
 </code></pre><p><code>-6</code>指定使用 IPv6 协议。</p><pre class="hljs"><code>$ ssh -6 server.example.com
