@@ -38,11 +38,11 @@ addEventListener(<span class="hljs-string">&#x27;message&#x27;</span>, <span cla
 }, <span class="hljs-literal">false</span>);
 </code></pre><p>上面代码中，<code>self.close()</code>用于在 Worker 内部关闭自身。</p><h3 id="worker-加载脚本">Worker 加载脚本 <a class="markdownIt-Anchor" href="#worker-加载脚本">#</a></h3><p>Worker 内部如果要加载其他脚本，有一个专门的方法<code>importScripts()</code>。</p><pre class="hljs"><code>importScripts(<span class="hljs-string">&#x27;script1.js&#x27;</span>);
 </code></pre><p>该方法可以同时加载多个脚本。</p><pre class="hljs"><code>importScripts(<span class="hljs-string">&#x27;script1.js&#x27;</span>, <span class="hljs-string">&#x27;script2.js&#x27;</span>);
-</code></pre><h3 id="错误处理">错误处理 <a class="markdownIt-Anchor" href="#错误处理">#</a></h3><p>主线程可以监听 Worker 是否发生错误。如果发生错误，Worker 会触发主线程的<code>error</code>事件。</p><pre class="hljs"><code>worker.onerror(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) </span>{
-  <span class="hljs-built_in">console</span>.log([
+</code></pre><h3 id="错误处理">错误处理 <a class="markdownIt-Anchor" href="#错误处理">#</a></h3><p>主线程可以监听 Worker 是否发生错误。如果发生错误，Worker 会触发主线程的<code>error</code>事件。</p><pre class="hljs"><code>worker.onerror = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(
     <span class="hljs-string">&#x27;ERROR: Line &#x27;</span>, event.lineno, <span class="hljs-string">&#x27; in &#x27;</span>, event.filename, <span class="hljs-string">&#x27;: &#x27;</span>, event.message
-  ].join(<span class="hljs-string">&#x27;&#x27;</span>));
-});
+  );
+};
 
 <span class="hljs-comment">// 或者</span>
 worker.addEventListener(<span class="hljs-string">&#x27;error&#x27;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) </span>{
