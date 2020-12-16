@@ -1,0 +1,302 @@
+<!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>条件判断 - Bash 脚本教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="条件判断"><link rel="apple-touch-icon" sizes="57x57" href="assets/icons/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="assets/icons/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="assets/icons/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="assets/icons/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="assets/icons/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="assets/icons/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="assets/icons/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="assets/icons/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png"><link rel="manifest" href="assets/icons/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="assets/icons/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/bash-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/bash-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8"><nav class="breadcrumb is-size-5-desktop" aria-label="breadcrumbs"><ul><li><a href="index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;Bash 脚本教程</a></li><li class="is-active"><a class="has-text-grey" href="condition.html">条件判断</a></li></ul></nav><nav class="level level-previous-next is-size-5 is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="read.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> read 命令</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="loop.html">循环 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content is-size-4-desktop"><h1 class="title">条件判断</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><p>本章介绍 Bash 脚本的条件判断语法。</p><h2 id="if-结构">if 结构 <a class="markdownIt-Anchor" href="#if-结构">#</a></h2><p><code>if</code>是最常用的条件判断结构，只有符合给定条件时，才会执行指定的命令。它的语法如下。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> commands; <span class="hljs-keyword">then</span>
+  commands
+[<span class="hljs-keyword">elif</span> commands; <span class="hljs-keyword">then</span>
+  commands...]
+[<span class="hljs-keyword">else</span>
+  commands]
+<span class="hljs-keyword">fi</span>
+</code></pre><p>这个命令分成三个部分：<code>if</code>、<code>elif</code>和<code>else</code>。其中，后两个部分是可选的。</p><p><code>if</code>关键字后面是主要的判断条件，<code>elif</code>用来添加在主条件不成立时的其他判断条件，<code>else</code>则是所有条件都不成立时要执行的部分。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> <span class="hljs-built_in">test</span> <span class="hljs-variable">$USER</span> = <span class="hljs-string">&quot;foo&quot;</span>; <span class="hljs-keyword">then</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Hello foo.&quot;</span>
+<span class="hljs-keyword">else</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;You are not foo.&quot;</span>
+<span class="hljs-keyword">fi</span>
+</code></pre><p>上面的例子中，判断条件是环境变量<code>$USER</code>是否等于<code>foo</code>，如果等于就输出<code>Hello foo.</code>，否则输出其他内容。</p><p><code>if</code>和<code>then</code>写在同一行时，需要分号分隔。分号是 Bash 的命令分隔符。它们也可以写成两行，这时不需要分号。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> <span class="hljs-literal">true</span>
+<span class="hljs-keyword">then</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;hello world&#x27;</span>
+<span class="hljs-keyword">fi</span>
+
+<span class="hljs-keyword">if</span> <span class="hljs-literal">false</span>
+<span class="hljs-keyword">then</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;it is false&#x27;</span> <span class="hljs-comment"># 本行不会执行</span>
+<span class="hljs-keyword">fi</span>
+</code></pre><p>上面的例子中，<code>true</code>和<code>false</code>是两个特殊命令，前者代表操作成功，后者代表操作失败。<code>if true</code>意味着命令部分总是会执行，<code>if false</code>意味着命令部分永远不会执行。</p><p>除了多行的写法，<code>if</code>结构也可以写成单行。</p><pre class="hljs"><code>$ <span class="hljs-keyword">if</span> <span class="hljs-literal">true</span>; <span class="hljs-keyword">then</span> <span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;hello world&#x27;</span>; <span class="hljs-keyword">fi</span>
+hello world
+
+$ <span class="hljs-keyword">if</span> <span class="hljs-literal">false</span>; <span class="hljs-keyword">then</span> <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;It&#x27;s true.&quot;</span>; <span class="hljs-keyword">fi</span>
+</code></pre><p>注意，<code>if</code>关键字后面也可以是一条命令，该条命令执行成功（返回值<code>0</code>），就意味着判断条件成立。</p><pre class="hljs"><code>$ <span class="hljs-keyword">if</span> <span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;hi&#x27;</span>; <span class="hljs-keyword">then</span> <span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;hello world&#x27;</span>; <span class="hljs-keyword">fi</span>
+hi
+hello world
+</code></pre><p>上面命令中，<code>if</code>后面是一条命令<code>echo 'hi'</code>。该命令会执行，如果返回值是<code>0</code>，则执行<code>then</code>的部分。</p><p><code>if</code>后面可以跟任意数量的命令。这时，所有命令都会执行，但是判断真伪只看最后一个命令，即使前面所有命令都失败，只要最后一个命令返回<code>0</code>，就会执行<code>then</code>的部分。</p><pre class="hljs"><code>$ <span class="hljs-keyword">if</span> <span class="hljs-literal">false</span>; <span class="hljs-literal">true</span>; <span class="hljs-keyword">then</span> <span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;hello world&#x27;</span>; <span class="hljs-keyword">fi</span>
+hello world
+</code></pre><p>上面例子中，<code>if</code>后面有两条命令（<code>false;true;</code>），第二条命令（<code>true</code>）决定了<code>then</code>的部分是否会执行。</p><p><code>elif</code>部分可以有多个。</p><pre class="hljs"><code><span class="hljs-meta">#!/bin/bash</span>
+
+<span class="hljs-built_in">echo</span> -n <span class="hljs-string">&quot;输入一个1到3之间的数字（包含两端）&gt; &quot;</span>
+<span class="hljs-built_in">read</span> character
+<span class="hljs-keyword">if</span> [ <span class="hljs-string">&quot;<span class="hljs-variable">$character</span>&quot;</span> = <span class="hljs-string">&quot;1&quot;</span> ]; <span class="hljs-keyword">then</span>
+    <span class="hljs-built_in">echo</span> 1
+<span class="hljs-keyword">elif</span> [ <span class="hljs-string">&quot;<span class="hljs-variable">$character</span>&quot;</span> = <span class="hljs-string">&quot;2&quot;</span> ]; <span class="hljs-keyword">then</span>
+    <span class="hljs-built_in">echo</span> 2
+<span class="hljs-keyword">elif</span> [ <span class="hljs-string">&quot;<span class="hljs-variable">$character</span>&quot;</span> = <span class="hljs-string">&quot;3&quot;</span> ]; <span class="hljs-keyword">then</span>
+    <span class="hljs-built_in">echo</span> 3
+<span class="hljs-keyword">else</span>
+    <span class="hljs-built_in">echo</span> 输入不符合要求
+<span class="hljs-keyword">fi</span>
+</code></pre><p>上面例子中，如果用户输入<code>3</code>，就会连续判断3次。</p><h2 id="test-命令">test 命令 <a class="markdownIt-Anchor" href="#test-命令">#</a></h2><p><code>if</code>结构的判断条件，一般使用<code>test</code>命令，有三种形式。</p><pre class="hljs"><code><span class="hljs-comment"># 写法一</span>
+<span class="hljs-built_in">test</span> expression
+
+<span class="hljs-comment"># 写法二</span>
+[ expression ]
+
+<span class="hljs-comment"># 写法三</span>
+[[ expression ]]
+</code></pre><p>上面三种形式是等价的，但是第三种形式还支持正则判断，前两种不支持。</p><p>上面的<code>expression</code>是一个表达式。这个表达式为真，<code>test</code>命令执行成功（返回值为<code>0</code>）；表达式为伪，<code>test</code>命令执行失败（返回值为<code>1</code>）。注意，第二种和第三种写法，<code>[</code>和<code>]</code>与内部的表达式之间必须有空格。</p><pre class="hljs"><code>$ <span class="hljs-built_in">test</span> -f /etc/hosts
+$ <span class="hljs-built_in">echo</span> $?
+0
+
+$ [ -f /etc/hosts ]
+$  <span class="hljs-built_in">echo</span> $?
+0
+</code></pre><p>上面的例子中，<code>test</code>命令采用两种写法，判断<code>/etc/hosts</code>文件是否存在，这两种写法是等价的。命令执行后，返回值为<code>0</code>，表示该文件确实存在。</p><p>实际上，<code>[</code>这个字符是<code>test</code>命令的一种简写形式，可以看作是一个独立的命令，这解释了为什么它后面必须有空格。</p><p>下面把<code>test</code>命令的三种形式，用在<code>if</code>结构中，判断一个文件是否存在。</p><pre class="hljs"><code><span class="hljs-comment"># 写法一</span>
+<span class="hljs-keyword">if</span> <span class="hljs-built_in">test</span> -e /tmp/foo.txt ; <span class="hljs-keyword">then</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Found foo.txt&quot;</span>
+<span class="hljs-keyword">fi</span>
+
+<span class="hljs-comment"># 写法二</span>
+<span class="hljs-keyword">if</span> [ -e /tmp/foo.txt ] ; <span class="hljs-keyword">then</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Found foo.txt&quot;</span>
+<span class="hljs-keyword">fi</span>
+
+<span class="hljs-comment"># 写法三</span>
+<span class="hljs-keyword">if</span> [[ -e /tmp/foo.txt ]] ; <span class="hljs-keyword">then</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Found foo.txt&quot;</span>
+<span class="hljs-keyword">fi</span>
+</code></pre><h2 id="判断表达式">判断表达式 <a class="markdownIt-Anchor" href="#判断表达式">#</a></h2><p><code>if</code>关键字后面，跟的是一个命令。这个命令可以是<code>test</code>命令，也可以是其他命令。命令的返回值为<code>0</code>表示判断成立，否则表示不成立。因为这些命令主要是为了得到返回值，所以可以视为表达式。</p><p>常用的判断表达式有下面这些。</p><h3 id="文件判断">文件判断 <a class="markdownIt-Anchor" href="#文件判断">#</a></h3><p>以下表达式用来判断文件状态。</p><ul><li><code>[ -a file ]</code>：如果 file 存在，则为<code>true</code>。</li><li><code>[ -b file ]</code>：如果 file 存在并且是一个块（设备）文件，则为<code>true</code>。</li><li><code>[ -c file ]</code>：如果 file 存在并且是一个字符（设备）文件，则为<code>true</code>。</li><li><code>[ -d file ]</code>：如果 file 存在并且是一个目录，则为<code>true</code>。</li><li><code>[ -e file ]</code>：如果 file 存在，则为<code>true</code>。</li><li><code>[ -f file ]</code>：如果 file 存在并且是一个普通文件，则为<code>true</code>。</li><li><code>[ -g file ]</code>：如果 file 存在并且设置了组 ID，则为<code>true</code>。</li><li><code>[ -G file ]</code>：如果 file 存在并且属于有效的组 ID，则为<code>true</code>。</li><li><code>[ -h file ]</code>：如果 file 存在并且是符号链接，则为<code>true</code>。</li><li><code>[ -k file ]</code>：如果 file 存在并且设置了它的“sticky bit”，则为<code>true</code>。</li><li><code>[ -L file ]</code>：如果 file 存在并且是一个符号链接，则为<code>true</code>。</li><li><code>[ -N file ]</code>：如果 file 存在并且自上次读取后已被修改，则为<code>true</code>。</li><li><code>[ -O file ]</code>：如果 file 存在并且属于有效的用户 ID，则为<code>true</code>。</li><li><code>[ -p file ]</code>：如果 file 存在并且是一个命名管道，则为<code>true</code>。</li><li><code>[ -r file ]</code>：如果 file 存在并且可读（当前用户有可读权限），则为<code>true</code>。</li><li><code>[ -s file ]</code>：如果 file 存在且其长度大于零，则为<code>true</code>。</li><li><code>[ -S file ]</code>：如果 file 存在且是一个网络 socket，则为<code>true</code>。</li><li><code>[ -t fd ]</code>：如果 fd 是一个文件描述符，并且重定向到终端，则为<code>true</code>。 这可以用来判断是否重定向了标准输入／输出错误。</li><li><code>[ -u file ]</code>：如果 file 存在并且设置了 setuid 位，则为<code>true</code>。</li><li><code>[ -w file ]</code>：如果 file 存在并且可写（当前用户拥有可写权限），则为<code>true</code>。</li><li><code>[ -x file ]</code>：如果 file 存在并且可执行（有效用户有执行／搜索权限），则为<code>true</code>。</li><li><code>[ file1 -nt file2 ]</code>：如果 FILE1 比 FILE2 的更新时间最近，或者 FILE1 存在而 FILE2 不存在，则为<code>true</code>。</li><li><code>[ file1 -ot file2 ]</code>：如果 FILE1 比 FILE2 的更新时间更旧，或者 FILE2 存在而 FILE1 不存在，则为<code>true</code>。</li><li><code>[ FILE1 -ef FILE2 ]</code>：如果 FILE1 和 FILE2 引用相同的设备和 inode 编号，则为<code>true</code>。</li></ul><p>下面是一个示例。</p><pre class="hljs"><code><span class="hljs-meta">#!/bin/bash</span>
+
+FILE=~/.bashrc
+
+<span class="hljs-keyword">if</span> [ -e <span class="hljs-string">&quot;<span class="hljs-variable">$FILE</span>&quot;</span> ]; <span class="hljs-keyword">then</span>
+  <span class="hljs-keyword">if</span> [ -f <span class="hljs-string">&quot;<span class="hljs-variable">$FILE</span>&quot;</span> ]; <span class="hljs-keyword">then</span>
+    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$FILE</span> is a regular file.&quot;</span>
+  <span class="hljs-keyword">fi</span>
+  <span class="hljs-keyword">if</span> [ -d <span class="hljs-string">&quot;<span class="hljs-variable">$FILE</span>&quot;</span> ]; <span class="hljs-keyword">then</span>
+    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$FILE</span> is a directory.&quot;</span>
+  <span class="hljs-keyword">fi</span>
+  <span class="hljs-keyword">if</span> [ -r <span class="hljs-string">&quot;<span class="hljs-variable">$FILE</span>&quot;</span> ]; <span class="hljs-keyword">then</span>
+    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$FILE</span> is readable.&quot;</span>
+  <span class="hljs-keyword">fi</span>
+  <span class="hljs-keyword">if</span> [ -w <span class="hljs-string">&quot;<span class="hljs-variable">$FILE</span>&quot;</span> ]; <span class="hljs-keyword">then</span>
+    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$FILE</span> is writable.&quot;</span>
+  <span class="hljs-keyword">fi</span>
+  <span class="hljs-keyword">if</span> [ -x <span class="hljs-string">&quot;<span class="hljs-variable">$FILE</span>&quot;</span> ]; <span class="hljs-keyword">then</span>
+    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$FILE</span> is executable/searchable.&quot;</span>
+  <span class="hljs-keyword">fi</span>
+<span class="hljs-keyword">else</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$FILE</span> does not exist&quot;</span>
+  <span class="hljs-built_in">exit</span> 1
+<span class="hljs-keyword">fi</span>
+</code></pre><p>上面代码中，<code>$FILE</code>要放在双引号之中。这样可以防止<code>$FILE</code>为空，因为这时<code>[ -e ]</code>会判断为真。而放在双引号之中，返回的就总是一个空字符串，<code>[ -e &quot;&quot; ]</code>会判断为伪。</p><h3 id="字符串判断">字符串判断 <a class="markdownIt-Anchor" href="#字符串判断">#</a></h3><p>以下表达式用来判断字符串。</p><ul><li><code>[ string ]</code>：如果<code>string</code>不为空（长度大于0），则判断为真。</li><li><code>[ -n string ]</code>：如果字符串<code>string</code>的长度大于零，则判断为真。</li><li><code>[ -z string ]</code>：如果字符串<code>string</code>的长度为零，则判断为真。</li><li><code>[ string1 = string2 ]</code>：如果<code>string1</code>和<code>string2</code>相同，则判断为真。</li><li><code>[ string1 == string2 ]</code> 等同于<code>[ string1 = string2 ]</code>。</li><li><code>[ string1 != string2 ]</code>：如果<code>string1</code>和<code>string2</code>不相同，则判断为真。</li><li><code>[ string1 '&gt;' string2 ]</code>：如果按照字典顺序<code>string1</code>排列在<code>string2</code>之后，则判断为真。</li><li><code>[ string1 '&lt;' string2 ]</code>：如果按照字典顺序<code>string1</code>排列在<code>string2</code>之前，则判断为真。</li></ul><p>注意，<code>test</code>命令内部的<code>&gt;</code>和<code>&lt;</code>，必须用引号引起来（或者是用反斜杠转义）。否则，它们会被 shell 解释为重定向操作符。</p><p>下面是一个示例。</p><pre class="hljs"><code><span class="hljs-meta">#!/bin/bash</span>
+
+ANSWER=maybe
+
+<span class="hljs-keyword">if</span> [ -z <span class="hljs-string">&quot;<span class="hljs-variable">$ANSWER</span>&quot;</span> ]; <span class="hljs-keyword">then</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;There is no answer.&quot;</span> &gt;&amp;2
+  <span class="hljs-built_in">exit</span> 1
+<span class="hljs-keyword">fi</span>
+<span class="hljs-keyword">if</span> [ <span class="hljs-string">&quot;<span class="hljs-variable">$ANSWER</span>&quot;</span> = <span class="hljs-string">&quot;yes&quot;</span> ]; <span class="hljs-keyword">then</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;The answer is YES.&quot;</span>
+<span class="hljs-keyword">elif</span> [ <span class="hljs-string">&quot;<span class="hljs-variable">$ANSWER</span>&quot;</span> = <span class="hljs-string">&quot;no&quot;</span> ]; <span class="hljs-keyword">then</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;The answer is NO.&quot;</span>
+<span class="hljs-keyword">elif</span> [ <span class="hljs-string">&quot;<span class="hljs-variable">$ANSWER</span>&quot;</span> = <span class="hljs-string">&quot;maybe&quot;</span> ]; <span class="hljs-keyword">then</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;The answer is MAYBE.&quot;</span>
+<span class="hljs-keyword">else</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;The answer is UNKNOWN.&quot;</span>
+<span class="hljs-keyword">fi</span>
+</code></pre><p>上面代码中，首先确定<code>$ANSWER</code>字符串是否为空。如果为空，就终止脚本，并把退出状态设为<code>1</code>。注意，这里的<code>echo</code>命令把错误信息<code>There is no answer.</code>重定向到标准错误，这是处理错误信息的常用方法。如果<code>$ANSWER</code>字符串不为空，就判断它的值是否等于<code>yes</code>、<code>no</code>或者<code>maybe</code>。</p><p>注意，字符串判断时，变量要放在双引号之中，比如<code>[ -n &quot;$COUNT&quot; ]</code>，否则变量替换成字符串以后，<code>test</code>命令可能会报错，提示参数过多。另外，如果不放在双引号之中，变量为空时，命令会变成<code>[ -n ]</code>，这时会判断为真。如果放在双引号之中，<code>[ -n &quot;&quot; ]</code>就判断为伪。</p><h3 id="整数判断">整数判断 <a class="markdownIt-Anchor" href="#整数判断">#</a></h3><p>下面的表达式用于判断整数。</p><ul><li><code>[ integer1 -eq integer2 ]</code>：如果<code>integer1</code>等于<code>integer2</code>，则为<code>true</code>。</li><li><code>[ integer1 -ne integer2 ]</code>：如果<code>integer1</code>不等于<code>integer2</code>，则为<code>true</code>。</li><li><code>[ integer1 -le integer2 ]</code>：如果<code>integer1</code>小于或等于<code>integer2</code>，则为<code>true</code>。</li><li><code>[ integer1 -lt integer2 ]</code>：如果<code>integer1</code>小于<code>integer2</code>，则为<code>true</code>。</li><li><code>[ integer1 -ge integer2 ]</code>：如果<code>integer1</code>大于或等于<code>integer2</code>，则为<code>true</code>。</li><li><code>[ integer1 -gt integer2 ]</code>：如果<code>integer1</code>大于<code>integer2</code>，则为<code>true</code>。</li></ul><p>下面是一个用法的例子。</p><pre class="hljs"><code><span class="hljs-meta">#!/bin/bash</span>
+
+INT=-5
+
+<span class="hljs-keyword">if</span> [ -z <span class="hljs-string">&quot;<span class="hljs-variable">$INT</span>&quot;</span> ]; <span class="hljs-keyword">then</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;INT is empty.&quot;</span> &gt;&amp;2
+  <span class="hljs-built_in">exit</span> 1
+<span class="hljs-keyword">fi</span>
+<span class="hljs-keyword">if</span> [ <span class="hljs-variable">$INT</span> -eq 0 ]; <span class="hljs-keyword">then</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;INT is zero.&quot;</span>
+<span class="hljs-keyword">else</span>
+  <span class="hljs-keyword">if</span> [ <span class="hljs-variable">$INT</span> -lt 0 ]; <span class="hljs-keyword">then</span>
+    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;INT is negative.&quot;</span>
+  <span class="hljs-keyword">else</span>
+    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;INT is positive.&quot;</span>
+  <span class="hljs-keyword">fi</span>
+  <span class="hljs-keyword">if</span> [ $((INT % <span class="hljs-number">2</span>)) -eq 0 ]; <span class="hljs-keyword">then</span>
+    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;INT is even.&quot;</span>
+  <span class="hljs-keyword">else</span>
+    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;INT is odd.&quot;</span>
+  <span class="hljs-keyword">fi</span>
+<span class="hljs-keyword">fi</span>
+</code></pre><p>上面例子中，先判断变量<code>$INT</code>是否为空，然后判断是否为<code>0</code>，接着判断正负，最后通过求余数判断奇偶。</p><h3 id="正则判断">正则判断 <a class="markdownIt-Anchor" href="#正则判断">#</a></h3><p><code>[[ expression ]]</code>这种判断形式，支持正则表达式。</p><pre class="hljs"><code>[[ string1 =~ regex ]]
+</code></pre><p>上面的语法中，<code>regex</code>是一个正则表示式，<code>=~</code>是正则比较运算符。</p><p>下面是一个例子。</p><pre class="hljs"><code><span class="hljs-meta">#!/bin/bash</span>
+
+INT=-5
+
+<span class="hljs-keyword">if</span> [[ <span class="hljs-string">&quot;<span class="hljs-variable">$INT</span>&quot;</span> =~ ^-?[0-9]+$ ]]; <span class="hljs-keyword">then</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;INT is an integer.&quot;</span>
+  <span class="hljs-built_in">exit</span> 0
+<span class="hljs-keyword">else</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;INT is not an integer.&quot;</span> &gt;&amp;2
+  <span class="hljs-built_in">exit</span> 1
+<span class="hljs-keyword">fi</span>
+</code></pre><p>上面代码中，先判断变量<code>INT</code>的字符串形式，是否满足<code>^-?[0-9]+$</code>的正则模式，如果满足就表明它是一个整数。</p><h3 id="test-判断的逻辑运算">test 判断的逻辑运算 <a class="markdownIt-Anchor" href="#test-判断的逻辑运算">#</a></h3><p>通过逻辑运算，可以把多个<code>test</code>判断表达式结合起来，创造更复杂的判断。三种逻辑运算<code>AND</code>，<code>OR</code>，和<code>NOT</code>，都有自己的专用符号。</p><ul><li><code>AND</code>运算：符号<code>&amp;&amp;</code>，也可使用参数<code>-a</code>。</li><li><code>OR</code>运算：符号<code>||</code>，也可使用参数<code>-o</code>。</li><li><code>NOT</code>运算：符号<code>!</code>。</li></ul><p>下面是一个<code>AND</code>的例子，判断整数是否在某个范围之内。</p><pre class="hljs"><code><span class="hljs-meta">#!/bin/bash</span>
+
+MIN_VAL=1
+MAX_VAL=100
+
+INT=50
+
+<span class="hljs-keyword">if</span> [[ <span class="hljs-string">&quot;<span class="hljs-variable">$INT</span>&quot;</span> =~ ^-?[0-9]+$ ]]; <span class="hljs-keyword">then</span>
+  <span class="hljs-keyword">if</span> [[ <span class="hljs-variable">$INT</span> -ge <span class="hljs-variable">$MIN_VAL</span> &amp;&amp; <span class="hljs-variable">$INT</span> -le <span class="hljs-variable">$MAX_VAL</span> ]]; <span class="hljs-keyword">then</span>
+    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$INT</span> is within <span class="hljs-variable">$MIN_VAL</span> to <span class="hljs-variable">$MAX_VAL</span>.&quot;</span>
+  <span class="hljs-keyword">else</span>
+    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$INT</span> is out of range.&quot;</span>
+  <span class="hljs-keyword">fi</span>
+<span class="hljs-keyword">else</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;INT is not an integer.&quot;</span> &gt;&amp;2
+  <span class="hljs-built_in">exit</span> 1
+<span class="hljs-keyword">fi</span>
+</code></pre><p>上面例子中，<code>&amp;&amp;</code>用来连接两个判断条件：大于等于<code>$MIN_VAL</code>，并且小于等于<code>$MAX_VAL</code>。</p><p>使用否定操作符<code>!</code>时，最好用圆括号确定转义的范围。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> [ ! \( <span class="hljs-variable">$INT</span> -ge <span class="hljs-variable">$MIN_VAL</span> -a <span class="hljs-variable">$INT</span> -le <span class="hljs-variable">$MAX_VAL</span> \) ]; <span class="hljs-keyword">then</span>
+    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$INT</span> is outside <span class="hljs-variable">$MIN_VAL</span> to <span class="hljs-variable">$MAX_VAL</span>.&quot;</span>
+<span class="hljs-keyword">else</span>
+    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$INT</span> is in range.&quot;</span>
+<span class="hljs-keyword">fi</span>
+</code></pre><p>上面例子中，<code>test</code>命令内部使用的圆括号，必须使用引号或者转义，否则会被 Bash 解释。</p><h3 id="算术判断">算术判断 <a class="markdownIt-Anchor" href="#算术判断">#</a></h3><p>Bash 还提供了<code>((...))</code>作为算术条件，进行算术运算的判断。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> ((3 &gt; 2)); <span class="hljs-keyword">then</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;true&quot;</span>
+<span class="hljs-keyword">fi</span>
+</code></pre><p>上面代码执行后，会打印出<code>true</code>。</p><p>注意，算术判断不需要使用<code>test</code>命令，而是直接使用<code>((...))</code>结构。这个结构的返回值，决定了判断的真伪。</p><p>如果算术计算的结果是非零值，则表示判断成立。这一点跟命令的返回值正好相反，需要小心。</p><pre class="hljs"><code>$ <span class="hljs-keyword">if</span> ((1)); <span class="hljs-keyword">then</span> <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;It is true.&quot;</span>; <span class="hljs-keyword">fi</span>
+It is <span class="hljs-literal">true</span>.
+$ <span class="hljs-keyword">if</span> ((0)); <span class="hljs-keyword">then</span> <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;It is true.&quot;</span>; <span class="hljs-keyword">else</span> <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;it is false.&quot;</span>; <span class="hljs-keyword">fi</span>
+It is <span class="hljs-literal">false</span>.
+</code></pre><p>上面例子中，<code>((1))</code>表示判断成立，<code>((0))</code>表示判断不成立。</p><p>算术条件<code>((...))</code>也可以用于变量赋值。</p><pre class="hljs"><code>$ <span class="hljs-keyword">if</span> (( foo = 5 ));<span class="hljs-keyword">then</span> <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;foo is <span class="hljs-variable">$foo</span>&quot;</span>; <span class="hljs-keyword">fi</span>
+foo is 5
+</code></pre><p>上面例子中，<code>(( foo = 5 ))</code>完成了两件事情。首先把<code>5</code>赋值给变量<code>foo</code>，然后根据返回值<code>5</code>，判断条件为真。</p><p>注意，赋值语句返回等号右边的值，如果返回的是<code>0</code>，则判断为假。</p><pre class="hljs"><code>$ <span class="hljs-keyword">if</span> (( foo = 0 ));<span class="hljs-keyword">then</span> <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;It is true.&quot;</span>;<span class="hljs-keyword">else</span> <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;It is false.&quot;</span>; <span class="hljs-keyword">fi</span>
+It is <span class="hljs-literal">false</span>.
+</code></pre><p>下面是用算术条件改写的数值判断脚本。</p><pre class="hljs"><code><span class="hljs-meta">#!/bin/bash</span>
+
+INT=-5
+
+<span class="hljs-keyword">if</span> [[ <span class="hljs-string">&quot;<span class="hljs-variable">$INT</span>&quot;</span> =~ ^-?[0-9]+$ ]]; <span class="hljs-keyword">then</span>
+  <span class="hljs-keyword">if</span> ((INT == 0)); <span class="hljs-keyword">then</span>
+    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;INT is zero.&quot;</span>
+  <span class="hljs-keyword">else</span>
+    <span class="hljs-keyword">if</span> ((INT &lt; 0)); <span class="hljs-keyword">then</span>
+      <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;INT is negative.&quot;</span>
+    <span class="hljs-keyword">else</span>
+      <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;INT is positive.&quot;</span>
+    <span class="hljs-keyword">fi</span>
+    <span class="hljs-keyword">if</span> (( ((INT % 2)) == 0)); <span class="hljs-keyword">then</span>
+      <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;INT is even.&quot;</span>
+    <span class="hljs-keyword">else</span>
+      <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;INT is odd.&quot;</span>
+    <span class="hljs-keyword">fi</span>
+  <span class="hljs-keyword">fi</span>
+<span class="hljs-keyword">else</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;INT is not an integer.&quot;</span> &gt;&amp;2
+  <span class="hljs-built_in">exit</span> 1
+<span class="hljs-keyword">fi</span>
+</code></pre><p>只要是算术表达式，都能用于<code>((...))</code>语法，详见《Bash 的算术运算》一章。</p><h3 id="普通命令的逻辑运算">普通命令的逻辑运算 <a class="markdownIt-Anchor" href="#普通命令的逻辑运算">#</a></h3><p>如果<code>if</code>结构使用的不是<code>test</code>命令，而是普通命令，比如上一节的<code>((...))</code>算术运算，或者<code>test</code>命令与普通命令混用，那么可以使用 Bash 的命令控制操作符<code>&amp;&amp;</code>（AND）和<code>||</code>（OR），进行多个命令的逻辑运算。</p><pre class="hljs"><code>$ command1 &amp;&amp; command2
+$ command1 || command2
+</code></pre><p>对于<code>&amp;&amp;</code>操作符，先执行<code>command1</code>，只有<code>command1</code>执行成功后， 才会执行<code>command2</code>。对于<code>||</code>操作符，先执行<code>command1</code>，只有<code>command1</code>执行失败后， 才会执行<code>command2</code>。</p><pre class="hljs"><code>$ mkdir temp &amp;&amp; <span class="hljs-built_in">cd</span> temp
+</code></pre><p>上面的命令会创建一个名为<code>temp</code>的目录，执行成功后，才会执行第二个命令，进入这个目录。</p><pre class="hljs"><code>$ [ -d temp ] || mkdir temp
+</code></pre><p>上面的命令会测试目录<code>temp</code>是否存在，如果不存在，就会执行第二个命令，创建这个目录。这种写法非常有助于在脚本中处理错误。</p><pre class="hljs"><code>[ ! -d temp ] &amp;&amp; <span class="hljs-built_in">exit</span> 1
+</code></pre><p>上面的命令中，如果<code>temp</code>子目录不存在，脚本会终止，并且返回值为<code>1</code>。</p><p>下面就是<code>if</code>与<code>&amp;&amp;</code>结合使用的写法。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> [ condition ] &amp;&amp; [ condition ]; <span class="hljs-keyword">then</span>
+  <span class="hljs-built_in">command</span>
+<span class="hljs-keyword">fi</span>
+</code></pre><p>下面是一个示例。</p><pre class="hljs"><code><span class="hljs-meta">#! /bin/bash</span>
+
+filename=<span class="hljs-variable">$1</span>
+word1=<span class="hljs-variable">$2</span>
+word2=<span class="hljs-variable">$3</span>
+
+<span class="hljs-keyword">if</span> grep <span class="hljs-variable">$word1</span> <span class="hljs-variable">$filename</span> &amp;&amp; grep <span class="hljs-variable">$word2</span> <span class="hljs-variable">$filename</span>
+<span class="hljs-keyword">then</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$word1</span> and <span class="hljs-variable">$word2</span> are both in <span class="hljs-variable">$filename</span>.&quot;</span>
+<span class="hljs-keyword">fi</span>
+</code></pre><p>上面的例子只有在指定文件里面，同时存在搜索词<code>word1</code>和<code>word2</code>，就会执行<code>if</code>的命令部分。</p><p>下面的示例演示如何将一个<code>&amp;&amp;</code>判断表达式，改写成对应的<code>if</code>结构。</p><pre class="hljs"><code>[[ -d <span class="hljs-string">&quot;<span class="hljs-variable">$dir_name</span>&quot;</span> ]] &amp;&amp; <span class="hljs-built_in">cd</span> <span class="hljs-string">&quot;<span class="hljs-variable">$dir_name</span>&quot;</span> &amp;&amp; rm *
+
+<span class="hljs-comment"># 等同于</span>
+
+<span class="hljs-keyword">if</span> [[ ! -d <span class="hljs-string">&quot;<span class="hljs-variable">$dir_name</span>&quot;</span> ]]; <span class="hljs-keyword">then</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;No such directory: &#x27;<span class="hljs-variable">$dir_name</span>&#x27;&quot;</span> &gt;&amp;2
+  <span class="hljs-built_in">exit</span> 1
+<span class="hljs-keyword">fi</span>
+<span class="hljs-keyword">if</span> ! <span class="hljs-built_in">cd</span> <span class="hljs-string">&quot;<span class="hljs-variable">$dir_name</span>&quot;</span>; <span class="hljs-keyword">then</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Cannot cd to &#x27;<span class="hljs-variable">$dir_name</span>&#x27;&quot;</span> &gt;&amp;2
+  <span class="hljs-built_in">exit</span> 1
+<span class="hljs-keyword">fi</span>
+<span class="hljs-keyword">if</span> ! rm *; <span class="hljs-keyword">then</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;File deletion failed. Check results&quot;</span> &gt;&amp;2
+  <span class="hljs-built_in">exit</span> 1
+<span class="hljs-keyword">fi</span>
+</code></pre><h2 id="case-结构">case 结构 <a class="markdownIt-Anchor" href="#case-结构">#</a></h2><p><code>case</code>结构用于多值判断，可以为每个值指定对应的命令，跟包含多个<code>elif</code>的<code>if</code>结构等价，但是语义更好。它的语法如下。</p><pre class="hljs"><code><span class="hljs-keyword">case</span> expression <span class="hljs-keyword">in</span>
+  pattern )
+    commands ;;
+  pattern )
+    commands ;;
+  ...
+<span class="hljs-keyword">esac</span>
+</code></pre><p>上面代码中，<code>expression</code>是一个表达式，<code>pattern</code>是表达式的值或者一个模式，可以有多条，用来匹配多个值，每条以两个分号（<code>;</code>）结尾。</p><pre class="hljs"><code><span class="hljs-meta">#!/bin/bash</span>
+
+<span class="hljs-built_in">echo</span> -n <span class="hljs-string">&quot;输入一个1到3之间的数字（包含两端）&gt; &quot;</span>
+<span class="hljs-built_in">read</span> character
+<span class="hljs-keyword">case</span> <span class="hljs-variable">$character</span> <span class="hljs-keyword">in</span>
+  1 ) <span class="hljs-built_in">echo</span> 1
+    ;;
+  2 ) <span class="hljs-built_in">echo</span> 2
+    ;;
+  3 ) <span class="hljs-built_in">echo</span> 3
+    ;;
+  * ) <span class="hljs-built_in">echo</span> 输入不符合要求
+<span class="hljs-keyword">esac</span>
+</code></pre><p>上面例子中，最后一条匹配语句的模式是<code>*</code>，这个通配符可以匹配其他字符和没有输入字符的情况，类似<code>if</code>的<code>else</code>部分。</p><p>下面是另一个例子。</p><pre class="hljs"><code><span class="hljs-meta">#!/bin/bash</span>
+
+OS=$(uname -s)
+
+<span class="hljs-keyword">case</span> <span class="hljs-string">&quot;<span class="hljs-variable">$OS</span>&quot;</span> <span class="hljs-keyword">in</span>
+  FreeBSD) <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;This is FreeBSD&quot;</span> ;;
+  Darwin) <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;This is Mac OSX&quot;</span> ;;
+  AIX) <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;This is AIX&quot;</span> ;;
+  Minix) <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;This is Minix&quot;</span> ;;
+  Linux) <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;This is Linux&quot;</span> ;;
+  *) <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Failed to identify this OS&quot;</span> ;;
+<span class="hljs-keyword">esac</span>
+</code></pre><p>上面的例子判断当前是什么操作系统。</p><p><code>case</code>的匹配模式可以使用各种通配符，下面是一些例子。</p><ul><li><code>a)</code>：匹配<code>a</code>。</li><li><code>a|b)</code>：匹配<code>a</code>或<code>b</code>。</li><li><code>[[:alpha:]])</code>：匹配单个字母。</li><li><code>???)</code>：匹配3个字符的单词。</li><li><code>*.txt)</code>：匹配<code>.txt</code>结尾。</li><li><code>*)</code>：匹配任意输入，通过作为<code>case</code>结构的最后一个模式。</li></ul><pre class="hljs"><code><span class="hljs-meta">#!/bin/bash</span>
+
+<span class="hljs-built_in">echo</span> -n <span class="hljs-string">&quot;输入一个字母或数字 &gt; &quot;</span>
+<span class="hljs-built_in">read</span> character
+<span class="hljs-keyword">case</span> <span class="hljs-variable">$character</span> <span class="hljs-keyword">in</span>
+  [[:lower:]] | [[:upper:]] ) <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;输入了字母 <span class="hljs-variable">$character</span>&quot;</span>
+                              ;;
+  [0-9] )                     <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;输入了数字 <span class="hljs-variable">$character</span>&quot;</span>
+                              ;;
+  * )                         <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;输入不符合要求&quot;</span>
+<span class="hljs-keyword">esac</span>
+</code></pre><p>上面例子中，使用通配符<code>[[:lower:]] | [[:upper:]]</code>匹配字母，<code>[0-9]</code>匹配数字。</p><p>Bash 4.0之前，<code>case</code>结构只能匹配一个条件，然后就会退出<code>case</code>结构。Bash 4.0之后，允许匹配多个条件，这时可以用<code>;;&amp;</code>终止每个条件块。</p><pre class="hljs"><code><span class="hljs-meta">#!/bin/bash</span>
+<span class="hljs-comment"># test.sh</span>
+
+<span class="hljs-built_in">read</span> -n 1 -p <span class="hljs-string">&quot;Type a character &gt; &quot;</span>
+<span class="hljs-built_in">echo</span>
+<span class="hljs-keyword">case</span> <span class="hljs-variable">$REPLY</span> <span class="hljs-keyword">in</span>
+  [[:upper:]])    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;&#x27;<span class="hljs-variable">$REPLY</span>&#x27; is upper case.&quot;</span> ;;&amp;
+  [[:lower:]])    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;&#x27;<span class="hljs-variable">$REPLY</span>&#x27; is lower case.&quot;</span> ;;&amp;
+  [[:alpha:]])    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;&#x27;<span class="hljs-variable">$REPLY</span>&#x27; is alphabetic.&quot;</span> ;;&amp;
+  [[:digit:]])    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;&#x27;<span class="hljs-variable">$REPLY</span>&#x27; is a digit.&quot;</span> ;;&amp;
+  [[:graph:]])    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;&#x27;<span class="hljs-variable">$REPLY</span>&#x27; is a visible character.&quot;</span> ;;&amp;
+  [[:punct:]])    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;&#x27;<span class="hljs-variable">$REPLY</span>&#x27; is a punctuation symbol.&quot;</span> ;;&amp;
+  [[:space:]])    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;&#x27;<span class="hljs-variable">$REPLY</span>&#x27; is a whitespace character.&quot;</span> ;;&amp;
+  [[:xdigit:]])   <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;&#x27;<span class="hljs-variable">$REPLY</span>&#x27; is a hexadecimal digit.&quot;</span> ;;&amp;
+<span class="hljs-keyword">esac</span>
+</code></pre><p>执行上面的脚本，会得到下面的结果。</p><pre class="hljs"><code>$ test.sh
+Type a character &gt; a
+<span class="hljs-string">&#x27;a&#x27;</span> is lower <span class="hljs-keyword">case</span>.
+<span class="hljs-string">&#x27;a&#x27;</span> is alphabetic.
+<span class="hljs-string">&#x27;a&#x27;</span> is a visible character.
+<span class="hljs-string">&#x27;a&#x27;</span> is a hexadecimal digit.
+</code></pre><p>可以看到条件语句结尾添加了<code>;;&amp;</code>以后，在匹配一个条件之后，并没有退出<code>case</code>结构，而是继续判断下一个条件。</p><h2 id="参考链接">参考链接 <a class="markdownIt-Anchor" href="#参考链接">#</a></h2><ul><li><a href="http://linuxcommand.org/tlcl.php" target="_blank" rel="noopener">The Linux Command Line</a>, William Shotts</li></ul></article><nav class="level level-previous-next is-size-5 is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="read.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> read 命令</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="loop.html">循环 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><div class="page-info is-size-5-desktop"><p>本教程采用<a href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh" target="_blank">知识共享 署名-相同方式共享 3.0协议</a>。</p><p>分享本文 <span class="social-share"></span></p></div></div><div class="column is-3 is-offset-1"><nav class="panel panel-menu"><p class="panel-heading"><i class="fa fa-book" aria-hidden="true"></i> Bash 脚本教程</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="intro.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">简介</span></a></li><li><a href="grammar.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">基本语法</span></a></li><li><a href="expansion.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">模式扩展</span></a></li><li><a href="quotation.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">引号和转义</span></a></li><li><a href="variable.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">变量</span></a></li><li><a href="string.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">字符串操作</span></a></li><li><a href="arithmetic.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">算术运算</span></a></li><li><a href="readline.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">行操作</span></a></li><li><a href="stack.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">目录堆栈</span></a></li><li><a href="script.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">脚本入门</span></a></li><li><a href="read.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">read 命令</span></a></li><li><a href="condition.html" class="is-active"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">条件判断</span></a></li><li><a href="loop.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">循环</span></a></li><li><a href="function.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">函数</span></a></li><li><a href="array.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数组</span></a></li><li><a href="set.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">set 命令</span></a></li><li><a href="debug.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">脚本除错</span></a></li><li><a href="mktemp.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">mktemp 命令，trap 命令</span></a></li><li><a href="startup.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">启动环境</span></a></li><li><a href="prompt.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">命令提示符</span></a></li></ul></aside></div></nav><nav class="panel panel-info"><p class="panel-heading"><i class="fa fa-link" aria-hidden="true"></i> 链接</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="https://raw.githubusercontent.com/wangdoc/bash-tutorial/master/docs/condition.md" target="_blank"><span class="icon"></span><i class="fa fa-code" aria-hidden="true" style="width: 14px;"></i>&nbsp;本文源码</a></li><li><a href="https://github.com/wangdoc/bash-tutorial" target="_blank"><span class="icon"></span><i class="fa fa-hdd-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;代码仓库</a></li><li><a href="https://github.com/wangdoc/bash-tutorial/issues" target="_blank"><span class="icon"></span><i class="fa fa-flag-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;反馈</a></li></ul></aside></div></nav></div></div><div class="columns"><div class="column is-8"><div id="disqus_thread"></div></div></div></div></section><footer class="footer is-size-5-desktop"><div class="container"><div class="content has-text-centered"><p>联系：contact@wangdoc.com</p></div></div></footer><script>var LOPPO={current_path:"condition.md",relative_root_path:"",article_toc:'<ul class="markdownIt-TOC">\n<li><a href="#if-%E7%BB%93%E6%9E%84">if 结构</a></li>\n<li><a href="#test-%E5%91%BD%E4%BB%A4">test 命令</a></li>\n<li><a href="#%E5%88%A4%E6%96%AD%E8%A1%A8%E8%BE%BE%E5%BC%8F">判断表达式</a>\n<ul>\n<li><a href="#%E6%96%87%E4%BB%B6%E5%88%A4%E6%96%AD">文件判断</a></li>\n<li><a href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%88%A4%E6%96%AD">字符串判断</a></li>\n<li><a href="#%E6%95%B4%E6%95%B0%E5%88%A4%E6%96%AD">整数判断</a></li>\n<li><a href="#%E6%AD%A3%E5%88%99%E5%88%A4%E6%96%AD">正则判断</a></li>\n<li><a href="#test-%E5%88%A4%E6%96%AD%E7%9A%84%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97">test 判断的逻辑运算</a></li>\n<li><a href="#%E7%AE%97%E6%9C%AF%E5%88%A4%E6%96%AD">算术判断</a></li>\n<li><a href="#%E6%99%AE%E9%80%9A%E5%91%BD%E4%BB%A4%E7%9A%84%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97">普通命令的逻辑运算</a></li>\n</ul>\n</li>\n<li><a href="#case-%E7%BB%93%E6%9E%84">case 结构</a></li>\n<li><a href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5">参考链接</a></li>\n</ul>\n'}</script><script src="assets/js/app.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-111269443-1"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","UA-111269443-1")</script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?5eec262881855af3dede6a71234571f6";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><script>var disqus_config=function(){var t=window.location,e=t.protocol+"//"+t.host+(t.port?":"+t.port:"")+t.pathname;this.page.url=e,this.page.identifier=t.pathname};!function(){var t=document,e=t.createElement("script");e.src="https://wangdoc-bash.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><!--script src="assets/js/social-share.min.js"--><!--/script--><script>var shareDesc="我正在阅读《条件判断》，出自网道（WangDoc.com）的《Bash 脚本教程》。",shareOpts={url:window.location.href,source:shareDesc,title:shareDesc,description:"",image:"",sites:["weibo","wechat","qq","qzone","twitter","facebook"],origin:"WangDoc_com",disabled:[],wechatQrcodeTitle:"微信",wechatQrcodeHelper:"扫一下二维码，分享到微信。"};socialShare(".social-share",shareOpts)</script></body></html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>脚本除错 - Bash 脚本教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="脚本除错"><link rel="apple-touch-icon" sizes="57x57" href="assets/icons/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="assets/icons/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="assets/icons/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="assets/icons/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="assets/icons/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="assets/icons/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="assets/icons/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="assets/icons/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png"><link rel="manifest" href="assets/icons/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="assets/icons/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/bash-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/bash-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8"><nav class="breadcrumb is-size-5-desktop" aria-label="breadcrumbs"><ul><li><a href="index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;Bash 脚本教程</a></li><li class="is-active"><a class="has-text-grey" href="debug.html">脚本除错</a></li></ul></nav><nav class="level level-previous-next is-size-5 is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="set.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> set 命令</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="mktemp.html">mktemp 命令，trap 命令 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content is-size-4-desktop"><h1 class="title">脚本除错</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><p>本章介绍如何对 Shell 脚本除错。</p><h2 id="常见错误">常见错误 <a class="markdownIt-Anchor" href="#常见错误">#</a></h2><p>编写 Shell 脚本的时候，一定要考虑到命令失败的情况，否则很容易出错。</p><pre class="hljs"><code><span class="hljs-meta">#! /bin/bash</span>
+
+dir_name=/path/not/exist
+
+<span class="hljs-built_in">cd</span> <span class="hljs-variable">$dir_name</span>
+rm *
+</code></pre><p>上面脚本中，如果目录<code>$dir_name</code>不存在，<code>cd $dir_name</code>命令就会执行失败。这时，就不会改变当前目录，脚本会继续执行下去，导致<code>rm *</code>命令删光当前目录的文件。</p><p>如果改成下面的样子，也会有问题。</p><pre class="hljs"><code><span class="hljs-built_in">cd</span> <span class="hljs-variable">$dir_name</span> &amp;&amp; rm *
+</code></pre><p>上面脚本中，只有<code>cd $dir_name</code>执行成功，才会执行<code>rm *</code>。但是，如果变量<code>$dir_name</code>为空，<code>cd</code>就会进入用户主目录，从而删光用户主目录的文件。</p><p>下面的写法才是正确的。</p><pre class="hljs"><code>[[ -d <span class="hljs-variable">$dir_name</span> ]] &amp;&amp; <span class="hljs-built_in">cd</span> <span class="hljs-variable">$dir_name</span> &amp;&amp; rm *
+</code></pre><p>上面代码中，先判断目录<code>$dir_name</code>是否存在，然后才执行其他操作。</p><p>如果不放心删除什么文件，可以先打印出来看一下。</p><pre class="hljs"><code>[[ -d <span class="hljs-variable">$dir_name</span> ]] &amp;&amp; <span class="hljs-built_in">cd</span> <span class="hljs-variable">$dir_name</span> &amp;&amp; <span class="hljs-built_in">echo</span> rm *
+</code></pre><p>上面命令中，<code>echo rm *</code>不会删除文件，只会打印出来要删除的文件。</p><h2 id="bash的-x参数"><code>bash</code>的<code>-x</code>参数 <a class="markdownIt-Anchor" href="#bash的-x参数">#</a></h2><p><code>bash</code>的<code>-x</code>参数可以在执行每一行命令之前，打印该命令。这样就不用自己输出执行的命令，一旦出错，比较容易追查。</p><p>下面是一个脚本<code>script.sh</code>。</p><pre class="hljs"><code><span class="hljs-comment"># script.sh</span>
+<span class="hljs-built_in">echo</span> hello world
+</code></pre><p>加上<code>-x</code>参数，执行每条命令之前，都会显示该命令。</p><pre class="hljs"><code>$ bash -x script.sh
++ <span class="hljs-built_in">echo</span> hello world
+hello world
+</code></pre><p>上面例子中，行首为<code>+</code>的行，显示该行是所要执行的命令，下一行才是该命令的执行结果。</p><p>下面再看一个<code>-x</code>写在脚本内部的例子。</p><pre class="hljs"><code><span class="hljs-meta">#! /bin/bash -x</span>
+<span class="hljs-comment"># trouble: script to demonstrate common errors</span>
+
+number=1
+<span class="hljs-keyword">if</span> [ <span class="hljs-variable">$number</span> = 1 ]; <span class="hljs-keyword">then</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Number is equal to 1.&quot;</span>
+<span class="hljs-keyword">else</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Number is not equal to 1.&quot;</span>
+<span class="hljs-keyword">fi</span>
+</code></pre><p>上面的脚本执行之后，会输出每一行命令。</p><pre class="hljs"><code>$ trouble
++ number=1
++ <span class="hljs-string">&#x27;[&#x27;</span> 1 = 1 <span class="hljs-string">&#x27;]&#x27;</span>
++ <span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;Number is equal to 1.&#x27;</span>
+Number is equal to 1.
+</code></pre><p>输出的命令之前的<code>+</code>号，是由系统变量<code>PS4</code>决定，可以修改这个变量。</p><pre class="hljs"><code>$ <span class="hljs-built_in">export</span> PS4=<span class="hljs-string">&#x27;$LINENO + &#x27;</span>
+$ trouble
+5 + number=1
+7 + <span class="hljs-string">&#x27;[&#x27;</span> 1 = 1 <span class="hljs-string">&#x27;]&#x27;</span>
+8 + <span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;Number is equal to 1.&#x27;</span>
+Number is equal to 1.
+</code></pre><p>另外，<code>set</code>命令也可以设置 Shell 的行为参数，有利于脚本除错，详见《set 命令》一章。</p><h2 id="环境变量">环境变量 <a class="markdownIt-Anchor" href="#环境变量">#</a></h2><p>有一些环境变量常用于除错。</p><h3 id="lineno">LINENO <a class="markdownIt-Anchor" href="#lineno">#</a></h3><p>变量<code>LINENO</code>返回它在脚本里面的行号。</p><pre class="hljs"><code><span class="hljs-meta">#!/bin/bash</span>
+
+<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;This is line <span class="hljs-variable">$LINENO</span>&quot;</span>
+</code></pre><p>执行上面的脚本<code>test.sh</code>，<code>$LINENO</code>会返回<code>3</code>。</p><pre class="hljs"><code>$ ./test.sh
+This is line 3
+</code></pre><h3 id="funcname">FUNCNAME <a class="markdownIt-Anchor" href="#funcname">#</a></h3><p>变量<code>FUNCNAME</code>返回一个数组，内容是当前的函数调用堆栈。该数组的0号成员是当前调用的函数，1号成员是调用当前函数的函数，以此类推。</p><pre class="hljs"><code><span class="hljs-meta">#!/bin/bash</span>
+
+<span class="hljs-keyword">function</span> <span class="hljs-function"><span class="hljs-title">func1</span></span>()
+{
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;func1: FUNCNAME0 is <span class="hljs-variable">${FUNCNAME[0]}</span>&quot;</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;func1: FUNCNAME1 is <span class="hljs-variable">${FUNCNAME[1]}</span>&quot;</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;func1: FUNCNAME2 is <span class="hljs-variable">${FUNCNAME[2]}</span>&quot;</span>
+  func2
+}
+
+<span class="hljs-keyword">function</span> <span class="hljs-function"><span class="hljs-title">func2</span></span>()
+{
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;func2: FUNCNAME0 is <span class="hljs-variable">${FUNCNAME[0]}</span>&quot;</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;func2: FUNCNAME1 is <span class="hljs-variable">${FUNCNAME[1]}</span>&quot;</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;func2: FUNCNAME2 is <span class="hljs-variable">${FUNCNAME[2]}</span>&quot;</span>
+}
+
+func1
+</code></pre><p>执行上面的脚本<code>test.sh</code>，结果如下。</p><pre class="hljs"><code>$ ./test.sh
+func1: FUNCNAME0 is func1
+func1: FUNCNAME1 is main
+func1: FUNCNAME2 is
+func2: FUNCNAME0 is func2
+func2: FUNCNAME1 is func1
+func2: FUNCNAME2 is main
+</code></pre><p>上面例子中，执行<code>func1</code>时，变量<code>FUNCNAME</code>的0号成员是<code>func1</code>，1号成员是调用<code>func1</code>的主脚本<code>main</code>。执行<code>func2</code>时，变量<code>FUNCNAME</code>的0号成员是<code>func2</code>，1号成员是调用<code>func2</code>的<code>func1</code>。</p><h3 id="bash_source">BASH_SOURCE <a class="markdownIt-Anchor" href="#bash_source">#</a></h3><p>变量<code>BASH_SOURCE</code>返回一个数组，内容是当前的脚本调用堆栈。该数组的0号成员是当前执行的脚本，1号成员是调用当前脚本的脚本，以此类推，跟变量<code>FUNCNAME</code>是一一对应关系。</p><p>下面有两个子脚本<code>lib1.sh</code>和<code>lib2.sh</code>。</p><pre class="hljs"><code><span class="hljs-comment"># lib1.sh</span>
+<span class="hljs-keyword">function</span> <span class="hljs-function"><span class="hljs-title">func1</span></span>()
+{
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;func1: BASH_SOURCE0 is <span class="hljs-variable">${BASH_SOURCE[0]}</span>&quot;</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;func1: BASH_SOURCE1 is <span class="hljs-variable">${BASH_SOURCE[1]}</span>&quot;</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;func1: BASH_SOURCE2 is <span class="hljs-variable">${BASH_SOURCE[2]}</span>&quot;</span>
+  func2
+}
+</code></pre><pre class="hljs"><code><span class="hljs-comment"># lib2.sh</span>
+<span class="hljs-keyword">function</span> <span class="hljs-function"><span class="hljs-title">func2</span></span>()
+{
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;func2: BASH_SOURCE0 is <span class="hljs-variable">${BASH_SOURCE[0]}</span>&quot;</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;func2: BASH_SOURCE1 is <span class="hljs-variable">${BASH_SOURCE[1]}</span>&quot;</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;func2: BASH_SOURCE2 is <span class="hljs-variable">${BASH_SOURCE[2]}</span>&quot;</span>
+}
+</code></pre><p>然后，主脚本<code>main.sh</code>调用上面两个子脚本。</p><pre class="hljs"><code><span class="hljs-meta">#!/bin/bash</span>
+<span class="hljs-comment"># main.sh</span>
+
+<span class="hljs-built_in">source</span> lib1.sh
+<span class="hljs-built_in">source</span> lib2.sh
+
+func1
+</code></pre><p>执行主脚本<code>main.sh</code>，会得到下面的结果。</p><pre class="hljs"><code>$ ./main.sh
+func1: BASH_SOURCE0 is lib1.sh
+func1: BASH_SOURCE1 is ./main.sh
+func1: BASH_SOURCE2 is
+func2: BASH_SOURCE0 is lib2.sh
+func2: BASH_SOURCE1 is lib1.sh
+func2: BASH_SOURCE2 is ./main.sh
+</code></pre><p>上面例子中，执行函数<code>func1</code>时，变量<code>BASH_SOURCE</code>的0号成员是<code>func1</code>所在的脚本<code>lib1.sh</code>，1号成员是主脚本<code>main.sh</code>；执行函数<code>func2</code>时，变量<code>BASH_SOURCE</code>的0号成员是<code>func2</code>所在的脚本<code>lib2.sh</code>，1号成员是调用<code>func2</code>的脚本<code>lib1.sh</code>。</p><h3 id="bash_lineno">BASH_LINENO <a class="markdownIt-Anchor" href="#bash_lineno">#</a></h3><p>变量<code>BASH_LINENO</code>返回一个数组，内容是每一轮调用对应的行号。<code>${BASH_LINENO[$i]}</code>跟<code>${FUNCNAME[$i]}</code>是一一对应关系，表示<code>${FUNCNAME[$i]}</code>在调用它的脚本文件<code>${BASH_SOURCE[$i+1]}</code>里面的行号。</p><p>下面有两个子脚本<code>lib1.sh</code>和<code>lib2.sh</code>。</p><pre class="hljs"><code><span class="hljs-comment"># lib1.sh</span>
+<span class="hljs-keyword">function</span> <span class="hljs-function"><span class="hljs-title">func1</span></span>()
+{
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;func1: BASH_LINENO is <span class="hljs-variable">${BASH_LINENO[0]}</span>&quot;</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;func1: FUNCNAME is <span class="hljs-variable">${FUNCNAME[0]}</span>&quot;</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;func1: BASH_SOURCE is <span class="hljs-variable">${BASH_SOURCE[1]}</span>&quot;</span>
+
+  func2
+}
+</code></pre><pre class="hljs"><code><span class="hljs-comment"># lib2.sh</span>
+<span class="hljs-keyword">function</span> <span class="hljs-function"><span class="hljs-title">func2</span></span>()
+{
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;func2: BASH_LINENO is <span class="hljs-variable">${BASH_LINENO[0]}</span>&quot;</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;func2: FUNCNAME is <span class="hljs-variable">${FUNCNAME[0]}</span>&quot;</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;func2: BASH_SOURCE is <span class="hljs-variable">${BASH_SOURCE[1]}</span>&quot;</span>
+}
+</code></pre><p>然后，主脚本<code>main.sh</code>调用上面两个子脚本。</p><pre class="hljs"><code><span class="hljs-meta">#!/bin/bash</span>
+<span class="hljs-comment"># main.sh</span>
+
+<span class="hljs-built_in">source</span> lib1.sh
+<span class="hljs-built_in">source</span> lib2.sh
+
+func1
+</code></pre><p>执行主脚本<code>main.sh</code>，会得到下面的结果。</p><pre class="hljs"><code>$ ./main.sh
+func1: BASH_LINENO is 7
+func1: FUNCNAME is func1
+func1: BASH_SOURCE is main.sh
+func2: BASH_LINENO is 8
+func2: FUNCNAME is func2
+func2: BASH_SOURCE is lib1.sh
+</code></pre><p>上面例子中，函数<code>func1</code>是在<code>main.sh</code>的第7行调用，函数<code>func2</code>是在<code>lib1.sh</code>的第8行调用的。</p></article><nav class="level level-previous-next is-size-5 is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="set.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> set 命令</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="mktemp.html">mktemp 命令，trap 命令 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><div class="page-info is-size-5-desktop"><p>本教程采用<a href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh" target="_blank">知识共享 署名-相同方式共享 3.0协议</a>。</p><p>分享本文 <span class="social-share"></span></p></div></div><div class="column is-3 is-offset-1"><nav class="panel panel-menu"><p class="panel-heading"><i class="fa fa-book" aria-hidden="true"></i> Bash 脚本教程</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="intro.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">简介</span></a></li><li><a href="grammar.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">基本语法</span></a></li><li><a href="expansion.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">模式扩展</span></a></li><li><a href="quotation.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">引号和转义</span></a></li><li><a href="variable.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">变量</span></a></li><li><a href="string.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">字符串操作</span></a></li><li><a href="arithmetic.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">算术运算</span></a></li><li><a href="readline.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">行操作</span></a></li><li><a href="stack.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">目录堆栈</span></a></li><li><a href="script.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">脚本入门</span></a></li><li><a href="read.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">read 命令</span></a></li><li><a href="condition.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">条件判断</span></a></li><li><a href="loop.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">循环</span></a></li><li><a href="function.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">函数</span></a></li><li><a href="array.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数组</span></a></li><li><a href="set.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">set 命令</span></a></li><li><a href="debug.html" class="is-active"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">脚本除错</span></a></li><li><a href="mktemp.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">mktemp 命令，trap 命令</span></a></li><li><a href="startup.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">启动环境</span></a></li><li><a href="prompt.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">命令提示符</span></a></li></ul></aside></div></nav><nav class="panel panel-info"><p class="panel-heading"><i class="fa fa-link" aria-hidden="true"></i> 链接</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="https://raw.githubusercontent.com/wangdoc/bash-tutorial/master/docs/debug.md" target="_blank"><span class="icon"></span><i class="fa fa-code" aria-hidden="true" style="width: 14px;"></i>&nbsp;本文源码</a></li><li><a href="https://github.com/wangdoc/bash-tutorial" target="_blank"><span class="icon"></span><i class="fa fa-hdd-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;代码仓库</a></li><li><a href="https://github.com/wangdoc/bash-tutorial/issues" target="_blank"><span class="icon"></span><i class="fa fa-flag-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;反馈</a></li></ul></aside></div></nav></div></div><div class="columns"><div class="column is-8"><div id="disqus_thread"></div></div></div></div></section><footer class="footer is-size-5-desktop"><div class="container"><div class="content has-text-centered"><p>联系：contact@wangdoc.com</p></div></div></footer><script>var LOPPO={current_path:"debug.md",relative_root_path:"",article_toc:'<ul class="markdownIt-TOC">\n<li><a href="#%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF">常见错误</a></li>\n<li><a href="#bash%E7%9A%84-x%E5%8F%82%E6%95%B0"><code>bash</code>的<code>-x</code>参数</a></li>\n<li><a href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F">环境变量</a>\n<ul>\n<li><a href="#lineno">LINENO</a></li>\n<li><a href="#funcname">FUNCNAME</a></li>\n<li><a href="#bash_source">BASH_SOURCE</a></li>\n<li><a href="#bash_lineno">BASH_LINENO</a></li>\n</ul>\n</li>\n</ul>\n'}</script><script src="assets/js/app.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-111269443-1"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","UA-111269443-1")</script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?5eec262881855af3dede6a71234571f6";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><script>var disqus_config=function(){var t=window.location,e=t.protocol+"//"+t.host+(t.port?":"+t.port:"")+t.pathname;this.page.url=e,this.page.identifier=t.pathname};!function(){var t=document,e=t.createElement("script");e.src="https://wangdoc-bash.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><!--script src="assets/js/social-share.min.js"--><!--/script--><script>var shareDesc="我正在阅读《脚本除错》，出自网道（WangDoc.com）的《Bash 脚本教程》。",shareOpts={url:window.location.href,source:shareDesc,title:shareDesc,description:"",image:"",sites:["weibo","wechat","qq","qzone","twitter","facebook"],origin:"WangDoc_com",disabled:[],wechatQrcodeTitle:"微信",wechatQrcodeHelper:"扫一下二维码，分享到微信。"};socialShare(".social-share",shareOpts)</script></body></html>

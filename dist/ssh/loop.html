@@ -1,0 +1,152 @@
+<!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>循环 - Bash 脚本教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="循环"><link rel="apple-touch-icon" sizes="57x57" href="assets/icons/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="assets/icons/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="assets/icons/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="assets/icons/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="assets/icons/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="assets/icons/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="assets/icons/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="assets/icons/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png"><link rel="manifest" href="assets/icons/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="assets/icons/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/bash-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/bash-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8"><nav class="breadcrumb is-size-5-desktop" aria-label="breadcrumbs"><ul><li><a href="index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;Bash 脚本教程</a></li><li class="is-active"><a class="has-text-grey" href="loop.html">循环</a></li></ul></nav><nav class="level level-previous-next is-size-5 is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="condition.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> 条件判断</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="function.html">函数 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content is-size-4-desktop"><h1 class="title">循环</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><p>Bash 提供三种循环语法<code>for</code>、<code>while</code>和<code>until</code>。</p><h2 id="while-循环">while 循环 <a class="markdownIt-Anchor" href="#while-循环">#</a></h2><p><code>while</code>循环有一个判断条件，只要符合条件，就不断循环执行指定的语句。</p><pre class="hljs"><code><span class="hljs-keyword">while</span> condition; <span class="hljs-keyword">do</span>
+  commands
+<span class="hljs-keyword">done</span>
+</code></pre><p>上面代码中，只要满足条件<code>condition</code>，就会执行命令<code>commands</code>。然后，再次判断是否满足条件<code>condition</code>，只要满足，就会一直执行下去。只有不满足条件，才会退出循环。</p><p>循环条件<code>condition</code>可以使用<code>test</code>命令，跟<code>if</code>结构的判断条件写法一致。</p><pre class="hljs"><code><span class="hljs-meta">#!/bin/bash</span>
+
+number=0
+<span class="hljs-keyword">while</span> [ <span class="hljs-string">&quot;<span class="hljs-variable">$number</span>&quot;</span> -lt 10 ]; <span class="hljs-keyword">do</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Number = <span class="hljs-variable">$number</span>&quot;</span>
+  number=$((number + <span class="hljs-number">1</span>))
+<span class="hljs-keyword">done</span>
+</code></pre><p>上面例子中，只要变量<code>$number</code>小于10，就会不断加1，直到<code>$number</code>等于10，然后退出循环。</p><p>关键字<code>do</code>可以跟<code>while</code>不在同一行，这时两者之间不需要使用分号分隔。</p><pre class="hljs"><code><span class="hljs-keyword">while</span> <span class="hljs-literal">true</span>
+<span class="hljs-keyword">do</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;Hi, while looping ...&#x27;</span>;
+<span class="hljs-keyword">done</span>
+</code></pre><p>上面的例子会无限循环，可以按下 Ctrl + c 停止。</p><p><code>while</code>循环写成一行，也是可以的。</p><pre class="hljs"><code>$ <span class="hljs-keyword">while</span> <span class="hljs-literal">true</span>; <span class="hljs-keyword">do</span> <span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;Hi, while looping ...&#x27;</span>; <span class="hljs-keyword">done</span>
+</code></pre><p><code>while</code>的条件部分也可以是执行一个命令。</p><pre class="hljs"><code>$ <span class="hljs-keyword">while</span> <span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;ECHO&#x27;</span>; <span class="hljs-keyword">do</span> <span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;Hi, while looping ...&#x27;</span>; <span class="hljs-keyword">done</span>
+</code></pre><p>上面例子中，判断条件是<code>echo 'ECHO'</code>。由于这个命令总是执行成功，所以上面命令会产生无限循环。</p><p><code>while</code>的条件部分可以执行任意数量的命令，但是执行结果的真伪只看最后一个命令的执行结果。</p><pre class="hljs"><code>$ <span class="hljs-keyword">while</span> <span class="hljs-literal">true</span>; <span class="hljs-literal">false</span>; <span class="hljs-keyword">do</span> <span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;Hi, looping ...&#x27;</span>; <span class="hljs-keyword">done</span>
+</code></pre><p>上面代码运行后，不会有任何输出，因为<code>while</code>的最后一个命令是<code>false</code>。</p><h2 id="until-循环">until 循环 <a class="markdownIt-Anchor" href="#until-循环">#</a></h2><p><code>until</code>循环与<code>while</code>循环恰好相反，只要不符合判断条件（判断条件失败），就不断循环执行指定的语句。一旦符合判断条件，就退出循环。</p><pre class="hljs"><code>until condition; <span class="hljs-keyword">do</span>
+  commands
+<span class="hljs-keyword">done</span>
+</code></pre><p>关键字<code>do</code>可以与<code>until</code>不写在同一行，这时两者之间不需要分号分隔。</p><pre class="hljs"><code>until condition
+<span class="hljs-keyword">do</span>
+  commands
+<span class="hljs-keyword">done</span>
+</code></pre><p>下面是一个例子。</p><pre class="hljs"><code>$ until <span class="hljs-literal">false</span>; <span class="hljs-keyword">do</span> <span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;Hi, until looping ...&#x27;</span>; <span class="hljs-keyword">done</span>
+Hi, until looping ...
+Hi, until looping ...
+Hi, until looping ...
+^C
+</code></pre><p>上面代码中，<code>until</code>的部分一直为<code>false</code>，导致命令无限运行，必须按下 Ctrl + c 终止。</p><pre class="hljs"><code><span class="hljs-meta">#!/bin/bash</span>
+
+number=0
+until [ <span class="hljs-string">&quot;<span class="hljs-variable">$number</span>&quot;</span> -ge 10 ]; <span class="hljs-keyword">do</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Number = <span class="hljs-variable">$number</span>&quot;</span>
+  number=$((number + <span class="hljs-number">1</span>))
+<span class="hljs-keyword">done</span>
+</code></pre><p>上面例子中，只要变量<code>number</code>小于10，就会不断加1，直到<code>number</code>大于等于10，就退出循环。</p><p><code>until</code>的条件部分也可以是一个命令，表示在这个命令执行成功之前，不断重复尝试。</p><pre class="hljs"><code>until cp <span class="hljs-variable">$1</span> <span class="hljs-variable">$2</span>; <span class="hljs-keyword">do</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;Attempt to copy failed. waiting...&#x27;</span>
+  sleep 5
+<span class="hljs-keyword">done</span>
+</code></pre><p>上面例子表示，只要<code>cp $1 $2</code>这个命令执行不成功，就5秒钟后再尝试一次，直到成功为止。</p><p><code>until</code>循环都可以转为<code>while</code>循环，只要把条件设为否定即可。上面这个例子可以改写如下。</p><pre class="hljs"><code><span class="hljs-keyword">while</span> ! cp <span class="hljs-variable">$1</span> <span class="hljs-variable">$2</span>; <span class="hljs-keyword">do</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;Attempt to copy failed. waiting...&#x27;</span>
+  sleep 5
+<span class="hljs-keyword">done</span>
+</code></pre><p>一般来说，<code>until</code>用得比较少，完全可以统一都使用<code>while</code>。</p><h2 id="forin-循环">for...in 循环 <a class="markdownIt-Anchor" href="#forin-循环">#</a></h2><p><code>for...in</code>循环用于遍历列表的每一项。</p><pre class="hljs"><code><span class="hljs-keyword">for</span> variable <span class="hljs-keyword">in</span> list
+<span class="hljs-keyword">do</span>
+  commands
+<span class="hljs-keyword">done</span>
+</code></pre><p>上面语法中，<code>for</code>循环会依次从<code>list</code>列表中取出一项，作为变量<code>variable</code>，然后在循环体中进行处理。</p><p>关键词<code>do</code>可以跟<code>for</code>写在同一行，两者使用分号分隔。</p><pre class="hljs"><code><span class="hljs-keyword">for</span> variable <span class="hljs-keyword">in</span> list; <span class="hljs-keyword">do</span>
+  commands
+<span class="hljs-keyword">done</span>
+</code></pre><p>下面是一个例子。</p><pre class="hljs"><code><span class="hljs-meta">#!/bin/bash</span>
+
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> word1 word2 word3; <span class="hljs-keyword">do</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-variable">$i</span>
+<span class="hljs-keyword">done</span>
+</code></pre><p>上面例子中，<code>word1 word2 word3</code>是一个包含三个单词的列表，变量<code>i</code>依次等于<code>word1</code>、<code>word2</code>、<code>word3</code>，命令<code>echo $i</code>则会相应地执行三次。</p><p>列表可以由通配符产生。</p><pre class="hljs"><code><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> *.png; <span class="hljs-keyword">do</span>
+  ls -l <span class="hljs-variable">$i</span>
+<span class="hljs-keyword">done</span>
+</code></pre><p>上面例子中，<code>*.png</code>会替换成当前目录中所有 PNG 图片文件，变量<code>i</code>会依次等于每一个文件。</p><p>列表也可以通过子命令产生。</p><pre class="hljs"><code><span class="hljs-meta">#!/bin/bash</span>
+
+count=0
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> $(cat ~/.bash_profile); <span class="hljs-keyword">do</span>
+  count=$((count + <span class="hljs-number">1</span>))
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Word <span class="hljs-variable">$count</span> (<span class="hljs-variable">$i</span>) contains <span class="hljs-subst">$(echo -n $i | wc -c)</span> characters&quot;</span>
+<span class="hljs-keyword">done</span>
+</code></pre><p>上面例子中，<code>cat ~/.bash_profile</code>命令会输出<code>~/.bash_profile</code>文件的内容，然后通过遍历每一个词，计算该文件一共包含多少个词，以及每个词有多少个字符。</p><p><code>in list</code>的部分可以省略，这时<code>list</code>默认等于脚本的所有参数<code>$@</code>。但是，为了可读性，最好还是不要省略，参考下面的例子。</p><pre class="hljs"><code><span class="hljs-keyword">for</span> filename; <span class="hljs-keyword">do</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$filename</span>&quot;</span>
+<span class="hljs-keyword">done</span>
+
+<span class="hljs-comment"># 等同于</span>
+
+<span class="hljs-keyword">for</span> filename <span class="hljs-keyword">in</span> <span class="hljs-string">&quot;<span class="hljs-variable">$@</span>&quot;</span> ; <span class="hljs-keyword">do</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$filename</span>&quot;</span>
+<span class="hljs-keyword">done</span>
+</code></pre><p>在函数体中也是一样的，<code>for...in</code>循环省略<code>in list</code>的部分，则<code>list</code>默认等于函数的所有参数。</p><h2 id="for-循环">for 循环 <a class="markdownIt-Anchor" href="#for-循环">#</a></h2><p><code>for</code>循环还支持 C 语言的循环语法。</p><pre class="hljs"><code><span class="hljs-keyword">for</span> (( expression1; expression2; expression3 )); <span class="hljs-keyword">do</span>
+  commands
+<span class="hljs-keyword">done</span>
+</code></pre><p>上面代码中，<code>expression1</code>用来初始化循环条件，<code>expression2</code>用来决定循环结束的条件，<code>expression3</code>在每次循环迭代的末尾执行，用于更新值。</p><p>注意，循环条件放在双重圆括号之中。另外，圆括号之中使用变量，不必加上美元符号<code>$</code>。</p><p>它等同于下面的<code>while</code>循环。</p><pre class="hljs"><code>(( expression1 ))
+<span class="hljs-keyword">while</span> (( expression2 )); <span class="hljs-keyword">do</span>
+  commands
+  (( expression3 ))
+<span class="hljs-keyword">done</span>
+</code></pre><p>下面是一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">for</span> (( i=0; i&lt;5; i=i+1 )); <span class="hljs-keyword">do</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-variable">$i</span>
+<span class="hljs-keyword">done</span>
+</code></pre><p>上面代码中，初始化变量<code>i</code>的值为0，循环执行的条件是<code>i</code>小于5。每次循环迭代结束时，<code>i</code>的值加1。</p><p><code>for</code>条件部分的三个语句，都可以省略。</p><pre class="hljs"><code><span class="hljs-keyword">for</span> ((;;))
+<span class="hljs-keyword">do</span>
+  <span class="hljs-built_in">read</span> var
+  <span class="hljs-keyword">if</span> [ <span class="hljs-string">&quot;<span class="hljs-variable">$var</span>&quot;</span> = <span class="hljs-string">&quot;.&quot;</span> ]; <span class="hljs-keyword">then</span>
+    <span class="hljs-built_in">break</span>
+  <span class="hljs-keyword">fi</span>
+<span class="hljs-keyword">done</span>
+</code></pre><p>上面脚本会反复读取命令行输入，直到用户输入了一个点（<code>.</code>）为止，才会跳出循环。</p><h2 id="break，continue">break，continue <a class="markdownIt-Anchor" href="#break，continue">#</a></h2><p>Bash 提供了两个内部命令<code>break</code>和<code>continue</code>，用来在循环内部跳出循环。</p><p><code>break</code>命令立即终止循环，程序继续执行循环块之后的语句，即不再执行剩下的循环。</p><pre class="hljs"><code><span class="hljs-meta">#!/bin/bash</span>
+
+<span class="hljs-keyword">for</span> number <span class="hljs-keyword">in</span> 1 2 3 4 5 6
+<span class="hljs-keyword">do</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;number is <span class="hljs-variable">$number</span>&quot;</span>
+  <span class="hljs-keyword">if</span> [ <span class="hljs-string">&quot;<span class="hljs-variable">$number</span>&quot;</span> = <span class="hljs-string">&quot;3&quot;</span> ]; <span class="hljs-keyword">then</span>
+    <span class="hljs-built_in">break</span>
+  <span class="hljs-keyword">fi</span>
+<span class="hljs-keyword">done</span>
+</code></pre><p>上面例子只会打印3行结果。一旦变量<code>$number</code>等于3，就会跳出循环，不再继续执行。</p><p><code>continue</code>命令立即终止本轮循环，开始执行下一轮循环。</p><pre class="hljs"><code><span class="hljs-meta">#!/bin/bash</span>
+
+<span class="hljs-keyword">while</span> <span class="hljs-built_in">read</span> -p <span class="hljs-string">&quot;What file do you want to test?&quot;</span> filename
+<span class="hljs-keyword">do</span>
+  <span class="hljs-keyword">if</span> [ ! -e <span class="hljs-string">&quot;<span class="hljs-variable">$filename</span>&quot;</span> ]; <span class="hljs-keyword">then</span>
+    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;The file does not exist.&quot;</span>
+    <span class="hljs-built_in">continue</span>
+  <span class="hljs-keyword">fi</span>
+
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;You entered a valid file..&quot;</span>
+<span class="hljs-keyword">done</span>
+</code></pre><p>上面例子中，只要用户输入的文件不存在，<code>continue</code>命令就会生效，直接进入下一轮循环（让用户重新输入文件名），不再执行后面的打印语句。</p><h2 id="select-结构">select 结构 <a class="markdownIt-Anchor" href="#select-结构">#</a></h2><p><code>select</code>结构主要用来生成简单的菜单。它的语法与<code>for...in</code>循环基本一致。</p><pre class="hljs"><code>select name
+[<span class="hljs-keyword">in</span> list]
+<span class="hljs-keyword">do</span>
+  commands
+<span class="hljs-keyword">done</span>
+</code></pre><p>Bash 会对<code>select</code>依次进行下面的处理。</p><ol><li><code>select</code>生成一个菜单，内容是列表<code>list</code>的每一项，并且每一项前面还有一个数字编号。</li><li>Bash 提示用户选择一项，输入它的编号。</li><li>用户输入以后，Bash 会将该项的内容存在变量<code>name</code>，该项的编号存入环境变量<code>REPLY</code>。如果用户没有输入，就按回车键，Bash 会重新输出菜单，让用户选择。</li><li>执行命令体<code>commands</code>。</li><li>执行结束后，回到第一步，重复这个过程。</li></ol><p>下面是一个例子。</p><pre class="hljs"><code><span class="hljs-meta">#!/bin/bash</span>
+<span class="hljs-comment"># select.sh</span>
+
+select brand <span class="hljs-keyword">in</span> Samsung Sony iphone symphony Walton
+<span class="hljs-keyword">do</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;You have chosen <span class="hljs-variable">$brand</span>&quot;</span>
+<span class="hljs-keyword">done</span>
+</code></pre><p>执行上面的脚本，Bash 会输出一个品牌的列表，让用户选择。</p><pre class="hljs"><code>$ ./select.sh
+1) Samsung
+2) Sony
+3) iphone
+4) symphony
+5) Walton
+<span class="hljs-comment">#?</span>
+</code></pre><p>如果用户没有输入编号，直接按回车键。Bash 就会重新输出一遍这个菜单，直到用户按下<code>Ctrl + c</code>，退出执行。</p><p><code>select</code>可以与<code>case</code>结合，针对不同项，执行不同的命令。</p><pre class="hljs"><code><span class="hljs-meta">#!/bin/bash</span>
+
+<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Which Operating System do you like?&quot;</span>
+
+select os <span class="hljs-keyword">in</span> Ubuntu LinuxMint Windows8 Windows10 WindowsXP
+<span class="hljs-keyword">do</span>
+  <span class="hljs-keyword">case</span> <span class="hljs-variable">$os</span> <span class="hljs-keyword">in</span>
+    <span class="hljs-string">&quot;Ubuntu&quot;</span>|<span class="hljs-string">&quot;LinuxMint&quot;</span>)
+      <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;I also use <span class="hljs-variable">$os</span>.&quot;</span>
+    ;;
+    <span class="hljs-string">&quot;Windows8&quot;</span> | <span class="hljs-string">&quot;Windows10&quot;</span> | <span class="hljs-string">&quot;WindowsXP&quot;</span>)
+      <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Why don&#x27;t you try Linux?&quot;</span>
+    ;;
+    *)
+      <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Invalid entry.&quot;</span>
+      <span class="hljs-built_in">break</span>
+    ;;
+  <span class="hljs-keyword">esac</span>
+<span class="hljs-keyword">done</span>
+</code></pre><p>上面例子中，<code>case</code>针对用户选择的不同项，执行不同的命令。</p><h2 id="参考链接">参考链接 <a class="markdownIt-Anchor" href="#参考链接">#</a></h2><ul><li><a href="https://linuxhint.com/bash_select_command/" target="_blank" rel="noopener">Bash Select Command</a>, Fahmida Yesmin</li></ul></article><nav class="level level-previous-next is-size-5 is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="condition.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> 条件判断</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="function.html">函数 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><div class="page-info is-size-5-desktop"><p>本教程采用<a href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh" target="_blank">知识共享 署名-相同方式共享 3.0协议</a>。</p><p>分享本文 <span class="social-share"></span></p></div></div><div class="column is-3 is-offset-1"><nav class="panel panel-menu"><p class="panel-heading"><i class="fa fa-book" aria-hidden="true"></i> Bash 脚本教程</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="intro.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">简介</span></a></li><li><a href="grammar.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">基本语法</span></a></li><li><a href="expansion.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">模式扩展</span></a></li><li><a href="quotation.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">引号和转义</span></a></li><li><a href="variable.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">变量</span></a></li><li><a href="string.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">字符串操作</span></a></li><li><a href="arithmetic.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">算术运算</span></a></li><li><a href="readline.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">行操作</span></a></li><li><a href="stack.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">目录堆栈</span></a></li><li><a href="script.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">脚本入门</span></a></li><li><a href="read.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">read 命令</span></a></li><li><a href="condition.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">条件判断</span></a></li><li><a href="loop.html" class="is-active"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">循环</span></a></li><li><a href="function.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">函数</span></a></li><li><a href="array.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数组</span></a></li><li><a href="set.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">set 命令</span></a></li><li><a href="debug.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">脚本除错</span></a></li><li><a href="mktemp.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">mktemp 命令，trap 命令</span></a></li><li><a href="startup.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">启动环境</span></a></li><li><a href="prompt.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">命令提示符</span></a></li></ul></aside></div></nav><nav class="panel panel-info"><p class="panel-heading"><i class="fa fa-link" aria-hidden="true"></i> 链接</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="https://raw.githubusercontent.com/wangdoc/bash-tutorial/master/docs/loop.md" target="_blank"><span class="icon"></span><i class="fa fa-code" aria-hidden="true" style="width: 14px;"></i>&nbsp;本文源码</a></li><li><a href="https://github.com/wangdoc/bash-tutorial" target="_blank"><span class="icon"></span><i class="fa fa-hdd-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;代码仓库</a></li><li><a href="https://github.com/wangdoc/bash-tutorial/issues" target="_blank"><span class="icon"></span><i class="fa fa-flag-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;反馈</a></li></ul></aside></div></nav></div></div><div class="columns"><div class="column is-8"><div id="disqus_thread"></div></div></div></div></section><footer class="footer is-size-5-desktop"><div class="container"><div class="content has-text-centered"><p>联系：contact@wangdoc.com</p></div></div></footer><script>var LOPPO={current_path:"loop.md",relative_root_path:"",article_toc:'<ul class="markdownIt-TOC">\n<li><a href="#while-%E5%BE%AA%E7%8E%AF">while 循环</a></li>\n<li><a href="#until-%E5%BE%AA%E7%8E%AF">until 循环</a></li>\n<li><a href="#forin-%E5%BE%AA%E7%8E%AF">for...in 循环</a></li>\n<li><a href="#for-%E5%BE%AA%E7%8E%AF">for 循环</a></li>\n<li><a href="#break%EF%BC%8Ccontinue">break，continue</a></li>\n<li><a href="#select-%E7%BB%93%E6%9E%84">select 结构</a></li>\n<li><a href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5">参考链接</a></li>\n</ul>\n'}</script><script src="assets/js/app.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-111269443-1"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","UA-111269443-1")</script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?5eec262881855af3dede6a71234571f6";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><script>var disqus_config=function(){var t=window.location,e=t.protocol+"//"+t.host+(t.port?":"+t.port:"")+t.pathname;this.page.url=e,this.page.identifier=t.pathname};!function(){var t=document,e=t.createElement("script");e.src="https://wangdoc-bash.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><!--script src="assets/js/social-share.min.js"--><!--/script--><script>var shareDesc="我正在阅读《循环》，出自网道（WangDoc.com）的《Bash 脚本教程》。",shareOpts={url:window.location.href,source:shareDesc,title:shareDesc,description:"",image:"",sites:["weibo","wechat","qq","qzone","twitter","facebook"],origin:"WangDoc_com",disabled:[],wechatQrcodeTitle:"微信",wechatQrcodeHelper:"扫一下二维码，分享到微信。"};socialShare(".social-share",shareOpts)</script></body></html>

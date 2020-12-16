@@ -1,0 +1,125 @@
+<!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>引号和转义 - Bash 脚本教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="引号和转义"><link rel="apple-touch-icon" sizes="57x57" href="assets/icons/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="assets/icons/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="assets/icons/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="assets/icons/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="assets/icons/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="assets/icons/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="assets/icons/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="assets/icons/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png"><link rel="manifest" href="assets/icons/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="assets/icons/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/bash-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/bash-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8"><nav class="breadcrumb is-size-5-desktop" aria-label="breadcrumbs"><ul><li><a href="index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;Bash 脚本教程</a></li><li class="is-active"><a class="has-text-grey" href="quotation.html">引号和转义</a></li></ul></nav><nav class="level level-previous-next is-size-5 is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="expansion.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> 模式扩展</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="variable.html">变量 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content is-size-4-desktop"><h1 class="title">引号和转义</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><p>Bash 只有一种数据类型，就是字符串。不管用户输入什么数据，Bash 都视为字符串。因此，字符串相关的引号和转义，对 Bash 来说就非常重要。</p><h2 id="转义">转义 <a class="markdownIt-Anchor" href="#转义">#</a></h2><p>某些字符在 Bash 里面有特殊含义（比如<code>$</code>、<code>&amp;</code>、<code>*</code>）。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> <span class="hljs-variable">$date</span>
+
+$
+</code></pre><p>上面例子中，输出<code>$date</code>不会有任何结果，因为<code>$</code>是一个特殊字符。</p><p>如果想要原样输出这些特殊字符，就必须在它们前面加上反斜杠，使其变成普通字符。这就叫做“转义”（escape）。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> \<span class="hljs-variable">$date</span>
+<span class="hljs-variable">$date</span>
+</code></pre><p>上面命令中，只有在特殊字符<code>$</code>前面加反斜杠，才能原样输出。</p><p>反斜杠本身也是特殊字符，如果想要原样输出反斜杠，就需要对它自身转义，连续使用两个反斜线（<code>\\</code>）。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> \\
+\
+</code></pre><p>上面例子输出了反斜杠本身。</p><p>反斜杠除了用于转义，还可以表示一些不可打印的字符。</p><ul><li><code>\a</code>：响铃</li><li><code>\b</code>：退格</li><li><code>\n</code>：换行</li><li><code>\r</code>：回车</li><li><code>\t</code>：制表符</li></ul><p>如果想要在命令行使用这些不可打印的字符，可以把它们放在引号里面，然后使用<code>echo</code>命令的<code>-e</code>参数。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> a\tb
+atb
+
+$ <span class="hljs-built_in">echo</span> -e <span class="hljs-string">&quot;a\tb&quot;</span>
+a        b
+</code></pre><p>上面例子中，命令行直接输出不可打印字符<code>\t</code>，Bash 不能正确解释。必须把它们放在引号之中，然后使用<code>echo</code>命令的<code>-e</code>参数。</p><p>换行符是一个特殊字符，表示命令的结束，Bash 收到这个字符以后，就会对输入的命令进行解释执行。换行符前面加上反斜杠转义，就使得换行符变成一个普通字符，Bash 会将其当作空格处理，从而可以将一行命令写成多行。</p><pre class="hljs"><code>$ mv \
+/path/to/foo \
+/path/to/bar
+
+<span class="hljs-comment"># 等同于</span>
+$ mv /path/to/foo /path/to/bar
+</code></pre><p>上面例子中，如果一条命令过长，就可以在行尾使用反斜杠，将其改写成多行。这是常见的多行命令的写法。</p><h2 id="单引号">单引号 <a class="markdownIt-Anchor" href="#单引号">#</a></h2><p>Bash 允许字符串放在单引号或双引号之中，加以引用。</p><p>单引号用于保留字符的字面含义，各种特殊字符在单引号里面，都会变为普通字符，比如星号（<code>*</code>）、美元符号（<code>$</code>）、反斜杠（<code>\</code>）等。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;*&#x27;</span>
+*
+
+$ <span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;$USER&#x27;</span>
+<span class="hljs-variable">$USER</span>
+
+$ <span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;$((2+2))&#x27;</span>
+$((<span class="hljs-number">2</span>+<span class="hljs-number">2</span>))
+
+$ <span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;$(echo foo)&#x27;</span>
+$(<span class="hljs-built_in">echo</span> foo)
+</code></pre><p>上面命令中，单引号使得 Bash 扩展、变量引用、算术运算和子命令，都失效了。如果不使用单引号，它们都会被 Bash 自动扩展。</p><p>由于反斜杠在单引号里面变成了普通字符，所以如果单引号之中，还要使用单引号，不能使用转义，需要在外层的单引号前面加上一个美元符号（<code>$</code>），然后再对里层的单引号转义。</p><pre class="hljs"><code><span class="hljs-comment"># 不正确</span>
+$ <span class="hljs-built_in">echo</span> it<span class="hljs-string">&#x27;s
+
+# 不正确
+$ echo &#x27;</span>it\<span class="hljs-string">&#x27;s&#x27;</span>
+
+<span class="hljs-comment"># 正确</span>
+$ <span class="hljs-built_in">echo</span> $<span class="hljs-string">&#x27;it\&#x27;</span>s<span class="hljs-string">&#x27;
+</span></code></pre><p>不过，更合理的方法是改在双引号之中使用单引号。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;it&#x27;s&quot;</span>
+it<span class="hljs-string">&#x27;s
+</span></code></pre><h2 id="双引号">双引号 <a class="markdownIt-Anchor" href="#双引号">#</a></h2><p>双引号比单引号宽松，大部分特殊字符在双引号里面，都会失去特殊含义，变成普通字符。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;*&quot;</span>
+*
+</code></pre><p>上面例子中，通配符<code>*</code>是一个特殊字符，放在双引号之中，就变成了普通字符，会原样输出。这一点需要特别留意，这意味着，双引号里面不会进行文件名扩展。</p><p>但是，三个特殊字符除外：美元符号（<code>$</code>）、反引号（<code>`</code>）和反斜杠（<code>\</code>）。这三个字符在双引号之中，依然有特殊含义，会被 Bash 自动扩展。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$SHELL</span>&quot;</span>
+/bin/bash
+
+$ <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;`date`&quot;</span>
+Mon Jan 27 13:33:18 CST 2020
+</code></pre><p>上面例子中，美元符号（<code>$</code>）和反引号（<code>`</code>）在双引号中，都保持特殊含义。美元符号用来引用变量，反引号则是执行子命令。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;I&#x27;d say: \&quot;hello!\&quot;&quot;</span>
+I<span class="hljs-string">&#x27;d say: &quot;hello!&quot;
+
+$ echo &quot;\\&quot;
+\
+</span></code></pre><p>上面例子中，反斜杠在双引号之中保持特殊含义，用来转义。所以，可以使用反斜杠，在双引号之中插入双引号，或者插入反斜杠本身。</p><p>换行符在双引号之中，会失去特殊含义，Bash 不再将其解释为命令的结束，只是作为普通的换行符。所以可以利用双引号，在命令行输入多行文本。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;hello
+world&quot;</span>
+hello
+world
+</code></pre><p>上面命令中，Bash 正常情况下会将换行符解释为命令结束，但是换行符在双引号之中就失去了这种特殊作用，只用来换行，所以可以输入多行。<code>echo</code>命令会将换行符原样输出，显示的时候正常解释为换行。</p><p>双引号的另一个常见的使用场合是，文件名包含空格。这时就必须使用双引号，将文件名放在里面。</p><pre class="hljs"><code>$ ls <span class="hljs-string">&quot;two words.txt&quot;</span>
+</code></pre><p>上面命令中，<code>two words.txt</code>是一个包含空格的文件名，否则就会被 Bash 当作两个文件。</p><p>双引号会原样保存多余的空格。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;this is a     test&quot;</span>
+this is a     <span class="hljs-built_in">test</span>
+</code></pre><p>双引号还有一个作用，就是保存原始命令的输出格式。</p><pre class="hljs"><code><span class="hljs-comment"># 单行输出</span>
+$ <span class="hljs-built_in">echo</span> $(cal)
+一月 2020 日 一 二 三 四 五 六 1 2 3 ... 31
+
+<span class="hljs-comment"># 原始格式输出</span>
+$ <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-subst">$(cal)</span>&quot;</span>
+      一月 2020
+日 一 二 三 四 五 六
+          1  2  3  4
+ 5  6  7  8  9 10 11
+12 13 14 15 16 17 18
+19 20 21 22 23 24 25
+26 27 28 29 30 31
+</code></pre><p>上面例子中，如果<code>$(cal)</code>不放在双引号之中，<code>echo</code>就会将所有结果以单行输出，丢弃了所有原始的格式。</p><h2 id="here-文档">Here 文档 <a class="markdownIt-Anchor" href="#here-文档">#</a></h2><p>Here 文档（here document）是一种输入多行字符串的方法，格式如下。</p><pre class="hljs"><code>&lt;&lt; <span class="hljs-string">token
+text
+token</span>
+</code></pre><p>它的格式分成开始标记（<code>&lt;&lt; token</code>）和结束标记（<code>token</code>）。开始标记是两个小于号 + Here 文档的名称，名称可以随意取，后面必须是一个换行符；结束标记是单独一行顶格写的 Here 文档名称，如果不是顶格，结束标记不起作用。两者之间就是多行字符串的内容。</p><p>下面是一个通过 Here 文档输出 HTML 代码的例子。</p><pre class="hljs"><code>$ cat &lt;&lt; <span class="hljs-string">_EOF_
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;
+    The title of your page
+    &lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    Your page content goes here.
+&lt;/body&gt;
+&lt;/html&gt;
+_EOF_</span>
+</code></pre><p>Here 文档内部会发生变量替换，同时支持反斜杠转义，但是不支持通配符扩展，双引号和单引号也失去语法作用，变成了普通字符。</p><pre class="hljs"><code>$ foo=<span class="hljs-string">&#x27;hello world&#x27;</span>
+$ cat &lt;&lt; <span class="hljs-string">_example_
+$foo
+&quot;$foo&quot;
+&#x27;$foo&#x27;
+_example_</span>
+
+hello world
+<span class="hljs-string">&quot;hello world&quot;</span>
+<span class="hljs-string">&#x27;hello world&#x27;</span>
+</code></pre><p>上面例子中，变量<code>$foo</code>发生了替换，但是双引号和单引号都原样输出了，表明它们已经失去了引用的功能。</p><p>如果不希望发生变量替换，可以把 Here 文档的开始标记放在单引号之中。</p><pre class="hljs"><code>$ foo=<span class="hljs-string">&#x27;hello world&#x27;</span>
+$ cat &lt;&lt; <span class="hljs-string">&#x27;_example_&#x27;</span>
+<span class="hljs-variable">$foo</span>
+<span class="hljs-string">&quot;<span class="hljs-variable">$foo</span>&quot;</span>
+<span class="hljs-string">&#x27;$foo&#x27;</span>
+_example_
+
+<span class="hljs-variable">$foo</span>
+<span class="hljs-string">&quot;<span class="hljs-variable">$foo</span>&quot;</span>
+<span class="hljs-string">&#x27;$foo&#x27;</span>
+</code></pre><p>上面例子中，Here 文档的开始标记（<code>_example_</code>）放在单引号之中，导致变量替换失效了。</p><p>Here 文档的本质是重定向，它将字符串重定向输出给某个命令，相当于包含了<code>echo</code>命令。</p><pre class="hljs"><code>$ <span class="hljs-built_in">command</span> &lt;&lt; <span class="hljs-string">token
+  string
+token</span>
+
+<span class="hljs-comment"># 等同于</span>
+
+$ <span class="hljs-built_in">echo</span> string | <span class="hljs-built_in">command</span>
+</code></pre><p>上面代码中，Here 文档相当于<code>echo</code>命令的重定向。</p><p>所以，Here 字符串只适合那些可以接受标准输入作为参数的命令，对于其他命令无效，比如<code>echo</code>命令就不能用 Here 文档作为参数。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> &lt;&lt; <span class="hljs-string">_example_
+hello
+_example_</span>
+</code></pre><p>上面例子不会有任何输出，因为 Here 文档对于<code>echo</code>命令无效。</p><p>此外，Here 文档也不能作为变量的值，只能用于命令的参数。</p><h2 id="here-字符串">Here 字符串 <a class="markdownIt-Anchor" href="#here-字符串">#</a></h2><p>Here 文档还有一个变体，叫做 Here 字符串（Here string），使用三个小于号（<code>&lt;&lt;&lt;</code>）表示。</p><pre class="hljs"><code>&lt;&lt;&lt; <span class="hljs-string">string
+</span></code></pre><p>它的作用是将字符串通过标准输入，传递给命令。</p><p>有些命令直接接受给定的参数，与通过标准输入接受参数，结果是不一样的。所以才有了这个语法，使得将字符串通过标准输入传递给命令更方便，比如<code>cat</code>命令只接受标准输入传入的字符串。</p><pre class="hljs"><code>$ cat &lt;&lt;&lt; <span class="hljs-string">&#x27;hi there&#x27;</span>
+<span class="hljs-comment"># 等同于</span>
+$ <span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;hi there&#x27;</span> | cat
+</code></pre><p>上面的第一种语法使用了 Here 字符串，要比第二种语法看上去语义更好，也更简洁。</p><pre class="hljs"><code>$ md5sum &lt;&lt;&lt; <span class="hljs-string">&#x27;ddd&#x27;</span>
+<span class="hljs-comment"># 等同于</span>
+$ <span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;ddd&#x27;</span> | md5sum
+</code></pre><p>上面例子中，<code>md5sum</code>命令只能接受标准输入作为参数，不能直接将字符串放在命令后面，会被当作文件名，即<code>md5sum ddd</code>里面的<code>ddd</code>会被解释成文件名。这时就可以用 Here 字符串，将字符串传给<code>md5sum</code>命令。</p></article><nav class="level level-previous-next is-size-5 is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="expansion.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> 模式扩展</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="variable.html">变量 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><div class="page-info is-size-5-desktop"><p>本教程采用<a href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh" target="_blank">知识共享 署名-相同方式共享 3.0协议</a>。</p><p>分享本文 <span class="social-share"></span></p></div></div><div class="column is-3 is-offset-1"><nav class="panel panel-menu"><p class="panel-heading"><i class="fa fa-book" aria-hidden="true"></i> Bash 脚本教程</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="intro.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">简介</span></a></li><li><a href="grammar.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">基本语法</span></a></li><li><a href="expansion.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">模式扩展</span></a></li><li><a href="quotation.html" class="is-active"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">引号和转义</span></a></li><li><a href="variable.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">变量</span></a></li><li><a href="string.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">字符串操作</span></a></li><li><a href="arithmetic.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">算术运算</span></a></li><li><a href="readline.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">行操作</span></a></li><li><a href="stack.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">目录堆栈</span></a></li><li><a href="script.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">脚本入门</span></a></li><li><a href="read.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">read 命令</span></a></li><li><a href="condition.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">条件判断</span></a></li><li><a href="loop.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">循环</span></a></li><li><a href="function.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">函数</span></a></li><li><a href="array.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数组</span></a></li><li><a href="set.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">set 命令</span></a></li><li><a href="debug.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">脚本除错</span></a></li><li><a href="mktemp.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">mktemp 命令，trap 命令</span></a></li><li><a href="startup.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">启动环境</span></a></li><li><a href="prompt.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">命令提示符</span></a></li></ul></aside></div></nav><nav class="panel panel-info"><p class="panel-heading"><i class="fa fa-link" aria-hidden="true"></i> 链接</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="https://raw.githubusercontent.com/wangdoc/bash-tutorial/master/docs/quotation.md" target="_blank"><span class="icon"></span><i class="fa fa-code" aria-hidden="true" style="width: 14px;"></i>&nbsp;本文源码</a></li><li><a href="https://github.com/wangdoc/bash-tutorial" target="_blank"><span class="icon"></span><i class="fa fa-hdd-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;代码仓库</a></li><li><a href="https://github.com/wangdoc/bash-tutorial/issues" target="_blank"><span class="icon"></span><i class="fa fa-flag-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;反馈</a></li></ul></aside></div></nav></div></div><div class="columns"><div class="column is-8"><div id="disqus_thread"></div></div></div></div></section><footer class="footer is-size-5-desktop"><div class="container"><div class="content has-text-centered"><p>联系：contact@wangdoc.com</p></div></div></footer><script>var LOPPO={current_path:"quotation.md",relative_root_path:"",article_toc:'<ul class="markdownIt-TOC">\n<li><a href="#%E8%BD%AC%E4%B9%89">转义</a></li>\n<li><a href="#%E5%8D%95%E5%BC%95%E5%8F%B7">单引号</a></li>\n<li><a href="#%E5%8F%8C%E5%BC%95%E5%8F%B7">双引号</a></li>\n<li><a href="#here-%E6%96%87%E6%A1%A3">Here 文档</a></li>\n<li><a href="#here-%E5%AD%97%E7%AC%A6%E4%B8%B2">Here 字符串</a></li>\n</ul>\n'}</script><script src="assets/js/app.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-111269443-1"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","UA-111269443-1")</script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?5eec262881855af3dede6a71234571f6";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><script>var disqus_config=function(){var t=window.location,e=t.protocol+"//"+t.host+(t.port?":"+t.port:"")+t.pathname;this.page.url=e,this.page.identifier=t.pathname};!function(){var t=document,e=t.createElement("script");e.src="https://wangdoc-bash.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><!--script src="assets/js/social-share.min.js"--><!--/script--><script>var shareDesc="我正在阅读《引号和转义》，出自网道（WangDoc.com）的《Bash 脚本教程》。",shareOpts={url:window.location.href,source:shareDesc,title:shareDesc,description:"",image:"",sites:["weibo","wechat","qq","qzone","twitter","facebook"],origin:"WangDoc_com",disabled:[],wechatQrcodeTitle:"微信",wechatQrcodeHelper:"扫一下二维码，分享到微信。"};socialShare(".social-share",shareOpts)</script></body></html>
