@@ -103,9 +103,12 @@ jpg jpeg png
 
 $ <span class="hljs-built_in">echo</span> a{A{1,2},B{3,4}}b
 aA1b aA2b aB3b aB4b
-</code></pre><p>大括号也可以与其他模式联用，并且总是先于其他模式进行扩展。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> {cat,d*}
-cat dawg dg dig dog doug dug
-</code></pre><p>上面例子中，会先进行大括号扩展，然后进行<code>*</code>扩展。</p><p>大括号可以用于多字符的模式，方括号不行（只能匹配单字符）。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> {cat,dog}
+</code></pre><p>大括号也可以与其他模式联用，并且总是先于其他模式进行扩展。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> /bin/{cat,d*}
+/bin/cat /bin/b2sum /bin/base32 /bin/base64 ... ...
+
+<span class="hljs-comment"># 基本等同于</span>
+$ <span class="hljs-built_in">echo</span> /bin/cat;<span class="hljs-built_in">echo</span> /bin/b*
+</code></pre><p>上面例子中，会先进行大括号扩展，然后进行<code>*</code>扩展，等同于执行两条<code>echo</code>命令。</p><p>大括号可以用于多字符的模式，方括号不行（只能匹配单字符）。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> {cat,dog}
 cat dog
 </code></pre><p>由于大括号扩展<code>{...}</code>不是文件名扩展，所以它总是会扩展的。这与方括号扩展<code>[...]</code>完全不同，如果匹配的文件不存在，方括号就不会扩展。这一点要注意区分。</p><pre class="hljs"><code><span class="hljs-comment"># 不存在 a.txt 和 b.txt</span>
 $ <span class="hljs-built_in">echo</span> [ab].txt
