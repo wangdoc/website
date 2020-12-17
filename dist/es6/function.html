@@ -447,7 +447,24 @@ foo(<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <spa
     <span class="hljs-built_in">this</span>.lives--;
   }
 }
-</code></pre><p>上面代码中，<code>cat.jumps()</code>方法是一个箭头函数，这是错误的。调用<code>cat.jumps()</code>时，如果是普通函数，该方法内部的<code>this</code>指向<code>cat</code>；如果写成上面那样的箭头函数，使得<code>this</code>指向全局对象，因此不会得到预期结果。这是因为对象不构成单独的作用域，导致<code>jumps</code>箭头函数定义时的作用域就是全局作用域。</p><p>第二个场合是需要动态<code>this</code>的时候，也不应使用箭头函数。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> button = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;press&#x27;</span>);
+</code></pre><p>上面代码中，<code>cat.jumps()</code>方法是一个箭头函数，这是错误的。调用<code>cat.jumps()</code>时，如果是普通函数，该方法内部的<code>this</code>指向<code>cat</code>；如果写成上面那样的箭头函数，使得<code>this</code>指向全局对象，因此不会得到预期结果。这是因为对象不构成单独的作用域，导致<code>jumps</code>箭头函数定义时的作用域就是全局作用域。</p><p>再看一个例子。</p><pre class="hljs"><code>globalThis.s = <span class="hljs-number">21</span>;
+
+<span class="hljs-keyword">const</span> obj = {
+  <span class="hljs-attr">s</span>: <span class="hljs-number">42</span>,
+  <span class="hljs-attr">m</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.s)
+};
+
+obj.m() <span class="hljs-comment">// 21</span>
+</code></pre><p>上面例子中，<code>obj.m()</code>使用箭头函数定义。JavaScript 引擎的处理方法是，先在全局空间生成这个箭头函数，然后赋值给<code>obj.m</code>，这导致箭头函数内部的<code>this</code>指向全局对象，所以<code>obj.m()</code>输出的是全局空间的<code>21</code>，而不是对象内部的<code>42</code>。上面的代码实际上等同于下面的代码。</p><pre class="hljs"><code>globalThis.s = <span class="hljs-number">21</span>;
+globalThis.m = <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.s);
+
+<span class="hljs-keyword">const</span> obj = {
+  <span class="hljs-attr">s</span>: <span class="hljs-number">42</span>,
+  <span class="hljs-attr">m</span>: globalThis.m
+};
+
+obj.m() <span class="hljs-comment">// 21</span>
+</code></pre><p>由于上面这个原因，对象的属性建议使用传统的写法定义，不要用箭头函数定义。</p><p>第二个场合是需要动态<code>this</code>的时候，也不应使用箭头函数。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> button = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;press&#x27;</span>);
 button.addEventListener(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
   <span class="hljs-built_in">this</span>.classList.toggle(<span class="hljs-string">&#x27;on&#x27;</span>);
 });
