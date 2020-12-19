@@ -103,7 +103,7 @@ jpg jpeg png
 
 $ <span class="hljs-built_in">echo</span> a{A{1,2},B{3,4}}b
 aA1b aA2b aB3b aB4b
-</code></pre><p>大括号也可以与其他模式联用，并且总是先于其他模式进行扩展。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> /bin/{cat,d*}
+</code></pre><p>大括号也可以与其他模式联用，并且总是先于其他模式进行扩展。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> /bin/{cat,b*}
 /bin/cat /bin/b2sum /bin/base32 /bin/base64 ... ...
 
 <span class="hljs-comment"># 基本等同于</span>
