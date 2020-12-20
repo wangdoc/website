@@ -46,10 +46,10 @@
 <span class="hljs-comment">// &quot;http://www.example.com/q=春节&quot;</span>
 </code></pre><h3 id="decodeuricomponent">decodeURIComponent() <a class="markdownIt-Anchor" href="#decodeuricomponent">#</a></h3><p><code>decodeURIComponent()</code>用于URL 片段的解码。它是<code>encodeURIComponent()</code>方法的逆运算。它接受一个参数，就是转码后的 URL 片段。</p><pre class="hljs"><code><span class="hljs-built_in">decodeURIComponent</span>(<span class="hljs-string">&#x27;%E6%98%A5%E8%8A%82&#x27;</span>)
 <span class="hljs-comment">// &quot;春节&quot;</span>
-</code></pre><h2 id="url-接口">URL 接口 <a class="markdownIt-Anchor" href="#url-接口">#</a></h2><p><code>URL</code>接口是一个构造函数，浏览器原生提供，可以用来构造、解析和编码 URL。一般情况下，通过<code>window.URL</code>可以拿到这个构造函数。</p><h3 id="构造函数">构造函数 <a class="markdownIt-Anchor" href="#构造函数">#</a></h3><p><code>URL</code>作为构造函数，可以生成 URL 实例。它接受一个表示 URL 的字符串作为参数。如果参数不是合法的 URL，会报错。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> url = <span class="hljs-keyword">new</span> URL(<span class="hljs-string">&#x27;http://www.example.com/index.html&#x27;</span>);
+</code></pre><h2 id="url-接口">URL 接口 <a class="markdownIt-Anchor" href="#url-接口">#</a></h2><p>浏览器原生提供<code>URL()</code>接口，它是一个构造函数，用来构造、解析和编码 URL。一般情况下，通过<code>window.URL</code>可以拿到这个构造函数。</p><h3 id="构造函数">构造函数 <a class="markdownIt-Anchor" href="#构造函数">#</a></h3><p><code>URL()</code>作为构造函数，可以生成 URL 实例。它接受一个表示 URL 的字符串作为参数。如果参数不是合法的 URL，会报错。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> url = <span class="hljs-keyword">new</span> URL(<span class="hljs-string">&#x27;http://www.example.com/index.html&#x27;</span>);
 url.href
 <span class="hljs-comment">// &quot;http://www.example.com/index.html&quot;</span>
-</code></pre><p>如果参数是另一个 URL 实例，构造函数会自动读取该实例的<code>href</code>属性，作为实际参数。</p><p>如果 URL 字符串是一个相对路径，那么需要表示绝对路径的第二个参数，作为计算基准。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> url1 = <span class="hljs-keyword">new</span> URL(<span class="hljs-string">&#x27;index.html&#x27;</span>, <span class="hljs-string">&#x27;http://example.com&#x27;</span>);
+</code></pre><p>上面示例生成了一个 URL 实例，用来代表指定的网址。</p><p>除了字符串，<code>URL()</code>的参数也可以是另一个 URL 实例。这时，<code>URL()</code>会自动读取该实例的<code>href</code>属性，作为实际参数。</p><p>如果 URL 字符串是一个相对路径，那么需要表示绝对路径的第二个参数，作为计算基准。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> url1 = <span class="hljs-keyword">new</span> URL(<span class="hljs-string">&#x27;index.html&#x27;</span>, <span class="hljs-string">&#x27;http://example.com&#x27;</span>);
 url1.href
 <span class="hljs-comment">// &quot;http://example.com/index.html&quot;</span>
 
@@ -86,7 +86,7 @@ url.password
 <span class="hljs-comment">// &quot;passwd&quot;</span>
 url.username
 <span class="hljs-comment">// &quot;user&quot;</span>
-</code></pre><p>这些属性里面，只有<code>origin</code>属性是只读的，其他属性都可写。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> url = <span class="hljs-keyword">new</span> URL(<span class="hljs-string">&#x27;http://example.com/index.html#part1&#x27;</span>);
+</code></pre><p>这些属性里面，只有<code>origin</code>属性是只读的，其他属性都可写，并且会立即生效。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> url = <span class="hljs-keyword">new</span> URL(<span class="hljs-string">&#x27;http://example.com/index.html#part1&#x27;</span>);
 
 url.pathname = <span class="hljs-string">&#x27;index2.html&#x27;</span>;
 url.href <span class="hljs-comment">// &quot;http://example.com/index2.html#part1&quot;</span>
@@ -141,7 +141,7 @@ fetch(<span class="hljs-string">&#x27;https://example.com/api&#x27;</span>, {
   <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;POST&#x27;</span>,
   <span class="hljs-attr">body</span>: params
 }).then(...)
-</code></pre><p>上面代码中，<code>fetch</code>命令向服务器发送命令时，可以直接使用<code>URLSearchParams</code>实例。</p><p><code>URLSearchParams</code>可以与<code>URL</code>接口结合使用。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> url = <span class="hljs-keyword">new</span> URL(<span class="hljs-built_in">window</span>.location);
+</code></pre><p>上面代码中，<code>fetch</code>命令向服务器发送命令时，可以直接使用<code>URLSearchParams</code>实例。</p><p><code>URLSearchParams</code>可以与<code>URL()</code>接口结合使用。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> url = <span class="hljs-keyword">new</span> URL(<span class="hljs-built_in">window</span>.location);
 <span class="hljs-keyword">var</span> foo = url.searchParams.get(<span class="hljs-string">&#x27;foo&#x27;</span>) || <span class="hljs-string">&#x27;somedefault&#x27;</span>;
 </code></pre><p>上面代码中，URL 实例的<code>searchParams</code>属性就是一个<code>URLSearchParams</code>实例，所以可以使用<code>URLSearchParams</code>接口的<code>get</code>方法。</p><p><code>URLSearchParams</code>实例有遍历器接口，可以用<code>for...of</code>循环遍历（详见《ES6 标准入门》的《Iterator》一章）。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> params = <span class="hljs-keyword">new</span> URLSearchParams({<span class="hljs-string">&#x27;foo&#x27;</span>: <span class="hljs-number">1</span> , <span class="hljs-string">&#x27;bar&#x27;</span>: <span class="hljs-number">2</span>});
 

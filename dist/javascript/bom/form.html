@@ -27,8 +27,8 @@ Host</span>: example.com
 <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
 </code></pre><p>上面表单的<code>&lt;button&gt;</code>元素，点击以后也会提交表单。</p><p>除了点击<code>submit</code>控件提交表单，还可以用表单元素的<code>submit()</code>方法，通过脚本提交表单。</p><pre class="hljs"><code>formElement.submit();
 </code></pre><p>表单元素的<code>reset()</code>方法可以重置所有控件的值（重置为默认值）。</p><pre class="hljs"><code>formElement.reset()
-</code></pre><h2 id="formdata-对象">FormData 对象 <a class="markdownIt-Anchor" href="#formdata-对象">#</a></h2><h3 id="概述">概述 <a class="markdownIt-Anchor" href="#概述">#</a></h3><p>表单数据以键值对的形式向服务器发送，这个过程是浏览器自动完成的。但是有时候，我们希望通过脚本完成过程，构造和编辑表单键值对，然后通过<code>XMLHttpRequest.send()</code>方法发送。浏览器原生提供了 FormData 对象来完成这项工作。</p><p>FormData 首先是一个构造函数，用来生成实例。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> formdata = <span class="hljs-keyword">new</span> FormData(form);
-</code></pre><p><code>FormData()</code>构造函数的参数是一个表单元素，这个参数是可选的。如果省略参数，就表示一个空的表单，否则就会处理表单元素里面的键值对。</p><p>下面是一个表单。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;myForm&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;myForm&quot;</span>&gt;</span>
+</code></pre><h2 id="formdata-对象">FormData 对象 <a class="markdownIt-Anchor" href="#formdata-对象">#</a></h2><h3 id="概述">概述 <a class="markdownIt-Anchor" href="#概述">#</a></h3><p>表单数据以键值对的形式向服务器发送，这个过程是浏览器自动完成的。但是有时候，我们希望通过脚本完成这个过程，构造或编辑表单的键值对，然后通过脚本发送给服务器。浏览器原生提供了 FormData 对象来完成这项工作。</p><p><code>FormData()</code>首先是一个构造函数，用来生成表单的实例。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> formdata = <span class="hljs-keyword">new</span> FormData(form);
+</code></pre><p><code>FormData()</code>构造函数的参数是一个 DOM 的表单元素，构造函数会自动处理表单的键值对。这个参数是可选的，如果省略该参数，就表示一个空的表单。</p><p>下面是一个表单。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;myForm&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;myForm&quot;</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;username&quot;</span>&gt;</span>用户名：<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;username&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;username&quot;</span>&gt;</span>
@@ -43,7 +43,7 @@ Host</span>: example.com
   <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submit&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;Submit!&quot;</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
-</code></pre><p>我们用 FormData 对象处理上面这个表单。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> myForm = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;myForm&#x27;</span>);
+</code></pre><p>我们用<code>FormData()</code>处理上面这个表单。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> myForm = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;myForm&#x27;</span>);
 <span class="hljs-keyword">var</span> formData = <span class="hljs-keyword">new</span> FormData(myForm);
 
 <span class="hljs-comment">// 获取某个控件的值</span>
