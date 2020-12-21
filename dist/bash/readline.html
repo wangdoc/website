@@ -24,7 +24,11 @@ Goodbye H
 $ !<span class="hljs-built_in">echo</span> H G
 <span class="hljs-built_in">echo</span> Goodbye H G
 Goodbye H G
-</code></pre><p>注意，<code>!string</code>语法只会匹配命令，不会匹配参数。所以<code>!echo H</code>不会执行<code>echo Hello World</code>，而是会执行<code>echo Goodbye</code>，并把参数<code>H</code>附加在这条命令之后。同理，<code>!echo H G</code>也是等同于<code>echo Goodbye</code>命令之后附加<code>H G</code>。</p><p>最后，按下<code>Ctrl + r</code>会显示操作历史，可以用方向键上下移动，选择其中要执行的命令。也可以键入命令的首字母，Shell 就会自动在历史文件中，查询并显示匹配的结果。</p><h3 id="history-命令">history 命令 <a class="markdownIt-Anchor" href="#history-命令">#</a></h3><p><code>history</code>命令能显示操作历史，即<code>.bash_history</code>文件的内容。</p><pre class="hljs"><code>$ <span class="hljs-built_in">history</span>
+</code></pre><p>注意，<code>!string</code>语法只会匹配命令，不会匹配参数。所以<code>!echo H</code>不会执行<code>echo Hello World</code>，而是会执行<code>echo Goodbye</code>，并把参数<code>H</code>附加在这条命令之后。同理，<code>!echo H G</code>也是等同于<code>echo Goodbye</code>命令之后附加<code>H G</code>。</p><p>由于”感叹号 + 字符“会扩展成以前执行过的命令，所以含有感叹号的字符串放在双引号里面，必须非常小心，有可能会报错。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;I say:\&quot;hello!\&quot;&quot;</span>
+bash: !\: event not found
+</code></pre><p>上面的命令会报错，原因是感叹号后面是一个反斜杠，Bash 会尝试寻找，以前是否执行过反斜杠开头的命令，一旦找不到就会报错。解决方法就是在感叹号前面，也加上反斜杠。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;I say:\&quot;hello\!\&quot;&quot;</span>
+I say:<span class="hljs-string">&quot;hello\!&quot;</span>
+</code></pre><p>最后，按下<code>Ctrl + r</code>会显示操作历史，可以用方向键上下移动，选择其中要执行的命令。也可以键入命令的首字母，Shell 就会自动在历史文件中，查询并显示匹配的结果。</p><h3 id="history-命令">history 命令 <a class="markdownIt-Anchor" href="#history-命令">#</a></h3><p><code>history</code>命令能显示操作历史，即<code>.bash_history</code>文件的内容。</p><pre class="hljs"><code>$ <span class="hljs-built_in">history</span>
 ...
 498 <span class="hljs-built_in">echo</span> Goodbye
 499 ls ~
