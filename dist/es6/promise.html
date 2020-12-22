@@ -12,7 +12,7 @@
 }, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error</span>) </span>{
   <span class="hljs-comment">// failure</span>
 });
-</code></pre><p><code>then</code>方法可以接受两个回调函数作为参数。第一个回调函数是<code>Promise</code>对象的状态变为<code>resolved</code>时调用，第二个回调函数是<code>Promise</code>对象的状态变为<code>rejected</code>时调用。其中，第二个函数是可选的，不一定要提供。这两个函数都接受<code>Promise</code>对象传出的值作为参数。</p><p>下面是一个<code>Promise</code>对象的简单例子。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">timeout</span>(<span class="hljs-params">ms</span>) </span>{
+</code></pre><p><code>then</code>方法可以接受两个回调函数作为参数。第一个回调函数是<code>Promise</code>对象的状态变为<code>resolved</code>时调用，第二个回调函数是<code>Promise</code>对象的状态变为<code>rejected</code>时调用。这两个函数都是可选的，不一定要提供。它们都接受<code>Promise</code>对象传出的值作为参数。</p><p>下面是一个<code>Promise</code>对象的简单例子。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">timeout</span>(<span class="hljs-params">ms</span>) </span>{
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
     <span class="hljs-built_in">setTimeout</span>(resolve, ms, <span class="hljs-string">&#x27;done&#x27;</span>);
   });
