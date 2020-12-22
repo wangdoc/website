@@ -82,8 +82,7 @@ $ ssh -c blowfish -c 3des server.example.com
 </code></pre><p><strong>-d</strong></p><p><code>-d</code>参数设置打印的 debug 信息级别，数值越高，输出的内容越详细。</p><pre class="hljs"><code>$ ssh –d 1 foo.com
 </code></pre><p><strong>-D</strong></p><p><code>-D</code>参数指定本机的 Socks 监听端口，该端口收到的请求，都将转发到远程的 SSH 主机，又称动态端口转发，详见《端口转发》一章。</p><pre class="hljs"><code>$ ssh -D 1080 server
 </code></pre><p>上面命令将本机 1080 端口收到的请求，都转发到服务器<code>server</code>。</p><p><strong>-f</strong></p><p><code>-f</code>参数表示 SSH 连接在后台运行。</p><p><strong>-F</strong></p><p><code>-F</code>参数指定配置文件。</p><pre class="hljs"><code>$ ssh -F /usr/<span class="hljs-built_in">local</span>/ssh/other_config
-</code></pre><p>上面命令指定使用配置文件<code>other_config</code>。</p><p><strong>-h，--help</strong></p><p><code>-h</code>、<code>--help</code>参数显示帮助信息。</p><pre class="hljs"><code>$ ssh --<span class="hljs-built_in">help</span>
-</code></pre><p><strong>-i</strong></p><p><code>-i</code>参数用于指定私钥，意为“identity_file”，默认值为<code>~/.ssh/id_dsa</code>。注意，对应的公钥必须存放到服务器，详见《密钥登录》一章。</p><pre class="hljs"><code>$ ssh -i my-key server.example.com
+</code></pre><p>上面命令指定使用配置文件<code>other_config</code>。</p><p><strong>-i</strong></p><p><code>-i</code>参数用于指定私钥，意为“identity_file”，默认值为<code>~/.ssh/id_dsa</code>。注意，对应的公钥必须存放到服务器，详见《密钥登录》一章。</p><pre class="hljs"><code>$ ssh -i my-key server.example.com
 </code></pre><p><strong>-l</strong></p><p><code>-l</code>参数指定远程登录的账户名。</p><pre class="hljs"><code>$ ssh -l sally server.example.com
 <span class="hljs-comment"># 等同于</span>
 $ ssh sally@server.example.com
