@@ -3,7 +3,7 @@ $ sudo apt install openssh-client
 
 <span class="hljs-comment"># CentOS 和 Fedora</span>
 $ sudo dnf install openssh-clients
-</code></pre><p>安装以后，可以使用<code>-h</code>参数，查看一下是否安装成功。</p><pre class="hljs"><code>$ ssh -h
+</code></pre><p>安装以后，可以使用<code>-V</code>参数输出版本号，查看一下是否安装成功。</p><pre class="hljs"><code>$ ssh -V
 </code></pre><h2 id="基本用法">基本用法 <a class="markdownIt-Anchor" href="#基本用法">#</a></h2><p>ssh 最常见的用途就是登录服务器，这要求服务器安装并正在运行 SSH 服务器软件。</p><p>ssh 登录服务器的命令如下。</p><pre class="hljs"><code>$ ssh hostname
 </code></pre><p>上面命令中，<code>hostname</code>是主机名，它可以是域名，也可能是 IP 地址或局域网内部的主机名。不指定用户名的情况下，将使用客户端的当前用户名，作为远程服务器的登录用户名。如果要指定用户名，可以采用下面的语法。</p><pre class="hljs"><code>$ ssh user@hostname
 </code></pre><p>上面的命令中，用户名和主机名写在一起了，之间使用<code>@</code>分隔。</p><p>用户名也可以使用<code>ssh</code>的<code>-l</code>参数指定，这样的话，用户名和主机名就不用写在一起了。</p><pre class="hljs"><code>$ ssh -l username host
