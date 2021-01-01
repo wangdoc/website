@@ -94,7 +94,7 @@ Fernstraßen<span class="hljs-tag">&lt;<span class="hljs-name">wbr</span>&gt;</s
 <span class="hljs-tag">&lt;/<span class="hljs-name">address</span>&gt;</span>
 </code></pre><p>该标签有几个注意点。</p><p>（1）如果是文章里提到的地址（比如提到搬家前的地址），而不是联系信息，不要使用<code>&lt;address&gt;</code>标签。</p><p>（2）<code>&lt;address&gt;</code>的内容不得有非联系信息，比如发布日期。</p><p>（3）<code>&lt;address&gt;</code>不能嵌套，并且内部不能有标题标签（<code>&lt;h1&gt;</code>~<code>&lt;h6&gt;</code>），也不能有<code>&lt;article&gt;</code>、<code>&lt;aside&gt;</code>、<code>&lt;section&gt;</code>、<code>&lt;nav&gt;</code>、<code>&lt;header&gt;</code>、<code>&lt;footer&gt;</code>等标签。</p><p>（4）通常，<code>&lt;address&gt;</code>会放在<code>&lt;footer&gt;</code>里面，下面是一个例子。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">footer</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">address</span>&gt;</span>
-    文章的相关问题请联系<span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&#x27;mailto:zhangsan@example.com&#x27;</span>&gt;</span>张三
+    文章的相关问题请联系<span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;mailto:zhangsan@example.com&quot;</span>&gt;</span>张三
     McClure<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>。
   <span class="hljs-tag">&lt;/<span class="hljs-name">address</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">footer</span>&gt;</span>
@@ -112,7 +112,7 @@ Fernstraßen<span class="hljs-tag">&lt;<span class="hljs-name">wbr</span>&gt;</s
 <span class="hljs-tag">&lt;<span class="hljs-name">dfn</span> <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;全球性计算机网络&quot;</span>&gt;</span>Internet<span class="hljs-tag">&lt;/<span class="hljs-name">dfn</span>&gt;</span>。
 <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 </code></pre><p>上面代码中，<code>title</code>属性的一个作用是，鼠标悬浮的时候，术语的解释会以提示的形式显示出来。</p><p>某些时候，术语本身是一个缩写，这时<code>&lt;dfn&gt;</code>和<code>&lt;abbr&gt;</code>可以结合使用。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">dfn</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">abbr</span> <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;acquired immune deficiency syndrome&quot;</span>&gt;</span>AIDS<span class="hljs-tag">&lt;/<span class="hljs-name">abbr</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">dfn</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">dfn</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">abbr</span> <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;acquired immune deficiency syndrome&quot;</span>&gt;</span>AIDS<span class="hljs-tag">&lt;/<span class="hljs-name">abbr</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">dfn</span>&gt;</span>
 的全称是获得性免疫缺陷综合征。
 <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 </code></pre><h2 id="ruby"><code>&lt;ruby&gt;</code> <a class="markdownIt-Anchor" href="#ruby">#</a></h2><p><code>&lt;ruby&gt;</code>标签表示文字的语音注释，主要用于东亚文字，比如汉语拼音和日语的片假名。它默认将语音注释，以小字体显示在文字的上方。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">ruby</span>&gt;</span>
