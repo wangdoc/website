@@ -4,6 +4,8 @@ $ sudo aptitude install openssh-server
 <span class="hljs-comment"># Red Hat</span>
 $ sudo yum install openssh-server
 </code></pre><p>一般来说，sshd 安装后会跟着系统一起启动。如果当前 sshd 没有启动，可以用下面的命令启动。</p><pre class="hljs"><code>$ sshd
+</code></pre><p>如果执行之后输出这条信息：<em>sshd re-exec requires execution with an absolute path</em>，需要使用绝对路径来启动：</p><pre class="hljs"><code><span class="hljs-comment"># Centos、Ubuntu、OS X</span>
+$ /usr/sbin/sshd
 </code></pre><p>上面的命令运行以后，sshd 自动进入后台，所以命令后面不需要加上<code>&amp;</code>。</p><p>除了直接运行可执行文件，也可以通过 Systemd 启动 sshd。</p><pre class="hljs"><code><span class="hljs-comment"># 启动</span>
 $ sudo systemctl start sshd.service
 
