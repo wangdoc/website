@@ -180,7 +180,8 @@ $ ls
 fo*
 </code></pre><p>上面代码创建了一个<code>fo*</code>文件，这时<code>*</code>就是文件名的一部分。</p><h2 id="量词语法">量词语法 <a class="markdownIt-Anchor" href="#量词语法">#</a></h2><p>量词语法用来控制模式匹配的次数。它只有在 Bash 的<code>extglob</code>参数打开的情况下才能使用，不过一般是默认打开的。下面的命令可以查询。</p><pre class="hljs"><code>$ <span class="hljs-built_in">shopt</span> extglob
 extglob        	on
-</code></pre><p>量词语法有下面几个。</p><ul><li><code>?(pattern-list)</code>：匹配零个或一个模式。</li><li><code>*(pattern-list)</code>：匹配零个或多个模式。</li><li><code>+(pattern-list)</code>：匹配一个或多个模式。</li><li><code>@(pattern-list)</code>：只匹配一个模式。</li><li><code>!(pattern-list)</code>：匹配零个或一个以上的模式，但不匹配单独一个的模式。</li></ul><pre class="hljs"><code>$ ls abc?(.)txt
+</code></pre><p>如果<code>extglob</code>参数是关闭的，可以用下面的命令打开。</p><pre class="hljs"><code>$ <span class="hljs-built_in">shopt</span> -s extglob
+</code></pre><p>量词语法有下面几个。</p><ul><li><code>?(pattern-list)</code>：匹配零个或一个模式。</li><li><code>*(pattern-list)</code>：匹配零个或多个模式。</li><li><code>+(pattern-list)</code>：匹配一个或多个模式。</li><li><code>@(pattern-list)</code>：只匹配一个模式。</li><li><code>!(pattern-list)</code>：匹配给定模式以外的任何内容。</li></ul><pre class="hljs"><code>$ ls abc?(.)txt
 abctxt abc.txt
 </code></pre><p>上面例子中，<code>?(.)</code>匹配零个或一个点。</p><pre class="hljs"><code>$ ls abc?(def)
 abc abcdef
@@ -188,7 +189,9 @@ abc abcdef
 abc.php abc.txt
 </code></pre><p>上面例子中，<code>+(.txt|.php)</code>匹配文件有一个<code>.txt</code>或<code>.php</code>后缀名。</p><pre class="hljs"><code>$ ls abc+(.txt)
 abc.txt abc.txt.txt
-</code></pre><p>上面例子中，<code>+(.txt)</code>匹配文件有一个或多个<code>.txt</code>后缀名。</p><p>量词语法也属于文件名扩展，如果不存在可匹配的文件，就会原样输出。</p><pre class="hljs"><code><span class="hljs-comment"># 没有 abc 开头的文件名</span>
+</code></pre><p>上面例子中，<code>+(.txt)</code>匹配文件有一个或多个<code>.txt</code>后缀名。</p><pre class="hljs"><code>$ ls a?(b).txt
+a.txt abb.txt ac.txt
+</code></pre><p>上面例子中，<code>?(b)</code>表示匹配单个字母<code>b</code>以外的任意内容。</p><p>量词语法也属于文件名扩展，如果不存在可匹配的文件，就会原样输出。</p><pre class="hljs"><code><span class="hljs-comment"># 没有 abc 开头的文件名</span>
 $ ls abc?(def)
 ls: 无法访问<span class="hljs-string">&#x27;abc?(def)&#x27;</span>: 没有那个文件或目录
 </code></pre><p>上面例子中，由于没有可匹配的文件，<code>abc?(def)</code>就原样输出，导致<code>ls</code>命令报错。</p><h2 id="shopt-命令">shopt 命令 <a class="markdownIt-Anchor" href="#shopt-命令">#</a></h2><p><code>shopt</code>命令可以调整 Bash 的行为。它有好几个参数跟通配符扩展有关。</p><p><code>shopt</code>命令的使用方法如下。</p><pre class="hljs"><code><span class="hljs-comment"># 打开某个参数</span>
