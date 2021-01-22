@@ -178,7 +178,7 @@ params.set(<span class="hljs-string">&#x27;foo&#x27;</span>, <span class="hljs-n
 params.toString() <span class="hljs-comment">// &quot;foo=3&quot;</span>
 </code></pre><p>下面是一个替换当前 URL 的例子。</p><pre class="hljs"><code><span class="hljs-comment">// URL: https://example.com?version=1.0</span>
 <span class="hljs-keyword">var</span> params = <span class="hljs-keyword">new</span> URLSearchParams(location.search.slice(<span class="hljs-number">1</span>));
-params.set(<span class="hljs-string">&#x27;version&#x27;</span>, <span class="hljs-number">2.0</span>);
+params.set(<span class="hljs-string">&#x27;version&#x27;</span>, <span class="hljs-string">&#x27;2.0&#x27;</span>);
 
 <span class="hljs-built_in">window</span>.history.replaceState({}, <span class="hljs-string">&#x27;&#x27;</span>, location.pathname + <span class="hljs-string">`?`</span> + params);
 <span class="hljs-comment">// URL: https://example.com?version=2.0</span>
