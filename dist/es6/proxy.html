@@ -254,10 +254,10 @@ proxy.foo === proxy <span class="hljs-comment">// true</span>
 
 myObj.foo = <span class="hljs-string">&#x27;bar&#x27;</span>;
 myObj.foo === myObj <span class="hljs-comment">// true</span>
-</code></pre><p>上面代码中，设置<code>myObj.foo</code>属性的值时，<code>myObj</code>并没有<code>foo</code>属性，因此引擎会到<code>myObj</code>的原型链去找<code>foo</code>属性。<code>myObj</code>的原型对象<code>proxy</code>是一个 Proxy 实例，设置它的<code>foo</code>属性会触发<code>set</code>方法。这时，第四个参数<code>receiver</code>就指向原始赋值行为所在的对象<code>myObj</code>。</p><p>注意，如果目标对象自身的某个属性，不可写且不可配置，那么<code>set</code>方法将不起作用。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> obj = {};
+</code></pre><p>上面代码中，设置<code>myObj.foo</code>属性的值时，<code>myObj</code>并没有<code>foo</code>属性，因此引擎会到<code>myObj</code>的原型链去找<code>foo</code>属性。<code>myObj</code>的原型对象<code>proxy</code>是一个 Proxy 实例，设置它的<code>foo</code>属性会触发<code>set</code>方法。这时，第四个参数<code>receiver</code>就指向原始赋值行为所在的对象<code>myObj</code>。</p><p>注意，如果目标对象自身的某个属性不可写，那么<code>set</code>方法将不起作用。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> obj = {};
 <span class="hljs-built_in">Object</span>.defineProperty(obj, <span class="hljs-string">&#x27;foo&#x27;</span>, {
   <span class="hljs-attr">value</span>: <span class="hljs-string">&#x27;bar&#x27;</span>,
-  <span class="hljs-attr">writable</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">writable</span>: <span class="hljs-literal">false</span>
 });
 
 <span class="hljs-keyword">const</span> handler = {
