@@ -84,7 +84,7 @@ source.addEventListener(<span class="hljs-string">&#x27;copy&#x27;</span>, <span
   event.clipboardData.setData(<span class="hljs-string">&#x27;text/plain&#x27;</span>, selection.toString().toUpperCase());
   event.preventDefault();
 });
-</code></pre><p>上面示例中，事件对象的<code>clipboardData</code>属性包含了剪贴板数据。它是一个对象，有以下属性和方法。</p><ul><li><code>Event.clipboardData.setData(type, data)</code>：修改剪贴板数据，需要指定数据类型。</li><li><code>Event.clipboardData..getData(type)</code>：获取剪贴板数据，需要指定数据类型。</li><li><code>Event.clipboardData.clearData([type])</code>：清除剪贴板数据，可以指定数据类型。如果不指定类型，将清除所有类型的数据。</li><li><code>Event.clipboardData.items</code>：一个类似数组的对象，包含了所有剪贴项，不过通常只有一个剪贴项。</li></ul><p>下面的示例是拦截用户的复制操作，将指定内容放入剪贴板。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> clipboardItems = [];
+</code></pre><p>上面示例中，事件对象的<code>clipboardData</code>属性包含了剪贴板数据。它是一个对象，有以下属性和方法。</p><ul><li><code>Event.clipboardData.setData(type, data)</code>：修改剪贴板数据，需要指定数据类型。</li><li><code>Event.clipboardData.getData(type)</code>：获取剪贴板数据，需要指定数据类型。</li><li><code>Event.clipboardData.clearData([type])</code>：清除剪贴板数据，可以指定数据类型。如果不指定类型，将清除所有类型的数据。</li><li><code>Event.clipboardData.items</code>：一个类似数组的对象，包含了所有剪贴项，不过通常只有一个剪贴项。</li></ul><p>下面的示例是拦截用户的复制操作，将指定内容放入剪贴板。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> clipboardItems = [];
 
 <span class="hljs-built_in">document</span>.addEventListener(<span class="hljs-string">&#x27;copy&#x27;</span>, <span class="hljs-keyword">async</span> (e) =&gt; {
   e.preventDefault();
