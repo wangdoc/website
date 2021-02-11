@@ -265,17 +265,17 @@ xhr.onreadystatechange = <span class="hljs-function"><span class="hljs-keyword">
     <span class="hljs-keyword">var</span> headers = xhr.getAllResponseHeaders();
   }
 }
-</code></pre><p>上面代码用于获取服务器返回的所有头信息。它可能是下面这样的字符串。</p><pre class="hljs"><code><span class="hljs-attribute">date</span>: Fri, 08 Dec 2017 21:04:30 GMT\r\n
-<span class="hljs-attribute">content-encoding</span>: gzip\r\n
-<span class="hljs-attribute">x-content-type-options</span>: nosniff\r\n
-<span class="hljs-attribute">server</span>: meinheld/0.6.1\r\n
-<span class="hljs-attribute">x-frame-options</span>: DENY\r\n
-<span class="hljs-attribute">content-type</span>: text/html; charset=utf-8\r\n
-<span class="hljs-attribute">connection</span>: keep-alive\r\n
-<span class="hljs-attribute">strict-transport-security</span>: max-age=63072000\r\n
-<span class="hljs-attribute">vary</span>: Cookie, Accept-Encoding\r\n
-<span class="hljs-attribute">content-length</span>: 6502\r\n
-<span class="hljs-attribute">x-xss-protection</span>: 1; mode=block\r\n
+</code></pre><p>上面代码用于获取服务器返回的所有头信息。它可能是下面这样的字符串。</p><pre class="hljs"><code>date: Fri, 08 Dec 2017 21:04:30 GMT\r\n
+content-encoding: gzip\r\n
+x-content-type-options: nosniff\r\n
+server: meinheld/0.6.1\r\n
+x-frame-options: DENY\r\n
+content-type: text/html; charset=utf-8\r\n
+connection: keep-alive\r\n
+strict-transport-security: max-age=63072000\r\n
+vary: Cookie, Accept-Encoding\r\n
+content-length: 6502\r\n
+x-xss-protection: 1; mode=block\r\n
 </code></pre><p>然后，对这个字符串进行处理。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> arr = headers.trim().split(<span class="hljs-regexp">/[\r\n]+/</span>);
 <span class="hljs-keyword">var</span> headerMap = {};
 
