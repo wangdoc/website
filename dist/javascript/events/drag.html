@@ -79,7 +79,7 @@ div.addEventListener(<span class="hljs-string">&#x27;dragend&#x27;</span>, <span
 });
 
 target.addEventListener(<span class="hljs-string">&#x27;dragover&#x27;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>{
-  ev.dataTransfer.dropEffect = <span class="hljs-string">&#x27;move&#x27;</span>;
+  e.dataTransfer.dropEffect = <span class="hljs-string">&#x27;move&#x27;</span>;
 });
 </code></pre><p>只要<code>dropEffect</code>属性和<code>effectAllowed</code>属性之中，有一个为<code>none</code>，就无法在目标节点上完成<code>drop</code>操作。</p><h3 id="datatransferfiles">DataTransfer.files <a class="markdownIt-Anchor" href="#datatransferfiles">#</a></h3><p><code>DataTransfer.files</code>属性是一个 FileList 对象，包含一组本地文件，可以用来在拖拉操作中传送。如果本次拖拉不涉及文件，则该属性为空的 FileList 对象。</p><p>下面就是一个接收拖拉文件的例子。</p><pre class="hljs"><code><span class="hljs-comment">// HTML 代码如下</span>
 <span class="hljs-comment">// &lt;div id=&quot;output&quot; style=&quot;min-height: 200px;border: 1px solid black;&quot;&gt;</span>
