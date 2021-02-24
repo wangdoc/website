@@ -17,7 +17,7 @@
 <span class="hljs-built_in">localStorage</span>.removeItem(<span class="hljs-string">&#x27;key&#x27;</span>);
 </code></pre><h3 id="storageclear">Storage.clear() <a class="markdownIt-Anchor" href="#storageclear">#</a></h3><p><code>Storage.clear()</code>方法用于清除所有保存的数据。该方法的返回值是<code>undefined</code>。</p><pre class="hljs"><code><span class="hljs-built_in">window</span>.sessionStorage.clear()
 <span class="hljs-built_in">window</span>.localStorage.clear()
-</code></pre><h3 id="storagekey">Storage.key() <a class="markdownIt-Anchor" href="#storagekey">#</a></h3><p><code>Storage.key()</code>接受一个整数作为参数（从零开始），返回该位置对应的键值。</p><pre class="hljs"><code><span class="hljs-built_in">window</span>.sessionStorage.setItem(<span class="hljs-string">&#x27;key&#x27;</span>, <span class="hljs-string">&#x27;value&#x27;</span>);
+</code></pre><h3 id="storagekey">Storage.key() <a class="markdownIt-Anchor" href="#storagekey">#</a></h3><p><code>Storage.key()</code>接受一个整数作为参数（从零开始），返回该位置对应的键名。</p><pre class="hljs"><code><span class="hljs-built_in">window</span>.sessionStorage.setItem(<span class="hljs-string">&#x27;key&#x27;</span>, <span class="hljs-string">&#x27;value&#x27;</span>);
 <span class="hljs-built_in">window</span>.sessionStorage.key(<span class="hljs-number">0</span>) <span class="hljs-comment">// &quot;key&quot;</span>
 </code></pre><p>结合使用<code>Storage.length</code>属性和<code>Storage.key()</code>方法，可以遍历所有的键。</p><pre class="hljs"><code><span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">window</span>.localStorage.length; i++) {
   <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">localStorage</span>.key(i));
