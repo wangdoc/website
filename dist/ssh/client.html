@@ -87,7 +87,7 @@ $ ssh -c blowfish -c 3des server.example.com
 $ ssh sally@server.example.com
 </code></pre><p><strong>-L</strong></p><p><code>-L</code>参数设置本地端口转发，详见《端口转发》一章。</p><pre class="hljs"><code>$ ssh  -L 9999:targetServer:80 user@remoteserver
 </code></pre><p>上面命令中，所有发向本地<code>9999</code>端口的请求，都会经过<code>remoteserver</code>发往 targetServer 的 80 端口，这就相当于直接连上了 targetServer 的 80 端口。</p><p><strong>-m</strong></p><p><code>-m</code>参数指定校验数据完整性的算法（message authentication code，简称 MAC）。</p><pre class="hljs"><code>$ ssh -m hmac-sha1,hmac-md5 server.example.com
-</code></pre><p>上面命令指定数据校验算法为<code>hmac-sha1</code>或<code>hmac-md5</code>。</p><p><strong>-o</strong></p><p><code>-o</code>参数用来指定一个配置命令。</p><pre class="hljs"><code>$ ssh -o <span class="hljs-string">&quot;Keyword Value&quot;</span>
+</code></pre><p>上面命令指定数据校验算法为<code>hmac-sha1</code>或<code>hmac-md5</code>。</p><p><strong>-N</strong></p><p><code>-N</code>参数用于端口转发，表示建立的 SSH 只用于端口转发，不能执行远程命令，这样可以提供安全性，详见《端口转发》一章。</p><p><strong>-o</strong></p><p><code>-o</code>参数用来指定一个配置命令。</p><pre class="hljs"><code>$ ssh -o <span class="hljs-string">&quot;Keyword Value&quot;</span>
 </code></pre><p>举例来说，配置文件里面有如下内容。</p><pre class="hljs"><code>User sally
 Port 220
 </code></pre><p>通过<code>-o</code>参数，可以把上面两个配置命令从命令行传入。</p><pre class="hljs"><code>$ ssh -o <span class="hljs-string">&quot;User sally&quot;</span> -o <span class="hljs-string">&quot;Port 220&quot;</span> server.example.com
