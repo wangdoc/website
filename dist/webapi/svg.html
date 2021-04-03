@@ -17,7 +17,7 @@
 <span class="hljs-tag">&lt;<span class="hljs-name">embed</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;embed&quot;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;icon.svg&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;image/svg+xml&quot;</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">iframe</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;iframe&quot;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;icon.svg&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">iframe</span>&gt;</span>
 </code></pre><p>CSS 也可以使用 SVG 文件。</p><pre class="hljs"><code><span class="hljs-selector-class">.logo</span> {
-  <span class="hljs-attribute">background</span>: <span class="hljs-built_in">url</span>(icon.svg);
+  <span class="hljs-attribute">background</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">icon.svg</span>);
 }
 </code></pre><p>SVG 文件还可以转为 BASE64 编码，然后作为 Data URI 写入网页。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;data:image/svg+xml;base64,[data]&quot;</span>&gt;</span>
 </code></pre><h2 id="语法">语法 <a class="markdownIt-Anchor" href="#语法">#</a></h2><h3 id="svg标签"><code>&lt;svg&gt;</code>标签 <a class="markdownIt-Anchor" href="#svg标签">#</a></h3><p>SVG 代码都放在顶层标签<code>&lt;svg&gt;</code>之中。下面是一个例子。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">svg</span> <span class="hljs-attr">width</span>=<span class="hljs-string">&quot;100%&quot;</span> <span class="hljs-attr">height</span>=<span class="hljs-string">&quot;100%&quot;</span>&gt;</span>
@@ -32,13 +32,13 @@
   <span class="hljs-tag">&lt;<span class="hljs-name">circle</span> <span class="hljs-attr">cx</span>=<span class="hljs-string">&quot;150&quot;</span> <span class="hljs-attr">cy</span>=<span class="hljs-string">&quot;50&quot;</span> <span class="hljs-attr">r</span>=<span class="hljs-string">&quot;25&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;fancy&quot;</span> /&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">svg</span>&gt;</span>
 </code></pre><p>上面的代码定义了三个圆。<code>&lt;circle&gt;</code>标签的<code>cx</code>、<code>cy</code>、<code>r</code>属性分别为横坐标、纵坐标和半径，单位为像素。坐标都是相对于<code>&lt;svg&gt;</code>画布的左上角原点。</p><p><code>class</code>属性用来指定对应的 CSS 类。</p><pre class="hljs"><code><span class="hljs-selector-class">.red</span> {
-  <span class="hljs-attribute">fill</span>: red;
+  fill: red;
 }
 
 <span class="hljs-selector-class">.fancy</span> {
-  <span class="hljs-attribute">fill</span>: none;
-  <span class="hljs-attribute">stroke</span>: black;
-  <span class="hljs-attribute">stroke-width</span>: <span class="hljs-number">3pt</span>;
+  fill: none;
+  stroke: black;
+  stroke-<span class="hljs-attribute">width</span>: <span class="hljs-number">3pt</span>;
 }
 </code></pre><p>SVG 的 CSS 属性与网页元素有所不同。</p><blockquote><ul><li>fill：填充色</li><li>stroke：描边色</li><li>stroke-width：边框宽度</li></ul></blockquote><h3 id="line标签"><code>&lt;line&gt;</code>标签 <a class="markdownIt-Anchor" href="#line标签">#</a></h3><p><code>&lt;line&gt;</code>标签用来绘制直线。</p><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">svg</span> <span class="hljs-attr">width</span>=<span class="hljs-string">&quot;300&quot;</span> <span class="hljs-attr">height</span>=<span class="hljs-string">&quot;180&quot;</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">line</span> <span class="hljs-attr">x1</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">y1</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">x2</span>=<span class="hljs-string">&quot;200&quot;</span> <span class="hljs-attr">y2</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;stroke:rgb(0,0,0);stroke-width:5&quot;</span> /&gt;</span>
@@ -129,15 +129,15 @@
 &gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">circle</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;mycircle&quot;</span> <span class="hljs-attr">cx</span>=<span class="hljs-string">&quot;400&quot;</span> <span class="hljs-attr">cy</span>=<span class="hljs-string">&quot;300&quot;</span> <span class="hljs-attr">r</span>=<span class="hljs-string">&quot;50&quot;</span> /&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">svg</span>&gt;</span>
-</code></pre><p>上面代码插入网页之后，就可以用 CSS 定制样式。</p><pre class="hljs"><code><span class="hljs-selector-tag">circle</span> {
-  <span class="hljs-attribute">stroke-width</span>: <span class="hljs-number">5</span>;
-  <span class="hljs-attribute">stroke</span>: <span class="hljs-number">#f00</span>;
-  <span class="hljs-attribute">fill</span>: <span class="hljs-number">#ff0</span>;
+</code></pre><p>上面代码插入网页之后，就可以用 CSS 定制样式。</p><pre class="hljs"><code>circle {
+  stroke-<span class="hljs-attribute">width</span>: <span class="hljs-number">5</span>;
+  stroke: <span class="hljs-number">#f00</span>;
+  fill: <span class="hljs-number">#ff0</span>;
 }
 
-<span class="hljs-selector-tag">circle</span><span class="hljs-selector-pseudo">:hover</span> {
-  <span class="hljs-attribute">stroke</span>: <span class="hljs-number">#090</span>;
-  <span class="hljs-attribute">fill</span>: <span class="hljs-number">#fff</span>;
+circle<span class="hljs-selector-pseudo">:hover</span> {
+  stroke: <span class="hljs-number">#090</span>;
+  fill: <span class="hljs-number">#fff</span>;
 }
 </code></pre><p>然后，可以用 JavaScript 代码操作 SVG。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> mycircle = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;mycircle&#x27;</span>);
 
