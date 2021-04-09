@@ -262,7 +262,7 @@ canvas.toBlob(<span class="hljs-function"><span class="hljs-keyword">function</s
   <span class="hljs-keyword">var</span> newImg = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&#x27;img&#x27;</span>);
   <span class="hljs-keyword">var</span> url = URL.createObjectURL(blob);
 
-  newImg.onload = functio () {
+  newImg.onload = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
     <span class="hljs-comment">// 使用完毕，释放 URL 对象</span>
     URL.revokeObjectURL(url);
   };
