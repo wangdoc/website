@@ -425,7 +425,7 @@ g.next()        <span class="hljs-comment">// { value: undefined, done: true }</
 
 <span class="hljs-keyword">var</span> g = gen();
 
-g.next()        <span class="hljs-comment">// { value: 1, done: false }</span>
+g.next() <span class="hljs-comment">// { value: 1, done: false }</span>
 g.return() <span class="hljs-comment">// { value: undefined, done: true }</span>
 </code></pre><p>如果 Generator 函数内部有<code>try...finally</code>代码块，且正在执行<code>try</code>代码块，那么<code>return()</code>方法会导致立刻进入<code>finally</code>代码块，执行完以后，整个函数才会结束。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">numbers</span> (<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">yield</span> <span class="hljs-number">1</span>;
