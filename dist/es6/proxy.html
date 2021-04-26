@@ -203,6 +203,7 @@ proxy.foo
 
     <span class="hljs-comment">// 对于满足条件的 age 属性以及其他属性，直接保存</span>
     obj[prop] = value;
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
   }
 };
 
@@ -238,6 +239,7 @@ proxy._prop = <span class="hljs-string">&#x27;c&#x27;</span>
 </code></pre><p>上面代码中，只要读写的属性名的第一个字符是下划线，一律抛错，从而达到禁止读写内部属性的目的。</p><p>下面是<code>set</code>方法第四个参数的例子。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> handler = {
   <span class="hljs-attr">set</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">obj, prop, value, receiver</span>) </span>{
     obj[prop] = receiver;
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
   }
 };
 <span class="hljs-keyword">const</span> proxy = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>({}, handler);
@@ -246,6 +248,7 @@ proxy.foo === proxy <span class="hljs-comment">// true</span>
 </code></pre><p>上面代码中，<code>set</code>方法的第四个参数<code>receiver</code>，指的是原始的操作行为所在的那个对象，一般情况下是<code>proxy</code>实例本身，请看下面的例子。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> handler = {
   <span class="hljs-attr">set</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">obj, prop, value, receiver</span>) </span>{
     obj[prop] = receiver;
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
   }
 };
 <span class="hljs-keyword">const</span> proxy = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>({}, handler);
@@ -263,13 +266,14 @@ myObj.foo === myObj <span class="hljs-comment">// true</span>
 <span class="hljs-keyword">const</span> handler = {
   <span class="hljs-attr">set</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">obj, prop, value, receiver</span>) </span>{
     obj[prop] = <span class="hljs-string">&#x27;baz&#x27;</span>;
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
   }
 };
 
 <span class="hljs-keyword">const</span> proxy = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>(obj, handler);
 proxy.foo = <span class="hljs-string">&#x27;baz&#x27;</span>;
 proxy.foo <span class="hljs-comment">// &quot;bar&quot;</span>
-</code></pre><p>上面代码中，<code>obj.foo</code>属性不可写，Proxy 对这个属性的<code>set</code>代理将不会生效。</p><p>注意，严格模式下，<code>set</code>代理如果没有返回<code>true</code>，就会报错。</p><pre class="hljs"><code><span class="hljs-meta">&#x27;use strict&#x27;</span>;
+</code></pre><p>上面代码中，<code>obj.foo</code>属性不可写，Proxy 对这个属性的<code>set</code>代理将不会生效。</p><p>注意，<code>set</code>代理应当返回一个布尔值。严格模式下，<code>set</code>代理如果没有返回<code>true</code>，就会报错。</p><pre class="hljs"><code><span class="hljs-meta">&#x27;use strict&#x27;</span>;
 <span class="hljs-keyword">const</span> handler = {
   <span class="hljs-attr">set</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">obj, prop, value, receiver</span>) </span>{
     obj[prop] = receiver;
