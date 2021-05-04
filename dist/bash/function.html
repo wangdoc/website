@@ -11,7 +11,7 @@
   <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Hello <span class="hljs-variable">$1</span>&quot;</span>
 }
 </code></pre><p>上面代码中，函数体里面的<code>$1</code>表示函数调用时的第一个参数。</p><p>调用时，就直接写函数名，参数跟在函数名后面。</p><pre class="hljs"><code>$ hello world
-hello world
+Hello world
 </code></pre><p>下面是一个多行函数的例子，显示当前日期时间。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-title">today</span></span>() {
   <span class="hljs-built_in">echo</span> -n <span class="hljs-string">&quot;Today&#x27;s date is: &quot;</span>
   date +<span class="hljs-string">&quot;%A, %B %-d, %Y&quot;</span>
