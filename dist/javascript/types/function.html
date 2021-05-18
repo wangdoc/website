@@ -372,7 +372,7 @@ p1.setAge(<span class="hljs-number">25</span>);
 p1.getAge() <span class="hljs-comment">// 25</span>
 </code></pre><p>上面代码中，函数<code>Person</code>的内部变量<code>_age</code>，通过闭包<code>getAge</code>和<code>setAge</code>，变成了返回对象<code>p1</code>的私有变量。</p><p>注意，外层函数每次运行，都会生成一个新的闭包，而这个闭包又会保留外层函数的内部变量，所以内存消耗很大。因此不能滥用闭包，否则会造成网页的性能问题。</p><h3 id="立即调用的函数表达式（iife）">立即调用的函数表达式（IIFE） <a class="markdownIt-Anchor" href="#立即调用的函数表达式（iife）">#</a></h3><p>根据 JavaScript 的语法，圆括号<code>()</code>跟在函数名之后，表示调用该函数。比如，<code>print()</code>就表示调用<code>print</code>函数。</p><p>有时，我们需要在定义函数之后，立即调用该函数。这时，你不能在函数的定义之后加上圆括号，这会产生语法错误。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{ <span class="hljs-comment">/* code */</span> }();
 <span class="hljs-comment">// SyntaxError: Unexpected token (</span>
-</code></pre><p>产生这个错误的原因是，<code>function</code>这个关键字即可以当作语句，也可以当作表达式。</p><pre class="hljs"><code><span class="hljs-comment">// 语句</span>
+</code></pre><p>产生这个错误的原因是，<code>function</code>这个关键字既可以当作语句，也可以当作表达式。</p><pre class="hljs"><code><span class="hljs-comment">// 语句</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params"></span>) </span>{}
 
 <span class="hljs-comment">// 表达式</span>
@@ -423,7 +423,7 @@ a <span class="hljs-comment">// 2</span>
   <span class="hljs-built_in">eval</span>(<span class="hljs-string">&#x27;foo = 2&#x27;</span>);
   <span class="hljs-built_in">console</span>.log(foo);  <span class="hljs-comment">// 2</span>
 })()
-</code></pre><p>上面代码中，严格模式下，<code>eval</code>内部还是改写了外部变量，可见安全风险依然存在。</p><p>总之，<code>eval</code>的本质是在当前作用域之中，注入代码。由于安全风险和不利于 JavaScript 引擎优化执行速度，所以一般不推荐使用。通常情况下，<code>eval</code>最常见的场合是解析 JSON 数据的字符串，不过正确的做法应该是使用原生的<code>JSON.parse</code>方法。</p><h3 id="eval-的别名调用">eval 的别名调用 <a class="markdownIt-Anchor" href="#eval-的别名调用">#</a></h3><p>前面说过<code>eval</code>不利于引擎优化执行速度。更麻烦的是，还有下面这种情况，引擎在静态代码分析的阶段，根本无法分辨执行的是<code>eval</code>。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> m = <span class="hljs-built_in">eval</span>;
+</code></pre><p>上面代码中，严格模式下，<code>eval</code>内部还是改写了外部变量，可见安全风险依然存在。</p><p>总之，<code>eval</code>的本质是在当前作用域之中，注入代码。由于安全风险和不利于 JavaScript 引擎优化执行速度，一般不推荐使用。通常情况下，<code>eval</code>最常见的场合是解析 JSON 数据的字符串，不过正确的做法应该是使用原生的<code>JSON.parse</code>方法。</p><h3 id="eval-的别名调用">eval 的别名调用 <a class="markdownIt-Anchor" href="#eval-的别名调用">#</a></h3><p>前面说过<code>eval</code>不利于引擎优化执行速度。更麻烦的是，还有下面这种情况，引擎在静态代码分析的阶段，根本无法分辨执行的是<code>eval</code>。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> m = <span class="hljs-built_in">eval</span>;
 m(<span class="hljs-string">&#x27;var x = 1&#x27;</span>);
 x <span class="hljs-comment">// 1</span>
 </code></pre><p>上面代码中，变量<code>m</code>是<code>eval</code>的别名。静态代码分析阶段，引擎分辨不出<code>m('var x = 1')</code>执行的是<code>eval</code>命令。</p><p>为了保证<code>eval</code>的别名不影响代码优化，JavaScript 的标准规定，凡是使用别名执行<code>eval</code>，<code>eval</code>内部一律是全局作用域。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> a = <span class="hljs-number">1</span>;
