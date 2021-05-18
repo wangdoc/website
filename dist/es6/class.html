@@ -148,7 +148,7 @@ point.hasOwnProperty(<span class="hljs-string">&#x27;x&#x27;</span>) <span class
 point.hasOwnProperty(<span class="hljs-string">&#x27;y&#x27;</span>) <span class="hljs-comment">// true</span>
 point.hasOwnProperty(<span class="hljs-string">&#x27;toString&#x27;</span>) <span class="hljs-comment">// false</span>
 point.__proto__.hasOwnProperty(<span class="hljs-string">&#x27;toString&#x27;</span>) <span class="hljs-comment">// true</span>
-</code></pre><p>上面代码中，<code>x</code>和<code>y</code>都是实例对象<code>point</code>自身的属性（因为定义在<code>this</code>变量上），所以<code>hasOwnProperty()</code>方法返回<code>true</code>，而<code>toString()</code>是原型对象的属性（因为定义在<code>Point</code>类上），所以<code>hasOwnProperty()</code>方法返回<code>false</code>。这些都与 ES5 的行为保持一致。</p><p>与 ES5 一样，类的所有实例共享一个原型对象。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> p1 = <span class="hljs-keyword">new</span> Point(<span class="hljs-number">2</span>,<span class="hljs-number">3</span>);
+</code></pre><p>上面代码中，<code>x</code>和<code>y</code>都是实例对象<code>point</code>自身的属性（因为定义在<code>this</code>对象上），所以<code>hasOwnProperty()</code>方法返回<code>true</code>，而<code>toString()</code>是原型对象的属性（因为定义在<code>Point</code>类上），所以<code>hasOwnProperty()</code>方法返回<code>false</code>。这些都与 ES5 的行为保持一致。</p><p>与 ES5 一样，类的所有实例共享一个原型对象。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> p1 = <span class="hljs-keyword">new</span> Point(<span class="hljs-number">2</span>,<span class="hljs-number">3</span>);
 <span class="hljs-keyword">var</span> p2 = <span class="hljs-keyword">new</span> Point(<span class="hljs-number">3</span>,<span class="hljs-number">2</span>);
 
 p1.__proto__ === p2.__proto__
