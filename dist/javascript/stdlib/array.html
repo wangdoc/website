@@ -192,7 +192,7 @@ a <span class="hljs-comment">// [1, 2]</span>
 
 <span class="hljs-comment">// good</span>
 [<span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">2</span>, <span class="hljs-number">6</span>, <span class="hljs-number">0</span>, <span class="hljs-number">6</span>, <span class="hljs-number">2</span>, <span class="hljs-number">6</span>].sort(<span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> a - b)
-</code></pre><p>上面代码中，前一种排序算法返回的是布尔值，这是不推荐使用的。后一种是数值，才是更好的写法。</p><h3 id="map">map() <a class="markdownIt-Anchor" href="#map">#</a></h3><p><code>map</code>方法将数组的所有成员依次传入参数函数，然后把每一次的执行结果组成一个新数组返回。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> numbers = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
+</code></pre><p>上面代码中，前一种排序算法返回的是布尔值，这是不推荐使用的。后一种是数值，才是更好的写法。</p><h3 id="map">map() <a class="markdownIt-Anchor" href="#map">#</a></h3><p><code>map()</code>方法将数组的所有成员依次传入参数函数，然后把每一次的执行结果组成一个新数组返回。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> numbers = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
 
 numbers.map(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">n</span>) </span>{
   <span class="hljs-keyword">return</span> n + <span class="hljs-number">1</span>;
@@ -201,22 +201,22 @@ numbers.map(<span class="hljs-function"><span class="hljs-keyword">function</spa
 
 numbers
 <span class="hljs-comment">// [1, 2, 3]</span>
-</code></pre><p>上面代码中，<code>numbers</code>数组的所有成员依次执行参数函数，运行结果组成一个新数组返回，原数组没有变化。</p><p><code>map</code>方法接受一个函数作为参数。该函数调用时，<code>map</code>方法向它传入三个参数：当前成员、当前位置和数组本身。</p><pre class="hljs"><code>[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>].map(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">elem, index, arr</span>) </span>{
+</code></pre><p>上面代码中，<code>numbers</code>数组的所有成员依次执行参数函数，运行结果组成一个新数组返回，原数组没有变化。</p><p><code>map()</code>方法接受一个函数作为参数。该函数调用时，<code>map()</code>方法向它传入三个参数：当前成员、当前位置和数组本身。</p><pre class="hljs"><code>[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>].map(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">elem, index, arr</span>) </span>{
   <span class="hljs-keyword">return</span> elem * index;
 });
 <span class="hljs-comment">// [0, 2, 6]</span>
-</code></pre><p>上面代码中，<code>map</code>方法的回调函数有三个参数，<code>elem</code>为当前成员的值，<code>index</code>为当前成员的位置，<code>arr</code>为原数组（<code>[1, 2, 3]</code>）。</p><p><code>map</code>方法还可以接受第二个参数，用来绑定回调函数内部的<code>this</code>变量（详见《this 变量》一章）。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> arr = [<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;c&#x27;</span>];
+</code></pre><p>上面代码中，<code>map()</code>方法的回调函数有三个参数，<code>elem</code>为当前成员的值，<code>index</code>为当前成员的位置，<code>arr</code>为原数组（<code>[1, 2, 3]</code>）。</p><p><code>map()</code>方法还可以接受第二个参数，用来绑定回调函数内部的<code>this</code>变量（详见《this 变量》一章）。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> arr = [<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;c&#x27;</span>];
 
 [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>].map(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>{
   <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>[e];
 }, arr)
 <span class="hljs-comment">// [&#x27;b&#x27;, &#x27;c&#x27;]</span>
-</code></pre><p>上面代码通过<code>map</code>方法的第二个参数，将回调函数内部的<code>this</code>对象，指向<code>arr</code>数组。</p><p>如果数组有空位，<code>map</code>方法的回调函数在这个位置不会执行，会跳过数组的空位。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> f = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">n</span>) </span>{ <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;a&#x27;</span> };
+</code></pre><p>上面代码通过<code>map()</code>方法的第二个参数，将回调函数内部的<code>this</code>对象，指向<code>arr</code>数组。</p><p>如果数组有空位，<code>map()</code>方法的回调函数在这个位置不会执行，会跳过数组的空位。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> f = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">n</span>) </span>{ <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;a&#x27;</span> };
 
 [<span class="hljs-number">1</span>, <span class="hljs-literal">undefined</span>, <span class="hljs-number">2</span>].map(f) <span class="hljs-comment">// [&quot;a&quot;, &quot;a&quot;, &quot;a&quot;]</span>
 [<span class="hljs-number">1</span>, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>].map(f) <span class="hljs-comment">// [&quot;a&quot;, &quot;a&quot;, &quot;a&quot;]</span>
 [<span class="hljs-number">1</span>, , <span class="hljs-number">2</span>].map(f) <span class="hljs-comment">// [&quot;a&quot;, , &quot;a&quot;]</span>
-</code></pre><p>上面代码中，<code>map</code>方法不会跳过<code>undefined</code>和<code>null</code>，但是会跳过空位。</p><h3 id="foreach">forEach() <a class="markdownIt-Anchor" href="#foreach">#</a></h3><p><code>forEach</code>方法与<code>map</code>方法很相似，也是对数组的所有成员依次执行参数函数。但是，<code>forEach</code>方法不返回值，只用来操作数据。这就是说，如果数组遍历的目的是为了得到返回值，那么使用<code>map</code>方法，否则使用<code>forEach</code>方法。</p><p><code>forEach</code>的用法与<code>map</code>方法一致，参数是一个函数，该函数同样接受三个参数：当前值、当前位置、整个数组。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">log</span>(<span class="hljs-params">element, index, array</span>) </span>{
+</code></pre><p>上面代码中，<code>map()</code>方法不会跳过<code>undefined</code>和<code>null</code>，但是会跳过空位。</p><h3 id="foreach">forEach() <a class="markdownIt-Anchor" href="#foreach">#</a></h3><p><code>forEach()</code>方法与<code>map()</code>方法很相似，也是对数组的所有成员依次执行参数函数。但是，<code>forEach()</code>方法不返回值，只用来操作数据。这就是说，如果数组遍历的目的是为了得到返回值，那么使用<code>map()</code>方法，否则使用<code>forEach()</code>方法。</p><p><code>forEach()</code>的用法与<code>map()</code>方法一致，参数是一个函数，该函数同样接受三个参数：当前值、当前位置、整个数组。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">log</span>(<span class="hljs-params">element, index, array</span>) </span>{
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;[&#x27;</span> + index + <span class="hljs-string">&#x27;] = &#x27;</span> + element);
 }
 
@@ -224,21 +224,21 @@ numbers
 <span class="hljs-comment">// [0] = 2</span>
 <span class="hljs-comment">// [1] = 5</span>
 <span class="hljs-comment">// [2] = 9</span>
-</code></pre><p>上面代码中，<code>forEach</code>遍历数组不是为了得到返回值，而是为了在屏幕输出内容，所以不必使用<code>map</code>方法。</p><p><code>forEach</code>方法也可以接受第二个参数，绑定参数函数的<code>this</code>变量。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> out = [];
+</code></pre><p>上面代码中，<code>forEach()</code>遍历数组不是为了得到返回值，而是为了在屏幕输出内容，所以不必使用<code>map()</code>方法。</p><p><code>forEach()</code>方法也可以接受第二个参数，绑定参数函数的<code>this</code>变量。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> out = [];
 
 [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>].forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">elem</span>) </span>{
   <span class="hljs-built_in">this</span>.push(elem * elem);
 }, out);
 
 out <span class="hljs-comment">// [1, 4, 9]</span>
-</code></pre><p>上面代码中，空数组<code>out</code>是<code>forEach</code>方法的第二个参数，结果，回调函数内部的<code>this</code>关键字就指向<code>out</code>。</p><p>注意，<code>forEach</code>方法无法中断执行，总是会将所有成员遍历完。如果希望符合某种条件时，就中断遍历，要使用<code>for</code>循环。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> arr = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
+</code></pre><p>上面代码中，空数组<code>out</code>是<code>forEach()</code>方法的第二个参数，结果，回调函数内部的<code>this</code>关键字就指向<code>out</code>。</p><p>注意，<code>forEach()</code>方法无法中断执行，总是会将所有成员遍历完。如果希望符合某种条件时，就中断遍历，要使用<code>for</code>循环。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> arr = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
 
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; arr.length; i++) {
   <span class="hljs-keyword">if</span> (arr[i] === <span class="hljs-number">2</span>) <span class="hljs-keyword">break</span>;
   <span class="hljs-built_in">console</span>.log(arr[i]);
 }
 <span class="hljs-comment">// 1</span>
-</code></pre><p>上面代码中，执行到数组的第二个成员时，就会中断执行。<code>forEach</code>方法做不到这一点。</p><p><code>forEach</code>方法也会跳过数组的空位。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> log = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">n</span>) </span>{
+</code></pre><p>上面代码中，执行到数组的第二个成员时，就会中断执行。<code>forEach()</code>方法做不到这一点。</p><p><code>forEach()</code>方法也会跳过数组的空位。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> log = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">n</span>) </span>{
   <span class="hljs-built_in">console</span>.log(n + <span class="hljs-number">1</span>);
 };
 
@@ -255,7 +255,7 @@ out <span class="hljs-comment">// [1, 4, 9]</span>
 [<span class="hljs-number">1</span>, , <span class="hljs-number">2</span>].forEach(log)
 <span class="hljs-comment">// 2</span>
 <span class="hljs-comment">// 3</span>
-</code></pre><p>上面代码中，<code>forEach</code>方法不会跳过<code>undefined</code>和<code>null</code>，但会跳过空位。</p><h3 id="filter">filter() <a class="markdownIt-Anchor" href="#filter">#</a></h3><p><code>filter</code>方法用于过滤数组成员，满足条件的成员组成一个新数组返回。</p><p>它的参数是一个函数，所有数组成员依次执行该函数，返回结果为<code>true</code>的成员组成一个新数组返回。该方法不会改变原数组。</p><pre class="hljs"><code>[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>].filter(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">elem</span>) </span>{
+</code></pre><p>上面代码中，<code>forEach()</code>方法不会跳过<code>undefined</code>和<code>null</code>，但会跳过空位。</p><h3 id="filter">filter() <a class="markdownIt-Anchor" href="#filter">#</a></h3><p><code>filter()</code>方法用于过滤数组成员，满足条件的成员组成一个新数组返回。</p><p>它的参数是一个函数，所有数组成员依次执行该函数，返回结果为<code>true</code>的成员组成一个新数组返回。该方法不会改变原数组。</p><pre class="hljs"><code>[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>].filter(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">elem</span>) </span>{
   <span class="hljs-keyword">return</span> (elem &gt; <span class="hljs-number">3</span>);
 })
 <span class="hljs-comment">// [4, 5]</span>
@@ -263,18 +263,18 @@ out <span class="hljs-comment">// [1, 4, 9]</span>
 
 arr.filter(<span class="hljs-built_in">Boolean</span>)
 <span class="hljs-comment">// [1, &quot;a&quot;]</span>
-</code></pre><p>上面代码中，<code>filter</code>方法返回数组<code>arr</code>里面所有布尔值为<code>true</code>的成员。</p><p><code>filter</code>方法的参数函数可以接受三个参数：当前成员，当前位置和整个数组。</p><pre class="hljs"><code>[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>].filter(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">elem, index, arr</span>) </span>{
+</code></pre><p>上面代码中，<code>filter()</code>方法返回数组<code>arr</code>里面所有布尔值为<code>true</code>的成员。</p><p><code>filter()</code>方法的参数函数可以接受三个参数：当前成员，当前位置和整个数组。</p><pre class="hljs"><code>[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>].filter(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">elem, index, arr</span>) </span>{
   <span class="hljs-keyword">return</span> index % <span class="hljs-number">2</span> === <span class="hljs-number">0</span>;
 });
 <span class="hljs-comment">// [1, 3, 5]</span>
-</code></pre><p>上面代码返回偶数位置的成员组成的新数组。</p><p><code>filter</code>方法还可以接受第二个参数，用来绑定参数函数内部的<code>this</code>变量。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = { <span class="hljs-attr">MAX</span>: <span class="hljs-number">3</span> };
+</code></pre><p>上面代码返回偶数位置的成员组成的新数组。</p><p><code>filter()</code>方法还可以接受第二个参数，用来绑定参数函数内部的<code>this</code>变量。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = { <span class="hljs-attr">MAX</span>: <span class="hljs-number">3</span> };
 <span class="hljs-keyword">var</span> myFilter = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">item</span>) </span>{
   <span class="hljs-keyword">if</span> (item &gt; <span class="hljs-built_in">this</span>.MAX) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
 };
 
 <span class="hljs-keyword">var</span> arr = [<span class="hljs-number">2</span>, <span class="hljs-number">8</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">9</span>];
 arr.filter(myFilter, obj) <span class="hljs-comment">// [8, 4, 9]</span>
-</code></pre><p>上面代码中，过滤器<code>myFilter</code>内部有<code>this</code>变量，它可以被<code>filter</code>方法的第二个参数<code>obj</code>绑定，返回大于<code>3</code>的成员。</p><h3 id="some，every">some()，every() <a class="markdownIt-Anchor" href="#some，every">#</a></h3><p>这两个方法类似“断言”（assert），返回一个布尔值，表示判断数组成员是否符合某种条件。</p><p>它们接受一个函数作为参数，所有数组成员依次执行该函数。该函数接受三个参数：当前成员、当前位置和整个数组，然后返回一个布尔值。</p><p><code>some</code>方法是只要一个成员的返回值是<code>true</code>，则整个<code>some</code>方法的返回值就是<code>true</code>，否则返回<code>false</code>。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> arr = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>];
+</code></pre><p>上面代码中，过滤器<code>myFilter()</code>内部有<code>this</code>变量，它可以被<code>filter()</code>方法的第二个参数<code>obj</code>绑定，返回大于<code>3</code>的成员。</p><h3 id="some，every">some()，every() <a class="markdownIt-Anchor" href="#some，every">#</a></h3><p>这两个方法类似“断言”（assert），返回一个布尔值，表示判断数组成员是否符合某种条件。</p><p>它们接受一个函数作为参数，所有数组成员依次执行该函数。该函数接受三个参数：当前成员、当前位置和整个数组，然后返回一个布尔值。</p><p><code>some</code>方法是只要一个成员的返回值是<code>true</code>，则整个<code>some</code>方法的返回值就是<code>true</code>，否则返回<code>false</code>。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> arr = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>];
 arr.some(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">elem, index, arr</span>) </span>{
   <span class="hljs-keyword">return</span> elem &gt;= <span class="hljs-number">3</span>;
 });
