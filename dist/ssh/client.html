@@ -28,14 +28,14 @@ Offending key <span class="hljs-keyword">in</span> /home/me/.ssh/known_hosts:36
 </code></pre><p>上面这段文字的意思是，该主机的公钥指纹跟<code>~/.ssh/known_hosts</code>文件储存的不一样，必须处理以后才能连接。这时，你需要确认是什么原因，使得公钥指纹发生变更，到底是恶意劫持，还是管理员变更了 SSH 服务器公钥。</p><p>如果新的公钥确认可以信任，需要继续执行连接，你可以执行下面的命令，将原来的公钥指纹从<code>~/.ssh/known_hosts</code>文件删除。</p><pre class="hljs"><code>$ ssh-keygen -R hostname
 </code></pre><p>上面命令中，<code>hostname</code>是发生公钥变更的主机名。</p><p>除了使用上面的命令，你也可以手工修改<code>known_hosts</code>文件，将公钥指纹删除。</p><p>删除了原来的公钥指纹以后，重新执行 ssh 命令连接远程服务器，将新的指纹加入<code>known_hosts</code>文件，就可以顺利连接了。</p><h2 id="执行远程命令">执行远程命令 <a class="markdownIt-Anchor" href="#执行远程命令">#</a></h2><p>SSH 登录成功后，用户就进入了远程主机的命令行环境，所看到的提示符，就是远程主机的提示符。这时，你就可以输入想要在远程主机执行的命令。</p><p>另一种执行远程命令的方法，是将命令直接写在<code>ssh</code>命令的后面。</p><pre class="hljs"><code>$ ssh username@hostname <span class="hljs-built_in">command</span>
 </code></pre><p>上面的命令会使得 SSH 在登录成功后，立刻在远程主机上执行命令<code>command</code>。</p><p>下面是一个例子。</p><pre class="hljs"><code>$ ssh foo@server.example.com cat /etc/hosts
-</code></pre><p>上面的命令会在登录成功后，立即远程执行命令<code>cat /etc/hosts</code>。</p><p>采用这种语法执行命令时，ssh 客户端不会提供互动式的 Shell 环境，而是直接远程命令的执行结果输出在命令行。但是，有些命令需要互动式的 Shell 环境，这时就要使用<code>-t</code>参数。</p><pre class="hljs"><code><span class="hljs-comment"># 报错</span>
+</code></pre><p>上面的命令会在登录成功后，立即远程执行命令<code>cat /etc/hosts</code>。</p><p>采用这种语法执行命令时，ssh 客户端不会提供互动式的 Shell 环境，而是直接将远程命令的执行结果输出在命令行。但是，有些命令需要互动式的 Shell 环境，这时就要使用<code>-t</code>参数。</p><pre class="hljs"><code><span class="hljs-comment"># 报错</span>
 $ ssh remote.server.com emacs
 emacs: standard input is not a tty
 
 <span class="hljs-comment"># 不报错</span>
 $ ssh -t server.example.com emacs
 </code></pre><p>上面代码中，<code>emacs</code>命令需要一个互动式 Shell，所以报错。只有加上<code>-t</code>参数，ssh 才会分配一个互动式 Shell。</p><h2 id="加密参数">加密参数 <a class="markdownIt-Anchor" href="#加密参数">#</a></h2><p>SSH 连接的握手阶段，客户端必须跟服务端约定加密参数集（cipher suite）。</p><p>加密参数集包含了若干不同的加密参数，它们之间使用下划线连接在一起，下面是一个例子。</p><pre class="hljs"><code>TLS_RSA_WITH_AES_128_CBC_SHA
-</code></pre><p>它的含义如下。</p><ul><li>TLS：协议</li><li>RSA：密钥交换算法</li><li>AES：加密算法</li><li>128：加密强度</li><li>CBC：加密模式</li><li>SHA：数字签名的 Hash 函数</li></ul><p>下面是一个例子，客户端向服务器发出的握手信息。</p><pre class="hljs"><code><span class="hljs-attribute">Handshake protocol</span>: ClientHello
+</code></pre><p>它的含义如下。</p><ul><li>TLS：加密通信协议</li><li>RSA：密钥交换算法</li><li>AES：加密算法</li><li>128：加密算法的强度</li><li>CBC：加密算法的模式</li><li>SHA：数字签名的 Hash 函数</li></ul><p>下面是一个例子，客户端向服务器发出的握手信息。</p><pre class="hljs"><code><span class="hljs-attribute">Handshake protocol</span>: ClientHello
     Version: TLS 1.2
     Random
         Client time: May 22, 2030 02:43:46 GMT
