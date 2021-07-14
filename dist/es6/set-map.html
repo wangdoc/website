@@ -601,7 +601,7 @@ c.dec()
 <span class="hljs-comment">// DONE</span>
 </code></pre><p>上面代码中，<code>Countdown</code>类的两个内部属性<code>_counter</code>和<code>_action</code>，是实例的弱引用，所以如果删除实例，它们也就随之消失，不会造成内存泄漏。</p><h2 id="weakref">WeakRef <a class="markdownIt-Anchor" href="#weakref">#</a></h2><p>WeakSet 和 WeakMap 是基于弱引用的数据结构，<a href="https://github.com/tc39/proposal-weakrefs" target="_blank" rel="noopener">ES2021</a> 更进一步，提供了 WeakRef 对象，用于直接创建对象的弱引用。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> target = {};
 <span class="hljs-keyword">let</span> wr = <span class="hljs-keyword">new</span> WeakRef(target);
-</code></pre><p>上面示例中，<code>target</code>是原始对象，构造函数<code>WeakRef()</code>创建了一个基于<code>target</code>的新对象<code>wr</code>。这里，<code>wr</code>就是一个 WeakRef 的示例，属于对<code>target</code>的弱引用，垃圾回收机制不会计入这个引用，也就是说，<code>wr</code>的引入不会妨碍原始对象<code>target</code>被垃圾回收机制清除。</p><p>WeakRef 实例对象有一个<code>deref()</code>方法，如果原始对象存在，该方法返回原始对象；如果原始对象已经被垃圾回收机制清除，该方法返回<code>undefined</code>。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> target = {};
+</code></pre><p>上面示例中，<code>target</code>是原始对象，构造函数<code>WeakRef()</code>创建了一个基于<code>target</code>的新对象<code>wr</code>。这里，<code>wr</code>就是一个 WeakRef 的实例，属于对<code>target</code>的弱引用，垃圾回收机制不会计入这个引用，也就是说，<code>wr</code>的引用不会妨碍原始对象<code>target</code>被垃圾回收机制清除。</p><p>WeakRef 实例对象有一个<code>deref()</code>方法，如果原始对象存在，该方法返回原始对象；如果原始对象已经被垃圾回收机制清除，该方法返回<code>undefined</code>。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> target = {};
 <span class="hljs-keyword">let</span> wr = <span class="hljs-keyword">new</span> WeakRef(target);
 
 <span class="hljs-keyword">let</span> obj = wr.deref();
