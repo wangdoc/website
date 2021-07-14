@@ -6,7 +6,7 @@
   <span class="hljs-attr">get</span>: <span class="hljs-literal">undefined</span>,
   <span class="hljs-attr">set</span>: <span class="hljs-literal">undefined</span>
 }
-</code></pre><p>属性描述对象提供6个元属性。</p><p>（1）<code>value</code></p><p><code>value</code>是该属性的属性值，默认为<code>undefined</code>。</p><p>（2）<code>writable</code></p><p><code>writable</code>是一个布尔值，表示属性值（value）是否可改变（即是否可写），默认为<code>true</code>。</p><p>（3）<code>enumerable</code></p><p><code>enumerable</code>是一个布尔值，表示该属性是否可遍历，默认为<code>true</code>。如果设为<code>false</code>，会使得某些操作（比如<code>for...in</code>循环、<code>Object.keys()</code>）跳过该属性。</p><p>（4）<code>configurable</code></p><p><code>configurable</code>是一个布尔值，表示可配置性，默认为<code>true</code>。如果设为<code>false</code>，将阻止某些操作改写该属性，比如无法删除该属性，也不得改变该属性的属性描述对象（<code>value</code>属性除外）。也就是说，<code>configurable</code>属性控制了属性描述对象的可写性。</p><p>（5）<code>get</code></p><p><code>get</code>是一个函数，表示该属性的取值函数（getter），默认为<code>undefined</code>。</p><p>（6）<code>set</code></p><p><code>set</code>是一个函数，表示该属性的存值函数（setter），默认为<code>undefined</code>。</p><h2 id="objectgetownpropertydescriptor">Object.getOwnPropertyDescriptor() <a class="markdownIt-Anchor" href="#objectgetownpropertydescriptor">#</a></h2><p><code>Object.getOwnPropertyDescriptor()</code>方法可以获取属性描述对象。它的第一个参数是目标对象，第二个参数是一个字符串，对应目标对象的某个属性名。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = { <span class="hljs-attr">p</span>: <span class="hljs-string">&#x27;a&#x27;</span> };
+</code></pre><p>属性描述对象提供6个元属性。</p><p>（1）<code>value</code></p><p><code>value</code>是该属性的属性值，默认为<code>undefined</code>。</p><p>（2）<code>writable</code></p><p><code>writable</code>是一个布尔值，表示属性值（value）是否可改变（即是否可写），默认为<code>true</code>。</p><p>（3）<code>enumerable</code></p><p><code>enumerable</code>是一个布尔值，表示该属性是否可遍历，默认为<code>true</code>。如果设为<code>false</code>，会使得某些操作（比如<code>for...in</code>循环、<code>Object.keys()</code>）跳过该属性。</p><p>（4）<code>configurable</code></p><p><code>configurable</code>是一个布尔值，表示属性的可配置性，默认为<code>true</code>。如果设为<code>false</code>，将阻止某些操作改写属性描述对象，比如无法删除该属性，也不得改变各种元属性（<code>value</code>属性除外）。也就是说，<code>configurable</code>属性控制了属性描述对象的可写性。</p><p>（5）<code>get</code></p><p><code>get</code>是一个函数，表示该属性的取值函数（getter），默认为<code>undefined</code>。</p><p>（6）<code>set</code></p><p><code>set</code>是一个函数，表示该属性的存值函数（setter），默认为<code>undefined</code>。</p><h2 id="objectgetownpropertydescriptor">Object.getOwnPropertyDescriptor() <a class="markdownIt-Anchor" href="#objectgetownpropertydescriptor">#</a></h2><p><code>Object.getOwnPropertyDescriptor()</code>方法可以获取属性描述对象。它的第一个参数是目标对象，第二个参数是一个字符串，对应目标对象的某个属性名。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = { <span class="hljs-attr">p</span>: <span class="hljs-string">&#x27;a&#x27;</span> };
 
 <span class="hljs-built_in">Object</span>.getOwnPropertyDescriptor(obj, <span class="hljs-string">&#x27;p&#x27;</span>)
 <span class="hljs-comment">// Object { value: &quot;a&quot;,</span>
@@ -156,15 +156,12 @@ obj.x <span class="hljs-comment">// 123</span>
 
 <span class="hljs-built_in">Object</span>.keys(obj)  <span class="hljs-comment">// []</span>
 <span class="hljs-built_in">JSON</span>.stringify(obj) <span class="hljs-comment">// &quot;{}&quot;</span>
-</code></pre><p>上面代码中，<code>obj.x</code>属性的<code>enumerable</code>为<code>false</code>，所以一般的遍历操作都无法获取该属性，使得它有点像“秘密”属性，但不是真正的私有属性，还是可以直接获取它的值。</p><p>注意，<code>for...in</code>循环包括继承的属性，<code>Object.keys</code>方法不包括继承的属性。如果需要获取对象自身的所有属性，不管是否可遍历，可以使用<code>Object.getOwnPropertyNames</code>方法。</p><p>另外，<code>JSON.stringify</code>方法会排除<code>enumerable</code>为<code>false</code>的属性，有时可以利用这一点。如果对象的 JSON 格式输出要排除某些属性，就可以把这些属性的<code>enumerable</code>设为<code>false</code>。</p><h3 id="configurable">configurable <a class="markdownIt-Anchor" href="#configurable">#</a></h3><p><code>configurable</code>(可配置性）返回一个布尔值，决定了是否可以修改属性描述对象。也就是说，<code>configurable</code>为<code>false</code>时，<code>value</code>、<code>writable</code>、<code>enumerable</code>和<code>configurable</code>都不能被修改了。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = <span class="hljs-built_in">Object</span>.defineProperty({}, <span class="hljs-string">&#x27;p&#x27;</span>, {
+</code></pre><p>上面代码中，<code>obj.x</code>属性的<code>enumerable</code>为<code>false</code>，所以一般的遍历操作都无法获取该属性，使得它有点像“秘密”属性，但不是真正的私有属性，还是可以直接获取它的值。</p><p>注意，<code>for...in</code>循环包括继承的属性，<code>Object.keys</code>方法不包括继承的属性。如果需要获取对象自身的所有属性，不管是否可遍历，可以使用<code>Object.getOwnPropertyNames</code>方法。</p><p>另外，<code>JSON.stringify</code>方法会排除<code>enumerable</code>为<code>false</code>的属性，有时可以利用这一点。如果对象的 JSON 格式输出要排除某些属性，就可以把这些属性的<code>enumerable</code>设为<code>false</code>。</p><h3 id="configurable">configurable <a class="markdownIt-Anchor" href="#configurable">#</a></h3><p><code>configurable</code>(可配置性）返回一个布尔值，决定了是否可以修改属性描述对象。也就是说，<code>configurable</code>为<code>false</code>时，<code>writable</code>、<code>enumerable</code>和<code>configurable</code>都不能被修改了。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = <span class="hljs-built_in">Object</span>.defineProperty({}, <span class="hljs-string">&#x27;p&#x27;</span>, {
   <span class="hljs-attr">value</span>: <span class="hljs-number">1</span>,
   <span class="hljs-attr">writable</span>: <span class="hljs-literal">false</span>,
   <span class="hljs-attr">enumerable</span>: <span class="hljs-literal">false</span>,
   <span class="hljs-attr">configurable</span>: <span class="hljs-literal">false</span>
 });
-
-<span class="hljs-built_in">Object</span>.defineProperty(obj, <span class="hljs-string">&#x27;p&#x27;</span>, {<span class="hljs-attr">value</span>: <span class="hljs-number">2</span>})
-<span class="hljs-comment">// TypeError: Cannot redefine property: p</span>
 
 <span class="hljs-built_in">Object</span>.defineProperty(obj, <span class="hljs-string">&#x27;p&#x27;</span>, {<span class="hljs-attr">writable</span>: <span class="hljs-literal">true</span>})
 <span class="hljs-comment">// TypeError: Cannot redefine property: p</span>
@@ -174,14 +171,17 @@ obj.x <span class="hljs-comment">// 123</span>
 
 <span class="hljs-built_in">Object</span>.defineProperty(obj, <span class="hljs-string">&#x27;p&#x27;</span>, {<span class="hljs-attr">configurable</span>: <span class="hljs-literal">true</span>})
 <span class="hljs-comment">// TypeError: Cannot redefine property: p</span>
-</code></pre><p>上面代码中，<code>obj.p</code>的<code>configurable</code>为<code>false</code>。然后，改动<code>value</code>、<code>writable</code>、<code>enumerable</code>、<code>configurable</code>，结果都报错。</p><p>注意，<code>writable</code>只有在<code>false</code>改为<code>true</code>会报错，<code>true</code>改为<code>false</code>是允许的。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = <span class="hljs-built_in">Object</span>.defineProperty({}, <span class="hljs-string">&#x27;p&#x27;</span>, {
+
+<span class="hljs-built_in">Object</span>.defineProperty(obj, <span class="hljs-string">&#x27;p&#x27;</span>, {<span class="hljs-attr">value</span>: <span class="hljs-number">2</span>})
+<span class="hljs-comment">// TypeError: Cannot redefine property: p</span>
+</code></pre><p>上面代码中，<code>obj.p</code>的<code>configurable</code>属性为<code>false</code>。然后，改动<code>writable</code>、<code>enumerable</code>、<code>configurable</code>，结果都报错。</p><p>注意，<code>writable</code>属性只有在<code>false</code>改为<code>true</code>时会报错，<code>true</code>改为<code>false</code>是允许的。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = <span class="hljs-built_in">Object</span>.defineProperty({}, <span class="hljs-string">&#x27;p&#x27;</span>, {
   <span class="hljs-attr">writable</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">configurable</span>: <span class="hljs-literal">false</span>
 });
 
 <span class="hljs-built_in">Object</span>.defineProperty(obj, <span class="hljs-string">&#x27;p&#x27;</span>, {<span class="hljs-attr">writable</span>: <span class="hljs-literal">false</span>})
 <span class="hljs-comment">// 修改成功</span>
-</code></pre><p>至于<code>value</code>，只要<code>writable</code>和<code>configurable</code>有一个为<code>true</code>，就允许改动。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> o1 = <span class="hljs-built_in">Object</span>.defineProperty({}, <span class="hljs-string">&#x27;p&#x27;</span>, {
+</code></pre><p><code>value</code>属性的情况比较特殊。只要<code>writable</code>和<code>configurable</code>有一个为<code>true</code>，就允许改动<code>value</code>。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> o1 = <span class="hljs-built_in">Object</span>.defineProperty({}, <span class="hljs-string">&#x27;p&#x27;</span>, {
   <span class="hljs-attr">value</span>: <span class="hljs-number">1</span>,
   <span class="hljs-attr">writable</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">configurable</span>: <span class="hljs-literal">false</span>
@@ -198,7 +198,7 @@ obj.x <span class="hljs-comment">// 123</span>
 
 <span class="hljs-built_in">Object</span>.defineProperty(o2, <span class="hljs-string">&#x27;p&#x27;</span>, {<span class="hljs-attr">value</span>: <span class="hljs-number">2</span>})
 <span class="hljs-comment">// 修改成功</span>
-</code></pre><p>另外，<code>writable</code>为<code>false</code>时，直接目标属性赋值，不报错，但不会成功。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = <span class="hljs-built_in">Object</span>.defineProperty({}, <span class="hljs-string">&#x27;p&#x27;</span>, {
+</code></pre><p>另外，<code>writable</code>为<code>false</code>时，直接对目标属性赋值，不报错，但不会成功。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = <span class="hljs-built_in">Object</span>.defineProperty({}, <span class="hljs-string">&#x27;p&#x27;</span>, {
   <span class="hljs-attr">value</span>: <span class="hljs-number">1</span>,
   <span class="hljs-attr">writable</span>: <span class="hljs-literal">false</span>,
   <span class="hljs-attr">configurable</span>: <span class="hljs-literal">false</span>
