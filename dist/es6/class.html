@@ -583,7 +583,7 @@ A.test(<span class="hljs-keyword">new</span> B()) <span class="hljs-comment">// 
   }
 }
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SubA</span> <span class="hljs-title">extend</span> <span class="hljs-title">A</span> </span>{};
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SubA</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">A</span> </span>{};
 
 A.test(<span class="hljs-keyword">new</span> SubA()) <span class="hljs-comment">// true</span>
 </code></pre><p>上面示例中，<code>SubA</code>从父类继承了私有属性<code>#foo</code>，<code>in</code>运算符也有效。</p><p>注意，<code>in</code>运算符对于<code>Object.create()</code>、<code>Object.setPrototypeOf</code>形成的继承，是无效的，因为这种继承不会传递私有属性。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> </span>{
