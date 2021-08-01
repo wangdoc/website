@@ -124,7 +124,7 @@ s.trimEnd() <span class="hljs-comment">// &quot;  abc&quot;</span>
 
 <span class="hljs-comment">// 报错</span>
 <span class="hljs-string">&#x27;aabbcc&#x27;</span>.replaceAll(<span class="hljs-regexp">/b/</span>, <span class="hljs-string">&#x27;_&#x27;</span>)
-</code></pre><p>上面例子中，<code>/b/</code>不带有<code>g</code>修饰符，会导致<code>replaceAll()</code>报错。</p><p><code>replaceAll()</code>的第二个参数<code>replacement</code>是一个字符串，表示替换的文本，其中可以使用一些特殊字符串。</p><ul><li><code>$&amp;</code>：匹配的子字符串。</li><li><code>$`</code>：匹配结果前面的文本。</li><li><code>$'</code>：匹配结果后面的文本。</li><li><code>$n</code>：匹配成功的第<code>n</code>组内容，<code>n</code>是从1开始的自然数。这个参数生效的前提是，第一个参数必须是正则表达式。</li><li><code>$$</code>：指代美元符号<code>$</code>。</li></ul><p>下面是一些例子。</p><pre class="hljs"><code><span class="hljs-comment">// $&amp; 表示匹配的字符串，即`b`本身</span>
+</code></pre><p>上面例子中，<code>/b/</code>不带有<code>g</code>修饰符，会导致<code>replaceAll()</code>报错。</p><p><code>replaceAll()</code>的第二个参数<code>replacement</code>是一个字符串，表示替换的文本，其中可以使用一些特殊字符串。</p><ul><li><code>$&amp;</code>：匹配的字符串。</li><li><code>$`</code>：匹配结果前面的文本。</li><li><code>$'</code>：匹配结果后面的文本。</li><li><code>$n</code>：匹配成功的第<code>n</code>组内容，<code>n</code>是从1开始的自然数。这个参数生效的前提是，第一个参数必须是正则表达式。</li><li><code>$$</code>：指代美元符号<code>$</code>。</li></ul><p>下面是一些例子。</p><pre class="hljs"><code><span class="hljs-comment">// $&amp; 表示匹配的字符串，即`b`本身</span>
 <span class="hljs-comment">// 所以返回结果与原字符串一致</span>
 <span class="hljs-string">&#x27;abbc&#x27;</span>.replaceAll(<span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;$&amp;&#x27;</span>)
 <span class="hljs-comment">// &#x27;abbc&#x27;</span>
