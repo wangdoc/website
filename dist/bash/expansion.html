@@ -175,7 +175,7 @@ r*
 </code></pre><p>上面代码中，由于不存在<code>r</code>开头的文件名，<code>r*</code>会原样输出。</p><p>下面是另一个例子。</p><pre class="hljs"><code>$ ls *.csv
 ls: *.csv: No such file or directory
 </code></pre><p>另外，前面已经说过，大括号扩展<code>{...}</code>不是文件名扩展。</p><p><strong>（3）只适用于单层路径。</strong></p><p>所有文件名扩展只匹配单层路径，不能跨目录匹配，即无法匹配子目录里面的文件。或者说，<code>?</code>或<code>*</code>这样的通配符，不能匹配路径分隔符（<code>/</code>）。</p><p>如果要匹配子目录里面的文件，可以写成下面这样。</p><pre class="hljs"><code>$ ls */*.txt
-</code></pre><p>Bash 4.0 新增了一个<code>globstar</code>参数，允许<code>**</code>匹配零个或多个子目录，详见后面<code>shopt</code>命令的介绍。</p><p><strong>（4）文件名可以使用通配符。</strong></p><p>Bash 允许文件名使用通配符，即文件名包括特殊字符。这时引用文件名，需要把文件名放在单引号里面。</p><pre class="hljs"><code>$ touch <span class="hljs-string">&#x27;fo*&#x27;</span>
+</code></pre><p>Bash 4.0 新增了一个<code>globstar</code>参数，允许<code>**</code>匹配零个或多个子目录，详见后面<code>shopt</code>命令的介绍。</p><p><strong>（4）文件名可以使用通配符。</strong></p><p>Bash 允许文件名使用通配符，即文件名包括特殊字符。这时引用文件名，需要把文件名放在单引号或双引号里面。</p><pre class="hljs"><code>$ touch <span class="hljs-string">&#x27;fo*&#x27;</span>
 $ ls
 fo*
 </code></pre><p>上面代码创建了一个<code>fo*</code>文件，这时<code>*</code>就是文件名的一部分。</p><h2 id="量词语法">量词语法 <a class="markdownIt-Anchor" href="#量词语法">#</a></h2><p>量词语法用来控制模式匹配的次数。它只有在 Bash 的<code>extglob</code>参数打开的情况下才能使用，不过一般是默认打开的。下面的命令可以查询。</p><pre class="hljs"><code>$ <span class="hljs-built_in">shopt</span> extglob
