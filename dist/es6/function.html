@@ -216,12 +216,12 @@ foo()
 add(<span class="hljs-number">2</span>, <span class="hljs-number">5</span>, <span class="hljs-number">3</span>) <span class="hljs-comment">// 10</span>
 </code></pre><p>上面代码的<code>add</code>函数是一个求和函数，利用 rest 参数，可以向该函数传入任意数目的参数。</p><p>下面是一个 rest 参数代替<code>arguments</code>变量的例子。</p><pre class="hljs"><code><span class="hljs-comment">// arguments变量的写法</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sortNumbers</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">return</span> <span class="hljs-built_in">Array</span>.prototype.slice.call(<span class="hljs-built_in">arguments</span>).sort();
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">Array</span>.from(<span class="hljs-built_in">arguments</span>).sort();
 }
 
 <span class="hljs-comment">// rest参数的写法</span>
 <span class="hljs-keyword">const</span> sortNumbers = <span class="hljs-function">(<span class="hljs-params">...numbers</span>) =&gt;</span> numbers.sort();
-</code></pre><p>上面代码的两种写法，比较后可以发现，rest 参数的写法更自然也更简洁。</p><p><code>arguments</code>对象不是数组，而是一个类似数组的对象。所以为了使用数组的方法，必须使用<code>Array.prototype.slice.call</code>先将其转为数组。rest 参数就不存在这个问题，它就是一个真正的数组，数组特有的方法都可以使用。下面是一个利用 rest 参数改写数组<code>push</code>方法的例子。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">push</span>(<span class="hljs-params">array, ...items</span>) </span>{
+</code></pre><p>上面代码的两种写法，比较后可以发现，rest 参数的写法更自然也更简洁。</p><p><code>arguments</code>对象不是数组，而是一个类似数组的对象。所以为了使用数组的方法，必须使用<code>Array.from</code>先将其转为数组。rest 参数就不存在这个问题，它就是一个真正的数组，数组特有的方法都可以使用。下面是一个利用 rest 参数改写数组<code>push</code>方法的例子。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">push</span>(<span class="hljs-params">array, ...items</span>) </span>{
   items.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">item</span>) </span>{
     array.push(item);
     <span class="hljs-built_in">console</span>.log(item);
