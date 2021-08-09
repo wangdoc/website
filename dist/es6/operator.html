@@ -119,7 +119,7 @@ user.id ||= <span class="hljs-number">1</span>;
   opts.foo = opts.foo ?? <span class="hljs-string">&#x27;bar&#x27;</span>;
   opts.baz ?? (opts.baz = <span class="hljs-string">&#x27;qux&#x27;</span>);
 }
-</code></pre><p>上面示例中，参数对象<code>opts</code>如果不存在属性<code>foo</code>和属性<code>bar</code>，则为这两个属性设置默认值。有了“Null 赋值运算符”以后，就可以统一写成下面这样。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">example</span>(<span class="hljs-params">opts</span>) </span>{
+</code></pre><p>上面示例中，参数对象<code>opts</code>如果不存在属性<code>foo</code>和属性<code>baz</code>，则为这两个属性设置默认值。有了“Null 赋值运算符”以后，就可以统一写成下面这样。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">example</span>(<span class="hljs-params">opts</span>) </span>{
   opts.foo ??= <span class="hljs-string">&#x27;bar&#x27;</span>;
   opts.baz ??= <span class="hljs-string">&#x27;qux&#x27;</span>;
 }
