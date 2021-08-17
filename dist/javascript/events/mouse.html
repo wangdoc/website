@@ -154,10 +154,10 @@ inner.addEventListener(<span class="hljs-string">&#x27;mouseover&#x27;</span>, <
 inner.addEventListener(<span class="hljs-string">&#x27;mouseenter&#x27;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) </span>{
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;进入&#x27;</span> + event.target.id + <span class="hljs-string">&#x27; 离开&#x27;</span> + event.relatedTarget.id);
 });
-inner.addEventListener(<span class="hljs-string">&#x27;mouseout&#x27;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+inner.addEventListener(<span class="hljs-string">&#x27;mouseout&#x27;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) </span>{
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;离开&#x27;</span> + event.target.id + <span class="hljs-string">&#x27; 进入&#x27;</span> + event.relatedTarget.id);
 });
-inner.addEventListener(<span class="hljs-string">&quot;mouseleave&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>)</span>{
+inner.addEventListener(<span class="hljs-string">&quot;mouseleave&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>)</span>{
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;离开&#x27;</span> + event.target.id + <span class="hljs-string">&#x27; 进入&#x27;</span> + event.relatedTarget.id);
 });
 
