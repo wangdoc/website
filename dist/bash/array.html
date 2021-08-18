@@ -76,8 +76,8 @@ Activity: surfing
 
 Activity: swimming water skiing canoeing white-water rafting surfing
 </code></pre><p>所以，拷贝一个数组的最方便方法，就是写成下面这样。</p><pre class="hljs"><code>$ hobbies=( <span class="hljs-string">&quot;<span class="hljs-variable">${activities[@]}</span>&quot;</span> )
-</code></pre><p>上面例子中，数组<code>activities</code>被拷贝给了另一个数组<code>hobbies</code>。</p><p>这种写法也可以用来为新数组添加成员。</p><pre class="hljs"><code>$ hobbies=( <span class="hljs-string">&quot;<span class="hljs-variable">${activities[@]&quot; diving )
-</span></span></code></pre><p>上面例子中，新数组<code>hobbies</code>在数组<code>activities</code>的所有成员之后，又添加了一个成员。</p><h3 id="默认位置">默认位置 <a class="markdownIt-Anchor" href="#默认位置">#</a></h3><p>如果读取数组成员时，没有读取指定哪一个位置的成员，默认使用<code>0</code>号位置。</p><pre class="hljs"><code>$ <span class="hljs-built_in">declare</span> -a foo
+</code></pre><p>上面例子中，数组<code>activities</code>被拷贝给了另一个数组<code>hobbies</code>。</p><p>这种写法也可以用来为新数组添加成员。</p><pre class="hljs"><code>$ hobbies=( <span class="hljs-string">&quot;<span class="hljs-variable">${activities[@]}</span>&quot;</span> diving )
+</code></pre><p>上面例子中，新数组<code>hobbies</code>在数组<code>activities</code>的所有成员之后，又添加了一个成员。</p><h3 id="默认位置">默认位置 <a class="markdownIt-Anchor" href="#默认位置">#</a></h3><p>如果读取数组成员时，没有读取指定哪一个位置的成员，默认使用<code>0</code>号位置。</p><pre class="hljs"><code>$ <span class="hljs-built_in">declare</span> -a foo
 $ foo=A
 $ <span class="hljs-built_in">echo</span> <span class="hljs-variable">${foo[0]}</span>
 A
