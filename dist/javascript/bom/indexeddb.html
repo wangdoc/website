@@ -347,15 +347,14 @@ objectStore.openCursor(<span class="hljs-literal">null</span>, <span class="hljs
   <span class="hljs-keyword">var</span> cursor = event.target.result;
   <span class="hljs-keyword">if</span> (cursor) {
     <span class="hljs-keyword">var</span> listItem = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&#x27;li&#x27;</span>);
-      listItem.innerHTML = cursor.value.albumTitle + <span class="hljs-string">&#x27;, &#x27;</span> + cursor.value.year;
-      list.appendChild(listItem);
+    listItem.innerHTML = cursor.value.albumTitle + <span class="hljs-string">&#x27;, &#x27;</span> + cursor.value.year;
+    list.appendChild(listItem);
 
-      <span class="hljs-built_in">console</span>.log(cursor.source);
-      cursor.continue();
-    } <span class="hljs-keyword">else</span> {
-      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Entries all displayed.&#x27;</span>);
-    }
-  };
+    <span class="hljs-built_in">console</span>.log(cursor.source);
+    cursor.continue();
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Entries all displayed.&#x27;</span>);
+  }
 };
 </code></pre><p>IDBCursor 对象的属性。</p><ul><li><code>IDBCursor.source</code>：返回正在遍历的对象仓库或索引。</li><li><code>IDBCursor.direction</code>：字符串，表示指针遍历的方向。共有四个可能的值：next（从头开始向后遍历）、nextunique（从头开始向后遍历，重复的值只遍历一次）、prev（从尾部开始向前遍历）、prevunique（从尾部开始向前遍历，重复的值只遍历一次）。该属性通过<code>IDBObjectStore.openCursor()</code>方法的第二个参数指定，一旦指定就不能改变了。</li><li><code>IDBCursor.key</code>：返回当前记录的主键。</li><li><code>IDBCursor.value</code>：返回当前记录的数据值。</li><li><code>IDBCursor.primaryKey</code>：返回当前记录的主键。对于数据仓库（objectStore）来说，这个属性等同于 IDBCursor.key；对于索引，IDBCursor.key 返回索引的位置值，该属性返回数据记录的主键。</li></ul><p>IDBCursor 对象有如下方法。</p><ul><li><code>IDBCursor.advance(n)</code>：指针向前移动 n 个位置。</li><li><code>IDBCursor.continue()</code>：指针向前移动一个位置。它可以接受一个主键作为参数，这时会跳转到这个主键。</li><li><code>IDBCursor.continuePrimaryKey()</code>：该方法需要两个参数，第一个是<code>key</code>，第二个是<code>primaryKey</code>，将指针移到符合这两个参数的位置。</li><li><code>IDBCursor.delete()</code>：用来删除当前位置的记录，返回一个 IDBRequest 对象。该方法不会改变指针的位置。</li><li><code>IDBCursor.update()</code>：用来更新当前位置的记录，返回一个 IDBRequest 对象。它的参数是要写入数据库的新的值。</li></ul><h2 id="idbkeyrange-对象">IDBKeyRange 对象 <a class="markdownIt-Anchor" href="#idbkeyrange-对象">#</a></h2><p>IDBKeyRange 对象代表数据仓库（object store）里面的一组主键。根据这组主键，可以获取数据仓库或索引里面的一组记录。</p><p>IDBKeyRange 可以只包含一个值，也可以指定上限和下限。它有四个静态方法，用来指定主键的范围。</p><ul><li><code>IDBKeyRange.lowerBound()</code>：指定下限。</li><li><code>IDBKeyRange.upperBound()</code>：指定上限。</li><li><code>IDBKeyRange.bound()</code>：同时指定上下限。</li><li><code>IDBKeyRange.only()</code>：指定只包含一个值。</li></ul><p>下面是一些代码实例。</p><pre class="hljs"><code><span class="hljs-comment">// All keys ≤ x</span>
 <span class="hljs-keyword">var</span> r1 = IDBKeyRange.upperBound(x);
