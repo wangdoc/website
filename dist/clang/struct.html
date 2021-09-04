@@ -1,0 +1,205 @@
+<!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>struct 结构 - C 语言教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="struct 结构"><link rel="apple-touch-icon" sizes="57x57" href="assets/icons/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="assets/icons/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="assets/icons/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="assets/icons/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="assets/icons/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="assets/icons/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="assets/icons/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="assets/icons/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png"><link rel="manifest" href="assets/icons/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="assets/icons/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/clang-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/clang-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8"><nav class="breadcrumb is-size-5-desktop" aria-label="breadcrumbs"><ul><li><a href="index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;C 语言教程</a></li><li class="is-active"><a class="has-text-grey" href="struct.html">struct 结构</a></li></ul></nav><nav class="level level-previous-next is-size-5 is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="memory.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> 内存管理</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="typedef.html">typedef 命令 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content is-size-5-widescreen"><h1 class="title">struct 结构</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><h2 id="简介">简介 <a class="markdownIt-Anchor" href="#简介">#</a></h2><p>C 语言内置的数据类型，除了最基本的几种原始类型，只有数组属于复合类型，且只能包含相同类型的数据，并不够用。实际开发中，主要有下面两种情况，需要更灵活强大的复合类型。</p><ul><li>复杂的物体需要使用多个变量描述，这些变量都是相关的，最好有某种机制将它们联系起来。</li><li>某些函数需要传入多个参数，如果一个个按照顺序传入，非常麻烦，最好能组合成一个复合结构传入。</li></ul><p>为了解决这些问题，C 语言提供了<code>struct</code>命令，允许自定义复合数据类型，将不同类型的值组合在一起。这样不仅为编程提供方便，也有利于增强代码的可读性。C 语言没有其他语言的对象（object）和类（class）的概念，struct 结构很大程度上提供了对象和类的功能，可以将它视为只有属性、没有方法的类。</p><p>下面是<code>struct</code>命令自定义数据类型的一个例子。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">fraction</span> {</span>
+  <span class="hljs-keyword">int</span> numerator;
+  <span class="hljs-keyword">int</span> denominator;
+};
+</code></pre><p>上面示例定义了一个分数的数据类型<code>struct fraction</code>，包含两个属性<code>numerator</code>和<code>denominator</code>。</p><p>注意，作为一个自定义的数据类型，它的类型名要包括<code>struct</code>关键字，比如上例是<code>struct fraction</code>，单独的<code>fraction</code>没有任何意义，甚至脚本还可以另外定义名为<code>fraction</code>的变量，虽然这样很容易造成混淆。另外，<code>struct</code>语句结尾的分号不能省略，否则很容易产生错误。</p><p>定义了新的数据类型以后，就可以声明该类型的变量，这与声明其他类型变量的写法是一样的。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">fraction</span> <span class="hljs-title">f1</span>;</span>
+
+f1.numerator = <span class="hljs-number">22</span>;
+f1.denominator = <span class="hljs-number">7</span>;
+</code></pre><p>上面示例中，先声明了一个<code>struct fraction</code>类型的变量<code>f1</code>，这时编译器就会为<code>f1</code>分配内存，接着就可以为<code>f1</code>的不同属性赋值。可以看到，struct 结构的属性通过点（<code>.</code>）来表示，比如<code>numerator</code>属性要写成<code>f1.numerator</code>。</p><p>再提醒一下，声明自定义类型的变量时，类型名前面，不要忘记加上<code>struct</code>关键字。也就是说，必须使用<code>struct fraction f1</code>声明变量，不能写成<code>fraction f1</code>。</p><p>除了逐一对属性赋值，也可以使用大括号，一次性对 struct 结构的所有属性赋值。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">car</span> {</span>
+  <span class="hljs-keyword">char</span>* name;
+  <span class="hljs-keyword">float</span> price;
+  <span class="hljs-keyword">int</span> speed;
+};
+
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">car</span> <span class="hljs-title">saturn</span> =</span> {<span class="hljs-string">&quot;Saturn SL/2&quot;</span>, <span class="hljs-number">16000.99</span>, <span class="hljs-number">175</span>};
+</code></pre><p>上面示例中，变量<code>saturn</code>是<code>struct cat</code>类型，大括号里面同时对它的三个属性赋值。如果大括号里面的值的数量，少于属性的数量，那么缺失的属性自动初始化为<code>0</code>。</p><p>注意，大括号里面的值的顺序，必须与 struct 类型声明时属性的顺序一致。否则，必须为每个值指定属性名。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">car</span> <span class="hljs-title">saturn</span> =</span> {.speed=<span class="hljs-number">172</span>, .name=<span class="hljs-string">&quot;Saturn SL/2&quot;</span>};
+</code></pre><p>上面示例中，初始化的属性少于声明时的属性，这时剩下的那些属性都会初始化为<code>0</code>。</p><p>声明变量以后，可以修改某个属性的值。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">car</span> <span class="hljs-title">saturn</span> =</span> {.speed=<span class="hljs-number">172</span>, .name=<span class="hljs-string">&quot;Saturn SL/2&quot;</span>};
+saturn.speed = <span class="hljs-number">168</span>;
+</code></pre><p>上面示例将<code>speed</code>属性的值改成<code>168</code>。</p><p>struct 的数据类型声明语句与变量的声明语句，可以合并为一个语句。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">book</span> {</span>
+  <span class="hljs-keyword">char</span> title[<span class="hljs-number">500</span>];
+  <span class="hljs-keyword">char</span> author[<span class="hljs-number">100</span>];
+  <span class="hljs-keyword">float</span> value;
+} b1;
+</code></pre><p>上面的语句同时声明了数据类型<code>book</code>和该类型的变量<code>b1</code>。如果类型标识符<code>book</code>只用在这一个地方，后面不再用到，这里可以将类型名省略。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+  <span class="hljs-keyword">char</span> title[<span class="hljs-number">500</span>];
+  <span class="hljs-keyword">char</span> author[<span class="hljs-number">100</span>];
+  <span class="hljs-keyword">float</span> value;
+} b1;
+</code></pre><p>上面示例中，<code>struct</code>声明了一个匿名数据类型，然后又声明了这个类型的变量<code>b1</code>。</p><p>与其他变量声明语句一样，可以在声明变量的同时，对变量赋值。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+  <span class="hljs-keyword">char</span> title[<span class="hljs-number">500</span>];
+  <span class="hljs-keyword">char</span> author[<span class="hljs-number">100</span>];
+  <span class="hljs-keyword">float</span> value;
+} b1 = {<span class="hljs-string">&quot;Harry Potter&quot;</span>, <span class="hljs-string">&quot;J. K. Rowling&quot;</span>, <span class="hljs-number">10.0</span>},
+  b2 = {<span class="hljs-string">&quot;Cancer Ward&quot;</span>, <span class="hljs-string">&quot;Aleksandr Solzhenitsyn&quot;</span>, <span class="hljs-number">7.85</span>};
+</code></pre><p>上面示例中，在声明变量<code>b1</code>和<code>b2</code>的同时，为它们赋值。</p><p>下一章接受的<code>typedef</code>命令可以为 struct 结构指定一个别名，这样使用起来更简洁。</p><pre class="hljs"><code><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">cell_phone</span> {</span>
+  <span class="hljs-keyword">int</span> cell_no;
+  <span class="hljs-keyword">float</span> minutes_of_charge;
+} phone;
+
+phone p = {<span class="hljs-number">5551234</span>, <span class="hljs-number">5</span>};
+</code></pre><p>上面示例中，<code>phone</code>就是<code>struct cell_phone</code>的别名。</p><p>指针变量也可以指向<code>struct</code>结构。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">book</span> {</span>
+  <span class="hljs-keyword">char</span> title[<span class="hljs-number">500</span>];
+  <span class="hljs-keyword">char</span> author[<span class="hljs-number">100</span>];
+  <span class="hljs-keyword">float</span> value;
+}* b1;
+
+<span class="hljs-comment">// 或者写成两个语句</span>
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">book</span> {</span>
+  <span class="hljs-keyword">char</span> title[<span class="hljs-number">500</span>];
+  <span class="hljs-keyword">char</span> author[<span class="hljs-number">100</span>];
+  <span class="hljs-keyword">float</span> value;
+};
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">book</span>* <span class="hljs-title">b1</span>;</span>
+</code></pre><p>上面示例中，变量<code>b1</code>是一个指针，指向的数据是<code>struct book</code>类型的实例。</p><p>struct 结构也可以作为数组成员。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">fraction</span> <span class="hljs-title">numbers</span>[1000];</span>
+
+numbers[<span class="hljs-number">0</span>].numerator = <span class="hljs-number">22</span>;
+numbers[<span class="hljs-number">0</span>].denominator = <span class="hljs-number">7</span>;
+</code></pre><p>上面示例声明了一个有1000个成员的数组<code>numbers</code>，每个成员都是自定义类型<code>fraction</code>的实例。</p><p>struct 结构占用的存储空间，不是各个属性存储空间的总和。因为为了计算效率，C 语言的内存占用空间一般来说，都必须是<code>int</code>类型存储空间的倍数。如果<code>int</code>类型的存储是4字节，那么 struct 类型的存储空间就总是4的倍数。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">struct</span> {</span> <span class="hljs-keyword">char</span> a; <span class="hljs-keyword">int</span> b; } s;
+<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d\n&quot;</span>, <span class="hljs-keyword">sizeof</span>(s)); <span class="hljs-comment">// 8</span>
+</code></pre><p>上面示例中，如果按照属性占据的空间相加，变量<code>s</code>的存储空间应该是5个字节。但是，struct 结构的存储空间是<code>int</code>类型的倍数，所以最后的结果是占据8个字节，<code>a</code>属性与<code>b</code>属性之间有3个字节的“空洞”。</p><h2 id="struct-的复制">struct 的复制 <a class="markdownIt-Anchor" href="#struct-的复制">#</a></h2><p>struct 变量可以使用赋值运算符（<code>=</code>），复制给另一个变量，这时会生成一个全新的副本。系统会分配一块新的内存空间，大小与原来的变量相同，把每个属性都复制过去，即原样生成了一份数据。这一点跟数组的复制不一样，务必小心。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">cat</span> {</span> <span class="hljs-keyword">char</span> name[<span class="hljs-number">30</span>]; <span class="hljs-keyword">short</span> age; } a, b;
+
+<span class="hljs-built_in">strcpy</span>(a.name, <span class="hljs-string">&quot;Hula&quot;</span>);
+a.age = <span class="hljs-number">3</span>;
+
+b = a;
+b.name[<span class="hljs-number">0</span>] = <span class="hljs-string">&#x27;M&#x27;</span>;
+
+<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s\n&quot;</span>, a.name); <span class="hljs-comment">// Hula</span>
+<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s\n&quot;</span>, b.name); <span class="hljs-comment">// Mula</span>
+</code></pre><p>上面示例中，变量<code>b</code>是变量<code>a</code>的副本，两个变量的值是各自独立的，修改掉<code>b.name</code>不影响<code>a.name</code>。这一点跟数组完全不同，数组使用赋值运算符，不会复制数据，只会共享地址。</p><p>但是，稍作修改，结果就不一样。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">cat</span> {</span> <span class="hljs-keyword">char</span>* name; <span class="hljs-keyword">short</span> age; } a, b;
+
+a.name = <span class="hljs-string">&quot;Hula&quot;</span>;
+a.age = <span class="hljs-number">3</span>;
+
+b = a;
+</code></pre><p>上面示例中，<code>name</code>属性变成了一个字符串指针，这时<code>a</code>赋值给<code>b</code>，导致<code>b.name</code>也是同样的字符串指针，指向同一个地址，也就是说两个属性共享同一个地址。因为这时，struct 结构内部保存的是一个指针，而不是上一个例子的数组，这时复制的就不是字符串本身，而是它的指针。</p><p>注意，这种赋值要求两个变量是同一个类型，不同类型的<code>struct</code>变量无法互相赋值。</p><p>另外，C 语言没有提供比较两个自定义数据结构是否相等的方法，无法用比较运算符（比如<code>==</code>和<code>!=</code>）比较两个数据结构是否相等或不等。</p><h2 id="struct-指针">struct 指针 <a class="markdownIt-Anchor" href="#struct-指针">#</a></h2><p>如果将 struct 变量传入函数，函数内部得到的是一个原始值的副本。</p><pre class="hljs"><code><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">turtle</span> {</span>
+  <span class="hljs-keyword">char</span>* name;
+  <span class="hljs-keyword">char</span>* species;
+  <span class="hljs-keyword">int</span> age;
+};
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">happy</span><span class="hljs-params">(struct turtle t)</span> </span>{
+  t.age = t.age + <span class="hljs-number">1</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
+  <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">turtle</span> <span class="hljs-title">myTurtle</span> =</span> {<span class="hljs-string">&quot;MyTurtle&quot;</span>, <span class="hljs-string">&quot;sea turtle&quot;</span>, <span class="hljs-number">99</span>};
+  happy(myTurtle);
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Age is %i\n&quot;</span>, myTurtle.age); <span class="hljs-comment">// 输出 99</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</code></pre><p>上面示例中，函数<code>happy()</code>传入的是一个 struct 变量<code>myTurtle</code>，函数内部有一个自增操作。但是，执行完<code>happy()</code>以后，函数外部的<code>age</code>属性值根本没变。原因就是函数内部得到的是 struct 变量的副本，改变副本影响不到函数外部的原始数据。</p><p>通常情况下，开发者希望传入函数的是同一份数据，函数内部修改数据以后，会反映在函数外部。而且，传入的是同一份数据，也有利于提高程序性能。这时就需要将 struct 变量的指针传入函数，通过指针来修改 struct 属性，就可以影响到函数外部。</p><p>struct 指针传入函数的写法如下。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">happy</span><span class="hljs-params">(struct turtle* t)</span> </span>{
+}
+
+happy(&amp;myTurtle);
+</code></pre><p>上面代码中，<code>t</code>是 struct 结构的指针，调用函数时传入的是指针。struct 类型跟数组不一样，类型标识符本身并不是指针，所以传入时，指针必须写成<code>&amp;myTurtle</code>。</p><p>函数内部也必须使用<code>(*t).age</code>的写法，从指针拿到 struct 结构本身。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">happy</span><span class="hljs-params">(struct turtle* t)</span> </span>{
+  (*t).age = (*t).age + <span class="hljs-number">1</span>;
+}
+</code></pre><p>上面示例中，<code>(*t).age</code>不能写成<code>*t.age</code>，因为点运算符<code>.</code>的优先级高于<code>*</code>。<code>*t.age</code>这种写法会将<code>t.age</code>看成一个指针，然后取它对应的值，会出现无法预料的结果。</p><p>现在，重新编译执行上面的整个示例，<code>happy()</code>内部对 struct 结构的操作，就会反映到函数外部。</p><p><code>(*t).age</code>这样的写法很麻烦。C 语言就引入了一个新的箭头运算符（<code>-&gt;</code>），可以从 struct 指针上直接获取属性，大大增强了代码的可读性。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">happy</span><span class="hljs-params">(struct turtle* t)</span> </span>{
+  t-&gt;age = t-&gt;age + <span class="hljs-number">1</span>;
+}
+</code></pre><p>总结一下，对于 struct 变量名，使用点运算符（<code>.</code>）获取属性；对于 struct 变量指针，使用箭头运算符（<code>-&gt;</code>）获取属性。以变量<code>myStruct</code>为例，假设<code>ptr</code>是它的指针，那么下面三种写法是同一回事。</p><pre class="hljs"><code><span class="hljs-comment">// ptr == &amp;myStruct</span>
+myStruct.prop == (*ptr).prop == ptr-&gt;prop
+</code></pre><h2 id="struct-的嵌套">struct 的嵌套 <a class="markdownIt-Anchor" href="#struct-的嵌套">#</a></h2><p>struct 结构的成员可以是另一个 struct 结构。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">breed</span> {</span>
+  <span class="hljs-keyword">char</span>* name;
+  <span class="hljs-keyword">int</span> kinds;
+};
+
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">fish</span> {</span>
+  <span class="hljs-keyword">char</span>* name;
+  <span class="hljs-keyword">int</span> age;
+  <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">species</span> <span class="hljs-title">breed</span>;</span>
+};
+</code></pre><p>上面示例中，<code>fish</code>的属性<code>breed</code>是另一个 struct 结构<code>species</code>。</p><p>赋值的时候有多种写法。</p><pre class="hljs"><code><span class="hljs-comment">// 写法一</span>
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">fish</span> <span class="hljs-title">shark</span> =</span> {<span class="hljs-string">&quot;shark&quot;</span>, <span class="hljs-number">9</span>, {<span class="hljs-string">&quot;Selachimorpha&quot;</span>, <span class="hljs-number">500</span>}};
+
+<span class="hljs-comment">// 写法二</span>
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">breek</span> <span class="hljs-title">myBreed</span> =</span> {<span class="hljs-string">&quot;Selachimorpha&quot;</span>, <span class="hljs-number">500</span>};
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">fish</span> <span class="hljs-title">shark</span> =</span> {<span class="hljs-string">&quot;shark&quot;</span>, <span class="hljs-number">9</span>, myBreed};
+
+<span class="hljs-comment">// 写法三</span>
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">fish</span> <span class="hljs-title">shark</span> =</span> {
+  .name=<span class="hljs-string">&quot;shark&quot;</span>,
+  .age=<span class="hljs-number">9</span>,
+  .breed={<span class="hljs-string">&quot;Selachimorpha&quot;</span>, <span class="hljs-number">500</span>}
+};
+
+<span class="hljs-comment">// 写法四</span>
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">fish</span> <span class="hljs-title">shark</span> =</span> {
+  .name=<span class="hljs-string">&quot;shark&quot;</span>,
+  .age=<span class="hljs-number">9</span>,
+  .breed.name=<span class="hljs-string">&quot;Selachimorpha&quot;</span>,
+  .breed.kinds=<span class="hljs-number">500</span>
+};
+
+<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Shark&#x27;s species is %s&quot;</span>, shark.breed.name);
+</code></pre><p>上面示例展示了嵌套 Struct 结构的四种赋值写法。另外，引用<code>breed</code>属性的内部属性，要使用两次点运算符（<code>shark.breed.name</code>）。</p><p>下面是另一个嵌套 struct 的例子。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">name</span> {</span>
+  <span class="hljs-keyword">char</span> first[<span class="hljs-number">50</span>];
+  <span class="hljs-keyword">char</span> last[<span class="hljs-number">50</span>];
+};
+
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">student</span> {</span>
+  <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">name</span> <span class="hljs-title">name</span>;</span>
+  <span class="hljs-keyword">short</span> age;
+  <span class="hljs-keyword">char</span> sex;
+} student1;
+
+<span class="hljs-built_in">strcpy</span>(student1.name.first, <span class="hljs-string">&quot;Harry&quot;</span>);
+<span class="hljs-built_in">strcpy</span>(student1.name.last, <span class="hljs-string">&quot;Potter&quot;</span>);
+
+<span class="hljs-comment">// or</span>
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">name</span> <span class="hljs-title">myname</span> =</span> {<span class="hljs-string">&quot;Harry&quot;</span>, <span class="hljs-string">&quot;Potter&quot;</span>};
+student1.name = myname;
+</code></pre><p>上面示例中，自定义类型<code>student</code>的<code>name</code>属性是另一个自定义类型，如果要引用后者的属性，就必须使用两个<code>.</code>运算符，比如<code>student1.name.first</code>。另外，对字符数组属性赋值，要使用<code>strcpy()</code>函数，不能直接赋值，因为直接改掉字符数组名的地址会报错。</p><p>struct 结构内部不仅可以引用其他结构，还可以自我引用，即结构内部引用当前结构。比如，链表结构的节点就可以写成下面这样。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">node</span> {</span>
+  <span class="hljs-keyword">int</span> data;
+  <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">node</span>* <span class="hljs-title">next</span>;</span>
+};
+</code></pre><p>上面示例中，<code>node</code>结构的<code>next</code>属性，就是指向另一个<code>node</code>实例的指针。下面，使用这个结构自定义一个数据链表。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">node</span> {</span>
+  <span class="hljs-keyword">int</span> data;
+  <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">node</span>* <span class="hljs-title">next</span>;</span>
+};
+
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">node</span>* <span class="hljs-title">head</span>;</span>
+
+<span class="hljs-comment">// 生成一个三个节点的列表 (11)-&gt;(22)-&gt;(33)</span>
+head = <span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(struct node));
+
+head-&gt;data = <span class="hljs-number">11</span>;
+head-&gt;next = <span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(struct node));
+
+head-&gt;next-&gt;data = <span class="hljs-number">22</span>;
+head-&gt;next-&gt;next = <span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(struct node));
+
+head-&gt;next-&gt;next-&gt;data = <span class="hljs-number">33</span>;
+head-&gt;next-&gt;next-&gt;next = <span class="hljs-literal">NULL</span>;
+
+<span class="hljs-comment">// 遍历这个列表</span>
+<span class="hljs-keyword">for</span> (struct node *cur = head; cur != <span class="hljs-literal">NULL</span>; cur = cur-&gt;next) {
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d\n&quot;</span>, cur-&gt;data);
+}
+</code></pre><p>上面示例是链表结构的最简单实现，通过<code>for</code>循环可以对其进行遍历。</p><h2 id="位字段">位字段 <a class="markdownIt-Anchor" href="#位字段">#</a></h2><p>struct 还可以用来定义二进制位组成的数据结构，称为“位字段”（bit field），这对于操作底层的二进制数据非常有用。</p><pre class="hljs"><code><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+  <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> ab:<span class="hljs-number">1</span>;
+  <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> cd:<span class="hljs-number">1</span>;
+  <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> ef:<span class="hljs-number">1</span>;
+  <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> gh:<span class="hljs-number">1</span>;
+} synth;
+
+synth.ab = <span class="hljs-number">0</span>;
+synth.cd = <span class="hljs-number">1</span>;
+</code></pre><p>上面示例中，每个属性后面的<code>:1</code>，表示指定这些属性只占用一个二进制位，所以这个数据结构一共是4个二进制位。</p><p>注意，定义二进制位时，结构内部的各个属性只能是整数类型。</p><p>实际存储的时候，C 语言会按照<code>int</code>类型占用的字节数，存储一个位字段结构。如果有剩余的二进制位，可以使用未命名属性，填满那些位。也可以使用宽度为0的属性，表示占满当前字节剩余的二进制位，迫使下一个属性存储在下一个字节。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+  <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> field1 : <span class="hljs-number">1</span>;
+  <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span>        : <span class="hljs-number">2</span>;
+  <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> field2 : <span class="hljs-number">1</span>;
+  <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span>        : <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> field3 : <span class="hljs-number">1</span>;
+} stuff;
+</code></pre><p>上面示例中，<code>stuff.field1</code>与<code>stuff.field2</code>之间，有一个宽度为两个二进制位的未命名属性。<code>stuff.field3</code>将存储在下一个字节。</p><h2 id="弹性数组成员">弹性数组成员 <a class="markdownIt-Anchor" href="#弹性数组成员">#</a></h2><p>很多时候，不能事先确定数组到底有多少个成员。如果声明数组的时候，事先给出一个很大的成员数，就会很浪费空间。C 语言提供了一个解决方法，叫做弹性数组成员（flexible array member）。</p><p>如果不能事先确定数组成员的数量时，可以定义一个 struct 结构。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">vstring</span> {</span>
+  <span class="hljs-keyword">int</span> len;
+  <span class="hljs-keyword">char</span> chars[];
+};
+</code></pre><p>上面示例中，<code>struct vstring</code>结构有两个属性。<code>len</code>属性用来记录数组<code>chars</code>的长度，<code>chars</code>属性是一个数组，但是没有给出成员数量。</p><p><code>chars</code>数组到底有多少个成员，可以在为<code>vstring</code>分配内存时确定。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">vstring</span>* <span class="hljs-title">str</span> =</span> <span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(struct vstring) + n * <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">char</span>));
+str-&gt;len = n;
+</code></pre><p>上面示例中，假定<code>chars</code>数组的成员数量是<code>n</code>，只有在运行时才能知道<code>n</code>到底是多少。然后，就为<code>struct vstring</code>分配它需要的内存：它本身占用的内存长度，再加上<code>n</code>个数组成员占用的内存长度。最后，<code>len</code>属性记录一下<code>n</code>是多少。</p><p>这样就可以让数组<code>chars</code>有<code>n</code>个成员，不用事先确定，可以跟运行时的需要保持一致。</p><p>弹性数组成员有一些专门的规则。首先，弹性成员的数组，必须是 struct 结构的最后一个属性。另外，除了弹性数组成员，struct 结构必须至少还有一个其他属性。</p></article><nav class="level level-previous-next is-size-5 is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="memory.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> 内存管理</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="typedef.html">typedef 命令 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><div class="page-info is-size-5-widescreen"><p>本教程采用<a href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh" target="_blank">知识共享 署名-相同方式共享 3.0协议</a>。</p><p>分享本文 <span class="social-share"></span></p></div></div><div class="column is-3 is-offset-1"><nav class="panel panel-menu"><p class="panel-heading"><i class="fa fa-book" aria-hidden="true"></i> C 语言教程</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="intro.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">简介</span></a></li><li><a href="syntax.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">基本语法</span></a></li><li><a href="variable.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">变量</span></a></li><li><a href="operator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">运算符</span></a></li><li><a href="flow-control.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">流程控制</span></a></li><li><a href="types.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数据类型</span></a></li><li><a href="pointer.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">指针</span></a></li><li><a href="function.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">函数</span></a></li><li><a href="array.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数组</span></a></li><li><a href="string.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">字符串</span></a></li><li><a href="memory.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">内存管理</span></a></li><li><a href="struct.html" class="is-active"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">struct 结构</span></a></li><li><a href="typedef.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">typedef 命令</span></a></li><li><a href="union.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Union 结构</span></a></li><li><a href="enum.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Enum 类型</span></a></li><li><a href="preprocessor.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">预处理器</span></a></li><li><a href="io.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">I/O 函数</span></a></li><li><a href="file.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">文件操作</span></a></li><li><a href="specifier.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">变量说明符</span></a></li><li><a href="multifile.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">多文件项目</span></a></li><li><a href="cli.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">命令行环境</span></a></li><li><a href="multibyte.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">多字节字符</span></a></li><li><a href="lib/index.html"><span class="icon"><i class="fa fa-caret-down"></i> </span><i class="fa folder fa-folder-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">标准库</span></a><ul><li><a href="lib/assert.h.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">assert.h</span></a></li><li><a href="lib/ctype.h.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">ctype.h</span></a></li><li><a href="lib/errno.h.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">errno.h</span></a></li><li><a href="lib/float.h.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">float.h</span></a></li><li><a href="lib/inttypes.h.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">inttypes.h</span></a></li><li><a href="lib/iso646.h.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">iso646.h</span></a></li><li><a href="lib/limits.h.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">limits.h</span></a></li><li><a href="lib/locale.h.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">locale.h</span></a></li><li><a href="lib/math.h.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">math.h</span></a></li><li><a href="lib/signal.h.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">signal.h</span></a></li><li><a href="lib/stdint.h.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">stdint.h</span></a></li><li><a href="lib/stdlib.h.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">stdlib.h</span></a></li><li><a href="lib/stdio.h.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">stdio.h</span></a></li><li><a href="lib/string.h.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">string.h</span></a></li><li><a href="lib/time.h.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">time.h</span></a></li><li><a href="lib/wchar.h.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">wchar.h</span></a></li><li><a href="lib/wctype.h.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">wctype.h</span></a></li></ul></li></ul></aside></div></nav><nav class="panel panel-info"><p class="panel-heading"><i class="fa fa-link" aria-hidden="true"></i> 链接</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="https://raw.githubusercontent.com/wangdoc/clang-tutorial/master/docs/struct.md" target="_blank"><span class="icon"></span><i class="fa fa-code" aria-hidden="true" style="width: 14px;"></i>&nbsp;本文源码</a></li><li><a href="https://github.com/wangdoc/clang-tutorial" target="_blank"><span class="icon"></span><i class="fa fa-hdd-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;代码仓库</a></li><li><a href="https://github.com/wangdoc/clang-tutorial/issues" target="_blank"><span class="icon"></span><i class="fa fa-flag-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;反馈</a></li></ul></aside></div></nav></div></div><div class="columns"><div class="column is-8"><div id="disqus_thread"></div></div></div></div></section><footer class="footer is-size-5-widescreen"><div class="container"><div class="content has-text-centered"><p>联系：contact@wangdoc.com</p></div></div></footer><script>var LOPPO={current_path:"struct.md",relative_root_path:"",article_toc:'<ul class="markdownIt-TOC">\n<li><a href="#%E7%AE%80%E4%BB%8B">简介</a></li>\n<li><a href="#struct-%E7%9A%84%E5%A4%8D%E5%88%B6">struct 的复制</a></li>\n<li><a href="#struct-%E6%8C%87%E9%92%88">struct 指针</a></li>\n<li><a href="#struct-%E7%9A%84%E5%B5%8C%E5%A5%97">struct 的嵌套</a></li>\n<li><a href="#%E4%BD%8D%E5%AD%97%E6%AE%B5">位字段</a></li>\n<li><a href="#%E5%BC%B9%E6%80%A7%E6%95%B0%E7%BB%84%E6%88%90%E5%91%98">弹性数组成员</a></li>\n</ul>\n'}</script><script src="assets/js/app.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-111269443-1"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","UA-111269443-1")</script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?5eec262881855af3dede6a71234571f6";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><script>var disqus_config=function(){var t=window.location,e=t.protocol+"//"+t.host+(t.port?":"+t.port:"")+t.pathname;this.page.url=e,this.page.identifier=t.pathname};!function(){var t=document,e=t.createElement("script");e.src="https://wangdoc-clang.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><!--script src="assets/js/social-share.min.js"--><!--/script--><script>var shareDesc="我正在阅读《struct 结构》，出自网道（WangDoc.com）的《C 语言教程》。",shareOpts={url:window.location.href,source:shareDesc,title:shareDesc,description:"",image:"",sites:["weibo","wechat","qq","qzone","twitter","facebook"],origin:"WangDoc_com",disabled:[],wechatQrcodeTitle:"微信",wechatQrcodeHelper:"扫一下二维码，分享到微信。"};socialShare(".social-share",shareOpts)</script></body></html>

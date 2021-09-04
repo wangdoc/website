@@ -1,0 +1,203 @@
+<!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>函数 - C 语言教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="函数"><link rel="apple-touch-icon" sizes="57x57" href="assets/icons/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="assets/icons/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="assets/icons/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="assets/icons/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="assets/icons/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="assets/icons/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="assets/icons/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="assets/icons/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png"><link rel="manifest" href="assets/icons/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="assets/icons/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/clang-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/clang-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8"><nav class="breadcrumb is-size-5-desktop" aria-label="breadcrumbs"><ul><li><a href="index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;C 语言教程</a></li><li class="is-active"><a class="has-text-grey" href="function.html">函数</a></li></ul></nav><nav class="level level-previous-next is-size-5 is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="pointer.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> 指针</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="array.html">数组 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content is-size-5-widescreen"><h1 class="title">函数</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><h2 id="简介">简介 <a class="markdownIt-Anchor" href="#简介">#</a></h2><p>函数是一段可以重复执行的代码。它可以接受不同的参数，完成对应的操作。下面的例子就是一个函数。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">plus_one</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span> </span>{
+  <span class="hljs-keyword">return</span> n + <span class="hljs-number">1</span>;
+}
+</code></pre><p>上面的代码声明了一个函数<code>plus_one()</code>。</p><p>函数声明的语法有以下几点，需要注意。</p><p>（1）返回值类型。函数声明时，首先需要给出返回值的类型，上例是<code>int</code>，表示函数<code>plus_one()</code>返回一个整数。</p><p>（2）参数。函数名后面的圆括号里面，需要声明参数的类型和参数名，<code>plus_one(int n)</code>表示这个函数有一个整数参数<code>n</code>。</p><p>（3）函数体。函数体要写在大括号里面，后面（即大括号外面）不需要加分号。大括号的起始位置，可以跟函数名在同一行，也可以另起一行，本书采用同一行的写法。</p><p>（4）<code>return</code>语句。<code>return</code>语句给出函数的返回值，程序运行到这一行，就会跳出函数体，结束函数的调用。如果函数没有返回值，可以省略<code>return</code>语句，或者写成<code>return;</code>。</p><p>调用函数时，只要在函数名后面加上圆括号就可以了，实际的参数放在圆括号里面，就像下面这样。</p><pre class="hljs"><code><span class="hljs-keyword">int</span> a = plus_one(<span class="hljs-number">13</span>);
+<span class="hljs-comment">// a 等于 14</span>
+</code></pre><p>函数调用时，参数个数必须与定义里面的参数个数一致，参数过多或过少都会报错。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">plus_one</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span> </span>{
+  <span class="hljs-keyword">return</span> n + <span class="hljs-number">1</span>;
+}
+
+plus_one(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>); <span class="hljs-comment">// 报错</span>
+plus_one();  <span class="hljs-comment">// 报错</span>
+</code></pre><p>上面示例中，函数<code>plus_one()</code>只能接受一个参数，传入两个参数或不传参数，都会报错。</p><p>函数必须声明后使用，否则会报错。也就是说，一定要在使用<code>plus_one()</code>之前，声明这个函数。如果像下面这样写，编译时会报错。</p><pre class="hljs"><code><span class="hljs-keyword">int</span> a = plus_one(<span class="hljs-number">13</span>);
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">plus_one</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span> </span>{
+  <span class="hljs-keyword">return</span> n + <span class="hljs-number">1</span>;
+}
+</code></pre><p>上面示例中，在调用<code>plus_one()</code>之后，才声明这个函数，编译就会报错。</p><p>C 语言标准规定，函数只能声明在源码文件的顶层，不能声明在其他函数内部。</p><p>不返回值的函数，使用<code>void</code>关键字表示返回值的类型。没有参数的函数，声明时要用<code>void</code>关键字表示参数类型。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">myFunc</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span> </span>{
+  <span class="hljs-comment">// ...</span>
+}
+</code></pre><p>上面的<code>myFunc()</code>函数，既没有返回值，调用时也不需要参数。</p><p>函数可以调用自身，这就叫做递归（recursion）。下面是斐波那契数列的例子。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> <span class="hljs-title">Fibonacci</span><span class="hljs-params">(<span class="hljs-keyword">unsigned</span> n)</span> </span>{
+  <span class="hljs-keyword">if</span> (n &gt; <span class="hljs-number">2</span>)
+    <span class="hljs-keyword">return</span> Fibonacci(n - <span class="hljs-number">1</span>) + Fibonacci(n - <span class="hljs-number">2</span>);
+  <span class="hljs-keyword">else</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+}
+</code></pre><p>上面示例中，函数<code>Fibonacci()</code>调用了自身，大大简化了算法。</p><h2 id="main">main() <a class="markdownIt-Anchor" href="#main">#</a></h2><p>C 语言规定，<code>main()</code>是程序的入口函数，即所有的程序一定要包含一个<code>main()</code>函数。程序总是从这个函数开始执行，如果没有该函数，程序就无法启动。其他函数都是通过它引入程序的。</p><p><code>maind()</code>的写法与其他函数一样，要给出返回值的类型和参数的类型，就像下面这样。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span> </span>{
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Hello World\n&quot;</span>);
+  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</code></pre><p>上面示例中，最后的<code>return 0;</code>表示函数结束运行，返回<code>0</code>。</p><p>C 语言约定，返回值<code>0</code>表示函数运行成功，如果返回其他非零整数，就表示运行失败，代码出了问题。系统根据<code>main()</code>的返回值，作为整个程序的返回值，确定程序是否运行成功。</p><p>正常情况下，如果<code>main()</code>里面省略<code>return 0</code>这一行，编译器会自动加上。所以，写成下面这样，效果完全一样。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span> </span>{
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Hello World&quot;</span>\n);
+}
+</code></pre><p>由于 C 语言只会对<code>main()</code>函数默认添加返回值，对其他函数不会这样做，所以建议总是保留<code>return</code>语句，以便形成统一的代码风格。</p><h2 id="参数的传值引用">参数的传值引用 <a class="markdownIt-Anchor" href="#参数的传值引用">#</a></h2><p>如果函数的参数是一个变量，那么调用时，传入的是这个变量的值的拷贝，而不是变量本身。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">increment</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a)</span> </span>{
+  a++;
+}
+
+<span class="hljs-keyword">int</span> i = <span class="hljs-number">10</span>;
+increment(i);
+
+<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d\n&quot;</span>, i); <span class="hljs-comment">// 10</span>
+</code></pre><p>上面示例中，调用<code>increment(i)</code>以后，变量<code>i</code>本身不会发生变化，还是等于<code>10</code>。因为传入函数的是<code>i</code>的拷贝，而不是<code>i</code>本身，拷贝的变化，影响不到原始变量。这就叫做“传值引用”。</p><p>所以，如果参数变量发生变化，最好把它作为返回值传出来。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">increment</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a)</span> </span>{
+  a++;
+  <span class="hljs-keyword">return</span> a;
+}
+
+<span class="hljs-keyword">int</span> i = <span class="hljs-number">10</span>;
+i = increment(i);
+
+<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d\n&quot;</span>, i); <span class="hljs-comment">// 11</span>
+</code></pre><p>再看下面的例子，<code>Swap()</code>函数用来交换两个变量的值，由于传值引用，下面的写法不会生效。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Swap</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y)</span> </span>{
+  <span class="hljs-keyword">int</span> temp;
+  temp = x;
+  x = y;
+  y = temp;
+}
+
+<span class="hljs-keyword">int</span> a = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">int</span> b = <span class="hljs-number">2</span>;
+Swap(a, b); <span class="hljs-comment">// 无效</span>
+</code></pre><p>上面的写法不会产生交换变量值的效果，因为传入的变量是原始变量<code>a</code>和<code>b</code>的拷贝，不管函数内部怎么操作，都影响不了原始变量。</p><p>如果想要传入变量本身，只有一个办法，就是传入变量的地址。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Swap</span><span class="hljs-params">(<span class="hljs-keyword">int</span>* x, <span class="hljs-keyword">int</span>* y)</span> </span>{
+  <span class="hljs-keyword">int</span> temp;
+  temp = *x;
+  *x = *y;
+  *y = temp;
+}
+
+<span class="hljs-keyword">int</span> a = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">int</span> b = <span class="hljs-number">2</span>;
+Swap(&amp;a, &amp;b);
+</code></pre><p>上面示例中，通过传入变量<code>x</code>和<code>y</code>的地址，函数内部就可以直接操作该地址，从而实现交换两个变量的值。</p><p>虽然跟传參无关，在这里特别提一下，函数不要返回内部变量的指针。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">int</span>* <span class="hljs-title">f</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span> </span>{
+  <span class="hljs-keyword">int</span> i;
+  <span class="hljs-comment">// ...</span>
+  <span class="hljs-keyword">return</span> &amp;i;
+}
+</code></pre><p>上面示例中，函数返回内部变量<code>i</code>的指针，这种写法是错的。因为当函数结束运行时，内部变量就消失了，这时指向内部变量<code>i</code>的内存地址就是无效的，再去使用这个地址是非常危险的。</p><h2 id="函数指针">函数指针 <a class="markdownIt-Anchor" href="#函数指针">#</a></h2><p>函数本身就是一段内存里面的代码，C 语言允许通过指针获取函数。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">print</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a)</span> </span>{
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d\n&quot;</span>, a);
+}
+
+<span class="hljs-keyword">void</span> (*print_ptr)(<span class="hljs-keyword">int</span>) = &amp;print;
+</code></pre><p>上面示例中，变量<code>print_ptr</code>是一个函数指针，它指向函数<code>print()</code>的地址。函数<code>print()</code>的地址可以用<code>&amp;print</code>获得。注意，<code>(*print_ptr)</code>一定要写在圆括号里面，否则函数参数<code>(int)</code>的优先级高于<code>*</code>，整个式子就会变成<code>void* print_ptr(int)</code>。</p><p>有了函数指针，通过它也可以调用函数。</p><pre class="hljs"><code>(*print_ptr)(<span class="hljs-number">10</span>);
+<span class="hljs-comment">// 等同于</span>
+print(<span class="hljs-number">10</span>);
+</code></pre><p>比较特殊的是，C 语言还规定，函数名本身就是指向函数代码的指针，通过函数名就能获取函数地址。也就是说，<code>print</code>和<code>&amp;print</code>是一回事。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> (print == &amp;print) <span class="hljs-comment">// true</span>
+</code></pre><p>因此，上面代码的<code>print_ptr</code>等同于<code>print</code>。</p><pre class="hljs"><code><span class="hljs-keyword">void</span> (*print_ptr)(<span class="hljs-keyword">int</span>) = &amp;print;
+<span class="hljs-comment">// 或</span>
+<span class="hljs-keyword">void</span> (*print_ptr) = print;
+
+<span class="hljs-keyword">if</span> (print_ptr == print) <span class="hljs-comment">// true</span>
+</code></pre><p>所以，对于任意函数，都有五种调用函数的写法。</p><pre class="hljs"><code><span class="hljs-comment">// 写法一</span>
+print(<span class="hljs-number">10</span>)
+
+<span class="hljs-comment">// 写法二</span>
+(*print)(<span class="hljs-number">10</span>)
+
+<span class="hljs-comment">// 写法三</span>
+(&amp;print)(<span class="hljs-number">10</span>)
+
+<span class="hljs-comment">// 写法四</span>
+(*print_ptr)(<span class="hljs-number">10</span>)
+
+<span class="hljs-comment">// 写法五</span>
+print_ptr(<span class="hljs-number">10</span>)
+</code></pre><p>为了简洁易读，一般情况下，函数名前面都不加<code>*</code>和<code>&amp;</code>。</p><p>这种特性的一个应用是，如果一个函数的参数或返回值，也是一个函数，那么函数原型可以写成下面这样。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">compute</span><span class="hljs-params">(<span class="hljs-keyword">int</span> (*myfunc)(<span class="hljs-keyword">int</span>), <span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>)</span></span>;
+</code></pre><p>上面示例可以清晰地表明，函数<code>compute()</code>的第一个参数也是一个函数。</p><h2 id="函数原型">函数原型 <a class="markdownIt-Anchor" href="#函数原型">#</a></h2><p>前面说过，函数必须先声明，后使用。由于程序总是先运行<code>main()</code>函数，导致所有其他函数都必须在<code>main()</code>函数之前声明。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">func1</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span> </span>{
+}
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">func2</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span> </span>{
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span> </span>{
+  func1();
+  func2();
+  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</code></pre><p>上面代码中，<code>main()</code>函数必须在最后声明，否则编译时会产生警告，找不到<code>func1()</code>或<code>func2()</code>的声明。</p><p>但是，<code>main()</code>是整个程序的入口，也是主要逻辑，放在最前面比较好。另一方面，对于函数较多的程序，保证每个函数的顺序正确，会变得很麻烦。</p><p>C 语言提供的解决方法是，只要在程序开头处给出函数原型，函数就可以先使用、后声明。所谓函数原型，就是提前告诉编译器，每个函数的返回类型和参数类型。其他信息都不需要，也不用包括函数体，具体的函数实现可以后面再补上。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">twice</span><span class="hljs-params">(<span class="hljs-keyword">int</span>)</span></span>;
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> num)</span> </span>{
+  <span class="hljs-keyword">return</span> twice(num);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">twice</span><span class="hljs-params">(<span class="hljs-keyword">int</span> num)</span> </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-number">2</span> * num;
+}
+</code></pre><p>上面示例中，函数<code>twice()</code>的实现是放在<code>main()</code>后面，但是代码头部先给出了函数原型，所以可以正确编译。只要提前给出函数原型，函数具体的实现放在哪里，就不重要了。</p><p>函数原型包括参数名也可以，虽然这样对于编译器是多余的，但是阅读代码的时候，可能有助于理解函数的意图。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">twice</span><span class="hljs-params">(<span class="hljs-keyword">int</span>)</span></span>;
+
+<span class="hljs-comment">// 等同于</span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">twice</span><span class="hljs-params">(<span class="hljs-keyword">int</span> num)</span></span>;
+</code></pre><p>上面示例中，<code>twice</code>函数的参数名<code>num</code>，无论是否出现在原型里面，都是可以的。</p><p>注意，函数原型必须以分号结尾。</p><p>一般来说，每个源码文件的头部，都会给出当前脚本使用的所有函数的原型。</p><h2 id="exit">exit() <a class="markdownIt-Anchor" href="#exit">#</a></h2><p><code>exit()</code>函数用来终止整个程序的运行。一旦执行到该函数，程序就会立即结束。该函数的原型定义在头文件<code>stdlib.h</code>里面。</p><p><code>exit()</code>可以向程序外部返回一个值，它的参数就是程序的返回值。一般来说，使用两个常量作为它的参数：<code>EXIT_SUCCESS</code>（相当于 0）表示程序运行成功，<code>EXIT_FAILURE</code>（相当于 1）表示程序异常中止。这两个常数也是定义在<code>stdlib.h</code>里面。</p><pre class="hljs"><code><span class="hljs-comment">// 程序运行成功</span>
+<span class="hljs-comment">// 等同于 exit(0);</span>
+<span class="hljs-built_in">exit</span>(EXIT_SUCCESS);
+
+<span class="hljs-comment">// 程序异常中止</span>
+<span class="hljs-comment">// 等同于 exit(1);</span>
+<span class="hljs-built_in">exit</span>(EXIT_FAILURE);
+</code></pre><p>在<code>main()</code>函数里面，<code>exit()</code>等价于使用<code>return</code>语句。其他函数使用<code>exit()</code>，就是终止整个程序的运行，没有其他作用。</p><p>C 语言还提供了一个<code>atexit()</code>函数，用来登记<code>exit()</code>执行时额外执行的函数，用来做一些退出程序时的收尾工作。该函数的原型也是定义在头文件<code>stdlib.h</code>。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">atexit</span><span class="hljs-params">(<span class="hljs-keyword">void</span> (*func)(<span class="hljs-keyword">void</span>))</span></span>;
+</code></pre><p><code>atexit()</code>的参数是一个函数指针。注意，它的参数函数（上例的<code>print</code>）不能接受参数，也不能有返回值。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">print</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span> </span>{
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;something wrong!\n&quot;</span>);
+}
+
+atexit(print);
+<span class="hljs-built_in">exit</span>(EXIT_FAILURE);
+</code></pre><p>上面示例中，<code>exit()</code>执行时会先自动调用<code>atexit()</code>注册的<code>print()</code>函数，然后再终止程序。</p><h2 id="函数说明符">函数说明符 <a class="markdownIt-Anchor" href="#函数说明符">#</a></h2><p>C 语言提供了一些函数说明符，让函数用法更加明确。</p><h3 id="extern-说明符">extern 说明符 <a class="markdownIt-Anchor" href="#extern-说明符">#</a></h3><p>对于多文件的项目，源码文件会用到其他文件声明的函数。这时，当前文件里面，需要给出外部函数的原型，并用<code>extern</code>说明该函数的定义来自其他文件。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">extern</span> <span class="hljs-keyword">int</span> <span class="hljs-title">foo</span><span class="hljs-params">(<span class="hljs-keyword">int</span> arg1, <span class="hljs-keyword">char</span> arg2)</span></span>;
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span> </span>{
+  <span class="hljs-keyword">int</span> a = foo(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>);
+  <span class="hljs-comment">// ...</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</code></pre><p>上面示例中，函数<code>foo()</code>定义在其他文件，<code>extern</code>告诉编译器当前文件不包含该函数的定义。</p><h3 id="static-说明符">static 说明符 <a class="markdownIt-Anchor" href="#static-说明符">#</a></h3><p>默认情况下，每次调用函数时，函数的内部变量都会重新初始化，不会保留上一次运行的值。<code>static</code>说明符可以改变这种行为。</p><p><code>static</code>用于函数内部声明变量时，表示该变量只需要初始化一次，不需要在每次调用时都进行初始化。也就是说，它的值在两次调用之间保持不变。</p><pre class="hljs"><code><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">counter</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span> </span>{
+  <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> count = <span class="hljs-number">1</span>;  <span class="hljs-comment">// 只初始化一次</span>
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d\n&quot;</span>, count);
+  count++;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span> </span>{
+  counter();  <span class="hljs-comment">// 1</span>
+  counter();  <span class="hljs-comment">// 2</span>
+  counter();  <span class="hljs-comment">// 3</span>
+  counter();  <span class="hljs-comment">// 4</span>
+}
+</code></pre><p>上面示例中，函数<code>counter()</code>的内部变量<code>count</code>，使用<code>static</code>说明符修饰，表面这个变量只初始化一次，以后每次调用时都会使用上一次的值，造成递增的效果。</p><p>注意，<code>static</code>修饰的变量初始化时，只能赋值为常量，不能赋值为变量。</p><pre class="hljs"><code><span class="hljs-keyword">int</span> i = <span class="hljs-number">3</span>;
+<span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> j = i; <span class="hljs-comment">// 错误</span>
+</code></pre><p>上面示例中，<code>j</code>属于静态变量，初始化时不能赋值为另一个变量<code>i</code>。</p><p>另外，在块作用域中，<code>static</code>声明的变量有默认值<code>0</code>。</p><pre class="hljs"><code><span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> foo;
+<span class="hljs-comment">// 等同于</span>
+<span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> foo = <span class="hljs-number">0</span>;
+</code></pre><p><code>static</code>可以用来修饰函数本身。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">Twice</span><span class="hljs-params">(<span class="hljs-keyword">int</span> num)</span> </span>{
+  <span class="hljs-keyword">int</span> result = num * <span class="hljs-number">2</span>;
+  <span class="hljs-keyword">return</span>(result);
+}
+</code></pre><p>上面示例中，<code>static</code>关键字表示该函数只能在当前文件里使用，如果没有这个关键字，其他文件也可以使用这个函数（通过声明函数原型）。</p><p><code>static</code>也可以用在参数里面，修饰参数数组。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">sum_array</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a[<span class="hljs-keyword">static</span> <span class="hljs-number">3</span>], <span class="hljs-keyword">int</span> n)</span> </span>{
+  <span class="hljs-comment">// ...</span>
+}
+</code></pre><p>上面示例中，<code>static</code>对程序行为不会有任何影响，只是用来告诉编译器，该数组长度至少为3，某些情况下可以加快程序运行速度。另外，需要注意的是，对于多维数组的参数，<code>static</code>仅可用于第一维的说明。</p><h3 id="const-说明符">const 说明符 <a class="markdownIt-Anchor" href="#const-说明符">#</a></h3><p>函数参数里面的<code>const</code>说明符，表示函数内部不得修改该参数变量。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">f</span><span class="hljs-params">(<span class="hljs-keyword">int</span>* p)</span> </span>{
+  <span class="hljs-comment">// ...</span>
+}
+</code></pre><p>上面示例中，函数<code>f()</code>的参数是一个指针<code>p</code>，函数内部可能会改掉它所指向的值<code>*p</code>，从而影响到函数外部。</p><p>为了避免这种情况，可以在声明函数时，在指针参数前面加上<code>const</code>说明符，告诉编译器，函数内部不能修改该参数所指向的值。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">f</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span>* p)</span> </span>{
+  *p = <span class="hljs-number">0</span>; <span class="hljs-comment">// 该行报错</span>
+}
+</code></pre><p>上面示例中，声明函数时，<code>const</code>指定不能修改指针<code>p</code>指向的值，所以<code>*p = 0</code>就会报错。</p><p>但是上面这种写法，只限制修改<code>p</code>所指向的值，而<code>p</code>本身的地址是可以修改的。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">f</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span>* p)</span> </span>{
+  <span class="hljs-keyword">int</span> x = <span class="hljs-number">13</span>;
+  p = &amp;x; <span class="hljs-comment">// 允许修改</span>
+}
+</code></pre><p>上面示例中，<code>p</code>本身是可以修改，<code>const</code>只限定<code>*p</code>不能修改。</p><p>如果想限制修改<code>p</code>，可以把<code>const</code>放在<code>p</code>前面。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">f</span><span class="hljs-params">(<span class="hljs-keyword">int</span>* <span class="hljs-keyword">const</span> p)</span> </span>{
+  <span class="hljs-keyword">int</span> x = <span class="hljs-number">13</span>;
+  p = &amp;x; <span class="hljs-comment">// 该行报错</span>
+}
+</code></pre><p>如果想同时限制修改<code>p</code>和<code>*p</code>，需要使用两个<code>const</code>。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">f</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span>* <span class="hljs-keyword">const</span> p)</span> </span>{
+  <span class="hljs-comment">// ...</span>
+}
+</code></pre><h2 id="可变参数">可变参数 <a class="markdownIt-Anchor" href="#可变参数">#</a></h2><p>有些函数的参数数量是不确定的，声明函数的时候，可以使用省略号<code>...</code>表示可变数量的参数。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">printf</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* format, ...)</span></span>;
+</code></pre><p>上面示例是<code>printf()</code>函数的原型，除了第一个参数，其他参数的数量是可变的，与格式字符串里面的占位符数量有关。这时，就可以用<code>...</code>表示可变数量的参数。</p><p>注意，<code>...</code>符号必须放在参数序列的结尾，否则会报错。</p><p>头文件<code>stdarg.h</code>定义了一些宏，可以操作可变参数。</p><p>（1）<code>va_list</code>：一个数据类型，用来定义一个可变参数对象。它必须在操作可变参数时，首先使用。</p><p>（2）<code>va_start</code>：一个函数，用来初始化可变参数对象。它接受两个参数，第一个参数是可变参数对象，第二个参数是原始函数里面，可变参数之前的那个参数，用来为可变参数定位。</p><p>（3）<code>va_arg</code>：一个函数，用来取出当前那个可变参数，每次调用后，内部指针就会指向下一个可变参数。它接受两个参数，第一个是可变参数对象，第二个是当前可变参数的类型。</p><p>（4）<code>va_end</code>：一个函数，用来清理可变参数对象。</p><p>下面是一个例子。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">average</span><span class="hljs-params">(<span class="hljs-keyword">int</span> i, ...)</span> </span>{
+  <span class="hljs-keyword">double</span> total = <span class="hljs-number">0</span>;
+  va_list ap;
+  va_start(ap, i);
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= i; ++j) {
+    total += va_arg(ap, <span class="hljs-keyword">double</span>);
+  }
+  va_end(ap);
+  <span class="hljs-keyword">return</span> total / i;
+}
+</code></pre><p>上面示例中，<code>va_list ap</code>定义<code>ap</code>为可变参数对象，<code>va_start(ap, i)</code>将参数<code>i</code>后面的参数统一放入<code>ap</code>，<code>va_arg(ap, double)</code>用来从<code>ap</code>依次取出一个参数，并且指定该参数为 double 类型，<code>va_end(ap)</code>用来清理可变参数对象。</p></article><nav class="level level-previous-next is-size-5 is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="pointer.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> 指针</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="array.html">数组 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><div class="page-info is-size-5-widescreen"><p>本教程采用<a href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh" target="_blank">知识共享 署名-相同方式共享 3.0协议</a>。</p><p>分享本文 <span class="social-share"></span></p></div></div><div class="column is-3 is-offset-1"><nav class="panel panel-menu"><p class="panel-heading"><i class="fa fa-book" aria-hidden="true"></i> C 语言教程</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="intro.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">简介</span></a></li><li><a href="syntax.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">基本语法</span></a></li><li><a href="variable.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">变量</span></a></li><li><a href="operator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">运算符</span></a></li><li><a href="flow-control.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">流程控制</span></a></li><li><a href="types.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数据类型</span></a></li><li><a href="pointer.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">指针</span></a></li><li><a href="function.html" class="is-active"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">函数</span></a></li><li><a href="array.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数组</span></a></li><li><a href="string.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">字符串</span></a></li><li><a href="memory.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">内存管理</span></a></li><li><a href="struct.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">struct 结构</span></a></li><li><a href="typedef.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">typedef 命令</span></a></li><li><a href="union.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Union 结构</span></a></li><li><a href="enum.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Enum 类型</span></a></li><li><a href="preprocessor.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">预处理器</span></a></li><li><a href="io.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">I/O 函数</span></a></li><li><a href="file.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">文件操作</span></a></li><li><a href="specifier.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">变量说明符</span></a></li><li><a href="multifile.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">多文件项目</span></a></li><li><a href="cli.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">命令行环境</span></a></li><li><a href="multibyte.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">多字节字符</span></a></li><li><a href="lib/index.html"><span class="icon"><i class="fa fa-caret-down"></i> </span><i class="fa folder fa-folder-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">标准库</span></a><ul><li><a href="lib/assert.h.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">assert.h</span></a></li><li><a href="lib/ctype.h.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">ctype.h</span></a></li><li><a href="lib/errno.h.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">errno.h</span></a></li><li><a href="lib/float.h.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">float.h</span></a></li><li><a href="lib/inttypes.h.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">inttypes.h</span></a></li><li><a href="lib/iso646.h.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">iso646.h</span></a></li><li><a href="lib/limits.h.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">limits.h</span></a></li><li><a href="lib/locale.h.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">locale.h</span></a></li><li><a href="lib/math.h.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">math.h</span></a></li><li><a href="lib/signal.h.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">signal.h</span></a></li><li><a href="lib/stdint.h.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">stdint.h</span></a></li><li><a href="lib/stdlib.h.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">stdlib.h</span></a></li><li><a href="lib/stdio.h.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">stdio.h</span></a></li><li><a href="lib/string.h.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">string.h</span></a></li><li><a href="lib/time.h.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">time.h</span></a></li><li><a href="lib/wchar.h.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">wchar.h</span></a></li><li><a href="lib/wctype.h.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">wctype.h</span></a></li></ul></li></ul></aside></div></nav><nav class="panel panel-info"><p class="panel-heading"><i class="fa fa-link" aria-hidden="true"></i> 链接</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="https://raw.githubusercontent.com/wangdoc/clang-tutorial/master/docs/function.md" target="_blank"><span class="icon"></span><i class="fa fa-code" aria-hidden="true" style="width: 14px;"></i>&nbsp;本文源码</a></li><li><a href="https://github.com/wangdoc/clang-tutorial" target="_blank"><span class="icon"></span><i class="fa fa-hdd-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;代码仓库</a></li><li><a href="https://github.com/wangdoc/clang-tutorial/issues" target="_blank"><span class="icon"></span><i class="fa fa-flag-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;反馈</a></li></ul></aside></div></nav></div></div><div class="columns"><div class="column is-8"><div id="disqus_thread"></div></div></div></div></section><footer class="footer is-size-5-widescreen"><div class="container"><div class="content has-text-centered"><p>联系：contact@wangdoc.com</p></div></div></footer><script>var LOPPO={current_path:"function.md",relative_root_path:"",article_toc:'<ul class="markdownIt-TOC">\n<li><a href="#%E7%AE%80%E4%BB%8B">简介</a></li>\n<li><a href="#main">main()</a></li>\n<li><a href="#%E5%8F%82%E6%95%B0%E7%9A%84%E4%BC%A0%E5%80%BC%E5%BC%95%E7%94%A8">参数的传值引用</a></li>\n<li><a href="#%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88">函数指针</a></li>\n<li><a href="#%E5%87%BD%E6%95%B0%E5%8E%9F%E5%9E%8B">函数原型</a></li>\n<li><a href="#exit">exit()</a></li>\n<li><a href="#%E5%87%BD%E6%95%B0%E8%AF%B4%E6%98%8E%E7%AC%A6">函数说明符</a>\n<ul>\n<li><a href="#extern-%E8%AF%B4%E6%98%8E%E7%AC%A6">extern 说明符</a></li>\n<li><a href="#static-%E8%AF%B4%E6%98%8E%E7%AC%A6">static 说明符</a></li>\n<li><a href="#const-%E8%AF%B4%E6%98%8E%E7%AC%A6">const 说明符</a></li>\n</ul>\n</li>\n<li><a href="#%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0">可变参数</a></li>\n</ul>\n'}</script><script src="assets/js/app.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-111269443-1"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","UA-111269443-1")</script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?5eec262881855af3dede6a71234571f6";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><script>var disqus_config=function(){var t=window.location,e=t.protocol+"//"+t.host+(t.port?":"+t.port:"")+t.pathname;this.page.url=e,this.page.identifier=t.pathname};!function(){var t=document,e=t.createElement("script");e.src="https://wangdoc-clang.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><!--script src="assets/js/social-share.min.js"--><!--/script--><script>var shareDesc="我正在阅读《函数》，出自网道（WangDoc.com）的《C 语言教程》。",shareOpts={url:window.location.href,source:shareDesc,title:shareDesc,description:"",image:"",sites:["weibo","wechat","qq","qzone","twitter","facebook"],origin:"WangDoc_com",disabled:[],wechatQrcodeTitle:"微信",wechatQrcodeHelper:"扫一下二维码，分享到微信。"};socialShare(".social-share",shareOpts)</script></body></html>
