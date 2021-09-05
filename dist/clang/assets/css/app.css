@@ -12145,6 +12145,14 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
 }
 
 /*
+ * article font
+ */
+.article {
+  line-height: 1.6;
+  letter-spacing: 0.04rem;
+}
+
+/*
  * article title counter
  */
 .article .content {
