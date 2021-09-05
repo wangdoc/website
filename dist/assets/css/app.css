@@ -11809,6 +11809,12 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
   padding: 3rem 1.5rem 6rem;
 }
 
+/* article font */
+.article {
+  line-height: 1.6;
+  letter-spacing: 0.04rem;
+}
+
 /* menu */
 .panel-menu .panel-block {
   padding: 0.5em 0.75em 0.5em 0em;
