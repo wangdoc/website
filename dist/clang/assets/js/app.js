@@ -5,7 +5,7 @@ function addTopElement(e){const t=document.createTextNode("  ");e.appendChild(t)
 function hashChange(){if(location.hash){var e=document.querySelector(".navbar").getBoundingClientRect().height;window.scrollBy(0,-1*e)}}module.exports=hashChange;
 
 },{}],3:[function(require,module,exports){
-var setMinHeight=require("./setMinHeight"),insertArticleToc=require("./insertArticleToc"),hashChange=require("./hashChange"),navbarHandler=require("./navbarHandler"),menuHandler=require("./menuHandler"),goTop=require("./goTop"),support=require("./support");setMinHeight(),goTop(),insertArticleToc(),window.onhashchange=hashChange,navbarHandler(),menuHandler(),require("./tocHide"),require("./social-share"),support();
+var setMinHeight=require("./setMinHeight"),insertArticleToc=require("./insertArticleToc"),hashChange=require("./hashChange"),navbarHandler=require("./navbarHandler"),menuHandler=require("./menuHandler"),goTop=require("./goTop"),support=require("./support");setMinHeight(),goTop(),insertArticleToc(),window.onhashchange=hashChange,navbarHandler(),menuHandler(),require("./tocHide"),require("./social-share"),support(),console.log();
 
 },{"./goTop":1,"./hashChange":2,"./insertArticleToc":4,"./menuHandler":5,"./navbarHandler":6,"./setMinHeight":7,"./social-share":8,"./support":9,"./tocHide":10}],4:[function(require,module,exports){
 function insertArticleToc(){var e=document.querySelector("article.content"),t=e.querySelector("h2"),r=e.querySelectorAll("h2");if(t&&LOPPO.article_toc&&r.length>=2){var c=document.createElement("div");c.setAttribute("class","article-toc"),c.innerHTML='<h5>目录 [<span class="toc-controller toc-controller-show"><a>隐藏</a></span>]</h5>'+LOPPO.article_toc,e.insertBefore(c,t)}}module.exports=insertArticleToc;
