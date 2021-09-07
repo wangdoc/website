@@ -103,7 +103,7 @@ happy(&amp;myTurtle);
 }
 </code></pre><p>总结一下，对于 struct 变量名，使用点运算符（<code>.</code>）获取属性；对于 struct 变量指针，使用箭头运算符（<code>-&gt;</code>）获取属性。以变量<code>myStruct</code>为例，假设<code>ptr</code>是它的指针，那么下面三种写法是同一回事。</p><pre class="hljs"><code><span class="hljs-comment">// ptr == &amp;myStruct</span>
 myStruct.prop == (*ptr).prop == ptr-&gt;prop
-</code></pre><h2 id="struct-的嵌套">struct 的嵌套 <a class="markdownIt-Anchor" href="#struct-的嵌套">#</a></h2><p>struct 结构的成员可以是另一个 struct 结构。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">breed</span> {</span>
+</code></pre><h2 id="struct-的嵌套">struct 的嵌套 <a class="markdownIt-Anchor" href="#struct-的嵌套">#</a></h2><p>struct 结构的成员可以是另一个 struct 结构。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">species</span> {</span>
   <span class="hljs-keyword">char</span>* name;
   <span class="hljs-keyword">int</span> kinds;
 };
