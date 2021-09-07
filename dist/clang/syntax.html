@@ -34,12 +34,12 @@ x
 printf(&quot;b &quot;);
 printf(&quot;c &quot;); /* 注释二 */</span>
 <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;d &quot;</span>);
-</code></pre><p>上面示例的原意是，第一行和第三行代码的尾部，有两个注释。但是，第一行注释忘记写结束符号，导致注释一定延续到第三行结束。</p><p>第二种写法是将注释放在双斜杠<code>//</code>后面，从双斜杠到行尾都属于注释。这种注释只能是单行，可以放在行首，也可以放在一行语句的结尾。这是 C99 标准新增的语法。</p><pre class="hljs"><code><span class="hljs-comment">// 这是一行注释</span>
+</code></pre><p>上面示例的原意是，第一行和第三行代码的尾部，有两个注释。但是，第一行注释忘记写结束符号，导致注释一延续到第三行结束。</p><p>第二种写法是将注释放在双斜杠<code>//</code>后面，从双斜杠到行尾都属于注释。这种注释只能是单行，可以放在行首，也可以放在一行语句的结尾。这是 C99 标准新增的语法。</p><pre class="hljs"><code><span class="hljs-comment">// 这是一行注释</span>
 
 <span class="hljs-keyword">int</span> x = <span class="hljs-number">1</span>; <span class="hljs-comment">// 这也是注释</span>
 </code></pre><p>不管是哪一种注释，都不能放在双引号里面。双引号里面的注释符号，会成为字符串的一部分，解释为普通符号，失去注释作用。</p><pre class="hljs"><code><span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;// hello /* world */ &quot;</span>);
 </code></pre><p>上面示例中，双引号里面的注释符号，都会被视为普通字符，没有注释作用。</p><p>编译时，注释会被替换成一个空格，所以<code>min/* space */Value</code>会变成<code>min Value</code>，而不是<code>minValue</code>。</p><h2 id="printf">printf() <a class="markdownIt-Anchor" href="#printf">#</a></h2><h3 id="基本用法">基本用法 <a class="markdownIt-Anchor" href="#基本用法">#</a></h3><p>本书的示例会大量用到<code>printf()</code>函数，这里先介绍一下这个函数。</p><p><code>printf()</code>的作用是将参数文本输出到屏幕。它名字里面的<code>f</code>代表<code>format</code>（格式化），表示可以定制输出文本的格式。</p><pre class="hljs"><code><span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Hello World&quot;</span>);
-</code></pre><p>上面命令会在屏幕上输出一行文字“Hello World”。</p><p>运行结束后，光标就停留在输出结束的地方，不会自动换行。为了让光标移到下一行的开头，可以在输出文本的结尾，添加一个换行符<code>\n</code>。</p><pre class="hljs"><code><span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Hello World\n&quot;</span>);
+</code></pre><p>上面命令会在屏幕上输出一行文字“Hello World”。</p><p><code>printf()</code>不会在行尾自动添加换行符，运行结束后，光标就停留在输出结束的地方，不会自动换行。为了让光标移到下一行的开头，可以在输出文本的结尾，添加一个换行符<code>\n</code>。</p><pre class="hljs"><code><span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Hello World\n&quot;</span>);
 </code></pre><p>如果文本内部有换行，也是通过插入换行符来实现。</p><pre class="hljs"><code><span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Hello\nWorld\n&quot;</span>);
 </code></pre><p>上面示例先输出一个<code>Hello</code>，然后换行，在下一行开头输出<code>World</code>，然后又是一个换行。</p><p>上面示例也可以写成两个<code>printf()</code>，效果完全一样。</p><pre class="hljs"><code><span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Hello\n&quot;</span>);
 <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;World\n&quot;</span>);
@@ -57,7 +57,7 @@ printf(&quot;c &quot;); /* 注释二 */</span>
 </code></pre><p>上面示例中，输出内容<code>123</code>的后面添加了空格。</p><p>对于小数，这个限定符会限制所有数字的最小显示宽度。</p><pre class="hljs"><code><span class="hljs-comment">// 输出 &quot;  123.450000&quot;</span>
 <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%12f\n&quot;</span>, <span class="hljs-number">123.45</span>);
 </code></pre><p>上面示例中，<code>%12f</code>表示输出的浮点数最少要占据12位。由于小数的默认显示精度是小数点后6位，所以<code>123.45</code>输出结果的头部会添加2个空格。</p><p>（2）总是显示正负号</p><p>默认情况下，<code>printf()</code>不对正数显示<code>+</code>号，只对负数显示<code>-</code>号。如果想让正数也输出<code>+</code>号，可以在占位符的<code>%</code>后面加一个<code>+</code>。</p><pre class="hljs"><code><span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%+d\n&quot;</span>, <span class="hljs-number">12</span>); <span class="hljs-comment">// 输出 +12</span>
-<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%+d\n&quot;</span>, <span class="hljs-number">12</span>); <span class="hljs-comment">// 输出 -12</span>
+<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%+d\n&quot;</span>, <span class="hljs-number">-12</span>); <span class="hljs-comment">// 输出 -12</span>
 </code></pre><p>上面示例中，<code>%+d</code>可以确保输出的数值，总是带有正负号。</p><p>（3）限定小数位数</p><p>输出小数时，有时希望限定小数的位数。举例来说，希望小数点后面只保留两位，占位符可以写成<code>%.2f</code>。</p><pre class="hljs"><code><span class="hljs-comment">// 输出 Number is 0.50</span>
 <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Number is %.2f\n&quot;</span>, <span class="hljs-number">0.5</span>);
 </code></pre><p>上面示例中，如果希望小数点后面输出3位（<code>0.500</code>），占位符就要写成<code>%.3f</code>。</p><p>这种写法可以与限定宽度占位符，结合使用。</p><pre class="hljs"><code><span class="hljs-comment">// 输出为 &quot;  0.50&quot;</span>
