@@ -44,7 +44,7 @@ x.a = <span class="hljs-number">12</span>;
 x.b = <span class="hljs-number">3.141592</span>;
 <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%f\n&quot;</span>, x.b);           <span class="hljs-comment">// 3.141592</span>
 <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%f\n&quot;</span>, *foo_float_p);  <span class="hljs-comment">// 3.141592</span>
-</code></pre><p>上面示例中，<code>x</code>是 foo 结构的指针，它的数据类型完全由当前赋值的属性决定。</p><p>typedef 命令可以为 Union 数据类型起别名。</p><pre class="hljs"><code><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">union</span> {</span>
+</code></pre><p>上面示例中，<code>&amp;x</code>是 foo 结构的指针，它的数据类型完全由当前赋值的属性决定。</p><p>typedef 命令可以为 Union 数据类型起别名。</p><pre class="hljs"><code><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">union</span> {</span>
   <span class="hljs-keyword">short</span> count;
   <span class="hljs-keyword">float</span> weight;
   <span class="hljs-keyword">float</span> volume;

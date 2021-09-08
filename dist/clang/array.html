@@ -172,7 +172,7 @@ a = b;
 <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">sum_array</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n, <span class="hljs-keyword">int</span> m, <span class="hljs-keyword">int</span> a[n][m])</span></span>;
 </code></pre><p>上面示例中，函数<code>sum_array()</code>的参数是一个多维数组，按照原来的写法，一定要声明第二维的长度。但是使用变长数组的写法，就不用声明第二维长度了，因为它可以作为参数传入函数。</p><h3 id="数组字面量作为参数">数组字面量作为参数 <a class="markdownIt-Anchor" href="#数组字面量作为参数">#</a></h3><p>C 语言允许将数组字面量作为参数，传入函数。</p><pre class="hljs"><code><span class="hljs-comment">// 数组变量作为参数</span>
 <span class="hljs-keyword">int</span> a[] = {<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>};
-<span class="hljs-keyword">int</span> sum = sum_array(b, <span class="hljs-number">4</span>);
+<span class="hljs-keyword">int</span> sum = sum_array(a, <span class="hljs-number">4</span>);
 
 <span class="hljs-comment">// 数组字面量作为参数</span>
 <span class="hljs-keyword">int</span> sum = sum_array((<span class="hljs-keyword">int</span> []){<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>}, <span class="hljs-number">4</span>);
