@@ -269,12 +269,7 @@ PeekableQueue.prototype.peek = <span class="hljs-function"><span class="hljs-key
 };
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Breadcrumbs;
-</code></pre><p>如果模块只有一个输出值，就使用<code>export default</code>，如果模块有多个输出值，就不使用<code>export default</code>，<code>export default</code>与普通的<code>export</code>不要同时使用。</p><p>不要在模块输入中使用通配符。因为这样可以确保你的模块之中，有一个默认输出（export default）。</p><pre class="hljs"><code><span class="hljs-comment">// bad</span>
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> myObject <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./importModule&#x27;</span>;
-
-<span class="hljs-comment">// good</span>
-<span class="hljs-keyword">import</span> myObject <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./importModule&#x27;</span>;
-</code></pre><p>如果模块默认输出一个函数，函数名的首字母应该小写。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">makeStyleGuide</span>(<span class="hljs-params"></span>) </span>{
+</code></pre><p>如果模块只有一个输出值，就使用<code>export default</code>，如果模块有多个输出值，就不使用<code>export default</code>，<code>export default</code>与普通的<code>export</code>不要同时使用。</p><p>如果模块默认输出一个函数，函数名的首字母应该小写。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">makeStyleGuide</span>(<span class="hljs-params"></span>) </span>{
 }
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> makeStyleGuide;
