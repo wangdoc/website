@@ -23,7 +23,7 @@ plus_one();  <span class="hljs-comment">// 报错</span>
   <span class="hljs-keyword">else</span>
     <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
 }
-</code></pre><p>上面示例中，函数<code>Fibonacci()</code>调用了自身，大大简化了算法。</p><h2 id="main">main() <a class="markdownIt-Anchor" href="#main">#</a></h2><p>C 语言规定，<code>main()</code>是程序的入口函数，即所有的程序一定要包含一个<code>main()</code>函数。程序总是从这个函数开始执行，如果没有该函数，程序就无法启动。其他函数都是通过它引入程序的。</p><p><code>maind()</code>的写法与其他函数一样，要给出返回值的类型和参数的类型，就像下面这样。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span> </span>{
+</code></pre><p>上面示例中，函数<code>Fibonacci()</code>调用了自身，大大简化了算法。</p><h2 id="main">main() <a class="markdownIt-Anchor" href="#main">#</a></h2><p>C 语言规定，<code>main()</code>是程序的入口函数，即所有的程序一定要包含一个<code>main()</code>函数。程序总是从这个函数开始执行，如果没有该函数，程序就无法启动。其他函数都是通过它引入程序的。</p><p><code>main()</code>的写法与其他函数一样，要给出返回值的类型和参数的类型，就像下面这样。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span> </span>{
   <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Hello World\n&quot;</span>);
   <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 }
