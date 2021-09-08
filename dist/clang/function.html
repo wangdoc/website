@@ -67,7 +67,7 @@ Swap(a, b); <span class="hljs-comment">// 无效</span>
 <span class="hljs-keyword">int</span> a = <span class="hljs-number">1</span>;
 <span class="hljs-keyword">int</span> b = <span class="hljs-number">2</span>;
 Swap(&amp;a, &amp;b);
-</code></pre><p>上面示例中，通过传入变量<code>x</code>和<code>y</code>的地址，函数内部就可以直接操作该地址，从而实现交换两个变量的值。</p><p>虽然跟传參无关，在这里特别提一下，函数不要返回内部变量的指针。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">int</span>* <span class="hljs-title">f</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span> </span>{
+</code></pre><p>上面示例中，通过传入变量<code>x</code>和<code>y</code>的地址，函数内部就可以直接操作该地址，从而实现交换两个变量的值。</p><p>虽然跟传参无关，这里特别提一下，函数不要返回内部变量的指针。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">int</span>* <span class="hljs-title">f</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span> </span>{
   <span class="hljs-keyword">int</span> i;
   <span class="hljs-comment">// ...</span>
   <span class="hljs-keyword">return</span> &amp;i;
@@ -160,7 +160,7 @@ atexit(print);
   counter();  <span class="hljs-comment">// 3</span>
   counter();  <span class="hljs-comment">// 4</span>
 }
-</code></pre><p>上面示例中，函数<code>counter()</code>的内部变量<code>count</code>，使用<code>static</code>说明符修饰，表面这个变量只初始化一次，以后每次调用时都会使用上一次的值，造成递增的效果。</p><p>注意，<code>static</code>修饰的变量初始化时，只能赋值为常量，不能赋值为变量。</p><pre class="hljs"><code><span class="hljs-keyword">int</span> i = <span class="hljs-number">3</span>;
+</code></pre><p>上面示例中，函数<code>counter()</code>的内部变量<code>count</code>，使用<code>static</code>说明符修饰，表明这个变量只初始化一次，以后每次调用时都会使用上一次的值，造成递增的效果。</p><p>注意，<code>static</code>修饰的变量初始化时，只能赋值为常量，不能赋值为变量。</p><pre class="hljs"><code><span class="hljs-keyword">int</span> i = <span class="hljs-number">3</span>;
 <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> j = i; <span class="hljs-comment">// 错误</span>
 </code></pre><p>上面示例中，<code>j</code>属于静态变量，初始化时不能赋值为另一个变量<code>i</code>。</p><p>另外，在块作用域中，<code>static</code>声明的变量有默认值<code>0</code>。</p><pre class="hljs"><code><span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> foo;
 <span class="hljs-comment">// 等同于</span>
