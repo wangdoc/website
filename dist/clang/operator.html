@@ -54,7 +54,7 @@ a &gt;= b;
 </code></pre><p>这样的话，如果把<code>==</code>误写成<code>=</code>，编译器就会报错。</p><pre class="hljs"><code><span class="hljs-comment">/* 报错 */</span>
 <span class="hljs-keyword">if</span> (<span class="hljs-number">3</span> = x) ...
 </code></pre><p>另一个需要避免的错误是，多个关系运算符不宜连用。</p><pre class="hljs"><code>i &lt; j &lt; k
-</code></pre><p>上面示例中，连续使用两个小于运算符。这是合法表达式，不会报错，但是通常达不到想要的结果，即不是保证变量<code>j</code>的值在<code>i</code>和<code>k</code>之间。因为表示运算符是从左到右计算，所以实际执行的是下面的表达式。</p><pre class="hljs"><code>(i &lt; j) &lt; k
+</code></pre><p>上面示例中，连续使用两个小于运算符。这是合法表达式，不会报错，但是通常达不到想要的结果，即不是保证变量<code>j</code>的值在<code>i</code>和<code>k</code>之间。因为关系运算符是从左到右计算，所以实际执行的是下面的表达式。</p><pre class="hljs"><code>(i &lt; j) &lt; k
 </code></pre><p>上面式子中，<code>i &lt; j</code>返回<code>0</code>或<code>1</code>，所以最终是<code>0</code>或<code>1</code>与变量<code>k</code>进行比较。如果想要判断变量<code>j</code>的值是否在<code>i</code>和<code>k</code>之间，应该使用下面的写法。</p><pre class="hljs"><code>i &lt; j &amp;&amp; j &lt; k
 </code></pre><h2 id="逻辑运算符">逻辑运算符 <a class="markdownIt-Anchor" href="#逻辑运算符">#</a></h2><p>逻辑运算符提供逻辑判断功能，用于构建更复杂的表达式，主要有下面三个运算符。</p><ul><li><code>!</code>：否运算符（改变单个表达式的真伪）。</li><li><code>&amp;&amp;</code>：与运算符（两侧的表达式都为真，则为真，否则为伪）。</li><li><code>||</code>：或运算符（两侧至少有一个表达式为真，则为真，否则为伪）。</li></ul><p>下面是与运算符的例子。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> (x &lt; <span class="hljs-number">10</span> &amp;&amp; y &gt; <span class="hljs-number">20</span>)
   <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Doing something!\n&quot;</span>);
