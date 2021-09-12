@@ -30,7 +30,7 @@ x
   这是一行注释
 */</span>
 </code></pre><p>这种注释可以插在行内。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">open</span><span class="hljs-params">(<span class="hljs-keyword">char</span>* s <span class="hljs-comment">/* file name */</span>, <span class="hljs-keyword">int</span> mode)</span></span>;
-</code></pre><p>上面示例中，<code>/* file name */</code>用来对函数参数进行说明，跟在它后面的代码依然会有效执行。</p><p>这种注释一定不能忘记写结束符号<code>*/</code>，否则很导致错误。</p><pre class="hljs"><code><span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;a &quot;</span>); <span class="hljs-comment">/* 注释一
+</code></pre><p>上面示例中，<code>/* file name */</code>用来对函数参数进行说明，跟在它后面的代码依然会有效执行。</p><p>这种注释一定不能忘记写结束符号<code>*/</code>，否则很容易导致错误。</p><pre class="hljs"><code><span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;a &quot;</span>); <span class="hljs-comment">/* 注释一
 printf(&quot;b &quot;);
 printf(&quot;c &quot;); /* 注释二 */</span>
 <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;d &quot;</span>);
