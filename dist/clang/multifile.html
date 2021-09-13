@@ -35,7 +35,9 @@ $ gcc -o foo *.c
 </code></pre><p>上面代码中，<code>#include &quot;bar.h&quot;</code>表示加入头文件<code>bar.h</code>。这个文件没有放在尖括号里面，表示它是用户提供的；它没有写路径，就表示与当前源码文件在同一个目录。</p><p>然后，最好在<code>bar.c</code>里面也加载这个头文件，这样可以让编译器验证，函数原型与函数定义是否一致。</p><pre class="hljs"><code><span class="hljs-comment">// File bar.c</span>
 <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;bar.h&quot;</span></span>
 
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>)</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b)</span> </span>{
+  <span class="hljs-keyword">return</span> a + b;
+}
 </code></pre><p>现在重新编译，就可以顺利得到二进制可执行文件。</p><pre class="hljs"><code>$ gcc -o foo foo.c bar.c
 </code></pre><h2 id="重复加载">重复加载 <a class="markdownIt-Anchor" href="#重复加载">#</a></h2><p>头文件里面还可以加载其他头文件，因此有可能产生重复加载。比如，<code>a.h</code>和<code>b.h</code>都加载了<code>c.h</code>，然后<code>foo.c</code>同时加载了<code>a.h</code>和<code>b.h</code>，这意味着<code>foo.c</code>会编译两次<code>c.h</code>。</p><p>最好避免这种重复加载，虽然多次定义同一个函数原型并不会报错，但是有些语句重复使用会报错，比如多次重复定义同一个 Struct 数据结构。解决重复加载的常见方法是，在头文件里面设置一个专门的宏，加载时一旦发现这个宏存在，就不再继续加载当前文件了。</p><pre class="hljs"><code><span class="hljs-comment">// File bar.h</span>
 <span class="hljs-meta">#<span class="hljs-meta-keyword">ifndef</span> BAR_H</span>
