@@ -32,7 +32,7 @@ $ gcc -o foo *.c
 <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span> </span>{
   <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d\n&quot;</span>, add(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>));  <span class="hljs-comment">// 5!</span>
 }
-</code></pre><p>上面代码中，<code>#include &quot;bar.h&quot;</code>表示加入头文件<code>bar.h</code>。这个文件没有放在尖括号里面，表示它是用户提供的；它没有写路径，就表示与当前源码文件在同一个目录。</p><p>然后，最好在<code>bar.c</code>里面也加载这个头文件，这样可以让编译器验证，函数原型与函数定义是否一致。</p><pre class="hljs"><code><span class="hljs-comment">// File bar.h</span>
+</code></pre><p>上面代码中，<code>#include &quot;bar.h&quot;</code>表示加入头文件<code>bar.h</code>。这个文件没有放在尖括号里面，表示它是用户提供的；它没有写路径，就表示与当前源码文件在同一个目录。</p><p>然后，最好在<code>bar.c</code>里面也加载这个头文件，这样可以让编译器验证，函数原型与函数定义是否一致。</p><pre class="hljs"><code><span class="hljs-comment">// File bar.c</span>
 <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;bar.h&quot;</span></span>
 
 <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>)</span></span>;
