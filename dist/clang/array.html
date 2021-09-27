@@ -45,7 +45,7 @@ board[<span class="hljs-number">9</span>][<span class="hljs-number">9</span>] = 
 <span class="hljs-keyword">int</span> a1[i];
 <span class="hljs-keyword">int</span> a2[i + <span class="hljs-number">5</span>];
 <span class="hljs-keyword">int</span> a3[i + k];
-</code></pre><p>上面示例中，三个数组的长度都需要运行代码才能直到，所以它们都是变长数组。</p><p>变长数组也可以用于多维数组。</p><pre class="hljs"><code><span class="hljs-keyword">int</span> m = <span class="hljs-number">4</span>;
+</code></pre><p>上面示例中，三个数组的长度都需要运行代码才能知道，编译器并不知道它们的长度，所以它们都是变长数组。</p><p>变长数组也可以用于多维数组。</p><pre class="hljs"><code><span class="hljs-keyword">int</span> m = <span class="hljs-number">4</span>;
 <span class="hljs-keyword">int</span> n = <span class="hljs-number">5</span>;
 <span class="hljs-keyword">int</span> c[m][n];
 </code></pre><p>上面示例中，<code>c[m][n]</code>就是二维变长数组。</p><h2 id="数组的地址">数组的地址 <a class="markdownIt-Anchor" href="#数组的地址">#</a></h2><p>数组是一连串连续储存的同类型值，只要获得起始地址（首个成员的内存地址），就能推算出其他成员的地址。请看下面的例子。</p><pre class="hljs"><code><span class="hljs-keyword">int</span> a[<span class="hljs-number">5</span>] = {<span class="hljs-number">11</span>, <span class="hljs-number">22</span>, <span class="hljs-number">33</span>, <span class="hljs-number">44</span>, <span class="hljs-number">55</span>};
