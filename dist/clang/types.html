@@ -141,7 +141,7 @@ char ch = i; <span class="hljs-comment">// ch 的值是 65 （321 - 256）</span
 
 <span class="hljs-keyword">if</span> ((-a) &lt; <span class="hljs-number">0</span>) <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;negative\n&quot;</span>);
 <span class="hljs-keyword">else</span> <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;positive\n&quot;</span>);
-</code></pre><p>上面示例中，变量<code>a</code>是 unsigned char 类型，这个类型不可能小于0，但是<code>-a</code>会自动转为 int 类型，导致上面的代码输入 negative。</p><p>再看下面的例子。</p><pre class="hljs"><code><span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span> a = <span class="hljs-number">1</span>;
+</code></pre><p>上面示例中，变量<code>a</code>是 unsigned char 类型，这个类型不可能小于0，但是<code>-a</code>不是 unsigned char 类型，会自动转为 int 类型，导致上面的代码输出 negative。</p><p>再看下面的例子。</p><pre class="hljs"><code><span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span> a = <span class="hljs-number">1</span>;
 <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span> b = <span class="hljs-number">255</span>;
 <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span> c = <span class="hljs-number">255</span>;
 
