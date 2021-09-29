@@ -67,13 +67,13 @@ b.name[<span class="hljs-number">0</span>] = <span class="hljs-string">&#x27;M&#
 
 <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s\n&quot;</span>, a.name); <span class="hljs-comment">// Hula</span>
 <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s\n&quot;</span>, b.name); <span class="hljs-comment">// Mula</span>
-</code></pre><p>上面示例中，变量<code>b</code>是变量<code>a</code>的副本，两个变量的值是各自独立的，修改掉<code>b.name</code>不影响<code>a.name</code>。这一点跟数组完全不同，数组使用赋值运算符，不会复制数据，只会共享地址。</p><p>但是，稍作修改，结果就不一样。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">cat</span> {</span> <span class="hljs-keyword">char</span>* name; <span class="hljs-keyword">short</span> age; } a, b;
+</code></pre><p>上面示例中，变量<code>b</code>是变量<code>a</code>的副本，两个变量的值是各自独立的，修改掉<code>b.name</code>不影响<code>a.name</code>。</p><p>上面这个示例是有前提的，就是 struct 结构的属性必须定义成字符数组，才能复制数据。如果稍作修改，属性定义成字符指针，结果就不一样。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">cat</span> {</span> <span class="hljs-keyword">char</span>* name; <span class="hljs-keyword">short</span> age; } a, b;
 
 a.name = <span class="hljs-string">&quot;Hula&quot;</span>;
 a.age = <span class="hljs-number">3</span>;
 
 b = a;
-</code></pre><p>上面示例中，<code>name</code>属性变成了一个字符串指针，这时<code>a</code>赋值给<code>b</code>，导致<code>b.name</code>也是同样的字符串指针，指向同一个地址，也就是说两个属性共享同一个地址。因为这时，struct 结构内部保存的是一个指针，而不是上一个例子的数组，这时复制的就不是字符串本身，而是它的指针。</p><p>注意，这种赋值要求两个变量是同一个类型，不同类型的<code>struct</code>变量无法互相赋值。</p><p>另外，C 语言没有提供比较两个自定义数据结构是否相等的方法，无法用比较运算符（比如<code>==</code>和<code>!=</code>）比较两个数据结构是否相等或不等。</p><h2 id="struct-指针">struct 指针 <a class="markdownIt-Anchor" href="#struct-指针">#</a></h2><p>如果将 struct 变量传入函数，函数内部得到的是一个原始值的副本。</p><pre class="hljs"><code><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+</code></pre><p>上面示例中，<code>name</code>属性变成了一个字符指针，这时<code>a</code>赋值给<code>b</code>，导致<code>b.name</code>也是同样的字符指针，指向同一个地址，也就是说两个属性共享同一个地址。因为这时，struct 结构内部保存的是一个指针，而不是上一个例子的数组，这时复制的就不是字符串本身，而是它的指针。并且，这个时候也没法修改字符串，因为字符指针指向的字符串是不能修改的。</p><p>总结一下，赋值运算符（<code>=</code>）可以将 struct 结构每个属性的值，一模一样复制一份，拷贝给另一个 struct 变量。这一点跟数组完全不同，使用赋值运算符复制数组，不会复制数据，只会共享地址。</p><p>注意，这种赋值要求两个变量是同一个类型，不同类型的 struct 变量无法互相赋值。</p><p>另外，C 语言没有提供比较两个自定义数据结构是否相等的方法，无法用比较运算符（比如<code>==</code>和<code>!=</code>）比较两个数据结构是否相等或不等。</p><h2 id="struct-指针">struct 指针 <a class="markdownIt-Anchor" href="#struct-指针">#</a></h2><p>如果将 struct 变量传入函数，函数内部得到的是一个原始值的副本。</p><pre class="hljs"><code><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
 
 <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">turtle</span> {</span>
   <span class="hljs-keyword">char</span>* name;
