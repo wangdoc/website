@@ -32,7 +32,7 @@
 <span class="hljs-built_in">strcpy</span>(p, <span class="hljs-string">&quot;abc&quot;</span>);
 
 <span class="hljs-comment">// or</span>
-*p = <span class="hljs-string">&quot;abc&quot;</span>;
+p = <span class="hljs-string">&quot;abc&quot;</span>;
 </code></pre><p>上面示例中，字符指针<code>p</code>指向一段4个字节的内存，<code>strcpy()</code>将字符串“abc”拷贝放入这段内存，完成了这段内存的初始化。</p><h2 id="free">free() <a class="markdownIt-Anchor" href="#free">#</a></h2><p><code>free()</code>用于释放<code>malloc()</code>函数分配的内存，将这块内存还给系统以便重新使用，否则这个内存块会一直占用到程序运行结束。该函数的原型定义在头文件<code>stdlib.h</code>里面。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">free</span><span class="hljs-params">(<span class="hljs-keyword">void</span>* block)</span>
 </span></code></pre><p>上面代码中，<code>free()</code>的参数是<code>malloc()</code>返回的内存地址。下面就是用法实例。</p><pre class="hljs"><code><span class="hljs-keyword">int</span>* p = (<span class="hljs-keyword">int</span>*) <span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">int</span>));
 
