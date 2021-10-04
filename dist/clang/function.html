@@ -83,7 +83,7 @@ print(<span class="hljs-number">10</span>);
 </code></pre><p>比较特殊的是，C 语言还规定，函数名本身就是指向函数代码的指针，通过函数名就能获取函数地址。也就是说，<code>print</code>和<code>&amp;print</code>是一回事。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> (print == &amp;print) <span class="hljs-comment">// true</span>
 </code></pre><p>因此，上面代码的<code>print_ptr</code>等同于<code>print</code>。</p><pre class="hljs"><code><span class="hljs-keyword">void</span> (*print_ptr)(<span class="hljs-keyword">int</span>) = &amp;print;
 <span class="hljs-comment">// 或</span>
-<span class="hljs-keyword">void</span> (*print_ptr) = print;
+<span class="hljs-keyword">void</span> (*print_ptr)(<span class="hljs-keyword">int</span>) = print;
 
 <span class="hljs-keyword">if</span> (print_ptr == print) <span class="hljs-comment">// true</span>
 </code></pre><p>所以，对于任意函数，都有五种调用函数的写法。</p><pre class="hljs"><code><span class="hljs-comment">// 写法一</span>
