@@ -241,14 +241,14 @@ PeekableQueue.prototype.peek = <span class="hljs-function"><span class="hljs-key
     <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>._queue[<span class="hljs-number">0</span>];
   }
 }
-</code></pre><h2 id="模块">模块 <a class="markdownIt-Anchor" href="#模块">#</a></h2><p>首先，Module 语法是 JavaScript 模块的标准写法，坚持使用这种写法。使用<code>import</code>取代<code>require</code>。</p><pre class="hljs"><code><span class="hljs-comment">// bad</span>
+</code></pre><h2 id="模块">模块 <a class="markdownIt-Anchor" href="#模块">#</a></h2><p>ES6 模块语法是 JavaScript 模块的标准写法，坚持使用这种写法，取代 Node.js 的 CommonJS 语法。</p><p>首先，使用<code>import</code>取代<code>require()</code>。</p><pre class="hljs"><code><span class="hljs-comment">// CommonJS 的写法</span>
 <span class="hljs-keyword">const</span> moduleA = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;moduleA&#x27;</span>);
 <span class="hljs-keyword">const</span> func1 = moduleA.func1;
 <span class="hljs-keyword">const</span> func2 = moduleA.func2;
 
-<span class="hljs-comment">// good</span>
+<span class="hljs-comment">// ES6 的写法</span>
 <span class="hljs-keyword">import</span> { func1, func2 } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;moduleA&#x27;</span>;
-</code></pre><p>使用<code>export</code>取代<code>module.exports</code>。</p><pre class="hljs"><code><span class="hljs-comment">// commonJS的写法</span>
+</code></pre><p>其次，使用<code>export</code>取代<code>module.exports</code>。</p><pre class="hljs"><code><span class="hljs-comment">// commonJS 的写法</span>
 <span class="hljs-keyword">var</span> React = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;react&#x27;</span>);
 
 <span class="hljs-keyword">var</span> Breadcrumbs = React.createClass({
@@ -259,7 +259,7 @@ PeekableQueue.prototype.peek = <span class="hljs-function"><span class="hljs-key
 
 <span class="hljs-built_in">module</span>.exports = Breadcrumbs;
 
-<span class="hljs-comment">// ES6的写法</span>
+<span class="hljs-comment">// ES6 的写法</span>
 <span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Breadcrumbs</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
@@ -269,11 +269,11 @@ PeekableQueue.prototype.peek = <span class="hljs-function"><span class="hljs-key
 };
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Breadcrumbs;
-</code></pre><p>如果模块只有一个输出值，就使用<code>export default</code>，如果模块有多个输出值，就不使用<code>export default</code>，<code>export default</code>与普通的<code>export</code>不要同时使用。</p><p>如果模块默认输出一个函数，函数名的首字母应该小写。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">makeStyleGuide</span>(<span class="hljs-params"></span>) </span>{
+</code></pre><p>如果模块只有一个输出值，就使用<code>export default</code>，如果模块有多个输出值，除非其中某个输出值特别重要，否则建议不要使用<code>export default</code>，即多个输出值如果是平等关系，<code>export default</code>与普通的<code>export</code>就不要同时使用。</p><p>如果模块默认输出一个函数，函数名的首字母应该小写，表示这是一个工具方法。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">makeStyleGuide</span>(<span class="hljs-params"></span>) </span>{
 }
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> makeStyleGuide;
-</code></pre><p>如果模块默认输出一个对象，对象名的首字母应该大写。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> StyleGuide = {
+</code></pre><p>如果模块默认输出一个对象，对象名的首字母应该大写，表示这是一个配置值对象。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> StyleGuide = {
   <span class="hljs-attr">es6</span>: {
   }
 };
