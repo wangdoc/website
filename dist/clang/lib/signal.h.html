@@ -4,7 +4,7 @@
 orig_handler = signal(SIGINT, handler);
 <span class="hljs-comment">// SIGINT 信号发生之后</span>
 signal(SIGINT, orig_handler);
-</code></pre><p>上面示例中，<code>signal()</code>为信号<code>SIGINT</code>指定了新的处理函数<code>handler</code>，把原来的处理函数保存在变量<code>orig_handler</code>里面。等到<code>handler</code>这个函数用过之后，再恢复原来的处理函数。</p><h2 id="信号相关的宏">信号相关的宏 <a class="markdownIt-Anchor" href="#信号相关的宏">#</a></h2><p><code>signal.h</code>还提供了信号相关的宏。</p><p>（1）SIG_DFL</p><p>SIG_DFL 表示默认的处理函数。</p><pre class="hljs"><code>signal(SIGINT, SIG_IGN);
+</code></pre><p>上面示例中，<code>signal()</code>为信号<code>SIGINT</code>指定了新的处理函数<code>handler</code>，把原来的处理函数保存在变量<code>orig_handler</code>里面。等到<code>handler</code>这个函数用过之后，再恢复原来的处理函数。</p><h2 id="信号相关的宏">信号相关的宏 <a class="markdownIt-Anchor" href="#信号相关的宏">#</a></h2><p><code>signal.h</code>还提供了信号相关的宏。</p><p>（1）SIG_DFL</p><p>SIG_DFL 表示默认的处理函数。</p><pre class="hljs"><code>signal(SIGINT, SIG_DFL);
 </code></pre><p>上面示例中，SIGINT 的处理函数是默认处理函数，由当前实现决定。</p><p>（2）SIG_IGN</p><p>SIG_IGN 表示忽略该信号。</p><pre class="hljs"><code>signal(SIGINT, SIG_IGN);
 </code></pre><p>上面示例表示不对 SIGINT 信号进行处理。由于程序运行时按下 Ctrl + c 是发出 SIGINT 信号，所以使用该语句后，程序无法用 Ctrl + c 终止。</p><p>（3）SIG_ERR</p><p>SIG_ERR 是信号处理函数发生错误时，<code>signal()</code>的返回值。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> (signal(SIGINT, handler) == SIG_ERR) {
   perror(<span class="hljs-string">&quot;signal(SIGINT, handler) failed&quot;</span>);
