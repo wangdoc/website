@@ -27,8 +27,8 @@ plus_one();  <span class="hljs-comment">// 报错</span>
   <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Hello World\n&quot;</span>);
   <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 }
-</code></pre><p>上面示例中，最后的<code>return 0;</code>表示函数结束运行，返回<code>0</code>。</p><p>C 语言约定，返回值<code>0</code>表示函数运行成功，如果返回其他非零整数，就表示运行失败，代码出了问题。系统根据<code>main()</code>的返回值，作为整个程序的返回值，确定程序是否运行成功。</p><p>正常情况下，如果<code>main()</code>里面省略<code>return 0</code>这一行，编译器会自动加上。所以，写成下面这样，效果完全一样。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span> </span>{
-  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Hello World&quot;</span>\n);
+</code></pre><p>上面示例中，最后的<code>return 0;</code>表示函数结束运行，返回<code>0</code>。</p><p>C 语言约定，返回值<code>0</code>表示函数运行成功，如果返回其他非零整数，就表示运行失败，代码出了问题。系统根据<code>main()</code>的返回值，作为整个程序的返回值，确定程序是否运行成功。</p><p>正常情况下，如果<code>main()</code>里面省略<code>return 0</code>这一行，编译器会自动加上，即<code>main()</code>的默认返回值为0。所以，写成下面这样，效果完全一样。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span> </span>{
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Hello World\n&quot;</span>);
 }
 </code></pre><p>由于 C 语言只会对<code>main()</code>函数默认添加返回值，对其他函数不会这样做，所以建议总是保留<code>return</code>语句，以便形成统一的代码风格。</p><h2 id="参数的传值引用">参数的传值引用 <a class="markdownIt-Anchor" href="#参数的传值引用">#</a></h2><p>如果函数的参数是一个变量，那么调用时，传入的是这个变量的值的拷贝，而不是变量本身。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">increment</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a)</span> </span>{
   a++;
