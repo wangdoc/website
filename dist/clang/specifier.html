@@ -4,7 +4,7 @@ PI = <span class="hljs-number">3</span>; <span class="hljs-comment">// 报错</s
 arr[<span class="hljs-number">0</span>] = <span class="hljs-number">5</span>;
 </code></pre><p>上面示例中，<code>const</code>使得数组<code>arr</code>的成员无法修改。</p><p>对于指针变量，<code>const</code>有两种写法，含义是不一样的。如果<code>const</code>在<code>*</code>前面，表示指针指向的值不可修改。</p><pre class="hljs"><code><span class="hljs-comment">// const 表示指向的值 *x 不能修改</span>
 <span class="hljs-keyword">int</span> <span class="hljs-keyword">const</span> * x
-# 或者
+<span class="hljs-comment">// 或者</span>
 <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> * x
 </code></pre><p>下面示例中，对<code>x</code>指向的值进行修改导致报错。</p><pre class="hljs"><code><span class="hljs-keyword">int</span> p = <span class="hljs-number">1</span>
 <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span>* x = &amp;p;
