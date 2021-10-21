@@ -159,8 +159,8 @@ f() <span class="hljs-comment">// ReferenceError: x is not defined</span>
   <span class="hljs-comment">// ...</span>
 }
 
-foo() <span class="hljs-comment">// ReferenceError: x is not defined</span>
-</code></pre><p>上面代码中，参数<code>x = x</code>形成一个单独作用域。实际执行的是<code>let x = x</code>，由于暂时性死区的原因，这行代码会报错”x 未定义“。</p><p>如果参数的默认值是一个函数，该函数的作用域也遵守这个规则。请看下面的例子。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> foo = <span class="hljs-string">&#x27;outer&#x27;</span>;
+foo() <span class="hljs-comment">// ReferenceError: Cannot access &#x27;x&#x27; before initialization</span>
+</code></pre><p>上面代码中，参数<code>x = x</code>形成一个单独作用域。实际执行的是<code>let x = x</code>，由于暂时性死区的原因，这行代码会报错。</p><p>如果参数的默认值是一个函数，该函数的作用域也遵守这个规则。请看下面的例子。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> foo = <span class="hljs-string">&#x27;outer&#x27;</span>;
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bar</span>(<span class="hljs-params">func = () =&gt; foo</span>) </span>{
   <span class="hljs-keyword">let</span> foo = <span class="hljs-string">&#x27;inner&#x27;</span>;
