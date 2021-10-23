@@ -63,7 +63,7 @@ $ <span class="hljs-built_in">exit</span>
 <span class="hljs-comment"># 读取 $foo</span>
 $ <span class="hljs-built_in">echo</span> <span class="hljs-variable">$foo</span>
 bar
-</code></pre><p>上面例子中，子 Shell 修改了继承的变量<code>$foo</code>，对父 Shell 没有影响。</p><h2 id="特殊变量">特殊变量 <a class="markdownIt-Anchor" href="#特殊变量">#</a></h2><p>Bash 提供一些特殊变量。这些变量的值由 Shell 提供，用户不能进行赋值。</p><p>（1）<code>$?</code></p><p><code>$?</code>为上一个命令的退出码，用来判断上一个命令是否执行成功。返回值是<code>0</code>，表示上一个命令执行成功；如果是非零，上一个命令执行失败。</p><pre class="hljs"><code>$ ls doesnotexist
+</code></pre><p>上面例子中，子 Shell 修改了继承的变量<code>$foo</code>，对父 Shell 没有影响。</p><h2 id="特殊变量">特殊变量 <a class="markdownIt-Anchor" href="#特殊变量">#</a></h2><p>Bash 提供一些特殊变量。这些变量的值由 Shell 提供，用户不能进行赋值。</p><p>（1）<code>$?</code></p><p><code>$?</code>为上一个命令的退出码，用来判断上一个命令是否执行成功。返回值是<code>0</code>，表示上一个命令执行成功；如果不是零，表示上一个命令执行失败。</p><pre class="hljs"><code>$ ls doesnotexist
 ls: doesnotexist: No such file or directory
 
 $ <span class="hljs-built_in">echo</span> $?
