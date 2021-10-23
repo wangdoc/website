@@ -3,12 +3,19 @@
 
 <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span> </span>{
   FILE* fp;
-  fp = fopen(<span class="hljs-string">&quot;hello.txt&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>);
+  <span class="hljs-keyword">char</span> c;
 
-  <span class="hljs-keyword">char</span> c = fgetc(fp);
+  fp = fopen(<span class="hljs-string">&quot;hello.txt&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>);
+  <span class="hljs-keyword">if</span> (fp == <span class="hljs-literal">NULL</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;
+  }
+
+  c = fgetc(fp);
   <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%c\n&quot;</span>, c);
 
   fclose(fp);
+
+  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 }
 </code></pre><p>上面示例中，新建文件指针<code>fp</code>以后，依次使用了下面三个文件操作函数，分成三个步骤。其他的文件操作，大致上也是这样的步骤。</p><p>第一步，使用<code>fopen()</code>打开指定文件，返回一个 File 指针。如果出错，返回 NULL。</p><p>它相当于将指定文件的信息与新建的文件指针<code>fp</code>相关联，在 FILE 结构内部记录了这样一些信息：文件内部的当前读写位置、读写报错的记录、文件结尾指示器、缓冲区开始位置的指针、文件标识符、一个计数器（统计拷贝进缓冲区的字节数）等等。后继的操作就可以使用这个指针（而不是文件名）来处理指定文件。</p><p>同时，它还为文件建立一个缓存区。由于存在缓存区，也可以说<code>fopen()</code>函数“打开一个了流”，后继的读写文件都是流模式。</p><p>第二步，使用读写函数，从文件读取数据，或者向文件写入数据。上例使用了<code>fgetc()</code>函数，从已经打开的文件里面，读取一个字符。</p><p><code>fgetc()</code>一调用，文件的数据块先拷贝到缓冲区。不同的计算机有不同的缓冲区大小，一般是512字节或是它的倍数，如4096或16384。随着计算机硬盘容量越来越大，缓冲区也越来越大。</p><p><code>fgetc()</code>从缓冲区读取数据，同时将文件指针内部的读写位置指示器，指向所读取字符的下一个字符。所有的文件读取函数都使用相同的缓冲区，后面再调用任何一个读取函数，都将从指示器指向的位置，即上一次读取函数停止的位置开始读取。</p><p>当读取函数发现已读完缓冲区里面的所有字符时，会请求把下一个缓冲区大小的数据块，从文件拷贝到缓冲区中。读取函数就以这种方式，读完文件的所有内容，直到文件结尾。不过，上例是只从缓存区读取一个字符。当函数在缓冲区里面，读完文件的最后一个字符时，就把 FILE 结构里面的文件结尾指示器设置为真。于是，下一次再调用读取函数时，会返回常量 EOF。EOF 是一个整数值，代表文件结尾，一般是<code>-1</code>。</p><p>第三步，<code>fclose()</code>关闭文件，同时清空缓存区。</p><p>上面是文件读取的过程，文件写入也是类似的方式，先把数据写入缓冲区，当缓冲区填满后，缓存区的数据将被转移到文件中。</p><h2 id="fopen">fopen() <a class="markdownIt-Anchor" href="#fopen">#</a></h2><p><code>fopen()</code>函数用来打开文件。所有文件操作的第一步，都是使用<code>fopen()</code>打开指定文件。这个函数的原型定义在头文件<code>stdio.h</code>。</p><pre class="hljs"><code><span class="hljs-function">FILE* <span class="hljs-title">fopen</span><span class="hljs-params">(<span class="hljs-keyword">char</span>* filename, <span class="hljs-keyword">char</span>* mode)</span></span>;
 </code></pre><p>它接受两个参数。第一个参数是文件名(可以包含路径)，第二个参数是模式字符串，指定对文件执行的操作，比如下面的例子中，<code>r</code>表示以读取模式打开文件。</p><pre class="hljs"><code>fp = fopen(<span class="hljs-string">&quot;in.dat&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>);
