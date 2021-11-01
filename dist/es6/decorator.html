@@ -56,7 +56,7 @@ obj.isTestable <span class="hljs-comment">// true</span>
 }
 
 <span class="hljs-comment">// main.js</span>
-<span class="hljs-keyword">import</span> { mixins } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins&#x27;</span>
+<span class="hljs-keyword">import</span> { mixins } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins.js&#x27;</span>
 
 <span class="hljs-keyword">const</span> Foo = {
   <span class="hljs-function"><span class="hljs-title">foo</span>(<span class="hljs-params"></span>)</span> { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;foo&#x27;</span>) }
@@ -362,7 +362,7 @@ obj.foo() <span class="hljs-comment">// &#x27;foo&#x27;</span>
     <span class="hljs-built_in">Object</span>.assign(target.prototype, ...list);
   };
 }
-</code></pre><p>然后，就可以使用上面这个装饰器，为类“混入”各种方法。</p><pre class="hljs"><code><span class="hljs-keyword">import</span> { mixins } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins&#x27;</span>;
+</code></pre><p>然后，就可以使用上面这个装饰器，为类“混入”各种方法。</p><pre class="hljs"><code><span class="hljs-keyword">import</span> { mixins } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins.js&#x27;</span>;
 
 <span class="hljs-keyword">const</span> Foo = {
   <span class="hljs-function"><span class="hljs-title">foo</span>(<span class="hljs-params"></span>)</span> { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;foo&#x27;</span>) }
