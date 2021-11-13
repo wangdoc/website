@@ -96,7 +96,7 @@ iter.next() <span class="hljs-comment">// { value: undefined, done: true }</span
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> value <span class="hljs-keyword">of</span> range(<span class="hljs-number">0</span>, <span class="hljs-number">3</span>)) {
   <span class="hljs-built_in">console</span>.log(value); <span class="hljs-comment">// 0, 1, 2</span>
 }
-</code></pre><p>上面代码是一个类部署 Iterator 接口的写法。<code>Symbol.iterator</code>属性对应一个函数，执行后返回当前对象的遍历器对象。</p><p>下面是通过遍历器实现指针结构的例子。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Obj</span>(<span class="hljs-params">value</span>) </span>{
+</code></pre><p>上面代码是一个类部署 Iterator 接口的写法。<code>Symbol.iterator</code>属性对应一个函数，执行后返回当前对象的遍历器对象。</p><p>下面是通过遍历器实现“链表”结构的例子。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Obj</span>(<span class="hljs-params">value</span>) </span>{
   <span class="hljs-built_in">this</span>.value = value;
   <span class="hljs-built_in">this</span>.next = <span class="hljs-literal">null</span>;
 }
