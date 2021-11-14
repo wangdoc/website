@@ -67,7 +67,7 @@ str2 = str1;  <span class="hljs-comment">// 报错</span>
 
 s1 = <span class="hljs-string">&quot;abc&quot;</span>;
 s2 = s1;
-</code></pre><p>上面代码可以运行，结果是两个指针变量<code>s1</code>和<code>s2</code>指向同一字符串，而不是将字符串<code>s2</code>的内容复制给<code>s1</code>。</p><p>C 语言提供了<code>strcpy()</code>函数，用于将一个字符串的内容复制到另一个字符串，相当于字符串赋值。该函数的原型定义在<code>string.h</code>头文件里面。</p><pre class="hljs"><code><span class="hljs-built_in">strcpy</span>(<span class="hljs-keyword">char</span> dest[], <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> source[])
+</code></pre><p>上面代码可以运行，结果是两个指针变量<code>s1</code>和<code>s2</code>指向同一字符串，而不是将字符串<code>s1</code>的内容复制给<code>s2</code>。</p><p>C 语言提供了<code>strcpy()</code>函数，用于将一个字符串的内容复制到另一个字符串，相当于字符串赋值。该函数的原型定义在<code>string.h</code>头文件里面。</p><pre class="hljs"><code><span class="hljs-built_in">strcpy</span>(<span class="hljs-keyword">char</span> dest[], <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> source[])
 </code></pre><p><code>strcpy()</code>接受两个参数，第一个参数是目的字符串数组，第二个参数是源字符串数组。复制字符串之前，必须要保证第一个参数的长度不小于第二个参数，否则虽然不会报错，但会溢出第一个字符串变量的边界，发生难以预料的结果。第二个参数的<code>const</code>说明符，表示这个函数不会修改第二个字符串。</p><pre class="hljs"><code><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
 <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string.h&gt;</span></span>
 
