@@ -180,7 +180,7 @@ head-&gt;next-&gt;next-&gt;next = <span class="hljs-literal">NULL</span>;
 <span class="hljs-keyword">for</span> (struct node *cur = head; cur != <span class="hljs-literal">NULL</span>; cur = cur-&gt;next) {
   <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d\n&quot;</span>, cur-&gt;data);
 }
-</code></pre><p>上面示例是链表结构的最简单实现，通过<code>for</code>循环可以对其进行遍历。</p><h2 id="位字段">位字段 <a class="markdownIt-Anchor" href="#位字段">#</a></h2><p>struct 还可以用来定义二进制位组成的数据结构，称为“位字段”（bit field），这对于操作底层的二进制数据非常有用。</p><pre class="hljs"><code><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+</code></pre><p>上面示例是链表结构的最简单实现，通过<code>for</code>循环可以对其进行遍历。</p><h2 id="位字段">位字段 <a class="markdownIt-Anchor" href="#位字段">#</a></h2><p>struct 还可以用来定义二进制位组成的数据结构，称为“位字段”（bit field），这对于操作底层的二进制数据非常有用。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
   <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> ab:<span class="hljs-number">1</span>;
   <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> cd:<span class="hljs-number">1</span>;
   <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> ef:<span class="hljs-number">1</span>;
