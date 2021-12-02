@@ -599,7 +599,7 @@ A.test(o1) <span class="hljs-comment">// false</span>
 A.test(o1.__proto__) <span class="hljs-comment">// true</span>
 
 <span class="hljs-keyword">const</span> o2 = {};
-<span class="hljs-built_in">Object</span>.setPrototypeOf(o2, A);
+<span class="hljs-built_in">Object</span>.setPrototypeOf(o2, a);
 A.test(o2) <span class="hljs-comment">// false</span>
 A.test(o2.__proto__) <span class="hljs-comment">// true</span>
 </code></pre><p>上面示例中，对于修改原型链形成的继承，子类都取不到父类的私有属性，所以<code>in</code>运算符无效。</p><h2 id="静态块">静态块 <a class="markdownIt-Anchor" href="#静态块">#</a></h2><p>静态属性的一个问题是，它的初始化要么写在类的外部，要么写在<code>constructor()</code>方法里面。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">C</span> </span>{
