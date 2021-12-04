@@ -43,7 +43,7 @@ x++; <span class="hljs-comment">// 报错</span>
 
 <span class="hljs-keyword">int</span> p = a;  <span class="hljs-comment">// 报错</span>
 <span class="hljs-keyword">int</span> a = *(a + <span class="hljs-number">2</span>); <span class="hljs-comment">// 报错</span>
-</code></pre><p>历史上，CPU 内部的缓存，称为寄存器（register）。与内存相比，寄存器的访问速度快得多，所以使用它们可以提高速度。但是它们不在内存之中，所以没有内存地址，这就是为什么不能获取指向它们的指针地址。现代编译器已经有巨大的进步，不管是否使用<code>register</code>关键字，都会尽可能使用寄存器，所以不保证一定会把这些变量放到寄存器。</p><h2 id="volatile">volatile <a class="markdownIt-Anchor" href="#volatile">#</a></h2><p><code>volatile</code>说明符表示所声明的变量，可能会预想不到地发生变化（即其他程序可能会更改它的值），不受当前程序控制，因此编译器不要对这类变量进行优化，每次使用时都应该查询一下它的值。硬件设备的编程中，这个说明符很常用。</p><pre class="hljs"><code><span class="hljs-keyword">volatile</span> <span class="hljs-keyword">int</span> foo;
+</code></pre><p>历史上，CPU 内部的缓存，称为寄存器（register）。与内存相比，寄存器的访问速度快得多，所以使用它们可以提高速度。但是它们不在内存之中，所以没有内存地址，这就是为什么不能获取指向它们的指针地址。现代编译器已经有巨大的进步，会尽可能优化代码，按照自己的规则决定怎么利用好寄存器，取得最佳的执行速度，所以可能会忽视代码里面的<code>register</code>说明符，不保证一定会把这些变量放到寄存器。</p><h2 id="volatile">volatile <a class="markdownIt-Anchor" href="#volatile">#</a></h2><p><code>volatile</code>说明符表示所声明的变量，可能会预想不到地发生变化（即其他程序可能会更改它的值），不受当前程序控制，因此编译器不要对这类变量进行优化，每次使用时都应该查询一下它的值。硬件设备的编程中，这个说明符很常用。</p><pre class="hljs"><code><span class="hljs-keyword">volatile</span> <span class="hljs-keyword">int</span> foo;
 <span class="hljs-keyword">volatile</span> <span class="hljs-keyword">int</span>* bar;
 </code></pre><p><code>volatile</code>的目的是阻止编译器对变量行为进行优化，请看下面的例子。</p><pre class="hljs"><code><span class="hljs-keyword">int</span> foo = x;
 <span class="hljs-comment">// 其他语句，假设没有改变 x 的值</span>
