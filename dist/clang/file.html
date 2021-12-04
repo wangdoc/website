@@ -147,7 +147,7 @@ fwrite(buffer, <span class="hljs-number">1</span>, <span class="hljs-number">256
   <span class="hljs-keyword">size_t</span> nmemb,
   FILE* fp
 )</span></span>;
-</code></pre><p>它接受四个参数，与<code>fwrite()</code>完全相同。</p><ul><li><code>ptr</code>：数组地址。</li><li><code>size</code>：数组的成员数量。</li><li><code>nmemb</code>：每个数组成员的大小。</li><li><code>fp</code>：文件指针。</li></ul><p>要将文件内容读入数组<code>arr</code>，可以采用下面的写法。</p><pre class="hljs"><code>fread(
+</code></pre><p>它接受四个参数，与<code>fwrite()</code>完全相同。</p><ul><li><code>ptr</code>：数组地址。</li><li><code>size</code>：每个数组成员的大小，单位为字节。</li><li><code>nmemb</code>：数组的成员数量。</li><li><code>fp</code>：文件指针。</li></ul><p>要将文件内容读入数组<code>arr</code>，可以采用下面的写法。</p><pre class="hljs"><code>fread(
   arr,
   <span class="hljs-keyword">sizeof</span>(arr[<span class="hljs-number">0</span>]),
   <span class="hljs-keyword">sizeof</span>(arr) / <span class="hljs-keyword">sizeof</span>(arr[<span class="hljs-number">0</span>]),
