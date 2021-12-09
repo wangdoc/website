@@ -106,9 +106,9 @@ ps = <span class="hljs-built_in">strcpy</span>(s2 + <span class="hljs-number">7<
   <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s\n&quot;</span>, str);
   <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 }
-</code></pre><p>上面代码中，关键的一行是<code>while (*dest++ = *source++)</code>，这是一个循环，依次将<code>source</code>的每个字符赋值给<code>dest</code>，然后移向下一个位置，直到遇到<code>\0</code>，循环判断条件不再为真，从而跳出循环。其中，<code>*dest++</code>这个表达式等同于<code>*(dest++)</code>，即先返回<code>dest</code>这个地址，再进行自增运算移向下一个位置，而<code>*dest</code>可以对当前位置赋值。</p><p><code>strcpy()</code>函数有安全风险，因为它并不检查目标字符串的长度，是否足够容纳源字符串的副本，可能导致写入溢出。如果不能保证不会发生溢出，建议使用<code>strncpy()</code>函数代替。</p><h2 id="strncpy">strncpy() <a class="markdownIt-Anchor" href="#strncpy">#</a></h2><p><code>strncpy()</code>跟<code>strcpy()</code>的用法完全一样，只是多了第3个参数，用来指定复制的最大字符数，防止溢出目标字符串变量的边界。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">char</span> *<span class="hljs-title">strncpy</span><span class="hljs-params">(
-  <span class="hljs-keyword">char</span> *dest, 
-  <span class="hljs-keyword">char</span> *src, 
+</code></pre><p>上面代码中，关键的一行是<code>while (*dest++ = *source++)</code>，这是一个循环，依次将<code>source</code>的每个字符赋值给<code>dest</code>，然后移向下一个位置，直到遇到<code>\0</code>，循环判断条件不再为真，从而跳出循环。其中，<code>*dest++</code>这个表达式等同于<code>*(dest++)</code>，即先返回<code>dest</code>这个地址，再进行自增运算移向下一个位置，而<code>*dest</code>可以对当前位置赋值。</p><p><code>strcpy()</code>函数有安全风险，因为它并不检查目标字符串的长度，是否足够容纳源字符串的副本，可能导致写入溢出。如果不能保证不会发生溢出，建议使用<code>strncpy()</code>函数代替。</p><h2 id="strncpy">strncpy() <a class="markdownIt-Anchor" href="#strncpy">#</a></h2><p><code>strncpy()</code>跟<code>strcpy()</code>的用法完全一样，只是多了第3个参数，用来指定复制的最大字符数，防止溢出目标字符串变量的边界。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">char</span>* <span class="hljs-title">strncpy</span><span class="hljs-params">(
+  <span class="hljs-keyword">char</span>* dest, 
+  <span class="hljs-keyword">char</span>* src, 
   <span class="hljs-keyword">size_t</span> n
 )</span></span>;
 </code></pre><p>上面原型中，第三个参数<code>n</code>定义了复制的最大字符数。如果达到最大字符数以后，源字符串仍然没有复制完，就会停止复制，这时目的字符串结尾将没有终止符<code>\0</code>，这一点务必注意。如果源字符串的字符数小于<code>n</code>，则<code>strncpy()</code>的行为与<code>strcpy()</code>完全一致。</p><pre class="hljs"><code><span class="hljs-built_in">strncpy</span>(str1, str2, <span class="hljs-keyword">sizeof</span>(str1) - <span class="hljs-number">1</span>);
