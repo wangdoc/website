@@ -133,7 +133,7 @@ print_ptr(<span class="hljs-number">10</span>)
 <span class="hljs-comment">// 等同于 exit(1);</span>
 <span class="hljs-built_in">exit</span>(EXIT_FAILURE);
 </code></pre><p>在<code>main()</code>函数里面，<code>exit()</code>等价于使用<code>return</code>语句。其他函数使用<code>exit()</code>，就是终止整个程序的运行，没有其他作用。</p><p>C 语言还提供了一个<code>atexit()</code>函数，用来登记<code>exit()</code>执行时额外执行的函数，用来做一些退出程序时的收尾工作。该函数的原型也是定义在头文件<code>stdlib.h</code>。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">atexit</span><span class="hljs-params">(<span class="hljs-keyword">void</span> (*func)(<span class="hljs-keyword">void</span>))</span></span>;
-</code></pre><p><code>atexit()</code>的参数是一个函数指针。注意，它的参数函数（上例的<code>print</code>）不能接受参数，也不能有返回值。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">print</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span> </span>{
+</code></pre><p><code>atexit()</code>的参数是一个函数指针。注意，它的参数函数（下例的<code>print</code>）不能接受参数，也不能有返回值。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">print</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span> </span>{
   <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;something wrong!\n&quot;</span>);
 }
 
