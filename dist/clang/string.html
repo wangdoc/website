@@ -126,7 +126,7 @@ s1[<span class="hljs-number">5</span>] = <span class="hljs-string">&#x27;\0&#x27
 
 <span class="hljs-built_in">strcat</span>(s1, s2);
 <span class="hljs-built_in">puts</span>(s1); <span class="hljs-comment">// &quot;helloworld&quot;</span>
-</code></pre><p>上面示例中，调用<code>strcat()</code>以后，可以看到字符串<code>s1</code>的值变了。</p><p>注意，<code>strcat()</code>的第一个参数的长度，必须足以容纳添加第二个参数字符串。否则，拼接后的字符串会溢出第一个字符串的边界，写入相邻的内存单元，这是很危险的，建议使用下面的<code>strncat()</code>代替。</p><h2 id="strncat">strncat() <a class="markdownIt-Anchor" href="#strncat">#</a></h2><p><code>strncat()</code>用于连接两个字符串，用法与<code>strncat()</code>完全一致，只是增加了第三个参数，指定最大添加的字符数。在添加过程中，一旦达到指定的字符数，或者在源字符串中遇到空字符<code>\0</code>，就不再添加了。它的原型定义在<code>string.h</code>头文件里面。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">char</span>* <span class="hljs-title">strncat</span><span class="hljs-params">(
+</code></pre><p>上面示例中，调用<code>strcat()</code>以后，可以看到字符串<code>s1</code>的值变了。</p><p>注意，<code>strcat()</code>的第一个参数的长度，必须足以容纳添加第二个参数字符串。否则，拼接后的字符串会溢出第一个字符串的边界，写入相邻的内存单元，这是很危险的，建议使用下面的<code>strncat()</code>代替。</p><h2 id="strncat">strncat() <a class="markdownIt-Anchor" href="#strncat">#</a></h2><p><code>strncat()</code>用于连接两个字符串，用法与<code>strcat()</code>完全一致，只是增加了第三个参数，指定最大添加的字符数。在添加过程中，一旦达到指定的字符数，或者在源字符串中遇到空字符<code>\0</code>，就不再添加了。它的原型定义在<code>string.h</code>头文件里面。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">char</span>* <span class="hljs-title">strncat</span><span class="hljs-params">(
   <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* dest,
   <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* src,
   <span class="hljs-keyword">size_t</span> n
