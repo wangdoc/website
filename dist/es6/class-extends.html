@@ -1,9 +1,11 @@
-<!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Class 的继承 - ES6 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="Class 的继承"><link rel="apple-touch-icon" sizes="57x57" href="assets/icons/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="assets/icons/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="assets/icons/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="assets/icons/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="assets/icons/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="assets/icons/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="assets/icons/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="assets/icons/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png"><link rel="manifest" href="assets/icons/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="assets/icons/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/es6-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/es6-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8 is-6-widescreen is-offset-1-widescreen"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;ES6 教程</a></li><li class="is-active"><a class="has-text-grey" href="class-extends.html">Class 的继承</a></li></ul></nav><nav class="level level-previous-next is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="class.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> Class 的基本语法</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="module.html">Module 的语法 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content"><h1 class="title">Class 的继承</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><h2 id="简介">简介 <a class="markdownIt-Anchor" href="#简介">#</a></h2><p>Class 可以通过<code>extends</code>关键字实现继承，这比 ES5 的通过修改原型链实现继承，要清晰和方便很多。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span> </span>{
+<!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Class 的继承 - ES6 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="Class 的继承"><link rel="apple-touch-icon" sizes="57x57" href="assets/icons/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="assets/icons/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="assets/icons/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="assets/icons/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="assets/icons/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="assets/icons/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="assets/icons/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="assets/icons/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png"><link rel="manifest" href="assets/icons/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="assets/icons/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/es6-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/es6-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8 is-6-widescreen is-offset-1-widescreen"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;ES6 教程</a></li><li class="is-active"><a class="has-text-grey" href="class-extends.html">Class 的继承</a></li></ul></nav><nav class="level level-previous-next is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="class.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> Class 的基本语法</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="module.html">Module 的语法 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content"><h1 class="title">Class 的继承</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><h2 id="简介">简介 <a class="markdownIt-Anchor" href="#简介">#</a></h2><p>Class 可以通过<code>extends</code>关键字实现继承，让子类继承父类的属性和方法。extends 的写法比 ES5 的原型链继承，要清晰和方便很多。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span> </span>{
 }
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ColorPoint</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Point</span> </span>{
 }
-</code></pre><p>上面代码定义了一个<code>ColorPoint</code>类，该类通过<code>extends</code>关键字，继承了<code>Point</code>类的所有属性和方法。但是由于没有部署任何代码，所以这两个类完全一样，等于复制了一个<code>Point</code>类。下面，我们在<code>ColorPoint</code>内部加上代码。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ColorPoint</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Point</span> </span>{
+</code></pre><p>上面示例中，<code>Point</code>是父类，<code>ColorPoint</code>是子类，它通过<code>extends</code>关键字，继承了<code>Point</code>类的所有属性和方法。但是由于没有部署任何代码，所以这两个类完全一样，等于复制了一个<code>Point</code>类。</p><p>下面，我们在<code>ColorPoint</code>内部加上代码。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span> </span>{ <span class="hljs-comment">/* ... */</span> }
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ColorPoint</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Point</span> </span>{
   <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">x, y, color</span>)</span> {
     <span class="hljs-built_in">super</span>(x, y); <span class="hljs-comment">// 调用父类的constructor(x, y)</span>
     <span class="hljs-built_in">this</span>.color = color;
@@ -13,7 +15,7 @@
     <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.color + <span class="hljs-string">&#x27; &#x27;</span> + <span class="hljs-built_in">super</span>.toString(); <span class="hljs-comment">// 调用父类的toString()</span>
   }
 }
-</code></pre><p>上面代码中，<code>constructor</code>方法和<code>toString</code>方法之中，都出现了<code>super</code>关键字，它在这里表示父类的构造函数，用来新建父类的<code>this</code>对象。</p><p>子类必须在<code>constructor</code>方法中调用<code>super</code>方法，否则新建实例时会报错。这是因为子类自己的<code>this</code>对象，必须先通过父类的构造函数完成塑造，得到与父类同样的实例属性和方法，然后再对其进行加工，加上子类自己的实例属性和方法。如果不调用<code>super</code>方法，子类就得不到<code>this</code>对象。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span> </span>{ <span class="hljs-comment">/* ... */</span> }
+</code></pre><p>上面示例中，<code>constructor()</code>方法和<code>toString()</code>方法内部，都出现了<code>super</code>关键字。<code>super</code>在这里表示父类的构造函数，用来新建一个父类的实例对象。</p><p>ES6 规定，子类必须在<code>constructor()</code>方法中调用<code>super()</code>，否则就会报错。这是因为子类自己的<code>this</code>对象，必须先通过父类的构造函数完成塑造，得到与父类同样的实例属性和方法，然后再对其进行加工，添加子类自己的实例属性和方法。如果不调用<code>super()</code>方法，子类就得不到自己的<code>this</code>对象。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span> </span>{ <span class="hljs-comment">/* ... */</span> }
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ColorPoint</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Point</span> </span>{
   <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
@@ -21,16 +23,23 @@
 }
 
 <span class="hljs-keyword">let</span> cp = <span class="hljs-keyword">new</span> ColorPoint(); <span class="hljs-comment">// ReferenceError</span>
-</code></pre><p>上面代码中，<code>ColorPoint</code>继承了父类<code>Point</code>，但是它的构造函数没有调用<code>super</code>方法，导致新建实例时报错。</p><p>ES5 的继承，实质是先创造子类的实例对象<code>this</code>，然后再将父类的方法添加到<code>this</code>上面（<code>Parent.apply(this)</code>）。ES6 的继承机制完全不同，实质是先将父类实例对象的属性和方法，加到<code>this</code>上面（所以必须先调用<code>super</code>方法），然后再用子类的构造函数修改<code>this</code>。</p><p>如果子类没有定义<code>constructor</code>方法，这个方法会被默认添加，代码如下。也就是说，不管有没有显式定义，任何一个子类都有<code>constructor</code>方法。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ColorPoint</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Point</span> </span>{
-}
-
-<span class="hljs-comment">// 等同于</span>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ColorPoint</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Point</span> </span>{
-  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">...args</span>)</span> {
-    <span class="hljs-built_in">super</span>(...args);
+</code></pre><p>上面代码中，<code>ColorPoint</code>继承了父类<code>Point</code>，但是它的构造函数没有调用<code>super()</code>，导致新建实例时报错。</p><p>为什么子类的构造函数，一定要调用<code>super()</code>？原因就在于 ES6 的继承机制，与 ES5 完全不同。ES5 的继承机制，是先创造一个独立的子类的实例对象，然后再将父类的方法添加到这个对象上面，即“实例在前，继承在后”。ES6 的继承机制，则是先将父类的属性和方法，加到一个空的对象上面，然后再将该对象作为子类的实例，即“继承在前，实例在后”。这就是为什么 ES6 的继承必须先调用<code>super()</code>方法，因为这一步会生成一个继承父类的<code>this</code>对象，没有这一步就无法继承父类。</p><p>注意，这意味着新建子类实例时，父类的构造函数必定会先运行一次。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> </span>{
+  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span>);
   }
 }
-</code></pre><p>另一个需要注意的地方是，在子类的构造函数中，只有调用<code>super</code>之后，才可以使用<code>this</code>关键字，否则会报错。这是因为子类实例的构建，基于父类实例，只有<code>super</code>方法才能调用父类实例。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span> </span>{
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Bar</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Foo</span> </span>{
+  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
+    <span class="hljs-built_in">super</span>();
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-number">2</span>);
+  }
+}
+
+<span class="hljs-keyword">const</span> bar = <span class="hljs-keyword">new</span> Bar();
+<span class="hljs-comment">// 1</span>
+<span class="hljs-comment">// 2</span>
+</code></pre><p>上面示例中，子类 Bar 新建实例时，会输出1和2。原因就是子类构造函数调用<code>super()</code>时，会执行一次父类构造函数。</p><p>另一个需要注意的地方是，在子类的构造函数中，只有调用<code>super()</code>之后，才可以使用<code>this</code>关键字，否则会报错。这是因为子类实例的构建，必须先完成父类的继承，只有<code>super()</code>方法才能让子类实例继承父类。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span> </span>{
   <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">x, y</span>)</span> {
     <span class="hljs-built_in">this</span>.x = x;
     <span class="hljs-built_in">this</span>.y = y;
@@ -44,11 +53,20 @@
     <span class="hljs-built_in">this</span>.color = color; <span class="hljs-comment">// 正确</span>
   }
 }
-</code></pre><p>上面代码中，子类的<code>constructor</code>方法没有调用<code>super</code>之前，就使用<code>this</code>关键字，结果报错，而放在<code>super</code>方法之后就是正确的。</p><p>下面是生成子类实例的代码。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> cp = <span class="hljs-keyword">new</span> ColorPoint(<span class="hljs-number">25</span>, <span class="hljs-number">8</span>, <span class="hljs-string">&#x27;green&#x27;</span>);
+</code></pre><p>上面代码中，子类的<code>constructor()</code>方法没有调用<code>super()</code>之前，就使用<code>this</code>关键字，结果报错，而放在<code>super()</code>之后就是正确的。</p><p>如果子类没有定义<code>constructor()</code>方法，这个方法会默认添加，并且里面会调用<code>super()</code>。也就是说，不管有没有显式定义，任何一个子类都有<code>constructor()</code>方法。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ColorPoint</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Point</span> </span>{
+}
+
+<span class="hljs-comment">// 等同于</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ColorPoint</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Point</span> </span>{
+  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">...args</span>)</span> {
+    <span class="hljs-built_in">super</span>(...args);
+  }
+}
+</code></pre><p>有了子类的定义，就可以生成子类的实例了。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> cp = <span class="hljs-keyword">new</span> ColorPoint(<span class="hljs-number">25</span>, <span class="hljs-number">8</span>, <span class="hljs-string">&#x27;green&#x27;</span>);
 
 cp <span class="hljs-keyword">instanceof</span> ColorPoint <span class="hljs-comment">// true</span>
 cp <span class="hljs-keyword">instanceof</span> Point <span class="hljs-comment">// true</span>
-</code></pre><p>上面代码中，实例对象<code>cp</code>同时是<code>ColorPoint</code>和<code>Point</code>两个类的实例，这与 ES5 的行为完全一致。</p><p>最后，父类的静态方法，也会被子类继承。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> </span>{
+</code></pre><p>上面示例中，实例对象<code>cp</code>同时是<code>ColorPoint</code>和<code>Point</code>两个类的实例，这与 ES5 的行为完全一致。</p><p>除了私有属性，父类的所有属性和方法，都会被子类继承，其中包括静态方法。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> </span>{
   <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">hello</span>(<span class="hljs-params"></span>)</span> {
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;hello world&#x27;</span>);
   }
@@ -58,7 +76,38 @@ cp <span class="hljs-keyword">instanceof</span> Point <span class="hljs-comment"
 }
 
 B.hello()  <span class="hljs-comment">// hello world</span>
-</code></pre><p>上面代码中，<code>hello()</code>是<code>A</code>类的静态方法，<code>B</code>继承<code>A</code>，也继承了<code>A</code>的静态方法。</p><h2 id="objectgetprototypeof">Object.getPrototypeOf() <a class="markdownIt-Anchor" href="#objectgetprototypeof">#</a></h2><p><code>Object.getPrototypeOf</code>方法可以用来从子类上获取父类。</p><pre class="hljs"><code><span class="hljs-built_in">Object</span>.getPrototypeOf(ColorPoint) === Point
+</code></pre><p>上面代码中，<code>hello()</code>是<code>A</code>类的静态方法，<code>B</code>继承<code>A</code>，也继承了<code>A</code>的静态方法。</p><p>子类无法继承父类的私有属性，或者说，私有属性只能在定义它的 clss 里面使用。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> </span>{
+  #p = <span class="hljs-number">1</span>;
+  #<span class="hljs-function"><span class="hljs-title">m</span>(<span class="hljs-params"></span>)</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;hello&#x27;</span>);
+  }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Bar</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Foo</span> </span>{
+  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
+    <span class="hljs-built_in">super</span>();
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.#p); <span class="hljs-comment">// 报错</span>
+    <span class="hljs-built_in">this</span>.#m(); <span class="hljs-comment">// 报错</span>
+  }
+}
+</code></pre><p>上面示例中，子类 Bar 调用父类 Foo 的私有属性或私有方法，都会报错。</p><p>如果父类定义了私有属性的读写方法，子类就可以通过这些方法，读写私有属性。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> </span>{
+  #p = <span class="hljs-number">1</span>;
+  <span class="hljs-function"><span class="hljs-title">getP</span>(<span class="hljs-params"></span>)</span> {
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.#p;
+  }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Bar</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Foo</span> </span>{
+  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
+    <span class="hljs-built_in">super</span>();
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.getP()); <span class="hljs-comment">// 1</span>
+  }
+}
+</code></pre><p>上面示例中，<code>getP()</code>是父类用来读取私有属性的方法，通过该方法，子类就可以读到父类的私有属性。</p><h2 id="objectgetprototypeof">Object.getPrototypeOf() <a class="markdownIt-Anchor" href="#objectgetprototypeof">#</a></h2><p><code>Object.getPrototypeOf()</code>方法可以用来从子类上获取父类。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span> </span>{ <span class="hljs-comment">/*...*/</span> }
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ColorPoint</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Point</span> </span>{ <span class="hljs-comment">/*...*/</span> }
+
+<span class="hljs-built_in">Object</span>.getPrototypeOf(ColorPoint) === Point
 <span class="hljs-comment">// true</span>
 </code></pre><p>因此，可以使用这个方法判断，一个类是否继承了另一个类。</p><h2 id="super-关键字">super 关键字 <a class="markdownIt-Anchor" href="#super-关键字">#</a></h2><p><code>super</code>这个关键字，既可以当作函数使用，也可以当作对象使用。在这两种情况下，它的用法完全不同。</p><p>第一种情况，<code>super</code>作为函数调用时，代表父类的构造函数。ES6 要求，子类的构造函数必须执行一次<code>super</code>函数。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> </span>{}
 
