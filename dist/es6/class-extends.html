@@ -76,7 +76,7 @@ cp <span class="hljs-keyword">instanceof</span> Point <span class="hljs-comment"
 }
 
 B.hello()  <span class="hljs-comment">// hello world</span>
-</code></pre><p>上面代码中，<code>hello()</code>是<code>A</code>类的静态方法，<code>B</code>继承<code>A</code>，也继承了<code>A</code>的静态方法。</p><p>子类无法继承父类的私有属性，或者说，私有属性只能在定义它的 clss 里面使用。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> </span>{
+</code></pre><p>上面代码中，<code>hello()</code>是<code>A</code>类的静态方法，<code>B</code>继承<code>A</code>，也继承了<code>A</code>的静态方法。</p><p>子类无法继承父类的私有属性，或者说，私有属性只能在定义它的 class 里面使用。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> </span>{
   #p = <span class="hljs-number">1</span>;
   #<span class="hljs-function"><span class="hljs-title">m</span>(<span class="hljs-params"></span>)</span> {
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;hello&#x27;</span>);
