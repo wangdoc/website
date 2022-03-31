@@ -55,40 +55,27 @@ phone p = {<span class="hljs-number">5551234</span>, <span class="hljs-number">5
 
 numbers[<span class="hljs-number">0</span>].numerator = <span class="hljs-number">22</span>;
 numbers[<span class="hljs-number">0</span>].denominator = <span class="hljs-number">7</span>;
-</code></pre><p>上面示例声明了一个有1000个成员的数组<code>numbers</code>，每个成员都是自定义类型<code>fraction</code>的实例。</p><p>struct 结构占用的存储空间，不是各个属性存储空间的总和，而是最大内存占用元素的倍数，占位不足的元素会进行对齐填充。比如以64位机器为例。</p><pre class="hljs"><code><span class="hljs-comment">// 占24个字节，sizeof(struct foo) = 24;</span>
-<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">foo</span> {</span>
+</code></pre><p>上面示例声明了一个有1000个成员的数组<code>numbers</code>，每个成员都是自定义类型<code>fraction</code>的实例。</p><p>struct 结构占用的存储空间，不是各个属性存储空间的总和，而是最大内存占用属性的存储空间的倍数，其他属性会添加空位与之对齐。这样可以提高读写效率。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">foo</span> {</span>
     <span class="hljs-keyword">int</span> a;
-    <span class="hljs-keyword">char</span> *b;
+    <span class="hljs-keyword">char</span>* b;
     <span class="hljs-keyword">char</span> c;
 };
-</code></pre><p>在64位机器中<code>int a</code>占4个字节，指针<code>char *b</code>类型占8个字节，<code>char c</code>占1个字节，实际有效存储空间13字节。但编译器会进行内存对齐填充，即向占用内存空间最大的指针<code>char *b</code>对齐，具体做法是空位填充。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">foo</span> {</span>
+<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d\n&quot;</span>, <span class="hljs-keyword">sizeof</span>(struct foo)); <span class="hljs-comment">// 24</span>
+</code></pre><p>上面示例中，<code>struct foo</code>有三个属性，在64位计算机上占用的存储空间分别是：<code>int a</code>占4个字节，指针<code>char* b</code>占8个字节，<code>char c</code>占1个字节。它们加起来，一共是13个字节（4 + 8 + 1）。但是实际上，<code>struct foo</code>会占用24个字节，原因是它最大的内存占用属性是<code>char* b</code>的8个字节，导致其他属性的存储空间也是8个字节，这样才可以对齐，导致整个<code>struct foo</code>就是24个字节（8 * 3）。</p><p>多出来的存储空间，都采用空位填充，所以上面的<code>struct foo</code>真实的结构其实是下面这样。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">foo</span> {</span>
     <span class="hljs-keyword">int</span> a;        <span class="hljs-comment">// 4</span>
     <span class="hljs-keyword">char</span> pad1[<span class="hljs-number">4</span>]; <span class="hljs-comment">// 填充4字节</span>
     <span class="hljs-keyword">char</span> *b;      <span class="hljs-comment">// 8</span>
     <span class="hljs-keyword">char</span> c;       <span class="hljs-comment">// 1</span>
     <span class="hljs-keyword">char</span> pad2[<span class="hljs-number">7</span>]; <span class="hljs-comment">// 填充7字节</span>
 };
-</code></pre><p>为什么浪费这么多内存空间进行内存对齐？这是为了减少CPU的访存次数，毕竟比起高速运转的CPU和寄存器，访存是最耗时间的操作。一般情况让变量的存储地址是它占用字节的倍数，例如让<code>long</code>型变量的地址是8的倍数(例如: 0x0008)，<code>int</code>型变量的地址是4的倍数，<code>short</code>型是2的倍数，<code>char</code>占一个字节，但一般都会在<code>char</code>型变量后进行空字节填充，即使不是在结构体中。这样处理后CPU就可以按照字或者半字寻址，一次访存就定位到变量的起始地址。</p><p>由于结构体的这一特性，一般在定义结构体的时候，采用内存占用递减进行元素排序，这样可以比较有效的优化内存占用，原因如下。</p><pre class="hljs"><code><span class="hljs-comment">// 占24个字节，sizeof(struct foo) = 24;</span>
-<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">foo</span> {</span>
-    <span class="hljs-keyword">int</span> a;
-    <span class="hljs-keyword">char</span> *b;
-    <span class="hljs-keyword">char</span> c;
+<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d\n&quot;</span>, <span class="hljs-keyword">sizeof</span>(struct foo)); <span class="hljs-comment">// 24</span>
+</code></pre><p>为什么浪费这么多空间进行内存对齐呢？这是为了加快读写速度，把内存占用划分成等长的区块，就可以快速在 Struct 结构体中定位到每个属性的起始地址。</p><p>由于这个特性，在有必要的情况下，定义 Struct 结构体时，可以采用存储空间递减的顺序，定义每个属性，这样就能节省一些空间。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">foo</span> {</span>
+  <span class="hljs-keyword">char</span> c;
+  <span class="hljs-keyword">int</span> a;
+  <span class="hljs-keyword">char</span>* b;
 };
- 
-<span class="hljs-comment">// 内存占用递减排序元素，占16个字节，sizeof(struct foo) = 16;</span>
-<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">foo</span> {</span>
-    <span class="hljs-keyword">char</span> *b;
-    <span class="hljs-keyword">int</span> a;
-    <span class="hljs-keyword">char</span> c;
-};
-</code></pre><p>上边代码，改变了结构体中<code>char *b</code>和<code>int a</code>的顺序，内存占用就从24字节下降到16字节，因为此时编译器只需要进行尾填充即可。</p><pre class="hljs"><code><span class="hljs-comment">// 占16个字节，sizeof(struct foo) = 24;</span>
-<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">foo</span> {</span>
-    <span class="hljs-keyword">char</span> *b; <span class="hljs-comment">// 8</span>
-    <span class="hljs-keyword">int</span> a;   <span class="hljs-comment">// 4</span>
-    <span class="hljs-keyword">char</span> c;  <span class="hljs-comment">// 1</span>
-    <span class="hljs-keyword">char</span> pad[<span class="hljs-number">3</span>]; <span class="hljs-comment">// 填充3字节</span>
-};
-</code></pre><h2 id="struct-的复制">struct 的复制 <a class="markdownIt-Anchor" href="#struct-的复制">#</a></h2><p>struct 变量可以使用赋值运算符（<code>=</code>），复制给另一个变量，这时会生成一个全新的副本。系统会分配一块新的内存空间，大小与原来的变量相同，把每个属性都复制过去，即原样生成了一份数据。这一点跟数组的复制不一样，务必小心。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">cat</span> {</span> <span class="hljs-keyword">char</span> name[<span class="hljs-number">30</span>]; <span class="hljs-keyword">short</span> age; } a, b;
+<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d\n&quot;</span>, <span class="hljs-keyword">sizeof</span>(struct foo)); <span class="hljs-comment">// 16</span>
+</code></pre><p>上面示例中，占用空间最小的<code>char c</code>排在第一位，其次是<code>int a</code>，占用空间最大的<code>char* b</code>排在最后。整个<code>strct foo</code>的内存占用就从24字节下降到16字节。</p><h2 id="struct-的复制">struct 的复制 <a class="markdownIt-Anchor" href="#struct-的复制">#</a></h2><p>struct 变量可以使用赋值运算符（<code>=</code>），复制给另一个变量，这时会生成一个全新的副本。系统会分配一块新的内存空间，大小与原来的变量相同，把每个属性都复制过去，即原样生成了一份数据。这一点跟数组的复制不一样，务必小心。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">cat</span> {</span> <span class="hljs-keyword">char</span> name[<span class="hljs-number">30</span>]; <span class="hljs-keyword">short</span> age; } a, b;
 
 <span class="hljs-built_in">strcpy</span>(a.name, <span class="hljs-string">&quot;Hula&quot;</span>);
 a.age = <span class="hljs-number">3</span>;
