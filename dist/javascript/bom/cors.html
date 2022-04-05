@@ -36,7 +36,6 @@ xhr.send();
 <span class="hljs-attribute">Content-Length</span><span class="hljs-punctuation">: </span>0
 <span class="hljs-attribute">Keep-Alive</span><span class="hljs-punctuation">: </span>timeout=2, max=100
 <span class="hljs-attribute">Connection</span><span class="hljs-punctuation">: </span>Keep-Alive
-<span class="hljs-attribute">Content-Type</span><span class="hljs-punctuation">: </span>text/plain
 </code></pre><p>上面的 HTTP 回应中，关键的是<code>Access-Control-Allow-Origin</code>字段，表示<code>http://api.bob.com</code>可以请求数据。该字段也可以设为星号，表示同意任意跨源请求。</p><pre class="hljs"><code><span class="hljs-attribute">Access-Control-Allow-Origin</span><span class="hljs-punctuation">: </span>*
 </code></pre><p>如果服务器否定了“预检”请求，会返回一个正常的 HTTP 回应，但是没有任何 CORS 相关的头信息字段，或者明确表示请求不符合条件。</p><pre class="hljs"><code><span class="hljs-keyword">OPTIONS</span> <span class="hljs-string">http://api.bob.com</span> <span class="hljs-meta">HTTP/1.1</span>
 <span class="hljs-attribute">Status</span><span class="hljs-punctuation">: </span>200
