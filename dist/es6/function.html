@@ -6,7 +6,7 @@
 log(<span class="hljs-string">&#x27;Hello&#x27;</span>) <span class="hljs-comment">// Hello World</span>
 log(<span class="hljs-string">&#x27;Hello&#x27;</span>, <span class="hljs-string">&#x27;China&#x27;</span>) <span class="hljs-comment">// Hello China</span>
 log(<span class="hljs-string">&#x27;Hello&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>) <span class="hljs-comment">// Hello World</span>
-</code></pre><p>上面代码检查函数<code>log</code>的参数<code>y</code>有没有赋值，如果没有，则指定默认值为<code>World</code>。这种写法的缺点在于，如果参数<code>y</code>赋值了，但是对应的布尔值为<code>false</code>，则该赋值不起作用。就像上面代码的最后一行，参数<code>y</code>等于空字符，结果被改为默认值。</p><p>为了避免这个问题，通常需要先判断一下参数<code>y</code>是否被赋值，如果没有，再等于默认值。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> y === <span class="hljs-string">&#x27;undefined&#x27;</span>) {
+</code></pre><p>上面代码检查函数<code>log()</code>的参数<code>y</code>有没有赋值，如果没有，则指定默认值为<code>World</code>。这种写法的缺点在于，如果参数<code>y</code>赋值了，但是对应的布尔值为<code>false</code>，则该赋值不起作用。就像上面代码的最后一行，参数<code>y</code>等于空字符，结果被改为默认值。</p><p>为了避免这个问题，通常需要先判断一下参数<code>y</code>是否被赋值，如果没有，再等于默认值。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> y === <span class="hljs-string">&#x27;undefined&#x27;</span>) {
   y = <span class="hljs-string">&#x27;World&#x27;</span>;
 }
 </code></pre><p>ES6 允许为函数的参数设置默认值，即直接写在参数定义的后面。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">log</span>(<span class="hljs-params">x, y = <span class="hljs-string">&#x27;World&#x27;</span></span>) </span>{
@@ -46,7 +46,7 @@ foo() <span class="hljs-comment">// 100</span>
 
 x = <span class="hljs-number">100</span>;
 foo() <span class="hljs-comment">// 101</span>
-</code></pre><p>上面代码中，参数<code>p</code>的默认值是<code>x + 1</code>。这时，每次调用函数<code>foo</code>，都会重新计算<code>x + 1</code>，而不是默认<code>p</code>等于 100。</p><h3 id="与解构赋值默认值结合使用">与解构赋值默认值结合使用 <a class="markdownIt-Anchor" href="#与解构赋值默认值结合使用">#</a></h3><p>参数默认值可以与解构赋值的默认值，结合起来使用。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params">{x, y = <span class="hljs-number">5</span>}</span>) </span>{
+</code></pre><p>上面代码中，参数<code>p</code>的默认值是<code>x + 1</code>。这时，每次调用函数<code>foo()</code>，都会重新计算<code>x + 1</code>，而不是默认<code>p</code>等于 100。</p><h3 id="与解构赋值默认值结合使用">与解构赋值默认值结合使用 <a class="markdownIt-Anchor" href="#与解构赋值默认值结合使用">#</a></h3><p>参数默认值可以与解构赋值的默认值，结合起来使用。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params">{x, y = <span class="hljs-number">5</span>}</span>) </span>{
   <span class="hljs-built_in">console</span>.log(x, y);
 }
 
@@ -54,7 +54,7 @@ foo({}) <span class="hljs-comment">// undefined 5</span>
 foo({<span class="hljs-attr">x</span>: <span class="hljs-number">1</span>}) <span class="hljs-comment">// 1 5</span>
 foo({<span class="hljs-attr">x</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">2</span>}) <span class="hljs-comment">// 1 2</span>
 foo() <span class="hljs-comment">// TypeError: Cannot read property &#x27;x&#x27; of undefined</span>
-</code></pre><p>上面代码只使用了对象的解构赋值默认值，没有使用函数参数的默认值。只有当函数<code>foo</code>的参数是一个对象时，变量<code>x</code>和<code>y</code>才会通过解构赋值生成。如果函数<code>foo</code>调用时没提供参数，变量<code>x</code>和<code>y</code>就不会生成，从而报错。通过提供函数参数的默认值，就可以避免这种情况。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params">{x, y = <span class="hljs-number">5</span>} = {}</span>) </span>{
+</code></pre><p>上面代码只使用了对象的解构赋值默认值，没有使用函数参数的默认值。只有当函数<code>foo()</code>的参数是一个对象时，变量<code>x</code>和<code>y</code>才会通过解构赋值生成。如果函数<code>foo()</code>调用时没提供参数，变量<code>x</code>和<code>y</code>就不会生成，从而报错。通过提供函数参数的默认值，就可以避免这种情况。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params">{x, y = <span class="hljs-number">5</span>} = {}</span>) </span>{
   <span class="hljs-built_in">console</span>.log(x, y);
 }
 
@@ -68,13 +68,18 @@ fetch(<span class="hljs-string">&#x27;http://example.com&#x27;</span>, {})
 
 fetch(<span class="hljs-string">&#x27;http://example.com&#x27;</span>)
 <span class="hljs-comment">// 报错</span>
-</code></pre><p>上面代码中，如果函数<code>fetch</code>的第二个参数是一个对象，就可以为它的三个属性设置默认值。这种写法不能省略第二个参数，如果结合函数参数的默认值，就可以省略第二个参数。这时，就出现了双重默认值。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetch</span>(<span class="hljs-params">url, { body = <span class="hljs-string">&#x27;&#x27;</span>, method = <span class="hljs-string">&#x27;GET&#x27;</span>, headers = {} } = {}</span>) </span>{
+</code></pre><p>上面代码中，如果函数<code>fetch()</code>的第二个参数是一个对象，就可以为它的三个属性设置默认值。这种写法不能省略第二个参数，如果结合函数参数的默认值，就可以省略第二个参数。这时，就出现了双重默认值。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetch</span>(<span class="hljs-params">url, { body = <span class="hljs-string">&#x27;&#x27;</span>, method = <span class="hljs-string">&#x27;GET&#x27;</span>, headers = {} } = {}</span>) </span>{
   <span class="hljs-built_in">console</span>.log(method);
 }
 
 fetch(<span class="hljs-string">&#x27;http://example.com&#x27;</span>)
 <span class="hljs-comment">// &quot;GET&quot;</span>
-</code></pre><p>上面代码中，函数<code>fetch</code>没有第二个参数时，函数参数的默认值就会生效，然后才是解构赋值的默认值生效，变量<code>method</code>才会取到默认值<code>GET</code>。</p><p>作为练习，请问下面两种写法有什么差别？</p><pre class="hljs"><code><span class="hljs-comment">// 写法一</span>
+</code></pre><p>上面代码中，函数<code>fetch</code>没有第二个参数时，函数参数的默认值就会生效，然后才是解构赋值的默认值生效，变量<code>method</code>才会取到默认值<code>GET</code>。</p><p>注意，函数参数的默认值生效以后，参数解构赋值依然会进行。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params">{ a, b = <span class="hljs-string">&#x27;world&#x27;</span> } = { a: <span class="hljs-string">&#x27;hello&#x27;</span> }</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(b);
+}
+
+f() <span class="hljs-comment">// world</span>
+</code></pre><p>上面示例中，函数<code>f()</code>调用时没有参数，所以参数默认值<code>{ a: 'hello' }</code>生效，然后再对这个默认值进行解构赋值，从而触发参数变量<code>b</code>的默认值生效。</p><p>作为练习，大家可以思考一下，下面两种函数写法有什么差别？</p><pre class="hljs"><code><span class="hljs-comment">// 写法一</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">m1</span>(<span class="hljs-params">{x = <span class="hljs-number">0</span>, y = <span class="hljs-number">0</span>} = {}</span>) </span>{
   <span class="hljs-keyword">return</span> [x, y];
 }
@@ -83,7 +88,8 @@ fetch(<span class="hljs-string">&#x27;http://example.com&#x27;</span>)
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">m2</span>(<span class="hljs-params">{x, y} = { x: <span class="hljs-number">0</span>, y: <span class="hljs-number">0</span> }</span>) </span>{
   <span class="hljs-keyword">return</span> [x, y];
 }
-</code></pre><p>上面两种写法都对函数的参数设定了默认值，区别是写法一函数参数的默认值是空对象，但是设置了对象解构赋值的默认值；写法二函数参数的默认值是一个有具体属性的对象，但是没有设置对象解构赋值的默认值。</p><pre class="hljs"><code><span class="hljs-comment">// 函数没有参数的情况</span>
+
+<span class="hljs-comment">// 函数没有参数的情况</span>
 m1() <span class="hljs-comment">// [0, 0]</span>
 m2() <span class="hljs-comment">// [0, 0]</span>
 
