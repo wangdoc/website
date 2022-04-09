@@ -304,7 +304,17 @@ foo
 {...null} <span class="hljs-comment">// {}</span>
 </code></pre><p>但是，如果扩展运算符后面是字符串，它会自动转成一个类似数组的对象，因此返回的不是空对象。</p><pre class="hljs"><code>{...<span class="hljs-string">&#x27;hello&#x27;</span>}
 <span class="hljs-comment">// {0: &quot;h&quot;, 1: &quot;e&quot;, 2: &quot;l&quot;, 3: &quot;l&quot;, 4: &quot;o&quot;}</span>
-</code></pre><p>对象的扩展运算符等同于使用<code>Object.assign()</code>方法。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> aClone = { ...a };
+</code></pre><p>对象的扩展运算符，只会返回参数对象自身的、可枚举的属性，这一点要特别小心，尤其是用于类的实例对象时。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">C</span> </span>{
+  p = <span class="hljs-number">12</span>;
+  <span class="hljs-function"><span class="hljs-title">m</span>(<span class="hljs-params"></span>)</span> {}
+}
+
+<span class="hljs-keyword">let</span> c = <span class="hljs-keyword">new</span> C();
+<span class="hljs-keyword">let</span> clone = { ...c };
+
+clone.p; <span class="hljs-comment">// ok</span>
+clone.m(); <span class="hljs-comment">// 报错</span>
+</code></pre><p>上面示例中，<code>c</code>是<code>C</code>类的实例对象，对其进行扩展运算时，只会返回<code>c</code>自身的属性<code>c.p</code>，而不会返回<code>c</code>的方法<code>c.m()</code>，因为这个方法定义在<code>C</code>的原型对象上（详见 Class 的章节）。</p><p>对象的扩展运算符等同于使用<code>Object.assign()</code>方法。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> aClone = { ...a };
 <span class="hljs-comment">// 等同于</span>
 <span class="hljs-keyword">let</span> aClone = <span class="hljs-built_in">Object</span>.assign({}, a);
 </code></pre><p>上面的例子只是拷贝了对象实例的属性，如果想完整克隆一个对象，还拷贝对象原型的属性，可以采用下面的写法。</p><pre class="hljs"><code><span class="hljs-comment">// 写法一</span>
