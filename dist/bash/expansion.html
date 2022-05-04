@@ -181,13 +181,13 @@ fo*
 </code></pre><p>上面代码创建了一个<code>fo*</code>文件，这时<code>*</code>就是文件名的一部分。</p><h2 id="量词语法">量词语法 <a class="markdownIt-Anchor" href="#量词语法">#</a></h2><p>量词语法用来控制模式匹配的次数。它只有在 Bash 的<code>extglob</code>参数打开的情况下才能使用，不过一般是默认打开的。下面的命令可以查询。</p><pre class="hljs"><code>$ <span class="hljs-built_in">shopt</span> extglob
 extglob        	on
 </code></pre><p>如果<code>extglob</code>参数是关闭的，可以用下面的命令打开。</p><pre class="hljs"><code>$ <span class="hljs-built_in">shopt</span> -s extglob
-</code></pre><p>量词语法有下面几个。</p><ul><li><code>?(pattern-list)</code>：匹配零个或一个模式。</li><li><code>*(pattern-list)</code>：匹配零个或多个模式。</li><li><code>+(pattern-list)</code>：匹配一个或多个模式。</li><li><code>@(pattern-list)</code>：只匹配一个模式。</li><li><code>!(pattern-list)</code>：匹配给定模式以外的任何内容。</li></ul><pre class="hljs"><code>$ ls abc?(.)txt
+</code></pre><p>量词语法有下面几个。</p><ul><li><code>?(pattern-list)</code>：模式匹配零次或一次。</li><li><code>*(pattern-list)</code>：模式匹配零次或多次。</li><li><code>+(pattern-list)</code>：模式匹配一次或多次。</li><li><code>@(pattern-list)</code>：只匹配一次模式。</li><li><code>!(pattern-list)</code>：匹配给定模式以外的任何内容。</li></ul><pre class="hljs"><code>$ ls abc?(.)txt
 abctxt abc.txt
 </code></pre><p>上面例子中，<code>?(.)</code>匹配零个或一个点。</p><pre class="hljs"><code>$ ls abc?(def)
 abc abcdef
-</code></pre><p>上面例子中，<code>?(def)</code>匹配零个或一个<code>def</code>。</p><pre class="hljs"><code>$ ls abc+(.txt|.php)
+</code></pre><p>上面例子中，<code>?(def)</code>匹配零个或一个<code>def</code>。</p><pre class="hljs"><code>$ ls abc@(.txt|.php)
 abc.php abc.txt
-</code></pre><p>上面例子中，<code>+(.txt|.php)</code>匹配文件有一个<code>.txt</code>或<code>.php</code>后缀名。</p><pre class="hljs"><code>$ ls abc+(.txt)
+</code></pre><p>上面例子中，<code>@(.txt|.php)</code>匹配文件有且只有一个<code>.txt</code>或<code>.php</code>后缀名。</p><pre class="hljs"><code>$ ls abc+(.txt)
 abc.txt abc.txt.txt
 </code></pre><p>上面例子中，<code>+(.txt)</code>匹配文件有一个或多个<code>.txt</code>后缀名。</p><pre class="hljs"><code>$ ls a!(b).txt
 a.txt abb.txt ac.txt
