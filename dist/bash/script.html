@@ -99,24 +99,24 @@ $ <span class="hljs-built_in">exit</span> 1
   <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;根用户才能执行当前脚本&quot;</span>
   <span class="hljs-built_in">exit</span> 1
 <span class="hljs-keyword">fi</span>
-</code></pre><p>上面的例子中，<code>id -u</code>命令返回用户的 ID，一旦用户的 ID 不等于<code>0</code>（根用户的 ID），脚本就会退出，并且退出码为<code>1</code>，表示运行失败。</p><p><code>exit</code>与<code>return</code>命令的差别是，<code>return</code>命令是函数的退出，并返回一个值给调用者，脚本依然执行。<code>exit</code>是整个脚本的退出，如果在函数之中调用<code>exit</code>，则退出函数，并终止脚本执行。</p><h2 id="命令执行结果">命令执行结果 <a class="markdownIt-Anchor" href="#命令执行结果">#</a></h2><p>命令执行结束后，会有一个返回值。<code>0</code>表示执行成功，非<code>0</code>（通常是<code>1</code>）表示执行失败。环境变量<code>$?</code>可以读取前一个命令的返回值。</p><p>利用这一点，可以在脚本中对命令执行结果进行判断。</p><pre class="hljs"><code><span class="hljs-built_in">cd</span> <span class="hljs-variable">$some_directory</span>
+</code></pre><p>上面的例子中，<code>id -u</code>命令返回用户的 ID，一旦用户的 ID 不等于<code>0</code>（根用户的 ID），脚本就会退出，并且退出码为<code>1</code>，表示运行失败。</p><p><code>exit</code>与<code>return</code>命令的差别是，<code>return</code>命令是函数的退出，并返回一个值给调用者，脚本依然执行。<code>exit</code>是整个脚本的退出，如果在函数之中调用<code>exit</code>，则退出函数，并终止脚本执行。</p><h2 id="命令执行结果">命令执行结果 <a class="markdownIt-Anchor" href="#命令执行结果">#</a></h2><p>命令执行结束后，会有一个返回值。<code>0</code>表示执行成功，非<code>0</code>（通常是<code>1</code>）表示执行失败。环境变量<code>$?</code>可以读取前一个命令的返回值。</p><p>利用这一点，可以在脚本中对命令执行结果进行判断。</p><pre class="hljs"><code><span class="hljs-built_in">cd</span> /path/to/somewhere
 <span class="hljs-keyword">if</span> [ <span class="hljs-string">&quot;$?&quot;</span> = <span class="hljs-string">&quot;0&quot;</span> ]; <span class="hljs-keyword">then</span>
   rm *
 <span class="hljs-keyword">else</span>
   <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;无法切换目录！&quot;</span> 1&gt;&amp;2
   <span class="hljs-built_in">exit</span> 1
 <span class="hljs-keyword">fi</span>
-</code></pre><p>上面例子中，<code>cd $some_directory</code>这个命令如果执行成功（返回值等于<code>0</code>），就删除该目录里面的文件，否则退出脚本，整个脚本的返回值变为<code>1</code>，表示执行失败。</p><p>由于<code>if</code>可以直接判断命令的执行结果，执行相应的操作，上面的脚本可以改写成下面的样子。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> <span class="hljs-built_in">cd</span> <span class="hljs-variable">$some_directory</span>; <span class="hljs-keyword">then</span>
+</code></pre><p>上面例子中，<code>cd /path/to/somewhere</code>这个命令如果执行成功（返回值等于<code>0</code>），就删除该目录里面的文件，否则退出脚本，整个脚本的返回值变为<code>1</code>，表示执行失败。</p><p>由于<code>if</code>可以直接判断命令的执行结果，执行相应的操作，上面的脚本可以改写成下面的样子。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> <span class="hljs-built_in">cd</span> /path/to/somewhere; <span class="hljs-keyword">then</span>
   rm *
 <span class="hljs-keyword">else</span>
   <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Could not change directory! Aborting.&quot;</span> 1&gt;&amp;2
   <span class="hljs-built_in">exit</span> 1
 <span class="hljs-keyword">fi</span>
 </code></pre><p>更简洁的写法是利用两个逻辑运算符<code>&amp;&amp;</code>（且）和<code>||</code>（或）。</p><pre class="hljs"><code><span class="hljs-comment"># 第一步执行成功，才会执行第二步</span>
-<span class="hljs-built_in">cd</span> <span class="hljs-variable">$some_directory</span> &amp;&amp; rm *
+<span class="hljs-built_in">cd</span> /path/to/somewhere &amp;&amp; rm *
 
 <span class="hljs-comment"># 第一步执行失败，才会执行第二步</span>
-<span class="hljs-built_in">cd</span> <span class="hljs-variable">$some_directory</span> || <span class="hljs-built_in">exit</span> 1
+<span class="hljs-built_in">cd</span> /path/to/somewhere || <span class="hljs-built_in">exit</span> 1
 </code></pre><h2 id="source-命令">source 命令 <a class="markdownIt-Anchor" href="#source-命令">#</a></h2><p><code>source</code>命令用于执行一个脚本，通常用于重新加载一个配置文件。</p><pre class="hljs"><code>$ <span class="hljs-built_in">source</span> .bashrc
 </code></pre><p><code>source</code>命令最大的特点是在当前 Shell 执行脚本，不像直接执行脚本时，会新建一个子 Shell。所以，<code>source</code>命令执行脚本时，不需要<code>export</code>变量。</p><pre class="hljs"><code><span class="hljs-meta">#!/bin/bash</span>
 <span class="hljs-comment"># test.sh</span>
