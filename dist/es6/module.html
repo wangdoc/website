@@ -283,7 +283,20 @@ customName(); <span class="hljs-comment">// &#x27;foo&#x27;</span>
   .catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> {
     main.textContent = err.message;
   });
-</code></pre><p><code>import()</code>函数可以用在任何地方，不仅仅是模块，非模块的脚本也可以使用。它是运行时执行，也就是说，什么时候运行到这一句，就会加载指定的模块。另外，<code>import()</code>函数与所加载的模块没有静态连接关系，这点也是与<code>import</code>语句不相同。<code>import()</code>类似于 Node 的<code>require</code>方法，区别主要是前者是异步加载，后者是同步加载。</p><h3 id="适用场合">适用场合 <a class="markdownIt-Anchor" href="#适用场合">#</a></h3><p>下面是<code>import()</code>的一些适用场合。</p><p>（1）按需加载。</p><p><code>import()</code>可以在需要的时候，再加载某个模块。</p><pre class="hljs"><code>button.addEventListener(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
+</code></pre><p><code>import()</code>函数可以用在任何地方，不仅仅是模块，非模块的脚本也可以使用。它是运行时执行，也就是说，什么时候运行到这一句，就会加载指定的模块。另外，<code>import()</code>函数与所加载的模块没有静态连接关系，这点也是与<code>import</code>语句不相同。<code>import()</code>类似于 Node.js 的<code>require()</code>方法，区别主要是前者是异步加载，后者是同步加载。</p><p>由于<code>import()</code>返回 Promise<br>对象，所以需要使用<code>then()</code>方法指定处理函数。考虑到代码的清晰，更推荐使用<code>await</code>命令。</p><pre class="hljs"><code><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">renderWidget</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> container = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;widget&#x27;</span>);
+  <span class="hljs-keyword">if</span> (container !== <span class="hljs-literal">null</span>) {
+    <span class="hljs-comment">// 等同于</span>
+    <span class="hljs-comment">// import(&quot;./widget&quot;).then(widget =&gt; {</span>
+    <span class="hljs-comment">//   widget.render(container);</span>
+    <span class="hljs-comment">// });</span>
+    <span class="hljs-keyword">const</span> widget = <span class="hljs-keyword">await</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;./widget.js&#x27;</span>);
+    widget.render(container);
+  }
+}
+
+renderWidget();
+</code></pre><p>上面示例中，<code>await</code>命令后面就是使用<code>import()</code>，对比<code>then()</code>的写法明显更简洁易读。</p><h3 id="适用场合">适用场合 <a class="markdownIt-Anchor" href="#适用场合">#</a></h3><p>下面是<code>import()</code>的一些适用场合。</p><p>（1）按需加载。</p><p><code>import()</code>可以在需要的时候，再加载某个模块。</p><pre class="hljs"><code>button.addEventListener(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
   <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;./dialogBox.js&#x27;</span>)
   .then(<span class="hljs-function"><span class="hljs-params">dialogBox</span> =&gt;</span> {
     dialogBox.open();
