@@ -179,7 +179,10 @@ x <span class="hljs-comment">// 0</span>
 <span class="hljs-built_in">parseFloat</span>(<span class="hljs-string">&#x27;0.0314E+2&#x27;</span>) <span class="hljs-comment">// 3.14</span>
 </code></pre><p>如果字符串包含不能转为浮点数的字符，则不再进行往后转换，返回已经转好的部分。</p><pre class="hljs"><code><span class="hljs-built_in">parseFloat</span>(<span class="hljs-string">&#x27;3.14more non-digit characters&#x27;</span>) <span class="hljs-comment">// 3.14</span>
 </code></pre><p><code>parseFloat</code>方法会自动过滤字符串前导的空格。</p><pre class="hljs"><code><span class="hljs-built_in">parseFloat</span>(<span class="hljs-string">&#x27;\t\v\r12.34\n &#x27;</span>) <span class="hljs-comment">// 12.34</span>
-</code></pre><p>如果参数不是字符串，或者字符串的第一个字符不能转化为浮点数，则返回<code>NaN</code>。</p><pre class="hljs"><code><span class="hljs-built_in">parseFloat</span>([]) <span class="hljs-comment">// NaN</span>
+</code></pre><p>如果参数不是字符串，则会先转为字符串再转换。</p><pre class="hljs"><code><span class="hljs-built_in">parseFloat</span>([<span class="hljs-number">1.23</span>]) <span class="hljs-comment">// 1.23</span>
+<span class="hljs-comment">// 等同于</span>
+<span class="hljs-built_in">parseFloat</span>(<span class="hljs-built_in">String</span>([<span class="hljs-number">1.23</span>])) <span class="hljs-comment">// 1.23</span>
+</code></pre><p>如果字符串的第一个字符不能转化为浮点数，则返回<code>NaN</code>。</p><pre class="hljs"><code><span class="hljs-built_in">parseFloat</span>([]) <span class="hljs-comment">// NaN</span>
 <span class="hljs-built_in">parseFloat</span>(<span class="hljs-string">&#x27;FF2&#x27;</span>) <span class="hljs-comment">// NaN</span>
 <span class="hljs-built_in">parseFloat</span>(<span class="hljs-string">&#x27;&#x27;</span>) <span class="hljs-comment">// NaN</span>
 </code></pre><p>上面代码中，尤其值得注意，<code>parseFloat</code>会将空字符串转为<code>NaN</code>。</p><p>这些特点使得<code>parseFloat</code>的转换结果不同于<code>Number</code>函数。</p><pre class="hljs"><code><span class="hljs-built_in">parseFloat</span>(<span class="hljs-literal">true</span>)  <span class="hljs-comment">// NaN</span>
