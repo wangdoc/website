@@ -449,14 +449,7 @@ allSettledPromise.then(<span class="hljs-function"><span class="hljs-keyword">fu
 } <span class="hljs-keyword">catch</span> (error) {
   <span class="hljs-built_in">console</span>.log(error);
 }
-</code></pre><p>上面代码中，<code>Promise.any()</code>方法的参数数组包含三个 Promise 操作。其中只要有一个变成<code>fulfilled</code>，<code>Promise.any()</code>返回的 Promise 对象就变成<code>fulfilled</code>。如果所有三个操作都变成<code>rejected</code>，那么<code>await</code>命令就会抛出错误。</p><p><code>Promise.any()</code>抛出的错误，不是一个一般的 Error 错误对象，而是一个 AggregateError 实例。它相当于一个数组，每个成员对应一个被<code>rejected</code>的操作所抛出的错误。下面是 AggregateError 的实现示例。</p><pre class="hljs"><code><span class="hljs-comment">// new AggregateError() extends Array</span>
-
-<span class="hljs-keyword">const</span> err = <span class="hljs-keyword">new</span> AggregateError();
-err.push(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&quot;first error&quot;</span>));
-err.push(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&quot;second error&quot;</span>));
-<span class="hljs-comment">// ...</span>
-<span class="hljs-keyword">throw</span> err;
-</code></pre><p>下面是一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> resolved = <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-number">42</span>);
+</code></pre><p>上面代码中，<code>Promise.any()</code>方法的参数数组包含三个 Promise 操作。其中只要有一个变成<code>fulfilled</code>，<code>Promise.any()</code>返回的 Promise 对象就变成<code>fulfilled</code>。如果所有三个操作都变成<code>rejected</code>，那么<code>await</code>命令就会抛出错误。</p><p><code>Promise.any()</code>抛出的错误是一个 AggregateError 实例（详见《对象的扩展》一章），这个 AggregateError 实例对象的<code>errors</code>属性是一个数组，包含了所有成员的错误。</p><p>下面是一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> resolved = <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-number">42</span>);
 <span class="hljs-keyword">var</span> rejected = <span class="hljs-built_in">Promise</span>.reject(-<span class="hljs-number">1</span>);
 <span class="hljs-keyword">var</span> alsoRejected = <span class="hljs-built_in">Promise</span>.reject(<span class="hljs-literal">Infinity</span>);
 
@@ -465,7 +458,8 @@ err.push(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error
 });
 
 <span class="hljs-built_in">Promise</span>.any([rejected, alsoRejected]).catch(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">results</span>) </span>{
-  <span class="hljs-built_in">console</span>.log(results); <span class="hljs-comment">// [-1, Infinity]</span>
+  <span class="hljs-built_in">console</span>.log(results <span class="hljs-keyword">instanceof</span> AggregateError); <span class="hljs-comment">// true</span>
+  <span class="hljs-built_in">console</span>.log(results.errors); <span class="hljs-comment">// [-1, Infinity]</span>
 });
 </code></pre><h2 id="promiseresolve">Promise.resolve() <a class="markdownIt-Anchor" href="#promiseresolve">#</a></h2><p>有时需要将现有对象转为 Promise 对象，<code>Promise.resolve()</code>方法就起到这个作用。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> jsPromise = <span class="hljs-built_in">Promise</span>.resolve($.ajax(<span class="hljs-string">&#x27;/whatever.json&#x27;</span>));
 </code></pre><p>上面代码将 jQuery 生成的<code>deferred</code>对象，转为一个新的 Promise 对象。</p><p><code>Promise.resolve()</code>等价于下面的写法。</p><pre class="hljs"><code><span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-string">&#x27;foo&#x27;</span>)
