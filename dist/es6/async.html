@@ -421,9 +421,9 @@ test();
     <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">await</span> textPromise);
   }
 }
-</code></pre><p>上面代码中，虽然<code>map</code>方法的参数是<code>async</code>函数，但它是并发执行的，因为只有<code>async</code>函数内部是继发执行，外部不受影响。后面的<code>for..of</code>循环内部使用了<code>await</code>，因此实现了按顺序输出。</p><h2 id="顶层-await">顶层 await <a class="markdownIt-Anchor" href="#顶层-await">#</a></h2><p>根据语法规格，<code>await</code>命令只能出现在 async 函数内部，否则都会报错。</p><pre class="hljs"><code><span class="hljs-comment">// 报错</span>
+</code></pre><p>上面代码中，虽然<code>map</code>方法的参数是<code>async</code>函数，但它是并发执行的，因为只有<code>async</code>函数内部是继发执行，外部不受影响。后面的<code>for..of</code>循环内部使用了<code>await</code>，因此实现了按顺序输出。</p><h2 id="顶层-await">顶层 await <a class="markdownIt-Anchor" href="#顶层-await">#</a></h2><p>早期的语法规定是，<code>await</code>命令只能出现在 async 函数内部，否则都会报错。</p><pre class="hljs"><code><span class="hljs-comment">// 报错</span>
 <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> fetch(<span class="hljs-string">&#x27;https://api.example.com&#x27;</span>);
-</code></pre><p>上面代码中，<code>await</code>命令独立使用，没有放在 async 函数里面，就会报错。</p><p>目前，有一个<a href="https://github.com/tc39/proposal-top-level-await" target="_blank" rel="noopener">语法提案</a>，允许在模块的顶层独立使用<code>await</code>命令，使得上面那行代码不会报错了。这个提案的目的，是借用<code>await</code>解决模块异步加载的问题。</p><pre class="hljs"><code><span class="hljs-comment">// awaiting.js</span>
+</code></pre><p>上面代码中，<code>await</code>命令独立使用，没有放在 async 函数里面，就会报错。</p><p>从 <a href="https://github.com/tc39/proposal-top-level-await" target="_blank" rel="noopener">ES2022</a> 开始，允许在模块的顶层独立使用<code>await</code>命令，使得上面那行代码不会报错了。它的只要目的，是使用<code>await</code>解决模块异步加载的问题。</p><pre class="hljs"><code><span class="hljs-comment">// awaiting.js</span>
 <span class="hljs-keyword">let</span> output;
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">main</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> dynamic = <span class="hljs-keyword">await</span> <span class="hljs-keyword">import</span>(someMission);
@@ -432,15 +432,7 @@ test();
 }
 main();
 <span class="hljs-keyword">export</span> { output };
-</code></pre><p>上面代码中，模块<code>awaiting.js</code>的输出值<code>output</code>，取决于异步操作。我们把异步操作包装在一个 async 函数里面，然后调用这个函数，只有等里面的异步操作都执行，变量<code>output</code>才会有值，否则就返回<code>undefined</code>。</p><p>上面的代码也可以写成立即执行函数的形式。</p><pre class="hljs"><code><span class="hljs-comment">// awaiting.js</span>
-<span class="hljs-keyword">let</span> output;
-(<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">main</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> dynamic = <span class="hljs-keyword">await</span> <span class="hljs-keyword">import</span>(someMission);
-  <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> fetch(url);
-  output = someProcess(dynamic.default, data);
-})();
-<span class="hljs-keyword">export</span> { output };
-</code></pre><p>下面是加载这个模块的写法。</p><pre class="hljs"><code><span class="hljs-comment">// usage.js</span>
+</code></pre><p>上面代码中，模块<code>awaiting.js</code>的输出值<code>output</code>，取决于异步操作。我们把异步操作包装在一个 async 函数里面，然后调用这个函数，只有等里面的异步操作都执行，变量<code>output</code>才会有值，否则就返回<code>undefined</code>。</p><p>下面是加载这个模块的写法。</p><pre class="hljs"><code><span class="hljs-comment">// usage.js</span>
 <span class="hljs-keyword">import</span> { output } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./awaiting.js&quot;</span>;
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">outputPlusValue</span>(<span class="hljs-params">value</span>) </span>{ <span class="hljs-keyword">return</span> output + value }

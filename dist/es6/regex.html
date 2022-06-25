@@ -219,18 +219,18 @@ RE_TWICE.test(<span class="hljs-string">&#x27;abc!ab&#x27;</span>) <span class="
 </code></pre><p>这两种引用语法还可以同时使用。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> RE_TWICE = <span class="hljs-regexp">/^(?&lt;word&gt;[a-z]+)!\k&lt;word&gt;!\1$/</span>;
 RE_TWICE.test(<span class="hljs-string">&#x27;abc!abc!abc&#x27;</span>) <span class="hljs-comment">// true</span>
 RE_TWICE.test(<span class="hljs-string">&#x27;abc!abc!ab&#x27;</span>) <span class="hljs-comment">// false</span>
-</code></pre><h2 id="正则匹配索引">正则匹配索引 <a class="markdownIt-Anchor" href="#正则匹配索引">#</a></h2><p>正则匹配结果的开始位置和结束位置，目前获取并不是很方便。正则实例的<code>exec()</code>方法，返回结果有一个<code>index</code>属性，可以获取整个匹配结果的开始位置，但是如果包含组匹配，每个组匹配的开始位置，很难拿到。</p><p>现在有一个<a href="https://github.com/tc39/proposal-regexp-match-Indices" target="_blank" rel="noopener">第三阶段提案</a>，为<code>exec()</code>方法的返回结果加上<code>indices</code>属性，在这个属性上面可以拿到匹配的开始位置和结束位置。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> text = <span class="hljs-string">&#x27;zabbcdef&#x27;</span>;
+</code></pre><h2 id="正则匹配索引">正则匹配索引 <a class="markdownIt-Anchor" href="#正则匹配索引">#</a></h2><p>正则匹配的结果，在原始字符串里面的开始位置和结束位置，目前获取并不是很方便。正则实例的<code>exec()</code>方法的返回结果，现有一个<code>index</code>属性，可以获取整个匹配结果的开始位置。但是，组匹配的每个组的开始位置，很难拿到。</p><p><a href="https://github.com/tc39/proposal-regexp-match-Indices" target="_blank" rel="noopener">ES2022</a> 为<code>exec()</code>方法的返回结果加上<code>indices</code>属性，在这个属性上面可以拿到匹配的开始位置和结束位置。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> text = <span class="hljs-string">&#x27;zabbcdef&#x27;</span>;
 <span class="hljs-keyword">const</span> re = <span class="hljs-regexp">/ab/</span>;
 <span class="hljs-keyword">const</span> result = re.exec(text);
 
 result.index <span class="hljs-comment">// 1</span>
 result.indices <span class="hljs-comment">// [ [1, 3] ]</span>
-</code></pre><p>上面例子中，<code>exec()</code>方法的返回结果<code>result</code>，它的<code>index</code>属性是整个匹配结果（<code>ab</code>）的开始位置，而它的<code>indices</code>属性是一个数组，成员是每个匹配的开始位置和结束位置的数组。由于该例子的正则表达式没有组匹配，所以<code>indices</code>数组只有一个成员，表示整个匹配的开始位置是<code>1</code>，结束位置是<code>3</code>。</p><p>注意，开始位置包含在匹配结果之中，但是结束位置不包含在匹配结果之中。比如，匹配结果为<code>ab</code>，分别是原始字符串的第1位和第2位，那么结束位置就是第3位。</p><p>如果正则表达式包含组匹配，那么<code>indices</code>属性对应的数组就会包含多个成员，提供每个组匹配的开始位置和结束位置。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> text = <span class="hljs-string">&#x27;zabbcdef&#x27;</span>;
+</code></pre><p>上面例子中，<code>exec()</code>方法的返回结果<code>result</code>，它的<code>index</code>属性是整个匹配结果（<code>ab</code>）的开始位置，现在新增了一个<code>indices</code>属性。它是一个数组，每个成员还是一个数组，包含了匹配结果在原始字符串的开始位置和结束位置。由于上例的正则表达式没有组匹配，所以<code>indices</code>数组只有一个成员，表示整个匹配的开始位置是<code>1</code>，结束位置是<code>3</code>。</p><p>注意，开始位置包含在匹配结果之中，相当于匹配结果的第一个字符的位置。但是，结束位置不包含在匹配结果之中，是匹配结果的下一个字符。比如，上例匹配结果的最后一个字符<code>b</code>的位置，是原始字符串的2号位，那么结束位置<code>3</code>就是下一个字符的位置。</p><p>如果正则表达式包含组匹配，那么<code>indices</code>属性对应的数组就会包含多个成员，提供每个组匹配的开始位置和结束位置。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> text = <span class="hljs-string">&#x27;zabbcdef&#x27;</span>;
 <span class="hljs-keyword">const</span> re = <span class="hljs-regexp">/ab+(cd)/</span>;
 <span class="hljs-keyword">const</span> result = re.exec(text);
 
 result.indices <span class="hljs-comment">// [ [ 1, 6 ], [ 4, 6 ] ]</span>
-</code></pre><p>上面例子中，正则表达式包含一个组匹配，那么<code>indices</code>属性数组就有两个成员，第一个成员是整个匹配结果（<code>abbcd</code>）的开始位置和结束位置，第二个成员是组匹配（<code>cd</code>）的开始位置和结束位置。</p><p>下面是多个组匹配的例子。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> text = <span class="hljs-string">&#x27;zabbcdef&#x27;</span>;
+</code></pre><p>上面例子中，正则表达式包含一个组匹配<code>(cd)</code>，那么<code>indices</code>属性数组就有两个成员，第一个成员是整个匹配结果（<code>abbcd</code>）的开始位置和结束位置，第二个成员是组匹配（<code>cd</code>）的开始位置和结束位置。</p><p>下面是多个组匹配的例子。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> text = <span class="hljs-string">&#x27;zabbcdef&#x27;</span>;
 <span class="hljs-keyword">const</span> re = <span class="hljs-regexp">/ab+(cd(ef))/</span>;
 <span class="hljs-keyword">const</span> result = re.exec(text);
 
