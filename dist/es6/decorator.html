@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>装饰器 - ES6 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="装饰器"><link rel="apple-touch-icon" sizes="57x57" href="assets/icons/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="assets/icons/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="assets/icons/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="assets/icons/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="assets/icons/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="assets/icons/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="assets/icons/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="assets/icons/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png"><link rel="manifest" href="assets/icons/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="assets/icons/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/es6-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/es6-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8 is-6-widescreen is-offset-1-widescreen"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;ES6 教程</a></li><li class="is-active"><a class="has-text-grey" href="decorator.html">Decorator</a></li></ul></nav><nav class="level level-previous-next is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="proposals.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> 最新提案</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="reference.html">参考链接 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content"><h1 class="title">装饰器</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><p>[说明] Decorator 提案经过了大幅修改，目前还没有定案，不知道语法会不会再变。下面的内容完全依据以前的提案，已经有点过时了。等待定案以后，需要完全重写。</p><p>装饰器（Decorator）是一种与类（class）相关的语法，用来注释或修改类和类方法。许多面向对象的语言都有这项功能，目前有一个<a href="https://github.com/tc39/proposal-decorators" target="_blank" rel="noopener">提案</a>将其引入了 ECMAScript。</p><p>装饰器是一种函数，写成<code>@ + 函数名</code>。它可以放在类和类方法的定义前面。</p><pre class="hljs"><code>@frozen <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> </span>{
+<!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>装饰器 - ES6 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="装饰器"><link rel="apple-touch-icon" sizes="57x57" href="assets/icons/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="assets/icons/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="assets/icons/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="assets/icons/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="assets/icons/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="assets/icons/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="assets/icons/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="assets/icons/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png"><link rel="manifest" href="assets/icons/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="assets/icons/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/es6-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/es6-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8 is-6-widescreen is-offset-1-widescreen"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;ES6 教程</a></li><li class="is-active"><a class="has-text-grey" href="decorator.html">Decorator</a></li></ul></nav><nav class="level level-previous-next is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="proposals.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> 最新提案</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="reference.html">参考链接 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content"><h1 class="title">装饰器</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><p>[说明] Decorator 提案经历了重大的语法变化，目前处于第三阶段，定案之前不知道是否还有变化。本章现在属于草稿阶段，凡是标注“新语法”的章节，都是基于当前的语法，不过没有详细整理，只是一些原始材料；未标注“新语法”的章节基于以前的语法，是过去遗留的稿子。之所以保留以前的内容，有两个原因，一是 TypeScript 装饰器会用到这些语法，二是里面包含不少有价值的内容。等到标准完全定案，本章将彻底重写：删去过时内容，补充材料，增加解释。（2022年6月）</p><p>装饰器（Decorator）用来增强 JavaScript 类（class）的功能，许多面向对象的语言都有这种语法，目前有一个<a href="https://github.com/tc39/proposal-decorators" target="_blank" rel="noopener">提案</a>将其引入了 ECMAScript。</p><p>装饰器是一种函数，写成<code>@ + 函数名</code>。它可以放在类和类方法的定义前面。</p><pre class="hljs"><code>@frozen <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> </span>{
   @configurable(<span class="hljs-literal">false</span>)
   @enumerable(<span class="hljs-literal">true</span>)
   <span class="hljs-function"><span class="hljs-title">method</span>(<span class="hljs-params"></span>)</span> {}
@@ -6,7 +6,18 @@
   @throttle(<span class="hljs-number">500</span>)
   <span class="hljs-function"><span class="hljs-title">expensiveMethod</span>(<span class="hljs-params"></span>)</span> {}
 }
-</code></pre><p>上面代码一共使用了四个装饰器，一个用在类本身，另外三个用在类方法。它们不仅增加了代码的可读性，清晰地表达了意图，而且提供一种方便的手段，增加或修改类的功能。</p><h2 id="类的装饰">类的装饰 <a class="markdownIt-Anchor" href="#类的装饰">#</a></h2><p>装饰器可以用来装饰整个类。</p><pre class="hljs"><code>@testable
+</code></pre><p>上面代码一共使用了四个装饰器，一个用在类本身，另外三个用在类方法。它们不仅增加了代码的可读性，清晰地表达了意图，而且提供一种方便的手段，增加或修改类的功能。</p><h2 id="装饰器的种类新语法">装饰器的种类（新语法） <a class="markdownIt-Anchor" href="#装饰器的种类新语法">#</a></h2><p>装饰器可以用来装饰四种类型的值。</p><ul><li>类</li><li>类的属性（public, private, and static）</li><li>类的方法（public, private, and static）</li><li>属性存取器（accessor）（public, private, and static）</li></ul><h2 id="装饰器-api新语法">装饰器 API（新语法） <a class="markdownIt-Anchor" href="#装饰器-api新语法">#</a></h2><p>装饰器是一个函数，API 的类型描述如下（TypeScript 写法）。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> Decorator = <span class="hljs-function">(<span class="hljs-params">value: Input, context: {
+  kind: <span class="hljs-built_in">string</span>;
+  name: <span class="hljs-built_in">string</span> | symbol;
+  access: {
+    get?(): unknown;
+    set?(value: unknown): <span class="hljs-built_in">void</span>;
+  };
+  <span class="hljs-keyword">private</span>?: <span class="hljs-built_in">boolean</span>;
+  <span class="hljs-keyword">static</span>?: <span class="hljs-built_in">boolean</span>;
+  addInitializer?(initializer: () =&gt; <span class="hljs-built_in">void</span>): <span class="hljs-built_in">void</span>;
+}</span>) =&gt;</span> Output | <span class="hljs-built_in">void</span>;
+</code></pre><p>装饰器函数调用时，会接收到两个参数。</p><ul><li><code>value</code>：被装饰的值，某些情况下可能是<code>undefined</code>（装饰属性时）。</li><li><code>context</code>：一个对象，包含了被装饰的值的上下文信息。</li></ul><p>另外，<code>input</code>和<code>output</code>表示输入的值和输出的值，每种装饰器都不一样，放在后面介绍。所有装饰器都可以不返回任何值。</p><p><code>context</code>对象的属性如下。</p><ul><li><code>kind</code>：字符串，表示装饰类型，可能取值有<code>class</code>、<code>method</code>、<code>getter</code>、<code>setter</code>、<code>field</code>、<code>accessor</code>。</li><li><code>name</code>：被装饰的值的名称: The name of the value, or in the case of private elements the description of it (e.g. the readable name).</li><li><code>access</code>：对象，包含访问这个值的方法，即存值器和取值器。</li><li><code>static</code>: 布尔值，该值是否为静态元素。</li><li><code>private</code>：布尔值，该值是否为私有元素。</li><li><code>addInitializer</code>：函数，允许用户增加初始化逻辑。</li></ul><p>装饰器的执行步骤如下。</p><ol><li>计算各个装饰器的值，按照从左到右，从上到下的顺序。</li><li>调用方法装饰器。</li><li>调用类装饰器。</li></ol><h2 id="类的装饰">类的装饰 <a class="markdownIt-Anchor" href="#类的装饰">#</a></h2><p>装饰器可以用来装饰整个类。</p><pre class="hljs"><code>@testable
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyTestableClass</span> </span>{
   <span class="hljs-comment">// ...</span>
 }
@@ -82,7 +93,75 @@ obj.foo() <span class="hljs-comment">// &#x27;foo&#x27;</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> connect(mapStateToProps, mapDispatchToProps)(MyReactComponent);
 </code></pre><p>有了装饰器，就可以改写上面的代码。</p><pre class="hljs"><code>@connect(mapStateToProps, mapDispatchToProps)
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyReactComponent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{}
-</code></pre><p>相对来说，后一种写法看上去更容易理解。</p><h2 id="方法的装饰">方法的装饰 <a class="markdownIt-Anchor" href="#方法的装饰">#</a></h2><p>装饰器不仅可以装饰类，还可以装饰类的属性。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> </span>{
+</code></pre><p>相对来说，后一种写法看上去更容易理解。</p><h2 id="类装饰器新语法">类装饰器（新语法） <a class="markdownIt-Anchor" href="#类装饰器新语法">#</a></h2><p>类装饰器的类型描述如下。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> ClassDecorator = <span class="hljs-function">(<span class="hljs-params">value: <span class="hljs-built_in">Function</span>, context: {
+  kind: <span class="hljs-string">&quot;class&quot;</span>;
+  name: <span class="hljs-built_in">string</span> | <span class="hljs-literal">undefined</span>;
+  addInitializer(initializer: () =&gt; <span class="hljs-built_in">void</span>): <span class="hljs-built_in">void</span>;
+}</span>) =&gt;</span> <span class="hljs-built_in">Function</span> | <span class="hljs-built_in">void</span>;
+</code></pre><p>类装饰器的第一个参数，就是被装饰的类。第二个参数是上下文对象，如果被装饰的类是一个匿名类，<code>name</code>属性就为<code>undefined</code>。</p><p>类装饰器可以返回一个新的类，取代原来的类，也可以不返回任何值。如果返回的不是构造函数，就会报错。</p><p>下面是一个例子。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">logged</span>(<span class="hljs-params">value, { kind, name }</span>) </span>{
+  <span class="hljs-keyword">if</span> (kind === <span class="hljs-string">&quot;class&quot;</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">value</span> </span>{
+      <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">...args</span>)</span> {
+        <span class="hljs-built_in">super</span>(...args);
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`constructing an instance of <span class="hljs-subst">${name}</span> with arguments <span class="hljs-subst">${args.join(<span class="hljs-string">&quot;, &quot;</span>)}</span>`</span>);
+      }
+    }
+  }
+
+  <span class="hljs-comment">// ...</span>
+}
+
+@logged
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">C</span> </span>{}
+
+<span class="hljs-keyword">new</span> C(<span class="hljs-number">1</span>);
+<span class="hljs-comment">// constructing an instance of C with arguments 1</span>
+</code></pre><p>如果不使用装饰器，类装饰器实际上执行的是下面的语法。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">C</span> </span>{}
+
+C = logged(C, {
+  <span class="hljs-attr">kind</span>: <span class="hljs-string">&quot;class&quot;</span>,
+  <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;C&quot;</span>,
+}) ?? C;
+
+<span class="hljs-keyword">new</span> C(<span class="hljs-number">1</span>);
+</code></pre><h2 id="方法装饰器新语法">方法装饰器（新语法） <a class="markdownIt-Anchor" href="#方法装饰器新语法">#</a></h2><p>方式装饰器使用 TypeScript 描述类型如下。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> ClassMethodDecorator = <span class="hljs-function">(<span class="hljs-params">value: <span class="hljs-built_in">Function</span>, context: {
+  kind: <span class="hljs-string">&quot;method&quot;</span>;
+  name: <span class="hljs-built_in">string</span> | symbol;
+  access: { get(): unknown };
+  <span class="hljs-keyword">static</span>: <span class="hljs-built_in">boolean</span>;
+  <span class="hljs-keyword">private</span>: <span class="hljs-built_in">boolean</span>;
+  addInitializer(initializer: () =&gt; <span class="hljs-built_in">void</span>): <span class="hljs-built_in">void</span>;
+}</span>) =&gt;</span> <span class="hljs-built_in">Function</span> | <span class="hljs-built_in">void</span>;
+</code></pre><p>方法装饰器的第一个参数<code>value</code>，就是所要装饰的方法。</p><p>方法装饰器可以返回一个新方法，取代原来的方法，也可以不返回值，表示依然使用原来的方法。如果返回其他类型的值，就会报错。</p><p>下面是一个例子。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">logged</span>(<span class="hljs-params">value, { kind, name }</span>) </span>{
+  <span class="hljs-keyword">if</span> (kind === <span class="hljs-string">&quot;method&quot;</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">...args</span>) </span>{
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`starting <span class="hljs-subst">${name}</span> with arguments <span class="hljs-subst">${args.join(<span class="hljs-string">&quot;, &quot;</span>)}</span>`</span>);
+      <span class="hljs-keyword">const</span> ret = value.call(<span class="hljs-built_in">this</span>, ...args);
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`ending <span class="hljs-subst">${name}</span>`</span>);
+      <span class="hljs-keyword">return</span> ret;
+    };
+  }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">C</span> </span>{
+  <span class="hljs-meta">@logged</span>
+  <span class="hljs-function"><span class="hljs-title">m</span>(<span class="hljs-params">arg</span>)</span> {}
+}
+
+<span class="hljs-keyword">new</span> C().m(<span class="hljs-number">1</span>);
+<span class="hljs-comment">// starting m with arguments 1</span>
+<span class="hljs-comment">// ending m</span>
+</code></pre><p>上面示例中，装饰器<code>@logged</code>返回一个函数，代替原来的<code>m()</code>方法。</p><p>这里的装饰器实际上是一个语法糖，真正的操作是像下面这样，改掉原型链上面<code>m()</code>方法。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">C</span> </span>{
+  <span class="hljs-function"><span class="hljs-title">m</span>(<span class="hljs-params">arg</span>)</span> {}
+}
+
+C.prototype.m = logged(C.prototype.m, {
+  <span class="hljs-attr">kind</span>: <span class="hljs-string">&quot;method&quot;</span>,
+  <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;m&quot;</span>,
+  <span class="hljs-attr">static</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">private</span>: <span class="hljs-literal">false</span>,
+}) ?? C.prototype.m;
+</code></pre><h2 id="方法的装饰">方法的装饰 <a class="markdownIt-Anchor" href="#方法的装饰">#</a></h2><p>装饰器不仅可以装饰类，还可以装饰类的属性。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> </span>{
   @readonly
   <span class="hljs-function"><span class="hljs-title">name</span>(<span class="hljs-params"></span>)</span> { <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${<span class="hljs-built_in">this</span>.first}</span> <span class="hljs-subst">${<span class="hljs-built_in">this</span>.last}</span>`</span> }
 }
@@ -214,6 +293,249 @@ readOnly = <span class="hljs-built_in">require</span>(<span class="hljs-string">
 }
 
 <span class="hljs-keyword">const</span> wrapped = loggingDecorator(doSomething);
+</code></pre><h2 id="存取器装饰器新语法">存取器装饰器（新语法） <a class="markdownIt-Anchor" href="#存取器装饰器新语法">#</a></h2><p>存取器装饰器使用 TypeScript 描述的类型如下。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> ClassGetterDecorator = <span class="hljs-function">(<span class="hljs-params">value: <span class="hljs-built_in">Function</span>, context: {
+  kind: <span class="hljs-string">&quot;getter&quot;</span>;
+  name: <span class="hljs-built_in">string</span> | symbol;
+  access: { get(): unknown };
+  <span class="hljs-keyword">static</span>: <span class="hljs-built_in">boolean</span>;
+  <span class="hljs-keyword">private</span>: <span class="hljs-built_in">boolean</span>;
+  addInitializer(initializer: () =&gt; <span class="hljs-built_in">void</span>): <span class="hljs-built_in">void</span>;
+}</span>) =&gt;</span> <span class="hljs-built_in">Function</span> | <span class="hljs-built_in">void</span>;
+
+<span class="hljs-keyword">type</span> ClassSetterDecorator = <span class="hljs-function">(<span class="hljs-params">value: <span class="hljs-built_in">Function</span>, context: {
+  kind: <span class="hljs-string">&quot;setter&quot;</span>;
+  name: <span class="hljs-built_in">string</span> | symbol;
+  access: { set(value: unknown): <span class="hljs-built_in">void</span> };
+  <span class="hljs-keyword">static</span>: <span class="hljs-built_in">boolean</span>;
+  <span class="hljs-keyword">private</span>: <span class="hljs-built_in">boolean</span>;
+  addInitializer(initializer: () =&gt; <span class="hljs-built_in">void</span>): <span class="hljs-built_in">void</span>;
+}</span>) =&gt;</span> <span class="hljs-built_in">Function</span> | <span class="hljs-built_in">void</span>;
+</code></pre><p>存取器装饰器的第一个参数就是原始的存值器（setter）和取值器（getter）。</p><p>存取器装饰器的返回值如果是一个函数，就会取代原来的存取器。本质上，就像方法装饰器一样，修改发生在类的原型对象上。它也可以不返回任何值，继续使用原来的存取器。如果返回其他类型的值，就会报错。</p><p>存取器装饰器对存值器（setter）和取值器（getter）是分开作用的。下面的例子里面，<code>@foo</code>只装饰<code>get x()</code>，不装饰<code>set x()</code>。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">C</span> </span>{
+  @foo
+  <span class="hljs-keyword">get</span> <span class="hljs-title">x</span>() {
+    <span class="hljs-comment">// ...</span>
+  }
+
+  <span class="hljs-keyword">set</span> <span class="hljs-title">x</span>(<span class="hljs-params">val</span>) {
+    <span class="hljs-comment">// ...</span>
+  }
+}
+</code></pre><p>上一节的<code>@logged</code>装饰器稍加修改，就可以用在存取装饰器。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">logged</span>(<span class="hljs-params">value, { kind, name }</span>) </span>{
+  <span class="hljs-keyword">if</span> (kind === <span class="hljs-string">&quot;method&quot;</span> || kind === <span class="hljs-string">&quot;getter&quot;</span> || kind === <span class="hljs-string">&quot;setter&quot;</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">...args</span>) </span>{
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`starting <span class="hljs-subst">${name}</span> with arguments <span class="hljs-subst">${args.join(<span class="hljs-string">&quot;, &quot;</span>)}</span>`</span>);
+      <span class="hljs-keyword">const</span> ret = value.call(<span class="hljs-built_in">this</span>, ...args);
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`ending <span class="hljs-subst">${name}</span>`</span>);
+      <span class="hljs-keyword">return</span> ret;
+    };
+  }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">C</span> </span>{
+  @logged
+  <span class="hljs-keyword">set</span> <span class="hljs-title">x</span>(<span class="hljs-params">arg</span>) {}
+}
+
+<span class="hljs-keyword">new</span> C().x = <span class="hljs-number">1</span>
+<span class="hljs-comment">// starting x with arguments 1</span>
+<span class="hljs-comment">// ending x</span>
+</code></pre><p>如果去掉语法糖，使用传统语法来写，就是改掉了类的原型链。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">C</span> </span>{
+  <span class="hljs-keyword">set</span> <span class="hljs-title">x</span>(<span class="hljs-params">arg</span>) {}
+}
+
+<span class="hljs-keyword">let</span> { set } = <span class="hljs-built_in">Object</span>.getOwnPropertyDescriptor(C.prototype, <span class="hljs-string">&quot;x&quot;</span>);
+set = logged(set, {
+  <span class="hljs-attr">kind</span>: <span class="hljs-string">&quot;setter&quot;</span>,
+  <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;x&quot;</span>,
+  <span class="hljs-attr">static</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">private</span>: <span class="hljs-literal">false</span>,
+}) ?? set;
+
+<span class="hljs-built_in">Object</span>.defineProperty(C.prototype, <span class="hljs-string">&quot;x&quot;</span>, { set });
+</code></pre><h2 id="属性装饰器新语法">属性装饰器（新语法） <a class="markdownIt-Anchor" href="#属性装饰器新语法">#</a></h2><p>属性装饰器的类型描述如下。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> ClassFieldDecorator = <span class="hljs-function">(<span class="hljs-params">value: <span class="hljs-literal">undefined</span>, context: {
+  kind: <span class="hljs-string">&quot;field&quot;</span>;
+  name: <span class="hljs-built_in">string</span> | symbol;
+  access: { get(): unknown, set(value: unknown): <span class="hljs-built_in">void</span> };
+  <span class="hljs-keyword">static</span>: <span class="hljs-built_in">boolean</span>;
+  <span class="hljs-keyword">private</span>: <span class="hljs-built_in">boolean</span>;
+}</span>) =&gt;</span> <span class="hljs-function">(<span class="hljs-params">initialValue: unknown</span>) =&gt;</span> unknown | <span class="hljs-built_in">void</span>;
+</code></pre><p>属性装饰器的第一个参数是<code>undefined</code>，即没有一个直接的输入值。用户可以选择让装饰器返回一个初始化函数，当该属性被赋值时，这个初始化函数会自动运行，它会收到属性的初始值，然后返回一个新的初始值。属性装饰器也可以不返回任何值。只要返回的不是函数，而是其他类型的值，就会报错。</p><p>下面是一个例子。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">logged</span>(<span class="hljs-params">value, { kind, name }</span>) </span>{
+  <span class="hljs-keyword">if</span> (kind === <span class="hljs-string">&quot;field&quot;</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">initialValue</span>) </span>{
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`initializing <span class="hljs-subst">${name}</span> with value <span class="hljs-subst">${initialValue}</span>`</span>);
+      <span class="hljs-keyword">return</span> initialValue;
+    };
+  }
+
+  <span class="hljs-comment">// ...</span>
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">C</span> </span>{
+  @logged x = <span class="hljs-number">1</span>;
+}
+
+<span class="hljs-keyword">new</span> C();
+<span class="hljs-comment">// initializing x with value 1</span>
+</code></pre><p>如果不使用装饰器语法，属性装饰器的实际作用如下。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> initializeX = logged(<span class="hljs-literal">undefined</span>, {
+  <span class="hljs-attr">kind</span>: <span class="hljs-string">&quot;field&quot;</span>,
+  <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;x&quot;</span>,
+  <span class="hljs-attr">static</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">private</span>: <span class="hljs-literal">false</span>,
+}) ?? <span class="hljs-function">(<span class="hljs-params">initialValue</span>) =&gt;</span> initialValue;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">C</span> </span>{
+  x = initializeX.call(<span class="hljs-built_in">this</span>, <span class="hljs-number">1</span>);
+}
+</code></pre><h2 id="accessor-命令新语法">accessor 命令（新语法） <a class="markdownIt-Anchor" href="#accessor-命令新语法">#</a></h2><p>类装饰器引入了一个新命令<code>accessor</code>，用来属性的前缀。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">C</span> </span>{
+  accessor x = <span class="hljs-number">1</span>;
+}
+</code></pre><p>它是一种简写形式，相当于声明属性<code>x</code>是私有属性<code>#x</code>的存取接口。上面的代码等同于下面的代码。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">C</span> </span>{
+  #x = <span class="hljs-number">1</span>;
+
+  <span class="hljs-keyword">get</span> <span class="hljs-title">x</span>() {
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.#x;
+  }
+
+  <span class="hljs-keyword">set</span> <span class="hljs-title">x</span>(<span class="hljs-params">val</span>) {
+    <span class="hljs-built_in">this</span>.#x = val;
+  }
+}
+</code></pre><p><code>accessor</code>命令前面，还可以加上<code>static</code>命令和<code>private</code>命令。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">C</span> </span>{
+  <span class="hljs-keyword">static</span> accessor x = <span class="hljs-number">1</span>;
+  accessor #y = <span class="hljs-number">2</span>;
+}
+</code></pre><p><code>accessor</code>命令前面还可以接受属性装饰器。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">logged</span>(<span class="hljs-params">value, { kind, name }</span>) </span>{
+  <span class="hljs-keyword">if</span> (kind === <span class="hljs-string">&quot;accessor&quot;</span>) {
+    <span class="hljs-keyword">let</span> { get, set } = value;
+
+    <span class="hljs-keyword">return</span> {
+      <span class="hljs-function"><span class="hljs-title">get</span>(<span class="hljs-params"></span>)</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`getting <span class="hljs-subst">${name}</span>`</span>);
+
+        <span class="hljs-keyword">return</span> get.call(<span class="hljs-built_in">this</span>);
+      },
+
+      <span class="hljs-function"><span class="hljs-title">set</span>(<span class="hljs-params">val</span>)</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`setting <span class="hljs-subst">${name}</span> to <span class="hljs-subst">${val}</span>`</span>);
+
+        <span class="hljs-keyword">return</span> set.call(<span class="hljs-built_in">this</span>, val);
+      },
+
+      <span class="hljs-function"><span class="hljs-title">init</span>(<span class="hljs-params">initialValue</span>)</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`initializing <span class="hljs-subst">${name}</span> with value <span class="hljs-subst">${initialValue}</span>`</span>);
+        <span class="hljs-keyword">return</span> initialValue;
+      }
+    };
+  }
+
+  <span class="hljs-comment">// ...</span>
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">C</span> </span>{
+  @logged accessor x = <span class="hljs-number">1</span>;
+}
+
+<span class="hljs-keyword">let</span> c = <span class="hljs-keyword">new</span> C();
+<span class="hljs-comment">// initializing x with value 1</span>
+c.x;
+<span class="hljs-comment">// getting x</span>
+c.x = <span class="hljs-number">123</span>;
+<span class="hljs-comment">// setting x to 123</span>
+</code></pre><p>上面的示例等同于使用<code>@logged</code>装饰器，改写<code>accessor</code>属性的 getter 和 setter 方法。</p><p>用于<code>accessor</code>的属性装饰器的类型描述如下。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> ClassAutoAccessorDecorator = <span class="hljs-function">(<span class="hljs-params">
+  value: {
+    get: () =&gt; unknown;
+    set(value: unknown) =&gt; <span class="hljs-built_in">void</span>;
+  },
+  context: {
+    kind: <span class="hljs-string">&quot;accessor&quot;</span>;
+    name: <span class="hljs-built_in">string</span> | symbol;
+    access: { get(): unknown, set(value: unknown): <span class="hljs-built_in">void</span> };
+    <span class="hljs-keyword">static</span>: <span class="hljs-built_in">boolean</span>;
+    <span class="hljs-keyword">private</span>: <span class="hljs-built_in">boolean</span>;
+    addInitializer(initializer: () =&gt; <span class="hljs-built_in">void</span>): <span class="hljs-built_in">void</span>;
+  }
+</span>) =&gt;</span> {
+  get?: <span class="hljs-function">() =&gt;</span> unknown;
+  set?: <span class="hljs-function">(<span class="hljs-params">value: unknown</span>) =&gt;</span> <span class="hljs-built_in">void</span>;
+  initialize?: <span class="hljs-function">(<span class="hljs-params">initialValue: unknown</span>) =&gt;</span> unknown;
+} | <span class="hljs-built_in">void</span>;
+</code></pre><p><code>accessor</code>命令的第一个参数接收到的是一个对象，包含了<code>accessor</code>命令定义的属性的存取器 get 和 set。属性装饰器可以返回一个新对象，其中包含了新的存取器，用来取代原来的，即相当于拦截了原来的存取器。此外，返回的对象还可以包括一个<code>initialize</code>函数，用来改变私有属性的初始值。装饰器也可以不返回值，如果返回的是其他类型的值，或者包含其他属性的对象，就会报错。</p><h2 id="addinitializer-方法新语法">addInitializer() 方法（新语法） <a class="markdownIt-Anchor" href="#addinitializer-方法新语法">#</a></h2><p>除了属性装饰器，其他装饰器的上下文对象还包括一个<code>addInitializer()</code>方法，用来完成初始化操作。</p><p>它的运行时间如下。</p><ul><li>类装饰器：在类被完全定义之后。</li><li>方法装饰器：在类构造期间运行，在属性初始化之前。</li><li>静态方法装饰器：在类定义期间运行，早于静态属性定义，但晚于类方法的定义。</li></ul><p>下面是一个例子。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">customElement</span>(<span class="hljs-params">name</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">value, { addInitializer }</span>) =&gt;</span> {
+    addInitializer(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      customElements.define(name, <span class="hljs-built_in">this</span>);
+    });
+  }
+}
+
+@customElement(<span class="hljs-string">&#x27;my-element&#x27;</span>)
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyElement</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">HTMLElement</span> </span>{
+  <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> <span class="hljs-title">observedAttributes</span>() {
+    <span class="hljs-keyword">return</span> [<span class="hljs-string">&#x27;some&#x27;</span>, <span class="hljs-string">&#x27;attrs&#x27;</span>];
+  }
+}
+</code></pre><p>上面的代码等同于下面不使用装饰器的代码。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyElement</span> </span>{
+  <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> <span class="hljs-title">observedAttributes</span>() {
+    <span class="hljs-keyword">return</span> [<span class="hljs-string">&#x27;some&#x27;</span>, <span class="hljs-string">&#x27;attrs&#x27;</span>];
+  }
+}
+
+<span class="hljs-keyword">let</span> initializersForMyElement = [];
+
+MyElement = customElement(<span class="hljs-string">&#x27;my-element&#x27;</span>)(MyElement, {
+  <span class="hljs-attr">kind</span>: <span class="hljs-string">&quot;class&quot;</span>,
+  <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;MyElement&quot;</span>,
+  <span class="hljs-function"><span class="hljs-title">addInitializer</span>(<span class="hljs-params">fn</span>)</span> {
+    initializersForMyElement.push(fn);
+  },
+}) ?? MyElement;
+
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> initializer <span class="hljs-keyword">of</span> initializersForMyElement) {
+  initializer.call(MyElement);
+}
+</code></pre><p>下面是方法装饰器的例子。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bound</span>(<span class="hljs-params">value, { name, addInitializer }</span>) </span>{
+  addInitializer(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-built_in">this</span>[name] = <span class="hljs-built_in">this</span>[name].bind(<span class="hljs-built_in">this</span>);
+  });
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">C</span> </span>{
+  message = <span class="hljs-string">&quot;hello!&quot;</span>;
+
+  @bound
+  <span class="hljs-function"><span class="hljs-title">m</span>(<span class="hljs-params"></span>)</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.message);
+  }
+}
+
+<span class="hljs-keyword">let</span> { m } = <span class="hljs-keyword">new</span> C();
+
+m(); <span class="hljs-comment">// hello!</span>
+</code></pre><p>上面的代码等同于下面不使用装饰器的代码。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">C</span> </span>{
+  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> initializer <span class="hljs-keyword">of</span> initializersForM) {
+      initializer.call(<span class="hljs-built_in">this</span>);
+    }
+
+    <span class="hljs-built_in">this</span>.message = <span class="hljs-string">&quot;hello!&quot;</span>;
+  }
+
+  <span class="hljs-function"><span class="hljs-title">m</span>(<span class="hljs-params"></span>)</span> {}
+}
+
+<span class="hljs-keyword">let</span> initializersForM = []
+
+C.prototype.m = bound(
+  C.prototype.m,
+  {
+    <span class="hljs-attr">kind</span>: <span class="hljs-string">&quot;method&quot;</span>,
+    <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;m&quot;</span>,
+    <span class="hljs-attr">static</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">private</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-function"><span class="hljs-title">addInitializer</span>(<span class="hljs-params">fn</span>)</span> {
+      initializersForM.push(fn);
+    },
+  }
+) ?? C.prototype.m;
 </code></pre><h2 id="core-decoratorsjs">core-decorators.js <a class="markdownIt-Anchor" href="#core-decoratorsjs">#</a></h2><p><a href="https://github.com/jayphelps/core-decorators.js" target="_blank" rel="noopener">core-decorators.js</a>是一个第三方模块，提供了几个常见的装饰器，通过它可以更好地理解装饰器。</p><p><strong>（1）@autobind</strong></p><p><code>autobind</code>装饰器使得方法中的<code>this</code>对象，绑定原始对象。</p><pre class="hljs"><code><span class="hljs-keyword">import</span> { autobind } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;core-decorators&#x27;</span>;
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> </span>{
@@ -493,4 +815,4 @@ obj.bar() <span class="hljs-comment">// bar</span>
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{}
 </code></pre><p>上面代码排除了<code>TExample</code>的<code>foo</code>方法和<code>bar</code>方法，为<code>baz</code>方法起了别名<code>exampleBaz</code>。</p><p><code>as</code>方法则为上面的代码提供了另一种写法。</p><pre class="hljs"><code>@traits(TExample::<span class="hljs-keyword">as</span>({<span class="hljs-attr">excludes</span>:[<span class="hljs-string">&#x27;foo&#x27;</span>, <span class="hljs-string">&#x27;bar&#x27;</span>], <span class="hljs-attr">alias</span>: {<span class="hljs-attr">baz</span>: <span class="hljs-string">&#x27;exampleBaz&#x27;</span>}}))
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{}
-</code></pre></article><nav class="level level-previous-next is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="proposals.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> 最新提案</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="reference.html">参考链接 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><div class="page-info"><p>本教程采用<a href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh" target="_blank">知识共享 署名-相同方式共享 3.0协议</a>。</p><p>分享本文 <span class="social-share"></span></p></div></div><div class="column is-3 is-offset-1"><nav class="panel panel-menu"><p class="panel-heading"><i class="fa fa-book" aria-hidden="true"></i> ES6 教程</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="intro.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">ECMAScript 6 简介</span></a></li><li><a href="let.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">let 和 const 命令</span></a></li><li><a href="destructuring.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">变量的解构赋值</span></a></li><li><a href="string.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">字符串的扩展</span></a></li><li><a href="string-methods.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">字符串的新增方法</span></a></li><li><a href="regex.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">正则的扩展</span></a></li><li><a href="number.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数值的扩展</span></a></li><li><a href="function.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">函数的扩展</span></a></li><li><a href="array.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数组的扩展</span></a></li><li><a href="object.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">对象的扩展</span></a></li><li><a href="object-methods.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">对象的新增方法</span></a></li><li><a href="operator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">运算符的扩展</span></a></li><li><a href="symbol.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Symbol</span></a></li><li><a href="set-map.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Set 和 Map 数据结构</span></a></li><li><a href="proxy.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Proxy</span></a></li><li><a href="reflect.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Reflect</span></a></li><li><a href="promise.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Promise 对象</span></a></li><li><a href="iterator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Iterator 和 for...of 循环</span></a></li><li><a href="generator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Generator 函数的语法</span></a></li><li><a href="generator-async.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Generator 函数的异步应用</span></a></li><li><a href="async.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">async 函数</span></a></li><li><a href="class.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Class 的基本语法</span></a></li><li><a href="class-extends.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Class 的继承</span></a></li><li><a href="module.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Module 的语法</span></a></li><li><a href="module-loader.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Module 的加载实现</span></a></li><li><a href="style.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">编程风格</span></a></li><li><a href="spec.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">读懂规格</span></a></li><li><a href="async-iterator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">异步遍历器</span></a></li><li><a href="arraybuffer.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">ArrayBuffer</span></a></li><li><a href="proposals.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">最新提案</span></a></li><li><a href="decorator.html" class="is-active"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Decorator</span></a></li><li><a href="reference.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">参考链接</span></a></li></ul></aside></div></nav><nav class="panel panel-info"><p class="panel-heading"><i class="fa fa-link" aria-hidden="true"></i> 链接</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="https://raw.githubusercontent.com/wangdoc/es6-tutorial/master/docs/decorator.md" target="_blank"><span class="icon"></span><i class="fa fa-code" aria-hidden="true" style="width: 14px;"></i>&nbsp;本文源码</a></li><li><a href="https://github.com/wangdoc/es6-tutorial" target="_blank"><span class="icon"></span><i class="fa fa-hdd-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;代码仓库</a></li><li><a href="https://github.com/wangdoc/es6-tutorial/issues" target="_blank"><span class="icon"></span><i class="fa fa-flag-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;反馈</a></li></ul></aside></div></nav></div></div><div class="columns"><div class="column is-8 is-6-widescreen is-offset-1-widescreen"><div id="disqus_thread"></div></div></div></div></section><footer class="footer"><div class="container"><div class="content has-text-centered"><p>联系：contact@wangdoc.com</p></div></div></footer><script>var LOPPO={current_path:"decorator.md",relative_root_path:"",article_toc:'<ul class="markdownIt-TOC">\n<li><a href="#%E7%B1%BB%E7%9A%84%E8%A3%85%E9%A5%B0">类的装饰</a></li>\n<li><a href="#%E6%96%B9%E6%B3%95%E7%9A%84%E8%A3%85%E9%A5%B0">方法的装饰</a></li>\n<li><a href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A3%85%E9%A5%B0%E5%99%A8%E4%B8%8D%E8%83%BD%E7%94%A8%E4%BA%8E%E5%87%BD%E6%95%B0">为什么装饰器不能用于函数？</a></li>\n<li><a href="#core-decoratorsjs">core-decorators.js</a></li>\n<li><a href="#%E4%BD%BF%E7%94%A8%E8%A3%85%E9%A5%B0%E5%99%A8%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E5%8F%91%E5%B8%83%E4%BA%8B%E4%BB%B6">使用装饰器实现自动发布事件</a></li>\n<li><a href="#mixin">Mixin</a></li>\n<li><a href="#trait">Trait</a></li>\n</ul>\n'}</script><script src="assets/js/app.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-111269443-1"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","UA-111269443-1")</script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script"),t=(e.src="https://hm.baidu.com/hm.js?5eec262881855af3dede6a71234571f6",document.getElementsByTagName("script")[0]);t.parentNode.insertBefore(e,t)}()</script><script>var disqus_config=function(){var t=window.location,e=t.protocol+"//"+t.host+(t.port?":"+t.port:"")+t.pathname;this.page.url=e,this.page.identifier=t.pathname};!function(){var t=document,e=t.createElement("script");e.src="https://wangdoc-es6.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><!--script src="assets/js/social-share.min.js"--><!--/script--><script>var shareDesc="我正在阅读《装饰器》，出自网道（WangDoc.com）的《ES6 教程》。",shareOpts={url:window.location.href,source:shareDesc,title:shareDesc,description:"",image:"",sites:["weibo","wechat","qq","qzone","twitter","facebook"],origin:"WangDoc_com",disabled:[],wechatQrcodeTitle:"微信",wechatQrcodeHelper:"扫一下二维码，分享到微信。"};socialShare(".social-share",shareOpts)</script></body></html>
+</code></pre></article><nav class="level level-previous-next is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="proposals.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> 最新提案</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="reference.html">参考链接 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><div class="page-info"><p>本教程采用<a href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh" target="_blank">知识共享 署名-相同方式共享 3.0协议</a>。</p><p>分享本文 <span class="social-share"></span></p></div></div><div class="column is-3 is-offset-1"><nav class="panel panel-menu"><p class="panel-heading"><i class="fa fa-book" aria-hidden="true"></i> ES6 教程</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="intro.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">ECMAScript 6 简介</span></a></li><li><a href="let.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">let 和 const 命令</span></a></li><li><a href="destructuring.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">变量的解构赋值</span></a></li><li><a href="string.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">字符串的扩展</span></a></li><li><a href="string-methods.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">字符串的新增方法</span></a></li><li><a href="regex.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">正则的扩展</span></a></li><li><a href="number.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数值的扩展</span></a></li><li><a href="function.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">函数的扩展</span></a></li><li><a href="array.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数组的扩展</span></a></li><li><a href="object.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">对象的扩展</span></a></li><li><a href="object-methods.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">对象的新增方法</span></a></li><li><a href="operator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">运算符的扩展</span></a></li><li><a href="symbol.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Symbol</span></a></li><li><a href="set-map.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Set 和 Map 数据结构</span></a></li><li><a href="proxy.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Proxy</span></a></li><li><a href="reflect.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Reflect</span></a></li><li><a href="promise.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Promise 对象</span></a></li><li><a href="iterator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Iterator 和 for...of 循环</span></a></li><li><a href="generator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Generator 函数的语法</span></a></li><li><a href="generator-async.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Generator 函数的异步应用</span></a></li><li><a href="async.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">async 函数</span></a></li><li><a href="class.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Class 的基本语法</span></a></li><li><a href="class-extends.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Class 的继承</span></a></li><li><a href="module.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Module 的语法</span></a></li><li><a href="module-loader.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Module 的加载实现</span></a></li><li><a href="style.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">编程风格</span></a></li><li><a href="spec.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">读懂规格</span></a></li><li><a href="async-iterator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">异步遍历器</span></a></li><li><a href="arraybuffer.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">ArrayBuffer</span></a></li><li><a href="proposals.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">最新提案</span></a></li><li><a href="decorator.html" class="is-active"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Decorator</span></a></li><li><a href="reference.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">参考链接</span></a></li></ul></aside></div></nav><nav class="panel panel-info"><p class="panel-heading"><i class="fa fa-link" aria-hidden="true"></i> 链接</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="https://raw.githubusercontent.com/wangdoc/es6-tutorial/master/docs/decorator.md" target="_blank"><span class="icon"></span><i class="fa fa-code" aria-hidden="true" style="width: 14px;"></i>&nbsp;本文源码</a></li><li><a href="https://github.com/wangdoc/es6-tutorial" target="_blank"><span class="icon"></span><i class="fa fa-hdd-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;代码仓库</a></li><li><a href="https://github.com/wangdoc/es6-tutorial/issues" target="_blank"><span class="icon"></span><i class="fa fa-flag-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;反馈</a></li></ul></aside></div></nav></div></div><div class="columns"><div class="column is-8 is-6-widescreen is-offset-1-widescreen"><div id="disqus_thread"></div></div></div></div></section><footer class="footer"><div class="container"><div class="content has-text-centered"><p>联系：contact@wangdoc.com</p></div></div></footer><script>var LOPPO={current_path:"decorator.md",relative_root_path:"",article_toc:'<ul class="markdownIt-TOC">\n<li><a href="#%E8%A3%85%E9%A5%B0%E5%99%A8%E7%9A%84%E7%A7%8D%E7%B1%BB%E6%96%B0%E8%AF%AD%E6%B3%95">装饰器的种类（新语法）</a></li>\n<li><a href="#%E8%A3%85%E9%A5%B0%E5%99%A8-api%E6%96%B0%E8%AF%AD%E6%B3%95">装饰器 API（新语法）</a></li>\n<li><a href="#%E7%B1%BB%E7%9A%84%E8%A3%85%E9%A5%B0">类的装饰</a></li>\n<li><a href="#%E7%B1%BB%E8%A3%85%E9%A5%B0%E5%99%A8%E6%96%B0%E8%AF%AD%E6%B3%95">类装饰器（新语法）</a></li>\n<li><a href="#%E6%96%B9%E6%B3%95%E8%A3%85%E9%A5%B0%E5%99%A8%E6%96%B0%E8%AF%AD%E6%B3%95">方法装饰器（新语法）</a></li>\n<li><a href="#%E6%96%B9%E6%B3%95%E7%9A%84%E8%A3%85%E9%A5%B0">方法的装饰</a></li>\n<li><a href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A3%85%E9%A5%B0%E5%99%A8%E4%B8%8D%E8%83%BD%E7%94%A8%E4%BA%8E%E5%87%BD%E6%95%B0">为什么装饰器不能用于函数？</a></li>\n<li><a href="#%E5%AD%98%E5%8F%96%E5%99%A8%E8%A3%85%E9%A5%B0%E5%99%A8%E6%96%B0%E8%AF%AD%E6%B3%95">存取器装饰器（新语法）</a></li>\n<li><a href="#%E5%B1%9E%E6%80%A7%E8%A3%85%E9%A5%B0%E5%99%A8%E6%96%B0%E8%AF%AD%E6%B3%95">属性装饰器（新语法）</a></li>\n<li><a href="#accessor-%E5%91%BD%E4%BB%A4%E6%96%B0%E8%AF%AD%E6%B3%95">accessor 命令（新语法）</a></li>\n<li><a href="#addinitializer-%E6%96%B9%E6%B3%95%E6%96%B0%E8%AF%AD%E6%B3%95">addInitializer() 方法（新语法）</a></li>\n<li><a href="#core-decoratorsjs">core-decorators.js</a></li>\n<li><a href="#%E4%BD%BF%E7%94%A8%E8%A3%85%E9%A5%B0%E5%99%A8%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E5%8F%91%E5%B8%83%E4%BA%8B%E4%BB%B6">使用装饰器实现自动发布事件</a></li>\n<li><a href="#mixin">Mixin</a></li>\n<li><a href="#trait">Trait</a></li>\n</ul>\n'}</script><script src="assets/js/app.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-111269443-1"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","UA-111269443-1")</script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script"),t=(e.src="https://hm.baidu.com/hm.js?5eec262881855af3dede6a71234571f6",document.getElementsByTagName("script")[0]);t.parentNode.insertBefore(e,t)}()</script><script>var disqus_config=function(){var t=window.location,e=t.protocol+"//"+t.host+(t.port?":"+t.port:"")+t.pathname;this.page.url=e,this.page.identifier=t.pathname};!function(){var t=document,e=t.createElement("script");e.src="https://wangdoc-es6.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><!--script src="assets/js/social-share.min.js"--><!--/script--><script>var shareDesc="我正在阅读《装饰器》，出自网道（WangDoc.com）的《ES6 教程》。",shareOpts={url:window.location.href,source:shareDesc,title:shareDesc,description:"",image:"",sites:["weibo","wechat","qq","qzone","twitter","facebook"],origin:"WangDoc_com",disabled:[],wechatQrcodeTitle:"微信",wechatQrcodeHelper:"扫一下二维码，分享到微信。"};socialShare(".social-share",shareOpts)</script></body></html>
