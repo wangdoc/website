@@ -32,7 +32,7 @@ r.lastIndex = <span class="hljs-number">4</span>;
 r.test(s) <span class="hljs-comment">// false</span>
 
 r.lastIndex <span class="hljs-comment">// 0</span>
-r.test(s)
+r.test(s) <span class="hljs-comment">// true</span>
 </code></pre><p>上面代码指定从字符串的第五个位置开始搜索，这个位置为空，所以返回<code>false</code>。同时，<code>lastIndex</code>属性重置为<code>0</code>，所以第二次执行<code>r.test(s)</code>会返回<code>true</code>。</p><p>注意，带有<code>g</code>修饰符时，正则表达式内部会记住上一次的<code>lastIndex</code>属性，这时不应该更换所要匹配的字符串，否则会有一些难以察觉的错误。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> r = <span class="hljs-regexp">/bb/g</span>;
 r.test(<span class="hljs-string">&#x27;bb&#x27;</span>) <span class="hljs-comment">// true</span>
 r.test(<span class="hljs-string">&#x27;-bb-&#x27;</span>) <span class="hljs-comment">// false</span>
