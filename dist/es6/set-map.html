@@ -482,7 +482,7 @@ map.set(<span class="hljs-built_in">Symbol</span>(), <span class="hljs-number">2
 <span class="hljs-comment">// TypeError: Invalid value used as weak map key</span>
 map.set(<span class="hljs-literal">null</span>, <span class="hljs-number">2</span>)
 <span class="hljs-comment">// TypeError: Invalid value used as weak map key</span>
-</code></pre><p>上面代码中，如果将数值<code>1</code>和<code>Symbol</code>值作为 WeakMap 的键名，都会报错。</p><p>不过，现在有一个<a href="https://github.com/tc39/proposal-symbols-as-weakmap-keys" target="_blank" rel="noopener">提案</a>，允许 Symbol 值也可以作为 WeakMap 的键名。一旦纳入标准，就意味着键名存在两种可能：对象和 Symbole 值。</p><p>其次，<code>WeakMap</code>的键名所指向的对象，不计入垃圾回收机制。</p><p><code>WeakMap</code>的设计目的在于，有时我们想在某个对象上面存放一些数据，但是这会形成对于这个对象的引用。请看下面的例子。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> e1 = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;foo&#x27;</span>);
+</code></pre><p>上面代码中，如果将数值<code>1</code>和<code>Symbol</code>值作为 WeakMap 的键名，都会报错。</p><p>不过，现在有一个<a href="https://github.com/tc39/proposal-symbols-as-weakmap-keys" target="_blank" rel="noopener">提案</a>，允许 Symbol 值也可以作为 WeakMap 的键名。一旦纳入标准，就意味着键名存在两种可能：对象和 Symbol 值。</p><p>其次，<code>WeakMap</code>的键名所指向的对象，不计入垃圾回收机制。</p><p><code>WeakMap</code>的设计目的在于，有时我们想在某个对象上面存放一些数据，但是这会形成对于这个对象的引用。请看下面的例子。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> e1 = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;foo&#x27;</span>);
 <span class="hljs-keyword">const</span> e2 = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;bar&#x27;</span>);
 <span class="hljs-keyword">const</span> arr = [
   [e1, <span class="hljs-string">&#x27;foo 元素&#x27;</span>],
