@@ -2,14 +2,14 @@
 </code></pre><p><code>tmpfile()</code>返回一个文件指针，可以用于访问该函数创建的临时文件。如果创建失败，返回一个空指针 NULL。</p><pre class="hljs"><code>FILE* tempptr;
 tempptr = tmpfile();
 </code></pre><p>调用<code>close()</code>方法关闭临时文件后，该文件将被自动删除。</p><p><code>tmpfile()</code>有两个缺点。一是无法知道临时文件的文件名，二是无法让该文件成为永久文件。</p><h2 id="tmpnam">tmpnam() <a class="markdownIt-Anchor" href="#tmpnam">#</a></h2><p><code>tmpname()</code>函数为临时文件生成一个名字，确保不会与其他文件重名。它的原型如下。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">char</span>* <span class="hljs-title">tmpname</span><span class="hljs-params">(<span class="hljs-keyword">char</span>* s)</span></span>;
-</code></pre><p>它的参数是一个字符串变量，<code>tmpnam()</code>会把临时文件的文件名复制到这个变量里面，并返回指向该字符串变量的指针。如果生成文件名失败，<code>tmpnam()</code>返回空指针 NULL。</p><pre class="hljs"><code><span class="hljs-keyword">char</span> filename[L_tmpname];
+</code></pre><p>它的参数是一个字符串变量，<code>tmpnam()</code>会把临时文件的文件名复制到这个变量里面，并返回指向该字符串变量的指针。如果生成文件名失败，<code>tmpnam()</code>返回空指针 NULL。</p><pre class="hljs"><code><span class="hljs-keyword">char</span> filename[L_tmpnam];
 
 <span class="hljs-keyword">if</span> (tmpnam(filename) != <span class="hljs-literal">NULL</span>)
   <span class="hljs-comment">// 输出诸如 /tmp/filew9PMuZ 的文件名</span>
   <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s\n&quot;</span>, filename);
 <span class="hljs-keyword">else</span>
   <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Something wrong!\n&quot;</span>);
-</code></pre><p>上面示例中，<code>L_tmpname</code>是<code>stdio.h</code>定义的一个宏，指定了临时文件的文件名长度。</p><p><code>tmpname()</code>的参数也可以是一个空指针 NULL，同样返回指向文件名字符串的指针。</p><pre class="hljs"><code><span class="hljs-keyword">char</span>* filename;
+</code></pre><p>上面示例中，<code>L_tmpnam</code>是<code>stdio.h</code>定义的一个宏，指定了临时文件的文件名长度。</p><p><code>tmpname()</code>的参数也可以是一个空指针 NULL，同样返回指向文件名字符串的指针。</p><pre class="hljs"><code><span class="hljs-keyword">char</span>* filename;
 filename = tmpnam(<span class="hljs-literal">NULL</span>);
 </code></pre><p>上面示例中，变量<code>filename</code>就是<code>tmpnam()</code>生成的文件名。</p><p>该函数只是生成一个文件名，稍后可以使用<code>fopen()</code>打开该文件并使用它。</p><h2 id="fflush">fflush() <a class="markdownIt-Anchor" href="#fflush">#</a></h2><p><code>fflush()</code>用于清空缓存区。它接受一个文件指针作为参数，将缓存区内容写入该文件。</p><pre class="hljs"><code>fflush(fp);
 </code></pre><p>如果不需要保存缓存区内容，则可以传入空指针 NULL。</p><pre class="hljs"><code>fflush(<span class="hljs-literal">NULL</span>);
