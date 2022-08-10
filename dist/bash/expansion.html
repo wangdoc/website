@@ -78,7 +78,7 @@ report1.txt
 report2.txt
 report3.txt
 ...
-</code></pre><p>下面是一些常用简写的例子。</p><ul><li><code>[a-z]</code>：所有小写字母。</li><li><code>[a-zA-Z]</code>：所有小写字母与大写字母。</li><li><code>[a-zA-Z0-9]</code>：所有小写字母、大写字母与数字。</li><li><code>[abc]*</code>：所有以<code>a</code>、<code>b</code>、<code>c</code>字符之一开头的文件名。</li><li><code>program.[co]</code>：文件<code>program.c</code>与文件<code>program.o</code>。</li><li><code>BACKUP.[0-9][0-9][0-9]</code>：所有以<code>BACKUP.</code>开头，后面是三个数字的文件名。</li></ul><p>这种简写形式有一个否定形式<code>[!start-end]</code>，表示匹配不属于这个范围的字符。比如，<code>[!a-zA-Z]</code>表示匹配非英文字母的字符。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> report[!1–3].txt
+</code></pre><p>下面是一些常用简写的例子。</p><ul><li><code>[a-z]</code>：所有小写字母。</li><li><code>[a-zA-Z]</code>：所有小写字母与大写字母。</li><li><code>[a-zA-Z0-9]</code>：所有小写字母、大写字母与数字。</li><li><code>[abc]*</code>：所有以<code>a</code>、<code>b</code>、<code>c</code>字符之一开头的文件名。</li><li><code>program.[co]</code>：文件<code>program.c</code>与文件<code>program.o</code>。</li><li><code>BACKUP.[0-9][0-9][0-9]</code>：所有以<code>BACKUP.</code>开头，后面是三个数字的文件名。</li></ul><p>这种简写形式有一个否定形式<code>[!start-end]</code>，表示匹配不属于这个范围的字符。比如，<code>[!a-zA-Z]</code>表示匹配非英文字母的字符。</p><pre class="hljs"><code>$ ls report[!1–3].txt
 report4.txt report5.txt
 </code></pre><p>上面代码中，<code>[!1-3]</code>表示排除1、2和3。</p><h2 id="大括号扩展">大括号扩展 <a class="markdownIt-Anchor" href="#大括号扩展">#</a></h2><p>大括号扩展<code>{...}</code>表示分别扩展成大括号里面的所有值，各个值之间使用逗号分隔。比如，<code>{1,2,3}</code>扩展成<code>1 2 3</code>。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> {1,2,3}
 1 2 3
