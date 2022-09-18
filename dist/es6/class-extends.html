@@ -128,7 +128,7 @@ A.foo <span class="hljs-comment">// 100</span>
 <span class="hljs-keyword">const</span> b = <span class="hljs-keyword">new</span> B();
 B.foo.n <span class="hljs-comment">// 99</span>
 A.foo.n <span class="hljs-comment">// 99</span>
-</code></pre><p>上面示例中，<code>A.foo</code>的值是一个对象，浅拷贝导致<code>B.foo</code>和<code>A.foo</code>指向同一个对象。所以，子类<code>A</code>修改这个对象的属性值，会影响到父类<code>A</code>。</p><h2 id="objectgetprototypeof">Object.getPrototypeOf() <a class="markdownIt-Anchor" href="#objectgetprototypeof">#</a></h2><p><code>Object.getPrototypeOf()</code>方法可以用来从子类上获取父类。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span> </span>{ <span class="hljs-comment">/*...*/</span> }
+</code></pre><p>上面示例中，<code>A.foo</code>的值是一个对象，浅拷贝导致<code>B.foo</code>和<code>A.foo</code>指向同一个对象。所以，子类<code>B</code>修改这个对象的属性值，会影响到父类<code>A</code>。</p><h2 id="objectgetprototypeof">Object.getPrototypeOf() <a class="markdownIt-Anchor" href="#objectgetprototypeof">#</a></h2><p><code>Object.getPrototypeOf()</code>方法可以用来从子类上获取父类。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span> </span>{ <span class="hljs-comment">/*...*/</span> }
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ColorPoint</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Point</span> </span>{ <span class="hljs-comment">/*...*/</span> }
 
