@@ -529,7 +529,7 @@ A.test(o1.__proto__) <span class="hljs-comment">// true</span>
 <span class="hljs-built_in">Object</span>.setPrototypeOf(o2, a);
 A.test(o2) <span class="hljs-comment">// false</span>
 A.test(o2.__proto__) <span class="hljs-comment">// true</span>
-</code></pre><p>上面示例中，对于修改原型链形成的继承，子类都取不到父类的私有属性，所以<code>in</code>运算符无效。</p><h2 id="静态块">静态块 <a class="markdownIt-Anchor" href="#静态块">#</a></h2><p>静态属性的一个问题是，它的初始化要么写在类的外部，要么写在<code>constructor()</code>方法里面。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">C</span> </span>{
+</code></pre><p>上面示例中，对于修改原型链形成的继承，子类都取不到父类的私有属性，所以<code>in</code>运算符无效。</p><h2 id="静态块">静态块 <a class="markdownIt-Anchor" href="#静态块">#</a></h2><p>静态属性的一个问题是，如果它有初始化逻辑，这个逻辑要么写在类的外部，要么写在<code>constructor()</code>方法里面。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">C</span> </span>{
   <span class="hljs-keyword">static</span> x = <span class="hljs-number">234</span>;
   <span class="hljs-keyword">static</span> y;
   <span class="hljs-keyword">static</span> z;
@@ -543,7 +543,7 @@ A.test(o2.__proto__) <span class="hljs-comment">// true</span>
   C.y = ...;
   C.z = ...;
 }
-</code></pre><p>上面示例中，静态属性<code>y</code>和<code>z</code>的值依赖静态属性<code>x</code>，它们的初始化写在类的外部（上例的<code>try...catch</code>代码块）。另一种方法是写到类的<code>constructor()</code>方法里面。这两种方法都不是很理想，前者是将类的内部逻辑写到了外部，后者则是每次新建实例都会运行一次。</p><p>为了解决这个问题，ES2022 引入了<a href="https://github.com/tc39/proposal-class-static-block" target="_blank" rel="noopener">静态块</a>（static block），允许在类的内部设置一个代码块，在类生成时运行一次，主要作用是对静态属性进行初始化。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">C</span> </span>{
+</code></pre><p>上面示例中，静态属性<code>y</code>和<code>z</code>的值依赖于静态属性<code>x</code>的运算结果，这段初始化逻辑写在类的外部（上例的<code>try...catch</code>代码块）。另一种方法是写到类的<code>constructor()</code>方法里面。这两种方法都不是很理想，前者是将类的内部逻辑写到了外部，后者则是每次新建实例都会运行一次。</p><p>为了解决这个问题，ES2022 引入了<a href="https://github.com/tc39/proposal-class-static-block" target="_blank" rel="noopener">静态块</a>（static block），允许在类的内部设置一个代码块，在类生成时运行且只运行一次，主要作用是对静态属性进行初始化。以后，新建类的实例时，这个块就不运行了。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">C</span> </span>{
   <span class="hljs-keyword">static</span> x = ...;
   <span class="hljs-keyword">static</span> y;
   <span class="hljs-keyword">static</span> z;
@@ -560,10 +560,10 @@ A.test(o2.__proto__) <span class="hljs-comment">// true</span>
     }
   }
 }
-</code></pre><p>上面代码中，类的内部有一个 static 代码块，这就是静态块。它的好处是将静态属性<code>y</code>和<code>z</code>的初始化逻辑，写入了类的内部，而且只运行一次。</p><p>每个类只能有一个静态块，在静态属性声明后运行。静态块的内部不能有<code>return</code>语句。</p><p>静态块内部可以使用类名或<code>this</code>，指代当前类。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">C</span> {</span>
+</code></pre><p>上面代码中，类的内部有一个 static 代码块，这就是静态块。它的好处是将静态属性<code>y</code>和<code>z</code>的初始化逻辑，写入了类的内部，而且只运行一次。</p><p>每个类允许有多个静态块，每个静态块中只能访问之前声明的静态属性。另外，静态块的内部不能有<code>return</code>语句。</p><p>静态块内部可以使用类名或<code>this</code>，指代当前类。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">C</span> </span>{
   <span class="hljs-keyword">static</span> x = <span class="hljs-number">1</span>;
   <span class="hljs-keyword">static</span> {
-    <span class="hljs-keyword">this</span>.x; <span class="hljs-comment">// 1</span>
+    <span class="hljs-built_in">this</span>.x; <span class="hljs-comment">// 1</span>
     <span class="hljs-comment">// 或者</span>
     C.x; <span class="hljs-comment">// 1</span>
   }
