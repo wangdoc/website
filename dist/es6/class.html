@@ -67,7 +67,7 @@ b.constructor === B.prototype.constructor <span class="hljs-comment">// true</sp
   <span class="hljs-function"><span class="hljs-title">toString</span>(<span class="hljs-params"></span>)</span>{},
   <span class="hljs-function"><span class="hljs-title">toValue</span>(<span class="hljs-params"></span>)</span>{}
 });
-</code></pre><p><code>prototype</code>对象的<code>constructor()</code>属性，直接指向“类”的本身，这与 ES5 的行为是一致的。</p><pre class="hljs"><code>Point.prototype.constructor === Point <span class="hljs-comment">// true</span>
+</code></pre><p><code>prototype</code>对象的<code>constructor</code>属性，直接指向“类”的本身，这与 ES5 的行为是一致的。</p><pre class="hljs"><code>Point.prototype.constructor === Point <span class="hljs-comment">// true</span>
 </code></pre><p>另外，类的内部所有定义的方法，都是不可枚举的（non-enumerable）。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span> </span>{
   <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">x, y</span>)</span> {
     <span class="hljs-comment">// ...</span>
