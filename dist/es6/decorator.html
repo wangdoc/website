@@ -133,7 +133,7 @@ C = logged(C, {
 
 <span class="hljs-comment">// 相当于</span>
 C.prototype.toString = trace(C.prototype.toString);
-</code></pre><p>上面示例中，<code>@trace</code>装饰<code>toString()</code>方法，就相当于修改了该方法。</p><p>方式装饰器使用 TypeScript 描述类型如下。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> ClassMethodDecorator = <span class="hljs-function">(<span class="hljs-params">value: <span class="hljs-built_in">Function</span>, context: {
+</code></pre><p>上面示例中，<code>@trace</code>装饰<code>toString()</code>方法，就相当于修改了该方法。</p><p>方法装饰器使用 TypeScript 描述类型如下。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> ClassMethodDecorator = <span class="hljs-function">(<span class="hljs-params">value: <span class="hljs-built_in">Function</span>, context: {
   kind: <span class="hljs-string">&quot;method&quot;</span>;
   name: <span class="hljs-built_in">string</span> | symbol;
   access: { get(): unknown };
