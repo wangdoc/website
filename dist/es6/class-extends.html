@@ -134,14 +134,14 @@ A.foo.n <span class="hljs-comment">// 99</span>
 
 <span class="hljs-built_in">Object</span>.getPrototypeOf(ColorPoint) === Point
 <span class="hljs-comment">// true</span>
-</code></pre><p>因此，可以使用这个方法判断，一个类是否继承了另一个类。</p><h2 id="super-关键字">super 关键字 <a class="markdownIt-Anchor" href="#super-关键字">#</a></h2><p><code>super</code>这个关键字，既可以当作函数使用，也可以当作对象使用。在这两种情况下，它的用法完全不同。</p><p>第一种情况，<code>super</code>作为函数调用时，代表父类的构造函数。ES6 要求，子类的构造函数必须执行一次<code>super</code>函数。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> </span>{}
+</code></pre><p>因此，可以使用这个方法判断，一个类是否继承了另一个类。</p><h2 id="super-关键字">super 关键字 <a class="markdownIt-Anchor" href="#super-关键字">#</a></h2><p><code>super</code>这个关键字，既可以当作函数使用，也可以当作对象使用。在这两种情况下，它的用法完全不同。</p><p>第一种情况，<code>super</code>作为函数调用时，代表父类的构造函数。ES6 要求，子类的构造函数必须执行一次<code>super()</code>函数。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> </span>{}
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">A</span> </span>{
   <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
     <span class="hljs-built_in">super</span>();
   }
 }
-</code></pre><p>上面代码中，子类<code>B</code>的构造函数之中的<code>super()</code>，代表调用父类的构造函数。这是必须的，否则 JavaScript 引擎会报错。</p><p>注意，<code>super</code>虽然代表了父类<code>A</code>的构造函数，但是返回的是子类<code>B</code>的实例，即<code>super</code>内部的<code>this</code>指的是<code>B</code>的实例，因此<code>super()</code>在这里相当于<code>A.prototype.constructor.call(this)</code>。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> </span>{
+</code></pre><p>上面代码中，子类<code>B</code>的构造函数之中的<code>super()</code>，代表调用父类的构造函数。这是必须的，否则报错。</p><p>调用<code>super()</code>的作用是形成子类的<code>this</code>对象，把父类的实例属性和方法放到这个<code>this</code>对象上面。子类在调用<code>super()</code>之前，是没有<code>this</code>对象的，任何对<code>this</code>的操作都要放在<code>super()</code>的后面。</p><p>注意，这里的<code>super</code>虽然代表了父类的构造函数，但是因为返回的是子类的<code>this</code>（即子类的实例对象），所以<code>super</code>内部的<code>this</code>代表子类的实例，而不是父类的实例，这里的<code>super()</code>相当于<code>A.prototype.constructor.call(this)</code>（在子类的<code>this</code>上运行父类的构造函数）。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> </span>{
   <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
     <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span>.target.name);
   }
@@ -153,7 +153,19 @@ A.foo.n <span class="hljs-comment">// 99</span>
 }
 <span class="hljs-keyword">new</span> A() <span class="hljs-comment">// A</span>
 <span class="hljs-keyword">new</span> B() <span class="hljs-comment">// B</span>
-</code></pre><p>上面代码中，<code>new.target</code>指向当前正在执行的函数。可以看到，在<code>super()</code>执行时，它指向的是子类<code>B</code>的构造函数，而不是父类<code>A</code>的构造函数。也就是说，<code>super()</code>内部的<code>this</code>指向的是<code>B</code>。</p><p>作为函数时，<code>super()</code>只能用在子类的构造函数之中，用在其他地方就会报错。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> </span>{}
+</code></pre><p>上面示例中，<code>new.target</code>指向当前正在执行的函数。可以看到，在<code>super()</code>执行时（<code>new B()</code>），它指向的是子类<code>B</code>的构造函数，而不是父类<code>A</code>的构造函数。也就是说，<code>super()</code>内部的<code>this</code>指向的是<code>B</code>。</p><p>不过，由于<code>super()</code>在子类构造方法中执行时，子类的属性和方法还没有绑定到<code>this</code>，所以如果存在同名属性，此时拿到的是父类的属性。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> </span>{
+  name = <span class="hljs-string">&#x27;A&#x27;</span>;
+  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;My name is &#x27;</span> + <span class="hljs-built_in">this</span>.name);
+  }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">A</span> </span>{
+  name = <span class="hljs-string">&#x27;B&#x27;</span>;
+}
+
+<span class="hljs-keyword">const</span> b = <span class="hljs-keyword">new</span> B(); <span class="hljs-comment">// My name is A</span>
+</code></pre><p>上面示例中，最后一行输出的是<code>A</code>，而不是<code>B</code>，原因就在于<code>super()</code>执行时，<code>B</code>的<code>name</code>属性还没有绑定到<code>this</code>，所以<code>this.name</code>拿到的是<code>A</code>类的<code>name</code>属性。</p><p>作为函数时，<code>super()</code>只能用在子类的构造函数之中，用在其他地方就会报错。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> </span>{}
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">A</span> </span>{
   <span class="hljs-function"><span class="hljs-title">m</span>(<span class="hljs-params"></span>)</span> {
