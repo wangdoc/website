@@ -27,7 +27,7 @@ x &gt; <span class="hljs-string">&#x27;11&#x27;</span> <span class="hljs-comment
 
 x.valueOf = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;1&#x27;</span> };
 x &gt; <span class="hljs-string">&#x27;11&#x27;</span> <span class="hljs-comment">// false</span>
-<span class="hljs-comment">// 等同于 [2].valueOf() &gt; &#x27;11&#x27;</span>
+<span class="hljs-comment">// 等同于 (function () { return &#x27;1&#x27; })() &gt; &#x27;11&#x27;</span>
 <span class="hljs-comment">// 即 &#x27;1&#x27; &gt; &#x27;11&#x27;</span>
 </code></pre><p>两个对象之间的比较也是如此。</p><pre class="hljs"><code>[<span class="hljs-number">2</span>] &gt; [<span class="hljs-number">1</span>] <span class="hljs-comment">// true</span>
 <span class="hljs-comment">// 等同于 [2].valueOf().toString() &gt; [1].valueOf().toString()</span>
@@ -38,7 +38,7 @@ x &gt; <span class="hljs-string">&#x27;11&#x27;</span> <span class="hljs-comment
 <span class="hljs-comment">// 即 &#x27;2&#x27; &gt; &#x27;11&#x27;</span>
 
 { <span class="hljs-attr">x</span>: <span class="hljs-number">2</span> } &gt;= { <span class="hljs-attr">x</span>: <span class="hljs-number">1</span> } <span class="hljs-comment">// true</span>
-<span class="hljs-comment">// 等同于 { x: 2 }.valueOf().toString() &gt;= { x: 1 }.valueOf().toString()</span>
+<span class="hljs-comment">// 等同于 ({ x: 2 }).valueOf().toString() &gt;= ({ x: 1 }).valueOf().toString()</span>
 <span class="hljs-comment">// 即 &#x27;[object Object]&#x27; &gt;= &#x27;[object Object]&#x27;</span>
 </code></pre><h2 id="严格相等运算符">严格相等运算符 <a class="markdownIt-Anchor" href="#严格相等运算符">#</a></h2><p>JavaScript 提供两种相等运算符：<code>==</code>和<code>===</code>。</p><p>简单说，它们的区别是相等运算符（<code>==</code>）比较两个值是否相等，严格相等运算符（<code>===</code>）比较它们是否为“同一个值”。如果两个值不是同一类型，严格相等运算符（<code>===</code>）直接返回<code>false</code>，而相等运算符（<code>==</code>）会将它们转换成同一个类型，再用严格相等运算符进行比较。</p><p>本节介绍严格相等运算符的算法。</p><p><strong>（1）不同类型的值</strong></p><p>如果两个值的类型不同，直接返回<code>false</code>。</p><pre class="hljs"><code><span class="hljs-number">1</span> === <span class="hljs-string">&quot;1&quot;</span> <span class="hljs-comment">// false</span>
 <span class="hljs-literal">true</span> === <span class="hljs-string">&quot;true&quot;</span> <span class="hljs-comment">// false</span>
