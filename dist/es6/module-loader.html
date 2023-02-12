@@ -166,7 +166,7 @@ $ node my-app.js
     <span class="hljs-string">&quot;.&quot;</span>: <span class="hljs-string">&quot;./main-modern.cjs&quot;</span>
   }
 }
-</code></pre><p>上面代码中，老版本的 Node.js （不支持 ES6 模块）的入口文件是<code>main-legacy.cjs</code>，新版本的 Node.js 的入口文件是<code>main-modern.cjs</code>。</p><p><strong>（3）条件加载</strong></p><p>利用<code>.</code>这个别名，可以为 ES6 模块和 CommonJS 指定不同的入口。目前，这个功能需要在 Node.js 运行的时候，打开<code>--experimental-conditional-exports</code>标志。</p><pre class="hljs"><code>{
+</code></pre><p>上面代码中，老版本的 Node.js （不支持 ES6 模块）的入口文件是<code>main-legacy.cjs</code>，新版本的 Node.js 的入口文件是<code>main-modern.cjs</code>。</p><p><strong>（3）条件加载</strong></p><p>利用<code>.</code>这个别名，可以为 ES6 模块和 CommonJS 指定不同的入口。</p><pre class="hljs"><code>{
   <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;module&quot;</span>,
   <span class="hljs-string">&quot;exports&quot;</span>: {
     <span class="hljs-string">&quot;.&quot;</span>: {
