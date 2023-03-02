@@ -51,7 +51,7 @@ s.has(<span class="hljs-number">1</span>) <span class="hljs-comment">// true</sp
 s.has(<span class="hljs-number">2</span>) <span class="hljs-comment">// true</span>
 s.has(<span class="hljs-number">3</span>) <span class="hljs-comment">// false</span>
 
-s.delete(<span class="hljs-number">2</span>);
+s.delete(<span class="hljs-number">2</span>) <span class="hljs-comment">// true</span>
 s.has(<span class="hljs-number">2</span>) <span class="hljs-comment">// false</span>
 </code></pre><p>下面是一个对比，看看在判断是否包括一个键上面，<code>Object</code>结构和<code>Set</code>结构的写法不同。</p><pre class="hljs"><code><span class="hljs-comment">// 对象的写法</span>
 <span class="hljs-keyword">const</span> properties = {
