@@ -164,7 +164,7 @@ ws.add(<span class="hljs-built_in">Symbol</span>())
 </code></pre><p>上面代码中，<code>a</code>是一个数组，它有两个成员，也都是数组。将<code>a</code>作为 WeakSet 构造函数的参数，<code>a</code>的成员会自动成为 WeakSet 的成员。</p><p>注意，是<code>a</code>数组的成员成为 WeakSet 的成员，而不是<code>a</code>数组本身。这意味着，数组的成员只能是对象。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> b = [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>];
 <span class="hljs-keyword">const</span> ws = <span class="hljs-keyword">new</span> <span class="hljs-built_in">WeakSet</span>(b);
 <span class="hljs-comment">// Uncaught TypeError: Invalid value used in weak set(…)</span>
-</code></pre><p>上面代码中，数组<code>b</code>的成员不是对象，加入 WeakSet 就会报错。</p><p>WeakSet 结构有以下三个方法。</p><ul><li><strong>WeakSet.prototype.add(value)</strong>：向 WeakSet 实例添加一个新成员。</li><li><strong>WeakSet.prototype.delete(value)</strong>：清除 WeakSet 实例的指定成员。</li><li><strong>WeakSet.prototype.has(value)</strong>：返回一个布尔值，表示某个值是否在 WeakSet 实例之中。</li></ul><p>下面是一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> ws = <span class="hljs-keyword">new</span> <span class="hljs-built_in">WeakSet</span>();
+</code></pre><p>上面代码中，数组<code>b</code>的成员不是对象，加入 WeakSet 就会报错。</p><p>WeakSet 结构有以下三个方法。</p><ul><li><strong>WeakSet.prototype.add(value)</strong>：向 WeakSet 实例添加一个新成员，返回 WeakSet 结构本身。</li><li><strong>WeakSet.prototype.delete(value)</strong>：清除 WeakSet 实例的指定成员，清除成功返回<code>true</code>，如果在 WeakSet 中找不到该成员或该成员不是对象，返回<code>false</code>。</li><li><strong>WeakSet.prototype.has(value)</strong>：返回一个布尔值，表示某个值是否在 WeakSet 实例之中。</li></ul><p>下面是一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> ws = <span class="hljs-keyword">new</span> <span class="hljs-built_in">WeakSet</span>();
 <span class="hljs-keyword">const</span> obj = {};
 <span class="hljs-keyword">const</span> foo = {};
 
@@ -172,10 +172,10 @@ ws.add(<span class="hljs-built_in">window</span>);
 ws.add(obj);
 
 ws.has(<span class="hljs-built_in">window</span>); <span class="hljs-comment">// true</span>
-ws.has(foo);    <span class="hljs-comment">// false</span>
+ws.has(foo); <span class="hljs-comment">// false</span>
 
-ws.delete(<span class="hljs-built_in">window</span>);
-ws.has(<span class="hljs-built_in">window</span>);    <span class="hljs-comment">// false</span>
+ws.delete(<span class="hljs-built_in">window</span>); <span class="hljs-comment">// true</span>
+ws.has(<span class="hljs-built_in">window</span>); <span class="hljs-comment">// false</span>
 </code></pre><p>WeakSet 没有<code>size</code>属性，没有办法遍历它的成员。</p><pre class="hljs"><code>ws.size <span class="hljs-comment">// undefined</span>
 ws.forEach <span class="hljs-comment">// undefined</span>
 
