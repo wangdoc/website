@@ -6,14 +6,11 @@
     <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;arg %d: %s\n&quot;</span>, i, argv[i]);
   }
 }
-</code></pre><p>上面示例中，<code>main()</code>函数有两个参数<code>argc</code>（argument count）和<code>argv</code>（argument variable）。这两个参数的名字可以任意取，但是一般来说，约定俗成就是使用这两个词。</p><p>第一个参数<code>argc</code>是命令行参数的数量，由于程序名也被计算在内，所以严格地说<code>argc</code>是参数数量 + 1。</p><p>第二个参数<code>argv</code>是一个数组，保存了所有的命令行输入，它的每个成员是一个字符串指针。</p><p>以<code>./foo hello world</code>为例，<code>argc</code>是3，表示命令行输入有三个组成部分：<code>./foo</code>、<code>hello</code>、<code>world</code>。数组<code>argv</code>用来获取这些输入，<code>argv[0]</code>是程序名<code>./foo</code>，<code>argv[1]</code>是<code>hello</code>，<code>argv[2]</code>是<code>world</code>。一般来说，<code>argv[1]</code>到<code>argv[argc - 1]</code>依次是命令行的所有参数。<code>argv[argc]</code>则是一个空指针 NULL。</p><p>由于字符串指针可以看成是字符数组，所以下面三种写法是等价的。</p><pre class="hljs"><code><span class="hljs-comment">// 写法一</span>
+</code></pre><p>上面示例中，<code>main()</code>函数有两个参数<code>argc</code>（argument count）和<code>argv</code>（argument variable）。这两个参数的名字可以任意取，但是一般来说，约定俗成就是使用这两个词。</p><p>第一个参数<code>argc</code>是命令行参数的数量，由于程序名也被计算在内，所以严格地说<code>argc</code>是参数数量 + 1。</p><p>第二个参数<code>argv</code>是一个数组，保存了所有的命令行输入，它的每个成员是一个字符串指针。</p><p>以<code>./foo hello world</code>为例，<code>argc</code>是3，表示命令行输入有三个组成部分：<code>./foo</code>、<code>hello</code>、<code>world</code>。数组<code>argv</code>用来获取这些输入，<code>argv[0]</code>是程序名<code>./foo</code>，<code>argv[1]</code>是<code>hello</code>，<code>argv[2]</code>是<code>world</code>。一般来说，<code>argv[1]</code>到<code>argv[argc - 1]</code>依次是命令行的所有参数。<code>argv[argc]</code>则是一个空指针 NULL。</p><p>由于字符串指针可以看成是字符数组，所以下面两种写法是等价的。</p><pre class="hljs"><code><span class="hljs-comment">// 写法一</span>
 <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span>* argv[])</span>
 
 <span class="hljs-comment">// 写法二</span>
 <span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span>** argv)</span>
-
-<span class="hljs-comment">// 写法三</span>
-<span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span> argv[][])</span>
 </span></code></pre><p>另一方面，每个命令行参数既可以写成数组形式<code>argv[i]</code>，也可以写成指针形式<code>*(argv + i)</code>。</p><p>利用<code>argc</code>，可以限定函数只能有多少个参数。</p><pre class="hljs"><code><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
 
 <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span>** argv)</span> </span>{
