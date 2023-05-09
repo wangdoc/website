@@ -165,7 +165,7 @@ obj[getKey(<span class="hljs-string">&#x27;enabled&#x27;</span>)] = <span class=
 
 <span class="hljs-comment">// best</span>
 <span class="hljs-keyword">const</span> boundMethod = <span class="hljs-function">(<span class="hljs-params">...params</span>) =&gt;</span> method.apply(<span class="hljs-built_in">this</span>, params);
-</code></pre><p>简单的、单行的、不会复用的函数，建议采用箭头函数。如果函数体较为复杂，行数较多，还是应该采用传统的函数写法。</p><p>所有配置项都应该集中在一个对象，放在最后一个参数，布尔值不可以直接作为参数。</p><pre class="hljs"><code><span class="hljs-comment">// bad</span>
+</code></pre><p>简单的、单行的、不会复用的函数，建议采用箭头函数。如果函数体较为复杂，行数较多，还是应该采用传统的函数写法。</p><p>所有配置项都应该集中在一个对象，放在最后一个参数，布尔值最好不要直接作为参数，因为代码语义会很差，也不利于将来增加其他配置项。</p><pre class="hljs"><code><span class="hljs-comment">// bad</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">divide</span>(<span class="hljs-params">a, b, option = <span class="hljs-literal">false</span> </span>) </span>{
 }
 
