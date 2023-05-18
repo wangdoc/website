@@ -61,7 +61,7 @@ b = <span class="hljs-built_in">realloc</span>(b, <span class="hljs-keyword">siz
 }
 </code></pre><p>注意，<code>realloc()</code>不会对内存块进行初始化。</p><h2 id="restrict-说明符">restrict 说明符 <a class="markdownIt-Anchor" href="#restrict-说明符">#</a></h2><p>声明指针变量时，可以使用<code>restrict</code>说明符，告诉编译器，该块内存区域只有当前指针一种访问方式，其他指针不能读写该块内存。这种指针称为“受限指针”（restrict pointer）。</p><pre class="hljs"><code><span class="hljs-keyword">int</span>* <span class="hljs-keyword">restrict</span> p;
 p = <span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">int</span>));
-</code></pre><p>上面示例中，声明指针变量<code>p</code>时，加入了<code>restrict</code>说明符，使得<code>p</code>变成了受限指针。后面，当<code>p</code>指向<code>malloc()</code>函数返回的一块内存区域，就味着，该区域只有通过<code>p</code>来访问，不存在其他访问方式。</p><pre class="hljs"><code><span class="hljs-keyword">int</span>* <span class="hljs-keyword">restrict</span> p;
+</code></pre><p>上面示例中，声明指针变量<code>p</code>时，加入了<code>restrict</code>说明符，使得<code>p</code>变成了受限指针。后面，当<code>p</code>指向<code>malloc()</code>函数返回的一块内存区域，就意味着，该区域只有通过<code>p</code>来访问，不存在其他访问方式。</p><pre class="hljs"><code><span class="hljs-keyword">int</span>* <span class="hljs-keyword">restrict</span> p;
 p = <span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">int</span>));
 
 <span class="hljs-keyword">int</span>* q = p;
