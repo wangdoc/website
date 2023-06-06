@@ -53,7 +53,7 @@ s.has(<span class="hljs-number">3</span>) <span class="hljs-comment">// false</s
 
 s.delete(<span class="hljs-number">2</span>) <span class="hljs-comment">// true</span>
 s.has(<span class="hljs-number">2</span>) <span class="hljs-comment">// false</span>
-</code></pre><p>下面是一个对比，看看在判断是否包括一个键上面，<code>Object</code>结构和<code>Set</code>结构的写法不同。</p><pre class="hljs"><code><span class="hljs-comment">// 对象的写法</span>
+</code></pre><p>下面是一个对比，判断是否包括一个键，<code>Object</code>结构和<code>Set</code>结构写法的不同。</p><pre class="hljs"><code><span class="hljs-comment">// 对象的写法</span>
 <span class="hljs-keyword">const</span> properties = {
   <span class="hljs-string">&#x27;width&#x27;</span>: <span class="hljs-number">1</span>,
   <span class="hljs-string">&#x27;height&#x27;</span>: <span class="hljs-number">1</span>
@@ -72,7 +72,7 @@ properties.add(<span class="hljs-string">&#x27;height&#x27;</span>);
 <span class="hljs-keyword">if</span> (properties.has(someName)) {
   <span class="hljs-comment">// do something</span>
 }
-</code></pre><p><code>Array.from</code>方法可以将 Set 结构转为数组。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> items = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]);
+</code></pre><p><code>Array.from()</code>方法可以将 Set 结构转为数组。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> items = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]);
 <span class="hljs-keyword">const</span> array = <span class="hljs-built_in">Array</span>.from(items);
 </code></pre><p>这就提供了去除数组重复成员的另一种方法。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">dedupe</span>(<span class="hljs-params">array</span>) </span>{
   <span class="hljs-keyword">return</span> <span class="hljs-built_in">Array</span>.from(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>(array));
