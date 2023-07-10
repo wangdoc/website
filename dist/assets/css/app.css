@@ -10288,6 +10288,12 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
   letter-spacing: 0.04rem;
 }
 
+/* * navbar
+ * */
+.navbar-brand .title {
+  margin-bottom: 0;
+}
+
 /* menu */
 .panel-menu .panel-block {
   padding: 0.5em 0.75em 0.5em 0em;
