@@ -1,66 +1,66 @@
-<!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Reflect - ES6 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="Reflect"><link rel="apple-touch-icon" sizes="57x57" href="assets/icons/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="assets/icons/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="assets/icons/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="assets/icons/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="assets/icons/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="assets/icons/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="assets/icons/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="assets/icons/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png"><link rel="manifest" href="assets/icons/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="assets/icons/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/es6-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/es6-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8 is-6-widescreen is-offset-1-widescreen"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;ES6 教程</a></li><li class="is-active"><a class="has-text-grey" href="reflect.html">Reflect</a></li></ul></nav><nav class="level level-previous-next is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="proxy.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> Proxy</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="promise.html">Promise 对象 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content"><h1 class="title">Reflect</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><h2 id="概述">概述 <a class="markdownIt-Anchor" href="#概述">#</a></h2><p><code>Reflect</code>对象与<code>Proxy</code>对象一样，也是 ES6 为了操作对象而提供的新 API。<code>Reflect</code>对象的设计目的有这样几个。</p><p>（1） 将<code>Object</code>对象的一些明显属于语言内部的方法（比如<code>Object.defineProperty</code>），放到<code>Reflect</code>对象上。现阶段，某些方法同时在<code>Object</code>和<code>Reflect</code>对象上部署，未来的新方法将只部署在<code>Reflect</code>对象上。也就是说，从<code>Reflect</code>对象上可以拿到语言内部的方法。</p><p>（2） 修改某些<code>Object</code>方法的返回结果，让其变得更合理。比如，<code>Object.defineProperty(obj, name, desc)</code>在无法定义属性时，会抛出一个错误，而<code>Reflect.defineProperty(obj, name, desc)</code>则会返回<code>false</code>。</p><pre class="hljs"><code><span class="hljs-comment">// 老写法</span>
+<!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Reflect - ES6 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="Reflect"><link rel="apple-touch-icon" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png"><link rel="manifest" href="assets/icons/manifest.json"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/es6-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/es6-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8 is-6-widescreen is-offset-1-widescreen"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;ES6 教程</a></li><li class="is-active"><a class="has-text-grey" href="reflect.html">Reflect</a></li></ul></nav><nav class="level level-previous-next is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="proxy.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> Proxy</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="promise.html">Promise 对象 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content"><h1 class="title">Reflect</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><h2 id="概述">概述 <a class="markdownIt-Anchor" href="#概述">#</a></h2><p><code>Reflect</code>对象与<code>Proxy</code>对象一样，也是 ES6 为了操作对象而提供的新 API。<code>Reflect</code>对象的设计目的有这样几个。</p><p>（1） 将<code>Object</code>对象的一些明显属于语言内部的方法（比如<code>Object.defineProperty</code>），放到<code>Reflect</code>对象上。现阶段，某些方法同时在<code>Object</code>和<code>Reflect</code>对象上部署，未来的新方法将只部署在<code>Reflect</code>对象上。也就是说，从<code>Reflect</code>对象上可以拿到语言内部的方法。</p><p>（2） 修改某些<code>Object</code>方法的返回结果，让其变得更合理。比如，<code>Object.defineProperty(obj, name, desc)</code>在无法定义属性时，会抛出一个错误，而<code>Reflect.defineProperty(obj, name, desc)</code>则会返回<code>false</code>。</p><pre class="hljs"><code><span class="hljs-comment">// 老写法</span>
 <span class="hljs-keyword">try</span> {
-  <span class="hljs-built_in">Object</span>.defineProperty(target, property, attributes);
+  <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">defineProperty</span>(target, property, attributes);
   <span class="hljs-comment">// success</span>
 } <span class="hljs-keyword">catch</span> (e) {
   <span class="hljs-comment">// failure</span>
 }
 
 <span class="hljs-comment">// 新写法</span>
-<span class="hljs-keyword">if</span> (<span class="hljs-built_in">Reflect</span>.defineProperty(target, property, attributes)) {
+<span class="hljs-keyword">if</span> (<span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">defineProperty</span>(target, property, attributes)) {
   <span class="hljs-comment">// success</span>
 } <span class="hljs-keyword">else</span> {
   <span class="hljs-comment">// failure</span>
 }
 </code></pre><p>（3） 让<code>Object</code>操作都变成函数行为。某些<code>Object</code>操作是命令式，比如<code>name in obj</code>和<code>delete obj[name]</code>，而<code>Reflect.has(obj, name)</code>和<code>Reflect.deleteProperty(obj, name)</code>让它们变成了函数行为。</p><pre class="hljs"><code><span class="hljs-comment">// 老写法</span>
-<span class="hljs-string">&#x27;assign&#x27;</span> <span class="hljs-keyword">in</span> <span class="hljs-built_in">Object</span> <span class="hljs-comment">// true</span>
+<span class="hljs-string">&#x27;assign&#x27;</span> <span class="hljs-keyword">in</span> <span class="hljs-title class_">Object</span> <span class="hljs-comment">// true</span>
 
 <span class="hljs-comment">// 新写法</span>
-<span class="hljs-built_in">Reflect</span>.has(<span class="hljs-built_in">Object</span>, <span class="hljs-string">&#x27;assign&#x27;</span>) <span class="hljs-comment">// true</span>
-</code></pre><p>（4）<code>Reflect</code>对象的方法与<code>Proxy</code>对象的方法一一对应，只要是<code>Proxy</code>对象的方法，就能在<code>Reflect</code>对象上找到对应的方法。这就让<code>Proxy</code>对象可以方便地调用对应的<code>Reflect</code>方法，完成默认行为，作为修改行为的基础。也就是说，不管<code>Proxy</code>怎么修改默认行为，你总可以在<code>Reflect</code>上获取默认行为。</p><pre class="hljs"><code><span class="hljs-built_in">Proxy</span>(target, {
-  <span class="hljs-attr">set</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">target, name, value, receiver</span>) </span>{
-    <span class="hljs-keyword">var</span> success = <span class="hljs-built_in">Reflect</span>.set(target, name, value, receiver);
+<span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">has</span>(<span class="hljs-title class_">Object</span>, <span class="hljs-string">&#x27;assign&#x27;</span>) <span class="hljs-comment">// true</span>
+</code></pre><p>（4）<code>Reflect</code>对象的方法与<code>Proxy</code>对象的方法一一对应，只要是<code>Proxy</code>对象的方法，就能在<code>Reflect</code>对象上找到对应的方法。这就让<code>Proxy</code>对象可以方便地调用对应的<code>Reflect</code>方法，完成默认行为，作为修改行为的基础。也就是说，不管<code>Proxy</code>怎么修改默认行为，你总可以在<code>Reflect</code>上获取默认行为。</p><pre class="hljs"><code><span class="hljs-title class_">Proxy</span>(target, {
+  <span class="hljs-attr">set</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">target, name, value, receiver</span>) {
+    <span class="hljs-keyword">var</span> success = <span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">set</span>(target, name, value, receiver);
     <span class="hljs-keyword">if</span> (success) {
-      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;property &#x27;</span> + name + <span class="hljs-string">&#x27; on &#x27;</span> + target + <span class="hljs-string">&#x27; set to &#x27;</span> + value);
+      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;property &#x27;</span> + name + <span class="hljs-string">&#x27; on &#x27;</span> + target + <span class="hljs-string">&#x27; set to &#x27;</span> + value);
     }
     <span class="hljs-keyword">return</span> success;
   }
 });
-</code></pre><p>上面代码中，<code>Proxy</code>方法拦截<code>target</code>对象的属性赋值行为。它采用<code>Reflect.set</code>方法将值赋值给对象的属性，确保完成原有的行为，然后再部署额外的功能。</p><p>下面是另一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> loggedObj = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>(obj, {
-  <span class="hljs-function"><span class="hljs-title">get</span>(<span class="hljs-params">target, name</span>)</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;get&#x27;</span>, target, name);
-    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Reflect</span>.get(target, name);
+</code></pre><p>上面代码中，<code>Proxy</code>方法拦截<code>target</code>对象的属性赋值行为。它采用<code>Reflect.set</code>方法将值赋值给对象的属性，确保完成原有的行为，然后再部署额外的功能。</p><p>下面是另一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> loggedObj = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Proxy</span>(obj, {
+  <span class="hljs-title function_">get</span>(<span class="hljs-params">target, name</span>) {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;get&#x27;</span>, target, name);
+    <span class="hljs-keyword">return</span> <span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">get</span>(target, name);
   },
-  <span class="hljs-function"><span class="hljs-title">deleteProperty</span>(<span class="hljs-params">target, name</span>)</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;delete&#x27;</span> + name);
-    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Reflect</span>.deleteProperty(target, name);
+  <span class="hljs-title function_">deleteProperty</span>(<span class="hljs-params">target, name</span>) {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;delete&#x27;</span> + name);
+    <span class="hljs-keyword">return</span> <span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">deleteProperty</span>(target, name);
   },
-  <span class="hljs-function"><span class="hljs-title">has</span>(<span class="hljs-params">target, name</span>)</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;has&#x27;</span> + name);
-    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Reflect</span>.has(target, name);
+  <span class="hljs-title function_">has</span>(<span class="hljs-params">target, name</span>) {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;has&#x27;</span> + name);
+    <span class="hljs-keyword">return</span> <span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">has</span>(target, name);
   }
 });
 </code></pre><p>上面代码中，每一个<code>Proxy</code>对象的拦截操作（<code>get</code>、<code>delete</code>、<code>has</code>），内部都调用对应的<code>Reflect</code>方法，保证原生行为能够正常执行。添加的工作，就是将每一个操作输出一行日志。</p><p>有了<code>Reflect</code>对象以后，很多操作会更易读。</p><pre class="hljs"><code><span class="hljs-comment">// 老写法</span>
-<span class="hljs-built_in">Function</span>.prototype.apply.call(<span class="hljs-built_in">Math</span>.floor, <span class="hljs-literal">undefined</span>, [<span class="hljs-number">1.75</span>]) <span class="hljs-comment">// 1</span>
+<span class="hljs-title class_">Function</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">apply</span>.<span class="hljs-title function_">call</span>(<span class="hljs-title class_">Math</span>.<span class="hljs-property">floor</span>, <span class="hljs-literal">undefined</span>, [<span class="hljs-number">1.75</span>]) <span class="hljs-comment">// 1</span>
 
 <span class="hljs-comment">// 新写法</span>
-<span class="hljs-built_in">Reflect</span>.apply(<span class="hljs-built_in">Math</span>.floor, <span class="hljs-literal">undefined</span>, [<span class="hljs-number">1.75</span>]) <span class="hljs-comment">// 1</span>
+<span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">apply</span>(<span class="hljs-title class_">Math</span>.<span class="hljs-property">floor</span>, <span class="hljs-literal">undefined</span>, [<span class="hljs-number">1.75</span>]) <span class="hljs-comment">// 1</span>
 </code></pre><h2 id="静态方法">静态方法 <a class="markdownIt-Anchor" href="#静态方法">#</a></h2><p><code>Reflect</code>对象一共有 13 个静态方法。</p><ul><li>Reflect.apply(target, thisArg, args)</li><li>Reflect.construct(target, args)</li><li>Reflect.get(target, name, receiver)</li><li>Reflect.set(target, name, value, receiver)</li><li>Reflect.defineProperty(target, name, desc)</li><li>Reflect.deleteProperty(target, name)</li><li>Reflect.has(target, name)</li><li>Reflect.ownKeys(target)</li><li>Reflect.isExtensible(target)</li><li>Reflect.preventExtensions(target)</li><li>Reflect.getOwnPropertyDescriptor(target, name)</li><li>Reflect.getPrototypeOf(target)</li><li>Reflect.setPrototypeOf(target, prototype)</li></ul><p>上面这些方法的作用，大部分与<code>Object</code>对象的同名方法的作用都是相同的，而且它与<code>Proxy</code>对象的方法是一一对应的。下面是对它们的解释。</p><h3 id="reflectgettarget-name-receiver">Reflect.get(target, name, receiver) <a class="markdownIt-Anchor" href="#reflectgettarget-name-receiver">#</a></h3><p><code>Reflect.get</code>方法查找并返回<code>target</code>对象的<code>name</code>属性，如果没有该属性，则返回<code>undefined</code>。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> myObject = {
   <span class="hljs-attr">foo</span>: <span class="hljs-number">1</span>,
   <span class="hljs-attr">bar</span>: <span class="hljs-number">2</span>,
-  <span class="hljs-keyword">get</span> <span class="hljs-title">baz</span>() {
-    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.foo + <span class="hljs-built_in">this</span>.bar;
+  <span class="hljs-keyword">get</span> <span class="hljs-title function_">baz</span>() {
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">foo</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-property">bar</span>;
   },
 }
 
-<span class="hljs-built_in">Reflect</span>.get(myObject, <span class="hljs-string">&#x27;foo&#x27;</span>) <span class="hljs-comment">// 1</span>
-<span class="hljs-built_in">Reflect</span>.get(myObject, <span class="hljs-string">&#x27;bar&#x27;</span>) <span class="hljs-comment">// 2</span>
-<span class="hljs-built_in">Reflect</span>.get(myObject, <span class="hljs-string">&#x27;baz&#x27;</span>) <span class="hljs-comment">// 3</span>
+<span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">get</span>(myObject, <span class="hljs-string">&#x27;foo&#x27;</span>) <span class="hljs-comment">// 1</span>
+<span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">get</span>(myObject, <span class="hljs-string">&#x27;bar&#x27;</span>) <span class="hljs-comment">// 2</span>
+<span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">get</span>(myObject, <span class="hljs-string">&#x27;baz&#x27;</span>) <span class="hljs-comment">// 3</span>
 </code></pre><p>如果<code>name</code>属性部署了读取函数（getter），则读取函数的<code>this</code>绑定<code>receiver</code>。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> myObject = {
   <span class="hljs-attr">foo</span>: <span class="hljs-number">1</span>,
   <span class="hljs-attr">bar</span>: <span class="hljs-number">2</span>,
-  <span class="hljs-keyword">get</span> <span class="hljs-title">baz</span>() {
-    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.foo + <span class="hljs-built_in">this</span>.bar;
+  <span class="hljs-keyword">get</span> <span class="hljs-title function_">baz</span>() {
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">foo</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-property">bar</span>;
   },
 };
 
@@ -69,27 +69,27 @@
   <span class="hljs-attr">bar</span>: <span class="hljs-number">4</span>,
 };
 
-<span class="hljs-built_in">Reflect</span>.get(myObject, <span class="hljs-string">&#x27;baz&#x27;</span>, myReceiverObject) <span class="hljs-comment">// 8</span>
-</code></pre><p>如果第一个参数不是对象，<code>Reflect.get</code>方法会报错。</p><pre class="hljs"><code><span class="hljs-built_in">Reflect</span>.get(<span class="hljs-number">1</span>, <span class="hljs-string">&#x27;foo&#x27;</span>) <span class="hljs-comment">// 报错</span>
-<span class="hljs-built_in">Reflect</span>.get(<span class="hljs-literal">false</span>, <span class="hljs-string">&#x27;foo&#x27;</span>) <span class="hljs-comment">// 报错</span>
+<span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">get</span>(myObject, <span class="hljs-string">&#x27;baz&#x27;</span>, myReceiverObject) <span class="hljs-comment">// 8</span>
+</code></pre><p>如果第一个参数不是对象，<code>Reflect.get</code>方法会报错。</p><pre class="hljs"><code><span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">get</span>(<span class="hljs-number">1</span>, <span class="hljs-string">&#x27;foo&#x27;</span>) <span class="hljs-comment">// 报错</span>
+<span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">get</span>(<span class="hljs-literal">false</span>, <span class="hljs-string">&#x27;foo&#x27;</span>) <span class="hljs-comment">// 报错</span>
 </code></pre><h3 id="reflectsettarget-name-value-receiver">Reflect.set(target, name, value, receiver) <a class="markdownIt-Anchor" href="#reflectsettarget-name-value-receiver">#</a></h3><p><code>Reflect.set</code>方法设置<code>target</code>对象的<code>name</code>属性等于<code>value</code>。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> myObject = {
   <span class="hljs-attr">foo</span>: <span class="hljs-number">1</span>,
-  <span class="hljs-keyword">set</span> <span class="hljs-title">bar</span>(<span class="hljs-params">value</span>) {
-    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.foo = value;
+  <span class="hljs-keyword">set</span> <span class="hljs-title function_">bar</span>(<span class="hljs-params">value</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">foo</span> = value;
   },
 }
 
-myObject.foo <span class="hljs-comment">// 1</span>
+myObject.<span class="hljs-property">foo</span> <span class="hljs-comment">// 1</span>
 
-<span class="hljs-built_in">Reflect</span>.set(myObject, <span class="hljs-string">&#x27;foo&#x27;</span>, <span class="hljs-number">2</span>);
-myObject.foo <span class="hljs-comment">// 2</span>
+<span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">set</span>(myObject, <span class="hljs-string">&#x27;foo&#x27;</span>, <span class="hljs-number">2</span>);
+myObject.<span class="hljs-property">foo</span> <span class="hljs-comment">// 2</span>
 
-<span class="hljs-built_in">Reflect</span>.set(myObject, <span class="hljs-string">&#x27;bar&#x27;</span>, <span class="hljs-number">3</span>)
-myObject.foo <span class="hljs-comment">// 3</span>
+<span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">set</span>(myObject, <span class="hljs-string">&#x27;bar&#x27;</span>, <span class="hljs-number">3</span>)
+myObject.<span class="hljs-property">foo</span> <span class="hljs-comment">// 3</span>
 </code></pre><p>如果<code>name</code>属性设置了赋值函数，则赋值函数的<code>this</code>绑定<code>receiver</code>。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> myObject = {
   <span class="hljs-attr">foo</span>: <span class="hljs-number">4</span>,
-  <span class="hljs-keyword">set</span> <span class="hljs-title">bar</span>(<span class="hljs-params">value</span>) {
-    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.foo = value;
+  <span class="hljs-keyword">set</span> <span class="hljs-title function_">bar</span>(<span class="hljs-params">value</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">foo</span> = value;
   },
 };
 
@@ -97,26 +97,26 @@ myObject.foo <span class="hljs-comment">// 3</span>
   <span class="hljs-attr">foo</span>: <span class="hljs-number">0</span>,
 };
 
-<span class="hljs-built_in">Reflect</span>.set(myObject, <span class="hljs-string">&#x27;bar&#x27;</span>, <span class="hljs-number">1</span>, myReceiverObject);
-myObject.foo <span class="hljs-comment">// 4</span>
-myReceiverObject.foo <span class="hljs-comment">// 1</span>
+<span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">set</span>(myObject, <span class="hljs-string">&#x27;bar&#x27;</span>, <span class="hljs-number">1</span>, myReceiverObject);
+myObject.<span class="hljs-property">foo</span> <span class="hljs-comment">// 4</span>
+myReceiverObject.<span class="hljs-property">foo</span> <span class="hljs-comment">// 1</span>
 </code></pre><p>注意，如果 <code>Proxy</code>对象和 <code>Reflect</code>对象联合使用，前者拦截赋值操作，后者完成赋值的默认行为，而且传入了<code>receiver</code>，那么<code>Reflect.set</code>会触发<code>Proxy.defineProperty</code>拦截。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> p = {
   <span class="hljs-attr">a</span>: <span class="hljs-string">&#x27;a&#x27;</span>
 };
 
 <span class="hljs-keyword">let</span> handler = {
-  <span class="hljs-function"><span class="hljs-title">set</span>(<span class="hljs-params">target, key, value, receiver</span>)</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;set&#x27;</span>);
-    <span class="hljs-built_in">Reflect</span>.set(target, key, value, receiver)
+  <span class="hljs-title function_">set</span>(<span class="hljs-params">target, key, value, receiver</span>) {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;set&#x27;</span>);
+    <span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">set</span>(target, key, value, receiver)
   },
-  <span class="hljs-function"><span class="hljs-title">defineProperty</span>(<span class="hljs-params">target, key, attribute</span>)</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;defineProperty&#x27;</span>);
-    <span class="hljs-built_in">Reflect</span>.defineProperty(target, key, attribute);
+  <span class="hljs-title function_">defineProperty</span>(<span class="hljs-params">target, key, attribute</span>) {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;defineProperty&#x27;</span>);
+    <span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">defineProperty</span>(target, key, attribute);
   }
 };
 
-<span class="hljs-keyword">let</span> obj = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>(p, handler);
-obj.a = <span class="hljs-string">&#x27;A&#x27;</span>;
+<span class="hljs-keyword">let</span> obj = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Proxy</span>(p, handler);
+obj.<span class="hljs-property">a</span> = <span class="hljs-string">&#x27;A&#x27;</span>;
 <span class="hljs-comment">// set</span>
 <span class="hljs-comment">// defineProperty</span>
 </code></pre><p>上面代码中，<code>Proxy.set</code>拦截里面使用了<code>Reflect.set</code>，而且传入了<code>receiver</code>，导致触发<code>Proxy.defineProperty</code>拦截。这是因为<code>Proxy.set</code>的<code>receiver</code>参数总是指向当前的 <code>Proxy</code>实例（即上例的<code>obj</code>），而<code>Reflect.set</code>一旦传入<code>receiver</code>，就会将属性赋值到<code>receiver</code>上面（即<code>obj</code>），导致触发<code>defineProperty</code>拦截。如果<code>Reflect.set</code>没有传入<code>receiver</code>，那么就不会触发<code>defineProperty</code>拦截。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> p = {
@@ -124,21 +124,21 @@ obj.a = <span class="hljs-string">&#x27;A&#x27;</span>;
 };
 
 <span class="hljs-keyword">let</span> handler = {
-  <span class="hljs-function"><span class="hljs-title">set</span>(<span class="hljs-params">target, key, value, receiver</span>)</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;set&#x27;</span>);
-    <span class="hljs-built_in">Reflect</span>.set(target, key, value)
+  <span class="hljs-title function_">set</span>(<span class="hljs-params">target, key, value, receiver</span>) {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;set&#x27;</span>);
+    <span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">set</span>(target, key, value)
   },
-  <span class="hljs-function"><span class="hljs-title">defineProperty</span>(<span class="hljs-params">target, key, attribute</span>)</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;defineProperty&#x27;</span>);
-    <span class="hljs-built_in">Reflect</span>.defineProperty(target, key, attribute);
+  <span class="hljs-title function_">defineProperty</span>(<span class="hljs-params">target, key, attribute</span>) {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;defineProperty&#x27;</span>);
+    <span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">defineProperty</span>(target, key, attribute);
   }
 };
 
-<span class="hljs-keyword">let</span> obj = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>(p, handler);
-obj.a = <span class="hljs-string">&#x27;A&#x27;</span>;
+<span class="hljs-keyword">let</span> obj = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Proxy</span>(p, handler);
+obj.<span class="hljs-property">a</span> = <span class="hljs-string">&#x27;A&#x27;</span>;
 <span class="hljs-comment">// set</span>
-</code></pre><p>如果第一个参数不是对象，<code>Reflect.set</code>会报错。</p><pre class="hljs"><code><span class="hljs-built_in">Reflect</span>.set(<span class="hljs-number">1</span>, <span class="hljs-string">&#x27;foo&#x27;</span>, {}) <span class="hljs-comment">// 报错</span>
-<span class="hljs-built_in">Reflect</span>.set(<span class="hljs-literal">false</span>, <span class="hljs-string">&#x27;foo&#x27;</span>, {}) <span class="hljs-comment">// 报错</span>
+</code></pre><p>如果第一个参数不是对象，<code>Reflect.set</code>会报错。</p><pre class="hljs"><code><span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">set</span>(<span class="hljs-number">1</span>, <span class="hljs-string">&#x27;foo&#x27;</span>, {}) <span class="hljs-comment">// 报错</span>
+<span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">set</span>(<span class="hljs-literal">false</span>, <span class="hljs-string">&#x27;foo&#x27;</span>, {}) <span class="hljs-comment">// 报错</span>
 </code></pre><h3 id="reflecthasobj-name">Reflect.has(obj, name) <a class="markdownIt-Anchor" href="#reflecthasobj-name">#</a></h3><p><code>Reflect.has</code>方法对应<code>name in obj</code>里面的<code>in</code>运算符。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> myObject = {
   <span class="hljs-attr">foo</span>: <span class="hljs-number">1</span>,
 };
@@ -147,163 +147,163 @@ obj.a = <span class="hljs-string">&#x27;A&#x27;</span>;
 <span class="hljs-string">&#x27;foo&#x27;</span> <span class="hljs-keyword">in</span> myObject <span class="hljs-comment">// true</span>
 
 <span class="hljs-comment">// 新写法</span>
-<span class="hljs-built_in">Reflect</span>.has(myObject, <span class="hljs-string">&#x27;foo&#x27;</span>) <span class="hljs-comment">// true</span>
+<span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">has</span>(myObject, <span class="hljs-string">&#x27;foo&#x27;</span>) <span class="hljs-comment">// true</span>
 </code></pre><p>如果<code>Reflect.has()</code>方法的第一个参数不是对象，会报错。</p><h3 id="reflectdeletepropertyobj-name">Reflect.deleteProperty(obj, name) <a class="markdownIt-Anchor" href="#reflectdeletepropertyobj-name">#</a></h3><p><code>Reflect.deleteProperty</code>方法等同于<code>delete obj[name]</code>，用于删除对象的属性。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> myObj = { <span class="hljs-attr">foo</span>: <span class="hljs-string">&#x27;bar&#x27;</span> };
 
 <span class="hljs-comment">// 旧写法</span>
-<span class="hljs-keyword">delete</span> myObj.foo;
+<span class="hljs-keyword">delete</span> myObj.<span class="hljs-property">foo</span>;
 
 <span class="hljs-comment">// 新写法</span>
-<span class="hljs-built_in">Reflect</span>.deleteProperty(myObj, <span class="hljs-string">&#x27;foo&#x27;</span>);
-</code></pre><p>该方法返回一个布尔值。如果删除成功，或者被删除的属性不存在，返回<code>true</code>；删除失败，被删除的属性依然存在，返回<code>false</code>。</p><p>如果<code>Reflect.deleteProperty()</code>方法的第一个参数不是对象，会报错。</p><h3 id="reflectconstructtarget-args">Reflect.construct(target, args) <a class="markdownIt-Anchor" href="#reflectconstructtarget-args">#</a></h3><p><code>Reflect.construct</code>方法等同于<code>new target(...args)</code>，这提供了一种不使用<code>new</code>，来调用构造函数的方法。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Greeting</span>(<span class="hljs-params">name</span>) </span>{
-  <span class="hljs-built_in">this</span>.name = name;
+<span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">deleteProperty</span>(myObj, <span class="hljs-string">&#x27;foo&#x27;</span>);
+</code></pre><p>该方法返回一个布尔值。如果删除成功，或者被删除的属性不存在，返回<code>true</code>；删除失败，被删除的属性依然存在，返回<code>false</code>。</p><p>如果<code>Reflect.deleteProperty()</code>方法的第一个参数不是对象，会报错。</p><h3 id="reflectconstructtarget-args">Reflect.construct(target, args) <a class="markdownIt-Anchor" href="#reflectconstructtarget-args">#</a></h3><p><code>Reflect.construct</code>方法等同于<code>new target(...args)</code>，这提供了一种不使用<code>new</code>，来调用构造函数的方法。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">Greeting</span>(<span class="hljs-params">name</span>) {
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name;
 }
 
 <span class="hljs-comment">// new 的写法</span>
-<span class="hljs-keyword">const</span> instance = <span class="hljs-keyword">new</span> Greeting(<span class="hljs-string">&#x27;张三&#x27;</span>);
+<span class="hljs-keyword">const</span> instance = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Greeting</span>(<span class="hljs-string">&#x27;张三&#x27;</span>);
 
 <span class="hljs-comment">// Reflect.construct 的写法</span>
-<span class="hljs-keyword">const</span> instance = <span class="hljs-built_in">Reflect</span>.construct(Greeting, [<span class="hljs-string">&#x27;张三&#x27;</span>]);
-</code></pre><p>如果<code>Reflect.construct()</code>方法的第一个参数不是函数，会报错。</p><h3 id="reflectgetprototypeofobj">Reflect.getPrototypeOf(obj) <a class="markdownIt-Anchor" href="#reflectgetprototypeofobj">#</a></h3><p><code>Reflect.getPrototypeOf</code>方法用于读取对象的<code>__proto__</code>属性，对应<code>Object.getPrototypeOf(obj)</code>。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> myObj = <span class="hljs-keyword">new</span> FancyThing();
+<span class="hljs-keyword">const</span> instance = <span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">construct</span>(<span class="hljs-title class_">Greeting</span>, [<span class="hljs-string">&#x27;张三&#x27;</span>]);
+</code></pre><p>如果<code>Reflect.construct()</code>方法的第一个参数不是函数，会报错。</p><h3 id="reflectgetprototypeofobj">Reflect.getPrototypeOf(obj) <a class="markdownIt-Anchor" href="#reflectgetprototypeofobj">#</a></h3><p><code>Reflect.getPrototypeOf</code>方法用于读取对象的<code>__proto__</code>属性，对应<code>Object.getPrototypeOf(obj)</code>。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> myObj = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FancyThing</span>();
 
 <span class="hljs-comment">// 旧写法</span>
-<span class="hljs-built_in">Object</span>.getPrototypeOf(myObj) === FancyThing.prototype;
+<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">getPrototypeOf</span>(myObj) === <span class="hljs-title class_">FancyThing</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>;
 
 <span class="hljs-comment">// 新写法</span>
-<span class="hljs-built_in">Reflect</span>.getPrototypeOf(myObj) === FancyThing.prototype;
-</code></pre><p><code>Reflect.getPrototypeOf</code>和<code>Object.getPrototypeOf</code>的一个区别是，如果参数不是对象，<code>Object.getPrototypeOf</code>会将这个参数转为对象，然后再运行，而<code>Reflect.getPrototypeOf</code>会报错。</p><pre class="hljs"><code><span class="hljs-built_in">Object</span>.getPrototypeOf(<span class="hljs-number">1</span>) <span class="hljs-comment">// Number {[[PrimitiveValue]]: 0}</span>
-<span class="hljs-built_in">Reflect</span>.getPrototypeOf(<span class="hljs-number">1</span>) <span class="hljs-comment">// 报错</span>
+<span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">getPrototypeOf</span>(myObj) === <span class="hljs-title class_">FancyThing</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>;
+</code></pre><p><code>Reflect.getPrototypeOf</code>和<code>Object.getPrototypeOf</code>的一个区别是，如果参数不是对象，<code>Object.getPrototypeOf</code>会将这个参数转为对象，然后再运行，而<code>Reflect.getPrototypeOf</code>会报错。</p><pre class="hljs"><code><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">getPrototypeOf</span>(<span class="hljs-number">1</span>) <span class="hljs-comment">// Number {[[PrimitiveValue]]: 0}</span>
+<span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">getPrototypeOf</span>(<span class="hljs-number">1</span>) <span class="hljs-comment">// 报错</span>
 </code></pre><h3 id="reflectsetprototypeofobj-newproto">Reflect.setPrototypeOf(obj, newProto) <a class="markdownIt-Anchor" href="#reflectsetprototypeofobj-newproto">#</a></h3><p><code>Reflect.setPrototypeOf</code>方法用于设置目标对象的原型（prototype），对应<code>Object.setPrototypeOf(obj, newProto)</code>方法。它返回一个布尔值，表示是否设置成功。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> myObj = {};
 
 <span class="hljs-comment">// 旧写法</span>
-<span class="hljs-built_in">Object</span>.setPrototypeOf(myObj, <span class="hljs-built_in">Array</span>.prototype);
+<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">setPrototypeOf</span>(myObj, <span class="hljs-title class_">Array</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>);
 
 <span class="hljs-comment">// 新写法</span>
-<span class="hljs-built_in">Reflect</span>.setPrototypeOf(myObj, <span class="hljs-built_in">Array</span>.prototype);
+<span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">setPrototypeOf</span>(myObj, <span class="hljs-title class_">Array</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>);
 
-myObj.length <span class="hljs-comment">// 0</span>
-</code></pre><p>如果无法设置目标对象的原型（比如，目标对象禁止扩展），<code>Reflect.setPrototypeOf</code>方法返回<code>false</code>。</p><pre class="hljs"><code><span class="hljs-built_in">Reflect</span>.setPrototypeOf({}, <span class="hljs-literal">null</span>)
+myObj.<span class="hljs-property">length</span> <span class="hljs-comment">// 0</span>
+</code></pre><p>如果无法设置目标对象的原型（比如，目标对象禁止扩展），<code>Reflect.setPrototypeOf</code>方法返回<code>false</code>。</p><pre class="hljs"><code><span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">setPrototypeOf</span>({}, <span class="hljs-literal">null</span>)
 <span class="hljs-comment">// true</span>
-<span class="hljs-built_in">Reflect</span>.setPrototypeOf(<span class="hljs-built_in">Object</span>.freeze({}), <span class="hljs-literal">null</span>)
+<span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">setPrototypeOf</span>(<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">freeze</span>({}), <span class="hljs-literal">null</span>)
 <span class="hljs-comment">// false</span>
-</code></pre><p>如果第一个参数不是对象，<code>Object.setPrototypeOf</code>会返回第一个参数本身，而<code>Reflect.setPrototypeOf</code>会报错。</p><pre class="hljs"><code><span class="hljs-built_in">Object</span>.setPrototypeOf(<span class="hljs-number">1</span>, {})
+</code></pre><p>如果第一个参数不是对象，<code>Object.setPrototypeOf</code>会返回第一个参数本身，而<code>Reflect.setPrototypeOf</code>会报错。</p><pre class="hljs"><code><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">setPrototypeOf</span>(<span class="hljs-number">1</span>, {})
 <span class="hljs-comment">// 1</span>
 
-<span class="hljs-built_in">Reflect</span>.setPrototypeOf(<span class="hljs-number">1</span>, {})
+<span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">setPrototypeOf</span>(<span class="hljs-number">1</span>, {})
 <span class="hljs-comment">// TypeError: Reflect.setPrototypeOf called on non-object</span>
-</code></pre><p>如果第一个参数是<code>undefined</code>或<code>null</code>，<code>Object.setPrototypeOf</code>和<code>Reflect.setPrototypeOf</code>都会报错。</p><pre class="hljs"><code><span class="hljs-built_in">Object</span>.setPrototypeOf(<span class="hljs-literal">null</span>, {})
+</code></pre><p>如果第一个参数是<code>undefined</code>或<code>null</code>，<code>Object.setPrototypeOf</code>和<code>Reflect.setPrototypeOf</code>都会报错。</p><pre class="hljs"><code><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">setPrototypeOf</span>(<span class="hljs-literal">null</span>, {})
 <span class="hljs-comment">// TypeError: Object.setPrototypeOf called on null or undefined</span>
 
-<span class="hljs-built_in">Reflect</span>.setPrototypeOf(<span class="hljs-literal">null</span>, {})
+<span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">setPrototypeOf</span>(<span class="hljs-literal">null</span>, {})
 <span class="hljs-comment">// TypeError: Reflect.setPrototypeOf called on non-object</span>
 </code></pre><h3 id="reflectapplyfunc-thisarg-args">Reflect.apply(func, thisArg, args) <a class="markdownIt-Anchor" href="#reflectapplyfunc-thisarg-args">#</a></h3><p><code>Reflect.apply</code>方法等同于<code>Function.prototype.apply.call(func, thisArg, args)</code>，用于绑定<code>this</code>对象后执行给定函数。</p><p>一般来说，如果要绑定一个函数的<code>this</code>对象，可以这样写<code>fn.apply(obj, args)</code>，但是如果函数定义了自己的<code>apply</code>方法，就只能写成<code>Function.prototype.apply.call(fn, obj, args)</code>，采用<code>Reflect</code>对象可以简化这种操作。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> ages = [<span class="hljs-number">11</span>, <span class="hljs-number">33</span>, <span class="hljs-number">12</span>, <span class="hljs-number">54</span>, <span class="hljs-number">18</span>, <span class="hljs-number">96</span>];
 
 <span class="hljs-comment">// 旧写法</span>
-<span class="hljs-keyword">const</span> youngest = <span class="hljs-built_in">Math</span>.min.apply(<span class="hljs-built_in">Math</span>, ages);
-<span class="hljs-keyword">const</span> oldest = <span class="hljs-built_in">Math</span>.max.apply(<span class="hljs-built_in">Math</span>, ages);
-<span class="hljs-keyword">const</span> type = <span class="hljs-built_in">Object</span>.prototype.toString.call(youngest);
+<span class="hljs-keyword">const</span> youngest = <span class="hljs-title class_">Math</span>.<span class="hljs-property">min</span>.<span class="hljs-title function_">apply</span>(<span class="hljs-title class_">Math</span>, ages);
+<span class="hljs-keyword">const</span> oldest = <span class="hljs-title class_">Math</span>.<span class="hljs-property">max</span>.<span class="hljs-title function_">apply</span>(<span class="hljs-title class_">Math</span>, ages);
+<span class="hljs-keyword">const</span> type = <span class="hljs-title class_">Object</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">toString</span>.<span class="hljs-title function_">call</span>(youngest);
 
 <span class="hljs-comment">// 新写法</span>
-<span class="hljs-keyword">const</span> youngest = <span class="hljs-built_in">Reflect</span>.apply(<span class="hljs-built_in">Math</span>.min, <span class="hljs-built_in">Math</span>, ages);
-<span class="hljs-keyword">const</span> oldest = <span class="hljs-built_in">Reflect</span>.apply(<span class="hljs-built_in">Math</span>.max, <span class="hljs-built_in">Math</span>, ages);
-<span class="hljs-keyword">const</span> type = <span class="hljs-built_in">Reflect</span>.apply(<span class="hljs-built_in">Object</span>.prototype.toString, youngest, []);
-</code></pre><h3 id="reflectdefinepropertytarget-propertykey-attributes">Reflect.defineProperty(target, propertyKey, attributes) <a class="markdownIt-Anchor" href="#reflectdefinepropertytarget-propertykey-attributes">#</a></h3><p><code>Reflect.defineProperty</code>方法基本等同于<code>Object.defineProperty</code>，用来为对象定义属性。未来，后者会被逐渐废除，请从现在开始就使用<code>Reflect.defineProperty</code>代替它。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">MyDate</span>(<span class="hljs-params"></span>) </span>{
+<span class="hljs-keyword">const</span> youngest = <span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">apply</span>(<span class="hljs-title class_">Math</span>.<span class="hljs-property">min</span>, <span class="hljs-title class_">Math</span>, ages);
+<span class="hljs-keyword">const</span> oldest = <span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">apply</span>(<span class="hljs-title class_">Math</span>.<span class="hljs-property">max</span>, <span class="hljs-title class_">Math</span>, ages);
+<span class="hljs-keyword">const</span> type = <span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">apply</span>(<span class="hljs-title class_">Object</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">toString</span>, youngest, []);
+</code></pre><h3 id="reflectdefinepropertytarget-propertykey-attributes">Reflect.defineProperty(target, propertyKey, attributes) <a class="markdownIt-Anchor" href="#reflectdefinepropertytarget-propertykey-attributes">#</a></h3><p><code>Reflect.defineProperty</code>方法基本等同于<code>Object.defineProperty</code>，用来为对象定义属性。未来，后者会被逐渐废除，请从现在开始就使用<code>Reflect.defineProperty</code>代替它。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">MyDate</span>(<span class="hljs-params"></span>) {
   <span class="hljs-comment">/*…*/</span>
 }
 
 <span class="hljs-comment">// 旧写法</span>
-<span class="hljs-built_in">Object</span>.defineProperty(MyDate, <span class="hljs-string">&#x27;now&#x27;</span>, {
-  <span class="hljs-attr">value</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">Date</span>.now()
+<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">defineProperty</span>(<span class="hljs-title class_">MyDate</span>, <span class="hljs-string">&#x27;now&#x27;</span>, {
+  <span class="hljs-attr">value</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-title class_">Date</span>.<span class="hljs-title function_">now</span>()
 });
 
 <span class="hljs-comment">// 新写法</span>
-<span class="hljs-built_in">Reflect</span>.defineProperty(MyDate, <span class="hljs-string">&#x27;now&#x27;</span>, {
-  <span class="hljs-attr">value</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">Date</span>.now()
+<span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">defineProperty</span>(<span class="hljs-title class_">MyDate</span>, <span class="hljs-string">&#x27;now&#x27;</span>, {
+  <span class="hljs-attr">value</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-title class_">Date</span>.<span class="hljs-title function_">now</span>()
 });
-</code></pre><p>如果<code>Reflect.defineProperty</code>的第一个参数不是对象，就会抛出错误，比如<code>Reflect.defineProperty(1, 'foo')</code>。</p><p>这个方法可以与<code>Proxy.defineProperty</code>配合使用。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> p = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>({}, {
-  <span class="hljs-function"><span class="hljs-title">defineProperty</span>(<span class="hljs-params">target, prop, descriptor</span>)</span> {
-    <span class="hljs-built_in">console</span>.log(descriptor);
-    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Reflect</span>.defineProperty(target, prop, descriptor);
+</code></pre><p>如果<code>Reflect.defineProperty</code>的第一个参数不是对象，就会抛出错误，比如<code>Reflect.defineProperty(1, 'foo')</code>。</p><p>这个方法可以与<code>Proxy.defineProperty</code>配合使用。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> p = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Proxy</span>({}, {
+  <span class="hljs-title function_">defineProperty</span>(<span class="hljs-params">target, prop, descriptor</span>) {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(descriptor);
+    <span class="hljs-keyword">return</span> <span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">defineProperty</span>(target, prop, descriptor);
   }
 });
 
-p.foo = <span class="hljs-string">&#x27;bar&#x27;</span>;
+p.<span class="hljs-property">foo</span> = <span class="hljs-string">&#x27;bar&#x27;</span>;
 <span class="hljs-comment">// {value: &quot;bar&quot;, writable: true, enumerable: true, configurable: true}</span>
 
-p.foo <span class="hljs-comment">// &quot;bar&quot;</span>
+p.<span class="hljs-property">foo</span> <span class="hljs-comment">// &quot;bar&quot;</span>
 </code></pre><p>上面代码中，<code>Proxy.defineProperty</code>对属性赋值设置了拦截，然后使用<code>Reflect.defineProperty</code>完成了赋值。</p><h3 id="reflectgetownpropertydescriptortarget-propertykey">Reflect.getOwnPropertyDescriptor(target, propertyKey) <a class="markdownIt-Anchor" href="#reflectgetownpropertydescriptortarget-propertykey">#</a></h3><p><code>Reflect.getOwnPropertyDescriptor</code>基本等同于<code>Object.getOwnPropertyDescriptor</code>，用于得到指定属性的描述对象，将来会替代掉后者。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> myObject = {};
-<span class="hljs-built_in">Object</span>.defineProperty(myObject, <span class="hljs-string">&#x27;hidden&#x27;</span>, {
+<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">defineProperty</span>(myObject, <span class="hljs-string">&#x27;hidden&#x27;</span>, {
   <span class="hljs-attr">value</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">enumerable</span>: <span class="hljs-literal">false</span>,
 });
 
 <span class="hljs-comment">// 旧写法</span>
-<span class="hljs-keyword">var</span> theDescriptor = <span class="hljs-built_in">Object</span>.getOwnPropertyDescriptor(myObject, <span class="hljs-string">&#x27;hidden&#x27;</span>);
+<span class="hljs-keyword">var</span> theDescriptor = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">getOwnPropertyDescriptor</span>(myObject, <span class="hljs-string">&#x27;hidden&#x27;</span>);
 
 <span class="hljs-comment">// 新写法</span>
-<span class="hljs-keyword">var</span> theDescriptor = <span class="hljs-built_in">Reflect</span>.getOwnPropertyDescriptor(myObject, <span class="hljs-string">&#x27;hidden&#x27;</span>);
+<span class="hljs-keyword">var</span> theDescriptor = <span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">getOwnPropertyDescriptor</span>(myObject, <span class="hljs-string">&#x27;hidden&#x27;</span>);
 </code></pre><p><code>Reflect.getOwnPropertyDescriptor</code>和<code>Object.getOwnPropertyDescriptor</code>的一个区别是，如果第一个参数不是对象，<code>Object.getOwnPropertyDescriptor(1, 'foo')</code>不报错，返回<code>undefined</code>，而<code>Reflect.getOwnPropertyDescriptor(1, 'foo')</code>会抛出错误，表示参数非法。</p><h3 id="reflectisextensible-target">Reflect.isExtensible (target) <a class="markdownIt-Anchor" href="#reflectisextensible-target">#</a></h3><p><code>Reflect.isExtensible</code>方法对应<code>Object.isExtensible</code>，返回一个布尔值，表示当前对象是否可扩展。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> myObject = {};
 
 <span class="hljs-comment">// 旧写法</span>
-<span class="hljs-built_in">Object</span>.isExtensible(myObject) <span class="hljs-comment">// true</span>
+<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">isExtensible</span>(myObject) <span class="hljs-comment">// true</span>
 
 <span class="hljs-comment">// 新写法</span>
-<span class="hljs-built_in">Reflect</span>.isExtensible(myObject) <span class="hljs-comment">// true</span>
-</code></pre><p>如果参数不是对象，<code>Object.isExtensible</code>会返回<code>false</code>，因为非对象本来就是不可扩展的，而<code>Reflect.isExtensible</code>会报错。</p><pre class="hljs"><code><span class="hljs-built_in">Object</span>.isExtensible(<span class="hljs-number">1</span>) <span class="hljs-comment">// false</span>
-<span class="hljs-built_in">Reflect</span>.isExtensible(<span class="hljs-number">1</span>) <span class="hljs-comment">// 报错</span>
+<span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">isExtensible</span>(myObject) <span class="hljs-comment">// true</span>
+</code></pre><p>如果参数不是对象，<code>Object.isExtensible</code>会返回<code>false</code>，因为非对象本来就是不可扩展的，而<code>Reflect.isExtensible</code>会报错。</p><pre class="hljs"><code><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">isExtensible</span>(<span class="hljs-number">1</span>) <span class="hljs-comment">// false</span>
+<span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">isExtensible</span>(<span class="hljs-number">1</span>) <span class="hljs-comment">// 报错</span>
 </code></pre><h3 id="reflectpreventextensionstarget">Reflect.preventExtensions(target) <a class="markdownIt-Anchor" href="#reflectpreventextensionstarget">#</a></h3><p><code>Reflect.preventExtensions</code>对应<code>Object.preventExtensions</code>方法，用于让一个对象变为不可扩展。它返回一个布尔值，表示是否操作成功。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> myObject = {};
 
 <span class="hljs-comment">// 旧写法</span>
-<span class="hljs-built_in">Object</span>.preventExtensions(myObject) <span class="hljs-comment">// Object {}</span>
+<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">preventExtensions</span>(myObject) <span class="hljs-comment">// Object {}</span>
 
 <span class="hljs-comment">// 新写法</span>
-<span class="hljs-built_in">Reflect</span>.preventExtensions(myObject) <span class="hljs-comment">// true</span>
+<span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">preventExtensions</span>(myObject) <span class="hljs-comment">// true</span>
 </code></pre><p>如果参数不是对象，<code>Object.preventExtensions</code>在 ES5 环境报错，在 ES6 环境返回传入的参数，而<code>Reflect.preventExtensions</code>会报错。</p><pre class="hljs"><code><span class="hljs-comment">// ES5 环境</span>
-<span class="hljs-built_in">Object</span>.preventExtensions(<span class="hljs-number">1</span>) <span class="hljs-comment">// 报错</span>
+<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">preventExtensions</span>(<span class="hljs-number">1</span>) <span class="hljs-comment">// 报错</span>
 
 <span class="hljs-comment">// ES6 环境</span>
-<span class="hljs-built_in">Object</span>.preventExtensions(<span class="hljs-number">1</span>) <span class="hljs-comment">// 1</span>
+<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">preventExtensions</span>(<span class="hljs-number">1</span>) <span class="hljs-comment">// 1</span>
 
 <span class="hljs-comment">// 新写法</span>
-<span class="hljs-built_in">Reflect</span>.preventExtensions(<span class="hljs-number">1</span>) <span class="hljs-comment">// 报错</span>
+<span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">preventExtensions</span>(<span class="hljs-number">1</span>) <span class="hljs-comment">// 报错</span>
 </code></pre><h3 id="reflectownkeys-target">Reflect.ownKeys (target) <a class="markdownIt-Anchor" href="#reflectownkeys-target">#</a></h3><p><code>Reflect.ownKeys</code>方法用于返回对象的所有属性，基本等同于<code>Object.getOwnPropertyNames</code>与<code>Object.getOwnPropertySymbols</code>之和。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> myObject = {
   <span class="hljs-attr">foo</span>: <span class="hljs-number">1</span>,
   <span class="hljs-attr">bar</span>: <span class="hljs-number">2</span>,
-  [<span class="hljs-built_in">Symbol</span>.for(<span class="hljs-string">&#x27;baz&#x27;</span>)]: <span class="hljs-number">3</span>,
-  [<span class="hljs-built_in">Symbol</span>.for(<span class="hljs-string">&#x27;bing&#x27;</span>)]: <span class="hljs-number">4</span>,
+  [<span class="hljs-title class_">Symbol</span>.<span class="hljs-keyword">for</span>(<span class="hljs-string">&#x27;baz&#x27;</span>)]: <span class="hljs-number">3</span>,
+  [<span class="hljs-title class_">Symbol</span>.<span class="hljs-keyword">for</span>(<span class="hljs-string">&#x27;bing&#x27;</span>)]: <span class="hljs-number">4</span>,
 };
 
 <span class="hljs-comment">// 旧写法</span>
-<span class="hljs-built_in">Object</span>.getOwnPropertyNames(myObject)
+<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">getOwnPropertyNames</span>(myObject)
 <span class="hljs-comment">// [&#x27;foo&#x27;, &#x27;bar&#x27;]</span>
 
-<span class="hljs-built_in">Object</span>.getOwnPropertySymbols(myObject)
+<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">getOwnPropertySymbols</span>(myObject)
 <span class="hljs-comment">//[Symbol(baz), Symbol(bing)]</span>
 
 <span class="hljs-comment">// 新写法</span>
-<span class="hljs-built_in">Reflect</span>.ownKeys(myObject)
+<span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">ownKeys</span>(myObject)
 <span class="hljs-comment">// [&#x27;foo&#x27;, &#x27;bar&#x27;, Symbol(baz), Symbol(bing)]</span>
-</code></pre><p>如果<code>Reflect.ownKeys()</code>方法的第一个参数不是对象，会报错。</p><h2 id="实例使用-proxy-实现观察者模式">实例：使用 Proxy 实现观察者模式 <a class="markdownIt-Anchor" href="#实例使用-proxy-实现观察者模式">#</a></h2><p>观察者模式（Observer mode）指的是函数自动观察数据对象，一旦对象有变化，函数就会自动执行。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> person = observable({
+</code></pre><p>如果<code>Reflect.ownKeys()</code>方法的第一个参数不是对象，会报错。</p><h2 id="实例使用-proxy-实现观察者模式">实例：使用 Proxy 实现观察者模式 <a class="markdownIt-Anchor" href="#实例使用-proxy-实现观察者模式">#</a></h2><p>观察者模式（Observer mode）指的是函数自动观察数据对象，一旦对象有变化，函数就会自动执行。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> person = <span class="hljs-title function_">observable</span>({
   <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;张三&#x27;</span>,
   <span class="hljs-attr">age</span>: <span class="hljs-number">20</span>
 });
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">print</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${person.name}</span>, <span class="hljs-subst">${person.age}</span>`</span>)
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">print</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`<span class="hljs-subst">${person.name}</span>, <span class="hljs-subst">${person.age}</span>`</span>)
 }
 
-observe(print);
-person.name = <span class="hljs-string">&#x27;李四&#x27;</span>;
+<span class="hljs-title function_">observe</span>(print);
+person.<span class="hljs-property">name</span> = <span class="hljs-string">&#x27;李四&#x27;</span>;
 <span class="hljs-comment">// 输出</span>
 <span class="hljs-comment">// 李四, 20</span>
-</code></pre><p>上面代码中，数据对象<code>person</code>是观察目标，函数<code>print</code>是观察者。一旦数据对象发生变化，<code>print</code>就会自动执行。</p><p>下面，使用 Proxy 写一个观察者模式的最简单实现，即实现<code>observable</code>和<code>observe</code>这两个函数。思路是<code>observable</code>函数返回一个原始对象的 Proxy 代理，拦截赋值操作，触发充当观察者的各个函数。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> queuedObservers = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>();
+</code></pre><p>上面代码中，数据对象<code>person</code>是观察目标，函数<code>print</code>是观察者。一旦数据对象发生变化，<code>print</code>就会自动执行。</p><p>下面，使用 Proxy 写一个观察者模式的最简单实现，即实现<code>observable</code>和<code>observe</code>这两个函数。思路是<code>observable</code>函数返回一个原始对象的 Proxy 代理，拦截赋值操作，触发充当观察者的各个函数。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> queuedObservers = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Set</span>();
 
-<span class="hljs-keyword">const</span> observe = <span class="hljs-function"><span class="hljs-params">fn</span> =&gt;</span> queuedObservers.add(fn);
-<span class="hljs-keyword">const</span> observable = <span class="hljs-function"><span class="hljs-params">obj</span> =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>(obj, {set});
+<span class="hljs-keyword">const</span> <span class="hljs-title function_">observe</span> = fn =&gt; queuedObservers.<span class="hljs-title function_">add</span>(fn);
+<span class="hljs-keyword">const</span> <span class="hljs-title function_">observable</span> = obj =&gt; <span class="hljs-keyword">new</span> <span class="hljs-title class_">Proxy</span>(obj, {set});
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">set</span>(<span class="hljs-params">target, key, value, receiver</span>) </span>{
-  <span class="hljs-keyword">const</span> result = <span class="hljs-built_in">Reflect</span>.set(target, key, value, receiver);
-  queuedObservers.forEach(<span class="hljs-function"><span class="hljs-params">observer</span> =&gt;</span> observer());
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">set</span>(<span class="hljs-params">target, key, value, receiver</span>) {
+  <span class="hljs-keyword">const</span> result = <span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">set</span>(target, key, value, receiver);
+  queuedObservers.<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">observer</span> =&gt;</span> <span class="hljs-title function_">observer</span>());
   <span class="hljs-keyword">return</span> result;
 }
 </code></pre><p>上面代码中，先定义了一个<code>Set</code>集合，所有观察者函数都放进这个集合。然后，<code>observable</code>函数返回原始对象的代理，拦截赋值操作。拦截函数<code>set</code>之中，会自动执行所有观察者。</p></article><nav class="level level-previous-next is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="proxy.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> Proxy</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="promise.html">Promise 对象 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><div class="page-info"><p>本教程采用<a href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh" target="_blank">知识共享 署名-相同方式共享 3.0协议</a>。</p><p>分享本文 <span class="social-share"></span></p></div></div><div class="column is-3 is-offset-1"><nav class="panel panel-menu"><p class="panel-heading"><i class="fa fa-book" aria-hidden="true"></i> ES6 教程</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="intro.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">ECMAScript 6 简介</span></a></li><li><a href="let.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">let 和 const 命令</span></a></li><li><a href="destructuring.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">变量的解构赋值</span></a></li><li><a href="string.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">字符串的扩展</span></a></li><li><a href="string-methods.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">字符串的新增方法</span></a></li><li><a href="regex.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">正则的扩展</span></a></li><li><a href="number.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数值的扩展</span></a></li><li><a href="function.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">函数的扩展</span></a></li><li><a href="array.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数组的扩展</span></a></li><li><a href="object.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">对象的扩展</span></a></li><li><a href="object-methods.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">对象的新增方法</span></a></li><li><a href="operator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">运算符的扩展</span></a></li><li><a href="symbol.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Symbol</span></a></li><li><a href="set-map.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Set 和 Map 数据结构</span></a></li><li><a href="proxy.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Proxy</span></a></li><li><a href="reflect.html" class="is-active"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Reflect</span></a></li><li><a href="promise.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Promise 对象</span></a></li><li><a href="iterator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Iterator 和 for...of 循环</span></a></li><li><a href="generator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Generator 函数的语法</span></a></li><li><a href="generator-async.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Generator 函数的异步应用</span></a></li><li><a href="async.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">async 函数</span></a></li><li><a href="class.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Class 的基本语法</span></a></li><li><a href="class-extends.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Class 的继承</span></a></li><li><a href="module.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Module 的语法</span></a></li><li><a href="module-loader.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Module 的加载实现</span></a></li><li><a href="style.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">编程风格</span></a></li><li><a href="spec.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">读懂规格</span></a></li><li><a href="async-iterator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">异步遍历器</span></a></li><li><a href="arraybuffer.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">ArrayBuffer</span></a></li><li><a href="proposals.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">最新提案</span></a></li><li><a href="decorator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Decorator</span></a></li><li><a href="reference.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">参考链接</span></a></li></ul></aside></div></nav><nav class="panel panel-info"><p class="panel-heading"><i class="fa fa-link" aria-hidden="true"></i> 链接</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="https://raw.githubusercontent.com/wangdoc/es6-tutorial/master/docs/reflect.md" target="_blank"><span class="icon"></span><i class="fa fa-code" aria-hidden="true" style="width: 14px;"></i>&nbsp;本文源码</a></li><li><a href="https://github.com/wangdoc/es6-tutorial" target="_blank"><span class="icon"></span><i class="fa fa-hdd-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;代码仓库</a></li><li><a href="https://github.com/wangdoc/es6-tutorial/issues" target="_blank"><span class="icon"></span><i class="fa fa-flag-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;反馈</a></li></ul></aside></div></nav></div></div><div class="columns"><div class="column is-8 is-6-widescreen is-offset-1-widescreen"><div id="disqus_thread"></div></div></div></div></section><footer class="footer"><div class="container"><div class="content has-text-centered"><p>联系：contact@wangdoc.com</p></div></div></footer><script>var LOPPO={current_path:"reflect.md",relative_root_path:"",article_toc:'<ul class="markdownIt-TOC">\n<li><a href="#%E6%A6%82%E8%BF%B0">概述</a></li>\n<li><a href="#%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95">静态方法</a>\n<ul>\n<li><a href="#reflectgettarget-name-receiver">Reflect.get(target, name, receiver)</a></li>\n<li><a href="#reflectsettarget-name-value-receiver">Reflect.set(target, name, value, receiver)</a></li>\n<li><a href="#reflecthasobj-name">Reflect.has(obj, name)</a></li>\n<li><a href="#reflectdeletepropertyobj-name">Reflect.deleteProperty(obj, name)</a></li>\n<li><a href="#reflectconstructtarget-args">Reflect.construct(target, args)</a></li>\n<li><a href="#reflectgetprototypeofobj">Reflect.getPrototypeOf(obj)</a></li>\n<li><a href="#reflectsetprototypeofobj-newproto">Reflect.setPrototypeOf(obj, newProto)</a></li>\n<li><a href="#reflectapplyfunc-thisarg-args">Reflect.apply(func, thisArg, args)</a></li>\n<li><a href="#reflectdefinepropertytarget-propertykey-attributes">Reflect.defineProperty(target, propertyKey, attributes)</a></li>\n<li><a href="#reflectgetownpropertydescriptortarget-propertykey">Reflect.getOwnPropertyDescriptor(target, propertyKey)</a></li>\n<li><a href="#reflectisextensible-target">Reflect.isExtensible (target)</a></li>\n<li><a href="#reflectpreventextensionstarget">Reflect.preventExtensions(target)</a></li>\n<li><a href="#reflectownkeys-target">Reflect.ownKeys (target)</a></li>\n</ul>\n</li>\n<li><a href="#%E5%AE%9E%E4%BE%8B%E4%BD%BF%E7%94%A8-proxy-%E5%AE%9E%E7%8E%B0%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F">实例：使用 Proxy 实现观察者模式</a></li>\n</ul>\n'}</script><script src="assets/js/app.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-111269443-1"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","UA-111269443-1")</script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script"),t=(e.src="https://hm.baidu.com/hm.js?5eec262881855af3dede6a71234571f6",document.getElementsByTagName("script")[0]);t.parentNode.insertBefore(e,t)}()</script><script>var disqus_config=function(){var t=window.location,e=t.protocol+"//"+t.host+(t.port?":"+t.port:"")+t.pathname;this.page.url=e,this.page.identifier=t.pathname};!function(){var t=document,e=t.createElement("script");e.src="https://wangdoc-es6.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><!--script src="assets/js/social-share.min.js"--><!--/script--><script>var shareDesc="我正在阅读《Reflect》，出自网道（WangDoc.com）的《ES6 教程》。",shareOpts={url:window.location.href,source:shareDesc,title:shareDesc,description:"",image:"",sites:["weibo","wechat","qq","qzone","twitter","facebook"],origin:"WangDoc_com",disabled:[],wechatQrcodeTitle:"微信",wechatQrcodeHelper:"扫一下二维码，分享到微信。"};socialShare(".social-share",shareOpts)</script></body></html>

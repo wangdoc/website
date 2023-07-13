@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>字符串的扩展 - ES6 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="字符串的扩展"><link rel="apple-touch-icon" sizes="57x57" href="assets/icons/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="assets/icons/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="assets/icons/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="assets/icons/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="assets/icons/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="assets/icons/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="assets/icons/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="assets/icons/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png"><link rel="manifest" href="assets/icons/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="assets/icons/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/es6-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/es6-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8 is-6-widescreen is-offset-1-widescreen"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;ES6 教程</a></li><li class="is-active"><a class="has-text-grey" href="string.html">字符串的扩展</a></li></ul></nav><nav class="level level-previous-next is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="destructuring.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> 变量的解构赋值</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="string-methods.html">字符串的新增方法 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content"><h1 class="title">字符串的扩展</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><p>本章介绍 ES6 对字符串的改造和增强，下一章介绍字符串对象的新增方法。</p><h2 id="字符的-unicode-表示法">字符的 Unicode 表示法 <a class="markdownIt-Anchor" href="#字符的-unicode-表示法">#</a></h2><p>ES6 加强了对 Unicode 的支持，允许采用<code>\uxxxx</code>形式表示一个字符，其中<code>xxxx</code>表示字符的 Unicode 码点。</p><pre class="hljs"><code><span class="hljs-string">&quot;\u0061&quot;</span>
+<!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>字符串的扩展 - ES6 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="字符串的扩展"><link rel="apple-touch-icon" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png"><link rel="manifest" href="assets/icons/manifest.json"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/es6-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/es6-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8 is-6-widescreen is-offset-1-widescreen"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;ES6 教程</a></li><li class="is-active"><a class="has-text-grey" href="string.html">字符串的扩展</a></li></ul></nav><nav class="level level-previous-next is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="destructuring.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> 变量的解构赋值</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="string-methods.html">字符串的新增方法 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content"><h1 class="title">字符串的扩展</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><p>本章介绍 ES6 对字符串的改造和增强，下一章介绍字符串对象的新增方法。</p><h2 id="字符的-unicode-表示法">字符的 Unicode 表示法 <a class="markdownIt-Anchor" href="#字符的-unicode-表示法">#</a></h2><p>ES6 加强了对 Unicode 的支持，允许采用<code>\uxxxx</code>形式表示一个字符，其中<code>xxxx</code>表示字符的 Unicode 码点。</p><pre class="hljs"><code><span class="hljs-string">&quot;\u0061&quot;</span>
 <span class="hljs-comment">// &quot;a&quot;</span>
 </code></pre><p>但是，这种表示法只限于码点在<code>\u0000</code>~<code>\uFFFF</code>之间的字符。超出这个范围的字符，必须用两个双字节的形式表示。</p><pre class="hljs"><code><span class="hljs-string">&quot;\uD842\uDFB7&quot;</span>
 <span class="hljs-comment">// &quot;𠮷&quot;</span>
@@ -22,37 +22,37 @@ hell\u{6F} <span class="hljs-comment">// 123</span>
 <span class="hljs-string">&#x27;\u007A&#x27;</span> === <span class="hljs-string">&#x27;z&#x27;</span> <span class="hljs-comment">// true</span>
 <span class="hljs-string">&#x27;\u{7A}&#x27;</span> === <span class="hljs-string">&#x27;z&#x27;</span> <span class="hljs-comment">// true</span>
 </code></pre><h2 id="字符串的遍历器接口">字符串的遍历器接口 <a class="markdownIt-Anchor" href="#字符串的遍历器接口">#</a></h2><p>ES6 为字符串添加了遍历器接口（详见《Iterator》一章），使得字符串可以被<code>for...of</code>循环遍历。</p><pre class="hljs"><code><span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> codePoint <span class="hljs-keyword">of</span> <span class="hljs-string">&#x27;foo&#x27;</span>) {
-  <span class="hljs-built_in">console</span>.log(codePoint)
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(codePoint)
 }
 <span class="hljs-comment">// &quot;f&quot;</span>
 <span class="hljs-comment">// &quot;o&quot;</span>
 <span class="hljs-comment">// &quot;o&quot;</span>
-</code></pre><p>除了遍历字符串，这个遍历器最大的优点是可以识别大于<code>0xFFFF</code>的码点，传统的<code>for</code>循环无法识别这样的码点。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> text = <span class="hljs-built_in">String</span>.fromCodePoint(<span class="hljs-number">0x20BB7</span>);
+</code></pre><p>除了遍历字符串，这个遍历器最大的优点是可以识别大于<code>0xFFFF</code>的码点，传统的<code>for</code>循环无法识别这样的码点。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> text = <span class="hljs-title class_">String</span>.<span class="hljs-title function_">fromCodePoint</span>(<span class="hljs-number">0x20BB7</span>);
 
-<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; text.length; i++) {
-  <span class="hljs-built_in">console</span>.log(text[i]);
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; text.<span class="hljs-property">length</span>; i++) {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(text[i]);
 }
 <span class="hljs-comment">// &quot; &quot;</span>
 <span class="hljs-comment">// &quot; &quot;</span>
 
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i <span class="hljs-keyword">of</span> text) {
-  <span class="hljs-built_in">console</span>.log(i);
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(i);
 }
 <span class="hljs-comment">// &quot;𠮷&quot;</span>
 </code></pre><p>上面代码中，字符串<code>text</code>只有一个字符，但是<code>for</code>循环会认为它包含两个字符（都不可打印），而<code>for...of</code>循环会正确识别出这一个字符。</p><h2 id="直接输入-u2028-和-u2029">直接输入 U+2028 和 U+2029 <a class="markdownIt-Anchor" href="#直接输入-u2028-和-u2029">#</a></h2><p>JavaScript 字符串允许直接输入字符，以及输入字符的转义形式。举例来说，“中”的 Unicode 码点是 U+4e2d，你可以直接在字符串里面输入这个汉字，也可以输入它的转义形式<code>\u4e2d</code>，两者是等价的。</p><pre class="hljs"><code><span class="hljs-string">&#x27;中&#x27;</span> === <span class="hljs-string">&#x27;\u4e2d&#x27;</span> <span class="hljs-comment">// true</span>
 </code></pre><p>但是，JavaScript 规定有5个字符，不能在字符串里面直接使用，只能使用转义形式。</p><ul><li>U+005C：反斜杠（reverse solidus)</li><li>U+000D：回车（carriage return）</li><li>U+2028：行分隔符（line separator）</li><li>U+2029：段分隔符（paragraph separator）</li><li>U+000A：换行符（line feed）</li></ul><p>举例来说，字符串里面不能直接包含反斜杠，一定要转义写成<code>\\</code>或者<code>\u005c</code>。</p><p>这个规定本身没有问题，麻烦在于 JSON 格式允许字符串里面直接使用 U+2028（行分隔符）和 U+2029（段分隔符）。这样一来，服务器输出的 JSON 被<code>JSON.parse</code>解析，就有可能直接报错。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> json = <span class="hljs-string">&#x27;&quot;\u2028&quot;&#x27;</span>;
-<span class="hljs-built_in">JSON</span>.parse(json); <span class="hljs-comment">// 可能报错</span>
-</code></pre><p>JSON 格式已经冻结（RFC 7159），没法修改了。为了消除这个报错，<a href="https://github.com/tc39/proposal-json-superset" target="_blank" rel="noopener">ES2019</a> 允许 JavaScript 字符串直接输入 U+2028（行分隔符）和 U+2029（段分隔符）。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> PS = <span class="hljs-built_in">eval</span>(<span class="hljs-string">&quot;&#x27;\u2029&#x27;&quot;</span>);
-</code></pre><p>根据这个提案，上面的代码不会报错。</p><p>注意，模板字符串现在就允许直接输入这两个字符。另外，正则表达式依然不允许直接输入这两个字符，这是没有问题的，因为 JSON 本来就不允许直接包含正则表达式。</p><h2 id="jsonstringify-的改造">JSON.stringify() 的改造 <a class="markdownIt-Anchor" href="#jsonstringify-的改造">#</a></h2><p>根据标准，JSON 数据必须是 UTF-8 编码。但是，现在的<code>JSON.stringify()</code>方法有可能返回不符合 UTF-8 标准的字符串。</p><p>具体来说，UTF-8 标准规定，<code>0xD800</code>到<code>0xDFFF</code>之间的码点，不能单独使用，必须配对使用。比如，<code>\uD834\uDF06</code>是两个码点，但是必须放在一起配对使用，代表字符<code>𝌆</code>。这是为了表示码点大于<code>0xFFFF</code>的字符的一种变通方法。单独使用<code>\uD834</code>和<code>\uDF06</code>这两个码点是不合法的，或者颠倒顺序也不行，因为<code>\uDF06\uD834</code>并没有对应的字符。</p><p><code>JSON.stringify()</code>的问题在于，它可能返回<code>0xD800</code>到<code>0xDFFF</code>之间的单个码点。</p><pre class="hljs"><code><span class="hljs-built_in">JSON</span>.stringify(<span class="hljs-string">&#x27;\u{D834}&#x27;</span>) <span class="hljs-comment">// &quot;\u{D834}&quot;</span>
-</code></pre><p>为了确保返回的是合法的 UTF-8 字符，<a href="https://github.com/tc39/proposal-well-formed-stringify" target="_blank" rel="noopener">ES2019</a> 改变了<code>JSON.stringify()</code>的行为。如果遇到<code>0xD800</code>到<code>0xDFFF</code>之间的单个码点，或者不存在的配对形式，它会返回转义字符串，留给应用自己决定下一步的处理。</p><pre class="hljs"><code><span class="hljs-built_in">JSON</span>.stringify(<span class="hljs-string">&#x27;\u{D834}&#x27;</span>) <span class="hljs-comment">// &quot;&quot;\\uD834&quot;&quot;</span>
-<span class="hljs-built_in">JSON</span>.stringify(<span class="hljs-string">&#x27;\uDF06\uD834&#x27;</span>) <span class="hljs-comment">// &quot;&quot;\\udf06\\ud834&quot;&quot;</span>
-</code></pre><h2 id="模板字符串">模板字符串 <a class="markdownIt-Anchor" href="#模板字符串">#</a></h2><p>传统的 JavaScript 语言，输出模板通常是这样写的（下面使用了 jQuery 的方法）。</p><pre class="hljs"><code>$(<span class="hljs-string">&#x27;#result&#x27;</span>).append(
-  <span class="hljs-string">&#x27;There are &lt;b&gt;&#x27;</span> + basket.count + <span class="hljs-string">&#x27;&lt;/b&gt; &#x27;</span> +
+<span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(json); <span class="hljs-comment">// 可能报错</span>
+</code></pre><p>JSON 格式已经冻结（RFC 7159），没法修改了。为了消除这个报错，<a href="https://github.com/tc39/proposal-json-superset" target="_blank" rel="noopener">ES2019</a> 允许 JavaScript 字符串直接输入 U+2028（行分隔符）和 U+2029（段分隔符）。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">PS</span> = <span class="hljs-built_in">eval</span>(<span class="hljs-string">&quot;&#x27;\u2029&#x27;&quot;</span>);
+</code></pre><p>根据这个提案，上面的代码不会报错。</p><p>注意，模板字符串现在就允许直接输入这两个字符。另外，正则表达式依然不允许直接输入这两个字符，这是没有问题的，因为 JSON 本来就不允许直接包含正则表达式。</p><h2 id="jsonstringify-的改造">JSON.stringify() 的改造 <a class="markdownIt-Anchor" href="#jsonstringify-的改造">#</a></h2><p>根据标准，JSON 数据必须是 UTF-8 编码。但是，现在的<code>JSON.stringify()</code>方法有可能返回不符合 UTF-8 标准的字符串。</p><p>具体来说，UTF-8 标准规定，<code>0xD800</code>到<code>0xDFFF</code>之间的码点，不能单独使用，必须配对使用。比如，<code>\uD834\uDF06</code>是两个码点，但是必须放在一起配对使用，代表字符<code>𝌆</code>。这是为了表示码点大于<code>0xFFFF</code>的字符的一种变通方法。单独使用<code>\uD834</code>和<code>\uDF06</code>这两个码点是不合法的，或者颠倒顺序也不行，因为<code>\uDF06\uD834</code>并没有对应的字符。</p><p><code>JSON.stringify()</code>的问题在于，它可能返回<code>0xD800</code>到<code>0xDFFF</code>之间的单个码点。</p><pre class="hljs"><code><span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(<span class="hljs-string">&#x27;\u{D834}&#x27;</span>) <span class="hljs-comment">// &quot;\u{D834}&quot;</span>
+</code></pre><p>为了确保返回的是合法的 UTF-8 字符，<a href="https://github.com/tc39/proposal-well-formed-stringify" target="_blank" rel="noopener">ES2019</a> 改变了<code>JSON.stringify()</code>的行为。如果遇到<code>0xD800</code>到<code>0xDFFF</code>之间的单个码点，或者不存在的配对形式，它会返回转义字符串，留给应用自己决定下一步的处理。</p><pre class="hljs"><code><span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(<span class="hljs-string">&#x27;\u{D834}&#x27;</span>) <span class="hljs-comment">// &quot;&quot;\\uD834&quot;&quot;</span>
+<span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(<span class="hljs-string">&#x27;\uDF06\uD834&#x27;</span>) <span class="hljs-comment">// &quot;&quot;\\udf06\\ud834&quot;&quot;</span>
+</code></pre><h2 id="模板字符串">模板字符串 <a class="markdownIt-Anchor" href="#模板字符串">#</a></h2><p>传统的 JavaScript 语言，输出模板通常是这样写的（下面使用了 jQuery 的方法）。</p><pre class="hljs"><code>$(<span class="hljs-string">&#x27;#result&#x27;</span>).<span class="hljs-title function_">append</span>(
+  <span class="hljs-string">&#x27;There are &lt;b&gt;&#x27;</span> + basket.<span class="hljs-property">count</span> + <span class="hljs-string">&#x27;&lt;/b&gt; &#x27;</span> +
   <span class="hljs-string">&#x27;items in your basket, &#x27;</span> +
-  <span class="hljs-string">&#x27;&lt;em&gt;&#x27;</span> + basket.onSale +
+  <span class="hljs-string">&#x27;&lt;em&gt;&#x27;</span> + basket.<span class="hljs-property">onSale</span> +
   <span class="hljs-string">&#x27;&lt;/em&gt; are on sale!&#x27;</span>
 );
-</code></pre><p>上面这种写法相当繁琐不方便，ES6 引入了模板字符串解决这个问题。</p><pre class="hljs"><code>$(<span class="hljs-string">&#x27;#result&#x27;</span>).append(<span class="hljs-string">`
+</code></pre><p>上面这种写法相当繁琐不方便，ES6 引入了模板字符串解决这个问题。</p><pre class="hljs"><code>$(<span class="hljs-string">&#x27;#result&#x27;</span>).<span class="hljs-title function_">append</span>(<span class="hljs-string">`
   There are &lt;b&gt;<span class="hljs-subst">${basket.count}</span>&lt;/b&gt; items
    in your basket, &lt;em&gt;<span class="hljs-subst">${basket.onSale}</span>&lt;/em&gt;
   are on sale!
@@ -64,28 +64,28 @@ hell\u{6F} <span class="hljs-comment">// 123</span>
 <span class="hljs-string">`In JavaScript this is
  not legal.`</span>
 
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">`string text line 1
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`string text line 1
 string text line 2`</span>);
 
 <span class="hljs-comment">// 字符串中嵌入变量</span>
 <span class="hljs-keyword">let</span> name = <span class="hljs-string">&quot;Bob&quot;</span>, time = <span class="hljs-string">&quot;today&quot;</span>;
 <span class="hljs-string">`Hello <span class="hljs-subst">${name}</span>, how are you <span class="hljs-subst">${time}</span>?`</span>
 </code></pre><p>上面代码中的模板字符串，都是用反引号表示。如果在模板字符串中需要使用反引号，则前面要用反斜杠转义。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> greeting = <span class="hljs-string">`\`Yo\` World!`</span>;
-</code></pre><p>如果使用模板字符串表示多行字符串，所有的空格和缩进都会被保留在输出之中。</p><pre class="hljs"><code>$(<span class="hljs-string">&#x27;#list&#x27;</span>).html(<span class="hljs-string">`
+</code></pre><p>如果使用模板字符串表示多行字符串，所有的空格和缩进都会被保留在输出之中。</p><pre class="hljs"><code>$(<span class="hljs-string">&#x27;#list&#x27;</span>).<span class="hljs-title function_">html</span>(<span class="hljs-string">`
 &lt;ul&gt;
   &lt;li&gt;first&lt;/li&gt;
   &lt;li&gt;second&lt;/li&gt;
 &lt;/ul&gt;
 `</span>);
-</code></pre><p>上面代码中，所有模板字符串的空格和换行，都是被保留的，比如<code>&lt;ul&gt;</code>标签前面会有一个换行。如果你不想要这个换行，可以使用<code>trim</code>方法消除它。</p><pre class="hljs"><code>$(<span class="hljs-string">&#x27;#list&#x27;</span>).html(<span class="hljs-string">`
+</code></pre><p>上面代码中，所有模板字符串的空格和换行，都是被保留的，比如<code>&lt;ul&gt;</code>标签前面会有一个换行。如果你不想要这个换行，可以使用<code>trim</code>方法消除它。</p><pre class="hljs"><code>$(<span class="hljs-string">&#x27;#list&#x27;</span>).<span class="hljs-title function_">html</span>(<span class="hljs-string">`
 &lt;ul&gt;
   &lt;li&gt;first&lt;/li&gt;
   &lt;li&gt;second&lt;/li&gt;
 &lt;/ul&gt;
-`</span>.trim());
-</code></pre><p>模板字符串中嵌入变量，需要将变量名写在<code>${}</code>之中。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">authorize</span>(<span class="hljs-params">user, action</span>) </span>{
-  <span class="hljs-keyword">if</span> (!user.hasPrivilege(action)) {
-    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(
+`</span>.<span class="hljs-title function_">trim</span>());
+</code></pre><p>模板字符串中嵌入变量，需要将变量名写在<code>${}</code>之中。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">authorize</span>(<span class="hljs-params">user, action</span>) {
+  <span class="hljs-keyword">if</span> (!user.<span class="hljs-title function_">hasPrivilege</span>(action)) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(
       <span class="hljs-comment">// 传统写法为</span>
       <span class="hljs-comment">// &#x27;User &#x27;</span>
       <span class="hljs-comment">// + user.name</span>
@@ -107,7 +107,7 @@ string text line 2`</span>);
 <span class="hljs-keyword">let</span> obj = {<span class="hljs-attr">x</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">2</span>};
 <span class="hljs-string">`<span class="hljs-subst">${obj.x + obj.y}</span>`</span>
 <span class="hljs-comment">// &quot;3&quot;</span>
-</code></pre><p>模板字符串之中还能调用函数。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span>(<span class="hljs-params"></span>) </span>{
+</code></pre><p>模板字符串之中还能调用函数。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">fn</span>(<span class="hljs-params"></span>) {
   <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Hello World&quot;</span>;
 }
 
@@ -118,7 +118,7 @@ string text line 2`</span>);
 <span class="hljs-comment">// 报错</span>
 </code></pre><p>由于模板字符串的大括号内部，就是执行 JavaScript 代码，因此如果大括号内部是一个字符串，将会原样输出。</p><pre class="hljs"><code><span class="hljs-string">`Hello <span class="hljs-subst">${<span class="hljs-string">&#x27;World&#x27;</span>}</span>`</span>
 <span class="hljs-comment">// &quot;Hello World&quot;</span>
-</code></pre><p>模板字符串甚至还能嵌套。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> tmpl = <span class="hljs-function"><span class="hljs-params">addrs</span> =&gt;</span> <span class="hljs-string">`
+</code></pre><p>模板字符串甚至还能嵌套。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> <span class="hljs-title function_">tmpl</span> = addrs =&gt; <span class="hljs-string">`
   &lt;table&gt;
   <span class="hljs-subst">${addrs.map(addr =&gt; <span class="hljs-string">`
     &lt;tr&gt;&lt;td&gt;<span class="hljs-subst">${addr.first}</span>&lt;/td&gt;&lt;/tr&gt;
@@ -131,7 +131,7 @@ string text line 2`</span>);
     { <span class="hljs-attr">first</span>: <span class="hljs-string">&#x27;Lars&#x27;</span>, <span class="hljs-attr">last</span>: <span class="hljs-string">&#x27;&lt;Croft&gt;&#x27;</span> },
 ];
 
-<span class="hljs-built_in">console</span>.log(tmpl(data));
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">tmpl</span>(data));
 <span class="hljs-comment">// &lt;table&gt;</span>
 <span class="hljs-comment">//</span>
 <span class="hljs-comment">//   &lt;tr&gt;&lt;td&gt;&lt;Jane&gt;&lt;/td&gt;&lt;/tr&gt;</span>
@@ -141,8 +141,8 @@ string text line 2`</span>);
 <span class="hljs-comment">//   &lt;tr&gt;&lt;td&gt;&lt;Croft&gt;&lt;/td&gt;&lt;/tr&gt;</span>
 <span class="hljs-comment">//</span>
 <span class="hljs-comment">// &lt;/table&gt;</span>
-</code></pre><p>如果需要引用模板字符串本身，在需要时执行，可以写成函数。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> func = <span class="hljs-function">(<span class="hljs-params">name</span>) =&gt;</span> <span class="hljs-string">`Hello <span class="hljs-subst">${name}</span>!`</span>;
-func(<span class="hljs-string">&#x27;Jack&#x27;</span>) <span class="hljs-comment">// &quot;Hello Jack!&quot;</span>
+</code></pre><p>如果需要引用模板字符串本身，在需要时执行，可以写成函数。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> <span class="hljs-title function_">func</span> = (<span class="hljs-params">name</span>) =&gt; <span class="hljs-string">`Hello <span class="hljs-subst">${name}</span>!`</span>;
+<span class="hljs-title function_">func</span>(<span class="hljs-string">&#x27;Jack&#x27;</span>) <span class="hljs-comment">// &quot;Hello Jack!&quot;</span>
 </code></pre><p>上面代码中，模板字符串写成了一个函数的返回值。执行这个函数，就相当于执行这个模板字符串了。</p><h2 id="实例模板编译">实例：模板编译 <a class="markdownIt-Anchor" href="#实例模板编译">#</a></h2><p>下面，我们来看一个通过模板字符串，生成正式模板的实例。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> template = <span class="hljs-string">`
 &lt;ul&gt;
   &lt;% for(let i=0; i &lt; data.supplies.length; i++) { %&gt;
@@ -150,19 +150,19 @@ func(<span class="hljs-string">&#x27;Jack&#x27;</span>) <span class="hljs-commen
   &lt;% } %&gt;
 &lt;/ul&gt;
 `</span>;
-</code></pre><p>上面代码在模板字符串之中，放置了一个常规模板。该模板使用<code>&lt;%...%&gt;</code>放置 JavaScript 代码，使用<code>&lt;%= ... %&gt;</code>输出 JavaScript 表达式。</p><p>怎么编译这个模板字符串呢？</p><p>一种思路是将其转换为 JavaScript 表达式字符串。</p><pre class="hljs"><code>echo(<span class="hljs-string">&#x27;&lt;ul&gt;&#x27;</span>);
-<span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> i=<span class="hljs-number">0</span>; i &lt; data.supplies.length; i++) {
-  echo(<span class="hljs-string">&#x27;&lt;li&gt;&#x27;</span>);
-  echo(data.supplies[i]);
-  echo(<span class="hljs-string">&#x27;&lt;/li&gt;&#x27;</span>);
+</code></pre><p>上面代码在模板字符串之中，放置了一个常规模板。该模板使用<code>&lt;%...%&gt;</code>放置 JavaScript 代码，使用<code>&lt;%= ... %&gt;</code>输出 JavaScript 表达式。</p><p>怎么编译这个模板字符串呢？</p><p>一种思路是将其转换为 JavaScript 表达式字符串。</p><pre class="hljs"><code><span class="hljs-title function_">echo</span>(<span class="hljs-string">&#x27;&lt;ul&gt;&#x27;</span>);
+<span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> i=<span class="hljs-number">0</span>; i &lt; data.<span class="hljs-property">supplies</span>.<span class="hljs-property">length</span>; i++) {
+  <span class="hljs-title function_">echo</span>(<span class="hljs-string">&#x27;&lt;li&gt;&#x27;</span>);
+  <span class="hljs-title function_">echo</span>(data.<span class="hljs-property">supplies</span>[i]);
+  <span class="hljs-title function_">echo</span>(<span class="hljs-string">&#x27;&lt;/li&gt;&#x27;</span>);
 };
-echo(<span class="hljs-string">&#x27;&lt;/ul&gt;&#x27;</span>);
+<span class="hljs-title function_">echo</span>(<span class="hljs-string">&#x27;&lt;/ul&gt;&#x27;</span>);
 </code></pre><p>这个转换使用正则表达式就行了。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> evalExpr = <span class="hljs-regexp">/&lt;%=(.+?)%&gt;/g</span>;
 <span class="hljs-keyword">let</span> expr = <span class="hljs-regexp">/&lt;%([\s\S]+?)%&gt;/g</span>;
 
 template = template
-  .replace(evalExpr, <span class="hljs-string">&#x27;`); \n  echo( $1 ); \n  echo(`&#x27;</span>)
-  .replace(expr, <span class="hljs-string">&#x27;`); \n $1 \n  echo(`&#x27;</span>);
+  .<span class="hljs-title function_">replace</span>(evalExpr, <span class="hljs-string">&#x27;`); \n  echo( $1 ); \n  echo(`&#x27;</span>)
+  .<span class="hljs-title function_">replace</span>(expr, <span class="hljs-string">&#x27;`); \n $1 \n  echo(`&#x27;</span>);
 
 template = <span class="hljs-string">&#x27;echo(`&#x27;</span> + template + <span class="hljs-string">&#x27;`);&#x27;</span>;
 </code></pre><p>然后，将<code>template</code>封装在一个函数里面返回，就可以了。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> script =
@@ -179,13 +179,13 @@ template = <span class="hljs-string">&#x27;echo(`&#x27;</span> + template + <spa
 })`</span>;
 
 <span class="hljs-keyword">return</span> script;
-</code></pre><p>将上面的内容拼装成一个模板编译函数<code>compile</code>。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">compile</span>(<span class="hljs-params">template</span>)</span>{
+</code></pre><p>将上面的内容拼装成一个模板编译函数<code>compile</code>。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">compile</span>(<span class="hljs-params">template</span>){
   <span class="hljs-keyword">const</span> evalExpr = <span class="hljs-regexp">/&lt;%=(.+?)%&gt;/g</span>;
   <span class="hljs-keyword">const</span> expr = <span class="hljs-regexp">/&lt;%([\s\S]+?)%&gt;/g</span>;
 
   template = template
-    .replace(evalExpr, <span class="hljs-string">&#x27;`); \n  echo( $1 ); \n  echo(`&#x27;</span>)
-    .replace(expr, <span class="hljs-string">&#x27;`); \n $1 \n  echo(`&#x27;</span>);
+    .<span class="hljs-title function_">replace</span>(evalExpr, <span class="hljs-string">&#x27;`); \n  echo( $1 ); \n  echo(`&#x27;</span>)
+    .<span class="hljs-title function_">replace</span>(expr, <span class="hljs-string">&#x27;`); \n $1 \n  echo(`&#x27;</span>);
 
   template = <span class="hljs-string">&#x27;echo(`&#x27;</span> + template + <span class="hljs-string">&#x27;`);&#x27;</span>;
 
@@ -204,8 +204,8 @@ template = <span class="hljs-string">&#x27;echo(`&#x27;</span> + template + <spa
 
   <span class="hljs-keyword">return</span> script;
 }
-</code></pre><p><code>compile</code>函数的用法如下。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> parse = <span class="hljs-built_in">eval</span>(compile(template));
-div.innerHTML = parse({ <span class="hljs-attr">supplies</span>: [ <span class="hljs-string">&quot;broom&quot;</span>, <span class="hljs-string">&quot;mop&quot;</span>, <span class="hljs-string">&quot;cleaner&quot;</span> ] });
+</code></pre><p><code>compile</code>函数的用法如下。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> parse = <span class="hljs-built_in">eval</span>(<span class="hljs-title function_">compile</span>(template));
+div.<span class="hljs-property">innerHTML</span> = <span class="hljs-title function_">parse</span>({ <span class="hljs-attr">supplies</span>: [ <span class="hljs-string">&quot;broom&quot;</span>, <span class="hljs-string">&quot;mop&quot;</span>, <span class="hljs-string">&quot;cleaner&quot;</span> ] });
 <span class="hljs-comment">//   &lt;ul&gt;</span>
 <span class="hljs-comment">//     &lt;li&gt;broom&lt;/li&gt;</span>
 <span class="hljs-comment">//     &lt;li&gt;mop&lt;/li&gt;</span>
@@ -213,32 +213,32 @@ div.innerHTML = parse({ <span class="hljs-attr">supplies</span>: [ <span class="
 <span class="hljs-comment">//   &lt;/ul&gt;</span>
 </code></pre><h2 id="标签模板">标签模板 <a class="markdownIt-Anchor" href="#标签模板">#</a></h2><p>模板字符串的功能，不仅仅是上面这些。它可以紧跟在一个函数名后面，该函数将被调用来处理这个模板字符串。这被称为“标签模板”功能（tagged template）。</p><pre class="hljs"><code>alert<span class="hljs-string">`hello`</span>
 <span class="hljs-comment">// 等同于</span>
-alert([<span class="hljs-string">&#x27;hello&#x27;</span>])
+<span class="hljs-title function_">alert</span>([<span class="hljs-string">&#x27;hello&#x27;</span>])
 </code></pre><p>标签模板其实不是模板，而是函数调用的一种特殊形式。“标签”指的就是函数，紧跟在后面的模板字符串就是它的参数。</p><p>但是，如果模板字符里面有变量，就不是简单的调用了，而是会将模板字符串先处理成多个参数，再调用函数。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> a = <span class="hljs-number">5</span>;
 <span class="hljs-keyword">let</span> b = <span class="hljs-number">10</span>;
 
 tag<span class="hljs-string">`Hello <span class="hljs-subst">${ a + b }</span> world <span class="hljs-subst">${ a * b }</span>`</span>;
 <span class="hljs-comment">// 等同于</span>
-tag([<span class="hljs-string">&#x27;Hello &#x27;</span>, <span class="hljs-string">&#x27; world &#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>], <span class="hljs-number">15</span>, <span class="hljs-number">50</span>);
-</code></pre><p>上面代码中，模板字符串前面有一个标识名<code>tag</code>，它是一个函数。整个表达式的返回值，就是<code>tag</code>函数处理模板字符串后的返回值。</p><p>函数<code>tag</code>依次会接收到多个参数。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">tag</span>(<span class="hljs-params">stringArr, value1, value2</span>)</span>{
+<span class="hljs-title function_">tag</span>([<span class="hljs-string">&#x27;Hello &#x27;</span>, <span class="hljs-string">&#x27; world &#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>], <span class="hljs-number">15</span>, <span class="hljs-number">50</span>);
+</code></pre><p>上面代码中，模板字符串前面有一个标识名<code>tag</code>，它是一个函数。整个表达式的返回值，就是<code>tag</code>函数处理模板字符串后的返回值。</p><p>函数<code>tag</code>依次会接收到多个参数。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">tag</span>(<span class="hljs-params">stringArr, value1, value2</span>){
   <span class="hljs-comment">// ...</span>
 }
 
 <span class="hljs-comment">// 等同于</span>
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">tag</span>(<span class="hljs-params">stringArr, ...values</span>)</span>{
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">tag</span>(<span class="hljs-params">stringArr, ...values</span>){
   <span class="hljs-comment">// ...</span>
 }
-</code></pre><p><code>tag</code>函数的第一个参数是一个数组，该数组的成员是模板字符串中那些没有变量替换的部分，也就是说，变量替换只发生在数组的第一个成员与第二个成员之间、第二个成员与第三个成员之间，以此类推。</p><p><code>tag</code>函数的其他参数，都是模板字符串各个变量被替换后的值。由于本例中，模板字符串含有两个变量，因此<code>tag</code>会接受到<code>value1</code>和<code>value2</code>两个参数。</p><p><code>tag</code>函数所有参数的实际值如下。</p><ul><li>第一个参数：<code>['Hello ', ' world ', '']</code></li><li>第二个参数: 15</li><li>第三个参数：50</li></ul><p>也就是说，<code>tag</code>函数实际上以下面的形式调用。</p><pre class="hljs"><code>tag([<span class="hljs-string">&#x27;Hello &#x27;</span>, <span class="hljs-string">&#x27; world &#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>], <span class="hljs-number">15</span>, <span class="hljs-number">50</span>)
+</code></pre><p><code>tag</code>函数的第一个参数是一个数组，该数组的成员是模板字符串中那些没有变量替换的部分，也就是说，变量替换只发生在数组的第一个成员与第二个成员之间、第二个成员与第三个成员之间，以此类推。</p><p><code>tag</code>函数的其他参数，都是模板字符串各个变量被替换后的值。由于本例中，模板字符串含有两个变量，因此<code>tag</code>会接受到<code>value1</code>和<code>value2</code>两个参数。</p><p><code>tag</code>函数所有参数的实际值如下。</p><ul><li>第一个参数：<code>['Hello ', ' world ', '']</code></li><li>第二个参数: 15</li><li>第三个参数：50</li></ul><p>也就是说，<code>tag</code>函数实际上以下面的形式调用。</p><pre class="hljs"><code><span class="hljs-title function_">tag</span>([<span class="hljs-string">&#x27;Hello &#x27;</span>, <span class="hljs-string">&#x27; world &#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>], <span class="hljs-number">15</span>, <span class="hljs-number">50</span>)
 </code></pre><p>我们可以按照需要编写<code>tag</code>函数的代码。下面是<code>tag</code>函数的一种写法，以及运行结果。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> a = <span class="hljs-number">5</span>;
 <span class="hljs-keyword">let</span> b = <span class="hljs-number">10</span>;
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">tag</span>(<span class="hljs-params">s, v1, v2</span>) </span>{
-  <span class="hljs-built_in">console</span>.log(s[<span class="hljs-number">0</span>]);
-  <span class="hljs-built_in">console</span>.log(s[<span class="hljs-number">1</span>]);
-  <span class="hljs-built_in">console</span>.log(s[<span class="hljs-number">2</span>]);
-  <span class="hljs-built_in">console</span>.log(v1);
-  <span class="hljs-built_in">console</span>.log(v2);
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">tag</span>(<span class="hljs-params">s, v1, v2</span>) {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(s[<span class="hljs-number">0</span>]);
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(s[<span class="hljs-number">1</span>]);
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(s[<span class="hljs-number">2</span>]);
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(v1);
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(v2);
 
   <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;OK&quot;</span>;
 }
@@ -253,14 +253,14 @@ tag<span class="hljs-string">`Hello <span class="hljs-subst">${ a + b }</span> w
 </code></pre><p>下面是一个更复杂的例子。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> total = <span class="hljs-number">30</span>;
 <span class="hljs-keyword">let</span> msg = passthru<span class="hljs-string">`The total is <span class="hljs-subst">${total}</span> (<span class="hljs-subst">${total*<span class="hljs-number">1.05</span>}</span> with tax)`</span>;
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">passthru</span>(<span class="hljs-params">literals</span>) </span>{
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">passthru</span>(<span class="hljs-params">literals</span>) {
   <span class="hljs-keyword">let</span> result = <span class="hljs-string">&#x27;&#x27;</span>;
   <span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>;
 
-  <span class="hljs-keyword">while</span> (i &lt; literals.length) {
+  <span class="hljs-keyword">while</span> (i &lt; literals.<span class="hljs-property">length</span>) {
     result += literals[i++];
-    <span class="hljs-keyword">if</span> (i &lt; <span class="hljs-built_in">arguments</span>.length) {
-      result += <span class="hljs-built_in">arguments</span>[i];
+    <span class="hljs-keyword">if</span> (i &lt; <span class="hljs-variable language_">arguments</span>.<span class="hljs-property">length</span>) {
+      result += <span class="hljs-variable language_">arguments</span>[i];
     }
   }
 
@@ -268,10 +268,10 @@ tag<span class="hljs-string">`Hello <span class="hljs-subst">${ a + b }</span> w
 }
 
 msg <span class="hljs-comment">// &quot;The total is 30 (31.5 with tax)&quot;</span>
-</code></pre><p>上面这个例子展示了，如何将各个参数按照原来的位置拼合回去。</p><p><code>passthru</code>函数采用 rest 参数的写法如下。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">passthru</span>(<span class="hljs-params">literals, ...values</span>) </span>{
+</code></pre><p>上面这个例子展示了，如何将各个参数按照原来的位置拼合回去。</p><p><code>passthru</code>函数采用 rest 参数的写法如下。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">passthru</span>(<span class="hljs-params">literals, ...values</span>) {
   <span class="hljs-keyword">let</span> output = <span class="hljs-string">&quot;&quot;</span>;
   <span class="hljs-keyword">let</span> index;
-  <span class="hljs-keyword">for</span> (index = <span class="hljs-number">0</span>; index &lt; values.length; index++) {
+  <span class="hljs-keyword">for</span> (index = <span class="hljs-number">0</span>; index &lt; values.<span class="hljs-property">length</span>; index++) {
     output += literals[index] + values[index];
   }
 
@@ -279,17 +279,17 @@ msg <span class="hljs-comment">// &quot;The total is 30 (31.5 with tax)&quot;</s
   <span class="hljs-keyword">return</span> output;
 }
 </code></pre><p>“标签模板”的一个重要应用，就是过滤 HTML 字符串，防止用户输入恶意内容。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> message =
-  SaferHTML<span class="hljs-string">`&lt;p&gt;<span class="hljs-subst">${sender}</span> has sent you a message.&lt;/p&gt;`</span>;
+  <span class="hljs-title class_">SaferHTML</span><span class="hljs-string">`&lt;p&gt;<span class="hljs-subst">${sender}</span> has sent you a message.&lt;/p&gt;`</span>;
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">SaferHTML</span>(<span class="hljs-params">templateData</span>) </span>{
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">SaferHTML</span>(<span class="hljs-params">templateData</span>) {
   <span class="hljs-keyword">let</span> s = templateData[<span class="hljs-number">0</span>];
-  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>; i &lt; <span class="hljs-built_in">arguments</span>.length; i++) {
-    <span class="hljs-keyword">let</span> arg = <span class="hljs-built_in">String</span>(<span class="hljs-built_in">arguments</span>[i]);
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>; i &lt; <span class="hljs-variable language_">arguments</span>.<span class="hljs-property">length</span>; i++) {
+    <span class="hljs-keyword">let</span> arg = <span class="hljs-title class_">String</span>(<span class="hljs-variable language_">arguments</span>[i]);
 
     <span class="hljs-comment">// Escape special characters in the substitution.</span>
-    s += arg.replace(<span class="hljs-regexp">/&amp;/g</span>, <span class="hljs-string">&quot;&amp;amp;&quot;</span>)
-            .replace(<span class="hljs-regexp">/&lt;/g</span>, <span class="hljs-string">&quot;&amp;lt;&quot;</span>)
-            .replace(<span class="hljs-regexp">/&gt;/g</span>, <span class="hljs-string">&quot;&amp;gt;&quot;</span>);
+    s += arg.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/&amp;/g</span>, <span class="hljs-string">&quot;&amp;amp;&quot;</span>)
+            .<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/&lt;/g</span>, <span class="hljs-string">&quot;&amp;lt;&quot;</span>)
+            .<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/&gt;/g</span>, <span class="hljs-string">&quot;&amp;gt;&quot;</span>);
 
     <span class="hljs-comment">// Don&#x27;t escape special characters in the template.</span>
     s += templateData[i];
@@ -297,7 +297,7 @@ msg <span class="hljs-comment">// &quot;The total is 30 (31.5 with tax)&quot;</s
   <span class="hljs-keyword">return</span> s;
 }
 </code></pre><p>上面代码中，<code>sender</code>变量往往是用户提供的，经过<code>SaferHTML</code>函数处理，里面的特殊字符都会被转义。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> sender = <span class="hljs-string">&#x27;&lt;script&gt;alert(&quot;abc&quot;)&lt;/script&gt;&#x27;</span>; <span class="hljs-comment">// 恶意代码</span>
-<span class="hljs-keyword">let</span> message = SaferHTML<span class="hljs-string">`&lt;p&gt;<span class="hljs-subst">${sender}</span> has sent you a message.&lt;/p&gt;`</span>;
+<span class="hljs-keyword">let</span> message = <span class="hljs-title class_">SaferHTML</span><span class="hljs-string">`&lt;p&gt;<span class="hljs-subst">${sender}</span> has sent you a message.&lt;/p&gt;`</span>;
 
 message
 <span class="hljs-comment">// &lt;p&gt;&amp;lt;script&amp;gt;alert(&quot;abc&quot;)&amp;lt;/script&amp;gt; has sent you a message.&lt;/p&gt;</span>
@@ -316,9 +316,9 @@ message
   &lt;div&gt;
     &lt;input
       ref=&#x27;input&#x27;
-      onChange=&#x27;<span class="hljs-subst">${<span class="hljs-built_in">this</span>.handleChange}</span>&#x27;
-      defaultValue=&#x27;<span class="hljs-subst">${<span class="hljs-built_in">this</span>.state.value}</span>&#x27; /&gt;
-      <span class="hljs-subst">${<span class="hljs-built_in">this</span>.state.value}</span>
+      onChange=&#x27;<span class="hljs-subst">${<span class="hljs-variable language_">this</span>.handleChange}</span>&#x27;
+      defaultValue=&#x27;<span class="hljs-subst">${<span class="hljs-variable language_">this</span>.state.value}</span>&#x27; /&gt;
+      <span class="hljs-subst">${<span class="hljs-variable language_">this</span>.state.value}</span>
    &lt;/div&gt;
 `</span>
 </code></pre><p>上面的代码通过<code>jsx</code>函数，将一个 DOM 字符串转为 React 对象。你可以在 GitHub 找到<code>jsx</code>函数的<a href="https://gist.github.com/lygaret/a68220defa69174bdec5" target="_blank" rel="noopener">具体实现</a>。</p><p>下面则是一个假想的例子，通过<code>java</code>函数，在 JavaScript 代码之中运行 Java 代码。</p><pre class="hljs"><code>java<span class="hljs-string">`
@@ -328,30 +328,30 @@ class HelloWorldApp {
   }
 }
 `</span>
-HelloWorldApp.main();
-</code></pre><p>模板处理函数的第一个参数（模板字符串数组），还有一个<code>raw</code>属性。</p><pre class="hljs"><code><span class="hljs-built_in">console</span>.log<span class="hljs-string">`123`</span>
+<span class="hljs-title class_">HelloWorldApp</span>.<span class="hljs-title function_">main</span>();
+</code></pre><p>模板处理函数的第一个参数（模板字符串数组），还有一个<code>raw</code>属性。</p><pre class="hljs"><code><span class="hljs-variable language_">console</span>.<span class="hljs-property">log</span><span class="hljs-string">`123`</span>
 <span class="hljs-comment">// [&quot;123&quot;, raw: Array[1]]</span>
 </code></pre><p>上面代码中，<code>console.log</code>接受的参数，实际上是一个数组。该数组有一个<code>raw</code>属性，保存的是转义后的原字符串。</p><p>请看下面的例子。</p><pre class="hljs"><code>tag<span class="hljs-string">`First line\nSecond line`</span>
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">tag</span>(<span class="hljs-params">strings</span>) </span>{
-  <span class="hljs-built_in">console</span>.log(strings.raw[<span class="hljs-number">0</span>]);
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">tag</span>(<span class="hljs-params">strings</span>) {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(strings.<span class="hljs-property">raw</span>[<span class="hljs-number">0</span>]);
   <span class="hljs-comment">// strings.raw[0] 为 &quot;First line\\nSecond line&quot;</span>
   <span class="hljs-comment">// 打印输出 &quot;First line\nSecond line&quot;</span>
 }
-</code></pre><p>上面代码中，<code>tag</code>函数的第一个参数<code>strings</code>，有一个<code>raw</code>属性，也指向一个数组。该数组的成员与<code>strings</code>数组完全一致。比如，<code>strings</code>数组是<code>[&quot;First line\nSecond line&quot;]</code>，那么<code>strings.raw</code>数组就是<code>[&quot;First line\\nSecond line&quot;]</code>。两者唯一的区别，就是字符串里面的斜杠都被转义了。比如，strings.raw 数组会将<code>\n</code>视为<code>\\</code>和<code>n</code>两个字符，而不是换行符。这是为了方便取得转义之前的原始模板而设计的。</p><h2 id="模板字符串的限制">模板字符串的限制 <a class="markdownIt-Anchor" href="#模板字符串的限制">#</a></h2><p>前面提到标签模板里面，可以内嵌其他语言。但是，模板字符串默认会将字符串转义，导致无法嵌入其他语言。</p><p>举例来说，标签模板里面可以嵌入 LaTEX 语言。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">latex</span>(<span class="hljs-params">strings</span>) </span>{
+</code></pre><p>上面代码中，<code>tag</code>函数的第一个参数<code>strings</code>，有一个<code>raw</code>属性，也指向一个数组。该数组的成员与<code>strings</code>数组完全一致。比如，<code>strings</code>数组是<code>[&quot;First line\nSecond line&quot;]</code>，那么<code>strings.raw</code>数组就是<code>[&quot;First line\\nSecond line&quot;]</code>。两者唯一的区别，就是字符串里面的斜杠都被转义了。比如，strings.raw 数组会将<code>\n</code>视为<code>\\</code>和<code>n</code>两个字符，而不是换行符。这是为了方便取得转义之前的原始模板而设计的。</p><h2 id="模板字符串的限制">模板字符串的限制 <a class="markdownIt-Anchor" href="#模板字符串的限制">#</a></h2><p>前面提到标签模板里面，可以内嵌其他语言。但是，模板字符串默认会将字符串转义，导致无法嵌入其他语言。</p><p>举例来说，标签模板里面可以嵌入 LaTEX 语言。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">latex</span>(<span class="hljs-params">strings</span>) {
   <span class="hljs-comment">// ...</span>
 }
 
-<span class="hljs-keyword">let</span> <span class="hljs-built_in">document</span> = latex<span class="hljs-string">`
+<span class="hljs-keyword">let</span> <span class="hljs-variable language_">document</span> = latex<span class="hljs-string">`
 \newcommand{\fun}{\textbf{Fun!}}  // 正常工作
 \newcommand{\unicode}{\textbf{Unicode!}} // 报错
 \newcommand{\xerxes}{\textbf{King!}} // 报错
 
 Breve over the h goes \u{h}ere // 报错
 `</span>
-</code></pre><p>上面代码中，变量<code>document</code>内嵌的模板字符串，对于 LaTEX 语言来说完全是合法的，但是 JavaScript 引擎会报错。原因就在于字符串的转义。</p><p>模板字符串会将<code>\u00FF</code>和<code>\u{42}</code>当作 Unicode 字符进行转义，所以<code>\unicode</code>解析时报错；而<code>\x56</code>会被当作十六进制字符串转义，所以<code>\xerxes</code>会报错。也就是说，<code>\u</code>和<code>\x</code>在 LaTEX 里面有特殊含义，但是 JavaScript 将它们转义了。</p><p>为了解决这个问题，ES2018 <a href="https://tc39.github.io/proposal-template-literal-revision/" target="_blank" rel="noopener">放松</a>了对标签模板里面的字符串转义的限制。如果遇到不合法的字符串转义，就返回<code>undefined</code>，而不是报错，并且从<code>raw</code>属性上面可以得到原始字符串。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">tag</span>(<span class="hljs-params">strs</span>) </span>{
+</code></pre><p>上面代码中，变量<code>document</code>内嵌的模板字符串，对于 LaTEX 语言来说完全是合法的，但是 JavaScript 引擎会报错。原因就在于字符串的转义。</p><p>模板字符串会将<code>\u00FF</code>和<code>\u{42}</code>当作 Unicode 字符进行转义，所以<code>\unicode</code>解析时报错；而<code>\x56</code>会被当作十六进制字符串转义，所以<code>\xerxes</code>会报错。也就是说，<code>\u</code>和<code>\x</code>在 LaTEX 里面有特殊含义，但是 JavaScript 将它们转义了。</p><p>为了解决这个问题，ES2018 <a href="https://tc39.github.io/proposal-template-literal-revision/" target="_blank" rel="noopener">放松</a>了对标签模板里面的字符串转义的限制。如果遇到不合法的字符串转义，就返回<code>undefined</code>，而不是报错，并且从<code>raw</code>属性上面可以得到原始字符串。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">tag</span>(<span class="hljs-params">strs</span>) {
   strs[<span class="hljs-number">0</span>] === <span class="hljs-literal">undefined</span>
-  strs.raw[<span class="hljs-number">0</span>] === <span class="hljs-string">&quot;\\unicode and \\u{55}&quot;</span>;
+  strs.<span class="hljs-property">raw</span>[<span class="hljs-number">0</span>] === <span class="hljs-string">&quot;\\unicode and \\u{55}&quot;</span>;
 }
 tag<span class="hljs-string">`\unicode and \u{55}`</span>
 </code></pre><p>上面代码中，模板字符串原本是应该报错的，但是由于放松了对字符串转义的限制，所以不报错了，JavaScript 引擎将第一个字符设置为<code>undefined</code>，但是<code>raw</code>属性依然可以得到原始字符串，因此<code>tag</code>函数还是可以对原字符串进行处理。</p><p>注意，这种对字符串转义的放松，只在标签模板解析字符串时生效，不是标签模板的场合，依然会报错。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> bad = <span class="hljs-string">`bad escape sequence: \unicode`</span>; <span class="hljs-comment">// 报错</span>

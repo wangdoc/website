@@ -1,9 +1,9 @@
-<!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>最新提案 - ES6 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="最新提案"><link rel="apple-touch-icon" sizes="57x57" href="assets/icons/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="assets/icons/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="assets/icons/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="assets/icons/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="assets/icons/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="assets/icons/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="assets/icons/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="assets/icons/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png"><link rel="manifest" href="assets/icons/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="assets/icons/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/es6-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/es6-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8 is-6-widescreen is-offset-1-widescreen"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;ES6 教程</a></li><li class="is-active"><a class="has-text-grey" href="proposals.html">最新提案</a></li></ul></nav><nav class="level level-previous-next is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="arraybuffer.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> ArrayBuffer</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="decorator.html">Decorator <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content"><h1 class="title">最新提案</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><p>本章介绍一些尚未进入标准、但很有希望的最新提案。</p><h2 id="do-表达式">do 表达式 <a class="markdownIt-Anchor" href="#do-表达式">#</a></h2><p>本质上，块级作用域是一个语句，将多个操作封装在一起，没有返回值。</p><pre class="hljs"><code>{
-  <span class="hljs-keyword">let</span> t = f();
+<!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>最新提案 - ES6 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="最新提案"><link rel="apple-touch-icon" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png"><link rel="manifest" href="assets/icons/manifest.json"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/es6-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/es6-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8 is-6-widescreen is-offset-1-widescreen"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;ES6 教程</a></li><li class="is-active"><a class="has-text-grey" href="proposals.html">最新提案</a></li></ul></nav><nav class="level level-previous-next is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="arraybuffer.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> ArrayBuffer</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="decorator.html">Decorator <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content"><h1 class="title">最新提案</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><p>本章介绍一些尚未进入标准、但很有希望的最新提案。</p><h2 id="do-表达式">do 表达式 <a class="markdownIt-Anchor" href="#do-表达式">#</a></h2><p>本质上，块级作用域是一个语句，将多个操作封装在一起，没有返回值。</p><pre class="hljs"><code>{
+  <span class="hljs-keyword">let</span> t = <span class="hljs-title function_">f</span>();
   t = t * t + <span class="hljs-number">1</span>;
 }
 </code></pre><p>上面代码中，块级作用域将两个语句封装在一起。但是，在块级作用域以外，没有办法得到<code>t</code>的值，因为块级作用域不返回值，除非<code>t</code>是全局变量。</p><p>现在有一个<a href="https://github.com/tc39/proposal-do-expressions" target="_blank" rel="noopener">提案</a>，使得块级作用域可以变为表达式，也就是说可以返回值，办法就是在块级作用域之前加上<code>do</code>，使它变为<code>do</code>表达式，然后就会返回内部最后执行的表达式的值。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> x = <span class="hljs-keyword">do</span> {
-  <span class="hljs-keyword">let</span> t = f();
+  <span class="hljs-keyword">let</span> t = <span class="hljs-title function_">f</span>();
   t * t + <span class="hljs-number">1</span>;
 };
 </code></pre><p>上面代码中，变量<code>x</code>会得到整个块级作用域的返回值（<code>t * t + 1</code>）。</p><p><code>do</code>表达式的逻辑非常简单：封装的是什么，就会返回什么。</p><pre class="hljs"><code><span class="hljs-comment">// 等同于 &lt;表达式&gt;</span>
@@ -12,12 +12,12 @@
 <span class="hljs-comment">// 等同于 &lt;语句&gt;</span>
 <span class="hljs-keyword">do</span> { &lt;语句&gt; }
 </code></pre><p><code>do</code>表达式的好处是可以封装多个语句，让程序更加模块化，就像乐高积木那样一块块拼装起来。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> x = <span class="hljs-keyword">do</span> {
-  <span class="hljs-keyword">if</span> (foo()) { f() }
-  <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (bar()) { g() }
-  <span class="hljs-keyword">else</span> { h() }
+  <span class="hljs-keyword">if</span> (<span class="hljs-title function_">foo</span>()) { <span class="hljs-title function_">f</span>() }
+  <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-title function_">bar</span>()) { <span class="hljs-title function_">g</span>() }
+  <span class="hljs-keyword">else</span> { <span class="hljs-title function_">h</span>() }
 };
 </code></pre><p>上面代码的本质，就是根据函数<code>foo</code>的执行结果，调用不同的函数，将返回结果赋给变量<code>x</code>。使用<code>do</code>表达式，就将这个操作的意图表达得非常简洁清晰。而且，<code>do</code>块级作用域提供了单独的作用域，内部操作可以与全局作用域隔绝。</p><p>值得一提的是，<code>do</code>表达式在 JSX 语法中非常好用。</p><pre class="hljs"><code><span class="hljs-keyword">return</span> (
-  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">nav</span>&gt;</span>
+  <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">nav</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">Home</span> /&gt;</span>
     {
       do {
@@ -31,105 +31,105 @@
   <span class="hljs-tag">&lt;/<span class="hljs-name">nav</span>&gt;</span></span>
 )
 </code></pre><p>上面代码中，如果不用<code>do</code>表达式，就只能用三元判断运算符（<code>?:</code>）。那样的话，一旦判断逻辑复杂，代码就会变得很不易读。</p><h2 id="throw-表达式">throw 表达式 <a class="markdownIt-Anchor" href="#throw-表达式">#</a></h2><p>JavaScript 语法规定<code>throw</code>是一个命令，用来抛出错误，不能用于表达式之中。</p><pre class="hljs"><code><span class="hljs-comment">// 报错</span>
-<span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>());
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>());
 </code></pre><p>上面代码中，<code>console.log</code>的参数必须是一个表达式，如果是一个<code>throw</code>语句就会报错。</p><p>现在有一个<a href="https://github.com/tc39/proposal-throw-expressions" target="_blank" rel="noopener">提案</a>，允许<code>throw</code>用于表达式。</p><pre class="hljs"><code><span class="hljs-comment">// 参数的默认值</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">save</span>(<span class="hljs-params">filename = <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">&quot;Argument required&quot;</span>)</span>) </span>{
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">save</span>(<span class="hljs-params">filename = <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">&quot;Argument required&quot;</span>)</span>) {
 }
 
 <span class="hljs-comment">// 箭头函数的返回值</span>
-lint(ast, {
-  <span class="hljs-attr">with</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&quot;avoid using &#x27;with&#x27; statements.&quot;</span>)
+<span class="hljs-title function_">lint</span>(ast, {
+  <span class="hljs-attr">with</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&quot;avoid using &#x27;with&#x27; statements.&quot;</span>)
 });
 
 <span class="hljs-comment">// 条件表达式</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getEncoder</span>(<span class="hljs-params">encoding</span>) </span>{
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">getEncoder</span>(<span class="hljs-params">encoding</span>) {
   <span class="hljs-keyword">const</span> encoder = encoding === <span class="hljs-string">&quot;utf8&quot;</span> ?
-    <span class="hljs-keyword">new</span> UTF8Encoder() :
+    <span class="hljs-keyword">new</span> <span class="hljs-title class_">UTF8Encoder</span>() :
     encoding === <span class="hljs-string">&quot;utf16le&quot;</span> ?
-      <span class="hljs-keyword">new</span> UTF16Encoder(<span class="hljs-literal">false</span>) :
+      <span class="hljs-keyword">new</span> <span class="hljs-title class_">UTF16Encoder</span>(<span class="hljs-literal">false</span>) :
       encoding === <span class="hljs-string">&quot;utf16be&quot;</span> ?
-        <span class="hljs-keyword">new</span> UTF16Encoder(<span class="hljs-literal">true</span>) :
-        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&quot;Unsupported encoding&quot;</span>);
+        <span class="hljs-keyword">new</span> <span class="hljs-title class_">UTF16Encoder</span>(<span class="hljs-literal">true</span>) :
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&quot;Unsupported encoding&quot;</span>);
 }
 
 <span class="hljs-comment">// 逻辑表达式</span>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Product</span> </span>{
-  <span class="hljs-keyword">get</span> <span class="hljs-title">id</span>() {
-    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>._id;
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Product</span> {
+  <span class="hljs-keyword">get</span> <span class="hljs-title function_">id</span>() {
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">_id</span>;
   }
-  <span class="hljs-keyword">set</span> <span class="hljs-title">id</span>(<span class="hljs-params">value</span>) {
-    <span class="hljs-built_in">this</span>._id = value || <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&quot;Invalid value&quot;</span>);
+  <span class="hljs-keyword">set</span> <span class="hljs-title function_">id</span>(<span class="hljs-params">value</span>) {
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">_id</span> = value || <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&quot;Invalid value&quot;</span>);
   }
 }
-</code></pre><p>上面代码中，<code>throw</code>都出现在表达式里面。</p><p>语法上，<code>throw</code>表达式里面的<code>throw</code>不再是一个命令，而是一个运算符。为了避免与<code>throw</code>命令混淆，规定<code>throw</code>出现在行首，一律解释为<code>throw</code>语句，而不是<code>throw</code>表达式。</p><h2 id="函数的部分执行">函数的部分执行 <a class="markdownIt-Anchor" href="#函数的部分执行">#</a></h2><h3 id="语法">语法 <a class="markdownIt-Anchor" href="#语法">#</a></h3><p>多参数的函数有时需要绑定其中的一个或多个参数，然后返回一个新函数。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">add</span>(<span class="hljs-params">x, y</span>) </span>{ <span class="hljs-keyword">return</span> x + y; }
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">add7</span>(<span class="hljs-params">x</span>) </span>{ <span class="hljs-keyword">return</span> x + <span class="hljs-number">7</span>; }
+</code></pre><p>上面代码中，<code>throw</code>都出现在表达式里面。</p><p>语法上，<code>throw</code>表达式里面的<code>throw</code>不再是一个命令，而是一个运算符。为了避免与<code>throw</code>命令混淆，规定<code>throw</code>出现在行首，一律解释为<code>throw</code>语句，而不是<code>throw</code>表达式。</p><h2 id="函数的部分执行">函数的部分执行 <a class="markdownIt-Anchor" href="#函数的部分执行">#</a></h2><h3 id="语法">语法 <a class="markdownIt-Anchor" href="#语法">#</a></h3><p>多参数的函数有时需要绑定其中的一个或多个参数，然后返回一个新函数。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">add</span>(<span class="hljs-params">x, y</span>) { <span class="hljs-keyword">return</span> x + y; }
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">add7</span>(<span class="hljs-params">x</span>) { <span class="hljs-keyword">return</span> x + <span class="hljs-number">7</span>; }
 </code></pre><p>上面代码中，<code>add7</code>函数其实是<code>add</code>函数的一个特殊版本，通过将一个参数绑定为<code>7</code>，就可以从<code>add</code>得到<code>add7</code>。</p><pre class="hljs"><code><span class="hljs-comment">// bind 方法</span>
-<span class="hljs-keyword">const</span> add7 = add.bind(<span class="hljs-literal">null</span>, <span class="hljs-number">7</span>);
+<span class="hljs-keyword">const</span> add7 = add.<span class="hljs-title function_">bind</span>(<span class="hljs-literal">null</span>, <span class="hljs-number">7</span>);
 
 <span class="hljs-comment">// 箭头函数</span>
-<span class="hljs-keyword">const</span> add7 = <span class="hljs-function"><span class="hljs-params">x</span> =&gt;</span> add(x, <span class="hljs-number">7</span>);
-</code></pre><p>上面两种写法都有些冗余。其中，<code>bind</code>方法的局限更加明显，它必须提供<code>this</code>，并且只能从前到后一个个绑定参数，无法只绑定非头部的参数。</p><p>现在有一个<a href="https://github.com/tc39/proposal-partial-application" target="_blank" rel="noopener">提案</a>，使得绑定参数并返回一个新函数更加容易。这叫做函数的部分执行（partial application）。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> add = <span class="hljs-function">(<span class="hljs-params">x, y</span>) =&gt;</span> x + y;
-<span class="hljs-keyword">const</span> addOne = add(<span class="hljs-number">1</span>, ?);
+<span class="hljs-keyword">const</span> <span class="hljs-title function_">add7</span> = x =&gt; <span class="hljs-title function_">add</span>(x, <span class="hljs-number">7</span>);
+</code></pre><p>上面两种写法都有些冗余。其中，<code>bind</code>方法的局限更加明显，它必须提供<code>this</code>，并且只能从前到后一个个绑定参数，无法只绑定非头部的参数。</p><p>现在有一个<a href="https://github.com/tc39/proposal-partial-application" target="_blank" rel="noopener">提案</a>，使得绑定参数并返回一个新函数更加容易。这叫做函数的部分执行（partial application）。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> <span class="hljs-title function_">add</span> = (<span class="hljs-params">x, y</span>) =&gt; x + y;
+<span class="hljs-keyword">const</span> addOne = <span class="hljs-title function_">add</span>(<span class="hljs-number">1</span>, ?);
 
-<span class="hljs-keyword">const</span> maxGreaterThanZero = <span class="hljs-built_in">Math</span>.max(<span class="hljs-number">0</span>, ...);
-</code></pre><p>根据新提案，<code>?</code>是单个参数的占位符，<code>...</code>是多个参数的占位符。以下的形式都属于函数的部分执行。</p><pre class="hljs"><code>f(x, ?)
-f(x, ...)
-f(?, x)
-f(..., x)
-f(?, x, ?)
-f(..., x, ...)
-</code></pre><p><code>?</code>和<code>...</code>只能出现在函数的调用之中，并且会返回一个新函数。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> g = f(?, <span class="hljs-number">1</span>, ...);
+<span class="hljs-keyword">const</span> maxGreaterThanZero = <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">max</span>(<span class="hljs-number">0</span>, ...);
+</code></pre><p>根据新提案，<code>?</code>是单个参数的占位符，<code>...</code>是多个参数的占位符。以下的形式都属于函数的部分执行。</p><pre class="hljs"><code><span class="hljs-title function_">f</span>(x, ?)
+<span class="hljs-title function_">f</span>(x, ...)
+<span class="hljs-title function_">f</span>(?, x)
+<span class="hljs-title function_">f</span>(..., x)
+<span class="hljs-title function_">f</span>(?, x, ?)
+<span class="hljs-title function_">f</span>(..., x, ...)
+</code></pre><p><code>?</code>和<code>...</code>只能出现在函数的调用之中，并且会返回一个新函数。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> g = <span class="hljs-title function_">f</span>(?, <span class="hljs-number">1</span>, ...);
 <span class="hljs-comment">// 等同于</span>
-<span class="hljs-keyword">const</span> g = <span class="hljs-function">(<span class="hljs-params">x, ...y</span>) =&gt;</span> f(x, <span class="hljs-number">1</span>, ...y);
+<span class="hljs-keyword">const</span> <span class="hljs-title function_">g</span> = (<span class="hljs-params">x, ...y</span>) =&gt; <span class="hljs-title function_">f</span>(x, <span class="hljs-number">1</span>, ...y);
 </code></pre><p>函数的部分执行，也可以用于对象的方法。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> obj = {
-  <span class="hljs-function"><span class="hljs-title">f</span>(<span class="hljs-params">x, y</span>)</span> { <span class="hljs-keyword">return</span> x + y; },
+  <span class="hljs-title function_">f</span>(<span class="hljs-params">x, y</span>) { <span class="hljs-keyword">return</span> x + y; },
 };
 
-<span class="hljs-keyword">const</span> g = obj.f(?, <span class="hljs-number">3</span>);
-g(<span class="hljs-number">1</span>) <span class="hljs-comment">// 4</span>
-</code></pre><h3 id="注意点">注意点 <a class="markdownIt-Anchor" href="#注意点">#</a></h3><p>函数的部分执行有一些特别注意的地方。</p><p>（1）函数的部分执行是基于原函数的。如果原函数发生变化，部分执行生成的新函数也会立即反映这种变化。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> f = <span class="hljs-function">(<span class="hljs-params">x, y</span>) =&gt;</span> x + y;
+<span class="hljs-keyword">const</span> g = obj.<span class="hljs-title function_">f</span>(?, <span class="hljs-number">3</span>);
+<span class="hljs-title function_">g</span>(<span class="hljs-number">1</span>) <span class="hljs-comment">// 4</span>
+</code></pre><h3 id="注意点">注意点 <a class="markdownIt-Anchor" href="#注意点">#</a></h3><p>函数的部分执行有一些特别注意的地方。</p><p>（1）函数的部分执行是基于原函数的。如果原函数发生变化，部分执行生成的新函数也会立即反映这种变化。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> <span class="hljs-title function_">f</span> = (<span class="hljs-params">x, y</span>) =&gt; x + y;
 
-<span class="hljs-keyword">const</span> g = f(?, <span class="hljs-number">3</span>);
-g(<span class="hljs-number">1</span>); <span class="hljs-comment">// 4</span>
+<span class="hljs-keyword">const</span> g = <span class="hljs-title function_">f</span>(?, <span class="hljs-number">3</span>);
+<span class="hljs-title function_">g</span>(<span class="hljs-number">1</span>); <span class="hljs-comment">// 4</span>
 
 <span class="hljs-comment">// 替换函数 f</span>
 f = <span class="hljs-function">(<span class="hljs-params">x, y</span>) =&gt;</span> x * y;
 
-g(<span class="hljs-number">1</span>); <span class="hljs-comment">// 3</span>
+<span class="hljs-title function_">g</span>(<span class="hljs-number">1</span>); <span class="hljs-comment">// 3</span>
 </code></pre><p>上面代码中，定义了函数的部分执行以后，更换原函数会立即影响到新函数。</p><p>（2）如果预先提供的那个值是一个表达式，那么这个表达式并不会在定义时求值，而是在每次调用时求值。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> a = <span class="hljs-number">3</span>;
-<span class="hljs-keyword">const</span> f = <span class="hljs-function">(<span class="hljs-params">x, y</span>) =&gt;</span> x + y;
+<span class="hljs-keyword">const</span> <span class="hljs-title function_">f</span> = (<span class="hljs-params">x, y</span>) =&gt; x + y;
 
-<span class="hljs-keyword">const</span> g = f(?, a);
-g(<span class="hljs-number">1</span>); <span class="hljs-comment">// 4</span>
+<span class="hljs-keyword">const</span> g = <span class="hljs-title function_">f</span>(?, a);
+<span class="hljs-title function_">g</span>(<span class="hljs-number">1</span>); <span class="hljs-comment">// 4</span>
 
 <span class="hljs-comment">// 改变 a 的值</span>
 a = <span class="hljs-number">10</span>;
-g(<span class="hljs-number">1</span>); <span class="hljs-comment">// 11</span>
-</code></pre><p>上面代码中，预先提供的参数是变量<code>a</code>，那么每次调用函数<code>g</code>的时候，才会对<code>a</code>进行求值。</p><p>（3）如果新函数的参数多于占位符的数量，那么多余的参数将被忽略。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> f = <span class="hljs-function">(<span class="hljs-params">x, ...y</span>) =&gt;</span> [x, ...y];
-<span class="hljs-keyword">const</span> g = f(?, <span class="hljs-number">1</span>);
-g(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>); <span class="hljs-comment">// [2, 1]</span>
-</code></pre><p>上面代码中，函数<code>g</code>只有一个占位符，也就意味着它只能接受一个参数，多余的参数都会被忽略。</p><p>写成下面这样，多余的参数就没有问题。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> f = <span class="hljs-function">(<span class="hljs-params">x, ...y</span>) =&gt;</span> [x, ...y];
-<span class="hljs-keyword">const</span> g = f(?, <span class="hljs-number">1</span>, ...);
-g(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>); <span class="hljs-comment">// [2, 1, 3, 4];</span>
-</code></pre><p>（4）<code>...</code>只会被采集一次，如果函数的部分执行使用了多个<code>...</code>，那么每个<code>...</code>的值都将相同。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> f = <span class="hljs-function">(<span class="hljs-params">...x</span>) =&gt;</span> x;
-<span class="hljs-keyword">const</span> g = f(..., <span class="hljs-number">9</span>, ...);
-g(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>); <span class="hljs-comment">// [1, 2, 3, 9, 1, 2, 3]</span>
+<span class="hljs-title function_">g</span>(<span class="hljs-number">1</span>); <span class="hljs-comment">// 11</span>
+</code></pre><p>上面代码中，预先提供的参数是变量<code>a</code>，那么每次调用函数<code>g</code>的时候，才会对<code>a</code>进行求值。</p><p>（3）如果新函数的参数多于占位符的数量，那么多余的参数将被忽略。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> <span class="hljs-title function_">f</span> = (<span class="hljs-params">x, ...y</span>) =&gt; [x, ...y];
+<span class="hljs-keyword">const</span> g = <span class="hljs-title function_">f</span>(?, <span class="hljs-number">1</span>);
+<span class="hljs-title function_">g</span>(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>); <span class="hljs-comment">// [2, 1]</span>
+</code></pre><p>上面代码中，函数<code>g</code>只有一个占位符，也就意味着它只能接受一个参数，多余的参数都会被忽略。</p><p>写成下面这样，多余的参数就没有问题。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> <span class="hljs-title function_">f</span> = (<span class="hljs-params">x, ...y</span>) =&gt; [x, ...y];
+<span class="hljs-keyword">const</span> g = <span class="hljs-title function_">f</span>(?, <span class="hljs-number">1</span>, ...);
+<span class="hljs-title function_">g</span>(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>); <span class="hljs-comment">// [2, 1, 3, 4];</span>
+</code></pre><p>（4）<code>...</code>只会被采集一次，如果函数的部分执行使用了多个<code>...</code>，那么每个<code>...</code>的值都将相同。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> <span class="hljs-title function_">f</span> = (<span class="hljs-params">...x</span>) =&gt; x;
+<span class="hljs-keyword">const</span> g = <span class="hljs-title function_">f</span>(..., <span class="hljs-number">9</span>, ...);
+<span class="hljs-title function_">g</span>(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>); <span class="hljs-comment">// [1, 2, 3, 9, 1, 2, 3]</span>
 </code></pre><p>上面代码中，<code>g</code>定义了两个<code>...</code>占位符，真正执行的时候，它们的值是一样的。</p><h2 id="管道运算符">管道运算符 <a class="markdownIt-Anchor" href="#管道运算符">#</a></h2><p>Unix 操作系统有一个管道机制（pipeline），可以把前一个操作的值传给后一个操作。这个机制非常有用，使得简单的操作可以组合成为复杂的操作。许多语言都有管道的实现，现在有一个<a href="https://github.com/tc39/proposal-pipeline-operator" target="_blank" rel="noopener">提案</a>，让 JavaScript 也拥有管道机制。</p><p>JavaScript 的管道是一个运算符，写作<code>|&gt;</code>。它的左边是一个表达式，右边是一个函数。管道运算符把左边表达式的值，传入右边的函数进行求值。</p><pre class="hljs"><code>x |&gt; f
 <span class="hljs-comment">// 等同于</span>
-f(x)
-</code></pre><p>管道运算符最大的好处，就是可以把嵌套的函数，写成从左到右的链式表达式。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">doubleSay</span> (<span class="hljs-params">str</span>) </span>{
+<span class="hljs-title function_">f</span>(x)
+</code></pre><p>管道运算符最大的好处，就是可以把嵌套的函数，写成从左到右的链式表达式。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">doubleSay</span> (str) {
   <span class="hljs-keyword">return</span> str + <span class="hljs-string">&quot;, &quot;</span> + str;
 }
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">capitalize</span> (<span class="hljs-params">str</span>) </span>{
-  <span class="hljs-keyword">return</span> str[<span class="hljs-number">0</span>].toUpperCase() + str.substring(<span class="hljs-number">1</span>);
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">capitalize</span> (str) {
+  <span class="hljs-keyword">return</span> str[<span class="hljs-number">0</span>].<span class="hljs-title function_">toUpperCase</span>() + str.<span class="hljs-title function_">substring</span>(<span class="hljs-number">1</span>);
 }
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">exclaim</span> (<span class="hljs-params">str</span>) </span>{
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">exclaim</span> (str) {
   <span class="hljs-keyword">return</span> str + <span class="hljs-string">&#x27;!&#x27;</span>;
 }
 </code></pre><p>上面是三个简单的函数。如果要嵌套执行，传统的写法和管道的写法分别如下。</p><pre class="hljs"><code><span class="hljs-comment">// 传统的写法</span>
-exclaim(capitalize(doubleSay(<span class="hljs-string">&#x27;hello&#x27;</span>)))
+<span class="hljs-title function_">exclaim</span>(<span class="hljs-title function_">capitalize</span>(<span class="hljs-title function_">doubleSay</span>(<span class="hljs-string">&#x27;hello&#x27;</span>)))
 <span class="hljs-comment">// &quot;Hello, hello!&quot;</span>
 
 <span class="hljs-comment">// 管道的写法</span>
@@ -138,95 +138,95 @@ exclaim(capitalize(doubleSay(<span class="hljs-string">&#x27;hello&#x27;</span>)
   |&gt; capitalize
   |&gt; exclaim
 <span class="hljs-comment">// &quot;Hello, hello!&quot;</span>
-</code></pre><p>管道运算符只能传递一个值，这意味着它右边的函数必须是一个单参数函数。如果是多参数函数，就必须进行柯里化，改成单参数的版本。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">double</span> (<span class="hljs-params">x</span>) </span>{ <span class="hljs-keyword">return</span> x + x; }
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">add</span> (<span class="hljs-params">x, y</span>) </span>{ <span class="hljs-keyword">return</span> x + y; }
+</code></pre><p>管道运算符只能传递一个值，这意味着它右边的函数必须是一个单参数函数。如果是多参数函数，就必须进行柯里化，改成单参数的版本。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">double</span> (x) { <span class="hljs-keyword">return</span> x + x; }
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">add</span> (x, y) { <span class="hljs-keyword">return</span> x + y; }
 
 <span class="hljs-keyword">let</span> person = { <span class="hljs-attr">score</span>: <span class="hljs-number">25</span> };
-person.score
+person.<span class="hljs-property">score</span>
   |&gt; double
-  |&gt; (<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> add(<span class="hljs-number">7</span>, _))
+  |&gt; (<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-title function_">add</span>(<span class="hljs-number">7</span>, _))
 <span class="hljs-comment">// 57</span>
 </code></pre><p>上面代码中，<code>add</code>函数需要两个参数。但是，管道运算符只能传入一个值，因此需要事先提供另一个参数，并将其改成单参数的箭头函数<code>_ =&gt; add(7, _)</code>。这个函数里面的下划线并没有特别的含义，可以用其他符号代替，使用下划线只是因为，它能够形象地表示这里是占位符。</p><p>管道运算符对于<code>await</code>函数也适用。</p><pre class="hljs"><code>x |&gt; <span class="hljs-keyword">await</span> f
 <span class="hljs-comment">// 等同于</span>
-<span class="hljs-keyword">await</span> f(x)
+<span class="hljs-keyword">await</span> <span class="hljs-title function_">f</span>(x)
 
 <span class="hljs-keyword">const</span> userAge = userId |&gt; <span class="hljs-keyword">await</span> fetchUserById |&gt; getAgeFromUser;
 <span class="hljs-comment">// 等同于</span>
-<span class="hljs-keyword">const</span> userAge = getAgeFromUser(<span class="hljs-keyword">await</span> fetchUserById(userId));
+<span class="hljs-keyword">const</span> userAge = <span class="hljs-title function_">getAgeFromUser</span>(<span class="hljs-keyword">await</span> <span class="hljs-title function_">fetchUserById</span>(userId));
 </code></pre><h2 id="mathsignbit">Math.signbit() <a class="markdownIt-Anchor" href="#mathsignbit">#</a></h2><p>JavaScript 内部使用64位浮点数（国际标准 IEEE 754）表示数值。IEEE 754 规定，64位浮点数的第一位是符号位，<code>0</code>表示正数，<code>1</code>表示负数。所以会有两种零，<code>+0</code>是符号位为<code>0</code>时的零，<code>-0</code>是符号位为<code>1</code>时的零。实际编程中，判断一个值是<code>+0</code>还是<code>-0</code>非常麻烦，因为它们是相等的。</p><pre class="hljs"><code>+<span class="hljs-number">0</span> === -<span class="hljs-number">0</span> <span class="hljs-comment">// true</span>
-</code></pre><p>ES6 新增的<code>Math.sign()</code>方法，只能用来判断数值的正负，对于判断数值的符号位用处不大。因为如果参数是<code>-0</code>，它会返回<code>-0</code>，还是不能直接知道符号位是<code>1</code>还是<code>0</code>。</p><pre class="hljs"><code><span class="hljs-built_in">Math</span>.sign(-<span class="hljs-number">0</span>) <span class="hljs-comment">// -0</span>
-</code></pre><p>目前，有一个<a href="https://github.com/tc39/proposal-Math.signbit" target="_blank" rel="noopener">提案</a>，引入了<code>Math.signbit()</code>方法判断一个数的符号位是否设置了。</p><pre class="hljs"><code><span class="hljs-built_in">Math</span>.signbit(<span class="hljs-number">2</span>) <span class="hljs-comment">//false</span>
-<span class="hljs-built_in">Math</span>.signbit(-<span class="hljs-number">2</span>) <span class="hljs-comment">//true</span>
-<span class="hljs-built_in">Math</span>.signbit(<span class="hljs-number">0</span>) <span class="hljs-comment">//false</span>
-<span class="hljs-built_in">Math</span>.signbit(-<span class="hljs-number">0</span>) <span class="hljs-comment">//true</span>
-</code></pre><p>可以看到，该方法正确返回了<code>-0</code>的符号位是设置了的。</p><p>该方法的算法如下。</p><ul><li>如果参数是<code>NaN</code>，返回<code>false</code></li><li>如果参数是<code>-0</code>，返回<code>true</code></li><li>如果参数是负值，返回<code>true</code></li><li>其他情况返回<code>false</code></li></ul><h2 id="双冒号运算符">双冒号运算符 <a class="markdownIt-Anchor" href="#双冒号运算符">#</a></h2><p>箭头函数可以绑定<code>this</code>对象，大大减少了显式绑定<code>this</code>对象的写法（<code>call()</code>、<code>apply()</code>、<code>bind()</code>）。但是，箭头函数并不适用于所有场合，所以现在有一个<a href="https://github.com/zenparsing/es-function-bind" target="_blank" rel="noopener">提案</a>，提出了“函数绑定”（function bind）运算符，用来取代<code>call()</code>、<code>apply()</code>、<code>bind()</code>调用。</p><p>函数绑定运算符是并排的两个冒号（<code>::</code>），双冒号左边是一个对象，右边是一个函数。该运算符会自动将左边的对象，作为上下文环境（即<code>this</code>对象），绑定到右边的函数上面。</p><pre class="hljs"><code>foo::bar;
+</code></pre><p>ES6 新增的<code>Math.sign()</code>方法，只能用来判断数值的正负，对于判断数值的符号位用处不大。因为如果参数是<code>-0</code>，它会返回<code>-0</code>，还是不能直接知道符号位是<code>1</code>还是<code>0</code>。</p><pre class="hljs"><code><span class="hljs-title class_">Math</span>.<span class="hljs-title function_">sign</span>(-<span class="hljs-number">0</span>) <span class="hljs-comment">// -0</span>
+</code></pre><p>目前，有一个<a href="https://github.com/tc39/proposal-Math.signbit" target="_blank" rel="noopener">提案</a>，引入了<code>Math.signbit()</code>方法判断一个数的符号位是否设置了。</p><pre class="hljs"><code><span class="hljs-title class_">Math</span>.<span class="hljs-title function_">signbit</span>(<span class="hljs-number">2</span>) <span class="hljs-comment">//false</span>
+<span class="hljs-title class_">Math</span>.<span class="hljs-title function_">signbit</span>(-<span class="hljs-number">2</span>) <span class="hljs-comment">//true</span>
+<span class="hljs-title class_">Math</span>.<span class="hljs-title function_">signbit</span>(<span class="hljs-number">0</span>) <span class="hljs-comment">//false</span>
+<span class="hljs-title class_">Math</span>.<span class="hljs-title function_">signbit</span>(-<span class="hljs-number">0</span>) <span class="hljs-comment">//true</span>
+</code></pre><p>可以看到，该方法正确返回了<code>-0</code>的符号位是设置了的。</p><p>该方法的算法如下。</p><ul><li>如果参数是<code>NaN</code>，返回<code>false</code></li><li>如果参数是<code>-0</code>，返回<code>true</code></li><li>如果参数是负值，返回<code>true</code></li><li>其他情况返回<code>false</code></li></ul><h2 id="双冒号运算符">双冒号运算符 <a class="markdownIt-Anchor" href="#双冒号运算符">#</a></h2><p>箭头函数可以绑定<code>this</code>对象，大大减少了显式绑定<code>this</code>对象的写法（<code>call()</code>、<code>apply()</code>、<code>bind()</code>）。但是，箭头函数并不适用于所有场合，所以现在有一个<a href="https://github.com/zenparsing/es-function-bind" target="_blank" rel="noopener">提案</a>，提出了“函数绑定”（function bind）运算符，用来取代<code>call()</code>、<code>apply()</code>、<code>bind()</code>调用。</p><p>函数绑定运算符是并排的两个冒号（<code>::</code>），双冒号左边是一个对象，右边是一个函数。该运算符会自动将左边的对象，作为上下文环境（即<code>this</code>对象），绑定到右边的函数上面。</p><pre class="hljs"><code><span class="hljs-attr">foo</span>::bar;
 <span class="hljs-comment">// 等同于</span>
-bar.bind(foo);
+bar.<span class="hljs-title function_">bind</span>(foo);
 
-foo::bar(...arguments);
+<span class="hljs-attr">foo</span>::<span class="hljs-title function_">bar</span>(...<span class="hljs-variable language_">arguments</span>);
 <span class="hljs-comment">// 等同于</span>
-bar.apply(foo, <span class="hljs-built_in">arguments</span>);
+bar.<span class="hljs-title function_">apply</span>(foo, <span class="hljs-variable language_">arguments</span>);
 
-<span class="hljs-keyword">const</span> hasOwnProperty = <span class="hljs-built_in">Object</span>.prototype.hasOwnProperty;
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hasOwn</span>(<span class="hljs-params">obj, key</span>) </span>{
-  <span class="hljs-keyword">return</span> obj::hasOwnProperty(key);
+<span class="hljs-keyword">const</span> hasOwnProperty = <span class="hljs-title class_">Object</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">hasOwnProperty</span>;
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">hasOwn</span>(<span class="hljs-params">obj, key</span>) {
+  <span class="hljs-keyword">return</span> <span class="hljs-attr">obj</span>::<span class="hljs-title function_">hasOwnProperty</span>(key);
 }
-</code></pre><p>如果双冒号左边为空，右边是一个对象的方法，则等于将该方法绑定在该对象上面。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> method = obj::obj.foo;
+</code></pre><p>如果双冒号左边为空，右边是一个对象的方法，则等于将该方法绑定在该对象上面。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> method = <span class="hljs-attr">obj</span>::obj.<span class="hljs-property">foo</span>;
 <span class="hljs-comment">// 等同于</span>
-<span class="hljs-keyword">var</span> method = ::obj.foo;
+<span class="hljs-keyword">var</span> method = ::obj.<span class="hljs-property">foo</span>;
 
-<span class="hljs-keyword">let</span> log = ::<span class="hljs-built_in">console</span>.log;
+<span class="hljs-keyword">let</span> log = ::<span class="hljs-variable language_">console</span>.<span class="hljs-property">log</span>;
 <span class="hljs-comment">// 等同于</span>
-<span class="hljs-keyword">var</span> log = <span class="hljs-built_in">console</span>.log.bind(<span class="hljs-built_in">console</span>);
+<span class="hljs-keyword">var</span> log = <span class="hljs-variable language_">console</span>.<span class="hljs-property">log</span>.<span class="hljs-title function_">bind</span>(<span class="hljs-variable language_">console</span>);
 </code></pre><p>如果双冒号运算符的运算结果，还是一个对象，就可以采用链式写法。</p><pre class="hljs"><code><span class="hljs-keyword">import</span> { map, takeWhile, forEach } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;iterlib&quot;</span>;
 
-getPlayers()
-::map(<span class="hljs-function"><span class="hljs-params">x</span> =&gt;</span> x.character())
-::takeWhile(<span class="hljs-function"><span class="hljs-params">x</span> =&gt;</span> x.strength &gt; <span class="hljs-number">100</span>)
-::forEach(<span class="hljs-function"><span class="hljs-params">x</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(x));
-</code></pre><h2 id="realm-api">Realm API <a class="markdownIt-Anchor" href="#realm-api">#</a></h2><p><a href="https://github.com/tc39/proposal-realms" target="_blank" rel="noopener">Realm API</a> 提供沙箱功能（sandbox），允许隔离代码，防止那些被隔离的代码拿到全局对象。</p><p>以前，经常使用<code>&lt;iframe&gt;</code>作为沙箱。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> globalOne = <span class="hljs-built_in">window</span>;
-<span class="hljs-keyword">let</span> iframe = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&#x27;iframe&#x27;</span>);
-<span class="hljs-built_in">document</span>.body.appendChild(iframe);
-<span class="hljs-keyword">const</span> globalTwo = iframe.contentWindow;
-</code></pre><p>上面代码中，<code>&lt;iframe&gt;</code>的全局对象是独立的（<code>iframe.contentWindow</code>）。Realm API 可以取代这个功能。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> globalOne = <span class="hljs-built_in">window</span>;
-<span class="hljs-keyword">const</span> globalTwo = <span class="hljs-keyword">new</span> Realm().global;
-</code></pre><p>上面代码中，<code>Realm API</code>单独提供了一个全局对象<code>new Realm().global</code>。</p><p>Realm API 提供一个<code>Realm()</code>构造函数，用来生成一个 Realm 对象。该对象的<code>global</code>属性指向一个新的顶层对象，这个顶层对象跟原始的顶层对象类似。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> globalOne = <span class="hljs-built_in">window</span>;
-<span class="hljs-keyword">const</span> globalTwo = <span class="hljs-keyword">new</span> Realm().global;
+<span class="hljs-title function_">getPlayers</span>()
+::<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">x</span> =&gt;</span> x.<span class="hljs-title function_">character</span>())
+::<span class="hljs-title function_">takeWhile</span>(<span class="hljs-function"><span class="hljs-params">x</span> =&gt;</span> x.<span class="hljs-property">strength</span> &gt; <span class="hljs-number">100</span>)
+::<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">x</span> =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(x));
+</code></pre><h2 id="realm-api">Realm API <a class="markdownIt-Anchor" href="#realm-api">#</a></h2><p><a href="https://github.com/tc39/proposal-realms" target="_blank" rel="noopener">Realm API</a> 提供沙箱功能（sandbox），允许隔离代码，防止那些被隔离的代码拿到全局对象。</p><p>以前，经常使用<code>&lt;iframe&gt;</code>作为沙箱。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> globalOne = <span class="hljs-variable language_">window</span>;
+<span class="hljs-keyword">let</span> iframe = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&#x27;iframe&#x27;</span>);
+<span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-title function_">appendChild</span>(iframe);
+<span class="hljs-keyword">const</span> globalTwo = iframe.<span class="hljs-property">contentWindow</span>;
+</code></pre><p>上面代码中，<code>&lt;iframe&gt;</code>的全局对象是独立的（<code>iframe.contentWindow</code>）。Realm API 可以取代这个功能。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> globalOne = <span class="hljs-variable language_">window</span>;
+<span class="hljs-keyword">const</span> globalTwo = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Realm</span>().<span class="hljs-property">global</span>;
+</code></pre><p>上面代码中，<code>Realm API</code>单独提供了一个全局对象<code>new Realm().global</code>。</p><p>Realm API 提供一个<code>Realm()</code>构造函数，用来生成一个 Realm 对象。该对象的<code>global</code>属性指向一个新的顶层对象，这个顶层对象跟原始的顶层对象类似。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> globalOne = <span class="hljs-variable language_">window</span>;
+<span class="hljs-keyword">const</span> globalTwo = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Realm</span>().<span class="hljs-property">global</span>;
 
 globalOne.evaluate(<span class="hljs-string">&#x27;1 + 2&#x27;</span>) <span class="hljs-comment">// 3</span>
 globalTwo.evaluate(<span class="hljs-string">&#x27;1 + 2&#x27;</span>) <span class="hljs-comment">// 3</span>
 </code></pre><p>上面代码中，Realm 生成的顶层对象的<code>evaluate()</code>方法，可以运行代码。</p><p>下面的代码可以证明，Realm 顶层对象与原始顶层对象是两个对象。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> a1 = globalOne.evaluate(<span class="hljs-string">&#x27;[1,2,3]&#x27;</span>);
 <span class="hljs-keyword">let</span> a2 = globalTwo.evaluate(<span class="hljs-string">&#x27;[1,2,3]&#x27;</span>);
-a1.prototype === a2.prototype; <span class="hljs-comment">// false</span>
-a1 <span class="hljs-keyword">instanceof</span> globalTwo.Array; <span class="hljs-comment">// false</span>
-a2 <span class="hljs-keyword">instanceof</span> globalOne.Array; <span class="hljs-comment">// false</span>
+a1.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> === a2.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>; <span class="hljs-comment">// false</span>
+a1 <span class="hljs-keyword">instanceof</span> globalTwo.<span class="hljs-property">Array</span>; <span class="hljs-comment">// false</span>
+a2 <span class="hljs-keyword">instanceof</span> globalOne.<span class="hljs-property">Array</span>; <span class="hljs-comment">// false</span>
 </code></pre><p>上面代码中，Realm 沙箱里面的数组的原型对象，跟原始环境里面的数组是不一样的。</p><p>Realm 沙箱里面只能运行 ECMAScript 语法提供的 API，不能运行宿主环境提供的 API。</p><pre class="hljs"><code>globalTwo.evaluate(<span class="hljs-string">&#x27;console.log(1)&#x27;</span>)
 <span class="hljs-comment">// throw an error: console is undefined</span>
-</code></pre><p>上面代码中，Realm 沙箱里面没有<code>console</code>对象，导致报错。因为<code>console</code>不是语法标准，是宿主环境提供的。</p><p>如果要解决这个问题，可以使用下面的代码。</p><pre class="hljs"><code>globalTwo.console = globalOne.console;
-</code></pre><p><code>Realm()</code>构造函数可以接受一个参数对象，该参数对象的<code>intrinsics</code>属性可以指定 Realm 沙箱继承原始顶层对象的方法。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> r1 = <span class="hljs-keyword">new</span> Realm();
-r1.global === <span class="hljs-built_in">this</span>;
-r1.global.JSON === <span class="hljs-built_in">JSON</span>; <span class="hljs-comment">// false</span>
+</code></pre><p>上面代码中，Realm 沙箱里面没有<code>console</code>对象，导致报错。因为<code>console</code>不是语法标准，是宿主环境提供的。</p><p>如果要解决这个问题，可以使用下面的代码。</p><pre class="hljs"><code>globalTwo.<span class="hljs-property">console</span> = globalOne.<span class="hljs-property">console</span>;
+</code></pre><p><code>Realm()</code>构造函数可以接受一个参数对象，该参数对象的<code>intrinsics</code>属性可以指定 Realm 沙箱继承原始顶层对象的方法。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> r1 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Realm</span>();
+r1.<span class="hljs-property">global</span> === <span class="hljs-variable language_">this</span>;
+r1.<span class="hljs-property">global</span>.<span class="hljs-property">JSON</span> === <span class="hljs-title class_">JSON</span>; <span class="hljs-comment">// false</span>
 
-<span class="hljs-keyword">const</span> r2 = <span class="hljs-keyword">new</span> Realm({ <span class="hljs-attr">intrinsics</span>: <span class="hljs-string">&#x27;inherit&#x27;</span> });
-r2.global === <span class="hljs-built_in">this</span>; <span class="hljs-comment">// false</span>
-r2.global.JSON === <span class="hljs-built_in">JSON</span>; <span class="hljs-comment">// true</span>
-</code></pre><p>上面代码中，正常情况下，沙箱的<code>JSON</code>方法不同于原始的<code>JSON</code>对象。但是，<code>Realm()</code>构造函数接受<code>{ intrinsics: 'inherit' }</code>作为参数以后，就会继承原始顶层对象的方法。</p><p>用户可以自己定义<code>Realm</code>的子类，用来定制自己的沙箱。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FakeWindow</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Realm</span> </span>{
-  <span class="hljs-function"><span class="hljs-title">init</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">super</span>.init();
-    <span class="hljs-keyword">let</span> <span class="hljs-built_in">global</span> = <span class="hljs-built_in">this</span>.global;
+<span class="hljs-keyword">const</span> r2 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Realm</span>({ <span class="hljs-attr">intrinsics</span>: <span class="hljs-string">&#x27;inherit&#x27;</span> });
+r2.<span class="hljs-property">global</span> === <span class="hljs-variable language_">this</span>; <span class="hljs-comment">// false</span>
+r2.<span class="hljs-property">global</span>.<span class="hljs-property">JSON</span> === <span class="hljs-title class_">JSON</span>; <span class="hljs-comment">// true</span>
+</code></pre><p>上面代码中，正常情况下，沙箱的<code>JSON</code>方法不同于原始的<code>JSON</code>对象。但是，<code>Realm()</code>构造函数接受<code>{ intrinsics: 'inherit' }</code>作为参数以后，就会继承原始顶层对象的方法。</p><p>用户可以自己定义<code>Realm</code>的子类，用来定制自己的沙箱。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">FakeWindow</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Realm</span> {
+  <span class="hljs-title function_">init</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">super</span>.<span class="hljs-title function_">init</span>();
+    <span class="hljs-keyword">let</span> <span class="hljs-variable language_">global</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">global</span>;
 
-    <span class="hljs-built_in">global</span>.document = <span class="hljs-keyword">new</span> FakeDocument(...);
-    <span class="hljs-built_in">global</span>.alert = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>(fakeAlert, { ... });
+    <span class="hljs-variable language_">global</span>.<span class="hljs-property">document</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FakeDocument</span>(...);
+    <span class="hljs-variable language_">global</span>.<span class="hljs-property">alert</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Proxy</span>(fakeAlert, { ... });
     <span class="hljs-comment">// ...</span>
   }
 }
 </code></pre><p>上面代码中，<code>FakeWindow</code>模拟了一个假的顶层对象<code>window</code>。</p><h2 id="json-模块">JSON 模块 <a class="markdownIt-Anchor" href="#json-模块">#</a></h2><p>import 命令目前只能用于加载 ES 模块，现在有一个<a href="https://github.com/tc39/proposal-json-modules" target="_blank" rel="noopener">提案</a>，允许加载 JSON 模块。</p><p>假定有一个 JSON 模块文件<code>config.json</code>。</p><pre class="hljs"><code>{
   <span class="hljs-string">&quot;appName&quot;</span>: <span class="hljs-string">&quot;My App&quot;</span>
 }
-</code></pre><p>目前，只能使用<code>fetch()</code>加载 JSON 模块。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> fetch(<span class="hljs-string">&#x27;./config.json&#x27;</span>);
-<span class="hljs-keyword">const</span> json = <span class="hljs-keyword">await</span> response.json();
+</code></pre><p>目前，只能使用<code>fetch()</code>加载 JSON 模块。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title function_">fetch</span>(<span class="hljs-string">&#x27;./config.json&#x27;</span>);
+<span class="hljs-keyword">const</span> json = <span class="hljs-keyword">await</span> response.<span class="hljs-title function_">json</span>();
 </code></pre><p>import 命令能够直接加载 JSON 模块以后，就可以像下面这样写。</p><pre class="hljs"><code><span class="hljs-keyword">import</span> configData <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./config.json&#x27;</span> assert { <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;json&quot;</span> };
-<span class="hljs-built_in">console</span>.log(configData.appName);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(configData.<span class="hljs-property">appName</span>);
 </code></pre><p>上面示例中，整个 JSON 对象被导入为<code>configData</code>对象，然后就可以从该对象获取 JSON 数据。</p><p><code>import</code>命令导入 JSON 模块时，命令结尾的<code>assert {type: &quot;json&quot;}</code>不可缺少。这叫做导入断言，用来告诉 JavaScript 引擎，现在加载的是 JSON 模块。你可能会问，为什么不通过<code>.json</code>后缀名判断呢？因为浏览器的传统是不通过后缀名判断文件类型，标准委员会希望遵循这种做法，这样也可以避免一些安全问题。</p><p>导入断言是 JavaScript 导入其他格式模块的标准写法，JSON 模块将是第一个使用这种语法导入的模块。以后，还会支持导入 CSS 模块、HTML 模块等等。</p><p>动态加载模块的<code>import()</code>函数也支持加载 JSON 模块。</p><pre class="hljs"><code><span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;./config.json&#x27;</span>, { <span class="hljs-attr">assert</span>: { <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;json&#x27;</span> } })
 </code></pre><p>脚本加载 JSON 模块以后，还可以再用 export 命令输出。这时，可以将 export 和 import 结合成一个语句。</p><pre class="hljs"><code><span class="hljs-keyword">export</span> { config } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./config.json&#x27;</span> assert { <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;json&#x27;</span> };
 </code></pre></article><nav class="level level-previous-next is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="arraybuffer.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> ArrayBuffer</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="decorator.html">Decorator <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><div class="page-info"><p>本教程采用<a href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh" target="_blank">知识共享 署名-相同方式共享 3.0协议</a>。</p><p>分享本文 <span class="social-share"></span></p></div></div><div class="column is-3 is-offset-1"><nav class="panel panel-menu"><p class="panel-heading"><i class="fa fa-book" aria-hidden="true"></i> ES6 教程</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="intro.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">ECMAScript 6 简介</span></a></li><li><a href="let.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">let 和 const 命令</span></a></li><li><a href="destructuring.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">变量的解构赋值</span></a></li><li><a href="string.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">字符串的扩展</span></a></li><li><a href="string-methods.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">字符串的新增方法</span></a></li><li><a href="regex.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">正则的扩展</span></a></li><li><a href="number.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数值的扩展</span></a></li><li><a href="function.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">函数的扩展</span></a></li><li><a href="array.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数组的扩展</span></a></li><li><a href="object.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">对象的扩展</span></a></li><li><a href="object-methods.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">对象的新增方法</span></a></li><li><a href="operator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">运算符的扩展</span></a></li><li><a href="symbol.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Symbol</span></a></li><li><a href="set-map.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Set 和 Map 数据结构</span></a></li><li><a href="proxy.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Proxy</span></a></li><li><a href="reflect.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Reflect</span></a></li><li><a href="promise.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Promise 对象</span></a></li><li><a href="iterator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Iterator 和 for...of 循环</span></a></li><li><a href="generator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Generator 函数的语法</span></a></li><li><a href="generator-async.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Generator 函数的异步应用</span></a></li><li><a href="async.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">async 函数</span></a></li><li><a href="class.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Class 的基本语法</span></a></li><li><a href="class-extends.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Class 的继承</span></a></li><li><a href="module.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Module 的语法</span></a></li><li><a href="module-loader.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Module 的加载实现</span></a></li><li><a href="style.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">编程风格</span></a></li><li><a href="spec.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">读懂规格</span></a></li><li><a href="async-iterator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">异步遍历器</span></a></li><li><a href="arraybuffer.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">ArrayBuffer</span></a></li><li><a href="proposals.html" class="is-active"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">最新提案</span></a></li><li><a href="decorator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Decorator</span></a></li><li><a href="reference.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">参考链接</span></a></li></ul></aside></div></nav><nav class="panel panel-info"><p class="panel-heading"><i class="fa fa-link" aria-hidden="true"></i> 链接</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="https://raw.githubusercontent.com/wangdoc/es6-tutorial/master/docs/proposals.md" target="_blank"><span class="icon"></span><i class="fa fa-code" aria-hidden="true" style="width: 14px;"></i>&nbsp;本文源码</a></li><li><a href="https://github.com/wangdoc/es6-tutorial" target="_blank"><span class="icon"></span><i class="fa fa-hdd-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;代码仓库</a></li><li><a href="https://github.com/wangdoc/es6-tutorial/issues" target="_blank"><span class="icon"></span><i class="fa fa-flag-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;反馈</a></li></ul></aside></div></nav></div></div><div class="columns"><div class="column is-8 is-6-widescreen is-offset-1-widescreen"><div id="disqus_thread"></div></div></div></div></section><footer class="footer"><div class="container"><div class="content has-text-centered"><p>联系：contact@wangdoc.com</p></div></div></footer><script>var LOPPO={current_path:"proposals.md",relative_root_path:"",article_toc:'<ul class="markdownIt-TOC">\n<li><a href="#do-%E8%A1%A8%E8%BE%BE%E5%BC%8F">do 表达式</a></li>\n<li><a href="#throw-%E8%A1%A8%E8%BE%BE%E5%BC%8F">throw 表达式</a></li>\n<li><a href="#%E5%87%BD%E6%95%B0%E7%9A%84%E9%83%A8%E5%88%86%E6%89%A7%E8%A1%8C">函数的部分执行</a>\n<ul>\n<li><a href="#%E8%AF%AD%E6%B3%95">语法</a></li>\n<li><a href="#%E6%B3%A8%E6%84%8F%E7%82%B9">注意点</a></li>\n</ul>\n</li>\n<li><a href="#%E7%AE%A1%E9%81%93%E8%BF%90%E7%AE%97%E7%AC%A6">管道运算符</a></li>\n<li><a href="#mathsignbit">Math.signbit()</a></li>\n<li><a href="#%E5%8F%8C%E5%86%92%E5%8F%B7%E8%BF%90%E7%AE%97%E7%AC%A6">双冒号运算符</a></li>\n<li><a href="#realm-api">Realm API</a></li>\n<li><a href="#json-%E6%A8%A1%E5%9D%97">JSON 模块</a></li>\n</ul>\n'}</script><script src="assets/js/app.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-111269443-1"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","UA-111269443-1")</script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script"),t=(e.src="https://hm.baidu.com/hm.js?5eec262881855af3dede6a71234571f6",document.getElementsByTagName("script")[0]);t.parentNode.insertBefore(e,t)}()</script><script>var disqus_config=function(){var t=window.location,e=t.protocol+"//"+t.host+(t.port?":"+t.port:"")+t.pathname;this.page.url=e,this.page.identifier=t.pathname};!function(){var t=document,e=t.createElement("script");e.src="https://wangdoc-es6.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><!--script src="assets/js/social-share.min.js"--><!--/script--><script>var shareDesc="我正在阅读《最新提案》，出自网道（WangDoc.com）的《ES6 教程》。",shareOpts={url:window.location.href,source:shareDesc,title:shareDesc,description:"",image:"",sites:["weibo","wechat","qq","qzone","twitter","facebook"],origin:"WangDoc_com",disabled:[],wechatQrcodeTitle:"微信",wechatQrcodeHelper:"扫一下二维码，分享到微信。"};socialShare(".social-share",shareOpts)</script></body></html>

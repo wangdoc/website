@@ -1,477 +1,477 @@
-<!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Class 的继承 - ES6 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="Class 的继承"><link rel="apple-touch-icon" sizes="57x57" href="assets/icons/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="assets/icons/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="assets/icons/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="assets/icons/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="assets/icons/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="assets/icons/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="assets/icons/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="assets/icons/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png"><link rel="manifest" href="assets/icons/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="assets/icons/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/es6-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/es6-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8 is-6-widescreen is-offset-1-widescreen"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;ES6 教程</a></li><li class="is-active"><a class="has-text-grey" href="class-extends.html">Class 的继承</a></li></ul></nav><nav class="level level-previous-next is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="class.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> Class 的基本语法</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="module.html">Module 的语法 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content"><h1 class="title">Class 的继承</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><h2 id="简介">简介 <a class="markdownIt-Anchor" href="#简介">#</a></h2><p>Class 可以通过<code>extends</code>关键字实现继承，让子类继承父类的属性和方法。extends 的写法比 ES5 的原型链继承，要清晰和方便很多。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span> </span>{
+<!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Class 的继承 - ES6 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="Class 的继承"><link rel="apple-touch-icon" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png"><link rel="manifest" href="assets/icons/manifest.json"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/es6-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/es6-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8 is-6-widescreen is-offset-1-widescreen"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;ES6 教程</a></li><li class="is-active"><a class="has-text-grey" href="class-extends.html">Class 的继承</a></li></ul></nav><nav class="level level-previous-next is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="class.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> Class 的基本语法</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="module.html">Module 的语法 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content"><h1 class="title">Class 的继承</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><h2 id="简介">简介 <a class="markdownIt-Anchor" href="#简介">#</a></h2><p>Class 可以通过<code>extends</code>关键字实现继承，让子类继承父类的属性和方法。extends 的写法比 ES5 的原型链继承，要清晰和方便很多。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">Point</span> {
 }
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ColorPoint</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Point</span> </span>{
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">ColorPoint</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Point</span> {
 }
-</code></pre><p>上面示例中，<code>Point</code>是父类，<code>ColorPoint</code>是子类，它通过<code>extends</code>关键字，继承了<code>Point</code>类的所有属性和方法。但是由于没有部署任何代码，所以这两个类完全一样，等于复制了一个<code>Point</code>类。</p><p>下面，我们在<code>ColorPoint</code>内部加上代码。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span> </span>{ <span class="hljs-comment">/* ... */</span> }
+</code></pre><p>上面示例中，<code>Point</code>是父类，<code>ColorPoint</code>是子类，它通过<code>extends</code>关键字，继承了<code>Point</code>类的所有属性和方法。但是由于没有部署任何代码，所以这两个类完全一样，等于复制了一个<code>Point</code>类。</p><p>下面，我们在<code>ColorPoint</code>内部加上代码。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">Point</span> { <span class="hljs-comment">/* ... */</span> }
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ColorPoint</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Point</span> </span>{
-  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">x, y, color</span>)</span> {
-    <span class="hljs-built_in">super</span>(x, y); <span class="hljs-comment">// 调用父类的constructor(x, y)</span>
-    <span class="hljs-built_in">this</span>.color = color;
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">ColorPoint</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Point</span> {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">x, y, color</span>) {
+    <span class="hljs-variable language_">super</span>(x, y); <span class="hljs-comment">// 调用父类的constructor(x, y)</span>
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">color</span> = color;
   }
 
-  <span class="hljs-function"><span class="hljs-title">toString</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.color + <span class="hljs-string">&#x27; &#x27;</span> + <span class="hljs-built_in">super</span>.toString(); <span class="hljs-comment">// 调用父类的toString()</span>
+  <span class="hljs-title function_">toString</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">color</span> + <span class="hljs-string">&#x27; &#x27;</span> + <span class="hljs-variable language_">super</span>.<span class="hljs-title function_">toString</span>(); <span class="hljs-comment">// 调用父类的toString()</span>
   }
 }
-</code></pre><p>上面示例中，<code>constructor()</code>方法和<code>toString()</code>方法内部，都出现了<code>super</code>关键字。<code>super</code>在这里表示父类的构造函数，用来新建一个父类的实例对象。</p><p>ES6 规定，子类必须在<code>constructor()</code>方法中调用<code>super()</code>，否则就会报错。这是因为子类自己的<code>this</code>对象，必须先通过父类的构造函数完成塑造，得到与父类同样的实例属性和方法，然后再对其进行加工，添加子类自己的实例属性和方法。如果不调用<code>super()</code>方法，子类就得不到自己的<code>this</code>对象。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span> </span>{ <span class="hljs-comment">/* ... */</span> }
+</code></pre><p>上面示例中，<code>constructor()</code>方法和<code>toString()</code>方法内部，都出现了<code>super</code>关键字。<code>super</code>在这里表示父类的构造函数，用来新建一个父类的实例对象。</p><p>ES6 规定，子类必须在<code>constructor()</code>方法中调用<code>super()</code>，否则就会报错。这是因为子类自己的<code>this</code>对象，必须先通过父类的构造函数完成塑造，得到与父类同样的实例属性和方法，然后再对其进行加工，添加子类自己的实例属性和方法。如果不调用<code>super()</code>方法，子类就得不到自己的<code>this</code>对象。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">Point</span> { <span class="hljs-comment">/* ... */</span> }
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ColorPoint</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Point</span> </span>{
-  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
-  }
-}
-
-<span class="hljs-keyword">let</span> cp = <span class="hljs-keyword">new</span> ColorPoint(); <span class="hljs-comment">// ReferenceError</span>
-</code></pre><p>上面代码中，<code>ColorPoint</code>继承了父类<code>Point</code>，但是它的构造函数没有调用<code>super()</code>，导致新建实例时报错。</p><p>为什么子类的构造函数，一定要调用<code>super()</code>？原因就在于 ES6 的继承机制，与 ES5 完全不同。ES5 的继承机制，是先创造一个独立的子类的实例对象，然后再将父类的方法添加到这个对象上面，即“实例在前，继承在后”。ES6 的继承机制，则是先将父类的属性和方法，加到一个空的对象上面，然后再将该对象作为子类的实例，即“继承在前，实例在后”。这就是为什么 ES6 的继承必须先调用<code>super()</code>方法，因为这一步会生成一个继承父类的<code>this</code>对象，没有这一步就无法继承父类。</p><p>注意，这意味着新建子类实例时，父类的构造函数必定会先运行一次。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> </span>{
-  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span>);
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">ColorPoint</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Point</span> {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) {
   }
 }
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Bar</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Foo</span> </span>{
-  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">super</span>();
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-number">2</span>);
+<span class="hljs-keyword">let</span> cp = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ColorPoint</span>(); <span class="hljs-comment">// ReferenceError</span>
+</code></pre><p>上面代码中，<code>ColorPoint</code>继承了父类<code>Point</code>，但是它的构造函数没有调用<code>super()</code>，导致新建实例时报错。</p><p>为什么子类的构造函数，一定要调用<code>super()</code>？原因就在于 ES6 的继承机制，与 ES5 完全不同。ES5 的继承机制，是先创造一个独立的子类的实例对象，然后再将父类的方法添加到这个对象上面，即“实例在前，继承在后”。ES6 的继承机制，则是先将父类的属性和方法，加到一个空的对象上面，然后再将该对象作为子类的实例，即“继承在前，实例在后”。这就是为什么 ES6 的继承必须先调用<code>super()</code>方法，因为这一步会生成一个继承父类的<code>this</code>对象，没有这一步就无法继承父类。</p><p>注意，这意味着新建子类实例时，父类的构造函数必定会先运行一次。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">Foo</span> {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">1</span>);
   }
 }
 
-<span class="hljs-keyword">const</span> bar = <span class="hljs-keyword">new</span> Bar();
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Bar</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Foo</span> {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">super</span>();
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">2</span>);
+  }
+}
+
+<span class="hljs-keyword">const</span> bar = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Bar</span>();
 <span class="hljs-comment">// 1</span>
 <span class="hljs-comment">// 2</span>
-</code></pre><p>上面示例中，子类 Bar 新建实例时，会输出1和2。原因就是子类构造函数调用<code>super()</code>时，会执行一次父类构造函数。</p><p>另一个需要注意的地方是，在子类的构造函数中，只有调用<code>super()</code>之后，才可以使用<code>this</code>关键字，否则会报错。这是因为子类实例的构建，必须先完成父类的继承，只有<code>super()</code>方法才能让子类实例继承父类。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span> </span>{
-  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">x, y</span>)</span> {
-    <span class="hljs-built_in">this</span>.x = x;
-    <span class="hljs-built_in">this</span>.y = y;
+</code></pre><p>上面示例中，子类 Bar 新建实例时，会输出1和2。原因就是子类构造函数调用<code>super()</code>时，会执行一次父类构造函数。</p><p>另一个需要注意的地方是，在子类的构造函数中，只有调用<code>super()</code>之后，才可以使用<code>this</code>关键字，否则会报错。这是因为子类实例的构建，必须先完成父类的继承，只有<code>super()</code>方法才能让子类实例继承父类。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">Point</span> {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">x, y</span>) {
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">x</span> = x;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">y</span> = y;
   }
 }
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ColorPoint</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Point</span> </span>{
-  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">x, y, color</span>)</span> {
-    <span class="hljs-built_in">this</span>.color = color; <span class="hljs-comment">// ReferenceError</span>
-    <span class="hljs-built_in">super</span>(x, y);
-    <span class="hljs-built_in">this</span>.color = color; <span class="hljs-comment">// 正确</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">ColorPoint</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Point</span> {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">x, y, color</span>) {
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">color</span> = color; <span class="hljs-comment">// ReferenceError</span>
+    <span class="hljs-variable language_">super</span>(x, y);
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">color</span> = color; <span class="hljs-comment">// 正确</span>
   }
 }
-</code></pre><p>上面代码中，子类的<code>constructor()</code>方法没有调用<code>super()</code>之前，就使用<code>this</code>关键字，结果报错，而放在<code>super()</code>之后就是正确的。</p><p>如果子类没有定义<code>constructor()</code>方法，这个方法会默认添加，并且里面会调用<code>super()</code>。也就是说，不管有没有显式定义，任何一个子类都有<code>constructor()</code>方法。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ColorPoint</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Point</span> </span>{
+</code></pre><p>上面代码中，子类的<code>constructor()</code>方法没有调用<code>super()</code>之前，就使用<code>this</code>关键字，结果报错，而放在<code>super()</code>之后就是正确的。</p><p>如果子类没有定义<code>constructor()</code>方法，这个方法会默认添加，并且里面会调用<code>super()</code>。也就是说，不管有没有显式定义，任何一个子类都有<code>constructor()</code>方法。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">ColorPoint</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Point</span> {
 }
 
 <span class="hljs-comment">// 等同于</span>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ColorPoint</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Point</span> </span>{
-  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">...args</span>)</span> {
-    <span class="hljs-built_in">super</span>(...args);
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">ColorPoint</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Point</span> {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">...args</span>) {
+    <span class="hljs-variable language_">super</span>(...args);
   }
 }
-</code></pre><p>有了子类的定义，就可以生成子类的实例了。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> cp = <span class="hljs-keyword">new</span> ColorPoint(<span class="hljs-number">25</span>, <span class="hljs-number">8</span>, <span class="hljs-string">&#x27;green&#x27;</span>);
+</code></pre><p>有了子类的定义，就可以生成子类的实例了。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> cp = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ColorPoint</span>(<span class="hljs-number">25</span>, <span class="hljs-number">8</span>, <span class="hljs-string">&#x27;green&#x27;</span>);
 
-cp <span class="hljs-keyword">instanceof</span> ColorPoint <span class="hljs-comment">// true</span>
-cp <span class="hljs-keyword">instanceof</span> Point <span class="hljs-comment">// true</span>
-</code></pre><p>上面示例中，实例对象<code>cp</code>同时是<code>ColorPoint</code>和<code>Point</code>两个类的实例，这与 ES5 的行为完全一致。</p><h2 id="私有属性和私有方法的继承">私有属性和私有方法的继承 <a class="markdownIt-Anchor" href="#私有属性和私有方法的继承">#</a></h2><p>父类所有的属性和方法，都会被子类继承，除了私有的属性和方法。</p><p>子类无法继承父类的私有属性，或者说，私有属性只能在定义它的 class 里面使用。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> </span>{
+cp <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">ColorPoint</span> <span class="hljs-comment">// true</span>
+cp <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">Point</span> <span class="hljs-comment">// true</span>
+</code></pre><p>上面示例中，实例对象<code>cp</code>同时是<code>ColorPoint</code>和<code>Point</code>两个类的实例，这与 ES5 的行为完全一致。</p><h2 id="私有属性和私有方法的继承">私有属性和私有方法的继承 <a class="markdownIt-Anchor" href="#私有属性和私有方法的继承">#</a></h2><p>父类所有的属性和方法，都会被子类继承，除了私有的属性和方法。</p><p>子类无法继承父类的私有属性，或者说，私有属性只能在定义它的 class 里面使用。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">Foo</span> {
   #p = <span class="hljs-number">1</span>;
-  #<span class="hljs-function"><span class="hljs-title">m</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;hello&#x27;</span>);
+  #<span class="hljs-title function_">m</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;hello&#x27;</span>);
   }
 }
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Bar</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Foo</span> </span>{
-  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">super</span>();
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.#p); <span class="hljs-comment">// 报错</span>
-    <span class="hljs-built_in">this</span>.#m(); <span class="hljs-comment">// 报错</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Bar</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Foo</span> {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">super</span>();
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.#p); <span class="hljs-comment">// 报错</span>
+    <span class="hljs-variable language_">this</span>.#<span class="hljs-title function_">m</span>(); <span class="hljs-comment">// 报错</span>
   }
 }
-</code></pre><p>上面示例中，子类 Bar 调用父类 Foo 的私有属性或私有方法，都会报错。</p><p>如果父类定义了私有属性的读写方法，子类就可以通过这些方法，读写私有属性。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> </span>{
+</code></pre><p>上面示例中，子类 Bar 调用父类 Foo 的私有属性或私有方法，都会报错。</p><p>如果父类定义了私有属性的读写方法，子类就可以通过这些方法，读写私有属性。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">Foo</span> {
   #p = <span class="hljs-number">1</span>;
-  <span class="hljs-function"><span class="hljs-title">getP</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.#p;
+  <span class="hljs-title function_">getP</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.#p;
   }
 }
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Bar</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Foo</span> </span>{
-  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">super</span>();
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.getP()); <span class="hljs-comment">// 1</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Bar</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Foo</span> {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">super</span>();
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">getP</span>()); <span class="hljs-comment">// 1</span>
   }
 }
-</code></pre><p>上面示例中，<code>getP()</code>是父类用来读取私有属性的方法，通过该方法，子类就可以读到父类的私有属性。</p><h2 id="静态属性和静态方法的继承">静态属性和静态方法的继承 <a class="markdownIt-Anchor" href="#静态属性和静态方法的继承">#</a></h2><p>父类的静态属性和静态方法，也会被子类继承。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> </span>{
-  <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">hello</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;hello world&#x27;</span>);
-  }
-}
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">A</span> </span>{
-}
-
-B.hello()  <span class="hljs-comment">// hello world</span>
-</code></pre><p>上面代码中，<code>hello()</code>是<code>A</code>类的静态方法，<code>B</code>继承<code>A</code>，也继承了<code>A</code>的静态方法。</p><p>注意，静态属性是通过软拷贝实现继承的。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> </span>{ <span class="hljs-keyword">static</span> foo = <span class="hljs-number">100</span>; }
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">A</span> </span>{
-  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">super</span>();
-    B.foo--;
+</code></pre><p>上面示例中，<code>getP()</code>是父类用来读取私有属性的方法，通过该方法，子类就可以读到父类的私有属性。</p><h2 id="静态属性和静态方法的继承">静态属性和静态方法的继承 <a class="markdownIt-Anchor" href="#静态属性和静态方法的继承">#</a></h2><p>父类的静态属性和静态方法，也会被子类继承。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> {
+  <span class="hljs-keyword">static</span> <span class="hljs-title function_">hello</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;hello world&#x27;</span>);
   }
 }
 
-<span class="hljs-keyword">const</span> b = <span class="hljs-keyword">new</span> B();
-B.foo <span class="hljs-comment">// 99</span>
-A.foo <span class="hljs-comment">// 100</span>
-</code></pre><p>上面示例中，<code>foo</code>是 A 类的静态属性，B 类继承了 A 类，因此也继承了这个属性。但是，在 B 类内部操作<code>B.foo</code>这个静态属性，影响不到<code>A.foo</code>，原因就是 B 类继承静态属性时，会采用浅拷贝，拷贝父类静态属性的值，因此<code>A.foo</code>和<code>B.foo</code>是两个彼此独立的属性。</p><p>但是，由于这种拷贝是浅拷贝，如果父类的静态属性的值是一个对象，那么子类的静态属性也会指向这个对象，因为浅拷贝只会拷贝对象的内存地址。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> </span>{
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">A</span> {
+}
+
+B.<span class="hljs-title function_">hello</span>()  <span class="hljs-comment">// hello world</span>
+</code></pre><p>上面代码中，<code>hello()</code>是<code>A</code>类的静态方法，<code>B</code>继承<code>A</code>，也继承了<code>A</code>的静态方法。</p><p>注意，静态属性是通过软拷贝实现继承的。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> { <span class="hljs-keyword">static</span> foo = <span class="hljs-number">100</span>; }
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">A</span> {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">super</span>();
+    B.<span class="hljs-property">foo</span>--;
+  }
+}
+
+<span class="hljs-keyword">const</span> b = <span class="hljs-keyword">new</span> <span class="hljs-title function_">B</span>();
+B.<span class="hljs-property">foo</span> <span class="hljs-comment">// 99</span>
+A.<span class="hljs-property">foo</span> <span class="hljs-comment">// 100</span>
+</code></pre><p>上面示例中，<code>foo</code>是 A 类的静态属性，B 类继承了 A 类，因此也继承了这个属性。但是，在 B 类内部操作<code>B.foo</code>这个静态属性，影响不到<code>A.foo</code>，原因就是 B 类继承静态属性时，会采用浅拷贝，拷贝父类静态属性的值，因此<code>A.foo</code>和<code>B.foo</code>是两个彼此独立的属性。</p><p>但是，由于这种拷贝是浅拷贝，如果父类的静态属性的值是一个对象，那么子类的静态属性也会指向这个对象，因为浅拷贝只会拷贝对象的内存地址。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> {
   <span class="hljs-keyword">static</span> foo = { <span class="hljs-attr">n</span>: <span class="hljs-number">100</span> };
 }
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">A</span> </span>{
-  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">super</span>();
-    B.foo.n--;
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">A</span> {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">super</span>();
+    B.<span class="hljs-property">foo</span>.<span class="hljs-property">n</span>--;
   }
 }
 
-<span class="hljs-keyword">const</span> b = <span class="hljs-keyword">new</span> B();
-B.foo.n <span class="hljs-comment">// 99</span>
-A.foo.n <span class="hljs-comment">// 99</span>
-</code></pre><p>上面示例中，<code>A.foo</code>的值是一个对象，浅拷贝导致<code>B.foo</code>和<code>A.foo</code>指向同一个对象。所以，子类<code>B</code>修改这个对象的属性值，会影响到父类<code>A</code>。</p><h2 id="objectgetprototypeof">Object.getPrototypeOf() <a class="markdownIt-Anchor" href="#objectgetprototypeof">#</a></h2><p><code>Object.getPrototypeOf()</code>方法可以用来从子类上获取父类。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span> </span>{ <span class="hljs-comment">/*...*/</span> }
+<span class="hljs-keyword">const</span> b = <span class="hljs-keyword">new</span> <span class="hljs-title function_">B</span>();
+B.<span class="hljs-property">foo</span>.<span class="hljs-property">n</span> <span class="hljs-comment">// 99</span>
+A.<span class="hljs-property">foo</span>.<span class="hljs-property">n</span> <span class="hljs-comment">// 99</span>
+</code></pre><p>上面示例中，<code>A.foo</code>的值是一个对象，浅拷贝导致<code>B.foo</code>和<code>A.foo</code>指向同一个对象。所以，子类<code>B</code>修改这个对象的属性值，会影响到父类<code>A</code>。</p><h2 id="objectgetprototypeof">Object.getPrototypeOf() <a class="markdownIt-Anchor" href="#objectgetprototypeof">#</a></h2><p><code>Object.getPrototypeOf()</code>方法可以用来从子类上获取父类。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">Point</span> { <span class="hljs-comment">/*...*/</span> }
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ColorPoint</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Point</span> </span>{ <span class="hljs-comment">/*...*/</span> }
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">ColorPoint</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Point</span> { <span class="hljs-comment">/*...*/</span> }
 
-<span class="hljs-built_in">Object</span>.getPrototypeOf(ColorPoint) === Point
+<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">getPrototypeOf</span>(<span class="hljs-title class_">ColorPoint</span>) === <span class="hljs-title class_">Point</span>
 <span class="hljs-comment">// true</span>
-</code></pre><p>因此，可以使用这个方法判断，一个类是否继承了另一个类。</p><h2 id="super-关键字">super 关键字 <a class="markdownIt-Anchor" href="#super-关键字">#</a></h2><p><code>super</code>这个关键字，既可以当作函数使用，也可以当作对象使用。在这两种情况下，它的用法完全不同。</p><p>第一种情况，<code>super</code>作为函数调用时，代表父类的构造函数。ES6 要求，子类的构造函数必须执行一次<code>super()</code>函数。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> </span>{}
+</code></pre><p>因此，可以使用这个方法判断，一个类是否继承了另一个类。</p><h2 id="super-关键字">super 关键字 <a class="markdownIt-Anchor" href="#super-关键字">#</a></h2><p><code>super</code>这个关键字，既可以当作函数使用，也可以当作对象使用。在这两种情况下，它的用法完全不同。</p><p>第一种情况，<code>super</code>作为函数调用时，代表父类的构造函数。ES6 要求，子类的构造函数必须执行一次<code>super()</code>函数。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> {}
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">A</span> </span>{
-  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">super</span>();
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">A</span> {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">super</span>();
   }
 }
-</code></pre><p>上面代码中，子类<code>B</code>的构造函数之中的<code>super()</code>，代表调用父类的构造函数。这是必须的，否则报错。</p><p>调用<code>super()</code>的作用是形成子类的<code>this</code>对象，把父类的实例属性和方法放到这个<code>this</code>对象上面。子类在调用<code>super()</code>之前，是没有<code>this</code>对象的，任何对<code>this</code>的操作都要放在<code>super()</code>的后面。</p><p>注意，这里的<code>super</code>虽然代表了父类的构造函数，但是因为返回的是子类的<code>this</code>（即子类的实例对象），所以<code>super</code>内部的<code>this</code>代表子类的实例，而不是父类的实例，这里的<code>super()</code>相当于<code>A.prototype.constructor.call(this)</code>（在子类的<code>this</code>上运行父类的构造函数）。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> </span>{
-  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span>.target.name);
+</code></pre><p>上面代码中，子类<code>B</code>的构造函数之中的<code>super()</code>，代表调用父类的构造函数。这是必须的，否则报错。</p><p>调用<code>super()</code>的作用是形成子类的<code>this</code>对象，把父类的实例属性和方法放到这个<code>this</code>对象上面。子类在调用<code>super()</code>之前，是没有<code>this</code>对象的，任何对<code>this</code>的操作都要放在<code>super()</code>的后面。</p><p>注意，这里的<code>super</code>虽然代表了父类的构造函数，但是因为返回的是子类的<code>this</code>（即子类的实例对象），所以<code>super</code>内部的<code>this</code>代表子类的实例，而不是父类的实例，这里的<code>super()</code>相当于<code>A.prototype.constructor.call(this)</code>（在子类的<code>this</code>上运行父类的构造函数）。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-keyword">new</span>.<span class="hljs-property">target</span>.<span class="hljs-property">name</span>);
   }
 }
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">A</span> </span>{
-  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">super</span>();
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">A</span> {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">super</span>();
   }
 }
-<span class="hljs-keyword">new</span> A() <span class="hljs-comment">// A</span>
-<span class="hljs-keyword">new</span> B() <span class="hljs-comment">// B</span>
-</code></pre><p>上面示例中，<code>new.target</code>指向当前正在执行的函数。可以看到，在<code>super()</code>执行时（<code>new B()</code>），它指向的是子类<code>B</code>的构造函数，而不是父类<code>A</code>的构造函数。也就是说，<code>super()</code>内部的<code>this</code>指向的是<code>B</code>。</p><p>不过，由于<code>super()</code>在子类构造方法中执行时，子类的属性和方法还没有绑定到<code>this</code>，所以如果存在同名属性，此时拿到的是父类的属性。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> </span>{
+<span class="hljs-keyword">new</span> <span class="hljs-title function_">A</span>() <span class="hljs-comment">// A</span>
+<span class="hljs-keyword">new</span> <span class="hljs-title function_">B</span>() <span class="hljs-comment">// B</span>
+</code></pre><p>上面示例中，<code>new.target</code>指向当前正在执行的函数。可以看到，在<code>super()</code>执行时（<code>new B()</code>），它指向的是子类<code>B</code>的构造函数，而不是父类<code>A</code>的构造函数。也就是说，<code>super()</code>内部的<code>this</code>指向的是<code>B</code>。</p><p>不过，由于<code>super()</code>在子类构造方法中执行时，子类的属性和方法还没有绑定到<code>this</code>，所以如果存在同名属性，此时拿到的是父类的属性。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> {
   name = <span class="hljs-string">&#x27;A&#x27;</span>;
-  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;My name is &#x27;</span> + <span class="hljs-built_in">this</span>.name);
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;My name is &#x27;</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span>);
   }
 }
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">A</span> </span>{
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">A</span> {
   name = <span class="hljs-string">&#x27;B&#x27;</span>;
 }
 
-<span class="hljs-keyword">const</span> b = <span class="hljs-keyword">new</span> B(); <span class="hljs-comment">// My name is A</span>
-</code></pre><p>上面示例中，最后一行输出的是<code>A</code>，而不是<code>B</code>，原因就在于<code>super()</code>执行时，<code>B</code>的<code>name</code>属性还没有绑定到<code>this</code>，所以<code>this.name</code>拿到的是<code>A</code>类的<code>name</code>属性。</p><p>作为函数时，<code>super()</code>只能用在子类的构造函数之中，用在其他地方就会报错。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> </span>{}
+<span class="hljs-keyword">const</span> b = <span class="hljs-keyword">new</span> <span class="hljs-title function_">B</span>(); <span class="hljs-comment">// My name is A</span>
+</code></pre><p>上面示例中，最后一行输出的是<code>A</code>，而不是<code>B</code>，原因就在于<code>super()</code>执行时，<code>B</code>的<code>name</code>属性还没有绑定到<code>this</code>，所以<code>this.name</code>拿到的是<code>A</code>类的<code>name</code>属性。</p><p>作为函数时，<code>super()</code>只能用在子类的构造函数之中，用在其他地方就会报错。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> {}
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">A</span> </span>{
-  <span class="hljs-function"><span class="hljs-title">m</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">super</span>(); <span class="hljs-comment">// 报错</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">A</span> {
+  <span class="hljs-title function_">m</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">super</span>(); <span class="hljs-comment">// 报错</span>
   }
 }
-</code></pre><p>上面代码中，<code>super()</code>用在<code>B</code>类的<code>m</code>方法之中，就会造成语法错误。</p><p>第二种情况，<code>super</code>作为对象时，在普通方法中，指向父类的原型对象；在静态方法中，指向父类。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> </span>{
-  <span class="hljs-function"><span class="hljs-title">p</span>(<span class="hljs-params"></span>)</span> {
+</code></pre><p>上面代码中，<code>super()</code>用在<code>B</code>类的<code>m</code>方法之中，就会造成语法错误。</p><p>第二种情况，<code>super</code>作为对象时，在普通方法中，指向父类的原型对象；在静态方法中，指向父类。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> {
+  <span class="hljs-title function_">p</span>(<span class="hljs-params"></span>) {
     <span class="hljs-keyword">return</span> <span class="hljs-number">2</span>;
   }
 }
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">A</span> </span>{
-  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">super</span>();
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">super</span>.p()); <span class="hljs-comment">// 2</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">A</span> {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">super</span>();
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">super</span>.<span class="hljs-title function_">p</span>()); <span class="hljs-comment">// 2</span>
   }
 }
 
-<span class="hljs-keyword">let</span> b = <span class="hljs-keyword">new</span> B();
-</code></pre><p>上面代码中，子类<code>B</code>当中的<code>super.p()</code>，就是将<code>super</code>当作一个对象使用。这时，<code>super</code>在普通方法之中，指向<code>A.prototype</code>，所以<code>super.p()</code>就相当于<code>A.prototype.p()</code>。</p><p>这里需要注意，由于<code>super</code>指向父类的原型对象，所以定义在父类实例上的方法或属性，是无法通过<code>super</code>调用的。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> </span>{
-  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">this</span>.p = <span class="hljs-number">2</span>;
+<span class="hljs-keyword">let</span> b = <span class="hljs-keyword">new</span> <span class="hljs-title function_">B</span>();
+</code></pre><p>上面代码中，子类<code>B</code>当中的<code>super.p()</code>，就是将<code>super</code>当作一个对象使用。这时，<code>super</code>在普通方法之中，指向<code>A.prototype</code>，所以<code>super.p()</code>就相当于<code>A.prototype.p()</code>。</p><p>这里需要注意，由于<code>super</code>指向父类的原型对象，所以定义在父类实例上的方法或属性，是无法通过<code>super</code>调用的。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">p</span> = <span class="hljs-number">2</span>;
   }
 }
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">A</span> </span>{
-  <span class="hljs-keyword">get</span> <span class="hljs-title">m</span>() {
-    <span class="hljs-keyword">return</span> <span class="hljs-built_in">super</span>.p;
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">A</span> {
+  <span class="hljs-keyword">get</span> <span class="hljs-title function_">m</span>() {
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">super</span>.<span class="hljs-property">p</span>;
   }
 }
 
-<span class="hljs-keyword">let</span> b = <span class="hljs-keyword">new</span> B();
-b.m <span class="hljs-comment">// undefined</span>
-</code></pre><p>上面代码中，<code>p</code>是父类<code>A</code>实例的属性，<code>super.p</code>就引用不到它。</p><p>如果属性定义在父类的原型对象上，<code>super</code>就可以取到。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> </span>{}
-A.prototype.x = <span class="hljs-number">2</span>;
+<span class="hljs-keyword">let</span> b = <span class="hljs-keyword">new</span> <span class="hljs-title function_">B</span>();
+b.<span class="hljs-property">m</span> <span class="hljs-comment">// undefined</span>
+</code></pre><p>上面代码中，<code>p</code>是父类<code>A</code>实例的属性，<code>super.p</code>就引用不到它。</p><p>如果属性定义在父类的原型对象上，<code>super</code>就可以取到。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> {}
+A.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">x</span> = <span class="hljs-number">2</span>;
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">A</span> </span>{
-  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">super</span>();
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">super</span>.x) <span class="hljs-comment">// 2</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">A</span> {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">super</span>();
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">super</span>.<span class="hljs-property">x</span>) <span class="hljs-comment">// 2</span>
   }
 }
 
-<span class="hljs-keyword">let</span> b = <span class="hljs-keyword">new</span> B();
-</code></pre><p>上面代码中，属性<code>x</code>是定义在<code>A.prototype</code>上面的，所以<code>super.x</code>可以取到它的值。</p><p>ES6 规定，在子类普通方法中通过<code>super</code>调用父类的方法时，方法内部的<code>this</code>指向当前的子类实例。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> </span>{
-  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">this</span>.x = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">let</span> b = <span class="hljs-keyword">new</span> <span class="hljs-title function_">B</span>();
+</code></pre><p>上面代码中，属性<code>x</code>是定义在<code>A.prototype</code>上面的，所以<code>super.x</code>可以取到它的值。</p><p>ES6 规定，在子类普通方法中通过<code>super</code>调用父类的方法时，方法内部的<code>this</code>指向当前的子类实例。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">x</span> = <span class="hljs-number">1</span>;
   }
-  <span class="hljs-function"><span class="hljs-title">print</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.x);
-  }
-}
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">A</span> </span>{
-  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">super</span>();
-    <span class="hljs-built_in">this</span>.x = <span class="hljs-number">2</span>;
-  }
-  <span class="hljs-function"><span class="hljs-title">m</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">super</span>.print();
+  <span class="hljs-title function_">print</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">x</span>);
   }
 }
 
-<span class="hljs-keyword">let</span> b = <span class="hljs-keyword">new</span> B();
-b.m() <span class="hljs-comment">// 2</span>
-</code></pre><p>上面代码中，<code>super.print()</code>虽然调用的是<code>A.prototype.print()</code>，但是<code>A.prototype.print()</code>内部的<code>this</code>指向子类<code>B</code>的实例，导致输出的是<code>2</code>，而不是<code>1</code>。也就是说，实际上执行的是<code>super.print.call(this)</code>。</p><p>由于<code>this</code>指向子类实例，所以如果通过<code>super</code>对某个属性赋值，这时<code>super</code>就是<code>this</code>，赋值的属性会变成子类实例的属性。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> </span>{
-  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">this</span>.x = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">A</span> {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">super</span>();
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">x</span> = <span class="hljs-number">2</span>;
+  }
+  <span class="hljs-title function_">m</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">super</span>.<span class="hljs-title function_">print</span>();
   }
 }
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">A</span> </span>{
-  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">super</span>();
-    <span class="hljs-built_in">this</span>.x = <span class="hljs-number">2</span>;
-    <span class="hljs-built_in">super</span>.x = <span class="hljs-number">3</span>;
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">super</span>.x); <span class="hljs-comment">// undefined</span>
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.x); <span class="hljs-comment">// 3</span>
+<span class="hljs-keyword">let</span> b = <span class="hljs-keyword">new</span> <span class="hljs-title function_">B</span>();
+b.<span class="hljs-title function_">m</span>() <span class="hljs-comment">// 2</span>
+</code></pre><p>上面代码中，<code>super.print()</code>虽然调用的是<code>A.prototype.print()</code>，但是<code>A.prototype.print()</code>内部的<code>this</code>指向子类<code>B</code>的实例，导致输出的是<code>2</code>，而不是<code>1</code>。也就是说，实际上执行的是<code>super.print.call(this)</code>。</p><p>由于<code>this</code>指向子类实例，所以如果通过<code>super</code>对某个属性赋值，这时<code>super</code>就是<code>this</code>，赋值的属性会变成子类实例的属性。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">x</span> = <span class="hljs-number">1</span>;
   }
 }
 
-<span class="hljs-keyword">let</span> b = <span class="hljs-keyword">new</span> B();
-</code></pre><p>上面代码中，<code>super.x</code>赋值为<code>3</code>，这时等同于对<code>this.x</code>赋值为<code>3</code>。而当读取<code>super.x</code>的时候，读的是<code>A.prototype.x</code>，所以返回<code>undefined</code>。</p><p>如果<code>super</code>作为对象，用在静态方法之中，这时<code>super</code>将指向父类，而不是父类的原型对象。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Parent</span> </span>{
-  <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">myMethod</span>(<span class="hljs-params">msg</span>)</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;static&#x27;</span>, msg);
-  }
-
-  <span class="hljs-function"><span class="hljs-title">myMethod</span>(<span class="hljs-params">msg</span>)</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;instance&#x27;</span>, msg);
-  }
-}
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Child</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Parent</span> </span>{
-  <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">myMethod</span>(<span class="hljs-params">msg</span>)</span> {
-    <span class="hljs-built_in">super</span>.myMethod(msg);
-  }
-
-  <span class="hljs-function"><span class="hljs-title">myMethod</span>(<span class="hljs-params">msg</span>)</span> {
-    <span class="hljs-built_in">super</span>.myMethod(msg);
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">A</span> {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">super</span>();
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">x</span> = <span class="hljs-number">2</span>;
+    <span class="hljs-variable language_">super</span>.<span class="hljs-property">x</span> = <span class="hljs-number">3</span>;
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">super</span>.<span class="hljs-property">x</span>); <span class="hljs-comment">// undefined</span>
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">x</span>); <span class="hljs-comment">// 3</span>
   }
 }
 
-Child.myMethod(<span class="hljs-number">1</span>); <span class="hljs-comment">// static 1</span>
-
-<span class="hljs-keyword">var</span> child = <span class="hljs-keyword">new</span> Child();
-child.myMethod(<span class="hljs-number">2</span>); <span class="hljs-comment">// instance 2</span>
-</code></pre><p>上面代码中，<code>super</code>在静态方法之中指向父类，在普通方法之中指向父类的原型对象。</p><p>另外，在子类的静态方法中通过<code>super</code>调用父类的方法时，方法内部的<code>this</code>指向当前的子类，而不是子类的实例。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> </span>{
-  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">this</span>.x = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">let</span> b = <span class="hljs-keyword">new</span> <span class="hljs-title function_">B</span>();
+</code></pre><p>上面代码中，<code>super.x</code>赋值为<code>3</code>，这时等同于对<code>this.x</code>赋值为<code>3</code>。而当读取<code>super.x</code>的时候，读的是<code>A.prototype.x</code>，所以返回<code>undefined</code>。</p><p>如果<code>super</code>作为对象，用在静态方法之中，这时<code>super</code>将指向父类，而不是父类的原型对象。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">Parent</span> {
+  <span class="hljs-keyword">static</span> <span class="hljs-title function_">myMethod</span>(<span class="hljs-params">msg</span>) {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;static&#x27;</span>, msg);
   }
-  <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">print</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.x);
+
+  <span class="hljs-title function_">myMethod</span>(<span class="hljs-params">msg</span>) {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;instance&#x27;</span>, msg);
   }
 }
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">A</span> </span>{
-  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">super</span>();
-    <span class="hljs-built_in">this</span>.x = <span class="hljs-number">2</span>;
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Child</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Parent</span> {
+  <span class="hljs-keyword">static</span> <span class="hljs-title function_">myMethod</span>(<span class="hljs-params">msg</span>) {
+    <span class="hljs-variable language_">super</span>.<span class="hljs-title function_">myMethod</span>(msg);
   }
-  <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">m</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">super</span>.print();
-  }
-}
 
-B.x = <span class="hljs-number">3</span>;
-B.m() <span class="hljs-comment">// 3</span>
-</code></pre><p>上面代码中，静态方法<code>B.m</code>里面，<code>super.print</code>指向父类的静态方法。这个方法里面的<code>this</code>指向的是<code>B</code>，而不是<code>B</code>的实例。</p><p>注意，使用<code>super</code>的时候，必须显式指定是作为函数、还是作为对象使用，否则会报错。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> </span>{}
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">A</span> </span>{
-  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">super</span>();
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">super</span>); <span class="hljs-comment">// 报错</span>
-  }
-}
-</code></pre><p>上面代码中，<code>console.log(super)</code>当中的<code>super</code>，无法看出是作为函数使用，还是作为对象使用，所以 JavaScript 引擎解析代码的时候就会报错。这时，如果能清晰地表明<code>super</code>的数据类型，就不会报错。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> </span>{}
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">A</span> </span>{
-  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">super</span>();
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">super</span>.valueOf() <span class="hljs-keyword">instanceof</span> B); <span class="hljs-comment">// true</span>
+  <span class="hljs-title function_">myMethod</span>(<span class="hljs-params">msg</span>) {
+    <span class="hljs-variable language_">super</span>.<span class="hljs-title function_">myMethod</span>(msg);
   }
 }
 
-<span class="hljs-keyword">let</span> b = <span class="hljs-keyword">new</span> B();
+<span class="hljs-title class_">Child</span>.<span class="hljs-title function_">myMethod</span>(<span class="hljs-number">1</span>); <span class="hljs-comment">// static 1</span>
+
+<span class="hljs-keyword">var</span> child = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Child</span>();
+child.<span class="hljs-title function_">myMethod</span>(<span class="hljs-number">2</span>); <span class="hljs-comment">// instance 2</span>
+</code></pre><p>上面代码中，<code>super</code>在静态方法之中指向父类，在普通方法之中指向父类的原型对象。</p><p>另外，在子类的静态方法中通过<code>super</code>调用父类的方法时，方法内部的<code>this</code>指向当前的子类，而不是子类的实例。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">x</span> = <span class="hljs-number">1</span>;
+  }
+  <span class="hljs-keyword">static</span> <span class="hljs-title function_">print</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">x</span>);
+  }
+}
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">A</span> {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">super</span>();
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">x</span> = <span class="hljs-number">2</span>;
+  }
+  <span class="hljs-keyword">static</span> <span class="hljs-title function_">m</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">super</span>.<span class="hljs-title function_">print</span>();
+  }
+}
+
+B.<span class="hljs-property">x</span> = <span class="hljs-number">3</span>;
+B.<span class="hljs-title function_">m</span>() <span class="hljs-comment">// 3</span>
+</code></pre><p>上面代码中，静态方法<code>B.m</code>里面，<code>super.print</code>指向父类的静态方法。这个方法里面的<code>this</code>指向的是<code>B</code>，而不是<code>B</code>的实例。</p><p>注意，使用<code>super</code>的时候，必须显式指定是作为函数、还是作为对象使用，否则会报错。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> {}
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">A</span> {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">super</span>();
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">super</span>); <span class="hljs-comment">// 报错</span>
+  }
+}
+</code></pre><p>上面代码中，<code>console.log(super)</code>当中的<code>super</code>，无法看出是作为函数使用，还是作为对象使用，所以 JavaScript 引擎解析代码的时候就会报错。这时，如果能清晰地表明<code>super</code>的数据类型，就不会报错。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> {}
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">A</span> {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">super</span>();
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">super</span>.<span class="hljs-title function_">valueOf</span>() <span class="hljs-keyword">instanceof</span> B); <span class="hljs-comment">// true</span>
+  }
+}
+
+<span class="hljs-keyword">let</span> b = <span class="hljs-keyword">new</span> <span class="hljs-title function_">B</span>();
 </code></pre><p>上面代码中，<code>super.valueOf()</code>表明<code>super</code>是一个对象，因此就不会报错。同时，由于<code>super</code>使得<code>this</code>指向<code>B</code>的实例，所以<code>super.valueOf()</code>返回的是一个<code>B</code>的实例。</p><p>最后，由于对象总是继承其他对象的，所以可以在任意一个对象中，使用<code>super</code>关键字。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = {
-  <span class="hljs-function"><span class="hljs-title">toString</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;MyObject: &quot;</span> + <span class="hljs-built_in">super</span>.toString();
+  <span class="hljs-title function_">toString</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;MyObject: &quot;</span> + <span class="hljs-variable language_">super</span>.<span class="hljs-title function_">toString</span>();
   }
 };
 
-obj.toString(); <span class="hljs-comment">// MyObject: [object Object]</span>
-</code></pre><h2 id="类的-prototype-属性和__proto__属性">类的 prototype 属性和__proto__属性 <a class="markdownIt-Anchor" href="#类的-prototype-属性和__proto__属性">#</a></h2><p>大多数浏览器的 ES5 实现之中，每一个对象都有<code>__proto__</code>属性，指向对应的构造函数的<code>prototype</code>属性。Class 作为构造函数的语法糖，同时有<code>prototype</code>属性和<code>__proto__</code>属性，因此同时存在两条继承链。</p><p>（1）子类的<code>__proto__</code>属性，表示构造函数的继承，总是指向父类。</p><p>（2）子类<code>prototype</code>属性的<code>__proto__</code>属性，表示方法的继承，总是指向父类的<code>prototype</code>属性。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> </span>{
+obj.<span class="hljs-title function_">toString</span>(); <span class="hljs-comment">// MyObject: [object Object]</span>
+</code></pre><h2 id="类的-prototype-属性和__proto__属性">类的 prototype 属性和__proto__属性 <a class="markdownIt-Anchor" href="#类的-prototype-属性和__proto__属性">#</a></h2><p>大多数浏览器的 ES5 实现之中，每一个对象都有<code>__proto__</code>属性，指向对应的构造函数的<code>prototype</code>属性。Class 作为构造函数的语法糖，同时有<code>prototype</code>属性和<code>__proto__</code>属性，因此同时存在两条继承链。</p><p>（1）子类的<code>__proto__</code>属性，表示构造函数的继承，总是指向父类。</p><p>（2）子类<code>prototype</code>属性的<code>__proto__</code>属性，表示方法的继承，总是指向父类的<code>prototype</code>属性。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> {
 }
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">A</span> </span>{
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">A</span> {
 }
 
-B.__proto__ === A <span class="hljs-comment">// true</span>
-B.prototype.__proto__ === A.prototype <span class="hljs-comment">// true</span>
-</code></pre><p>上面代码中，子类<code>B</code>的<code>__proto__</code>属性指向父类<code>A</code>，子类<code>B</code>的<code>prototype</code>属性的<code>__proto__</code>属性指向父类<code>A</code>的<code>prototype</code>属性。</p><p>这样的结果是因为，类的继承是按照下面的模式实现的。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> </span>{
+B.<span class="hljs-property">__proto__</span> === A <span class="hljs-comment">// true</span>
+B.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">__proto__</span> === A.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> <span class="hljs-comment">// true</span>
+</code></pre><p>上面代码中，子类<code>B</code>的<code>__proto__</code>属性指向父类<code>A</code>，子类<code>B</code>的<code>prototype</code>属性的<code>__proto__</code>属性指向父类<code>A</code>的<code>prototype</code>属性。</p><p>这样的结果是因为，类的继承是按照下面的模式实现的。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> {
 }
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">B</span> </span>{
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span> {
 }
 
 <span class="hljs-comment">// B 的实例继承 A 的实例</span>
-<span class="hljs-built_in">Object</span>.setPrototypeOf(B.prototype, A.prototype);
+<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">setPrototypeOf</span>(B.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>, A.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>);
 
 <span class="hljs-comment">// B 继承 A 的静态属性</span>
-<span class="hljs-built_in">Object</span>.setPrototypeOf(B, A);
+<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">setPrototypeOf</span>(B, A);
 
-<span class="hljs-keyword">const</span> b = <span class="hljs-keyword">new</span> B();
-</code></pre><p>《对象的扩展》一章给出过<code>Object.setPrototypeOf</code>方法的实现。</p><pre class="hljs"><code><span class="hljs-built_in">Object</span>.setPrototypeOf = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">obj, proto</span>) </span>{
-  obj.__proto__ = proto;
+<span class="hljs-keyword">const</span> b = <span class="hljs-keyword">new</span> <span class="hljs-title function_">B</span>();
+</code></pre><p>《对象的扩展》一章给出过<code>Object.setPrototypeOf</code>方法的实现。</p><pre class="hljs"><code><span class="hljs-title class_">Object</span>.<span class="hljs-property">setPrototypeOf</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">obj, proto</span>) {
+  obj.<span class="hljs-property">__proto__</span> = proto;
   <span class="hljs-keyword">return</span> obj;
 }
-</code></pre><p>因此，就得到了上面的结果。</p><pre class="hljs"><code><span class="hljs-built_in">Object</span>.setPrototypeOf(B.prototype, A.prototype);
+</code></pre><p>因此，就得到了上面的结果。</p><pre class="hljs"><code><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">setPrototypeOf</span>(B.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>, A.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>);
 <span class="hljs-comment">// 等同于</span>
-B.prototype.__proto__ = A.prototype;
+B.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">__proto__</span> = A.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>;
 
-<span class="hljs-built_in">Object</span>.setPrototypeOf(B, A);
+<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">setPrototypeOf</span>(B, A);
 <span class="hljs-comment">// 等同于</span>
-B.__proto__ = A;
-</code></pre><p>这两条继承链，可以这样理解：作为一个对象，子类（<code>B</code>）的原型（<code>__proto__</code>属性）是父类（<code>A</code>）；作为一个构造函数，子类（<code>B</code>）的原型对象（<code>prototype</code>属性）是父类的原型对象（<code>prototype</code>属性）的实例。</p><pre class="hljs"><code>B.prototype = <span class="hljs-built_in">Object</span>.create(A.prototype);
+B.<span class="hljs-property">__proto__</span> = A;
+</code></pre><p>这两条继承链，可以这样理解：作为一个对象，子类（<code>B</code>）的原型（<code>__proto__</code>属性）是父类（<code>A</code>）；作为一个构造函数，子类（<code>B</code>）的原型对象（<code>prototype</code>属性）是父类的原型对象（<code>prototype</code>属性）的实例。</p><pre class="hljs"><code>B.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(A.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>);
 <span class="hljs-comment">// 等同于</span>
-B.prototype.__proto__ = A.prototype;
-</code></pre><p><code>extends</code>关键字后面可以跟多种类型的值。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">A</span> </span>{
+B.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">__proto__</span> = A.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>;
+</code></pre><p><code>extends</code>关键字后面可以跟多种类型的值。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">A</span> {
 }
-</code></pre><p>上面代码的<code>A</code>，只要是一个有<code>prototype</code>属性的函数，就能被<code>B</code>继承。由于函数都有<code>prototype</code>属性（除了<code>Function.prototype</code>函数），因此<code>A</code>可以是任意函数。</p><p>下面，讨论两种情况。第一种，子类继承<code>Object</code>类。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Object</span> </span>{
-}
-
-A.__proto__ === <span class="hljs-built_in">Object</span> <span class="hljs-comment">// true</span>
-A.prototype.__proto__ === <span class="hljs-built_in">Object</span>.prototype <span class="hljs-comment">// true</span>
-</code></pre><p>这种情况下，<code>A</code>其实就是构造函数<code>Object</code>的复制，<code>A</code>的实例就是<code>Object</code>的实例。</p><p>第二种情况，不存在任何继承。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> </span>{
+</code></pre><p>上面代码的<code>A</code>，只要是一个有<code>prototype</code>属性的函数，就能被<code>B</code>继承。由于函数都有<code>prototype</code>属性（除了<code>Function.prototype</code>函数），因此<code>A</code>可以是任意函数。</p><p>下面，讨论两种情况。第一种，子类继承<code>Object</code>类。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Object</span> {
 }
 
-A.__proto__ === <span class="hljs-built_in">Function</span>.prototype <span class="hljs-comment">// true</span>
-A.prototype.__proto__ === <span class="hljs-built_in">Object</span>.prototype <span class="hljs-comment">// true</span>
-</code></pre><p>这种情况下，<code>A</code>作为一个基类（即不存在任何继承），就是一个普通函数，所以直接继承<code>Function.prototype</code>。但是，<code>A</code>调用后返回一个空对象（即<code>Object</code>实例），所以<code>A.prototype.__proto__</code>指向构造函数（<code>Object</code>）的<code>prototype</code>属性。</p><h3 id="实例的-__proto__-属性">实例的 __proto__ 属性 <a class="markdownIt-Anchor" href="#实例的-__proto__-属性">#</a></h3><p>子类实例的<code>__proto__</code>属性的<code>__proto__</code>属性，指向父类实例的<code>__proto__</code>属性。也就是说，子类的原型的原型，是父类的原型。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> p1 = <span class="hljs-keyword">new</span> Point(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>);
-<span class="hljs-keyword">var</span> p2 = <span class="hljs-keyword">new</span> ColorPoint(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-string">&#x27;red&#x27;</span>);
+A.<span class="hljs-property">__proto__</span> === <span class="hljs-title class_">Object</span> <span class="hljs-comment">// true</span>
+A.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">__proto__</span> === <span class="hljs-title class_">Object</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> <span class="hljs-comment">// true</span>
+</code></pre><p>这种情况下，<code>A</code>其实就是构造函数<code>Object</code>的复制，<code>A</code>的实例就是<code>Object</code>的实例。</p><p>第二种情况，不存在任何继承。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> {
+}
 
-p2.__proto__ === p1.__proto__ <span class="hljs-comment">// false</span>
-p2.__proto__.__proto__ === p1.__proto__ <span class="hljs-comment">// true</span>
-</code></pre><p>上面代码中，<code>ColorPoint</code>继承了<code>Point</code>，导致前者原型的原型是后者的原型。</p><p>因此，通过子类实例的<code>__proto__.__proto__</code>属性，可以修改父类实例的行为。</p><pre class="hljs"><code>p2.__proto__.__proto__.printName = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Ha&#x27;</span>);
+A.<span class="hljs-property">__proto__</span> === <span class="hljs-title class_">Function</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> <span class="hljs-comment">// true</span>
+A.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">__proto__</span> === <span class="hljs-title class_">Object</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> <span class="hljs-comment">// true</span>
+</code></pre><p>这种情况下，<code>A</code>作为一个基类（即不存在任何继承），就是一个普通函数，所以直接继承<code>Function.prototype</code>。但是，<code>A</code>调用后返回一个空对象（即<code>Object</code>实例），所以<code>A.prototype.__proto__</code>指向构造函数（<code>Object</code>）的<code>prototype</code>属性。</p><h3 id="实例的-__proto__-属性">实例的 __proto__ 属性 <a class="markdownIt-Anchor" href="#实例的-__proto__-属性">#</a></h3><p>子类实例的<code>__proto__</code>属性的<code>__proto__</code>属性，指向父类实例的<code>__proto__</code>属性。也就是说，子类的原型的原型，是父类的原型。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> p1 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Point</span>(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>);
+<span class="hljs-keyword">var</span> p2 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ColorPoint</span>(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-string">&#x27;red&#x27;</span>);
+
+p2.<span class="hljs-property">__proto__</span> === p1.<span class="hljs-property">__proto__</span> <span class="hljs-comment">// false</span>
+p2.<span class="hljs-property">__proto__</span>.<span class="hljs-property">__proto__</span> === p1.<span class="hljs-property">__proto__</span> <span class="hljs-comment">// true</span>
+</code></pre><p>上面代码中，<code>ColorPoint</code>继承了<code>Point</code>，导致前者原型的原型是后者的原型。</p><p>因此，通过子类实例的<code>__proto__.__proto__</code>属性，可以修改父类实例的行为。</p><pre class="hljs"><code>p2.<span class="hljs-property">__proto__</span>.<span class="hljs-property">__proto__</span>.<span class="hljs-property">printName</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Ha&#x27;</span>);
 };
 
-p1.printName() <span class="hljs-comment">// &quot;Ha&quot;</span>
-</code></pre><p>上面代码在<code>ColorPoint</code>的实例<code>p2</code>上向<code>Point</code>类添加方法，结果影响到了<code>Point</code>的实例<code>p1</code>。</p><h2 id="原生构造函数的继承">原生构造函数的继承 <a class="markdownIt-Anchor" href="#原生构造函数的继承">#</a></h2><p>原生构造函数是指语言内置的构造函数，通常用来生成数据结构。ECMAScript 的原生构造函数大致有下面这些。</p><ul><li>Boolean()</li><li>Number()</li><li>String()</li><li>Array()</li><li>Date()</li><li>Function()</li><li>RegExp()</li><li>Error()</li><li>Object()</li></ul><p>以前，这些原生构造函数是无法继承的，比如，不能自己定义一个<code>Array</code>的子类。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">MyArray</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-built_in">Array</span>.apply(<span class="hljs-built_in">this</span>, <span class="hljs-built_in">arguments</span>);
+p1.<span class="hljs-title function_">printName</span>() <span class="hljs-comment">// &quot;Ha&quot;</span>
+</code></pre><p>上面代码在<code>ColorPoint</code>的实例<code>p2</code>上向<code>Point</code>类添加方法，结果影响到了<code>Point</code>的实例<code>p1</code>。</p><h2 id="原生构造函数的继承">原生构造函数的继承 <a class="markdownIt-Anchor" href="#原生构造函数的继承">#</a></h2><p>原生构造函数是指语言内置的构造函数，通常用来生成数据结构。ECMAScript 的原生构造函数大致有下面这些。</p><ul><li>Boolean()</li><li>Number()</li><li>String()</li><li>Array()</li><li>Date()</li><li>Function()</li><li>RegExp()</li><li>Error()</li><li>Object()</li></ul><p>以前，这些原生构造函数是无法继承的，比如，不能自己定义一个<code>Array</code>的子类。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">MyArray</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-title class_">Array</span>.<span class="hljs-title function_">apply</span>(<span class="hljs-variable language_">this</span>, <span class="hljs-variable language_">arguments</span>);
 }
 
-MyArray.prototype = <span class="hljs-built_in">Object</span>.create(<span class="hljs-built_in">Array</span>.prototype, {
+<span class="hljs-title class_">MyArray</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(<span class="hljs-title class_">Array</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>, {
   <span class="hljs-attr">constructor</span>: {
-    <span class="hljs-attr">value</span>: MyArray,
+    <span class="hljs-attr">value</span>: <span class="hljs-title class_">MyArray</span>,
     <span class="hljs-attr">writable</span>: <span class="hljs-literal">true</span>,
     <span class="hljs-attr">configurable</span>: <span class="hljs-literal">true</span>,
     <span class="hljs-attr">enumerable</span>: <span class="hljs-literal">true</span>
   }
 });
-</code></pre><p>上面代码定义了一个继承 Array 的<code>MyArray</code>类。但是，这个类的行为与<code>Array</code>完全不一致。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> colors = <span class="hljs-keyword">new</span> MyArray();
+</code></pre><p>上面代码定义了一个继承 Array 的<code>MyArray</code>类。但是，这个类的行为与<code>Array</code>完全不一致。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> colors = <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyArray</span>();
 colors[<span class="hljs-number">0</span>] = <span class="hljs-string">&quot;red&quot;</span>;
-colors.length  <span class="hljs-comment">// 0</span>
+colors.<span class="hljs-property">length</span>  <span class="hljs-comment">// 0</span>
 
-colors.length = <span class="hljs-number">0</span>;
+colors.<span class="hljs-property">length</span> = <span class="hljs-number">0</span>;
 colors[<span class="hljs-number">0</span>]  <span class="hljs-comment">// &quot;red&quot;</span>
 </code></pre><p>之所以会发生这种情况，是因为子类无法获得原生构造函数的内部属性，通过<code>Array.apply()</code>或者分配给原型对象都不行。原生构造函数会忽略<code>apply</code>方法传入的<code>this</code>，也就是说，原生构造函数的<code>this</code>无法绑定，导致拿不到内部属性。</p><p>ES5 是先新建子类的实例对象<code>this</code>，再将父类的属性添加到子类上，由于父类的内部属性无法获取，导致无法继承原生的构造函数。比如，<code>Array</code>构造函数有一个内部属性<code>[[DefineOwnProperty]]</code>，用来定义新属性时，更新<code>length</code>属性，这个内部属性无法在子类获取，导致子类的<code>length</code>属性行为不正常。</p><p>下面的例子中，我们想让一个普通对象继承<code>Error</code>对象。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> e = {};
 
-<span class="hljs-built_in">Object</span>.getOwnPropertyNames(<span class="hljs-built_in">Error</span>.call(e))
+<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">getOwnPropertyNames</span>(<span class="hljs-title class_">Error</span>.<span class="hljs-title function_">call</span>(e))
 <span class="hljs-comment">// [ &#x27;stack&#x27; ]</span>
 
-<span class="hljs-built_in">Object</span>.getOwnPropertyNames(e)
+<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">getOwnPropertyNames</span>(e)
 <span class="hljs-comment">// []</span>
-</code></pre><p>上面代码中，我们想通过<code>Error.call(e)</code>这种写法，让普通对象<code>e</code>具有<code>Error</code>对象的实例属性。但是，<code>Error.call()</code>完全忽略传入的第一个参数，而是返回一个新对象，<code>e</code>本身没有任何变化。这证明了<code>Error.call(e)</code>这种写法，无法继承原生构造函数。</p><p>ES6 允许继承原生构造函数定义子类，因为 ES6 是先新建父类的实例对象<code>this</code>，然后再用子类的构造函数修饰<code>this</code>，使得父类的所有行为都可以继承。下面是一个继承<code>Array</code>的例子。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyArray</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Array</span> </span>{
-  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">...args</span>)</span> {
-    <span class="hljs-built_in">super</span>(...args);
+</code></pre><p>上面代码中，我们想通过<code>Error.call(e)</code>这种写法，让普通对象<code>e</code>具有<code>Error</code>对象的实例属性。但是，<code>Error.call()</code>完全忽略传入的第一个参数，而是返回一个新对象，<code>e</code>本身没有任何变化。这证明了<code>Error.call(e)</code>这种写法，无法继承原生构造函数。</p><p>ES6 允许继承原生构造函数定义子类，因为 ES6 是先新建父类的实例对象<code>this</code>，然后再用子类的构造函数修饰<code>this</code>，使得父类的所有行为都可以继承。下面是一个继承<code>Array</code>的例子。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyArray</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Array</span> {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">...args</span>) {
+    <span class="hljs-variable language_">super</span>(...args);
   }
 }
 
-<span class="hljs-keyword">var</span> arr = <span class="hljs-keyword">new</span> MyArray();
+<span class="hljs-keyword">var</span> arr = <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyArray</span>();
 arr[<span class="hljs-number">0</span>] = <span class="hljs-number">12</span>;
-arr.length <span class="hljs-comment">// 1</span>
+arr.<span class="hljs-property">length</span> <span class="hljs-comment">// 1</span>
 
-arr.length = <span class="hljs-number">0</span>;
+arr.<span class="hljs-property">length</span> = <span class="hljs-number">0</span>;
 arr[<span class="hljs-number">0</span>] <span class="hljs-comment">// undefined</span>
-</code></pre><p>上面代码定义了一个<code>MyArray</code>类，继承了<code>Array</code>构造函数，因此就可以从<code>MyArray</code>生成数组的实例。这意味着，ES6 可以自定义原生数据结构（比如<code>Array</code>、<code>String</code>等）的子类，这是 ES5 无法做到的。</p><p>上面这个例子也说明，<code>extends</code>关键字不仅可以用来继承类，还可以用来继承原生的构造函数。因此可以在原生数据结构的基础上，定义自己的数据结构。下面就是定义了一个带版本功能的数组。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">VersionedArray</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Array</span> </span>{
-  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">super</span>();
-    <span class="hljs-built_in">this</span>.history = [[]];
+</code></pre><p>上面代码定义了一个<code>MyArray</code>类，继承了<code>Array</code>构造函数，因此就可以从<code>MyArray</code>生成数组的实例。这意味着，ES6 可以自定义原生数据结构（比如<code>Array</code>、<code>String</code>等）的子类，这是 ES5 无法做到的。</p><p>上面这个例子也说明，<code>extends</code>关键字不仅可以用来继承类，还可以用来继承原生的构造函数。因此可以在原生数据结构的基础上，定义自己的数据结构。下面就是定义了一个带版本功能的数组。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">VersionedArray</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Array</span> {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">super</span>();
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">history</span> = [[]];
   }
-  <span class="hljs-function"><span class="hljs-title">commit</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">this</span>.history.push(<span class="hljs-built_in">this</span>.slice());
+  <span class="hljs-title function_">commit</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">history</span>.<span class="hljs-title function_">push</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">slice</span>());
   }
-  <span class="hljs-function"><span class="hljs-title">revert</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">this</span>.splice(<span class="hljs-number">0</span>, <span class="hljs-built_in">this</span>.length, ...this.history[<span class="hljs-built_in">this</span>.history.length - <span class="hljs-number">1</span>]);
+  <span class="hljs-title function_">revert</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">splice</span>(<span class="hljs-number">0</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-property">length</span>, ...<span class="hljs-variable language_">this</span>.<span class="hljs-property">history</span>[<span class="hljs-variable language_">this</span>.<span class="hljs-property">history</span>.<span class="hljs-property">length</span> - <span class="hljs-number">1</span>]);
   }
 }
 
-<span class="hljs-keyword">var</span> x = <span class="hljs-keyword">new</span> VersionedArray();
+<span class="hljs-keyword">var</span> x = <span class="hljs-keyword">new</span> <span class="hljs-title class_">VersionedArray</span>();
 
-x.push(<span class="hljs-number">1</span>);
-x.push(<span class="hljs-number">2</span>);
+x.<span class="hljs-title function_">push</span>(<span class="hljs-number">1</span>);
+x.<span class="hljs-title function_">push</span>(<span class="hljs-number">2</span>);
 x <span class="hljs-comment">// [1, 2]</span>
-x.history <span class="hljs-comment">// [[]]</span>
+x.<span class="hljs-property">history</span> <span class="hljs-comment">// [[]]</span>
 
-x.commit();
-x.history <span class="hljs-comment">// [[], [1, 2]]</span>
+x.<span class="hljs-title function_">commit</span>();
+x.<span class="hljs-property">history</span> <span class="hljs-comment">// [[], [1, 2]]</span>
 
-x.push(<span class="hljs-number">3</span>);
+x.<span class="hljs-title function_">push</span>(<span class="hljs-number">3</span>);
 x <span class="hljs-comment">// [1, 2, 3]</span>
-x.history <span class="hljs-comment">// [[], [1, 2]]</span>
+x.<span class="hljs-property">history</span> <span class="hljs-comment">// [[], [1, 2]]</span>
 
-x.revert();
+x.<span class="hljs-title function_">revert</span>();
 x <span class="hljs-comment">// [1, 2]</span>
-</code></pre><p>上面代码中，<code>VersionedArray</code>会通过<code>commit</code>方法，将自己的当前状态生成一个版本快照，存入<code>history</code>属性。<code>revert</code>方法用来将数组重置为最新一次保存的版本。除此之外，<code>VersionedArray</code>依然是一个普通数组，所有原生的数组方法都可以在它上面调用。</p><p>下面是一个自定义<code>Error</code>子类的例子，可以用来定制报错时的行为。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ExtendableError</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Error</span> </span>{
-  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">message</span>)</span> {
-    <span class="hljs-built_in">super</span>();
-    <span class="hljs-built_in">this</span>.message = message;
-    <span class="hljs-built_in">this</span>.stack = (<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>()).stack;
-    <span class="hljs-built_in">this</span>.name = <span class="hljs-built_in">this</span>.constructor.name;
+</code></pre><p>上面代码中，<code>VersionedArray</code>会通过<code>commit</code>方法，将自己的当前状态生成一个版本快照，存入<code>history</code>属性。<code>revert</code>方法用来将数组重置为最新一次保存的版本。除此之外，<code>VersionedArray</code>依然是一个普通数组，所有原生的数组方法都可以在它上面调用。</p><p>下面是一个自定义<code>Error</code>子类的例子，可以用来定制报错时的行为。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">ExtendableError</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Error</span> {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">message</span>) {
+    <span class="hljs-variable language_">super</span>();
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">message</span> = message;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">stack</span> = (<span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>()).<span class="hljs-property">stack</span>;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">constructor</span>.<span class="hljs-property">name</span>;
   }
 }
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyError</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ExtendableError</span> </span>{
-  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">m</span>)</span> {
-    <span class="hljs-built_in">super</span>(m);
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">MyError</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">ExtendableError</span> {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">m</span>) {
+    <span class="hljs-variable language_">super</span>(m);
   }
 }
 
-<span class="hljs-keyword">var</span> myerror = <span class="hljs-keyword">new</span> MyError(<span class="hljs-string">&#x27;ll&#x27;</span>);
-myerror.message <span class="hljs-comment">// &quot;ll&quot;</span>
-myerror <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Error</span> <span class="hljs-comment">// true</span>
-myerror.name <span class="hljs-comment">// &quot;MyError&quot;</span>
-myerror.stack
+<span class="hljs-keyword">var</span> myerror = <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyError</span>(<span class="hljs-string">&#x27;ll&#x27;</span>);
+myerror.<span class="hljs-property">message</span> <span class="hljs-comment">// &quot;ll&quot;</span>
+myerror <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">Error</span> <span class="hljs-comment">// true</span>
+myerror.<span class="hljs-property">name</span> <span class="hljs-comment">// &quot;MyError&quot;</span>
+myerror.<span class="hljs-property">stack</span>
 <span class="hljs-comment">// Error</span>
 <span class="hljs-comment">//     at MyError.ExtendableError</span>
 <span class="hljs-comment">//     ...</span>
-</code></pre><p>注意，继承<code>Object</code>的子类，有一个<a href="http://stackoverflow.com/questions/36203614/super-does-not-pass-arguments-when-instantiating-a-class-extended-from-object" target="_blank" rel="noopener">行为差异</a>。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NewObj</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Object</span></span>{
-  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span>{
-    <span class="hljs-built_in">super</span>(...arguments);
+</code></pre><p>注意，继承<code>Object</code>的子类，有一个<a href="http://stackoverflow.com/questions/36203614/super-does-not-pass-arguments-when-instantiating-a-class-extended-from-object" target="_blank" rel="noopener">行为差异</a>。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">NewObj</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Object</span>{
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>){
+    <span class="hljs-variable language_">super</span>(...<span class="hljs-variable language_">arguments</span>);
   }
 }
-<span class="hljs-keyword">var</span> o = <span class="hljs-keyword">new</span> NewObj({<span class="hljs-attr">attr</span>: <span class="hljs-literal">true</span>});
-o.attr === <span class="hljs-literal">true</span>  <span class="hljs-comment">// false</span>
+<span class="hljs-keyword">var</span> o = <span class="hljs-keyword">new</span> <span class="hljs-title class_">NewObj</span>({<span class="hljs-attr">attr</span>: <span class="hljs-literal">true</span>});
+o.<span class="hljs-property">attr</span> === <span class="hljs-literal">true</span>  <span class="hljs-comment">// false</span>
 </code></pre><p>上面代码中，<code>NewObj</code>继承了<code>Object</code>，但是无法通过<code>super</code>方法向父类<code>Object</code>传参。这是因为 ES6 改变了<code>Object</code>构造函数的行为，一旦发现<code>Object</code>方法不是通过<code>new Object()</code>这种形式调用，ES6 规定<code>Object</code>构造函数会忽略参数。</p><h2 id="mixin-模式的实现">Mixin 模式的实现 <a class="markdownIt-Anchor" href="#mixin-模式的实现">#</a></h2><p>Mixin 指的是多个对象合成一个新的对象，新对象具有各个组成成员的接口。它的最简单实现如下。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> a = {
   <span class="hljs-attr">a</span>: <span class="hljs-string">&#x27;a&#x27;</span>
 };
@@ -479,35 +479,35 @@ o.attr === <span class="hljs-literal">true</span>  <span class="hljs-comment">//
   <span class="hljs-attr">b</span>: <span class="hljs-string">&#x27;b&#x27;</span>
 };
 <span class="hljs-keyword">const</span> c = {...a, ...b}; <span class="hljs-comment">// {a: &#x27;a&#x27;, b: &#x27;b&#x27;}</span>
-</code></pre><p>上面代码中，<code>c</code>对象是<code>a</code>对象和<code>b</code>对象的合成，具有两者的接口。</p><p>下面是一个更完备的实现，将多个类的接口“混入”（mix in）另一个类。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mix</span>(<span class="hljs-params">...mixins</span>) </span>{
-  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Mix</span> </span>{
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
+</code></pre><p>上面代码中，<code>c</code>对象是<code>a</code>对象和<code>b</code>对象的合成，具有两者的接口。</p><p>下面是一个更完备的实现，将多个类的接口“混入”（mix in）另一个类。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">mix</span>(<span class="hljs-params">...mixins</span>) {
+  <span class="hljs-keyword">class</span> <span class="hljs-title class_">Mix</span> {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) {
       <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> mixin <span class="hljs-keyword">of</span> mixins) {
-        copyProperties(<span class="hljs-built_in">this</span>, <span class="hljs-keyword">new</span> mixin()); <span class="hljs-comment">// 拷贝实例属性</span>
+        <span class="hljs-title function_">copyProperties</span>(<span class="hljs-variable language_">this</span>, <span class="hljs-keyword">new</span> <span class="hljs-title function_">mixin</span>()); <span class="hljs-comment">// 拷贝实例属性</span>
       }
     }
   }
 
   <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> mixin <span class="hljs-keyword">of</span> mixins) {
-    copyProperties(Mix, mixin); <span class="hljs-comment">// 拷贝静态属性</span>
-    copyProperties(Mix.prototype, mixin.prototype); <span class="hljs-comment">// 拷贝原型属性</span>
+    <span class="hljs-title function_">copyProperties</span>(<span class="hljs-title class_">Mix</span>, mixin); <span class="hljs-comment">// 拷贝静态属性</span>
+    <span class="hljs-title function_">copyProperties</span>(<span class="hljs-title class_">Mix</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>, mixin.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>); <span class="hljs-comment">// 拷贝原型属性</span>
   }
 
-  <span class="hljs-keyword">return</span> Mix;
+  <span class="hljs-keyword">return</span> <span class="hljs-title class_">Mix</span>;
 }
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">copyProperties</span>(<span class="hljs-params">target, source</span>) </span>{
-  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> key <span class="hljs-keyword">of</span> <span class="hljs-built_in">Reflect</span>.ownKeys(source)) {
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">copyProperties</span>(<span class="hljs-params">target, source</span>) {
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> key <span class="hljs-keyword">of</span> <span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">ownKeys</span>(source)) {
     <span class="hljs-keyword">if</span> ( key !== <span class="hljs-string">&#x27;constructor&#x27;</span>
       &amp;&amp; key !== <span class="hljs-string">&#x27;prototype&#x27;</span>
       &amp;&amp; key !== <span class="hljs-string">&#x27;name&#x27;</span>
     ) {
-      <span class="hljs-keyword">let</span> desc = <span class="hljs-built_in">Object</span>.getOwnPropertyDescriptor(source, key);
-      <span class="hljs-built_in">Object</span>.defineProperty(target, key, desc);
+      <span class="hljs-keyword">let</span> desc = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">getOwnPropertyDescriptor</span>(source, key);
+      <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">defineProperty</span>(target, key, desc);
     }
   }
 }
-</code></pre><p>上面代码的<code>mix</code>函数，可以将多个对象合成为一个类。使用的时候，只要继承这个类即可。</p><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DistributedEdit</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">mix</span>(<span class="hljs-title">Loggable</span>, <span class="hljs-title">Serializable</span>) </span>{
+</code></pre><p>上面代码的<code>mix</code>函数，可以将多个对象合成为一个类。使用的时候，只要继承这个类即可。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">DistributedEdit</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">mix</span>(<span class="hljs-title class_">Loggable</span>, <span class="hljs-title class_">Serializable</span>) {
   <span class="hljs-comment">// ...</span>
 }
 </code></pre></article><nav class="level level-previous-next is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="class.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> Class 的基本语法</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="module.html">Module 的语法 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><div class="page-info"><p>本教程采用<a href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh" target="_blank">知识共享 署名-相同方式共享 3.0协议</a>。</p><p>分享本文 <span class="social-share"></span></p></div></div><div class="column is-3 is-offset-1"><nav class="panel panel-menu"><p class="panel-heading"><i class="fa fa-book" aria-hidden="true"></i> ES6 教程</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="intro.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">ECMAScript 6 简介</span></a></li><li><a href="let.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">let 和 const 命令</span></a></li><li><a href="destructuring.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">变量的解构赋值</span></a></li><li><a href="string.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">字符串的扩展</span></a></li><li><a href="string-methods.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">字符串的新增方法</span></a></li><li><a href="regex.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">正则的扩展</span></a></li><li><a href="number.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数值的扩展</span></a></li><li><a href="function.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">函数的扩展</span></a></li><li><a href="array.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数组的扩展</span></a></li><li><a href="object.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">对象的扩展</span></a></li><li><a href="object-methods.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">对象的新增方法</span></a></li><li><a href="operator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">运算符的扩展</span></a></li><li><a href="symbol.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Symbol</span></a></li><li><a href="set-map.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Set 和 Map 数据结构</span></a></li><li><a href="proxy.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Proxy</span></a></li><li><a href="reflect.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Reflect</span></a></li><li><a href="promise.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Promise 对象</span></a></li><li><a href="iterator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Iterator 和 for...of 循环</span></a></li><li><a href="generator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Generator 函数的语法</span></a></li><li><a href="generator-async.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Generator 函数的异步应用</span></a></li><li><a href="async.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">async 函数</span></a></li><li><a href="class.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Class 的基本语法</span></a></li><li><a href="class-extends.html" class="is-active"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Class 的继承</span></a></li><li><a href="module.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Module 的语法</span></a></li><li><a href="module-loader.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Module 的加载实现</span></a></li><li><a href="style.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">编程风格</span></a></li><li><a href="spec.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">读懂规格</span></a></li><li><a href="async-iterator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">异步遍历器</span></a></li><li><a href="arraybuffer.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">ArrayBuffer</span></a></li><li><a href="proposals.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">最新提案</span></a></li><li><a href="decorator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Decorator</span></a></li><li><a href="reference.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">参考链接</span></a></li></ul></aside></div></nav><nav class="panel panel-info"><p class="panel-heading"><i class="fa fa-link" aria-hidden="true"></i> 链接</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="https://raw.githubusercontent.com/wangdoc/es6-tutorial/master/docs/class-extends.md" target="_blank"><span class="icon"></span><i class="fa fa-code" aria-hidden="true" style="width: 14px;"></i>&nbsp;本文源码</a></li><li><a href="https://github.com/wangdoc/es6-tutorial" target="_blank"><span class="icon"></span><i class="fa fa-hdd-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;代码仓库</a></li><li><a href="https://github.com/wangdoc/es6-tutorial/issues" target="_blank"><span class="icon"></span><i class="fa fa-flag-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;反馈</a></li></ul></aside></div></nav></div></div><div class="columns"><div class="column is-8 is-6-widescreen is-offset-1-widescreen"><div id="disqus_thread"></div></div></div></div></section><footer class="footer"><div class="container"><div class="content has-text-centered"><p>联系：contact@wangdoc.com</p></div></div></footer><script>var LOPPO={current_path:"class-extends.md",relative_root_path:"",article_toc:'<ul class="markdownIt-TOC">\n<li><a href="#%E7%AE%80%E4%BB%8B">简介</a></li>\n<li><a href="#%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E5%92%8C%E7%A7%81%E6%9C%89%E6%96%B9%E6%B3%95%E7%9A%84%E7%BB%A7%E6%89%BF">私有属性和私有方法的继承</a></li>\n<li><a href="#%E9%9D%99%E6%80%81%E5%B1%9E%E6%80%A7%E5%92%8C%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95%E7%9A%84%E7%BB%A7%E6%89%BF">静态属性和静态方法的继承</a></li>\n<li><a href="#objectgetprototypeof">Object.getPrototypeOf()</a></li>\n<li><a href="#super-%E5%85%B3%E9%94%AE%E5%AD%97">super 关键字</a></li>\n<li><a href="#%E7%B1%BB%E7%9A%84-prototype-%E5%B1%9E%E6%80%A7%E5%92%8C__proto__%E5%B1%9E%E6%80%A7">类的 prototype 属性和__proto__属性</a>\n<ul>\n<li><a href="#%E5%AE%9E%E4%BE%8B%E7%9A%84-__proto__-%E5%B1%9E%E6%80%A7">实例的 __proto__ 属性</a></li>\n</ul>\n</li>\n<li><a href="#%E5%8E%9F%E7%94%9F%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E7%9A%84%E7%BB%A7%E6%89%BF">原生构造函数的继承</a></li>\n<li><a href="#mixin-%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%AE%9E%E7%8E%B0">Mixin 模式的实现</a></li>\n</ul>\n'}</script><script src="assets/js/app.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-111269443-1"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","UA-111269443-1")</script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script"),t=(e.src="https://hm.baidu.com/hm.js?5eec262881855af3dede6a71234571f6",document.getElementsByTagName("script")[0]);t.parentNode.insertBefore(e,t)}()</script><script>var disqus_config=function(){var t=window.location,e=t.protocol+"//"+t.host+(t.port?":"+t.port:"")+t.pathname;this.page.url=e,this.page.identifier=t.pathname};!function(){var t=document,e=t.createElement("script");e.src="https://wangdoc-es6.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><!--script src="assets/js/social-share.min.js"--><!--/script--><script>var shareDesc="我正在阅读《Class 的继承》，出自网道（WangDoc.com）的《ES6 教程》。",shareOpts={url:window.location.href,source:shareDesc,title:shareDesc,description:"",image:"",sites:["weibo","wechat","qq","qzone","twitter","facebook"],origin:"WangDoc_com",disabled:[],wechatQrcodeTitle:"微信",wechatQrcodeHelper:"扫一下二维码，分享到微信。"};socialShare(".social-share",shareOpts)</script></body></html>

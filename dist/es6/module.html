@@ -1,11 +1,11 @@
-<!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Module 的语法 - ES6 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="Module 的语法"><link rel="apple-touch-icon" sizes="57x57" href="assets/icons/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="assets/icons/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="assets/icons/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="assets/icons/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="assets/icons/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="assets/icons/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="assets/icons/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="assets/icons/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png"><link rel="manifest" href="assets/icons/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="assets/icons/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/es6-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/es6-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8 is-6-widescreen is-offset-1-widescreen"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;ES6 教程</a></li><li class="is-active"><a class="has-text-grey" href="module.html">Module 的语法</a></li></ul></nav><nav class="level level-previous-next is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="class-extends.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> Class 的继承</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="module-loader.html">Module 的加载实现 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content"><h1 class="title">Module 的语法</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><h2 id="概述">概述 <a class="markdownIt-Anchor" href="#概述">#</a></h2><p>历史上，JavaScript 一直没有模块（module）体系，无法将一个大程序拆分成互相依赖的小文件，再用简单的方法拼装起来。其他语言都有这项功能，比如 Ruby 的<code>require</code>、Python 的<code>import</code>，甚至就连 CSS 都有<code>@import</code>，但是 JavaScript 任何这方面的支持都没有，这对开发大型的、复杂的项目形成了巨大障碍。</p><p>在 ES6 之前，社区制定了一些模块加载方案，最主要的有 CommonJS 和 AMD 两种。前者用于服务器，后者用于浏览器。ES6 在语言标准的层面上，实现了模块功能，而且实现得相当简单，完全可以取代 CommonJS 和 AMD 规范，成为浏览器和服务器通用的模块解决方案。</p><p>ES6 模块的设计思想是尽量的静态化，使得编译时就能确定模块的依赖关系，以及输入和输出的变量。CommonJS 和 AMD 模块，都只能在运行时确定这些东西。比如，CommonJS 模块就是对象，输入时必须查找对象属性。</p><pre class="hljs"><code><span class="hljs-comment">// CommonJS模块</span>
+<!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Module 的语法 - ES6 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="Module 的语法"><link rel="apple-touch-icon" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png"><link rel="manifest" href="assets/icons/manifest.json"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/es6-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/es6-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8 is-6-widescreen is-offset-1-widescreen"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;ES6 教程</a></li><li class="is-active"><a class="has-text-grey" href="module.html">Module 的语法</a></li></ul></nav><nav class="level level-previous-next is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="class-extends.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> Class 的继承</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="module-loader.html">Module 的加载实现 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content"><h1 class="title">Module 的语法</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><h2 id="概述">概述 <a class="markdownIt-Anchor" href="#概述">#</a></h2><p>历史上，JavaScript 一直没有模块（module）体系，无法将一个大程序拆分成互相依赖的小文件，再用简单的方法拼装起来。其他语言都有这项功能，比如 Ruby 的<code>require</code>、Python 的<code>import</code>，甚至就连 CSS 都有<code>@import</code>，但是 JavaScript 任何这方面的支持都没有，这对开发大型的、复杂的项目形成了巨大障碍。</p><p>在 ES6 之前，社区制定了一些模块加载方案，最主要的有 CommonJS 和 AMD 两种。前者用于服务器，后者用于浏览器。ES6 在语言标准的层面上，实现了模块功能，而且实现得相当简单，完全可以取代 CommonJS 和 AMD 规范，成为浏览器和服务器通用的模块解决方案。</p><p>ES6 模块的设计思想是尽量的静态化，使得编译时就能确定模块的依赖关系，以及输入和输出的变量。CommonJS 和 AMD 模块，都只能在运行时确定这些东西。比如，CommonJS 模块就是对象，输入时必须查找对象属性。</p><pre class="hljs"><code><span class="hljs-comment">// CommonJS模块</span>
 <span class="hljs-keyword">let</span> { stat, exists, readfile } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;fs&#x27;</span>);
 
 <span class="hljs-comment">// 等同于</span>
 <span class="hljs-keyword">let</span> _fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;fs&#x27;</span>);
-<span class="hljs-keyword">let</span> stat = _fs.stat;
-<span class="hljs-keyword">let</span> exists = _fs.exists;
-<span class="hljs-keyword">let</span> readfile = _fs.readfile;
+<span class="hljs-keyword">let</span> stat = _fs.<span class="hljs-property">stat</span>;
+<span class="hljs-keyword">let</span> exists = _fs.<span class="hljs-property">exists</span>;
+<span class="hljs-keyword">let</span> readfile = _fs.<span class="hljs-property">readfile</span>;
 </code></pre><p>上面代码的实质是整体加载<code>fs</code>模块（即加载<code>fs</code>的所有方法），生成一个对象（<code>_fs</code>），然后再从这个对象上面读取 3 个方法。这种加载称为“运行时加载”，因为只有运行时才能得到这个对象，导致完全没办法在编译时做“静态优化”。</p><p>ES6 模块不是对象，而是通过<code>export</code>命令显式指定输出的代码，再通过<code>import</code>命令输入。</p><pre class="hljs"><code><span class="hljs-comment">// ES6模块</span>
 <span class="hljs-keyword">import</span> { stat, exists, readFile } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;fs&#x27;</span>;
 </code></pre><p>上面代码的实质是从<code>fs</code>模块加载 3 个方法，其他方法不加载。这种加载称为“编译时加载”或者静态加载，即 ES6 可以在编译时就完成模块加载，效率要比 CommonJS 模块的加载方式高。当然，这也导致了没法引用 ES6 模块本身，因为它不是对象。</p><p>由于 ES6 模块是编译时加载，使得静态分析成为可能。有了它，就能进一步拓宽 JavaScript 的语法，比如引入宏（macro）和类型检验（type system）这些只能靠静态分析实现的功能。</p><p>除了静态加载带来的各种好处，ES6 模块还有以下好处。</p><ul><li>不再需要<code>UMD</code>模块格式了，将来服务器和浏览器都会支持 ES6 模块格式。目前，通过各种工具库，其实已经做到了这一点。</li><li>将来浏览器的新 API 就能用模块格式提供，不再必须做成全局变量或者<code>navigator</code>对象的属性。</li><li>不再需要对象作为命名空间（比如<code>Math</code>对象），未来这些功能可以通过模块提供。</li></ul><p>本章介绍 ES6 模块的语法，下一章介绍如何在浏览器和 Node 之中，加载 ES6 模块。</p><h2 id="严格模式">严格模式 <a class="markdownIt-Anchor" href="#严格模式">#</a></h2><p>ES6 的模块自动采用严格模式，不管你有没有在模块头部加上<code>&quot;use strict&quot;;</code>。</p><p>严格模式主要有以下限制。</p><ul><li>变量必须声明后再使用</li><li>函数的参数不能有同名属性，否则报错</li><li>不能使用<code>with</code>语句</li><li>不能对只读属性赋值，否则报错</li><li>不能使用前缀 0 表示八进制数，否则报错</li><li>不能删除不可删除的属性，否则报错</li><li>不能删除变量<code>delete prop</code>，会报错，只能删除属性<code>delete global[prop]</code></li><li><code>eval</code>不会在它的外层作用域引入变量</li><li><code>eval</code>和<code>arguments</code>不能被重新赋值</li><li><code>arguments</code>不会自动反映函数参数的变化</li><li>不能使用<code>arguments.callee</code></li><li>不能使用<code>arguments.caller</code></li><li>禁止<code>this</code>指向全局对象</li><li>不能使用<code>fn.caller</code>和<code>fn.arguments</code>获取函数调用的堆栈</li><li>增加了保留字（比如<code>protected</code>、<code>static</code>和<code>interface</code>）</li></ul><p>上面这些限制，模块都必须遵守。由于严格模式是 ES5 引入的，不属于 ES6，所以请参阅相关 ES5 书籍，本书不再详细介绍了。</p><p>其中，尤其需要注意<code>this</code>的限制。ES6 模块之中，顶层的<code>this</code>指向<code>undefined</code>，即不应该在顶层代码使用<code>this</code>。</p><h2 id="export-命令">export 命令 <a class="markdownIt-Anchor" href="#export-命令">#</a></h2><p>模块功能主要由两个命令构成：<code>export</code>和<code>import</code>。<code>export</code>命令用于规定模块的对外接口，<code>import</code>命令用于输入其他模块提供的功能。</p><p>一个模块就是一个独立的文件。该文件内部的所有变量，外部无法获取。如果你希望外部能够读取模块内部的某个变量，就必须使用<code>export</code>关键字输出该变量。下面是一个 JS 文件，里面使用<code>export</code>命令输出变量。</p><pre class="hljs"><code><span class="hljs-comment">// profile.js</span>
@@ -18,11 +18,11 @@
 <span class="hljs-keyword">var</span> year = <span class="hljs-number">1958</span>;
 
 <span class="hljs-keyword">export</span> { firstName, lastName, year };
-</code></pre><p>上面代码在<code>export</code>命令后面，使用大括号指定所要输出的一组变量。它与前一种写法（直接放置在<code>var</code>语句前）是等价的，但是应该优先考虑使用这种写法。因为这样就可以在脚本尾部，一眼看清楚输出了哪些变量。</p><p><code>export</code>命令除了输出变量，还可以输出函数或类（class）。</p><pre class="hljs"><code><span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">multiply</span>(<span class="hljs-params">x, y</span>) </span>{
+</code></pre><p>上面代码在<code>export</code>命令后面，使用大括号指定所要输出的一组变量。它与前一种写法（直接放置在<code>var</code>语句前）是等价的，但是应该优先考虑使用这种写法。因为这样就可以在脚本尾部，一眼看清楚输出了哪些变量。</p><p><code>export</code>命令除了输出变量，还可以输出函数或类（class）。</p><pre class="hljs"><code><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">multiply</span>(<span class="hljs-params">x, y</span>) {
   <span class="hljs-keyword">return</span> x * y;
 };
-</code></pre><p>上面代码对外输出一个函数<code>multiply</code>。</p><p>通常情况下，<code>export</code>输出的变量就是本来的名字，但是可以使用<code>as</code>关键字重命名。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">v1</span>(<span class="hljs-params"></span>) </span>{ ... }
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">v2</span>(<span class="hljs-params"></span>) </span>{ ... }
+</code></pre><p>上面代码对外输出一个函数<code>multiply</code>。</p><p>通常情况下，<code>export</code>输出的变量就是本来的名字，但是可以使用<code>as</code>关键字重命名。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">v1</span>(<span class="hljs-params"></span>) { ... }
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">v2</span>(<span class="hljs-params"></span>) { ... }
 
 <span class="hljs-keyword">export</span> {
   v1 <span class="hljs-keyword">as</span> streamV1,
@@ -46,26 +46,26 @@
 <span class="hljs-keyword">var</span> n = <span class="hljs-number">1</span>;
 <span class="hljs-keyword">export</span> {n <span class="hljs-keyword">as</span> m};
 </code></pre><p>上面三种写法都是正确的，规定了对外的接口<code>m</code>。其他脚本可以通过这个接口，取到值<code>1</code>。它们的实质是，在接口名与模块内部变量之间，建立了一一对应的关系。</p><p>同样的，<code>function</code>和<code>class</code>的输出，也必须遵守这样的写法。</p><pre class="hljs"><code><span class="hljs-comment">// 报错</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params"></span>) </span>{}
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">f</span>(<span class="hljs-params"></span>) {}
 <span class="hljs-keyword">export</span> f;
 
 <span class="hljs-comment">// 正确</span>
-<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params"></span>) </span>{};
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">f</span>(<span class="hljs-params"></span>) {};
 
 <span class="hljs-comment">// 正确</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params"></span>) </span>{}
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">f</span>(<span class="hljs-params"></span>) {}
 <span class="hljs-keyword">export</span> {f};
 </code></pre><p>目前，export 命令能够对外输出的就是三种接口：函数（Functions）， 类（Classes），var、let、const 声明的变量（Variables）。</p><p>另外，<code>export</code>语句输出的接口，与其对应的值是动态绑定关系，即通过该接口，可以取到模块内部实时的值。</p><pre class="hljs"><code><span class="hljs-keyword">export</span> <span class="hljs-keyword">var</span> foo = <span class="hljs-string">&#x27;bar&#x27;</span>;
 <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> foo = <span class="hljs-string">&#x27;baz&#x27;</span>, <span class="hljs-number">500</span>);
-</code></pre><p>上面代码输出变量<code>foo</code>，值为<code>bar</code>，500 毫秒之后变成<code>baz</code>。</p><p>这一点与 CommonJS 规范完全不同。CommonJS 模块输出的是值的缓存，不存在动态更新，详见下文《Module 的加载实现》一节。</p><p>最后，<code>export</code>命令可以出现在模块的任何位置，只要处于模块顶层就可以。如果处于块级作用域内，就会报错，下一节的<code>import</code>命令也是如此。这是因为处于条件代码块之中，就没法做静态优化了，违背了 ES6 模块的设计初衷。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>{
+</code></pre><p>上面代码输出变量<code>foo</code>，值为<code>bar</code>，500 毫秒之后变成<code>baz</code>。</p><p>这一点与 CommonJS 规范完全不同。CommonJS 模块输出的是值的缓存，不存在动态更新，详见下文《Module 的加载实现》一节。</p><p>最后，<code>export</code>命令可以出现在模块的任何位置，只要处于模块顶层就可以。如果处于块级作用域内，就会报错，下一节的<code>import</code>命令也是如此。这是因为处于条件代码块之中，就没法做静态优化了，违背了 ES6 模块的设计初衷。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">foo</span>(<span class="hljs-params"></span>) {
   <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-string">&#x27;bar&#x27;</span> <span class="hljs-comment">// SyntaxError</span>
 }
-foo()
+<span class="hljs-title function_">foo</span>()
 </code></pre><p>上面代码中，<code>export</code>语句放在函数之中，结果报错。</p><h2 id="import-命令">import 命令 <a class="markdownIt-Anchor" href="#import-命令">#</a></h2><p>使用<code>export</code>命令定义了模块的对外接口以后，其他 JS 文件就可以通过<code>import</code>命令加载这个模块。</p><pre class="hljs"><code><span class="hljs-comment">// main.js</span>
 <span class="hljs-keyword">import</span> { firstName, lastName, year } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./profile.js&#x27;</span>;
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setName</span>(<span class="hljs-params">element</span>) </span>{
-  element.textContent = firstName + <span class="hljs-string">&#x27; &#x27;</span> + lastName;
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">setName</span>(<span class="hljs-params">element</span>) {
+  element.<span class="hljs-property">textContent</span> = firstName + <span class="hljs-string">&#x27; &#x27;</span> + lastName;
 }
 </code></pre><p>上面代码的<code>import</code>命令，用于加载<code>profile.js</code>文件，并从中输入变量。<code>import</code>命令接受一对大括号，里面指定要从其他模块导入的变量名。大括号里面的变量名，必须与被导入模块（<code>profile.js</code>）对外接口的名称相同。</p><p>如果想为输入的变量重新取一个名字，<code>import</code>命令要使用<code>as</code>关键字，将输入的变量重命名。</p><pre class="hljs"><code><span class="hljs-keyword">import</span> { lastName <span class="hljs-keyword">as</span> surname } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./profile.js&#x27;</span>;
 </code></pre><p><code>import</code>命令输入的变量都是只读的，因为它的本质是输入接口。也就是说，不允许在加载模块的脚本里面，改写接口。</p><pre class="hljs"><code><span class="hljs-keyword">import</span> {a} <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./xxx.js&#x27;</span>
@@ -73,17 +73,17 @@ foo()
 a = {}; <span class="hljs-comment">// Syntax Error : &#x27;a&#x27; is read-only;</span>
 </code></pre><p>上面代码中，脚本加载了变量<code>a</code>，对其重新赋值就会报错，因为<code>a</code>是一个只读的接口。但是，如果<code>a</code>是一个对象，改写<code>a</code>的属性是允许的。</p><pre class="hljs"><code><span class="hljs-keyword">import</span> {a} <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./xxx.js&#x27;</span>
 
-a.foo = <span class="hljs-string">&#x27;hello&#x27;</span>; <span class="hljs-comment">// 合法操作</span>
+a.<span class="hljs-property">foo</span> = <span class="hljs-string">&#x27;hello&#x27;</span>; <span class="hljs-comment">// 合法操作</span>
 </code></pre><p>上面代码中，<code>a</code>的属性可以成功改写，并且其他模块也可以读到改写后的值。不过，这种写法很难查错，建议凡是输入的变量，都当作完全只读，不要轻易改变它的属性。</p><p><code>import</code>后面的<code>from</code>指定模块文件的位置，可以是相对路径，也可以是绝对路径。如果不带有路径，只是一个模块名，那么必须有配置文件，告诉 JavaScript 引擎该模块的位置。</p><pre class="hljs"><code><span class="hljs-keyword">import</span> { myMethod } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;util&#x27;</span>;
-</code></pre><p>上面代码中，<code>util</code>是模块文件名，由于不带有路径，必须通过配置，告诉引擎怎么取到这个模块。</p><p>注意，<code>import</code>命令具有提升效果，会提升到整个模块的头部，首先执行。</p><pre class="hljs"><code>foo();
+</code></pre><p>上面代码中，<code>util</code>是模块文件名，由于不带有路径，必须通过配置，告诉引擎怎么取到这个模块。</p><p>注意，<code>import</code>命令具有提升效果，会提升到整个模块的头部，首先执行。</p><pre class="hljs"><code><span class="hljs-title function_">foo</span>();
 
 <span class="hljs-keyword">import</span> { foo } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;my_module&#x27;</span>;
 </code></pre><p>上面的代码不会报错，因为<code>import</code>的执行早于<code>foo</code>的调用。这种行为的本质是，<code>import</code>命令是编译阶段执行的，在代码运行之前。</p><p>由于<code>import</code>是静态执行，所以不能使用表达式和变量，这些只有在运行时才能得到结果的语法结构。</p><pre class="hljs"><code><span class="hljs-comment">// 报错</span>
 <span class="hljs-keyword">import</span> { <span class="hljs-string">&#x27;f&#x27;</span> + <span class="hljs-string">&#x27;oo&#x27;</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;my_module&#x27;</span>;
 
 <span class="hljs-comment">// 报错</span>
-<span class="hljs-keyword">let</span> <span class="hljs-built_in">module</span> = <span class="hljs-string">&#x27;my_module&#x27;</span>;
-<span class="hljs-keyword">import</span> { foo } <span class="hljs-keyword">from</span> <span class="hljs-built_in">module</span>;
+<span class="hljs-keyword">let</span> <span class="hljs-variable language_">module</span> = <span class="hljs-string">&#x27;my_module&#x27;</span>;
+<span class="hljs-keyword">import</span> { foo } <span class="hljs-keyword">from</span> <span class="hljs-variable language_">module</span>;
 
 <span class="hljs-comment">// 报错</span>
 <span class="hljs-keyword">if</span> (x === <span class="hljs-number">1</span>) {
@@ -101,65 +101,65 @@ a.foo = <span class="hljs-string">&#x27;hello&#x27;</span>; <span class="hljs-co
 <span class="hljs-keyword">import</span> { foo, bar } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;my_module&#x27;</span>;
 </code></pre><p>上面代码中，虽然<code>foo</code>和<code>bar</code>在两个语句中加载，但是它们对应的是同一个<code>my_module</code>模块。也就是说，<code>import</code>语句是 Singleton 模式。</p><p>目前阶段，通过 Babel 转码，CommonJS 模块的<code>require</code>命令和 ES6 模块的<code>import</code>命令，可以写在同一个模块里面，但是最好不要这样做。因为<code>import</code>在静态解析阶段执行，所以它是一个模块之中最早执行的。下面的代码可能不会得到预期结果。</p><pre class="hljs"><code><span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;core-js/modules/es6.symbol&#x27;</span>);
 <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;core-js/modules/es6.promise&#x27;</span>);
-<span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;React&#x27;</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;React&#x27;</span>;
 </code></pre><h2 id="模块的整体加载">模块的整体加载 <a class="markdownIt-Anchor" href="#模块的整体加载">#</a></h2><p>除了指定加载某个输出值，还可以使用整体加载，即用星号（<code>*</code>）指定一个对象，所有输出值都加载在这个对象上面。</p><p>下面是一个<code>circle.js</code>文件，它输出两个方法<code>area</code>和<code>circumference</code>。</p><pre class="hljs"><code><span class="hljs-comment">// circle.js</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">area</span>(<span class="hljs-params">radius</span>) </span>{
-  <span class="hljs-keyword">return</span> <span class="hljs-built_in">Math</span>.PI * radius * radius;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">area</span>(<span class="hljs-params">radius</span>) {
+  <span class="hljs-keyword">return</span> <span class="hljs-title class_">Math</span>.<span class="hljs-property">PI</span> * radius * radius;
 }
 
-<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">circumference</span>(<span class="hljs-params">radius</span>) </span>{
-  <span class="hljs-keyword">return</span> <span class="hljs-number">2</span> * <span class="hljs-built_in">Math</span>.PI * radius;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">circumference</span>(<span class="hljs-params">radius</span>) {
+  <span class="hljs-keyword">return</span> <span class="hljs-number">2</span> * <span class="hljs-title class_">Math</span>.<span class="hljs-property">PI</span> * radius;
 }
 </code></pre><p>现在，加载这个模块。</p><pre class="hljs"><code><span class="hljs-comment">// main.js</span>
 
 <span class="hljs-keyword">import</span> { area, circumference } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./circle&#x27;</span>;
 
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;圆面积：&#x27;</span> + area(<span class="hljs-number">4</span>));
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;圆周长：&#x27;</span> + circumference(<span class="hljs-number">14</span>));
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;圆面积：&#x27;</span> + <span class="hljs-title function_">area</span>(<span class="hljs-number">4</span>));
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;圆周长：&#x27;</span> + <span class="hljs-title function_">circumference</span>(<span class="hljs-number">14</span>));
 </code></pre><p>上面写法是逐一指定要加载的方法，整体加载的写法如下。</p><pre class="hljs"><code><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> circle <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./circle&#x27;</span>;
 
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;圆面积：&#x27;</span> + circle.area(<span class="hljs-number">4</span>));
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;圆周长：&#x27;</span> + circle.circumference(<span class="hljs-number">14</span>));
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;圆面积：&#x27;</span> + circle.<span class="hljs-title function_">area</span>(<span class="hljs-number">4</span>));
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;圆周长：&#x27;</span> + circle.<span class="hljs-title function_">circumference</span>(<span class="hljs-number">14</span>));
 </code></pre><p>注意，模块整体加载所在的那个对象（上例是<code>circle</code>），应该是可以静态分析的，所以不允许运行时改变。下面的写法都是不允许的。</p><pre class="hljs"><code><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> circle <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./circle&#x27;</span>;
 
 <span class="hljs-comment">// 下面两行都是不允许的</span>
-circle.foo = <span class="hljs-string">&#x27;hello&#x27;</span>;
-circle.area = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{};
+circle.<span class="hljs-property">foo</span> = <span class="hljs-string">&#x27;hello&#x27;</span>;
+circle.<span class="hljs-property">area</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {};
 </code></pre><h2 id="export-default-命令">export default 命令 <a class="markdownIt-Anchor" href="#export-default-命令">#</a></h2><p>从前面的例子可以看出，使用<code>import</code>命令的时候，用户需要知道所要加载的变量名或函数名，否则无法加载。但是，用户肯定希望快速上手，未必愿意阅读文档，去了解模块有哪些属性和方法。</p><p>为了给用户提供方便，让他们不用阅读文档就能加载模块，就要用到<code>export default</code>命令，为模块指定默认输出。</p><pre class="hljs"><code><span class="hljs-comment">// export-default.js</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;foo&#x27;</span>);
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;foo&#x27;</span>);
 }
 </code></pre><p>上面代码是一个模块文件<code>export-default.js</code>，它的默认输出是一个函数。</p><p>其他模块加载该模块时，<code>import</code>命令可以为该匿名函数指定任意名字。</p><pre class="hljs"><code><span class="hljs-comment">// import-default.js</span>
 <span class="hljs-keyword">import</span> customName <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./export-default&#x27;</span>;
-customName(); <span class="hljs-comment">// &#x27;foo&#x27;</span>
+<span class="hljs-title function_">customName</span>(); <span class="hljs-comment">// &#x27;foo&#x27;</span>
 </code></pre><p>上面代码的<code>import</code>命令，可以用任意名称指向<code>export-default.js</code>输出的方法，这时就不需要知道原模块输出的函数名。需要注意的是，这时<code>import</code>命令后面，不使用大括号。</p><p><code>export default</code>命令用在非匿名函数前，也是可以的。</p><pre class="hljs"><code><span class="hljs-comment">// export-default.js</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;foo&#x27;</span>);
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">foo</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;foo&#x27;</span>);
 }
 
 <span class="hljs-comment">// 或者写成</span>
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;foo&#x27;</span>);
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">foo</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;foo&#x27;</span>);
 }
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> foo;
 </code></pre><p>上面代码中，<code>foo</code>函数的函数名<code>foo</code>，在模块外部是无效的。加载的时候，视同匿名函数加载。</p><p>下面比较一下默认输出和正常输出。</p><pre class="hljs"><code><span class="hljs-comment">// 第一组</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">crc32</span>(<span class="hljs-params"></span>) </span>{ <span class="hljs-comment">// 输出</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">crc32</span>(<span class="hljs-params"></span>) { <span class="hljs-comment">// 输出</span>
   <span class="hljs-comment">// ...</span>
 }
 
 <span class="hljs-keyword">import</span> crc32 <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;crc32&#x27;</span>; <span class="hljs-comment">// 输入</span>
 
 <span class="hljs-comment">// 第二组</span>
-<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">crc32</span>(<span class="hljs-params"></span>) </span>{ <span class="hljs-comment">// 输出</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">crc32</span>(<span class="hljs-params"></span>) { <span class="hljs-comment">// 输出</span>
   <span class="hljs-comment">// ...</span>
 };
 
 <span class="hljs-keyword">import</span> {crc32} <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;crc32&#x27;</span>; <span class="hljs-comment">// 输入</span>
 </code></pre><p>上面代码的两组写法，第一组是使用<code>export default</code>时，对应的<code>import</code>语句不需要使用大括号；第二组是不使用<code>export default</code>时，对应的<code>import</code>语句需要使用大括号。</p><p><code>export default</code>命令用于指定模块的默认输出。显然，一个模块只能有一个默认输出，因此<code>export default</code>命令只能使用一次。所以，import命令后面才不用加大括号，因为只可能唯一对应<code>export default</code>命令。</p><p>本质上，<code>export default</code>就是输出一个叫做<code>default</code>的变量或方法，然后系统允许你为它取任意名字。所以，下面的写法是有效的。</p><pre class="hljs"><code><span class="hljs-comment">// modules.js</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">add</span>(<span class="hljs-params">x, y</span>) </span>{
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">add</span>(<span class="hljs-params">x, y</span>) {
   <span class="hljs-keyword">return</span> x * y;
 }
 <span class="hljs-keyword">export</span> {add <span class="hljs-keyword">as</span> <span class="hljs-keyword">default</span>};
@@ -186,21 +186,21 @@ customName(); <span class="hljs-comment">// &#x27;foo&#x27;</span>
 <span class="hljs-keyword">export</span> <span class="hljs-number">42</span>;
 </code></pre><p>上面代码中，后一句报错是因为没有指定对外的接口，而前一句指定对外接口为<code>default</code>。</p><p>有了<code>export default</code>命令，输入模块时就非常直观了，以输入 lodash 模块为例。</p><pre class="hljs"><code><span class="hljs-keyword">import</span> _ <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;lodash&#x27;</span>;
 </code></pre><p>如果想在一条<code>import</code>语句中，同时输入默认方法和其他接口，可以写成下面这样。</p><pre class="hljs"><code><span class="hljs-keyword">import</span> _, { each, forEach } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;lodash&#x27;</span>;
-</code></pre><p>对应上面代码的<code>export</code>语句如下。</p><pre class="hljs"><code><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">obj</span>) </span>{
+</code></pre><p>对应上面代码的<code>export</code>语句如下。</p><pre class="hljs"><code><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> (<span class="hljs-params">obj</span>) {
   <span class="hljs-comment">// ···</span>
 }
 
-<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">each</span>(<span class="hljs-params">obj, iterator, context</span>) </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">each</span>(<span class="hljs-params">obj, iterator, context</span>) {
   <span class="hljs-comment">// ···</span>
 }
 
 <span class="hljs-keyword">export</span> { each <span class="hljs-keyword">as</span> forEach };
 </code></pre><p>上面代码的最后一行的意思是，暴露出<code>forEach</code>接口，默认指向<code>each</code>接口，即<code>forEach</code>和<code>each</code>指向同一个方法。</p><p><code>export default</code>也可以用来输出类。</p><pre class="hljs"><code><span class="hljs-comment">// MyClass.js</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> </span>{ ... }
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">class</span> { ... }
 
 <span class="hljs-comment">// main.js</span>
-<span class="hljs-keyword">import</span> MyClass <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;MyClass&#x27;</span>;
-<span class="hljs-keyword">let</span> o = <span class="hljs-keyword">new</span> MyClass();
+<span class="hljs-keyword">import</span> <span class="hljs-title class_">MyClass</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;MyClass&#x27;</span>;
+<span class="hljs-keyword">let</span> o = <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyClass</span>();
 </code></pre><h2 id="export-与-import-的复合写法">export 与 import 的复合写法 <a class="markdownIt-Anchor" href="#export-与-import-的复合写法">#</a></h2><p>如果在一个模块之中，先输入后输出同一个模块，<code>import</code>语句可以与<code>export</code>语句写在一起。</p><pre class="hljs"><code><span class="hljs-keyword">export</span> { foo, bar } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;my_module&#x27;</span>;
 
 <span class="hljs-comment">// 可以简单理解为</span>
@@ -228,8 +228,8 @@ customName(); <span class="hljs-comment">// &#x27;foo&#x27;</span>
 
 <span class="hljs-keyword">export</span> * <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;circle&#x27;</span>;
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">var</span> e = <span class="hljs-number">2.71828182846</span>;
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">x</span>) </span>{
-  <span class="hljs-keyword">return</span> <span class="hljs-built_in">Math</span>.exp(x);
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span>(<span class="hljs-params">x</span>) {
+  <span class="hljs-keyword">return</span> <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">exp</span>(x);
 }
 </code></pre><p>上面代码中的<code>export *</code>，表示再输出<code>circle</code>模块的所有属性和方法。注意，<code>export *</code>命令会忽略<code>circle</code>模块的<code>default</code>方法。然后，上面代码又输出了自定义的<code>e</code>变量和默认方法。</p><p>这时，也可以将<code>circle</code>的属性或方法，改名后再输出。</p><pre class="hljs"><code><span class="hljs-comment">// circleplus.js</span>
 
@@ -238,7 +238,7 @@ customName(); <span class="hljs-comment">// &#x27;foo&#x27;</span>
 
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> math <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;circleplus&#x27;</span>;
 <span class="hljs-keyword">import</span> exp <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;circleplus&#x27;</span>;
-<span class="hljs-built_in">console</span>.log(exp(math.e));
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">exp</span>(math.<span class="hljs-property">e</span>));
 </code></pre><p>上面代码中的<code>import exp</code>表示，将<code>circleplus</code>模块的默认方法加载为<code>exp</code>方法。</p><h2 id="跨模块常量">跨模块常量 <a class="markdownIt-Anchor" href="#跨模块常量">#</a></h2><p>本书介绍<code>const</code>命令的时候说过，<code>const</code>声明的常量只在当前代码块有效。如果想设置跨模块的常量（即跨多个文件），或者说一个值要被多个模块共享，可以采用下面的写法。</p><pre class="hljs"><code><span class="hljs-comment">// constants.js 模块</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> A = <span class="hljs-number">1</span>;
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> B = <span class="hljs-number">3</span>;
@@ -246,13 +246,13 @@ customName(); <span class="hljs-comment">// &#x27;foo&#x27;</span>
 
 <span class="hljs-comment">// test1.js 模块</span>
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> constants <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./constants&#x27;</span>;
-<span class="hljs-built_in">console</span>.log(constants.A); <span class="hljs-comment">// 1</span>
-<span class="hljs-built_in">console</span>.log(constants.B); <span class="hljs-comment">// 3</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(constants.<span class="hljs-property">A</span>); <span class="hljs-comment">// 1</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(constants.<span class="hljs-property">B</span>); <span class="hljs-comment">// 3</span>
 
 <span class="hljs-comment">// test2.js 模块</span>
 <span class="hljs-keyword">import</span> {A, B} <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./constants&#x27;</span>;
-<span class="hljs-built_in">console</span>.log(A); <span class="hljs-comment">// 1</span>
-<span class="hljs-built_in">console</span>.log(B); <span class="hljs-comment">// 3</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(A); <span class="hljs-comment">// 1</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(B); <span class="hljs-comment">// 3</span>
 </code></pre><p>如果要使用的常量非常多，可以建一个专门的<code>constants</code>目录，将各种常量写在不同的文件里面，保存在该目录下。</p><pre class="hljs"><code><span class="hljs-comment">// constants/db.js</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> db = {
   <span class="hljs-attr">url</span>: <span class="hljs-string">&#x27;http://my.couchdbserver.local:5984&#x27;</span>,
@@ -269,85 +269,85 @@ customName(); <span class="hljs-comment">// &#x27;foo&#x27;</span>
 <span class="hljs-keyword">import</span> {db, users} <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./constants/index&#x27;</span>;
 </code></pre><h2 id="import">import() <a class="markdownIt-Anchor" href="#import">#</a></h2><h3 id="简介">简介 <a class="markdownIt-Anchor" href="#简介">#</a></h3><p>前面介绍过，<code>import</code>命令会被 JavaScript 引擎静态分析，先于模块内的其他语句执行（<code>import</code>命令叫做“连接” binding 其实更合适）。所以，下面的代码会报错。</p><pre class="hljs"><code><span class="hljs-comment">// 报错</span>
 <span class="hljs-keyword">if</span> (x === <span class="hljs-number">2</span>) {
-  <span class="hljs-keyword">import</span> MyModual <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./myModual&#x27;</span>;
+  <span class="hljs-keyword">import</span> <span class="hljs-title class_">MyModual</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./myModual&#x27;</span>;
 }
 </code></pre><p>上面代码中，引擎处理<code>import</code>语句是在编译时，这时不会去分析或执行<code>if</code>语句，所以<code>import</code>语句放在<code>if</code>代码块之中毫无意义，因此会报句法错误，而不是执行时错误。也就是说，<code>import</code>和<code>export</code>命令只能在模块的顶层，不能在代码块之中（比如，在<code>if</code>代码块之中，或在函数之中）。</p><p>这样的设计，固然有利于编译器提高效率，但也导致无法在运行时加载模块。在语法上，条件加载就不可能实现。如果<code>import</code>命令要取代 Node 的<code>require</code>方法，这就形成了一个障碍。因为<code>require</code>是运行时加载模块，<code>import</code>命令无法取代<code>require</code>的动态加载功能。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> path = <span class="hljs-string">&#x27;./&#x27;</span> + fileName;
 <span class="hljs-keyword">const</span> myModual = <span class="hljs-built_in">require</span>(path);
 </code></pre><p>上面的语句就是动态加载，<code>require</code>到底加载哪一个模块，只有运行时才知道。<code>import</code>命令做不到这一点。</p><p><a href="https://github.com/tc39/proposal-dynamic-import" target="_blank" rel="noopener">ES2020提案</a> 引入<code>import()</code>函数，支持动态加载模块。</p><pre class="hljs"><code><span class="hljs-keyword">import</span>(specifier)
-</code></pre><p>上面代码中，<code>import</code>函数的参数<code>specifier</code>，指定所要加载的模块的位置。<code>import</code>命令能够接受什么参数，<code>import()</code>函数就能接受什么参数，两者区别主要是后者为动态加载。</p><p><code>import()</code>返回一个 Promise 对象。下面是一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> main = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;main&#x27;</span>);
+</code></pre><p>上面代码中，<code>import</code>函数的参数<code>specifier</code>，指定所要加载的模块的位置。<code>import</code>命令能够接受什么参数，<code>import()</code>函数就能接受什么参数，两者区别主要是后者为动态加载。</p><p><code>import()</code>返回一个 Promise 对象。下面是一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> main = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&#x27;main&#x27;</span>);
 
 <span class="hljs-keyword">import</span>(<span class="hljs-string">`./section-modules/<span class="hljs-subst">${someVariable}</span>.js`</span>)
-  .then(<span class="hljs-function"><span class="hljs-params">module</span> =&gt;</span> {
-    <span class="hljs-built_in">module</span>.loadPageInto(main);
+  .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">module</span> =&gt;</span> {
+    <span class="hljs-variable language_">module</span>.<span class="hljs-title function_">loadPageInto</span>(main);
   })
-  .catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> {
-    main.textContent = err.message;
+  .<span class="hljs-keyword">catch</span>(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> {
+    main.<span class="hljs-property">textContent</span> = err.<span class="hljs-property">message</span>;
   });
-</code></pre><p><code>import()</code>函数可以用在任何地方，不仅仅是模块，非模块的脚本也可以使用。它是运行时执行，也就是说，什么时候运行到这一句，就会加载指定的模块。另外，<code>import()</code>函数与所加载的模块没有静态连接关系，这点也是与<code>import</code>语句不相同。<code>import()</code>类似于 Node.js 的<code>require()</code>方法，区别主要是前者是异步加载，后者是同步加载。</p><p>由于<code>import()</code>返回 Promise<br>对象，所以需要使用<code>then()</code>方法指定处理函数。考虑到代码的清晰，更推荐使用<code>await</code>命令。</p><pre class="hljs"><code><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">renderWidget</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> container = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;widget&#x27;</span>);
+</code></pre><p><code>import()</code>函数可以用在任何地方，不仅仅是模块，非模块的脚本也可以使用。它是运行时执行，也就是说，什么时候运行到这一句，就会加载指定的模块。另外，<code>import()</code>函数与所加载的模块没有静态连接关系，这点也是与<code>import</code>语句不相同。<code>import()</code>类似于 Node.js 的<code>require()</code>方法，区别主要是前者是异步加载，后者是同步加载。</p><p>由于<code>import()</code>返回 Promise<br>对象，所以需要使用<code>then()</code>方法指定处理函数。考虑到代码的清晰，更推荐使用<code>await</code>命令。</p><pre class="hljs"><code><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">renderWidget</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">const</span> container = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;widget&#x27;</span>);
   <span class="hljs-keyword">if</span> (container !== <span class="hljs-literal">null</span>) {
     <span class="hljs-comment">// 等同于</span>
     <span class="hljs-comment">// import(&quot;./widget&quot;).then(widget =&gt; {</span>
     <span class="hljs-comment">//   widget.render(container);</span>
     <span class="hljs-comment">// });</span>
     <span class="hljs-keyword">const</span> widget = <span class="hljs-keyword">await</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;./widget.js&#x27;</span>);
-    widget.render(container);
+    widget.<span class="hljs-title function_">render</span>(container);
   }
 }
 
-renderWidget();
-</code></pre><p>上面示例中，<code>await</code>命令后面就是使用<code>import()</code>，对比<code>then()</code>的写法明显更简洁易读。</p><h3 id="适用场合">适用场合 <a class="markdownIt-Anchor" href="#适用场合">#</a></h3><p>下面是<code>import()</code>的一些适用场合。</p><p>（1）按需加载。</p><p><code>import()</code>可以在需要的时候，再加载某个模块。</p><pre class="hljs"><code>button.addEventListener(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
+<span class="hljs-title function_">renderWidget</span>();
+</code></pre><p>上面示例中，<code>await</code>命令后面就是使用<code>import()</code>，对比<code>then()</code>的写法明显更简洁易读。</p><h3 id="适用场合">适用场合 <a class="markdownIt-Anchor" href="#适用场合">#</a></h3><p>下面是<code>import()</code>的一些适用场合。</p><p>（1）按需加载。</p><p><code>import()</code>可以在需要的时候，再加载某个模块。</p><pre class="hljs"><code>button.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
   <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;./dialogBox.js&#x27;</span>)
-  .then(<span class="hljs-function"><span class="hljs-params">dialogBox</span> =&gt;</span> {
-    dialogBox.open();
+  .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">dialogBox</span> =&gt;</span> {
+    dialogBox.<span class="hljs-title function_">open</span>();
   })
-  .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+  .<span class="hljs-keyword">catch</span>(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
     <span class="hljs-comment">/* Error handling */</span>
   })
 });
 </code></pre><p>上面代码中，<code>import()</code>方法放在<code>click</code>事件的监听函数之中，只有用户点击了按钮，才会加载这个模块。</p><p>（2）条件加载</p><p><code>import()</code>可以放在<code>if</code>代码块，根据不同的情况，加载不同的模块。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> (condition) {
-  <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;moduleA&#x27;</span>).then(...);
+  <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;moduleA&#x27;</span>).<span class="hljs-title function_">then</span>(...);
 } <span class="hljs-keyword">else</span> {
-  <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;moduleB&#x27;</span>).then(...);
+  <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;moduleB&#x27;</span>).<span class="hljs-title function_">then</span>(...);
 }
-</code></pre><p>上面代码中，如果满足条件，就加载模块 A，否则加载模块 B。</p><p>（3）动态的模块路径</p><p><code>import()</code>允许模块路径动态生成。</p><pre class="hljs"><code><span class="hljs-keyword">import</span>(f())
-.then(...);
+</code></pre><p>上面代码中，如果满足条件，就加载模块 A，否则加载模块 B。</p><p>（3）动态的模块路径</p><p><code>import()</code>允许模块路径动态生成。</p><pre class="hljs"><code><span class="hljs-keyword">import</span>(<span class="hljs-title function_">f</span>())
+.<span class="hljs-title function_">then</span>(...);
 </code></pre><p>上面代码中，根据函数<code>f</code>的返回结果，加载不同的模块。</p><h3 id="注意点">注意点 <a class="markdownIt-Anchor" href="#注意点">#</a></h3><p><code>import()</code>加载模块成功以后，这个模块会作为一个对象，当作<code>then</code>方法的参数。因此，可以使用对象解构赋值的语法，获取输出接口。</p><pre class="hljs"><code><span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;./myModule.js&#x27;</span>)
-.then(<span class="hljs-function">(<span class="hljs-params">{export1, export2}</span>) =&gt;</span> {
+.<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">{export1, export2}</span>) =&gt;</span> {
   <span class="hljs-comment">// ...·</span>
 });
 </code></pre><p>上面代码中，<code>export1</code>和<code>export2</code>都是<code>myModule.js</code>的输出接口，可以解构获得。</p><p>如果模块有<code>default</code>输出接口，可以用参数直接获得。</p><pre class="hljs"><code><span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;./myModule.js&#x27;</span>)
-.then(<span class="hljs-function"><span class="hljs-params">myModule</span> =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(myModule.default);
+.<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">myModule</span> =&gt;</span> {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(myModule.<span class="hljs-property">default</span>);
 });
 </code></pre><p>上面的代码也可以使用具名输入的形式。</p><pre class="hljs"><code><span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;./myModule.js&#x27;</span>)
-.then(<span class="hljs-function">(<span class="hljs-params">{<span class="hljs-keyword">default</span>: theDefault}</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(theDefault);
+.<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">{<span class="hljs-keyword">default</span>: theDefault}</span>) =&gt;</span> {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(theDefault);
 });
-</code></pre><p>如果想同时加载多个模块，可以采用下面的写法。</p><pre class="hljs"><code><span class="hljs-built_in">Promise</span>.all([
+</code></pre><p>如果想同时加载多个模块，可以采用下面的写法。</p><pre class="hljs"><code><span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">all</span>([
   <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;./module1.js&#x27;</span>),
   <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;./module2.js&#x27;</span>),
   <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;./module3.js&#x27;</span>),
 ])
-.then(<span class="hljs-function">(<span class="hljs-params">[module1, module2, module3]</span>) =&gt;</span> {
+.<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">[module1, module2, module3]</span>) =&gt;</span> {
    ···
 });
-</code></pre><p><code>import()</code>也可以用在 async 函数之中。</p><pre class="hljs"><code><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">main</span>(<span class="hljs-params"></span>) </span>{
+</code></pre><p><code>import()</code>也可以用在 async 函数之中。</p><pre class="hljs"><code><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">main</span>(<span class="hljs-params"></span>) {
   <span class="hljs-keyword">const</span> myModule = <span class="hljs-keyword">await</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;./myModule.js&#x27;</span>);
   <span class="hljs-keyword">const</span> {export1, export2} = <span class="hljs-keyword">await</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;./myModule.js&#x27;</span>);
   <span class="hljs-keyword">const</span> [module1, module2, module3] =
-    <span class="hljs-keyword">await</span> <span class="hljs-built_in">Promise</span>.all([
+    <span class="hljs-keyword">await</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">all</span>([
       <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;./module1.js&#x27;</span>),
       <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;./module2.js&#x27;</span>),
       <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;./module3.js&#x27;</span>),
     ]);
 }
-main();
-</code></pre><h2 id="importmeta">import.meta <a class="markdownIt-Anchor" href="#importmeta">#</a></h2><p>开发者使用一个模块时，有时需要知道模板本身的一些信息（比如模块的路径）。<a href="https://github.com/tc39/proposal-import-meta" target="_blank" rel="noopener">ES2020</a> 为 import 命令添加了一个元属性<code>import.meta</code>，返回当前模块的元信息。</p><p><code>import.meta</code>只能在模块内部使用，如果在模块外部使用会报错。</p><p>这个属性返回一个对象，该对象的各种属性就是当前运行的脚本的元信息。具体包含哪些属性，标准没有规定，由各个运行环境自行决定。一般来说，<code>import.meta</code>至少会有下面两个属性。</p><p><strong>（1）import.meta.url</strong></p><p><code>import.meta.url</code>返回当前模块的 URL 路径。举例来说，当前模块主文件的路径是<code>https://foo.com/main.js</code>，<code>import.meta.url</code>就返回这个路径。如果模块里面还有一个数据文件<code>data.txt</code>，那么就可以用下面的代码，获取这个数据文件的路径。</p><pre class="hljs"><code><span class="hljs-keyword">new</span> URL(<span class="hljs-string">&#x27;data.txt&#x27;</span>, <span class="hljs-keyword">import</span>.meta.url)
+<span class="hljs-title function_">main</span>();
+</code></pre><h2 id="importmeta">import.meta <a class="markdownIt-Anchor" href="#importmeta">#</a></h2><p>开发者使用一个模块时，有时需要知道模板本身的一些信息（比如模块的路径）。<a href="https://github.com/tc39/proposal-import-meta" target="_blank" rel="noopener">ES2020</a> 为 import 命令添加了一个元属性<code>import.meta</code>，返回当前模块的元信息。</p><p><code>import.meta</code>只能在模块内部使用，如果在模块外部使用会报错。</p><p>这个属性返回一个对象，该对象的各种属性就是当前运行的脚本的元信息。具体包含哪些属性，标准没有规定，由各个运行环境自行决定。一般来说，<code>import.meta</code>至少会有下面两个属性。</p><p><strong>（1）import.meta.url</strong></p><p><code>import.meta.url</code>返回当前模块的 URL 路径。举例来说，当前模块主文件的路径是<code>https://foo.com/main.js</code>，<code>import.meta.url</code>就返回这个路径。如果模块里面还有一个数据文件<code>data.txt</code>，那么就可以用下面的代码，获取这个数据文件的路径。</p><pre class="hljs"><code><span class="hljs-keyword">new</span> <span class="hljs-title function_">URL</span>(<span class="hljs-string">&#x27;data.txt&#x27;</span>, <span class="hljs-keyword">import</span>.<span class="hljs-property">meta</span>.<span class="hljs-property">url</span>)
 </code></pre><p>注意，Node.js 环境中，<code>import.meta.url</code>返回的总是本地路径，即<code>file:URL</code>协议的字符串，比如<code>file:///home/user/foo.js</code>。</p><p><strong>（2）import.meta.scriptElement</strong></p><p><code>import.meta.scriptElement</code>是浏览器特有的元属性，返回加载模块的那个<code>&lt;script&gt;</code>元素，相当于<code>document.currentScript</code>属性。</p><pre class="hljs"><code><span class="hljs-comment">// HTML 代码为</span>
 <span class="hljs-comment">// &lt;script type=&quot;module&quot; src=&quot;my-module.js&quot; data-foo=&quot;abc&quot;&gt;&lt;/script&gt;</span>
 
 <span class="hljs-comment">// my-module.js 内部执行下面的代码</span>
-<span class="hljs-keyword">import</span>.meta.scriptElement.dataset.foo
+<span class="hljs-keyword">import</span>.<span class="hljs-property">meta</span>.<span class="hljs-property">scriptElement</span>.<span class="hljs-property">dataset</span>.<span class="hljs-property">foo</span>
 <span class="hljs-comment">// &quot;abc&quot;</span>
 </code></pre></article><nav class="level level-previous-next is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="class-extends.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> Class 的继承</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="module-loader.html">Module 的加载实现 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><div class="page-info"><p>本教程采用<a href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh" target="_blank">知识共享 署名-相同方式共享 3.0协议</a>。</p><p>分享本文 <span class="social-share"></span></p></div></div><div class="column is-3 is-offset-1"><nav class="panel panel-menu"><p class="panel-heading"><i class="fa fa-book" aria-hidden="true"></i> ES6 教程</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="intro.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">ECMAScript 6 简介</span></a></li><li><a href="let.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">let 和 const 命令</span></a></li><li><a href="destructuring.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">变量的解构赋值</span></a></li><li><a href="string.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">字符串的扩展</span></a></li><li><a href="string-methods.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">字符串的新增方法</span></a></li><li><a href="regex.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">正则的扩展</span></a></li><li><a href="number.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数值的扩展</span></a></li><li><a href="function.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">函数的扩展</span></a></li><li><a href="array.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数组的扩展</span></a></li><li><a href="object.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">对象的扩展</span></a></li><li><a href="object-methods.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">对象的新增方法</span></a></li><li><a href="operator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">运算符的扩展</span></a></li><li><a href="symbol.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Symbol</span></a></li><li><a href="set-map.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Set 和 Map 数据结构</span></a></li><li><a href="proxy.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Proxy</span></a></li><li><a href="reflect.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Reflect</span></a></li><li><a href="promise.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Promise 对象</span></a></li><li><a href="iterator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Iterator 和 for...of 循环</span></a></li><li><a href="generator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Generator 函数的语法</span></a></li><li><a href="generator-async.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Generator 函数的异步应用</span></a></li><li><a href="async.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">async 函数</span></a></li><li><a href="class.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Class 的基本语法</span></a></li><li><a href="class-extends.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Class 的继承</span></a></li><li><a href="module.html" class="is-active"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Module 的语法</span></a></li><li><a href="module-loader.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Module 的加载实现</span></a></li><li><a href="style.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">编程风格</span></a></li><li><a href="spec.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">读懂规格</span></a></li><li><a href="async-iterator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">异步遍历器</span></a></li><li><a href="arraybuffer.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">ArrayBuffer</span></a></li><li><a href="proposals.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">最新提案</span></a></li><li><a href="decorator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Decorator</span></a></li><li><a href="reference.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">参考链接</span></a></li></ul></aside></div></nav><nav class="panel panel-info"><p class="panel-heading"><i class="fa fa-link" aria-hidden="true"></i> 链接</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="https://raw.githubusercontent.com/wangdoc/es6-tutorial/master/docs/module.md" target="_blank"><span class="icon"></span><i class="fa fa-code" aria-hidden="true" style="width: 14px;"></i>&nbsp;本文源码</a></li><li><a href="https://github.com/wangdoc/es6-tutorial" target="_blank"><span class="icon"></span><i class="fa fa-hdd-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;代码仓库</a></li><li><a href="https://github.com/wangdoc/es6-tutorial/issues" target="_blank"><span class="icon"></span><i class="fa fa-flag-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;反馈</a></li></ul></aside></div></nav></div></div><div class="columns"><div class="column is-8 is-6-widescreen is-offset-1-widescreen"><div id="disqus_thread"></div></div></div></div></section><footer class="footer"><div class="container"><div class="content has-text-centered"><p>联系：contact@wangdoc.com</p></div></div></footer><script>var LOPPO={current_path:"module.md",relative_root_path:"",article_toc:'<ul class="markdownIt-TOC">\n<li><a href="#%E6%A6%82%E8%BF%B0">概述</a></li>\n<li><a href="#%E4%B8%A5%E6%A0%BC%E6%A8%A1%E5%BC%8F">严格模式</a></li>\n<li><a href="#export-%E5%91%BD%E4%BB%A4">export 命令</a></li>\n<li><a href="#import-%E5%91%BD%E4%BB%A4">import 命令</a></li>\n<li><a href="#%E6%A8%A1%E5%9D%97%E7%9A%84%E6%95%B4%E4%BD%93%E5%8A%A0%E8%BD%BD">模块的整体加载</a></li>\n<li><a href="#export-default-%E5%91%BD%E4%BB%A4">export default 命令</a></li>\n<li><a href="#export-%E4%B8%8E-import-%E7%9A%84%E5%A4%8D%E5%90%88%E5%86%99%E6%B3%95">export 与 import 的复合写法</a></li>\n<li><a href="#%E6%A8%A1%E5%9D%97%E7%9A%84%E7%BB%A7%E6%89%BF">模块的继承</a></li>\n<li><a href="#%E8%B7%A8%E6%A8%A1%E5%9D%97%E5%B8%B8%E9%87%8F">跨模块常量</a></li>\n<li><a href="#import">import()</a>\n<ul>\n<li><a href="#%E7%AE%80%E4%BB%8B">简介</a></li>\n<li><a href="#%E9%80%82%E7%94%A8%E5%9C%BA%E5%90%88">适用场合</a></li>\n<li><a href="#%E6%B3%A8%E6%84%8F%E7%82%B9">注意点</a></li>\n</ul>\n</li>\n<li><a href="#importmeta">import.meta</a></li>\n</ul>\n'}</script><script src="assets/js/app.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-111269443-1"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","UA-111269443-1")</script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script"),t=(e.src="https://hm.baidu.com/hm.js?5eec262881855af3dede6a71234571f6",document.getElementsByTagName("script")[0]);t.parentNode.insertBefore(e,t)}()</script><script>var disqus_config=function(){var t=window.location,e=t.protocol+"//"+t.host+(t.port?":"+t.port:"")+t.pathname;this.page.url=e,this.page.identifier=t.pathname};!function(){var t=document,e=t.createElement("script");e.src="https://wangdoc-es6.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><!--script src="assets/js/social-share.min.js"--><!--/script--><script>var shareDesc="我正在阅读《Module 的语法》，出自网道（WangDoc.com）的《ES6 教程》。",shareOpts={url:window.location.href,source:shareDesc,title:shareDesc,description:"",image:"",sites:["weibo","wechat","qq","qzone","twitter","facebook"],origin:"WangDoc_com",disabled:[],wechatQrcodeTitle:"微信",wechatQrcodeHelper:"扫一下二维码，分享到微信。"};socialShare(".social-share",shareOpts)</script></body></html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>运算符的扩展 - ES6 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="运算符的扩展"><link rel="apple-touch-icon" sizes="57x57" href="assets/icons/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="assets/icons/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="assets/icons/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="assets/icons/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="assets/icons/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="assets/icons/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="assets/icons/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="assets/icons/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png"><link rel="manifest" href="assets/icons/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="assets/icons/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/es6-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/es6-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8 is-6-widescreen is-offset-1-widescreen"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;ES6 教程</a></li><li class="is-active"><a class="has-text-grey" href="operator.html">运算符的扩展</a></li></ul></nav><nav class="level level-previous-next is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="object-methods.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> 对象的新增方法</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="symbol.html">Symbol <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content"><h1 class="title">运算符的扩展</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><p>本章介绍 ES6 后续标准添加的一些运算符。</p><h2 id="指数运算符">指数运算符 <a class="markdownIt-Anchor" href="#指数运算符">#</a></h2><p>ES2016 新增了一个指数运算符（<code>**</code>）。</p><pre class="hljs"><code><span class="hljs-number">2</span> ** <span class="hljs-number">2</span> <span class="hljs-comment">// 4</span>
+<!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>运算符的扩展 - ES6 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="运算符的扩展"><link rel="apple-touch-icon" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png"><link rel="manifest" href="assets/icons/manifest.json"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/es6-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/es6-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8 is-6-widescreen is-offset-1-widescreen"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;ES6 教程</a></li><li class="is-active"><a class="has-text-grey" href="operator.html">运算符的扩展</a></li></ul></nav><nav class="level level-previous-next is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="object-methods.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> 对象的新增方法</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="symbol.html">Symbol <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content"><h1 class="title">运算符的扩展</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><p>本章介绍 ES6 后续标准添加的一些运算符。</p><h2 id="指数运算符">指数运算符 <a class="markdownIt-Anchor" href="#指数运算符">#</a></h2><p>ES2016 新增了一个指数运算符（<code>**</code>）。</p><pre class="hljs"><code><span class="hljs-number">2</span> ** <span class="hljs-number">2</span> <span class="hljs-comment">// 4</span>
 <span class="hljs-number">2</span> ** <span class="hljs-number">3</span> <span class="hljs-comment">// 8</span>
 </code></pre><p>这个运算符的一个特点是右结合，而不是常见的左结合。多个指数运算符连用时，是从最右边开始计算的。</p><pre class="hljs"><code><span class="hljs-comment">// 相当于 2 ** (3 ** 2)</span>
 <span class="hljs-number">2</span> ** <span class="hljs-number">3</span> ** <span class="hljs-number">2</span>
@@ -11,70 +11,70 @@ a **= <span class="hljs-number">2</span>;
 b **= <span class="hljs-number">3</span>;
 <span class="hljs-comment">// 等同于 b = b * b * b;</span>
 </code></pre><h2 id="链判断运算符">链判断运算符 <a class="markdownIt-Anchor" href="#链判断运算符">#</a></h2><p>编程实务中，如果读取对象内部的某个属性，往往需要判断一下，属性的上层对象是否存在。比如，读取<code>message.body.user.firstName</code>这个属性，安全的写法是写成下面这样。</p><pre class="hljs"><code><span class="hljs-comment">// 错误的写法</span>
-<span class="hljs-keyword">const</span>  firstName = message.body.user.firstName || <span class="hljs-string">&#x27;default&#x27;</span>;
+<span class="hljs-keyword">const</span>  firstName = message.<span class="hljs-property">body</span>.<span class="hljs-property">user</span>.<span class="hljs-property">firstName</span> || <span class="hljs-string">&#x27;default&#x27;</span>;
 
 <span class="hljs-comment">// 正确的写法</span>
 <span class="hljs-keyword">const</span> firstName = (message
-  &amp;&amp; message.body
-  &amp;&amp; message.body.user
-  &amp;&amp; message.body.user.firstName) || <span class="hljs-string">&#x27;default&#x27;</span>;
-</code></pre><p>上面例子中，<code>firstName</code>属性在对象的第四层，所以需要判断四次，每一层是否有值。</p><p>三元运算符<code>?:</code>也常用于判断对象是否存在。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> fooInput = myForm.querySelector(<span class="hljs-string">&#x27;input[name=foo]&#x27;</span>)
-<span class="hljs-keyword">const</span> fooValue = fooInput ? fooInput.value : <span class="hljs-literal">undefined</span>
-</code></pre><p>上面例子中，必须先判断<code>fooInput</code>是否存在，才能读取<code>fooInput.value</code>。</p><p>这样的层层判断非常麻烦，因此 <a href="https://github.com/tc39/proposal-optional-chaining" target="_blank" rel="noopener">ES2020</a> 引入了“链判断运算符”（optional chaining operator）<code>?.</code>，简化上面的写法。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> firstName = message?.body?.user?.firstName || <span class="hljs-string">&#x27;default&#x27;</span>;
-<span class="hljs-keyword">const</span> fooValue = myForm.querySelector(<span class="hljs-string">&#x27;input[name=foo]&#x27;</span>)?.value
-</code></pre><p>上面代码使用了<code>?.</code>运算符，直接在链式调用的时候判断，左侧的对象是否为<code>null</code>或<code>undefined</code>。如果是的，就不再往下运算，而是返回<code>undefined</code>。</p><p>下面是判断对象方法是否存在，如果存在就立即执行的例子。</p><pre class="hljs"><code>iterator.return?.()
-</code></pre><p>上面代码中，<code>iterator.return</code>如果有定义，就会调用该方法，否则<code>iterator.return</code>直接返回<code>undefined</code>，不再执行<code>?.</code>后面的部分。</p><p>对于那些可能没有实现的方法，这个运算符尤其有用。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> (myForm.checkValidity?.() === <span class="hljs-literal">false</span>) {
+  &amp;&amp; message.<span class="hljs-property">body</span>
+  &amp;&amp; message.<span class="hljs-property">body</span>.<span class="hljs-property">user</span>
+  &amp;&amp; message.<span class="hljs-property">body</span>.<span class="hljs-property">user</span>.<span class="hljs-property">firstName</span>) || <span class="hljs-string">&#x27;default&#x27;</span>;
+</code></pre><p>上面例子中，<code>firstName</code>属性在对象的第四层，所以需要判断四次，每一层是否有值。</p><p>三元运算符<code>?:</code>也常用于判断对象是否存在。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> fooInput = myForm.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&#x27;input[name=foo]&#x27;</span>)
+<span class="hljs-keyword">const</span> fooValue = fooInput ? fooInput.<span class="hljs-property">value</span> : <span class="hljs-literal">undefined</span>
+</code></pre><p>上面例子中，必须先判断<code>fooInput</code>是否存在，才能读取<code>fooInput.value</code>。</p><p>这样的层层判断非常麻烦，因此 <a href="https://github.com/tc39/proposal-optional-chaining" target="_blank" rel="noopener">ES2020</a> 引入了“链判断运算符”（optional chaining operator）<code>?.</code>，简化上面的写法。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> firstName = message?.<span class="hljs-property">body</span>?.<span class="hljs-property">user</span>?.<span class="hljs-property">firstName</span> || <span class="hljs-string">&#x27;default&#x27;</span>;
+<span class="hljs-keyword">const</span> fooValue = myForm.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&#x27;input[name=foo]&#x27;</span>)?.<span class="hljs-property">value</span>
+</code></pre><p>上面代码使用了<code>?.</code>运算符，直接在链式调用的时候判断，左侧的对象是否为<code>null</code>或<code>undefined</code>。如果是的，就不再往下运算，而是返回<code>undefined</code>。</p><p>下面是判断对象方法是否存在，如果存在就立即执行的例子。</p><pre class="hljs"><code>iterator.<span class="hljs-property">return</span>?.()
+</code></pre><p>上面代码中，<code>iterator.return</code>如果有定义，就会调用该方法，否则<code>iterator.return</code>直接返回<code>undefined</code>，不再执行<code>?.</code>后面的部分。</p><p>对于那些可能没有实现的方法，这个运算符尤其有用。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> (myForm.<span class="hljs-property">checkValidity</span>?.() === <span class="hljs-literal">false</span>) {
   <span class="hljs-comment">// 表单校验失败</span>
   <span class="hljs-keyword">return</span>;
 }
 </code></pre><p>上面代码中，老式浏览器的表单对象可能没有<code>checkValidity()</code>这个方法，这时<code>?.</code>运算符就会返回<code>undefined</code>，判断语句就变成了<code>undefined === false</code>，所以就会跳过下面的代码。</p><p>链判断运算符<code>?.</code>有三种写法。</p><ul><li><code>obj?.prop</code> // 对象属性是否存在</li><li><code>obj?.[expr]</code> // 同上</li><li><code>func?.(...args)</code> // 函数或对象方法是否存在</li></ul><p>下面是<code>obj?.[expr]</code>用法的一个例子。</p><pre class="hljs"><code><span class="hljs-built_in">let</span> hex = <span class="hljs-string">&quot;#C0FFEE&quot;</span>.match(/<span class="hljs-comment">#([A-Z]+)/i)?.[1];</span>
-</code></pre><p>上面例子中，字符串的<code>match()</code>方法，如果没有发现匹配会返回<code>null</code>，如果发现匹配会返回一个数组，<code>?.</code>运算符起到了判断作用。</p><p>下面是<code>?.</code>运算符常见形式，以及不使用该运算符时的等价形式。</p><pre class="hljs"><code>a?.b
+</code></pre><p>上面例子中，字符串的<code>match()</code>方法，如果没有发现匹配会返回<code>null</code>，如果发现匹配会返回一个数组，<code>?.</code>运算符起到了判断作用。</p><p>下面是<code>?.</code>运算符常见形式，以及不使用该运算符时的等价形式。</p><pre class="hljs"><code>a?.<span class="hljs-property">b</span>
 <span class="hljs-comment">// 等同于</span>
-a == <span class="hljs-literal">null</span> ? <span class="hljs-literal">undefined</span> : a.b
+a == <span class="hljs-literal">null</span> ? <span class="hljs-literal">undefined</span> : a.<span class="hljs-property">b</span>
 
 a?.[x]
 <span class="hljs-comment">// 等同于</span>
 a == <span class="hljs-literal">null</span> ? <span class="hljs-literal">undefined</span> : a[x]
 
-a?.b()
+a?.<span class="hljs-title function_">b</span>()
 <span class="hljs-comment">// 等同于</span>
-a == <span class="hljs-literal">null</span> ? <span class="hljs-literal">undefined</span> : a.b()
+a == <span class="hljs-literal">null</span> ? <span class="hljs-literal">undefined</span> : a.<span class="hljs-title function_">b</span>()
 
 a?.()
 <span class="hljs-comment">// 等同于</span>
-a == <span class="hljs-literal">null</span> ? <span class="hljs-literal">undefined</span> : a()
+a == <span class="hljs-literal">null</span> ? <span class="hljs-literal">undefined</span> : <span class="hljs-title function_">a</span>()
 </code></pre><p>上面代码中，特别注意后两种形式，如果<code>a?.b()</code>和<code>a?.()</code>。如果<code>a?.b()</code>里面的<code>a.b</code>有值，但不是函数，不可调用，那么<code>a?.b()</code>是会报错的。<code>a?.()</code>也是如此，如果<code>a</code>不是<code>null</code>或<code>undefined</code>，但也不是函数，那么<code>a?.()</code>会报错。</p><p>使用这个运算符，有几个注意点。</p><p>（1）短路机制</p><p>本质上，<code>?.</code>运算符相当于一种短路机制，只要不满足条件，就不再往下执行。</p><pre class="hljs"><code>a?.[++x]
 <span class="hljs-comment">// 等同于</span>
 a == <span class="hljs-literal">null</span> ? <span class="hljs-literal">undefined</span> : a[++x]
-</code></pre><p>上面代码中，如果<code>a</code>是<code>undefined</code>或<code>null</code>，那么<code>x</code>不会进行递增运算。也就是说，链判断运算符一旦为真，右侧的表达式就不再求值。</p><p>（2）括号的影响</p><p>如果属性链有圆括号，链判断运算符对圆括号外部没有影响，只对圆括号内部有影响。</p><pre class="hljs"><code>(a?.b).c
+</code></pre><p>上面代码中，如果<code>a</code>是<code>undefined</code>或<code>null</code>，那么<code>x</code>不会进行递增运算。也就是说，链判断运算符一旦为真，右侧的表达式就不再求值。</p><p>（2）括号的影响</p><p>如果属性链有圆括号，链判断运算符对圆括号外部没有影响，只对圆括号内部有影响。</p><pre class="hljs"><code>(a?.<span class="hljs-property">b</span>).<span class="hljs-property">c</span>
 <span class="hljs-comment">// 等价于</span>
-(a == <span class="hljs-literal">null</span> ? <span class="hljs-literal">undefined</span> : a.b).c
+(a == <span class="hljs-literal">null</span> ? <span class="hljs-literal">undefined</span> : a.<span class="hljs-property">b</span>).<span class="hljs-property">c</span>
 </code></pre><p>上面代码中，<code>?.</code>对圆括号外部没有影响，不管<code>a</code>对象是否存在，圆括号后面的<code>.c</code>总是会执行。</p><p>一般来说，使用<code>?.</code>运算符的场合，不应该使用圆括号。</p><p>（3）报错场合</p><p>以下写法是禁止的，会报错。</p><pre class="hljs"><code><span class="hljs-comment">// 构造函数</span>
 <span class="hljs-keyword">new</span> a?.()
-<span class="hljs-keyword">new</span> a?.b()
+<span class="hljs-keyword">new</span> a?.<span class="hljs-title function_">b</span>()
 
 <span class="hljs-comment">// 链判断运算符的右侧有模板字符串</span>
 a?.<span class="hljs-string">`{b}`</span>
-a?.b<span class="hljs-string">`{c}`</span>
+a?.<span class="hljs-property">b</span><span class="hljs-string">`{c}`</span>
 
 <span class="hljs-comment">// 链判断运算符的左侧是 super</span>
-<span class="hljs-built_in">super</span>?.()
-<span class="hljs-built_in">super</span>?.foo
+<span class="hljs-variable language_">super</span>?.()
+<span class="hljs-variable language_">super</span>?.<span class="hljs-property">foo</span>
 
 <span class="hljs-comment">// 链运算符用于赋值运算符左侧</span>
-a?.b = c
-</code></pre><p>（4）右侧不得为十进制数值</p><p>为了保证兼容以前的代码，允许<code>foo?.3:0</code>被解析成<code>foo ? .3 : 0</code>，因此规定如果<code>?.</code>后面紧跟一个十进制数字，那么<code>?.</code>不再被看成是一个完整的运算符，而会按照三元运算符进行处理，也就是说，那个小数点会归属于后面的十进制数字，形成一个小数。</p><h2 id="null-判断运算符">Null 判断运算符 <a class="markdownIt-Anchor" href="#null-判断运算符">#</a></h2><p>读取对象属性的时候，如果某个属性的值是<code>null</code>或<code>undefined</code>，有时候需要为它们指定默认值。常见做法是通过<code>||</code>运算符指定默认值。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> headerText = response.settings.headerText || <span class="hljs-string">&#x27;Hello, world!&#x27;</span>;
-<span class="hljs-keyword">const</span> animationDuration = response.settings.animationDuration || <span class="hljs-number">300</span>;
-<span class="hljs-keyword">const</span> showSplashScreen = response.settings.showSplashScreen || <span class="hljs-literal">true</span>;
-</code></pre><p>上面的三行代码都通过<code>||</code>运算符指定默认值，但是这样写是错的。开发者的原意是，只要属性的值为<code>null</code>或<code>undefined</code>，默认值就会生效，但是属性的值如果为空字符串或<code>false</code>或<code>0</code>，默认值也会生效。</p><p>为了避免这种情况，<a href="https://github.com/tc39/proposal-nullish-coalescing" target="_blank" rel="noopener">ES2020</a> 引入了一个新的 Null 判断运算符<code>??</code>。它的行为类似<code>||</code>，但是只有运算符左侧的值为<code>null</code>或<code>undefined</code>时，才会返回右侧的值。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> headerText = response.settings.headerText ?? <span class="hljs-string">&#x27;Hello, world!&#x27;</span>;
-<span class="hljs-keyword">const</span> animationDuration = response.settings.animationDuration ?? <span class="hljs-number">300</span>;
-<span class="hljs-keyword">const</span> showSplashScreen = response.settings.showSplashScreen ?? <span class="hljs-literal">true</span>;
-</code></pre><p>上面代码中，默认值只有在左侧属性值为<code>null</code>或<code>undefined</code>时，才会生效。</p><p>这个运算符的一个目的，就是跟链判断运算符<code>?.</code>配合使用，为<code>null</code>或<code>undefined</code>的值设置默认值。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> animationDuration = response.settings?.animationDuration ?? <span class="hljs-number">300</span>;
-</code></pre><p>上面代码中，如果<code>response.settings</code>是<code>null</code>或<code>undefined</code>，或者<code>response.settings.animationDuration</code>是<code>null</code>或<code>undefined</code>，就会返回默认值300。也就是说，这一行代码包括了两级属性的判断。</p><p>这个运算符很适合判断函数参数是否赋值。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Component</span>(<span class="hljs-params">props</span>) </span>{
-  <span class="hljs-keyword">const</span> enable = props.enabled ?? <span class="hljs-literal">true</span>;
+a?.<span class="hljs-property">b</span> = c
+</code></pre><p>（4）右侧不得为十进制数值</p><p>为了保证兼容以前的代码，允许<code>foo?.3:0</code>被解析成<code>foo ? .3 : 0</code>，因此规定如果<code>?.</code>后面紧跟一个十进制数字，那么<code>?.</code>不再被看成是一个完整的运算符，而会按照三元运算符进行处理，也就是说，那个小数点会归属于后面的十进制数字，形成一个小数。</p><h2 id="null-判断运算符">Null 判断运算符 <a class="markdownIt-Anchor" href="#null-判断运算符">#</a></h2><p>读取对象属性的时候，如果某个属性的值是<code>null</code>或<code>undefined</code>，有时候需要为它们指定默认值。常见做法是通过<code>||</code>运算符指定默认值。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> headerText = response.<span class="hljs-property">settings</span>.<span class="hljs-property">headerText</span> || <span class="hljs-string">&#x27;Hello, world!&#x27;</span>;
+<span class="hljs-keyword">const</span> animationDuration = response.<span class="hljs-property">settings</span>.<span class="hljs-property">animationDuration</span> || <span class="hljs-number">300</span>;
+<span class="hljs-keyword">const</span> showSplashScreen = response.<span class="hljs-property">settings</span>.<span class="hljs-property">showSplashScreen</span> || <span class="hljs-literal">true</span>;
+</code></pre><p>上面的三行代码都通过<code>||</code>运算符指定默认值，但是这样写是错的。开发者的原意是，只要属性的值为<code>null</code>或<code>undefined</code>，默认值就会生效，但是属性的值如果为空字符串或<code>false</code>或<code>0</code>，默认值也会生效。</p><p>为了避免这种情况，<a href="https://github.com/tc39/proposal-nullish-coalescing" target="_blank" rel="noopener">ES2020</a> 引入了一个新的 Null 判断运算符<code>??</code>。它的行为类似<code>||</code>，但是只有运算符左侧的值为<code>null</code>或<code>undefined</code>时，才会返回右侧的值。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> headerText = response.<span class="hljs-property">settings</span>.<span class="hljs-property">headerText</span> ?? <span class="hljs-string">&#x27;Hello, world!&#x27;</span>;
+<span class="hljs-keyword">const</span> animationDuration = response.<span class="hljs-property">settings</span>.<span class="hljs-property">animationDuration</span> ?? <span class="hljs-number">300</span>;
+<span class="hljs-keyword">const</span> showSplashScreen = response.<span class="hljs-property">settings</span>.<span class="hljs-property">showSplashScreen</span> ?? <span class="hljs-literal">true</span>;
+</code></pre><p>上面代码中，默认值只有在左侧属性值为<code>null</code>或<code>undefined</code>时，才会生效。</p><p>这个运算符的一个目的，就是跟链判断运算符<code>?.</code>配合使用，为<code>null</code>或<code>undefined</code>的值设置默认值。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> animationDuration = response.<span class="hljs-property">settings</span>?.<span class="hljs-property">animationDuration</span> ?? <span class="hljs-number">300</span>;
+</code></pre><p>上面代码中，如果<code>response.settings</code>是<code>null</code>或<code>undefined</code>，或者<code>response.settings.animationDuration</code>是<code>null</code>或<code>undefined</code>，就会返回默认值300。也就是说，这一行代码包括了两级属性的判断。</p><p>这个运算符很适合判断函数参数是否赋值。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">Component</span>(<span class="hljs-params">props</span>) {
+  <span class="hljs-keyword">const</span> enable = props.<span class="hljs-property">enabled</span> ?? <span class="hljs-literal">true</span>;
   <span class="hljs-comment">// …</span>
 }
-</code></pre><p>上面代码判断<code>props</code>参数的<code>enabled</code>属性是否赋值，基本等同于下面的写法。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Component</span>(<span class="hljs-params">props</span>) </span>{
+</code></pre><p>上面代码判断<code>props</code>参数的<code>enabled</code>属性是否赋值，基本等同于下面的写法。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">Component</span>(<span class="hljs-params">props</span>) {
   <span class="hljs-keyword">const</span> {
     <span class="hljs-attr">enabled</span>: enable = <span class="hljs-literal">true</span>,
   } = props;
@@ -111,29 +111,29 @@ x ??= y
 <span class="hljs-comment">// 等同于</span>
 x ?? (x = y)
 </code></pre><p>这三个运算符<code>||=</code>、<code>&amp;&amp;=</code>、<code>??=</code>相当于先进行逻辑运算，然后根据运算结果，再视情况进行赋值运算。</p><p>它们的一个用途是，为变量或属性设置默认值。</p><pre class="hljs"><code><span class="hljs-comment">// 老的写法</span>
-user.id = user.id || <span class="hljs-number">1</span>;
+user.<span class="hljs-property">id</span> = user.<span class="hljs-property">id</span> || <span class="hljs-number">1</span>;
 
 <span class="hljs-comment">// 新的写法</span>
-user.id ||= <span class="hljs-number">1</span>;
-</code></pre><p>上面示例中，<code>user.id</code>属性如果不存在，则设为<code>1</code>，新的写法比老的写法更紧凑一些。</p><p>下面是另一个例子。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">example</span>(<span class="hljs-params">opts</span>) </span>{
-  opts.foo = opts.foo ?? <span class="hljs-string">&#x27;bar&#x27;</span>;
-  opts.baz ?? (opts.baz = <span class="hljs-string">&#x27;qux&#x27;</span>);
+user.<span class="hljs-property">id</span> ||= <span class="hljs-number">1</span>;
+</code></pre><p>上面示例中，<code>user.id</code>属性如果不存在，则设为<code>1</code>，新的写法比老的写法更紧凑一些。</p><p>下面是另一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">example</span>(<span class="hljs-params">opts</span>) {
+  opts.<span class="hljs-property">foo</span> = opts.<span class="hljs-property">foo</span> ?? <span class="hljs-string">&#x27;bar&#x27;</span>;
+  opts.<span class="hljs-property">baz</span> ?? (opts.<span class="hljs-property">baz</span> = <span class="hljs-string">&#x27;qux&#x27;</span>);
 }
-</code></pre><p>上面示例中，参数对象<code>opts</code>如果不存在属性<code>foo</code>和属性<code>baz</code>，则为这两个属性设置默认值。有了“Null 赋值运算符”以后，就可以统一写成下面这样。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">example</span>(<span class="hljs-params">opts</span>) </span>{
-  opts.foo ??= <span class="hljs-string">&#x27;bar&#x27;</span>;
-  opts.baz ??= <span class="hljs-string">&#x27;qux&#x27;</span>;
+</code></pre><p>上面示例中，参数对象<code>opts</code>如果不存在属性<code>foo</code>和属性<code>baz</code>，则为这两个属性设置默认值。有了“Null 赋值运算符”以后，就可以统一写成下面这样。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">example</span>(<span class="hljs-params">opts</span>) {
+  opts.<span class="hljs-property">foo</span> ??= <span class="hljs-string">&#x27;bar&#x27;</span>;
+  opts.<span class="hljs-property">baz</span> ??= <span class="hljs-string">&#x27;qux&#x27;</span>;
 }
 </code></pre><h2 id="命令"><code>#!</code>命令 <a class="markdownIt-Anchor" href="#命令">#</a></h2><p>Unix 的命令行脚本都支持<code>#!</code>命令，又称为 Shebang 或 Hashbang。这个命令放在脚本的第一行，用来指定脚本的执行器。</p><p>比如 Bash 脚本的第一行。</p><pre class="hljs"><code><span class="hljs-meta">#!/bin/sh</span>
 </code></pre><p>Python 脚本的第一行。</p><pre class="hljs"><code><span class="hljs-comment">#!/usr/bin/env python</span>
 </code></pre><p><a href="https://github.com/tc39/proposal-hashbang" target="_blank" rel="noopener">ES2023</a> 为 JavaScript 脚本引入了<code>#!</code>命令，写在脚本文件或者模块文件的第一行。</p><pre class="hljs"><code><span class="hljs-comment">// 写在脚本文件第一行</span>
 #!<span class="hljs-regexp">/usr/</span>bin/env node
 <span class="hljs-meta">&#x27;use strict&#x27;</span>;
-<span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">1</span>);
 
 <span class="hljs-comment">// 写在模块文件第一行</span>
 #!<span class="hljs-regexp">/usr/</span>bin/env node
 <span class="hljs-keyword">export</span> {};
-<span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">1</span>);
 </code></pre><p>有了这一行以后，Unix 命令行就可以直接执行脚本。</p><pre class="hljs"><code><span class="hljs-comment"># 以前执行脚本的方式</span>
 $ node hello.js
 
