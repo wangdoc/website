@@ -1,147 +1,147 @@
-<!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>数据类型的转换 - JavaScript 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="../assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="../assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="数据类型的转换"><link rel="apple-touch-icon" sizes="57x57" href="../assets/icons/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="../assets/icons/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="../assets/icons/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="../assets/icons/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="../assets/icons/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="../assets/icons/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="../assets/icons/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="../assets/icons/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="../assets/icons/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="../assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="../assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="../assets/icons/favicon-16x16.png"><link rel="manifest" href="../assets/icons/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="../assets/icons/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/javascript-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/javascript-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8 is-6-widescreen is-offset-1-widescreen"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="../index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;JavaScript 教程</a></li><li><a href="../features/index.html">语法专题</a></li><li class="is-active"><a class="has-text-grey" href="../features/conversion.html">数据类型的转换</a></li></ul></nav><nav class="level level-previous-next is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="../features/index.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> 语法专题</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="../features/error.html">错误处理机制 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content"><h1 class="title">数据类型的转换</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><h2 id="概述">概述 <a class="markdownIt-Anchor" href="#概述">#</a></h2><p>JavaScript 是一种动态类型语言，变量没有类型限制，可以随时赋予任意值。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> x = y ? <span class="hljs-number">1</span> : <span class="hljs-string">&#x27;a&#x27;</span>;
+<!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>数据类型的转换 - JavaScript 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="../assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="../assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="数据类型的转换"><link rel="apple-touch-icon" href="../assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="192x192" href="../assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="../assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="../assets/icons/favicon-16x16.png"><link rel="manifest" href="../assets/icons/manifest.json"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/javascript-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/javascript-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8 is-6-widescreen is-offset-1-widescreen"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="../index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;JavaScript 教程</a></li><li><a href="../features/index.html">语法专题</a></li><li class="is-active"><a class="has-text-grey" href="../features/conversion.html">数据类型的转换</a></li></ul></nav><nav class="level level-previous-next is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="../features/index.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> 语法专题</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="../features/error.html">错误处理机制 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content"><h1 class="title">数据类型的转换</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><h2 id="概述">概述 <a class="markdownIt-Anchor" href="#概述">#</a></h2><p>JavaScript 是一种动态类型语言，变量没有类型限制，可以随时赋予任意值。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> x = y ? <span class="hljs-number">1</span> : <span class="hljs-string">&#x27;a&#x27;</span>;
 </code></pre><p>上面代码中，变量<code>x</code>到底是数值还是字符串，取决于另一个变量<code>y</code>的值。<code>y</code>为<code>true</code>时，<code>x</code>是一个数值；<code>y</code>为<code>false</code>时，<code>x</code>是一个字符串。这意味着，<code>x</code>的类型没法在编译阶段就知道，必须等到运行时才能知道。</p><p>虽然变量的数据类型是不确定的，但是各种运算符对数据类型是有要求的。如果运算符发现，运算子的类型与预期不符，就会自动转换类型。比如，减法运算符预期左右两侧的运算子应该是数值，如果不是，就会自动将它们转为数值。</p><pre class="hljs"><code><span class="hljs-string">&#x27;4&#x27;</span> - <span class="hljs-string">&#x27;3&#x27;</span> <span class="hljs-comment">// 1</span>
 </code></pre><p>上面代码中，虽然是两个字符串相减，但是依然会得到结果数值<code>1</code>，原因就在于 JavaScript 将运算子自动转为了数值。</p><p>本章讲解数据类型自动转换的规则。在此之前，先讲解如何手动强制转换数据类型。</p><h2 id="强制转换">强制转换 <a class="markdownIt-Anchor" href="#强制转换">#</a></h2><p>强制转换主要指使用<code>Number()</code>、<code>String()</code>和<code>Boolean()</code>三个函数，手动将各种类型的值，分别转换成数字、字符串或者布尔值。</p><h3 id="number">Number() <a class="markdownIt-Anchor" href="#number">#</a></h3><p>使用<code>Number</code>函数，可以将任意类型的值转化成数值。</p><p>下面分成两种情况讨论，一种是参数是原始类型的值，另一种是参数是对象。</p><p><strong>（1）原始类型值</strong></p><p>原始类型值的转换规则如下。</p><pre class="hljs"><code><span class="hljs-comment">// 数值：转换后还是原来的值</span>
-<span class="hljs-built_in">Number</span>(<span class="hljs-number">324</span>) <span class="hljs-comment">// 324</span>
+<span class="hljs-title class_">Number</span>(<span class="hljs-number">324</span>) <span class="hljs-comment">// 324</span>
 
 <span class="hljs-comment">// 字符串：如果可以被解析为数值，则转换为相应的数值</span>
-<span class="hljs-built_in">Number</span>(<span class="hljs-string">&#x27;324&#x27;</span>) <span class="hljs-comment">// 324</span>
+<span class="hljs-title class_">Number</span>(<span class="hljs-string">&#x27;324&#x27;</span>) <span class="hljs-comment">// 324</span>
 
 <span class="hljs-comment">// 字符串：如果不可以被解析为数值，返回 NaN</span>
-<span class="hljs-built_in">Number</span>(<span class="hljs-string">&#x27;324abc&#x27;</span>) <span class="hljs-comment">// NaN</span>
+<span class="hljs-title class_">Number</span>(<span class="hljs-string">&#x27;324abc&#x27;</span>) <span class="hljs-comment">// NaN</span>
 
 <span class="hljs-comment">// 空字符串转为0</span>
-<span class="hljs-built_in">Number</span>(<span class="hljs-string">&#x27;&#x27;</span>) <span class="hljs-comment">// 0</span>
+<span class="hljs-title class_">Number</span>(<span class="hljs-string">&#x27;&#x27;</span>) <span class="hljs-comment">// 0</span>
 
 <span class="hljs-comment">// 布尔值：true 转成 1，false 转成 0</span>
-<span class="hljs-built_in">Number</span>(<span class="hljs-literal">true</span>) <span class="hljs-comment">// 1</span>
-<span class="hljs-built_in">Number</span>(<span class="hljs-literal">false</span>) <span class="hljs-comment">// 0</span>
+<span class="hljs-title class_">Number</span>(<span class="hljs-literal">true</span>) <span class="hljs-comment">// 1</span>
+<span class="hljs-title class_">Number</span>(<span class="hljs-literal">false</span>) <span class="hljs-comment">// 0</span>
 
 <span class="hljs-comment">// undefined：转成 NaN</span>
-<span class="hljs-built_in">Number</span>(<span class="hljs-literal">undefined</span>) <span class="hljs-comment">// NaN</span>
+<span class="hljs-title class_">Number</span>(<span class="hljs-literal">undefined</span>) <span class="hljs-comment">// NaN</span>
 
 <span class="hljs-comment">// null：转成0</span>
-<span class="hljs-built_in">Number</span>(<span class="hljs-literal">null</span>) <span class="hljs-comment">// 0</span>
+<span class="hljs-title class_">Number</span>(<span class="hljs-literal">null</span>) <span class="hljs-comment">// 0</span>
 </code></pre><p><code>Number</code>函数将字符串转为数值，要比<code>parseInt</code>函数严格很多。基本上，只要有一个字符无法转成数值，整个字符串就会被转为<code>NaN</code>。</p><pre class="hljs"><code><span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&#x27;42 cats&#x27;</span>) <span class="hljs-comment">// 42</span>
-<span class="hljs-built_in">Number</span>(<span class="hljs-string">&#x27;42 cats&#x27;</span>) <span class="hljs-comment">// NaN</span>
+<span class="hljs-title class_">Number</span>(<span class="hljs-string">&#x27;42 cats&#x27;</span>) <span class="hljs-comment">// NaN</span>
 </code></pre><p>上面代码中，<code>parseInt</code>逐个解析字符，而<code>Number</code>函数整体转换字符串的类型。</p><p>另外，<code>parseInt</code>和<code>Number</code>函数都会自动过滤一个字符串前导和后缀的空格。</p><pre class="hljs"><code><span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&#x27;\t\v\r12.34\n&#x27;</span>) <span class="hljs-comment">// 12</span>
-<span class="hljs-built_in">Number</span>(<span class="hljs-string">&#x27;\t\v\r12.34\n&#x27;</span>) <span class="hljs-comment">// 12.34</span>
-</code></pre><p><strong>（2）对象</strong></p><p>简单的规则是，<code>Number</code>方法的参数是对象时，将返回<code>NaN</code>，除非是包含单个数值的数组。</p><pre class="hljs"><code><span class="hljs-built_in">Number</span>({<span class="hljs-attr">a</span>: <span class="hljs-number">1</span>}) <span class="hljs-comment">// NaN</span>
-<span class="hljs-built_in">Number</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]) <span class="hljs-comment">// NaN</span>
-<span class="hljs-built_in">Number</span>([<span class="hljs-number">5</span>]) <span class="hljs-comment">// 5</span>
+<span class="hljs-title class_">Number</span>(<span class="hljs-string">&#x27;\t\v\r12.34\n&#x27;</span>) <span class="hljs-comment">// 12.34</span>
+</code></pre><p><strong>（2）对象</strong></p><p>简单的规则是，<code>Number</code>方法的参数是对象时，将返回<code>NaN</code>，除非是包含单个数值的数组。</p><pre class="hljs"><code><span class="hljs-title class_">Number</span>({<span class="hljs-attr">a</span>: <span class="hljs-number">1</span>}) <span class="hljs-comment">// NaN</span>
+<span class="hljs-title class_">Number</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]) <span class="hljs-comment">// NaN</span>
+<span class="hljs-title class_">Number</span>([<span class="hljs-number">5</span>]) <span class="hljs-comment">// 5</span>
 </code></pre><p>之所以会这样，是因为<code>Number</code>背后的转换规则比较复杂。</p><p>第一步，调用对象自身的<code>valueOf</code>方法。如果返回原始类型的值，则直接对该值使用<code>Number</code>函数，不再进行后续步骤。</p><p>第二步，如果<code>valueOf</code>方法返回的还是对象，则改为调用对象自身的<code>toString</code>方法。如果<code>toString</code>方法返回原始类型的值，则对该值使用<code>Number</code>函数，不再进行后续步骤。</p><p>第三步，如果<code>toString</code>方法返回的是对象，就报错。</p><p>请看下面的例子。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = {<span class="hljs-attr">x</span>: <span class="hljs-number">1</span>};
-<span class="hljs-built_in">Number</span>(obj) <span class="hljs-comment">// NaN</span>
+<span class="hljs-title class_">Number</span>(obj) <span class="hljs-comment">// NaN</span>
 
 <span class="hljs-comment">// 等同于</span>
-<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> obj.valueOf() === <span class="hljs-string">&#x27;object&#x27;</span>) {
-  <span class="hljs-built_in">Number</span>(obj.toString());
+<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> obj.<span class="hljs-title function_">valueOf</span>() === <span class="hljs-string">&#x27;object&#x27;</span>) {
+  <span class="hljs-title class_">Number</span>(obj.<span class="hljs-title function_">toString</span>());
 } <span class="hljs-keyword">else</span> {
-  <span class="hljs-built_in">Number</span>(obj.valueOf());
+  <span class="hljs-title class_">Number</span>(obj.<span class="hljs-title function_">valueOf</span>());
 }
-</code></pre><p>上面代码中，<code>Number</code>函数将<code>obj</code>对象转为数值。背后发生了一连串的操作，首先调用<code>obj.valueOf</code>方法, 结果返回对象本身；于是，继续调用<code>obj.toString</code>方法，这时返回字符串<code>[object Object]</code>，对这个字符串使用<code>Number</code>函数，得到<code>NaN</code>。</p><p>默认情况下，对象的<code>valueOf</code>方法返回对象本身，所以一般总是会调用<code>toString</code>方法，而<code>toString</code>方法返回对象的类型字符串（比如<code>[object Object]</code>）。所以，会有下面的结果。</p><pre class="hljs"><code><span class="hljs-built_in">Number</span>({}) <span class="hljs-comment">// NaN</span>
+</code></pre><p>上面代码中，<code>Number</code>函数将<code>obj</code>对象转为数值。背后发生了一连串的操作，首先调用<code>obj.valueOf</code>方法, 结果返回对象本身；于是，继续调用<code>obj.toString</code>方法，这时返回字符串<code>[object Object]</code>，对这个字符串使用<code>Number</code>函数，得到<code>NaN</code>。</p><p>默认情况下，对象的<code>valueOf</code>方法返回对象本身，所以一般总是会调用<code>toString</code>方法，而<code>toString</code>方法返回对象的类型字符串（比如<code>[object Object]</code>）。所以，会有下面的结果。</p><pre class="hljs"><code><span class="hljs-title class_">Number</span>({}) <span class="hljs-comment">// NaN</span>
 </code></pre><p>如果<code>toString</code>方法返回的不是原始类型的值，结果就会报错。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = {
-  <span class="hljs-attr">valueOf</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-attr">valueOf</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
     <span class="hljs-keyword">return</span> {};
   },
-  <span class="hljs-attr">toString</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-attr">toString</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
     <span class="hljs-keyword">return</span> {};
   }
 };
 
-<span class="hljs-built_in">Number</span>(obj)
+<span class="hljs-title class_">Number</span>(obj)
 <span class="hljs-comment">// TypeError: Cannot convert object to primitive value</span>
-</code></pre><p>上面代码的<code>valueOf</code>和<code>toString</code>方法，返回的都是对象，所以转成数值时会报错。</p><p>从上例还可以看到，<code>valueOf</code>和<code>toString</code>方法，都是可以自定义的。</p><pre class="hljs"><code><span class="hljs-built_in">Number</span>({
-  <span class="hljs-attr">valueOf</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+</code></pre><p>上面代码的<code>valueOf</code>和<code>toString</code>方法，返回的都是对象，所以转成数值时会报错。</p><p>从上例还可以看到，<code>valueOf</code>和<code>toString</code>方法，都是可以自定义的。</p><pre class="hljs"><code><span class="hljs-title class_">Number</span>({
+  <span class="hljs-attr">valueOf</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
     <span class="hljs-keyword">return</span> <span class="hljs-number">2</span>;
   }
 })
 <span class="hljs-comment">// 2</span>
 
-<span class="hljs-built_in">Number</span>({
-  <span class="hljs-attr">toString</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+<span class="hljs-title class_">Number</span>({
+  <span class="hljs-attr">toString</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
     <span class="hljs-keyword">return</span> <span class="hljs-number">3</span>;
   }
 })
 <span class="hljs-comment">// 3</span>
 
-<span class="hljs-built_in">Number</span>({
-  <span class="hljs-attr">valueOf</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+<span class="hljs-title class_">Number</span>({
+  <span class="hljs-attr">valueOf</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
     <span class="hljs-keyword">return</span> <span class="hljs-number">2</span>;
   },
-  <span class="hljs-attr">toString</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-attr">toString</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
     <span class="hljs-keyword">return</span> <span class="hljs-number">3</span>;
   }
 })
 <span class="hljs-comment">// 2</span>
-</code></pre><p>上面代码对三个对象使用<code>Number</code>函数。第一个对象返回<code>valueOf</code>方法的值，第二个对象返回<code>toString</code>方法的值，第三个对象表示<code>valueOf</code>方法先于<code>toString</code>方法执行。</p><h3 id="string">String() <a class="markdownIt-Anchor" href="#string">#</a></h3><p><code>String</code>函数可以将任意类型的值转化成字符串，转换规则如下。</p><p><strong>（1）原始类型值</strong></p><ul><li><strong>数值</strong>：转为相应的字符串。</li><li><strong>字符串</strong>：转换后还是原来的值。</li><li><strong>布尔值</strong>：<code>true</code>转为字符串<code>&quot;true&quot;</code>，<code>false</code>转为字符串<code>&quot;false&quot;</code>。</li><li><strong>undefined</strong>：转为字符串<code>&quot;undefined&quot;</code>。</li><li><strong>null</strong>：转为字符串<code>&quot;null&quot;</code>。</li></ul><pre class="hljs"><code><span class="hljs-built_in">String</span>(<span class="hljs-number">123</span>) <span class="hljs-comment">// &quot;123&quot;</span>
-<span class="hljs-built_in">String</span>(<span class="hljs-string">&#x27;abc&#x27;</span>) <span class="hljs-comment">// &quot;abc&quot;</span>
-<span class="hljs-built_in">String</span>(<span class="hljs-literal">true</span>) <span class="hljs-comment">// &quot;true&quot;</span>
-<span class="hljs-built_in">String</span>(<span class="hljs-literal">undefined</span>) <span class="hljs-comment">// &quot;undefined&quot;</span>
-<span class="hljs-built_in">String</span>(<span class="hljs-literal">null</span>) <span class="hljs-comment">// &quot;null&quot;</span>
-</code></pre><p><strong>（2）对象</strong></p><p><code>String</code>方法的参数如果是对象，返回一个类型字符串；如果是数组，返回该数组的字符串形式。</p><pre class="hljs"><code><span class="hljs-built_in">String</span>({<span class="hljs-attr">a</span>: <span class="hljs-number">1</span>}) <span class="hljs-comment">// &quot;[object Object]&quot;</span>
-<span class="hljs-built_in">String</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]) <span class="hljs-comment">// &quot;1,2,3&quot;</span>
-</code></pre><p><code>String</code>方法背后的转换规则，与<code>Number</code>方法基本相同，只是互换了<code>valueOf</code>方法和<code>toString</code>方法的执行顺序。</p><ol><li><p>先调用对象自身的<code>toString</code>方法。如果返回原始类型的值，则对该值使用<code>String</code>函数，不再进行以下步骤。</p></li><li><p>如果<code>toString</code>方法返回的是对象，再调用原对象的<code>valueOf</code>方法。如果<code>valueOf</code>方法返回原始类型的值，则对该值使用<code>String</code>函数，不再进行以下步骤。</p></li><li><p>如果<code>valueOf</code>方法返回的是对象，就报错。</p></li></ol><p>下面是一个例子。</p><pre class="hljs"><code><span class="hljs-built_in">String</span>({<span class="hljs-attr">a</span>: <span class="hljs-number">1</span>})
+</code></pre><p>上面代码对三个对象使用<code>Number</code>函数。第一个对象返回<code>valueOf</code>方法的值，第二个对象返回<code>toString</code>方法的值，第三个对象表示<code>valueOf</code>方法先于<code>toString</code>方法执行。</p><h3 id="string">String() <a class="markdownIt-Anchor" href="#string">#</a></h3><p><code>String</code>函数可以将任意类型的值转化成字符串，转换规则如下。</p><p><strong>（1）原始类型值</strong></p><ul><li><strong>数值</strong>：转为相应的字符串。</li><li><strong>字符串</strong>：转换后还是原来的值。</li><li><strong>布尔值</strong>：<code>true</code>转为字符串<code>&quot;true&quot;</code>，<code>false</code>转为字符串<code>&quot;false&quot;</code>。</li><li><strong>undefined</strong>：转为字符串<code>&quot;undefined&quot;</code>。</li><li><strong>null</strong>：转为字符串<code>&quot;null&quot;</code>。</li></ul><pre class="hljs"><code><span class="hljs-title class_">String</span>(<span class="hljs-number">123</span>) <span class="hljs-comment">// &quot;123&quot;</span>
+<span class="hljs-title class_">String</span>(<span class="hljs-string">&#x27;abc&#x27;</span>) <span class="hljs-comment">// &quot;abc&quot;</span>
+<span class="hljs-title class_">String</span>(<span class="hljs-literal">true</span>) <span class="hljs-comment">// &quot;true&quot;</span>
+<span class="hljs-title class_">String</span>(<span class="hljs-literal">undefined</span>) <span class="hljs-comment">// &quot;undefined&quot;</span>
+<span class="hljs-title class_">String</span>(<span class="hljs-literal">null</span>) <span class="hljs-comment">// &quot;null&quot;</span>
+</code></pre><p><strong>（2）对象</strong></p><p><code>String</code>方法的参数如果是对象，返回一个类型字符串；如果是数组，返回该数组的字符串形式。</p><pre class="hljs"><code><span class="hljs-title class_">String</span>({<span class="hljs-attr">a</span>: <span class="hljs-number">1</span>}) <span class="hljs-comment">// &quot;[object Object]&quot;</span>
+<span class="hljs-title class_">String</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]) <span class="hljs-comment">// &quot;1,2,3&quot;</span>
+</code></pre><p><code>String</code>方法背后的转换规则，与<code>Number</code>方法基本相同，只是互换了<code>valueOf</code>方法和<code>toString</code>方法的执行顺序。</p><ol><li><p>先调用对象自身的<code>toString</code>方法。如果返回原始类型的值，则对该值使用<code>String</code>函数，不再进行以下步骤。</p></li><li><p>如果<code>toString</code>方法返回的是对象，再调用原对象的<code>valueOf</code>方法。如果<code>valueOf</code>方法返回原始类型的值，则对该值使用<code>String</code>函数，不再进行以下步骤。</p></li><li><p>如果<code>valueOf</code>方法返回的是对象，就报错。</p></li></ol><p>下面是一个例子。</p><pre class="hljs"><code><span class="hljs-title class_">String</span>({<span class="hljs-attr">a</span>: <span class="hljs-number">1</span>})
 <span class="hljs-comment">// &quot;[object Object]&quot;</span>
 
 <span class="hljs-comment">// 等同于</span>
-<span class="hljs-built_in">String</span>({<span class="hljs-attr">a</span>: <span class="hljs-number">1</span>}.toString())
+<span class="hljs-title class_">String</span>({<span class="hljs-attr">a</span>: <span class="hljs-number">1</span>}.<span class="hljs-title function_">toString</span>())
 <span class="hljs-comment">// &quot;[object Object]&quot;</span>
 </code></pre><p>上面代码先调用对象的<code>toString</code>方法，发现返回的是字符串<code>[object Object]</code>，就不再调用<code>valueOf</code>方法了。</p><p>如果<code>toString</code>法和<code>valueOf</code>方法，返回的都是对象，就会报错。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = {
-  <span class="hljs-attr">valueOf</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-attr">valueOf</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
     <span class="hljs-keyword">return</span> {};
   },
-  <span class="hljs-attr">toString</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-attr">toString</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
     <span class="hljs-keyword">return</span> {};
   }
 };
 
-<span class="hljs-built_in">String</span>(obj)
+<span class="hljs-title class_">String</span>(obj)
 <span class="hljs-comment">// TypeError: Cannot convert object to primitive value</span>
-</code></pre><p>下面是通过自定义<code>toString</code>方法，改变返回值的例子。</p><pre class="hljs"><code><span class="hljs-built_in">String</span>({
-  <span class="hljs-attr">toString</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+</code></pre><p>下面是通过自定义<code>toString</code>方法，改变返回值的例子。</p><pre class="hljs"><code><span class="hljs-title class_">String</span>({
+  <span class="hljs-attr">toString</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
     <span class="hljs-keyword">return</span> <span class="hljs-number">3</span>;
   }
 })
 <span class="hljs-comment">// &quot;3&quot;</span>
 
-<span class="hljs-built_in">String</span>({
-  <span class="hljs-attr">valueOf</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+<span class="hljs-title class_">String</span>({
+  <span class="hljs-attr">valueOf</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
     <span class="hljs-keyword">return</span> <span class="hljs-number">2</span>;
   }
 })
 <span class="hljs-comment">// &quot;[object Object]&quot;</span>
 
-<span class="hljs-built_in">String</span>({
-  <span class="hljs-attr">valueOf</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+<span class="hljs-title class_">String</span>({
+  <span class="hljs-attr">valueOf</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
     <span class="hljs-keyword">return</span> <span class="hljs-number">2</span>;
   },
-  <span class="hljs-attr">toString</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-attr">toString</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
     <span class="hljs-keyword">return</span> <span class="hljs-number">3</span>;
   }
 })
 <span class="hljs-comment">// &quot;3&quot;</span>
-</code></pre><p>上面代码对三个对象使用<code>String</code>函数。第一个对象返回<code>toString</code>方法的值（数值3），第二个对象返回的还是<code>toString</code>方法的值（<code>[object Object]</code>），第三个对象表示<code>toString</code>方法先于<code>valueOf</code>方法执行。</p><h3 id="boolean">Boolean() <a class="markdownIt-Anchor" href="#boolean">#</a></h3><p><code>Boolean()</code>函数可以将任意类型的值转为布尔值。</p><p>它的转换规则相对简单：除了以下五个值的转换结果为<code>false</code>，其他的值全部为<code>true</code>。</p><ul><li><code>undefined</code></li><li><code>null</code></li><li><code>0</code>（包含<code>-0</code>和<code>+0</code>）</li><li><code>NaN</code></li><li><code>''</code>（空字符串）</li></ul><pre class="hljs"><code><span class="hljs-built_in">Boolean</span>(<span class="hljs-literal">undefined</span>) <span class="hljs-comment">// false</span>
-<span class="hljs-built_in">Boolean</span>(<span class="hljs-literal">null</span>) <span class="hljs-comment">// false</span>
-<span class="hljs-built_in">Boolean</span>(<span class="hljs-number">0</span>) <span class="hljs-comment">// false</span>
-<span class="hljs-built_in">Boolean</span>(<span class="hljs-literal">NaN</span>) <span class="hljs-comment">// false</span>
-<span class="hljs-built_in">Boolean</span>(<span class="hljs-string">&#x27;&#x27;</span>) <span class="hljs-comment">// false</span>
-</code></pre><p>当然，<code>true</code>和<code>false</code>这两个布尔值不会发生变化。</p><pre class="hljs"><code><span class="hljs-built_in">Boolean</span>(<span class="hljs-literal">true</span>) <span class="hljs-comment">// true</span>
-<span class="hljs-built_in">Boolean</span>(<span class="hljs-literal">false</span>) <span class="hljs-comment">// false</span>
-</code></pre><p>注意，所有对象（包括空对象）的转换结果都是<code>true</code>，甚至连<code>false</code>对应的布尔对象<code>new Boolean(false)</code>也是<code>true</code>（详见《原始类型值的包装对象》一章）。</p><pre class="hljs"><code><span class="hljs-built_in">Boolean</span>({}) <span class="hljs-comment">// true</span>
-<span class="hljs-built_in">Boolean</span>([]) <span class="hljs-comment">// true</span>
-<span class="hljs-built_in">Boolean</span>(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Boolean</span>(<span class="hljs-literal">false</span>)) <span class="hljs-comment">// true</span>
+</code></pre><p>上面代码对三个对象使用<code>String</code>函数。第一个对象返回<code>toString</code>方法的值（数值3），第二个对象返回的还是<code>toString</code>方法的值（<code>[object Object]</code>），第三个对象表示<code>toString</code>方法先于<code>valueOf</code>方法执行。</p><h3 id="boolean">Boolean() <a class="markdownIt-Anchor" href="#boolean">#</a></h3><p><code>Boolean()</code>函数可以将任意类型的值转为布尔值。</p><p>它的转换规则相对简单：除了以下五个值的转换结果为<code>false</code>，其他的值全部为<code>true</code>。</p><ul><li><code>undefined</code></li><li><code>null</code></li><li><code>0</code>（包含<code>-0</code>和<code>+0</code>）</li><li><code>NaN</code></li><li><code>''</code>（空字符串）</li></ul><pre class="hljs"><code><span class="hljs-title class_">Boolean</span>(<span class="hljs-literal">undefined</span>) <span class="hljs-comment">// false</span>
+<span class="hljs-title class_">Boolean</span>(<span class="hljs-literal">null</span>) <span class="hljs-comment">// false</span>
+<span class="hljs-title class_">Boolean</span>(<span class="hljs-number">0</span>) <span class="hljs-comment">// false</span>
+<span class="hljs-title class_">Boolean</span>(<span class="hljs-title class_">NaN</span>) <span class="hljs-comment">// false</span>
+<span class="hljs-title class_">Boolean</span>(<span class="hljs-string">&#x27;&#x27;</span>) <span class="hljs-comment">// false</span>
+</code></pre><p>当然，<code>true</code>和<code>false</code>这两个布尔值不会发生变化。</p><pre class="hljs"><code><span class="hljs-title class_">Boolean</span>(<span class="hljs-literal">true</span>) <span class="hljs-comment">// true</span>
+<span class="hljs-title class_">Boolean</span>(<span class="hljs-literal">false</span>) <span class="hljs-comment">// false</span>
+</code></pre><p>注意，所有对象（包括空对象）的转换结果都是<code>true</code>，甚至连<code>false</code>对应的布尔对象<code>new Boolean(false)</code>也是<code>true</code>（详见《原始类型值的包装对象》一章）。</p><pre class="hljs"><code><span class="hljs-title class_">Boolean</span>({}) <span class="hljs-comment">// true</span>
+<span class="hljs-title class_">Boolean</span>([]) <span class="hljs-comment">// true</span>
+<span class="hljs-title class_">Boolean</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Boolean</span>(<span class="hljs-literal">false</span>)) <span class="hljs-comment">// true</span>
 </code></pre><p>所有对象的布尔值都是<code>true</code>，这是因为 JavaScript 语言设计的时候，出于性能的考虑，如果对象需要计算才能得到布尔值，对于<code>obj1 &amp;&amp; obj2</code>这样的场景，可能会需要较多的计算。为了保证性能，就统一规定，对象的布尔值为<code>true</code>。</p><h2 id="自动转换">自动转换 <a class="markdownIt-Anchor" href="#自动转换">#</a></h2><p>下面介绍自动转换，它是以强制转换为基础的。</p><p>遇到以下三种情况时，JavaScript 会自动转换数据类型，即转换是自动完成的，用户不可见。</p><p>第一种情况，不同类型的数据互相运算。</p><pre class="hljs"><code><span class="hljs-number">123</span> + <span class="hljs-string">&#x27;abc&#x27;</span> <span class="hljs-comment">// &quot;123abc&quot;</span>
 </code></pre><p>第二种情况，对非布尔值类型的数据求布尔值。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> (<span class="hljs-string">&#x27;abc&#x27;</span>) {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;hello&#x27;</span>)
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;hello&#x27;</span>)
 }  <span class="hljs-comment">// &quot;hello&quot;</span>
 </code></pre><p>第三种情况，对非数值类型的值使用一元运算符（即<code>+</code>和<code>-</code>）。</p><pre class="hljs"><code>+ {<span class="hljs-attr">foo</span>: <span class="hljs-string">&#x27;bar&#x27;</span>} <span class="hljs-comment">// NaN</span>
 - [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>] <span class="hljs-comment">// NaN</span>
 </code></pre><p>自动转换的规则是这样的：预期什么类型的值，就调用该类型的转换函数。比如，某个位置预期为字符串，就调用<code>String()</code>函数进行转换。如果该位置既可以是字符串，也可能是数值，那么默认转为数值。</p><p>由于自动转换具有不确定性，而且不易除错，建议在预期为布尔值、数值、字符串的地方，全部使用<code>Boolean()</code>、<code>Number()</code>和<code>String()</code>函数进行显式转换。</p><h3 id="自动转换为布尔值">自动转换为布尔值 <a class="markdownIt-Anchor" href="#自动转换为布尔值">#</a></h3><p>JavaScript 遇到预期为布尔值的地方（比如<code>if</code>语句的条件部分），就会将非布尔值的参数自动转换为布尔值。系统内部会自动调用<code>Boolean()</code>函数。</p><p>因此除了以下五个值，其他都是自动转为<code>true</code>。</p><ul><li><code>undefined</code></li><li><code>null</code></li><li><code>+0</code>或<code>-0</code></li><li><code>NaN</code></li><li><code>''</code>（空字符串）</li></ul><p>下面这个例子中，条件部分的每个值都相当于<code>false</code>，使用否定运算符后，就变成了<code>true</code>。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> ( !<span class="hljs-literal">undefined</span>
   &amp;&amp; !<span class="hljs-literal">null</span>
   &amp;&amp; !<span class="hljs-number">0</span>
-  &amp;&amp; !<span class="hljs-literal">NaN</span>
+  &amp;&amp; !<span class="hljs-title class_">NaN</span>
   &amp;&amp; !<span class="hljs-string">&#x27;&#x27;</span>
 ) {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;true&#x27;</span>);
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;true&#x27;</span>);
 } <span class="hljs-comment">// true</span>
 </code></pre><p>下面两种写法，有时也用于将一个表达式转为布尔值。它们内部调用的也是<code>Boolean()</code>函数。</p><pre class="hljs"><code><span class="hljs-comment">// 写法一</span>
 expression ? <span class="hljs-literal">true</span> : <span class="hljs-literal">false</span>
@@ -153,14 +153,14 @@ expression ? <span class="hljs-literal">true</span> : <span class="hljs-literal"
 <span class="hljs-string">&#x27;5&#x27;</span> + <span class="hljs-literal">false</span> <span class="hljs-comment">// &quot;5false&quot;</span>
 <span class="hljs-string">&#x27;5&#x27;</span> + {} <span class="hljs-comment">// &quot;5[object Object]&quot;</span>
 <span class="hljs-string">&#x27;5&#x27;</span> + [] <span class="hljs-comment">// &quot;5&quot;</span>
-<span class="hljs-string">&#x27;5&#x27;</span> + <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>)</span>{} <span class="hljs-comment">// &quot;5function (){}&quot;</span>
+<span class="hljs-string">&#x27;5&#x27;</span> + <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>){} <span class="hljs-comment">// &quot;5function (){}&quot;</span>
 <span class="hljs-string">&#x27;5&#x27;</span> + <span class="hljs-literal">undefined</span> <span class="hljs-comment">// &quot;5undefined&quot;</span>
 <span class="hljs-string">&#x27;5&#x27;</span> + <span class="hljs-literal">null</span> <span class="hljs-comment">// &quot;5null&quot;</span>
 </code></pre><p>这种自动转换很容易出错。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = {
   <span class="hljs-attr">width</span>: <span class="hljs-string">&#x27;100&#x27;</span>
 };
 
-obj.width + <span class="hljs-number">20</span> <span class="hljs-comment">// &quot;10020&quot;</span>
+obj.<span class="hljs-property">width</span> + <span class="hljs-number">20</span> <span class="hljs-comment">// &quot;10020&quot;</span>
 </code></pre><p>上面代码中，开发者可能期望返回<code>120</code>，但是由于自动转换，实际上返回了一个字符<code>10020</code>。</p><h3 id="自动转换为数值">自动转换为数值 <a class="markdownIt-Anchor" href="#自动转换为数值">#</a></h3><p>JavaScript 遇到预期为数值的地方，就会将参数值自动转换为数值。系统内部会自动调用<code>Number()</code>函数。</p><p>除了加法运算符（<code>+</code>）有可能把运算子转为字符串，其他运算符都会把运算子自动转成数值。</p><pre class="hljs"><code><span class="hljs-string">&#x27;5&#x27;</span> - <span class="hljs-string">&#x27;2&#x27;</span> <span class="hljs-comment">// 3</span>
 <span class="hljs-string">&#x27;5&#x27;</span> * <span class="hljs-string">&#x27;2&#x27;</span> <span class="hljs-comment">// 10</span>
 <span class="hljs-literal">true</span> - <span class="hljs-number">1</span>  <span class="hljs-comment">// 0</span>

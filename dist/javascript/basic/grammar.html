@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JavaScript 的基本语法 - JavaScript 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="../assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="../assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="JavaScript 的基本语法"><link rel="apple-touch-icon" sizes="57x57" href="../assets/icons/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="../assets/icons/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="../assets/icons/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="../assets/icons/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="../assets/icons/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="../assets/icons/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="../assets/icons/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="../assets/icons/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="../assets/icons/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="../assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="../assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="../assets/icons/favicon-16x16.png"><link rel="manifest" href="../assets/icons/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="../assets/icons/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/javascript-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/javascript-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8 is-6-widescreen is-offset-1-widescreen"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="../index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;JavaScript 教程</a></li><li><a href="../basic/index.html">入门篇</a></li><li class="is-active"><a class="has-text-grey" href="../basic/grammar.html">基本语法</a></li></ul></nav><nav class="level level-previous-next is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="../basic/history.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> 历史</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="../types/index.html">数据类型 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content"><h1 class="title">JavaScript 的基本语法</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><h2 id="语句">语句 <a class="markdownIt-Anchor" href="#语句">#</a></h2><p>JavaScript 程序的执行单位为行（line），也就是一行一行地执行。一般情况下，每一行就是一个语句。</p><p>语句（statement）是为了完成某种任务而进行的操作，比如下面就是一行赋值语句。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> a = <span class="hljs-number">1</span> + <span class="hljs-number">3</span>;
+<!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JavaScript 的基本语法 - JavaScript 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="../assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="../assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="JavaScript 的基本语法"><link rel="apple-touch-icon" href="../assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="192x192" href="../assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="../assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="../assets/icons/favicon-16x16.png"><link rel="manifest" href="../assets/icons/manifest.json"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/javascript-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/javascript-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8 is-6-widescreen is-offset-1-widescreen"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="../index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;JavaScript 教程</a></li><li><a href="../basic/index.html">入门篇</a></li><li class="is-active"><a class="has-text-grey" href="../basic/grammar.html">基本语法</a></li></ul></nav><nav class="level level-previous-next is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="../basic/history.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> 历史</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="../types/index.html">数据类型 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content"><h1 class="title">JavaScript 的基本语法</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><h2 id="语句">语句 <a class="markdownIt-Anchor" href="#语句">#</a></h2><p>JavaScript 程序的执行单位为行（line），也就是一行一行地执行。一般情况下，每一行就是一个语句。</p><p>语句（statement）是为了完成某种任务而进行的操作，比如下面就是一行赋值语句。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> a = <span class="hljs-number">1</span> + <span class="hljs-number">3</span>;
 </code></pre><p>这条语句先用<code>var</code>命令，声明了变量<code>a</code>，然后将<code>1 + 3</code>的运算结果赋值给变量<code>a</code>。</p><p><code>1 + 3</code>叫做表达式（expression），指一个为了得到返回值的计算式。语句和表达式的区别在于，前者主要为了进行某种操作，一般情况下不需要返回值；后者则是为了得到返回值，一定会返回一个值。凡是 JavaScript 语言中预期为值的地方，都可以使用表达式。比如，赋值语句的等号右边，预期是一个值，因此可以放置各种表达式。</p><p>语句以分号结尾，一个分号就表示一个语句结束。多个语句可以写在一行内。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> a = <span class="hljs-number">1</span> + <span class="hljs-number">3</span> ; <span class="hljs-keyword">var</span> b = <span class="hljs-string">&#x27;abc&#x27;</span>;
 </code></pre><p>分号前面可以没有任何内容，JavaScript 引擎将其视为空语句。</p><pre class="hljs"><code>;;;
 </code></pre><p>上面的代码就表示3个空语句。</p><p>表达式不需要分号结尾。一旦在表达式后面添加分号，则 JavaScript 引擎就将表达式视为语句，这样会产生一些没有任何意义的语句。</p><pre class="hljs"><code><span class="hljs-number">1</span> + <span class="hljs-number">3</span>;
@@ -27,10 +27,10 @@ x <span class="hljs-comment">// 1</span>
 <span class="hljs-keyword">var</span> x = <span class="hljs-number">1</span>;
 <span class="hljs-keyword">var</span> x;
 x = <span class="hljs-number">2</span>;
-</code></pre><h3 id="变量提升">变量提升 <a class="markdownIt-Anchor" href="#变量提升">#</a></h3><p>JavaScript 引擎的工作方式是，先解析代码，获取所有被声明的变量，然后再一行一行地运行。这造成的结果，就是所有的变量的声明语句，都会被提升到代码的头部，这就叫做变量提升（hoisting）。</p><pre class="hljs"><code><span class="hljs-built_in">console</span>.log(a);
+</code></pre><h3 id="变量提升">变量提升 <a class="markdownIt-Anchor" href="#变量提升">#</a></h3><p>JavaScript 引擎的工作方式是，先解析代码，获取所有被声明的变量，然后再一行一行地运行。这造成的结果，就是所有的变量的声明语句，都会被提升到代码的头部，这就叫做变量提升（hoisting）。</p><pre class="hljs"><code><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(a);
 <span class="hljs-keyword">var</span> a = <span class="hljs-number">1</span>;
 </code></pre><p>上面代码首先使用<code>console.log</code>方法，在控制台（console）显示变量<code>a</code>的值。这时变量<code>a</code>还没有声明和赋值，所以这是一种错误的做法，但是实际上不会报错。因为存在变量提升，真正运行的是下面的代码。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> a;
-<span class="hljs-built_in">console</span>.log(a);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(a);
 a = <span class="hljs-number">1</span>;
 </code></pre><p>最后的结果是显示<code>undefined</code>，表示变量<code>a</code>已声明，但还未赋值。</p><h2 id="标识符">标识符 <a class="markdownIt-Anchor" href="#标识符">#</a></h2><p>标识符（identifier）指的是用来识别各种值的合法名称。最常见的标识符就是变量名，以及后面要提到的函数名。JavaScript 语言的标识符对大小写敏感，所以<code>a</code>和<code>A</code>是两个不同的标识符。</p><p>标识符有一套命名规则，不符合规则的就是非法标识符。JavaScript 引擎遇到非法标识符，就会报错。</p><p>简单说，标识符命名规则如下。</p><ul><li>第一个字符，可以是任意 Unicode 字母（包括英文字母和其他语言的字母），以及美元符号（<code>$</code>）和下划线（<code>_</code>）。</li><li>第二个字符及后面的字符，除了 Unicode 字母、美元符号和下划线，还可以用数字<code>0-9</code>。</li></ul><p>下面这些都是合法的标识符。</p><pre class="hljs"><code>arg0
 _tmp
@@ -51,10 +51,10 @@ a+b  <span class="hljs-comment">// 标识符不能包含加号</span>
 */</span>
 </code></pre><p>此外，由于历史上 JavaScript 可以兼容 HTML 代码的注释，所以<code>&lt;!--</code>和<code>--&gt;</code>也被视为合法的单行注释。</p><pre class="hljs"><code>x = <span class="hljs-number">1</span>; &lt;!-- x = <span class="hljs-number">2</span>;
 --&gt; x = <span class="hljs-number">3</span>;
-</code></pre><p>上面代码中，只有<code>x = 1</code>会执行，其他的部分都被注释掉了。</p><p>需要注意的是，<code>--&gt;</code>只有在行首，才会被当成单行注释，否则会当作正常的运算。</p><pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">countdown</span>(<span class="hljs-params">n</span>) </span>{
-  <span class="hljs-keyword">while</span> (n --&gt; <span class="hljs-number">0</span>) <span class="hljs-built_in">console</span>.log(n);
+</code></pre><p>上面代码中，只有<code>x = 1</code>会执行，其他的部分都被注释掉了。</p><p>需要注意的是，<code>--&gt;</code>只有在行首，才会被当成单行注释，否则会当作正常的运算。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">countdown</span>(<span class="hljs-params">n</span>) {
+  <span class="hljs-keyword">while</span> (n --&gt; <span class="hljs-number">0</span>) <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(n);
 }
-countdown(<span class="hljs-number">3</span>)
+<span class="hljs-title function_">countdown</span>(<span class="hljs-number">3</span>)
 <span class="hljs-comment">// 2</span>
 <span class="hljs-comment">// 1</span>
 <span class="hljs-comment">// 0</span>
@@ -76,7 +76,7 @@ a <span class="hljs-comment">// 1</span>
 </code></pre><p>建议总是在<code>if</code>语句中使用大括号，因为这样方便插入语句。</p><p>注意，<code>if</code>后面的表达式之中，不要混淆赋值表达式（<code>=</code>）、严格相等运算符（<code>===</code>）和相等运算符（<code>==</code>）。尤其是赋值表达式不具有比较作用。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> x = <span class="hljs-number">1</span>;
 <span class="hljs-keyword">var</span> y = <span class="hljs-number">2</span>;
 <span class="hljs-keyword">if</span> (x = y) {
-  <span class="hljs-built_in">console</span>.log(x);
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(x);
 }
 <span class="hljs-comment">// &quot;2&quot;</span>
 </code></pre><p>上面代码的原意是，当<code>x</code>等于<code>y</code>的时候，才执行相关语句。但是，不小心将严格相等运算符写成赋值表达式，结果变成了将<code>y</code>赋值给变量<code>x</code>，再判断变量<code>x</code>的值（等于2）的布尔值（结果为<code>true</code>）。</p><p>这种错误可以正常生成一个布尔值，因而不会报错。为了避免这种情况，有些开发者习惯将常量写在运算符的左边，这样的话，一旦不小心将相等运算符写成赋值运算符，就会报错，因为常量不能被赋值。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> (x = <span class="hljs-number">2</span>) { <span class="hljs-comment">// 不报错</span>
@@ -99,21 +99,21 @@ a <span class="hljs-comment">// 1</span>
 <span class="hljs-keyword">var</span> n = <span class="hljs-number">2</span>;
 
 <span class="hljs-keyword">if</span> (m !== <span class="hljs-number">1</span>)
-<span class="hljs-keyword">if</span> (n === <span class="hljs-number">2</span>) <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;hello&#x27;</span>);
-<span class="hljs-keyword">else</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;world&#x27;</span>);
+<span class="hljs-keyword">if</span> (n === <span class="hljs-number">2</span>) <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;hello&#x27;</span>);
+<span class="hljs-keyword">else</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;world&#x27;</span>);
 </code></pre><p>上面代码不会有任何输出，<code>else</code>代码块不会得到执行，因为它跟着的是最近的那个<code>if</code>语句，相当于下面这样。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> (m !== <span class="hljs-number">1</span>) {
   <span class="hljs-keyword">if</span> (n === <span class="hljs-number">2</span>) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;hello&#x27;</span>);
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;hello&#x27;</span>);
   } <span class="hljs-keyword">else</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;world&#x27;</span>);
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;world&#x27;</span>);
   }
 }
 </code></pre><p>如果想让<code>else</code>代码块跟随最上面的那个<code>if</code>语句，就要改变大括号的位置。</p><pre class="hljs"><code><span class="hljs-keyword">if</span> (m !== <span class="hljs-number">1</span>) {
   <span class="hljs-keyword">if</span> (n === <span class="hljs-number">2</span>) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;hello&#x27;</span>);
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;hello&#x27;</span>);
   }
 } <span class="hljs-keyword">else</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;world&#x27;</span>);
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;world&#x27;</span>);
 }
 <span class="hljs-comment">// world</span>
 </code></pre><h3 id="switch-结构">switch 结构 <a class="markdownIt-Anchor" href="#switch-结构">#</a></h3><p>多个<code>if...else</code>连在一起使用的时候，可以转为使用更方便的<code>switch</code>结构。</p><pre class="hljs"><code><span class="hljs-keyword">switch</span> (fruit) {
@@ -123,47 +123,47 @@ a <span class="hljs-comment">// 1</span>
   <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;apple&quot;</span>:
     <span class="hljs-comment">// ...</span>
     <span class="hljs-keyword">break</span>;
-  <span class="hljs-keyword">default</span>:
+  <span class="hljs-attr">default</span>:
     <span class="hljs-comment">// ...</span>
 }
 </code></pre><p>上面代码根据变量<code>fruit</code>的值，选择执行相应的<code>case</code>。如果所有<code>case</code>都不符合，则执行最后的<code>default</code>部分。需要注意的是，每个<code>case</code>代码块内部的<code>break</code>语句不能少，否则会接下去执行下一个<code>case</code>代码块，而不是跳出<code>switch</code>结构。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> x = <span class="hljs-number">1</span>;
 
 <span class="hljs-keyword">switch</span> (x) {
   <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;x 等于1&#x27;</span>);
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;x 等于1&#x27;</span>);
   <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>:
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;x 等于2&#x27;</span>);
-  <span class="hljs-keyword">default</span>:
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;x 等于其他值&#x27;</span>);
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;x 等于2&#x27;</span>);
+  <span class="hljs-attr">default</span>:
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;x 等于其他值&#x27;</span>);
 }
 <span class="hljs-comment">// x等于1</span>
 <span class="hljs-comment">// x等于2</span>
 <span class="hljs-comment">// x等于其他值</span>
 </code></pre><p>上面代码中，<code>case</code>代码块之中没有<code>break</code>语句，导致不会跳出<code>switch</code>结构，而会一直执行下去。正确的写法是像下面这样。</p><pre class="hljs"><code><span class="hljs-keyword">switch</span> (x) {
   <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;x 等于1&#x27;</span>);
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;x 等于1&#x27;</span>);
     <span class="hljs-keyword">break</span>;
   <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>:
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;x 等于2&#x27;</span>);
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;x 等于2&#x27;</span>);
     <span class="hljs-keyword">break</span>;
-  <span class="hljs-keyword">default</span>:
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;x 等于其他值&#x27;</span>);
+  <span class="hljs-attr">default</span>:
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;x 等于其他值&#x27;</span>);
 }
 </code></pre><p><code>switch</code>语句部分和<code>case</code>语句部分，都可以使用表达式。</p><pre class="hljs"><code><span class="hljs-keyword">switch</span> (<span class="hljs-number">1</span> + <span class="hljs-number">3</span>) {
   <span class="hljs-keyword">case</span> <span class="hljs-number">2</span> + <span class="hljs-number">2</span>:
-    f();
+    <span class="hljs-title function_">f</span>();
     <span class="hljs-keyword">break</span>;
-  <span class="hljs-keyword">default</span>:
-    neverHappens();
+  <span class="hljs-attr">default</span>:
+    <span class="hljs-title function_">neverHappens</span>();
 }
 </code></pre><p>上面代码的<code>default</code>部分，是永远不会执行到的。</p><p>需要注意的是，<code>switch</code>语句后面的表达式，与<code>case</code>语句后面的表示式比较运行结果时，采用的是严格相等运算符（<code>===</code>），而不是相等运算符（<code>==</code>），这意味着比较时不会发生类型转换。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> x = <span class="hljs-number">1</span>;
 
 <span class="hljs-keyword">switch</span> (x) {
-  <span class="hljs-keyword">case</span> <span class="hljs-literal">true</span>:
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;x 发生类型转换&#x27;</span>);
+  <span class="hljs-keyword">case</span> <span class="hljs-attr">true</span>:
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;x 发生类型转换&#x27;</span>);
     <span class="hljs-keyword">break</span>;
-  <span class="hljs-keyword">default</span>:
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;x 没有发生类型转换&#x27;</span>);
+  <span class="hljs-attr">default</span>:
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;x 没有发生类型转换&#x27;</span>);
 }
 <span class="hljs-comment">// x 没有发生类型转换</span>
 </code></pre><p>上面代码中，由于变量<code>x</code>没有发生类型转换，所以不会执行<code>case true</code>的情况。这表明，<code>switch</code>语句内部采用的是“严格相等运算符”，详细解释请参考《运算符》一节。</p><h3 id="三元运算符-">三元运算符 ?: <a class="markdownIt-Anchor" href="#三元运算符-">#</a></h3><p>JavaScript 还有一个三元运算符（即该运算符需要三个运算子）<code>?:</code>，也可以用于逻辑判断。</p><pre class="hljs"><code>(条件) ? 表达式<span class="hljs-number">1</span> : 表达式<span class="hljs-number">2</span>
@@ -175,7 +175,7 @@ a <span class="hljs-comment">// 1</span>
   even = <span class="hljs-literal">false</span>;
 }
 </code></pre><p>这个三元运算符可以被视为<code>if...else...</code>的简写形式，因此可以用于多种场合。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> myVar;
-<span class="hljs-built_in">console</span>.log(
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(
   myVar ?
   <span class="hljs-string">&#x27;myVar has a value&#x27;</span> :
   <span class="hljs-string">&#x27;myVar does not have a value&#x27;</span>
@@ -193,11 +193,11 @@ a <span class="hljs-comment">// 1</span>
 </code></pre><p>下面是<code>while</code>语句的一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>;
 
 <span class="hljs-keyword">while</span> (i &lt; <span class="hljs-number">100</span>) {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;i 当前为：&#x27;</span> + i);
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;i 当前为：&#x27;</span> + i);
   i = i + <span class="hljs-number">1</span>;
 }
 </code></pre><p>上面的代码将循环100次，直到<code>i</code>等于100为止。</p><p>下面的例子是一个无限循环，因为循环条件总是为真。</p><pre class="hljs"><code><span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Hello, world&#x27;</span>);
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Hello, world&#x27;</span>);
 }
 </code></pre><h3 id="for-循环">for 循环 <a class="markdownIt-Anchor" href="#for-循环">#</a></h3><p><code>for</code>语句是循环命令的另一种形式，可以指定循环的起点、终点和终止条件。它的格式如下。</p><pre class="hljs"><code><span class="hljs-keyword">for</span> (初始化表达式; 条件; 递增表达式)
   语句
@@ -209,7 +209,7 @@ a <span class="hljs-comment">// 1</span>
 }
 </code></pre><p><code>for</code>语句后面的括号里面，有三个表达式。</p><ul><li>初始化表达式（initialize）：确定循环变量的初始值，只在循环开始时执行一次。</li><li>条件表达式（test）：每轮循环开始时，都要执行这个条件表达式，只有值为真，才继续进行循环。</li><li>递增表达式（increment）：每轮循环的最后一个操作，通常用来递增循环变量。</li></ul><p>下面是一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> x = <span class="hljs-number">3</span>;
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; x; i++) {
-  <span class="hljs-built_in">console</span>.log(i);
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(i);
 }
 <span class="hljs-comment">// 0</span>
 <span class="hljs-comment">// 1</span>
@@ -218,11 +218,11 @@ a <span class="hljs-comment">// 1</span>
 <span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>;
 
 <span class="hljs-keyword">while</span> (i &lt; x) {
-  <span class="hljs-built_in">console</span>.log(i);
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(i);
   i++;
 }
 </code></pre><p><code>for</code>语句的三个部分（initialize、test、increment），可以省略任何一个，也可以全部省略。</p><pre class="hljs"><code><span class="hljs-keyword">for</span> ( ; ; ){
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Hello World&#x27;</span>);
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Hello World&#x27;</span>);
 }
 </code></pre><p>上面代码省略了<code>for</code>语句表达式的三个部分，结果就导致了一个无限循环。</p><h3 id="dowhile-循环">do...while 循环 <a class="markdownIt-Anchor" href="#dowhile-循环">#</a></h3><p><code>do...while</code>循环与<code>while</code>循环类似，唯一的区别就是先运行一次循环体，然后判断循环条件。</p><pre class="hljs"><code><span class="hljs-keyword">do</span>
   语句
@@ -236,18 +236,18 @@ a <span class="hljs-comment">// 1</span>
 <span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>;
 
 <span class="hljs-keyword">do</span> {
-  <span class="hljs-built_in">console</span>.log(i);
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(i);
   i++;
 } <span class="hljs-keyword">while</span>(i &lt; x);
 </code></pre><h3 id="break-语句和-continue-语句">break 语句和 continue 语句 <a class="markdownIt-Anchor" href="#break-语句和-continue-语句">#</a></h3><p><code>break</code>语句和<code>continue</code>语句都具有跳转作用，可以让代码不按既有的顺序执行。</p><p><code>break</code>语句用于跳出代码块或循环。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>;
 
 <span class="hljs-keyword">while</span>(i &lt; <span class="hljs-number">100</span>) {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;i 当前为：&#x27;</span> + i);
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;i 当前为：&#x27;</span> + i);
   i++;
   <span class="hljs-keyword">if</span> (i === <span class="hljs-number">10</span>) <span class="hljs-keyword">break</span>;
 }
 </code></pre><p>上面代码只会执行10次循环，一旦<code>i</code>等于10，就会跳出循环。</p><p><code>for</code>循环也可以使用<code>break</code>语句跳出循环。</p><pre class="hljs"><code><span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; i++) {
-  <span class="hljs-built_in">console</span>.log(i);
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(i);
   <span class="hljs-keyword">if</span> (i === <span class="hljs-number">3</span>)
     <span class="hljs-keyword">break</span>;
 }
@@ -260,34 +260,34 @@ a <span class="hljs-comment">// 1</span>
 <span class="hljs-keyword">while</span> (i &lt; <span class="hljs-number">100</span>){
   i++;
   <span class="hljs-keyword">if</span> (i % <span class="hljs-number">2</span> === <span class="hljs-number">0</span>) <span class="hljs-keyword">continue</span>;
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;i 当前为：&#x27;</span> + i);
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;i 当前为：&#x27;</span> + i);
 }
-</code></pre><p>上面代码只有在<code>i</code>为奇数时，才会输出<code>i</code>的值。如果<code>i</code>为偶数，则直接进入下一轮循环。</p><p>如果存在多重循环，不带参数的<code>break</code>语句和<code>continue</code>语句都只针对最内层循环。</p><h3 id="标签label">标签（label） <a class="markdownIt-Anchor" href="#标签label">#</a></h3><p>JavaScript 语言允许，语句的前面有标签（label），相当于定位符，用于跳转到程序的任意位置，标签的格式如下。</p><pre class="hljs"><code>label:
+</code></pre><p>上面代码只有在<code>i</code>为奇数时，才会输出<code>i</code>的值。如果<code>i</code>为偶数，则直接进入下一轮循环。</p><p>如果存在多重循环，不带参数的<code>break</code>语句和<code>continue</code>语句都只针对最内层循环。</p><h3 id="标签label">标签（label） <a class="markdownIt-Anchor" href="#标签label">#</a></h3><p>JavaScript 语言允许，语句的前面有标签（label），相当于定位符，用于跳转到程序的任意位置，标签的格式如下。</p><pre class="hljs"><code><span class="hljs-attr">label</span>:
   语句
-</code></pre><p>标签可以是任意的标识符，但不能是保留字，语句部分可以是任意语句。</p><p>标签通常与<code>break</code>语句和<code>continue</code>语句配合使用，跳出特定的循环。</p><pre class="hljs"><code>top:
+</code></pre><p>标签可以是任意的标识符，但不能是保留字，语句部分可以是任意语句。</p><p>标签通常与<code>break</code>语句和<code>continue</code>语句配合使用，跳出特定的循环。</p><pre class="hljs"><code><span class="hljs-attr">top</span>:
   <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">3</span>; i++){
     <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> j = <span class="hljs-number">0</span>; j &lt; <span class="hljs-number">3</span>; j++){
       <span class="hljs-keyword">if</span> (i === <span class="hljs-number">1</span> &amp;&amp; j === <span class="hljs-number">1</span>) <span class="hljs-keyword">break</span> top;
-      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;i=&#x27;</span> + i + <span class="hljs-string">&#x27;, j=&#x27;</span> + j);
+      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;i=&#x27;</span> + i + <span class="hljs-string">&#x27;, j=&#x27;</span> + j);
     }
   }
 <span class="hljs-comment">// i=0, j=0</span>
 <span class="hljs-comment">// i=0, j=1</span>
 <span class="hljs-comment">// i=0, j=2</span>
 <span class="hljs-comment">// i=1, j=0</span>
-</code></pre><p>上面代码为一个双重循环区块，<code>break</code>命令后面加上了<code>top</code>标签（注意，<code>top</code>不用加引号），满足条件时，直接跳出双层循环。如果<code>break</code>语句后面不使用标签，则只能跳出内层循环，进入下一次的外层循环。</p><p>标签也可以用于跳出代码块。</p><pre class="hljs"><code>foo: {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span>);
+</code></pre><p>上面代码为一个双重循环区块，<code>break</code>命令后面加上了<code>top</code>标签（注意，<code>top</code>不用加引号），满足条件时，直接跳出双层循环。如果<code>break</code>语句后面不使用标签，则只能跳出内层循环，进入下一次的外层循环。</p><p>标签也可以用于跳出代码块。</p><pre class="hljs"><code><span class="hljs-attr">foo</span>: {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">1</span>);
   <span class="hljs-keyword">break</span> foo;
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;本行不会输出&#x27;</span>);
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;本行不会输出&#x27;</span>);
 }
-<span class="hljs-built_in">console</span>.log(<span class="hljs-number">2</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">2</span>);
 <span class="hljs-comment">// 1</span>
 <span class="hljs-comment">// 2</span>
-</code></pre><p>上面代码执行到<code>break foo</code>，就会跳出区块。</p><p><code>continue</code>语句也可以与标签配合使用。</p><pre class="hljs"><code>top:
+</code></pre><p>上面代码执行到<code>break foo</code>，就会跳出区块。</p><p><code>continue</code>语句也可以与标签配合使用。</p><pre class="hljs"><code><span class="hljs-attr">top</span>:
   <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">3</span>; i++){
     <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> j = <span class="hljs-number">0</span>; j &lt; <span class="hljs-number">3</span>; j++){
       <span class="hljs-keyword">if</span> (i === <span class="hljs-number">1</span> &amp;&amp; j === <span class="hljs-number">1</span>) <span class="hljs-keyword">continue</span> top;
-      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;i=&#x27;</span> + i + <span class="hljs-string">&#x27;, j=&#x27;</span> + j);
+      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;i=&#x27;</span> + i + <span class="hljs-string">&#x27;, j=&#x27;</span> + j);
     }
   }
 <span class="hljs-comment">// i=0, j=0</span>
