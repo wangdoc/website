@@ -1,0 +1,180 @@
+<!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>declare 关键字 - TypeScript 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="declare 关键字"><link rel="apple-touch-icon" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png"><link rel="manifest" href="assets/icons/manifest.json"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/typescript-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/typescript-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8 is-6-widescreen is-offset-1-widescreen"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;TypeScript 教程</a></li><li class="is-active"><a class="has-text-grey" href="declare.html">declare 关键字</a></li></ul></nav><nav class="level level-previous-next is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="decorator-legacy.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> 装饰器（旧语法）</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="d.ts.html">d.ts 类型声明文件 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content"><h1 class="title">declare 关键字</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><h2 id="简介">简介 <a class="markdownIt-Anchor" href="#简介">#</a></h2><p>declare 关键字用来告诉编译器，某个类型是存在的，可以在当前文件中使用。</p><p>它的主要作用，就是让当前文件可以使用其他文件声明的类型。举例来说，自己的脚本使用外部库定义的函数，编译器会因为不知道外部函数的类型定义而报错，这时就可以在自己的脚本里面使用<code>declare</code>关键字，告诉编译器外部函数的类型。这样的话，编译单个脚本就不会因为使用了外部类型而报错。</p><p>declare 关键字可以描述以下类型。</p><ul><li>变量（const、let、var 命令声明）</li><li>type 或者 interface 命令声明的类型</li><li>class</li><li>enum</li><li>函数（function）</li><li>模块（module）</li><li>命名空间（namespace）</li></ul><p>declare 关键字的重要特点是，它只是通知编译器某个类型是存在的，不用给出具体实现。比如，只描述函数的类型，不给出函数的实现，如果不使用<code>declare</code>，这是做不到的。</p><p>declare 只能用来描述已经存在的变量和数据结构，不能用来声明新的变量和数据结构。另外，所有 declare 语句都不会出现在编译后的文件里面。</p><h2 id="declare-variable">declare variable <a class="markdownIt-Anchor" href="#declare-variable">#</a></h2><p>declare 关键字可以给出外部变量的类型描述。</p><p>举例来说，当前脚本使用了其他脚本定义的全局变量<code>x</code>。</p><pre class="hljs"><code>x = <span class="hljs-number">123</span>; <span class="hljs-comment">// 报错</span>
+</code></pre><p>上面示例中，变量<code>x</code>是其他脚本定义的，当前脚本不知道它的类型，编译器就会报错。</p><p>这时使用 declare 命令给出它的类型，就不会报错了。</p><pre class="hljs"><code><span class="hljs-keyword">declare</span> <span class="hljs-keyword">let</span> <span class="hljs-attr">x</span>:<span class="hljs-built_in">number</span>;
+x = <span class="hljs-number">1</span>;
+</code></pre><p>如果 declare 关键字没有给出变量的具体类型，那么变量类型就是<code>any</code>。</p><pre class="hljs"><code><span class="hljs-keyword">declare</span> <span class="hljs-keyword">let</span> x;
+x = <span class="hljs-number">1</span>;
+</code></pre><p>上面示例中，变量<code>x</code>的类型为<code>any</code>。</p><p>下面的例子是脚本使用浏览器全局对象<code>document</code>。</p><pre class="hljs"><code><span class="hljs-keyword">declare</span> <span class="hljs-keyword">var</span> <span class="hljs-variable language_">document</span>;
+<span class="hljs-variable language_">document</span>.<span class="hljs-property">title</span> = <span class="hljs-string">&#x27;Hello&#x27;</span>;
+</code></pre><p>上面示例中，declare 告诉编译器，变量<code>document</code>的类型是外部定义的（具体定义在 TypeScript 内置文件<code>lib.d.ts</code>）。</p><p>如果 TypeScript 没有找到<code>document</code>的外部定义，这里就会假定它的类型是<code>any</code>。</p><p>注意，declare 关键字只用来给出类型描述，是纯的类型代码，不允许设置变量的初始值，即不能涉及值。</p><pre class="hljs"><code><span class="hljs-comment">// 报错</span>
+<span class="hljs-keyword">declare</span> <span class="hljs-keyword">let</span> <span class="hljs-attr">x</span>:<span class="hljs-built_in">number</span> = <span class="hljs-number">1</span>;
+</code></pre><p>上面示例中，declare 设置了变量的初始值，结果就报错了。</p><h2 id="declare-function">declare function <a class="markdownIt-Anchor" href="#declare-function">#</a></h2><p>declare 关键字可以给出外部函数的类型描述。</p><p>下面是一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">declare</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">sayHello</span>(<span class="hljs-params">
+  name:<span class="hljs-built_in">string</span>
+</span>):<span class="hljs-built_in">void</span>;
+
+<span class="hljs-title function_">sayHello</span>(<span class="hljs-string">&#x27;张三&#x27;</span>);
+</code></pre><p>上面示例中，declare 命令给出了<code>sayHello()</code>的类型描述，因此可以直接使用它。</p><p>注意，这种单独的函数类型声明语句，只能用于<code>declare</code>命令后面。一方面，TypeScript 不支持单独的函数类型声明语句；另一方面，declare 关键字后面也不能带有函数的具体实现。</p><pre class="hljs"><code><span class="hljs-comment">// 报错</span>
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">sayHello</span>(<span class="hljs-params">
+  name:<span class="hljs-built_in">string</span>
+</span>):<span class="hljs-built_in">void</span>;
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">sayHello</span>(<span class="hljs-params">name</span>) {
+  <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;你好，&#x27;</span> + name;
+}
+</code></pre><p>上面示例中，单独写函数的类型声明就会报错。</p><h2 id="declare-class">declare class <a class="markdownIt-Anchor" href="#declare-class">#</a></h2><p>declare 给出 class 的描述描述写法如下。</p><pre class="hljs"><code><span class="hljs-keyword">declare</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Animal</span> {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">name:<span class="hljs-built_in">string</span></span>);
+  <span class="hljs-title function_">eat</span>():<span class="hljs-built_in">void</span>;
+  <span class="hljs-title function_">sleep</span>():<span class="hljs-built_in">void</span>;
+}
+</code></pre><p>下面是一个复杂一点的例子。</p><pre class="hljs"><code><span class="hljs-keyword">declare</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">C</span> {
+  <span class="hljs-comment">// 静态成员</span>
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-title function_">s0</span>():<span class="hljs-built_in">string</span>;
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-attr">s1</span>:<span class="hljs-built_in">string</span>;
+
+  <span class="hljs-comment">// 属性</span>
+  <span class="hljs-keyword">public</span> <span class="hljs-attr">a</span>:<span class="hljs-built_in">number</span>;
+  <span class="hljs-keyword">private</span> <span class="hljs-attr">b</span>:<span class="hljs-built_in">number</span>;
+
+  <span class="hljs-comment">// 构造函数</span>
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">arg:<span class="hljs-built_in">number</span></span>);
+
+  <span class="hljs-comment">// 方法</span>
+  <span class="hljs-title function_">m</span>(<span class="hljs-attr">x</span>:<span class="hljs-built_in">number</span>, <span class="hljs-attr">y</span>:<span class="hljs-built_in">number</span>):<span class="hljs-built_in">number</span>;
+
+  <span class="hljs-comment">// 存取器</span>
+  <span class="hljs-keyword">get</span> <span class="hljs-title function_">c</span>():<span class="hljs-built_in">number</span>;
+  <span class="hljs-keyword">set</span> <span class="hljs-title function_">c</span>(<span class="hljs-params">value:<span class="hljs-built_in">number</span></span>);
+
+  <span class="hljs-comment">// 索引签名</span>
+  [<span class="hljs-attr">index</span>:<span class="hljs-built_in">string</span>]:<span class="hljs-built_in">any</span>;
+}
+</code></pre><p>同样的，declare 后面不能给出 Class 的具体实现或初始值。</p><h2 id="declare-moduledeclare-namespace">declare module，declare namespace <a class="markdownIt-Anchor" href="#declare-moduledeclare-namespace">#</a></h2><p>如果想把变量、函数、类组织在一起，可以将 declare 与 module 或 namespace 一起使用。</p><pre class="hljs"><code><span class="hljs-keyword">declare</span> <span class="hljs-keyword">namespace</span> <span class="hljs-title class_">AnimalLib</span> {
+  <span class="hljs-keyword">class</span> <span class="hljs-title class_">Animal</span> {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">name:<span class="hljs-built_in">string</span></span>);
+    <span class="hljs-title function_">eat</span>():<span class="hljs-built_in">void</span>;
+    <span class="hljs-title function_">sleep</span>():<span class="hljs-built_in">void</span>;
+  }
+
+  <span class="hljs-keyword">type</span> <span class="hljs-title class_">Animals</span> = <span class="hljs-string">&#x27;Fish&#x27;</span> | <span class="hljs-string">&#x27;Dog&#x27;</span>;
+}
+
+<span class="hljs-comment">// 或者</span>
+<span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-title class_">AnimalLib</span> {
+  <span class="hljs-keyword">class</span> <span class="hljs-title class_">Animal</span> {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">name:<span class="hljs-built_in">string</span></span>);
+    <span class="hljs-title function_">eat</span>(): <span class="hljs-built_in">void</span>;
+    <span class="hljs-title function_">sleep</span>(): <span class="hljs-built_in">void</span>;
+  }
+
+  <span class="hljs-keyword">type</span> <span class="hljs-title class_">Animals</span> = <span class="hljs-string">&#x27;Fish&#x27;</span> | <span class="hljs-string">&#x27;Dog&#x27;</span>;
+}
+</code></pre><p>上面示例中，declare 关键字给出了 module 或 namespace 的类型描述。</p><p>declare module 和 declare namespace 里面，加不加 export 关键字都可以。</p><pre class="hljs"><code><span class="hljs-keyword">declare</span> <span class="hljs-keyword">namespace</span> <span class="hljs-title class_">Foo</span> {
+  <span class="hljs-keyword">export</span> <span class="hljs-keyword">var</span> <span class="hljs-attr">a</span>: <span class="hljs-built_in">boolean</span>;
+}
+
+<span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-string">&#x27;io&#x27;</span> {
+ <span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">readFile</span>(<span class="hljs-params">filename:<span class="hljs-built_in">string</span></span>):<span class="hljs-built_in">string</span>;
+}
+</code></pre><p>上面示例中，namespace 和 module 里面使用了 export 关键字。</p><p>下面的例子是当前脚本使用了<code>myLib</code>这个外部库，它有方法<code>makeGreeting()</code>和属性<code>numberOfGreetings</code>。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> result = myLib.<span class="hljs-title function_">makeGreeting</span>(<span class="hljs-string">&#x27;你好&#x27;</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;欢迎词：&#x27;</span> + result);
+<span class="hljs-keyword">let</span> count = myLib.<span class="hljs-property">numberOfGreetings</span>;
+</code></pre><p><code>myLib</code>的类型描述就可以这样写。</p><pre class="hljs"><code><span class="hljs-keyword">declare</span> <span class="hljs-keyword">namespace</span> myLib {
+  <span class="hljs-keyword">function</span> <span class="hljs-title function_">makeGreeting</span>(<span class="hljs-params">s:<span class="hljs-built_in">string</span></span>):<span class="hljs-built_in">string</span>;
+  <span class="hljs-keyword">let</span> <span class="hljs-attr">numberOfGreetings</span>:<span class="hljs-built_in">number</span>;
+}
+</code></pre><p>declare 关键字的另一个用途，是为外部模块添加属性和方法时，给出新增部分的类型描述。</p><pre class="hljs"><code><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Foo</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">Bar</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;moduleA&#x27;</span>;
+
+<span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-string">&#x27;moduleA&#x27;</span> {
+  <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Bar</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Foo</span> {
+    <span class="hljs-attr">custom</span>: {
+      <span class="hljs-attr">prop1</span>:<span class="hljs-built_in">string</span>;
+    }
+  }
+}
+</code></pre><p>上面示例中，从模块<code>moduleA</code>导入了<code>Foo</code>接口，将其重命名为<code>Bar</code>，并用 declare 关键字为<code>Bar</code>增加一个属性<code>custom</code>。</p><p>下面是另一个例子。一个项目有多个模块，可以在一个模型中，对另一个模块的接口进行类型扩展。</p><pre class="hljs"><code><span class="hljs-comment">// a.ts</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> A {
+  <span class="hljs-attr">x</span>: <span class="hljs-built_in">number</span>;
+}
+
+<span class="hljs-comment">// b.ts</span>
+<span class="hljs-keyword">import</span> { A } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./a&#x27;</span>;
+
+<span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-string">&#x27;./a&#x27;</span> {
+  <span class="hljs-keyword">interface</span> A {
+    <span class="hljs-attr">y</span>: <span class="hljs-built_in">number</span>;
+  }
+}
+
+<span class="hljs-keyword">const</span> <span class="hljs-attr">a</span>:A = { <span class="hljs-attr">x</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">0</span> };
+</code></pre><p>上面示例中，脚本<code>a.ts</code>定义了一个接口<code>A</code>，脚本<code>b.ts</code>为这个接口添加了属性<code>y</code>。<code>declare module './a' {}</code>表示对<code>a.ts</code>里面的模块，进行类型声明，而同名 interface 会自动合并，所以等同于扩展类型。</p><p>使用这种语法进行模块的类型扩展时，有两点需要注意：</p><p>（1）<code>declare module NAME</code>语法里面的模块名<code>NAME</code>，跟 import 和 export 的模块名规则是一样的，且必须跟当前文件加载该模块的语句写法（上例<code>import { A } from './a'</code>）保持一致。</p><p>（2）不能创建新的顶层类型。也就是说，只能对<code>a.ts</code>模块中已经存在的类型进行扩展，不允许增加新的顶层类型，比如新定义一个接口<code>B</code>。</p><p>（3）不能对默认的<code>default</code>接口进行扩展，只能对 export 命令输出的命名接口进行扩充。这是因为在进行类型扩展时，需要依赖输出的接口名。</p><p>某些第三方模块，原始作者没有提供接口类型，这时可以在自己的脚本顶部加上下面一行命令。</p><pre class="hljs"><code><span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-string">&quot;模块名&quot;</span>;
+
+<span class="hljs-comment">// 例子</span>
+<span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-string">&quot;hot-new-module&quot;</span>;
+</code></pre><p>加上上面的命令以后，外部模块即使没有类型，也可以通过编译。但是，从该模块输入的所有接口都将为<code>any</code>类型。</p><p>declare module 描述的模块名可以使用通配符。</p><pre class="hljs"><code><span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-string">&#x27;my-plugin-*&#x27;</span> {
+  <span class="hljs-keyword">interface</span> <span class="hljs-title class_">PluginOptions</span> {
+    <span class="hljs-attr">enabled</span>: <span class="hljs-built_in">boolean</span>;
+    <span class="hljs-attr">priority</span>: <span class="hljs-built_in">number</span>;
+  }
+
+  <span class="hljs-keyword">function</span> <span class="hljs-title function_">initialize</span>(<span class="hljs-params">options: PluginOptions</span>): <span class="hljs-built_in">void</span>;
+  <span class="hljs-keyword">export</span> = initialize;
+}
+</code></pre><p>上面示例中，模块名<code>my-plugin-*</code>表示适配所有以<code>my-plugin-</code>开头的模块名（比如<code>my-plugin-logger</code>）。</p><h2 id="declare-global">declare global <a class="markdownIt-Anchor" href="#declare-global">#</a></h2><p>如果要为 JavaScript 引擎的原生对象添加属性和方法，可以使用<code>declare global {}</code>语法。</p><pre class="hljs"><code><span class="hljs-keyword">export</span> {};
+
+<span class="hljs-keyword">declare</span> <span class="hljs-variable language_">global</span> {
+  <span class="hljs-keyword">interface</span> <span class="hljs-title class_">String</span> {
+    <span class="hljs-title function_">toSmallString</span>(): <span class="hljs-built_in">string</span>;
+  }
+}
+
+<span class="hljs-title class_">String</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">toSmallString</span> = ():<span class="hljs-function"><span class="hljs-params">string</span> =&gt;</span> {
+  <span class="hljs-comment">// 具体实现</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;&#x27;</span>;
+};
+</code></pre><p>上面示例中，为 JavaScript 原生的<code>String</code>对象添加了<code>toSmallString()</code>方法。declare global 给出这个新增方法的类型描述。</p><p>这个示例第一行的空导出语句<code>export {}</code>，作用是强制编译器将这个脚本当作模块处理。这是因为<code>declare global</code>必须用在模块里面。</p><p>下面的示例是为 window 对象添加一个属性<code>myAppConfig</code>。</p><pre class="hljs"><code><span class="hljs-keyword">export</span> {};
+
+<span class="hljs-keyword">declare</span> <span class="hljs-variable language_">global</span> {
+  <span class="hljs-keyword">interface</span> window {
+    <span class="hljs-attr">myAppConfig</span>:<span class="hljs-built_in">object</span>;
+  }
+}
+
+<span class="hljs-keyword">const</span> config = <span class="hljs-variable language_">window</span>.<span class="hljs-property">myAppConfig</span>;
+</code></pre><p>declare global 只能扩充现有对象的类型描述，不能增加新的顶层类型。</p><h2 id="declare-enum">declare enum <a class="markdownIt-Anchor" href="#declare-enum">#</a></h2><p>declare 关键字给出 enum 类型描述的例子如下，下面的写法都是允许的。</p><pre class="hljs"><code><span class="hljs-keyword">declare</span> <span class="hljs-keyword">enum</span> <span class="hljs-variable constant_">E1</span> {
+  A,
+  B,
+}
+
+<span class="hljs-keyword">declare</span> <span class="hljs-keyword">enum</span> <span class="hljs-variable constant_">E2</span> {
+  A = <span class="hljs-number">0</span>,
+  B = <span class="hljs-number">1</span>,
+}
+
+<span class="hljs-keyword">declare</span> <span class="hljs-keyword">const</span> <span class="hljs-keyword">enum</span> <span class="hljs-variable constant_">E3</span> {
+  A,
+  B,
+}
+
+<span class="hljs-keyword">declare</span> <span class="hljs-keyword">const</span> <span class="hljs-keyword">enum</span> <span class="hljs-variable constant_">E4</span> {
+  A = <span class="hljs-number">0</span>,
+  B = <span class="hljs-number">1</span>,
+}
+</code></pre><h2 id="declare-module-用于类型声明文件">declare module 用于类型声明文件 <a class="markdownIt-Anchor" href="#declare-module-用于类型声明文件">#</a></h2><p>我们可以为每个模块脚本，定义一个<code>.d.ts</code>文件，把该脚本用到的类型定义都放在这个文件里面。但是，更方便的做法是为整个项目，定义一个大的<code>.d.ts</code>文件，在这个文件里面使用<code>declare module</code>定义每个模块脚本的类型。</p><p>下面的示例是<code>node.d.ts</code>文件的一部分。</p><pre class="hljs"><code><span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-string">&quot;url&quot;</span> {
+  <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Url</span> {
+    protocol?: <span class="hljs-built_in">string</span>;
+    hostname?: <span class="hljs-built_in">string</span>;
+    pathname?: <span class="hljs-built_in">string</span>;
+  }
+
+  <span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">parse</span>(<span class="hljs-params">
+    urlStr: <span class="hljs-built_in">string</span>,
+    parseQueryString?,
+    slashesDenoteHost?
+  </span>): <span class="hljs-title class_">Url</span>;
+}
+
+<span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-string">&quot;path&quot;</span> {
+  <span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">normalize</span>(<span class="hljs-params">p: <span class="hljs-built_in">string</span></span>): <span class="hljs-built_in">string</span>;
+  <span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">join</span>(<span class="hljs-params">...paths: <span class="hljs-built_in">any</span>[]</span>): <span class="hljs-built_in">string</span>;
+  <span class="hljs-keyword">export</span> <span class="hljs-keyword">var</span> <span class="hljs-attr">sep</span>: <span class="hljs-built_in">string</span>;
+}
+</code></pre><p>上面示例中，<code>url</code>和<code>path</code>都是单独的模块脚本，但是它们的类型都定义在<code>node.d.ts</code>这个文件里面。</p><p>使用时，自己的脚本使用三斜杠命令，加载这个类型声明文件。</p><pre class="hljs"><code><span class="hljs-comment">/// &lt;reference path=&quot;node.d.ts&quot;/&gt;</span>
+</code></pre><p>如果没有上面这一行命令，自己的脚本使用外部模块时，就需要在脚本里面使用 declare 命令单独给出外部模块的类型。</p><h2 id="参考链接">参考链接 <a class="markdownIt-Anchor" href="#参考链接">#</a></h2><ul><li><a href="https://timmousk.com/blog/typescript-declare/" target="_blank" rel="noopener">How Does The Declare Keyword Work In TypeScript?</a>, Tim Mouskhelichvili</li></ul></article><nav class="level level-previous-next is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="decorator-legacy.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> 装饰器（旧语法）</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="d.ts.html">d.ts 类型声明文件 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><div class="page-info"><p>本教程采用<a href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh" target="_blank">知识共享 署名-相同方式共享 3.0协议</a>。</p><p>分享本文 <span class="social-share"></span></p></div></div><div class="column is-3 is-offset-1"><nav class="panel panel-menu"><p class="panel-heading"><i class="fa fa-book" aria-hidden="true"></i> TypeScript 教程</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="intro.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">简介</span></a></li><li><a href="basic.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">基本用法</span></a></li><li><a href="any.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">any 类型</span></a></li><li><a href="types.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">类型系统</span></a></li><li><a href="array.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数组</span></a></li><li><a href="tuple.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">元组</span></a></li><li><a href="symbol.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">symbol 类型</span></a></li><li><a href="function.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">函数</span></a></li><li><a href="object.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">对象</span></a></li><li><a href="interface.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">interface</span></a></li><li><a href="class.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">类</span></a></li><li><a href="generics.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">泛型</span></a></li><li><a href="enum.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Enum 类型</span></a></li><li><a href="assert.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">类型断言</span></a></li><li><a href="module.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">模块</span></a></li><li><a href="namespace.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">namespace</span></a></li><li><a href="decorator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">装饰器</span></a></li><li><a href="decorator-legacy.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">装饰器（旧语法）</span></a></li><li><a href="declare.html" class="is-active"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">declare 关键字</span></a></li><li><a href="d.ts.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">d.ts 类型声明文件</span></a></li><li><a href="operator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">运算符</span></a></li><li><a href="mapping.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">类型映射</span></a></li><li><a href="utility.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">类型工具</span></a></li><li><a href="comment.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">注释指令</span></a></li><li><a href="tsconfig.json.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">tsconfig.json 文件</span></a></li><li><a href="tsc.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">tsc 命令</span></a></li></ul></aside></div></nav><nav class="panel panel-info"><p class="panel-heading"><i class="fa fa-link" aria-hidden="true"></i> 链接</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="https://raw.githubusercontent.com/wangdoc/typescript-tutorial/master/docs/declare.md" target="_blank"><span class="icon"></span><i class="fa fa-code" aria-hidden="true" style="width: 14px;"></i>&nbsp;本文源码</a></li><li><a href="https://github.com/wangdoc/typescript-tutorial" target="_blank"><span class="icon"></span><i class="fa fa-hdd-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;代码仓库</a></li><li><a href="https://github.com/wangdoc/typescript-tutorial/issues" target="_blank"><span class="icon"></span><i class="fa fa-flag-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;反馈</a></li></ul></aside></div></nav></div></div><div class="columns"><div class="column is-8 is-6-widescreen is-offset-1-widescreen"><div id="disqus_thread"></div></div></div></div></section><footer class="footer"><div class="container"><div class="content has-text-centered"><p>联系：contact@wangdoc.com</p></div></div></footer><script>var LOPPO={current_path:"declare.md",relative_root_path:"",article_toc:'<ul class="markdownIt-TOC">\n<li><a href="#%E7%AE%80%E4%BB%8B">简介</a></li>\n<li><a href="#declare-variable">declare variable</a></li>\n<li><a href="#declare-function">declare function</a></li>\n<li><a href="#declare-class">declare class</a></li>\n<li><a href="#declare-moduledeclare-namespace">declare module，declare namespace</a></li>\n<li><a href="#declare-global">declare global</a></li>\n<li><a href="#declare-enum">declare enum</a></li>\n<li><a href="#declare-module-%E7%94%A8%E4%BA%8E%E7%B1%BB%E5%9E%8B%E5%A3%B0%E6%98%8E%E6%96%87%E4%BB%B6">declare module 用于类型声明文件</a></li>\n<li><a href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5">参考链接</a></li>\n</ul>\n'}</script><script src="assets/js/app.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-111269443-1"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","UA-111269443-1")</script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script"),t=(e.src="https://hm.baidu.com/hm.js?5eec262881855af3dede6a71234571f6",document.getElementsByTagName("script")[0]);t.parentNode.insertBefore(e,t)}()</script><script>var disqus_config=function(){var t=window.location,e=t.protocol+"//"+t.host+(t.port?":"+t.port:"")+t.pathname;this.page.url=e,this.page.identifier=t.pathname};!function(){var t=document,e=t.createElement("script");e.src="https://wangdoc-typescript.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><!--script src="assets/js/social-share.min.js"--><!--/script--><script>var shareDesc="我正在阅读《declare 关键字》，出自网道（WangDoc.com）的《TypeScript 教程》。",shareOpts={url:window.location.href,source:shareDesc,title:shareDesc,description:"",image:"",sites:["weibo","wechat","qq","qzone","twitter","facebook"],origin:"WangDoc_com",disabled:[],wechatQrcodeTitle:"微信",wechatQrcodeHelper:"扫一下二维码，分享到微信。"};socialShare(".social-share",shareOpts)</script></body></html>

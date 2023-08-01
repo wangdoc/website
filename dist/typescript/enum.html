@@ -1,0 +1,338 @@
+<!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TypeScript 的 Enum 类型 - TypeScript 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="TypeScript 的 Enum 类型"><link rel="apple-touch-icon" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png"><link rel="manifest" href="assets/icons/manifest.json"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/typescript-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/typescript-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8 is-6-widescreen is-offset-1-widescreen"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;TypeScript 教程</a></li><li class="is-active"><a class="has-text-grey" href="enum.html">Enum 类型</a></li></ul></nav><nav class="level level-previous-next is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="generics.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> 泛型</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="assert.html">类型断言 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content"><h1 class="title">TypeScript 的 Enum 类型</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><p>Enum 是 TypeScript 新增的一种数据结构和类型，中文译为“枚举”。</p><h2 id="简介">简介 <a class="markdownIt-Anchor" href="#简介">#</a></h2><p>实际开发中，经常需要定义一组相关的常量。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">RED</span> = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">const</span> <span class="hljs-variable constant_">GREEN</span> = <span class="hljs-number">2</span>;
+<span class="hljs-keyword">const</span> <span class="hljs-variable constant_">BLUE</span> = <span class="hljs-number">3</span>;
+
+<span class="hljs-keyword">let</span> color = <span class="hljs-title function_">userInput</span>();
+
+<span class="hljs-keyword">if</span> (color === <span class="hljs-variable constant_">RED</span>) {<span class="hljs-comment">/* */</span>}
+<span class="hljs-keyword">if</span> (color === <span class="hljs-variable constant_">GREEN</span>) {<span class="hljs-comment">/* */</span>}
+<span class="hljs-keyword">if</span> (color === <span class="hljs-variable constant_">BLUE</span>) {<span class="hljs-comment">/* */</span>}
+
+<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;wrong color&#x27;</span>);
+</code></pre><p>上面示例中，常量<code>RED</code>、<code>GREEN</code>、<code>BLUE</code>是相关的，意为变量<code>color</code>的三个可能的取值。它们具体等于什么值其实并不重要，只要不相等就可以了。</p><p>TypeScript 就设计了 Enum 结构，用来将相关常量放在一个容器里面，方便使用。</p><pre class="hljs"><code><span class="hljs-keyword">enum</span> <span class="hljs-title class_">Color</span> {
+  <span class="hljs-title class_">Red</span>,     <span class="hljs-comment">// 0</span>
+  <span class="hljs-title class_">Green</span>,   <span class="hljs-comment">// 1</span>
+  <span class="hljs-title class_">Blue</span>     <span class="hljs-comment">// 2</span>
+}
+</code></pre><p>上面示例声明了一个 Enum 结构<code>Color</code>，里面包含三个成员<code>Red</code>、<code>Green</code>和<code>Blue</code>。第一个成员的值默认为整数<code>0</code>，第二个为<code>1</code>，第二个为<code>2</code>，以此类推。</p><p>使用时，调用 Enum 的某个成员，与调用对象属性的写法一样，可以使用点运算符，也可以使用方括号运算符。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> c = <span class="hljs-title class_">Color</span>.<span class="hljs-property">Green</span>; <span class="hljs-comment">// 1</span>
+<span class="hljs-comment">// 等同于</span>
+<span class="hljs-keyword">let</span> c = <span class="hljs-title class_">Color</span>[<span class="hljs-string">&#x27;Green&#x27;</span>]; <span class="hljs-comment">// 1</span>
+</code></pre><p>Enum 结构本身也是一种类型。比如，上例的变量<code>c</code>等于<code>1</code>，它的类型可以是 Color，也可以是<code>number</code>。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> <span class="hljs-attr">c</span>:<span class="hljs-title class_">Color</span> = <span class="hljs-title class_">Color</span>.<span class="hljs-property">Green</span>; <span class="hljs-comment">// 正确</span>
+<span class="hljs-keyword">let</span> <span class="hljs-attr">c</span>:<span class="hljs-built_in">number</span> = <span class="hljs-title class_">Color</span>.<span class="hljs-property">Green</span>; <span class="hljs-comment">// 正确</span>
+</code></pre><p>上面示例中，变量<code>c</code>的类型写成<code>Color</code>或<code>number</code>都可以。但是，<code>Color</code>类型的语义更好。</p><p>Enum 结构的特别之处在于，它既是一种类型，也是一个值。绝大多数 TypeScript 语法都是类型语法，编译后会全部去除，但是 Enum 结构是一个值，编译后会变成 JavaScript 对象，留在代码中。</p><pre class="hljs"><code><span class="hljs-comment">// 编译前</span>
+<span class="hljs-keyword">enum</span> <span class="hljs-title class_">Color</span> {
+  <span class="hljs-title class_">Red</span>,     <span class="hljs-comment">// 0</span>
+  <span class="hljs-title class_">Green</span>,   <span class="hljs-comment">// 1</span>
+  <span class="hljs-title class_">Blue</span>     <span class="hljs-comment">// 2</span>
+}
+
+<span class="hljs-comment">// 编译后</span>
+<span class="hljs-keyword">let</span> <span class="hljs-title class_">Color</span> = {
+  <span class="hljs-title class_">Red</span>: <span class="hljs-number">0</span>,
+  <span class="hljs-title class_">Green</span>: <span class="hljs-number">1</span>,
+  <span class="hljs-title class_">Blue</span>: <span class="hljs-number">2</span>
+};
+</code></pre><p>上面示例是 Enum 结构编译前后的对比。</p><p>由于 TypeScript 的定位是 JavaScript 语言的类型增强，所以官方建议谨慎使用 Enum 结构，因为它不仅仅是类型，还会为编译后的代码加入一个对象。</p><p>Enum 结构比较适合的场景是，成员的值不重要，名字更重要，从而增加代码的可读性和可维护性。</p><pre class="hljs"><code><span class="hljs-keyword">enum</span> <span class="hljs-title class_">Operator</span> {
+  <span class="hljs-variable constant_">ADD</span>,
+  <span class="hljs-variable constant_">DIV</span>,
+  <span class="hljs-variable constant_">MUL</span>,
+  <span class="hljs-variable constant_">SUB</span>
+}
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">compute</span>(<span class="hljs-params">
+  op:Operator,
+  a:<span class="hljs-built_in">number</span>,
+  b:<span class="hljs-built_in">number</span>
+</span>) {
+  <span class="hljs-keyword">switch</span> (op) {
+    <span class="hljs-keyword">case</span> <span class="hljs-title class_">Operator</span>.<span class="hljs-property">ADD</span>:
+      <span class="hljs-keyword">return</span> a + b;
+    <span class="hljs-keyword">case</span> <span class="hljs-title class_">Operator</span>.<span class="hljs-property">DIV</span>:
+      <span class="hljs-keyword">return</span> a / b;
+    <span class="hljs-keyword">case</span> <span class="hljs-title class_">Operator</span>.<span class="hljs-property">MUL</span>:
+      <span class="hljs-keyword">return</span> a * b;
+    <span class="hljs-keyword">case</span> <span class="hljs-title class_">Operator</span>.<span class="hljs-property">SUB</span>:
+      <span class="hljs-keyword">return</span> a - b;
+    <span class="hljs-attr">default</span>:
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;wrong operator&#x27;</span>);
+  }
+}
+
+<span class="hljs-title function_">compute</span>(<span class="hljs-title class_">Operator</span>.<span class="hljs-property">ADD</span>, <span class="hljs-number">1</span>, <span class="hljs-number">3</span>) <span class="hljs-comment">// 4</span>
+</code></pre><p>上面示例中，Enum 结构<code>Operator</code>的四个成员表示四则运算“加减乘除”。代码根本不需要用到这四个成员的值，只用成员名就够了。</p><p>Enum 作为类型有一个缺点，就是输入任何数值都不报错。</p><pre class="hljs"><code><span class="hljs-keyword">enum</span> <span class="hljs-title class_">Bool</span> {
+  <span class="hljs-title class_">No</span>,
+  <span class="hljs-title class_">Yes</span>
+}
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">foo</span>(<span class="hljs-params">noYes:Bool</span>) {
+  <span class="hljs-comment">// ...</span>
+}
+
+<span class="hljs-title function_">foo</span>(<span class="hljs-number">33</span>);  <span class="hljs-comment">// 不报错</span>
+</code></pre><p>上面代码中，函数<code>foo</code>的参数<code>noYes</code>只有两个可用的值，但是输入任意数值，编译都不会报错。</p><p>另外，由于 Enum 结构编译后是一个对象，所以不能有与它同名的变量（包括对象、函数、类等）。</p><pre class="hljs"><code><span class="hljs-keyword">enum</span> <span class="hljs-title class_">Color</span> {
+  <span class="hljs-title class_">Red</span>,
+  <span class="hljs-title class_">Green</span>,
+  <span class="hljs-title class_">Blue</span>
+}
+
+<span class="hljs-keyword">const</span> <span class="hljs-title class_">Color</span> = <span class="hljs-string">&#x27;red&#x27;</span>; <span class="hljs-comment">// 报错</span>
+</code></pre><p>上面示例，Enum 结构与变量同名，导致报错。</p><p>很大程度上，Enum 结构可以被对象的<code>as const</code>断言替代。</p><pre class="hljs"><code><span class="hljs-keyword">enum</span> <span class="hljs-title class_">Foo</span> {
+  A,
+  B,
+  C,
+}
+
+<span class="hljs-keyword">const</span> <span class="hljs-title class_">Bar</span> = {
+  <span class="hljs-attr">A</span>: <span class="hljs-number">0</span>,
+  <span class="hljs-attr">B</span>: <span class="hljs-number">1</span>,
+  <span class="hljs-attr">C</span>: <span class="hljs-number">2</span>,
+} <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>;
+
+<span class="hljs-keyword">if</span> （x === <span class="hljs-title class_">Foo</span>.<span class="hljs-property">A</span>）{}
+<span class="hljs-comment">// 等同于</span>
+<span class="hljs-keyword">if</span> (x === <span class="hljs-title class_">Bar</span>.<span class="hljs-property">A</span>) {}
+</code></pre><p>上面示例中，对象<code>Bar</code>使用了<code>as const</code>断言，作用就是使得它的属性无法修改。这样的话，<code>Foo</code>和<code>Bar</code>的行为就很类似了，前者完全可以用后者替代，而且后者还是 JavaScript 的原生数据结构。</p><h2 id="enum-成员的值">Enum 成员的值 <a class="markdownIt-Anchor" href="#enum-成员的值">#</a></h2><p>Enum 成员默认不必赋值，系统会从零开始逐一递增，按照顺序为每个成员赋值，比如0、1、2……</p><p>但是，也可以为 Enum 成员显式赋值。</p><pre class="hljs"><code><span class="hljs-keyword">enum</span> <span class="hljs-title class_">Color</span> {
+  <span class="hljs-title class_">Red</span>,
+  <span class="hljs-title class_">Green</span>,
+  <span class="hljs-title class_">Blue</span>
+}
+
+<span class="hljs-comment">// 等同于</span>
+<span class="hljs-keyword">enum</span> <span class="hljs-title class_">Color</span> {
+  <span class="hljs-title class_">Red</span> = <span class="hljs-number">0</span>,
+  <span class="hljs-title class_">Green</span> = <span class="hljs-number">1</span>,
+  <span class="hljs-title class_">Blue</span> = <span class="hljs-number">2</span>
+}
+</code></pre><p>上面示例中，Enum 每个成员的值都是显式赋值。</p><p>成员的值可以是任意数值，但不能是大整数（Bigint）。</p><pre class="hljs"><code><span class="hljs-keyword">enum</span> <span class="hljs-title class_">Color</span> {
+  <span class="hljs-title class_">Red</span> = <span class="hljs-number">90</span>,
+  <span class="hljs-title class_">Green</span> = <span class="hljs-number">0.5</span>,
+  <span class="hljs-title class_">Blue</span> = <span class="hljs-number">7n</span> <span class="hljs-comment">// 报错</span>
+}
+</code></pre><p>上面示例中，Enum 成员的值可以是小数，但不能是 Bigint。</p><p>成员的值甚至可以相同。</p><pre class="hljs"><code><span class="hljs-keyword">enum</span> <span class="hljs-title class_">Color</span> {
+  <span class="hljs-title class_">Red</span> = <span class="hljs-number">0</span>,
+  <span class="hljs-title class_">Green</span> = <span class="hljs-number">0</span>,
+  <span class="hljs-title class_">Blue</span> = <span class="hljs-number">0</span>
+}
+</code></pre><p>如果只设定第一个成员的值，后面成员的值就会从这个值开始递增。</p><pre class="hljs"><code><span class="hljs-keyword">enum</span> <span class="hljs-title class_">Color</span> {
+  <span class="hljs-title class_">Red</span> = <span class="hljs-number">7</span>,
+  <span class="hljs-title class_">Green</span>,  <span class="hljs-comment">// 8</span>
+  <span class="hljs-title class_">Blue</span>   <span class="hljs-comment">// 9</span>
+}
+
+<span class="hljs-comment">// 或者</span>
+<span class="hljs-keyword">enum</span> <span class="hljs-title class_">Color</span> {
+  <span class="hljs-title class_">Red</span>, <span class="hljs-comment">// 0</span>
+  <span class="hljs-title class_">Green</span> = <span class="hljs-number">7</span>,
+  <span class="hljs-title class_">Blue</span> <span class="hljs-comment">// 8</span>
+}
+</code></pre><p>Enum 成员的值也可以使用计算式。</p><pre class="hljs"><code><span class="hljs-keyword">enum</span> <span class="hljs-title class_">Permission</span> {
+  <span class="hljs-title class_">UserRead</span>     = <span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">8</span>,
+  <span class="hljs-title class_">UserWrite</span>    = <span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">7</span>,
+  <span class="hljs-title class_">UserExecute</span>  = <span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">6</span>,
+  <span class="hljs-title class_">GroupRead</span>    = <span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">5</span>,
+  <span class="hljs-title class_">GroupWrite</span>   = <span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">4</span>,
+  <span class="hljs-title class_">GroupExecute</span> = <span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">3</span>,
+  <span class="hljs-title class_">AllRead</span>      = <span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">2</span>,
+  <span class="hljs-title class_">AllWrite</span>     = <span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">1</span>,
+  <span class="hljs-title class_">AllExecute</span>   = <span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">0</span>,
+}
+
+<span class="hljs-keyword">enum</span> <span class="hljs-title class_">Bool</span> {
+  <span class="hljs-title class_">No</span> = <span class="hljs-number">123</span>,
+  <span class="hljs-title class_">Yes</span> = <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">random</span>(),
+}
+</code></pre><p>上面示例中，Enum 成员的值等于一个计算式，或者等于函数的返回值，都是正确的。</p><p>Enum 成员值都是只读的，不能重新赋值。</p><pre class="hljs"><code><span class="hljs-keyword">enum</span> <span class="hljs-title class_">Color</span> {
+  <span class="hljs-title class_">Red</span>,
+  <span class="hljs-title class_">Green</span>,
+  <span class="hljs-title class_">Blue</span>
+}
+
+<span class="hljs-title class_">Color</span>.<span class="hljs-property">Red</span> = <span class="hljs-number">4</span>; <span class="hljs-comment">// 报错</span>
+</code></pre><p>上面示例中，重新为 Enum 成员赋值就会报错。</p><p>为了让这一点更醒目，通常会在 enum 关键字前面加上<code>const</code>修饰，表示这是常量，不能再次赋值。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> <span class="hljs-keyword">enum</span> <span class="hljs-title class_">Color</span> {
+  <span class="hljs-title class_">Red</span>,
+  <span class="hljs-title class_">Green</span>,
+  <span class="hljs-title class_">Blue</span>
+}
+</code></pre><p>加上<code>const</code>还有一个好处，就是编译为 JavaScript 代码后，代码中 Enum 成员会被替换成对应的值，这样能提高性能表现。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> <span class="hljs-keyword">enum</span> <span class="hljs-title class_">Color</span> {
+  <span class="hljs-title class_">Red</span>,
+  <span class="hljs-title class_">Green</span>,
+  <span class="hljs-title class_">Blue</span>
+}
+
+<span class="hljs-keyword">const</span> x = <span class="hljs-title class_">Color</span>.<span class="hljs-property">Red</span>;
+<span class="hljs-keyword">const</span> y = <span class="hljs-title class_">Color</span>.<span class="hljs-property">Green</span>;
+<span class="hljs-keyword">const</span> z = <span class="hljs-title class_">Color</span>.<span class="hljs-property">Blue</span>;
+
+<span class="hljs-comment">// 编译后</span>
+<span class="hljs-keyword">const</span> x = <span class="hljs-number">0</span> <span class="hljs-comment">/* Color.Red */</span>;
+<span class="hljs-keyword">const</span> y = <span class="hljs-number">1</span> <span class="hljs-comment">/* Color.Green */</span>;
+<span class="hljs-keyword">const</span> z = <span class="hljs-number">2</span> <span class="hljs-comment">/* Color.Blue */</span>;
+</code></pre><p>上面示例中，由于 Enum 结构前面加了<code>const</code>关键字，所以编译产物里面就没有生成对应的对象，而是把所有 Enum 成员出现的场合，都替换成对应的常量。</p><p>如果希望加上<code>const</code>关键词后，运行时还能访问 Enum 结构（即编译后依然将 Enum 转成对象），需要在编译时打开<code>preserveConstEnums</code>编译选项。</p><h2 id="同名-enum-的合并">同名 Enum 的合并 <a class="markdownIt-Anchor" href="#同名-enum-的合并">#</a></h2><p>多个同名的 Enum 结构会自动合并。</p><pre class="hljs"><code><span class="hljs-keyword">enum</span> <span class="hljs-title class_">Foo</span> {
+  A,
+}
+
+<span class="hljs-keyword">enum</span> <span class="hljs-title class_">Foo</span> {
+  B = <span class="hljs-number">1</span>,
+}
+
+<span class="hljs-keyword">enum</span> <span class="hljs-title class_">Foo</span> {
+  C = <span class="hljs-number">2</span>,
+}
+
+<span class="hljs-comment">// 等同于</span>
+<span class="hljs-keyword">enum</span> <span class="hljs-title class_">Foo</span> {
+  A,
+  B = <span class="hljs-number">1</span>，
+  C = <span class="hljs-number">2</span>
+}
+</code></pre><p>上面示例中，<code>Foo</code>分成三段定义，系统会自动把它们合并。</p><p>Enum 结构合并时，只允许其中一个的首成员省略初始值，否则报错。</p><pre class="hljs"><code><span class="hljs-keyword">enum</span> <span class="hljs-title class_">Foo</span> {
+  A,
+}
+
+<span class="hljs-keyword">enum</span> <span class="hljs-title class_">Foo</span> {
+  B, <span class="hljs-comment">// 报错</span>
+}
+</code></pre><p>上面示例中，<code>Foo</code>的两段定义的第一个成员，都没有设置初始值，导致报错。</p><p>同名 Enum 合并时，不能有同名成员，否则报错。</p><pre class="hljs"><code><span class="hljs-keyword">enum</span> <span class="hljs-title class_">Foo</span> {
+  A,
+  B
+}
+
+<span class="hljs-keyword">enum</span> <span class="hljs-title class_">Foo</span> {
+  B = <span class="hljs-number">1</span>, <span class="hljs-comment">// 报错</span>
+  C
+}
+</code></pre><p>上面示例中，<code>Foo</code>的两段定义有一个同名成员<code>B</code>，导致报错。</p><p>同名 Enum 合并的另一个限制是，所有定义必须同为 const 枚举或者非 const 枚举，不允许混合使用。</p><pre class="hljs"><code><span class="hljs-comment">// 正确</span>
+<span class="hljs-keyword">enum</span> E {
+  A,
+}
+<span class="hljs-keyword">enum</span> E {
+  B = <span class="hljs-number">1</span>,
+}
+
+<span class="hljs-comment">// 正确</span>
+<span class="hljs-keyword">const</span> <span class="hljs-keyword">enum</span> E {
+  A,
+}
+<span class="hljs-keyword">const</span> <span class="hljs-keyword">enum</span> E {
+  B = <span class="hljs-number">1</span>,
+}
+
+<span class="hljs-comment">// 报错</span>
+<span class="hljs-keyword">enum</span> E {
+  A,
+}
+<span class="hljs-keyword">const</span> <span class="hljs-keyword">enum</span> <span class="hljs-variable constant_">E2</span> {
+  B = <span class="hljs-number">1</span>,
+}
+</code></pre><p>同名 Enum 的合并，最大用处就是补充外部定义的 Enum 结构。</p><h2 id="字符串-enum">字符串 Enum <a class="markdownIt-Anchor" href="#字符串-enum">#</a></h2><p>Enum 成员的值除了设为数值，还可以设为字符串。也就是说，Enum 也可以用作一组相关字符串的集合。</p><pre class="hljs"><code><span class="hljs-keyword">enum</span> <span class="hljs-title class_">Direction</span> {
+  <span class="hljs-title class_">Up</span> = <span class="hljs-string">&#x27;UP&#x27;</span>,
+  <span class="hljs-title class_">Down</span> = <span class="hljs-string">&#x27;DOWN&#x27;</span>,
+  <span class="hljs-title class_">Left</span> = <span class="hljs-string">&#x27;LEFT&#x27;</span>,
+  <span class="hljs-title class_">Right</span> = <span class="hljs-string">&#x27;RIGHT&#x27;</span>,
+}
+</code></pre><p>上面示例中，<code>Direction</code>就是字符串枚举，每个成员的值都是字符串。</p><p>注意，字符串枚举的所有成员值，都必须显式设置。如果没有设置，成员值默认为数值，且位置必须在字符串成员之前。</p><pre class="hljs"><code><span class="hljs-keyword">enum</span> <span class="hljs-title class_">Foo</span> {
+  A, <span class="hljs-comment">// 0</span>
+  B = <span class="hljs-string">&#x27;hello&#x27;</span>,
+  C <span class="hljs-comment">// 报错</span>
+}
+</code></pre><p>上面示例中，<code>A</code>之前没有其他成员，所以可以不设置初始值，默认等于<code>0</code>；<code>C</code>之前有一个字符串成员，必须<code>C</code>必须有初始值，不赋值就报错了。</p><p>Enum 成员可以是字符串和数值混合赋值。</p><pre class="hljs"><code><span class="hljs-keyword">enum</span> <span class="hljs-title class_">Enum</span> {
+  <span class="hljs-title class_">One</span> = <span class="hljs-string">&#x27;One&#x27;</span>,
+  <span class="hljs-title class_">Two</span> = <span class="hljs-string">&#x27;Two&#x27;</span>,
+  <span class="hljs-title class_">Three</span> = <span class="hljs-number">3</span>,
+  <span class="hljs-title class_">Four</span> = <span class="hljs-number">4</span>,
+}
+</code></pre><p>除了数值和字符串，Enum 成员不允许使用其他值（比如 Symbol 值）。</p><p>变量类型如果是字符串 Enum，就不能再赋值为字符串，这跟数值 Enum 不一样。</p><pre class="hljs"><code><span class="hljs-keyword">enum</span> <span class="hljs-title class_">MyEnum</span> {
+  <span class="hljs-title class_">One</span> = <span class="hljs-string">&#x27;One&#x27;</span>,
+  <span class="hljs-title class_">Two</span> = <span class="hljs-string">&#x27;Two&#x27;</span>,
+}
+
+<span class="hljs-keyword">let</span> s = <span class="hljs-title class_">MyEnum</span>.<span class="hljs-property">One</span>;
+s = <span class="hljs-string">&#x27;One&#x27;</span>; <span class="hljs-comment">// 报错</span>
+</code></pre><p>上面示例中，变量<code>s</code>的类型是<code>MyEnum</code>，再赋值为字符串就报错。</p><p>由于这个原因，如果函数的参数类型是字符串 Enum，传参时就不能直接传入字符串，而要传入 Enum 成员。</p><pre class="hljs"><code><span class="hljs-keyword">enum</span> <span class="hljs-title class_">MyEnum</span> {
+  <span class="hljs-title class_">One</span> = <span class="hljs-string">&#x27;One&#x27;</span>,
+  <span class="hljs-title class_">Two</span> = <span class="hljs-string">&#x27;Two&#x27;</span>,
+}
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">f</span>(<span class="hljs-params">arg:MyEnum</span>) {
+  <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;arg is &#x27;</span> + arg;
+}
+
+<span class="hljs-title function_">f</span>(<span class="hljs-string">&#x27;One&#x27;</span>) <span class="hljs-comment">// 报错</span>
+</code></pre><p>上面示例中，参数类型是<code>MyEnum</code>，直接传入字符串会报错。</p><p>所以，字符串 Enum 作为一种类型，有限定函数参数的作用。</p><p>前面说过，数值 Enum 的成员值往往不重要。但是有些场合，开发者可能希望 Enum 成员值可以保存一些有用的信息，所以 TypeScript 才设计了字符串 Enum.</p><pre class="hljs"><code><span class="hljs-keyword">const</span> <span class="hljs-keyword">enum</span> <span class="hljs-title class_">MediaTypes</span> {
+  <span class="hljs-title class_">JSON</span> = <span class="hljs-string">&#x27;application/json&#x27;</span>,
+  <span class="hljs-variable constant_">XML</span> = <span class="hljs-string">&#x27;application/xml&#x27;</span>,
+}
+
+<span class="hljs-keyword">const</span> url = <span class="hljs-string">&#x27;localhost&#x27;</span>;
+
+<span class="hljs-title function_">fetch</span>(url, {
+  <span class="hljs-attr">headers</span>: {
+    <span class="hljs-title class_">Accept</span>: <span class="hljs-title class_">MediaTypes</span>.<span class="hljs-property">JSON</span>,
+  },
+}).<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> {
+  <span class="hljs-comment">// ...</span>
+});
+</code></pre><p>上面示例中，函数<code>fetch()</code>的参数对象的属性<code>Accept</code>，只能接受一些指定的字符串。这时就很适合把字符串放进一个 Enum 结构，通过成员值来引用这些字符串。</p><p>字符串 Enum 可以使用联合类型（union）代替。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">move</span>(<span class="hljs-params">
+  where:<span class="hljs-string">&#x27;Up&#x27;</span>|<span class="hljs-string">&#x27;Down&#x27;</span>|<span class="hljs-string">&#x27;Left&#x27;</span>|<span class="hljs-string">&#x27;Right&#x27;</span>
+</span>) {
+  <span class="hljs-comment">// ...</span>
+ }
+</code></pre><p>上面示例中，函数参数<code>where</code>属于联合类型，效果跟指定为字符串 Enum 是一样的。</p><p>注意，字符串 Enum 的成员值，不能使用表达式赋值。</p><pre class="hljs"><code><span class="hljs-keyword">enum</span> <span class="hljs-title class_">MyEnum</span> {
+  A = <span class="hljs-string">&#x27;one&#x27;</span>,
+  B = [<span class="hljs-string">&#x27;T&#x27;</span>, <span class="hljs-string">&#x27;w&#x27;</span>, <span class="hljs-string">&#x27;o&#x27;</span>].<span class="hljs-title function_">join</span>(<span class="hljs-string">&#x27;&#x27;</span>) <span class="hljs-comment">// 报错</span>
+}
+</code></pre><p>上面示例中，成员<code>B</code>的值是一个字符串表达式，导致报错。</p><h2 id="keyof-运算符">keyof 运算符 <a class="markdownIt-Anchor" href="#keyof-运算符">#</a></h2><p>keyof 运算符可以取出 Enum 结构的所有成员名，作为联合类型返回。</p><pre class="hljs"><code><span class="hljs-keyword">enum</span> <span class="hljs-title class_">MyEnum</span> {
+  A = <span class="hljs-string">&#x27;a&#x27;</span>,
+  B = <span class="hljs-string">&#x27;b&#x27;</span>
+}
+
+<span class="hljs-comment">// &#x27;A&#x27;|&#x27;B&#x27;</span>
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">Foo</span> = keyof <span class="hljs-keyword">typeof</span> <span class="hljs-title class_">MyEnum</span>;
+</code></pre><p>上面示例中，<code>keyof typeof MyEnum</code>可以取出<code>MyEnum</code>的所有成员名，所以类型<code>Foo</code>等同于联合类型<code>'A'|'B'</code>。</p><p>注意，这里的<code>typeof</code>是必需的，否则<code>keyof MyEnum</code>相当于<code>keyof number</code>。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">Foo</span> = keyof <span class="hljs-title class_">MyEnum</span>;
+<span class="hljs-comment">// &quot;toString&quot; | &quot;toFixed&quot; | &quot;toExponential&quot; |</span>
+<span class="hljs-comment">// &quot;toPrecision&quot; | &quot;valueOf&quot; | &quot;toLocaleString&quot;</span>
+</code></pre><p>上面示例中，类型<code>Foo</code>等于类型<code>number</code>的所有原生属性名组成的联合类型。</p><p>这是因为 Enum 作为类型，本质上属于<code>number</code>或<code>string</code>的一种变体，而<code>typeof MyEnum</code>会将<code>MyEnum</code>当作一个值处理，从而先其转为对象类型，就可以再用<code>keyof</code>运算符返回该对象的所有属性名。</p><p>如果要返回 Enum 所有的成员值，可以使用<code>in</code>运算符。</p><pre class="hljs"><code><span class="hljs-keyword">enum</span> <span class="hljs-title class_">MyEnum</span> {
+  A = <span class="hljs-string">&#x27;a&#x27;</span>,
+  B = <span class="hljs-string">&#x27;b&#x27;</span>
+}
+
+<span class="hljs-comment">// { a：any, b: any }</span>
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">Foo</span> = { [key <span class="hljs-keyword">in</span> <span class="hljs-title class_">MyEnum</span>]: <span class="hljs-built_in">any</span> };
+</code></pre><p>上面示例中，采用属性索引可以取出<code>MyEnum</code>的所有成员值。</p><h2 id="反向映射">反向映射 <a class="markdownIt-Anchor" href="#反向映射">#</a></h2><p>数值 Enum 存在反向映射，即可以通过成员值获得成员名。</p><pre class="hljs"><code><span class="hljs-keyword">enum</span> <span class="hljs-title class_">Weekdays</span> {
+  <span class="hljs-title class_">Monday</span> = <span class="hljs-number">1</span>,
+  <span class="hljs-title class_">Tuesday</span>,
+  <span class="hljs-title class_">Wednesday</span>,
+  <span class="hljs-title class_">Thursday</span>,
+  <span class="hljs-title class_">Friday</span>,
+  <span class="hljs-title class_">Saturday</span>,
+  <span class="hljs-title class_">Sunday</span>
+}
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Weekdays</span>[<span class="hljs-number">3</span>]) <span class="hljs-comment">// Wednesday</span>
+</code></pre><p>上面示例中，Enum 成员<code>Wednesday</code>的值等于3，从而可以从成员值<code>3</code>取到对应的成员名<code>Wednesday</code>，这就叫反向映射。</p><p>这是因为 TypeScript 会将上面的 Enum 结构，编译成下面的 JavaScript 代码。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> <span class="hljs-title class_">Weekdays</span>;
+(<span class="hljs-keyword">function</span> (<span class="hljs-params">Weekdays</span>) {
+    <span class="hljs-title class_">Weekdays</span>[<span class="hljs-title class_">Weekdays</span>[<span class="hljs-string">&quot;Monday&quot;</span>] = <span class="hljs-number">1</span>] = <span class="hljs-string">&quot;Monday&quot;</span>;
+    <span class="hljs-title class_">Weekdays</span>[<span class="hljs-title class_">Weekdays</span>[<span class="hljs-string">&quot;Tuesday&quot;</span>] = <span class="hljs-number">2</span>] = <span class="hljs-string">&quot;Tuesday&quot;</span>;
+    <span class="hljs-title class_">Weekdays</span>[<span class="hljs-title class_">Weekdays</span>[<span class="hljs-string">&quot;Wednesday&quot;</span>] = <span class="hljs-number">3</span>] = <span class="hljs-string">&quot;Wednesday&quot;</span>;
+    <span class="hljs-title class_">Weekdays</span>[<span class="hljs-title class_">Weekdays</span>[<span class="hljs-string">&quot;Thursday&quot;</span>] = <span class="hljs-number">4</span>] = <span class="hljs-string">&quot;Thursday&quot;</span>;
+    <span class="hljs-title class_">Weekdays</span>[<span class="hljs-title class_">Weekdays</span>[<span class="hljs-string">&quot;Friday&quot;</span>] = <span class="hljs-number">5</span>] = <span class="hljs-string">&quot;Friday&quot;</span>;
+    <span class="hljs-title class_">Weekdays</span>[<span class="hljs-title class_">Weekdays</span>[<span class="hljs-string">&quot;Saturday&quot;</span>] = <span class="hljs-number">6</span>] = <span class="hljs-string">&quot;Saturday&quot;</span>;
+    <span class="hljs-title class_">Weekdays</span>[<span class="hljs-title class_">Weekdays</span>[<span class="hljs-string">&quot;Sunday&quot;</span>] = <span class="hljs-number">7</span>] = <span class="hljs-string">&quot;Sunday&quot;</span>;
+})(<span class="hljs-title class_">Weekdays</span> || (<span class="hljs-title class_">Weekdays</span> = {}));
+</code></pre><p>上面代码中，实际进行了两组赋值，以第一个成员为例。</p><pre class="hljs"><code><span class="hljs-title class_">Weekdays</span>[
+  <span class="hljs-title class_">Weekdays</span>[<span class="hljs-string">&quot;Monday&quot;</span>] = <span class="hljs-number">1</span>
+] = <span class="hljs-string">&quot;Monday&quot;</span>;
+</code></pre><p>上面代码有两个赋值运算符（<code>=</code>），实际上等同于下面的代码。</p><pre class="hljs"><code><span class="hljs-title class_">Weekdays</span>[<span class="hljs-string">&quot;Monday&quot;</span>] = <span class="hljs-number">1</span>;
+<span class="hljs-title class_">Weekdays</span>[<span class="hljs-number">1</span>] = <span class="hljs-string">&quot;Monday&quot;</span>;
+</code></pre><p>注意，这种情况只发生在数值 Enum，对于字符串 Enum，不存在反向映射。这是因为字符串 Enum 编译后只有一组赋值。</p><pre class="hljs"><code><span class="hljs-keyword">enum</span> <span class="hljs-title class_">MyEnum</span> {
+  A = <span class="hljs-string">&#x27;a&#x27;</span>,
+  B = <span class="hljs-string">&#x27;b&#x27;</span>
+}
+
+<span class="hljs-comment">// 编译后</span>
+<span class="hljs-keyword">var</span> <span class="hljs-title class_">MyEnum</span>;
+(<span class="hljs-keyword">function</span> (<span class="hljs-params">MyEnum</span>) {
+    <span class="hljs-title class_">MyEnum</span>[<span class="hljs-string">&quot;A&quot;</span>] = <span class="hljs-string">&quot;a&quot;</span>;
+    <span class="hljs-title class_">MyEnum</span>[<span class="hljs-string">&quot;B&quot;</span>] = <span class="hljs-string">&quot;b&quot;</span>;
+})(<span class="hljs-title class_">MyEnum</span> || (<span class="hljs-title class_">MyEnum</span> = {}));
+</code></pre></article><nav class="level level-previous-next is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="generics.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> 泛型</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="assert.html">类型断言 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><div class="page-info"><p>本教程采用<a href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh" target="_blank">知识共享 署名-相同方式共享 3.0协议</a>。</p><p>分享本文 <span class="social-share"></span></p></div></div><div class="column is-3 is-offset-1"><nav class="panel panel-menu"><p class="panel-heading"><i class="fa fa-book" aria-hidden="true"></i> TypeScript 教程</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="intro.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">简介</span></a></li><li><a href="basic.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">基本用法</span></a></li><li><a href="any.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">any 类型</span></a></li><li><a href="types.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">类型系统</span></a></li><li><a href="array.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数组</span></a></li><li><a href="tuple.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">元组</span></a></li><li><a href="symbol.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">symbol 类型</span></a></li><li><a href="function.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">函数</span></a></li><li><a href="object.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">对象</span></a></li><li><a href="interface.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">interface</span></a></li><li><a href="class.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">类</span></a></li><li><a href="generics.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">泛型</span></a></li><li><a href="enum.html" class="is-active"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Enum 类型</span></a></li><li><a href="assert.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">类型断言</span></a></li><li><a href="module.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">模块</span></a></li><li><a href="namespace.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">namespace</span></a></li><li><a href="decorator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">装饰器</span></a></li><li><a href="decorator-legacy.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">装饰器（旧语法）</span></a></li><li><a href="declare.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">declare 关键字</span></a></li><li><a href="d.ts.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">d.ts 类型声明文件</span></a></li><li><a href="operator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">运算符</span></a></li><li><a href="mapping.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">类型映射</span></a></li><li><a href="utility.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">类型工具</span></a></li><li><a href="comment.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">注释指令</span></a></li><li><a href="tsconfig.json.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">tsconfig.json 文件</span></a></li><li><a href="tsc.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">tsc 命令</span></a></li></ul></aside></div></nav><nav class="panel panel-info"><p class="panel-heading"><i class="fa fa-link" aria-hidden="true"></i> 链接</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="https://raw.githubusercontent.com/wangdoc/typescript-tutorial/master/docs/enum.md" target="_blank"><span class="icon"></span><i class="fa fa-code" aria-hidden="true" style="width: 14px;"></i>&nbsp;本文源码</a></li><li><a href="https://github.com/wangdoc/typescript-tutorial" target="_blank"><span class="icon"></span><i class="fa fa-hdd-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;代码仓库</a></li><li><a href="https://github.com/wangdoc/typescript-tutorial/issues" target="_blank"><span class="icon"></span><i class="fa fa-flag-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;反馈</a></li></ul></aside></div></nav></div></div><div class="columns"><div class="column is-8 is-6-widescreen is-offset-1-widescreen"><div id="disqus_thread"></div></div></div></div></section><footer class="footer"><div class="container"><div class="content has-text-centered"><p>联系：contact@wangdoc.com</p></div></div></footer><script>var LOPPO={current_path:"enum.md",relative_root_path:"",article_toc:'<ul class="markdownIt-TOC">\n<li><a href="#%E7%AE%80%E4%BB%8B">简介</a></li>\n<li><a href="#enum-%E6%88%90%E5%91%98%E7%9A%84%E5%80%BC">Enum 成员的值</a></li>\n<li><a href="#%E5%90%8C%E5%90%8D-enum-%E7%9A%84%E5%90%88%E5%B9%B6">同名 Enum 的合并</a></li>\n<li><a href="#%E5%AD%97%E7%AC%A6%E4%B8%B2-enum">字符串 Enum</a></li>\n<li><a href="#keyof-%E8%BF%90%E7%AE%97%E7%AC%A6">keyof 运算符</a></li>\n<li><a href="#%E5%8F%8D%E5%90%91%E6%98%A0%E5%B0%84">反向映射</a></li>\n</ul>\n'}</script><script src="assets/js/app.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-111269443-1"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","UA-111269443-1")</script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script"),t=(e.src="https://hm.baidu.com/hm.js?5eec262881855af3dede6a71234571f6",document.getElementsByTagName("script")[0]);t.parentNode.insertBefore(e,t)}()</script><script>var disqus_config=function(){var t=window.location,e=t.protocol+"//"+t.host+(t.port?":"+t.port:"")+t.pathname;this.page.url=e,this.page.identifier=t.pathname};!function(){var t=document,e=t.createElement("script");e.src="https://wangdoc-typescript.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><!--script src="assets/js/social-share.min.js"--><!--/script--><script>var shareDesc="我正在阅读《TypeScript 的 Enum 类型》，出自网道（WangDoc.com）的《TypeScript 教程》。",shareOpts={url:window.location.href,source:shareDesc,title:shareDesc,description:"",image:"",sites:["weibo","wechat","qq","qzone","twitter","facebook"],origin:"WangDoc_com",disabled:[],wechatQrcodeTitle:"微信",wechatQrcodeHelper:"扫一下二维码，分享到微信。"};socialShare(".social-share",shareOpts)</script></body></html>

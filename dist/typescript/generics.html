@@ -1,0 +1,212 @@
+<!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TypeScript 泛型 - TypeScript 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="TypeScript 泛型"><link rel="apple-touch-icon" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png"><link rel="manifest" href="assets/icons/manifest.json"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/typescript-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/typescript-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8 is-6-widescreen is-offset-1-widescreen"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;TypeScript 教程</a></li><li class="is-active"><a class="has-text-grey" href="generics.html">泛型</a></li></ul></nav><nav class="level level-previous-next is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="class.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> 类</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="enum.html">Enum 类型 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content"><h1 class="title">TypeScript 泛型</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><h2 id="简介">简介 <a class="markdownIt-Anchor" href="#简介">#</a></h2><p>有些时候，函数返回值的类型与参数类型是相关的。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">getFirst</span>(<span class="hljs-params">arr</span>) {
+  <span class="hljs-keyword">return</span> arr[<span class="hljs-number">0</span>];
+}
+</code></pre><p>上面示例中，函数<code>getFirst()</code>总是返回参数数组的第一个成员。参数数组是什么类型，返回值就是什么类型。</p><p>这个函数的类型声明只能写成下面这样。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">f</span>(<span class="hljs-params">arr:<span class="hljs-built_in">any</span>[]</span>):<span class="hljs-built_in">any</span> {
+  <span class="hljs-keyword">return</span> arr[<span class="hljs-number">0</span>];
+}
+</code></pre><p>上面的类型声明，就反映不出参数与返回值之间的类型关系。</p><p>为了解决这个问题，TypeScript 就引入了“泛型”（generics）。泛型的特点就是带有“类型参数”（type parameter）。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> getFirst&lt;T&gt;(<span class="hljs-attr">arr</span>:T[]):T {
+  <span class="hljs-keyword">return</span> arr[<span class="hljs-number">0</span>];
+}
+</code></pre><p>上面示例中，函数<code>getFirst()</code>的函数名后面尖括号的部分<code>&lt;T&gt;</code>，就是类型参数，参数要放在一对尖括号（<code>&lt;&gt;</code>）里面。本例只有一个类型参数<code>T</code>，可以将其理解为类型声明需要的变量，需要在调用时传入具体的参数类型。</p><p>上例的函数<code>getFirst()</code>的参数类型是<code>T[]</code>，返回值类型是<code>T</code>，就清楚地表示了两者之间的关系。比如，输入的参数类型是<code>number[]</code>，那么 T 的值就是<code>number</code>，因此返回值类型也是<code>number</code>。</p><p>函数调用时，需要提供类型参数。</p><pre class="hljs"><code>getFirst&lt;<span class="hljs-built_in">number</span>&gt;([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
+</code></pre><p>上面示例中，调用函数<code>getFirst()</code>时，需要在函数名后面使用尖括号，给出类型参数<code>T</code>的值，本例是<code>&lt;number&gt;</code>。</p><p>不过为了方便，函数调用时，往往省略不写类型参数的值，让 TypeScript 自己推断。</p><pre class="hljs"><code><span class="hljs-title function_">getFirst</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
+</code></pre><p>上面示例中，TypeScript 会从实际参数<code>[1, 2, 3]</code>，推断出类型参数 T 的值为<code>number</code>。</p><p>有些复杂的使用场景，TypeScript 可能推断不出类型参数的值，这时就必须显式给出了。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> comb&lt;T&gt;(<span class="hljs-attr">arr1</span>:T[], <span class="hljs-attr">arr2</span>:T[]):T[] {
+  <span class="hljs-keyword">return</span> arr1.<span class="hljs-title function_">concat</span>(arr2);
+}
+</code></pre><p>上面示例中，两个参数<code>arr1</code>、<code>arr2</code>和返回值都是同一个类型。如果不给出类型参数的值，下面的调用会报错。</p><pre class="hljs"><code><span class="hljs-title function_">comb</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>]) <span class="hljs-comment">// 报错</span>
+</code></pre><p>上面示例会报错，TypeScript 认为两个参数不是同一个类型。但是，如果类型参数是一个联合类型，就不会报错。</p><pre class="hljs"><code>comb&lt;<span class="hljs-built_in">number</span>|<span class="hljs-built_in">string</span>&gt;([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>]) <span class="hljs-comment">// 正确</span>
+</code></pre><p>上面示例中，类型参数是一个联合类型，使得两个参数都符合类型参数，就不报错了。这种情况下，类型参数是不能省略不写的。</p><p>类型参数的名字，可以随便取，但是必须为合法的标识符。习惯上，类型参数的第一个字符往往采用大写字母。一般会使用<code>T</code>（type 的第一个字母）作为类型参数的名字。如果有多个类型参数，则使用 T 后面的 U、V 等字母命名，各个参数之间使用逗号（“,”）分隔。</p><p>下面是多个类型参数的例子。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> map&lt;T, U&gt;(
+  <span class="hljs-attr">arr</span>:T[],
+  <span class="hljs-attr">f</span>:<span class="hljs-function">(<span class="hljs-params">arg:T</span>) =&gt;</span> U
+):U[] {
+  <span class="hljs-keyword">return</span> arr.<span class="hljs-title function_">map</span>(f);
+}
+
+<span class="hljs-comment">// 用法实例</span>
+map&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">number</span>&gt;(
+  [<span class="hljs-string">&#x27;1&#x27;</span>, <span class="hljs-string">&#x27;2&#x27;</span>, <span class="hljs-string">&#x27;3&#x27;</span>],
+  <span class="hljs-function">(<span class="hljs-params">n</span>) =&gt;</span> <span class="hljs-built_in">parseInt</span>(n)
+); <span class="hljs-comment">// 返回 [1, 2, 3]</span>
+</code></pre><p>上面示例将数组的实例方法<code>map()</code>改写成全局函数，它有两个类型参数<code>T</code>和<code>U</code>。含义是，原始数组的类型为<code>T[]</code>，对该数组的每个成员执行一个处理函数<code>f</code>，将类型<code>T</code>转成类型<code>U</code>，那么就会得到一个类型为<code>U[]</code>的数组。</p><p>总之，泛型可以理解成一段类型逻辑，需要类型参数来表达。有了类型参数以后，可以在输入类型与输出类型之间，建立一一对应关系。</p><h2 id="泛型的写法">泛型的写法 <a class="markdownIt-Anchor" href="#泛型的写法">#</a></h2><p>泛型主要用在四个场合：函数、接口、类和别名。</p><h3 id="函数的泛型写法">函数的泛型写法 <a class="markdownIt-Anchor" href="#函数的泛型写法">#</a></h3><p>上一节提到，<code>function</code>关键字定义的泛型函数，类型参数放在尖括号中，写在函数名后面。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> id&lt;T&gt;(<span class="hljs-attr">arg</span>:T):T {
+  <span class="hljs-keyword">return</span> arg;
+}
+</code></pre><p>那么对于变量形式定义的函数，泛型有下面两种写法。</p><pre class="hljs"><code><span class="hljs-comment">// 写法一</span>
+<span class="hljs-keyword">let</span> <span class="hljs-attr">myId</span>:&lt;T&gt;<span class="hljs-function">(<span class="hljs-params">arg:T</span>) =&gt;</span> T = id;
+
+<span class="hljs-comment">// 写法二</span>
+<span class="hljs-keyword">let</span> <span class="hljs-attr">myId</span>:{ &lt;T&gt;(<span class="hljs-attr">arg</span>:T): T } = id;
+</code></pre><h3 id="接口的泛型写法">接口的泛型写法 <a class="markdownIt-Anchor" href="#接口的泛型写法">#</a></h3><p>interface 也可以采用泛型的写法。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Box</span>&lt;<span class="hljs-title class_">Type</span>&gt; {
+  <span class="hljs-attr">contents</span>: <span class="hljs-title class_">Type</span>;
+}
+
+<span class="hljs-keyword">let</span> <span class="hljs-attr">box</span>:<span class="hljs-title class_">Box</span>&lt;<span class="hljs-built_in">string</span>&gt;;
+</code></pre><p>上面示例中，使用泛型接口时，需要给出类型参数的值（本例是<code>string</code>）。</p><p>下面是另一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Comparator</span>&lt;T&gt; {
+  <span class="hljs-title function_">compareTo</span>(<span class="hljs-attr">value</span>:T): <span class="hljs-built_in">number</span>;
+}
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Rectangle</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Comparator</span>&lt;<span class="hljs-title class_">Rectangle</span>&gt; {
+
+  <span class="hljs-title function_">compareTo</span>(<span class="hljs-attr">value</span>:<span class="hljs-title class_">Rectangle</span>): <span class="hljs-built_in">number</span> {
+    <span class="hljs-comment">// ...</span>
+  }
+}
+</code></pre><p>上面示例中，先定义了一个泛型接口，然后将这个接口用于一个类。</p><p>泛型接口还有第二种写法。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Fn</span> {
+  &lt;<span class="hljs-title class_">Type</span>&gt;(<span class="hljs-attr">arg</span>:<span class="hljs-title class_">Type</span>): <span class="hljs-title class_">Type</span>;
+}
+
+<span class="hljs-keyword">function</span> id&lt;<span class="hljs-title class_">Type</span>&gt;(<span class="hljs-attr">arg</span>:<span class="hljs-title class_">Type</span>): <span class="hljs-title class_">Type</span> {
+  <span class="hljs-keyword">return</span> arg;
+}
+
+<span class="hljs-keyword">let</span> <span class="hljs-attr">myId</span>:<span class="hljs-title class_">Fn</span> = id;
+</code></pre><p>上面示例中，<code>Fn</code>的类型参数<code>Type</code>的具体类型，需要函数<code>id</code>在使用时提供。所以，最后一行的赋值语句不需要给出<code>Type</code>的具体类型。</p><p>此外，第二种写法还有一个差异之处。那就是它的类型参数定义在某个方法之中，其他属性和方法不能使用该类型参数。前面的第一种写法，类型参数定义在整个接口，接口内部的所有属性和方法都可以使用该类型参数。</p><h3 id="类的泛型写法">类的泛型写法 <a class="markdownIt-Anchor" href="#类的泛型写法">#</a></h3><p>泛型类的类型参数写在类名后面。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">Pair</span>&lt;K, V&gt; {
+  <span class="hljs-attr">key</span>: K;
+  <span class="hljs-attr">value</span>: V;
+}
+</code></pre><p>下面是继承泛型类的例子。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span>&lt;T&gt; {
+  <span class="hljs-attr">value</span>: T;
+}
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">A</span>&lt;<span class="hljs-built_in">any</span>&gt; {
+}
+</code></pre><p>上面示例中，类<code>A</code>有一个类型参数<code>T</code>，使用时必须给出<code>T</code>的类型，所以类<code>B</code>继承时要写成<code>A&lt;any&gt;</code>。</p><p>泛型也可以用在类表达式。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> <span class="hljs-title class_">Container</span> = <span class="hljs-keyword">class</span>&lt;T&gt; {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> data:T</span>) {}
+};
+
+<span class="hljs-keyword">const</span> a = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Container</span>&lt;<span class="hljs-built_in">boolean</span>&gt;(<span class="hljs-literal">true</span>);
+<span class="hljs-keyword">const</span> b = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Container</span>&lt;<span class="hljs-built_in">number</span>&gt;(<span class="hljs-number">0</span>);
+</code></pre><p>上面示例中，新建实例时，需要同时给出类型参数<code>T</code>和类参数<code>data</code>的值。</p><p>下面是另一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">C</span>&lt;<span class="hljs-title class_">NumType</span>&gt; {
+  value!: <span class="hljs-title class_">NumType</span>;
+  add!: <span class="hljs-function">(<span class="hljs-params">x: NumType, y: NumType</span>) =&gt;</span> <span class="hljs-title class_">NumType</span>;
+}
+
+<span class="hljs-keyword">let</span> foo = <span class="hljs-keyword">new</span> C&lt;<span class="hljs-built_in">number</span>&gt;();
+
+foo.<span class="hljs-property">value</span> = <span class="hljs-number">0</span>;
+foo.<span class="hljs-property">add</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">x, y</span>) {
+  <span class="hljs-keyword">return</span> x + y;
+};
+</code></pre><p>上面示例中，先新建类<code>C</code>的实例<code>foo</code>，然后再定义示例的<code>value</code>属性和<code>add()</code>方法。类的定义中，属性和方法后面的感叹号是非空断言，告诉 TypeScript 它们都是非空的，后面会赋值。</p><p>JavaScript 的类本质上是一个构造函数，因此也可以把泛型类写成构造函数。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">MyClass</span>&lt;T&gt; = <span class="hljs-keyword">new</span> (...<span class="hljs-attr">args</span>: <span class="hljs-built_in">any</span>[]) =&gt; T;
+
+<span class="hljs-comment">// 或者</span>
+<span class="hljs-keyword">interface</span> <span class="hljs-title class_">MyClass</span>&lt;T&gt; {
+  <span class="hljs-title function_">new</span>(...<span class="hljs-attr">args</span>: <span class="hljs-built_in">any</span>[]): T;
+}
+
+<span class="hljs-comment">// 用法实例</span>
+<span class="hljs-keyword">function</span> createInstance&lt;T&gt;(
+  <span class="hljs-title class_">AnyClass</span>: <span class="hljs-title class_">MyClass</span>&lt;T&gt;,
+  ...<span class="hljs-attr">args</span>: <span class="hljs-built_in">any</span>[]
+):T {
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">AnyClass</span>(...args);
+}
+</code></pre><p>上面示例中，函数<code>createInstance()</code>的第一个参数<code>AnyClass</code>是构造函数（也可以是一个类），它的类型是<code>MyClass&lt;T&gt;</code>，这里的<code>T</code>是<code>createInstance()</code>的类型参数，在该函数调用时再指定具体类型。</p><p>注意，泛型类描述的是类的实例，不包括静态属性和静态方法，因为这两者定义在类的本身。因此，它们不能引用类型参数。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">C</span>&lt;T&gt; {
+  <span class="hljs-keyword">static</span> <span class="hljs-attr">data</span>: T;  <span class="hljs-comment">// 报错</span>
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> value:T</span>) {}
+}
+</code></pre><p>上面示例中，静态属性<code>data</code>引用了类型参数<code>T</code>，这是不可以的，因为类型参数只能用于实例属性和实例方法，所以报错了。</p><h3 id="类型别名的泛型写法">类型别名的泛型写法 <a class="markdownIt-Anchor" href="#类型别名的泛型写法">#</a></h3><p>type 命令定义的类型别名，也可以使用泛型。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">Nullable</span>&lt;T&gt; = T | <span class="hljs-literal">undefined</span> | <span class="hljs-literal">null</span>;
+</code></pre><p>上面示例中，<code>Nullable&lt;T&gt;</code>是一个泛型，只要传入一个类型，就可以得到这个类型与<code>undefined</code>和<code>null</code>的一个联合类型。</p><p>下面是另一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">Container</span>&lt;T&gt; = { <span class="hljs-attr">value</span>: T };
+
+<span class="hljs-keyword">const</span> <span class="hljs-attr">a</span>: <span class="hljs-title class_">Container</span>&lt;<span class="hljs-built_in">number</span>&gt; = { <span class="hljs-attr">value</span>: <span class="hljs-number">0</span> };
+<span class="hljs-keyword">const</span> <span class="hljs-attr">b</span>: <span class="hljs-title class_">Container</span>&lt;<span class="hljs-built_in">string</span>&gt; = { <span class="hljs-attr">value</span>: <span class="hljs-string">&#x27;b&#x27;</span> };
+</code></pre><p>下面是定义树形结构的例子。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">Tree</span>&lt;T&gt; = {
+  <span class="hljs-attr">value</span>: T;
+  <span class="hljs-attr">left</span>: <span class="hljs-title class_">Tree</span>&lt;T&gt; | <span class="hljs-literal">null</span>;
+  <span class="hljs-attr">right</span>: <span class="hljs-title class_">Tree</span>&lt;T&gt; | <span class="hljs-literal">null</span>;
+};
+</code></pre><p>上面示例中，类型别名<code>Tree</code>内部递归引用了<code>Tree</code>自身。</p><h2 id="类型参数的默认值">类型参数的默认值 <a class="markdownIt-Anchor" href="#类型参数的默认值">#</a></h2><p>类型参数可以设置默认值。使用时，如果没有给出类型参数的值，就会使用默认值。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> getFirst&lt;T = <span class="hljs-built_in">string</span>&gt;(
+  <span class="hljs-attr">arr</span>:T[]
+):T {
+  <span class="hljs-keyword">return</span> arr[<span class="hljs-number">0</span>];
+}
+</code></pre><p>上面示例中，<code>T = string</code>表示类型参数的默认值是<code>string</code>。调用<code>getFirst()</code>时，如果不给出<code>T</code>的值，TypeScript 就认为<code>T</code>等于<code>string</code>。</p><p>但是，因为 TypeScript 会从实际参数推断出<code>T</code>的值，从而覆盖掉默认值，所以下面的代码不会报错。</p><pre class="hljs"><code><span class="hljs-title function_">getFirst</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]) <span class="hljs-comment">// 正确</span>
+</code></pre><p>上面示例中，实际参数是<code>[1, 2, 3]</code>，TypeScript 推断 T 等于<code>number</code>，从而覆盖掉默认值<code>string</code>。</p><p>类型参数的默认值，往往用在类中。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">Generic</span>&lt;T = <span class="hljs-built_in">string</span>&gt; {
+  <span class="hljs-attr">list</span>:T[] = []
+
+  <span class="hljs-title function_">add</span>(<span class="hljs-params">t:T</span>) {
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">list</span>.<span class="hljs-title function_">push</span>(t)
+  }
+}
+</code></pre><p>上面示例中，类<code>Generic</code>有一个类型参数<code>T</code>，默认值为<code>string</code>。这意味着，属性<code>list</code>默认是一个字符串数组，方法<code>add()</code>的默认参数是一个字符串。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> g = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Generic</span>();
+
+g.<span class="hljs-title function_">add</span>(<span class="hljs-number">4</span>) <span class="hljs-comment">// 报错</span>
+g.<span class="hljs-title function_">add</span>(<span class="hljs-string">&#x27;hello&#x27;</span>) <span class="hljs-comment">// 正确</span>
+</code></pre><p>上面示例中，新建<code>Generic</code>的实例<code>g</code>时，没有给出类型参数<code>T</code>的值，所以<code>T</code>就等于<code>string</code>。因此，向<code>add()</code>方法传入一个数值会报错，传入字符串就不会。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> g = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Generic</span>&lt;<span class="hljs-built_in">number</span>&gt;();
+
+g.<span class="hljs-title function_">add</span>(<span class="hljs-number">4</span>) <span class="hljs-comment">// 正确</span>
+g.<span class="hljs-title function_">add</span>(<span class="hljs-string">&#x27;hello&#x27;</span>) <span class="hljs-comment">// 报错</span>
+</code></pre><p>上面示例中，新建实例<code>g</code>时，给出了类型参数<code>T</code>的值是<code>number</code>，因此<code>add()</code>方法传入数值不会报错，传入字符串会报错。</p><p>一旦类型参数有默认值，就表示它是可选参数。如果有多个类型参数，可选参数必须在必选参数之后。</p><pre class="hljs"><code>&lt;T = <span class="hljs-built_in">boolean</span>, U&gt; <span class="hljs-comment">// 错误</span>
+
+&lt;T, U = <span class="hljs-built_in">boolean</span>&gt; <span class="hljs-comment">// 正确</span>
+</code></pre><p>上面示例中，依次有两个类型参数<code>T</code>和<code>U</code>。如果<code>T</code>是可选参数，<code>U</code>不是，就会报错。</p><h2 id="数组的泛型表示">数组的泛型表示 <a class="markdownIt-Anchor" href="#数组的泛型表示">#</a></h2><p>《数组》一章提到过，数组类型有一种表示方法是<code>Array&lt;T&gt;</code>。这就是泛型的写法，<code>Array</code>是 TypeScript 原生的一个类型接口，<code>T</code>是它的类型参数。声明数组时，需要提供<code>T</code>的值。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> <span class="hljs-attr">arr</span>:<span class="hljs-title class_">Array</span>&lt;<span class="hljs-built_in">number</span>&gt; = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
+</code></pre><p>上面的示例中，<code>Array&lt;number&gt;</code>就是一个泛型，类型参数的值是<code>number</code>，表示该数组的全部成员都是数值。</p><p>同样的，如果数组成员都是字符串，那么类型就写成<code>Array&lt;string&gt;</code>。事实上，在 TypeScript 内部，数组类型的另一种写法<code>number[]</code>、<code>string[]</code>，只是<code>Array&lt;number&gt;</code>、<code>Array&lt;string&gt;</code>的简写形式。</p><p>在 TypeScript 内部，<code>Array</code>是一个泛型接口，类型定义基本是下面的样子。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Array</span>&lt;<span class="hljs-title class_">Type</span>&gt; {
+
+  <span class="hljs-attr">length</span>: <span class="hljs-built_in">number</span>;
+
+  <span class="hljs-title function_">pop</span>(): <span class="hljs-title class_">Type</span>|<span class="hljs-literal">undefined</span>;
+
+  <span class="hljs-title function_">push</span>(...<span class="hljs-attr">items</span>:<span class="hljs-title class_">Type</span>[]): <span class="hljs-built_in">number</span>;
+
+  <span class="hljs-comment">// ...</span>
+}
+</code></pre><p>上面代码中，<code>push()</code>方法的参数<code>item</code>的类型是<code>Type[]</code>，跟<code>Array()</code>的参数类型<code>Type</code>保持一致，表示只能添加同类型的成员。调用<code>push()</code>的时候，TypeScript 就会检查两者是否一致。</p><p>其他的 TypeScript 内部数据结构，比如<code>Map</code>、<code>Set</code>和<code>Promise</code>，其实也是泛型接口，完整的写法是<code>Map&lt;K, V&gt;</code>、<code>Set&lt;T&gt;</code>和<code>Promise&lt;T&gt;</code>。</p><p>TypeScript 默认还提供一个<code>ReadonlyArray&lt;T&gt;</code>接口，表示只读数组。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">doStuff</span>(<span class="hljs-params">
+  values:ReadonlyArray&lt;<span class="hljs-built_in">string</span>&gt;
+</span>) {
+  values.<span class="hljs-title function_">push</span>(<span class="hljs-string">&#x27;hello!&#x27;</span>);  <span class="hljs-comment">// 报错</span>
+}
+</code></pre><p>上面示例中，参数<code>values</code>的类型是<code>ReadonlyArray&lt;string&gt;</code>，表示不能修改这个数组，所以函数体内部新增数组成员就会报错。因此，如果不希望函数内部改动参数数组，就可以将该参数数组声明为<code>ReadonlyArray&lt;T&gt;</code>类型。</p><h2 id="类型参数的约束条件">类型参数的约束条件 <a class="markdownIt-Anchor" href="#类型参数的约束条件">#</a></h2><p>很多类型参数并不是无限制的，对于传入的类型存在约束条件。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> comp&lt;<span class="hljs-title class_">Type</span>&gt;(<span class="hljs-attr">a</span>:<span class="hljs-title class_">Type</span>, <span class="hljs-attr">b</span>:<span class="hljs-title class_">Type</span>) {
+  <span class="hljs-keyword">if</span> (a.<span class="hljs-property">length</span> &gt;= b.<span class="hljs-property">length</span>) {
+    <span class="hljs-keyword">return</span> a;
+  }
+  <span class="hljs-keyword">return</span> b;
+}
+</code></pre><p>上面示例中，类型参数 Type 有一个隐藏的约束条件：它必须存在<code>length</code>属性。如果不满足这个条件，就会报错。</p><p>TypeScript 提供了一种语法，允许在类型参数上面写明约束条件，如果不满足条件，编译时就会报错。这样也可以有良好的语义，对类型参数进行说明。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> comp&lt;T <span class="hljs-keyword">extends</span> { <span class="hljs-attr">length</span>: <span class="hljs-built_in">number</span> }&gt;(
+  <span class="hljs-attr">a</span>: T,
+  <span class="hljs-attr">b</span>: T
+) {
+  <span class="hljs-keyword">if</span> (a.<span class="hljs-property">length</span> &gt;= b.<span class="hljs-property">length</span>) {
+    <span class="hljs-keyword">return</span> a;
+  }
+  <span class="hljs-keyword">return</span> b;
+}
+</code></pre><p>上面示例中，<code>T extends { length: number }</code>就是约束条件，表示类型参数 T 必须满足<code>{ length: number }</code>，否则就会报错。</p><pre class="hljs"><code><span class="hljs-title function_">comp</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]) <span class="hljs-comment">// 正确</span>
+<span class="hljs-title function_">comp</span>(<span class="hljs-string">&#x27;ab&#x27;</span>, <span class="hljs-string">&#x27;abc&#x27;</span>) <span class="hljs-comment">// 正确</span>
+<span class="hljs-title function_">comp</span>(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// 报错</span>
+</code></pre><p>上面示例中，只要传入的参数类型不满足约束条件，就会报错。</p><p>类型参数的约束条件采用下面的形式。</p><pre class="hljs"><code>&lt;<span class="hljs-title class_">TypeParameter</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">ConstraintType</span>&gt;
+</code></pre><p>上面语法中，<code>TypeParameter</code>表示类型参数，<code>extends</code>是关键字，这是必须的，<code>ConstraintType</code>表示类型参数要满足的条件，即类型参数应该是<code>ConstraintType</code>的子类型。</p><p>类型参数可以同时设置约束条件和默认值，前提是默认值必须满足约束条件。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">Fn</span>&lt;A <span class="hljs-keyword">extends</span> <span class="hljs-built_in">string</span>, B <span class="hljs-keyword">extends</span> <span class="hljs-built_in">string</span> = <span class="hljs-string">&#x27;world&#x27;</span>&gt;
+  =  [A, B];
+
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">Result</span> = <span class="hljs-title class_">Fn</span>&lt;<span class="hljs-string">&#x27;hello&#x27;</span>&gt; <span class="hljs-comment">// [&quot;hello&quot;, &quot;world&quot;]</span>
+</code></pre><p>上面示例中，类型参数<code>A</code>和<code>B</code>都有约束条件，并且<code>B</code>还有默认值。所以，调用<code>Fn</code>的时候，可以只给出<code>A</code>的值，不给出<code>B</code>的值。</p><p>另外，上例也可以看出，泛型本质上是一个类型函数，通过输入参数，获得结果，两者是一一对应关系。</p><p>如果有多个类型参数，一个类型参数的约束条件，可以引用其他参数。</p><pre class="hljs"><code>&lt;T, U <span class="hljs-keyword">extends</span> T&gt;
+<span class="hljs-comment">// 或者</span>
+&lt;T <span class="hljs-keyword">extends</span> U, U&gt;
+</code></pre><p>上面示例中，<code>U</code>的约束条件引用<code>T</code>，或者<code>T</code>的约束条件引用<code>U</code>，都是正确的。</p><p>但是，约束条件不能引用类型参数自身。</p><pre class="hljs"><code>&lt;T <span class="hljs-keyword">extends</span> T&gt;               <span class="hljs-comment">// 报错</span>
+&lt;T <span class="hljs-keyword">extends</span> U, U <span class="hljs-keyword">extends</span> T&gt;  <span class="hljs-comment">// 报错</span>
+</code></pre><p>上面示例中，<code>T</code>的约束条件不能是<code>T</code>自身。同理，多个类型参数也不能互相约束（即<code>T</code>的约束条件是<code>U</code>、<code>U</code>的约束条件是<code>T</code>），因为互相约束就意味着约束条件就是类型参数自身。</p><h2 id="使用注意点">使用注意点 <a class="markdownIt-Anchor" href="#使用注意点">#</a></h2><p>泛型有一些使用注意点。</p><p><strong>（1）尽量少用泛型。</strong></p><p>泛型虽然灵活，但是会加大代码的复杂性，使其变得难读难写。一般来说，只要使用了泛型，类型声明通常都不太易读，容易写得很复杂。因此，可以不用泛型就不要用。</p><p><strong>（2）类型参数越少越好。</strong></p><p>多一个类型参数，多一道替换步骤，加大复杂性。因此，类型参数越少越好。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> filter&lt;
+  T,
+  <span class="hljs-title class_">Fn</span> <span class="hljs-keyword">extends</span> (<span class="hljs-attr">arg</span>:T) =&gt; <span class="hljs-built_in">boolean</span>
+&gt;(
+  <span class="hljs-attr">arr</span>:T[],
+  <span class="hljs-attr">func</span>:<span class="hljs-title class_">Fn</span>
+): T[] {
+  <span class="hljs-keyword">return</span> arr.<span class="hljs-title function_">filter</span>(func);
+}
+</code></pre><p>上面示例有两个类型参数，但是第二个类型参数<code>Fn</code>是不必要的，完全可以直接写在函数参数的类型声明里面。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> filter&lt;T&gt;(
+  <span class="hljs-attr">arr</span>:T[],
+  <span class="hljs-attr">func</span>:<span class="hljs-function">(<span class="hljs-params">arg:T</span>) =&gt;</span> <span class="hljs-built_in">boolean</span>
+): T[] {
+  <span class="hljs-keyword">return</span> arr.<span class="hljs-title function_">filter</span>(func);
+}
+</code></pre><p>上面示例中，类型参数简化成了一个，效果与前一个示例是一样的。</p><p><strong>（3）类型参数需要出现两次。</strong></p><p>如果类型参数在定义后只出现一次，那么很可能是不必要的。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> greet&lt;<span class="hljs-title class_">Str</span> <span class="hljs-keyword">extends</span> <span class="hljs-built_in">string</span>&gt;(
+  <span class="hljs-attr">s</span>:<span class="hljs-title class_">Str</span>
+) {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Hello, &#x27;</span> + s);
+}
+</code></pre><p>上面示例中，类型参数<code>Str</code>只在函数声明中出现一次（除了它的定义部分），这往往表明这个类型参数是不必要。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">greet</span>(<span class="hljs-params">s:<span class="hljs-built_in">string</span></span>) {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Hello, &#x27;</span> + s);
+}
+</code></pre><p>上面示例把前面的类型参数省略了，效果与前一个示例是一样的。</p><p>也就是说，只有当类型参数用到两次或两次以上，才是泛型的适用场合。</p><p><strong>（4）泛型可以嵌套。</strong></p><p>类型参数可以是另一个泛型。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">OrNull</span>&lt;<span class="hljs-title class_">Type</span>&gt; = <span class="hljs-title class_">Type</span>|<span class="hljs-literal">null</span>;
+
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">OneOrMany</span>&lt;<span class="hljs-title class_">Type</span>&gt; = <span class="hljs-title class_">Type</span>|<span class="hljs-title class_">Type</span>[];
+
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">OneOrManyOrNull</span>&lt;<span class="hljs-title class_">Type</span>&gt; = <span class="hljs-title class_">OrNull</span>&lt;<span class="hljs-title class_">OneOrMany</span>&lt;<span class="hljs-title class_">Type</span>&gt;&gt;;
+</code></pre><p>上面示例中，最后一行的泛型<code>OrNull</code>的类型参数，就是另一个泛型<code>OneOrMany</code>。</p></article><nav class="level level-previous-next is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="class.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> 类</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="enum.html">Enum 类型 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><div class="page-info"><p>本教程采用<a href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh" target="_blank">知识共享 署名-相同方式共享 3.0协议</a>。</p><p>分享本文 <span class="social-share"></span></p></div></div><div class="column is-3 is-offset-1"><nav class="panel panel-menu"><p class="panel-heading"><i class="fa fa-book" aria-hidden="true"></i> TypeScript 教程</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="intro.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">简介</span></a></li><li><a href="basic.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">基本用法</span></a></li><li><a href="any.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">any 类型</span></a></li><li><a href="types.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">类型系统</span></a></li><li><a href="array.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数组</span></a></li><li><a href="tuple.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">元组</span></a></li><li><a href="symbol.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">symbol 类型</span></a></li><li><a href="function.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">函数</span></a></li><li><a href="object.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">对象</span></a></li><li><a href="interface.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">interface</span></a></li><li><a href="class.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">类</span></a></li><li><a href="generics.html" class="is-active"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">泛型</span></a></li><li><a href="enum.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Enum 类型</span></a></li><li><a href="assert.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">类型断言</span></a></li><li><a href="module.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">模块</span></a></li><li><a href="namespace.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">namespace</span></a></li><li><a href="decorator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">装饰器</span></a></li><li><a href="decorator-legacy.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">装饰器（旧语法）</span></a></li><li><a href="declare.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">declare 关键字</span></a></li><li><a href="d.ts.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">d.ts 类型声明文件</span></a></li><li><a href="operator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">运算符</span></a></li><li><a href="mapping.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">类型映射</span></a></li><li><a href="utility.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">类型工具</span></a></li><li><a href="comment.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">注释指令</span></a></li><li><a href="tsconfig.json.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">tsconfig.json 文件</span></a></li><li><a href="tsc.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">tsc 命令</span></a></li></ul></aside></div></nav><nav class="panel panel-info"><p class="panel-heading"><i class="fa fa-link" aria-hidden="true"></i> 链接</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="https://raw.githubusercontent.com/wangdoc/typescript-tutorial/master/docs/generics.md" target="_blank"><span class="icon"></span><i class="fa fa-code" aria-hidden="true" style="width: 14px;"></i>&nbsp;本文源码</a></li><li><a href="https://github.com/wangdoc/typescript-tutorial" target="_blank"><span class="icon"></span><i class="fa fa-hdd-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;代码仓库</a></li><li><a href="https://github.com/wangdoc/typescript-tutorial/issues" target="_blank"><span class="icon"></span><i class="fa fa-flag-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;反馈</a></li></ul></aside></div></nav></div></div><div class="columns"><div class="column is-8 is-6-widescreen is-offset-1-widescreen"><div id="disqus_thread"></div></div></div></div></section><footer class="footer"><div class="container"><div class="content has-text-centered"><p>联系：contact@wangdoc.com</p></div></div></footer><script>var LOPPO={current_path:"generics.md",relative_root_path:"",article_toc:'<ul class="markdownIt-TOC">\n<li><a href="#%E7%AE%80%E4%BB%8B">简介</a></li>\n<li><a href="#%E6%B3%9B%E5%9E%8B%E7%9A%84%E5%86%99%E6%B3%95">泛型的写法</a>\n<ul>\n<li><a href="#%E5%87%BD%E6%95%B0%E7%9A%84%E6%B3%9B%E5%9E%8B%E5%86%99%E6%B3%95">函数的泛型写法</a></li>\n<li><a href="#%E6%8E%A5%E5%8F%A3%E7%9A%84%E6%B3%9B%E5%9E%8B%E5%86%99%E6%B3%95">接口的泛型写法</a></li>\n<li><a href="#%E7%B1%BB%E7%9A%84%E6%B3%9B%E5%9E%8B%E5%86%99%E6%B3%95">类的泛型写法</a></li>\n<li><a href="#%E7%B1%BB%E5%9E%8B%E5%88%AB%E5%90%8D%E7%9A%84%E6%B3%9B%E5%9E%8B%E5%86%99%E6%B3%95">类型别名的泛型写法</a></li>\n</ul>\n</li>\n<li><a href="#%E7%B1%BB%E5%9E%8B%E5%8F%82%E6%95%B0%E7%9A%84%E9%BB%98%E8%AE%A4%E5%80%BC">类型参数的默认值</a></li>\n<li><a href="#%E6%95%B0%E7%BB%84%E7%9A%84%E6%B3%9B%E5%9E%8B%E8%A1%A8%E7%A4%BA">数组的泛型表示</a></li>\n<li><a href="#%E7%B1%BB%E5%9E%8B%E5%8F%82%E6%95%B0%E7%9A%84%E7%BA%A6%E6%9D%9F%E6%9D%A1%E4%BB%B6">类型参数的约束条件</a></li>\n<li><a href="#%E4%BD%BF%E7%94%A8%E6%B3%A8%E6%84%8F%E7%82%B9">使用注意点</a></li>\n</ul>\n'}</script><script src="assets/js/app.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-111269443-1"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","UA-111269443-1")</script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script"),t=(e.src="https://hm.baidu.com/hm.js?5eec262881855af3dede6a71234571f6",document.getElementsByTagName("script")[0]);t.parentNode.insertBefore(e,t)}()</script><script>var disqus_config=function(){var t=window.location,e=t.protocol+"//"+t.host+(t.port?":"+t.port:"")+t.pathname;this.page.url=e,this.page.identifier=t.pathname};!function(){var t=document,e=t.createElement("script");e.src="https://wangdoc-typescript.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><!--script src="assets/js/social-share.min.js"--><!--/script--><script>var shareDesc="我正在阅读《TypeScript 泛型》，出自网道（WangDoc.com）的《TypeScript 教程》。",shareOpts={url:window.location.href,source:shareDesc,title:shareDesc,description:"",image:"",sites:["weibo","wechat","qq","qzone","twitter","facebook"],origin:"WangDoc_com",disabled:[],wechatQrcodeTitle:"微信",wechatQrcodeHelper:"扫一下二维码，分享到微信。"};socialShare(".social-share",shareOpts)</script></body></html>

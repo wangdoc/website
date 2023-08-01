@@ -1,0 +1,350 @@
+<!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TypeScript 的 interface 接口 - TypeScript 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="TypeScript 的 interface 接口"><link rel="apple-touch-icon" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png"><link rel="manifest" href="assets/icons/manifest.json"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/typescript-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/typescript-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8 is-6-widescreen is-offset-1-widescreen"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;TypeScript 教程</a></li><li class="is-active"><a class="has-text-grey" href="interface.html">interface</a></li></ul></nav><nav class="level level-previous-next is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="object.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> 对象</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="class.html">类 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content"><h1 class="title">TypeScript 的 interface 接口</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><h2 id="简介">简介 <a class="markdownIt-Anchor" href="#简介">#</a></h2><p>interface 是对象的模板，可以看作是一种类型约定，中文译为“接口”。使用了某个模板的对象，就拥有了指定的类型结构。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Person</span> {
+  <span class="hljs-attr">firstName</span>: <span class="hljs-built_in">string</span>;
+  <span class="hljs-attr">lastName</span>: <span class="hljs-built_in">string</span>;
+  <span class="hljs-attr">age</span>: <span class="hljs-built_in">number</span>;
+}
+</code></pre><p>上面示例中，定义了一个接口<code>Person</code>，它指定一个对象模板，拥有三个属性<code>firstName</code>、<code>lastName</code>和<code>age</code>。任何实现这个接口的对象，都必须部署这三个属性，并且必须符合规定的类型。</p><p>实现该接口很简单，只要指定它作为对象的类型即可。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> <span class="hljs-attr">p</span>:<span class="hljs-title class_">Person</span> = {
+  <span class="hljs-attr">firstName</span>: <span class="hljs-string">&#x27;John&#x27;</span>,
+  <span class="hljs-attr">lastName</span>: <span class="hljs-string">&#x27;Smith&#x27;</span>,
+  <span class="hljs-attr">age</span>: <span class="hljs-number">25</span>
+};
+</code></pre><p>上面示例中，变量<code>p</code>的类型就是接口<code>Person</code>，所以必须符合<code>Person</code>指定的结构。</p><p>方括号运算符可以取出 interface 某个属性的类型。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Foo</span> {
+  <span class="hljs-attr">a</span>: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">type</span> A = <span class="hljs-title class_">Foo</span>[<span class="hljs-string">&#x27;a&#x27;</span>]; <span class="hljs-comment">// string</span>
+</code></pre><p>上面示例中，<code>Foo['a']</code>返回属性<code>a</code>的类型，所以类型<code>A</code>就是<code>string</code>。</p><p>interface 可以表示对象的各种语法，它的成员有5种形式。</p><ul><li>对象属性</li><li>对象的属性索引</li><li>对象方法</li><li>函数</li><li>构造函数</li></ul><p>（1）对象属性</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Point</span> {
+  <span class="hljs-attr">x</span>: <span class="hljs-built_in">number</span>;
+  <span class="hljs-attr">y</span>: <span class="hljs-built_in">number</span>;
+}
+</code></pre><p>上面示例中，<code>x</code>和<code>y</code>都是对象的属性，分别使用冒号指定每个属性的类型。</p><p>属性之间使用分号或逗号分隔，最后一个属性结尾的分号或逗号可以省略。</p><p>如果属性是可选的，就在属性名后面加一个问号。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Foo</span> {
+  x?: <span class="hljs-built_in">string</span>;
+}
+</code></pre><p>如果属性是只读的，需要加上<code>readonly</code>修饰符。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> A {
+  <span class="hljs-keyword">readonly</span> <span class="hljs-attr">a</span>: <span class="hljs-built_in">string</span>;
+}
+</code></pre><p>（2）对象的属性索引</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> A {
+  [<span class="hljs-attr">prop</span>: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">number</span>;
+}
+</code></pre><p>上面示例中，<code>[prop: string]</code>就是属性的字符串索引，表示属性名只要是字符串，都符合类型要求。</p><p>属性索引共有<code>string</code>、<code>number</code>和<code>symbol</code>三种类型。</p><p>一个接口中，最多只能定义一个字符串索引。字符串索引会约束该类型中所有名字为字符串的属性。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title class_">MyObj</span> {
+  [<span class="hljs-attr">prop</span>: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">number</span>;
+
+  <span class="hljs-attr">a</span>: <span class="hljs-built_in">boolean</span>;      <span class="hljs-comment">// 编译错误</span>
+}
+</code></pre><p>上面示例中，属性索引指定所有名称为字符串的属性，它们的属性值必须是数值（<code>number</code>）。属性<code>a</code>的值为布尔值就报错了。</p><p>属性的数值索引，其实是指定数组的类型。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> A {
+  [<span class="hljs-attr">prop</span>: <span class="hljs-built_in">number</span>]: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">const</span> <span class="hljs-attr">obj</span>:A = [<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;c&#x27;</span>];
+</code></pre><p>上面示例中，<code>[prop: number]</code>表示属性名的类型是数值，所以可以用数组对变量<code>obj</code>赋值。</p><p>同样的，一个接口中最多只能定义一个数值索引。数值索引会约束所有名称为数值的属性。</p><p>如果一个 interface 同时定义了字符串索引和数值索引，那么数值索性必须服从于字符串索引。因为在 JavaScript 中，数值属性名最终是自动转换成字符串属性名。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> A {
+  [<span class="hljs-attr">prop</span>: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">number</span>;
+  [<span class="hljs-attr">prop</span>: <span class="hljs-built_in">number</span>]: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// 报错</span>
+}
+
+<span class="hljs-keyword">interface</span> B {
+  [<span class="hljs-attr">prop</span>: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">number</span>;
+  [<span class="hljs-attr">prop</span>: <span class="hljs-built_in">number</span>]: <span class="hljs-built_in">number</span>; <span class="hljs-comment">// 正确</span>
+}
+</code></pre><p>上面示例中，数值索引的属性值类型与字符串索引不一致，就会报错。数值索引必须兼容字符串索引的类型声明。</p><p>（3）对象的方法</p><p>对象的方法共有三种写法。</p><pre class="hljs"><code><span class="hljs-comment">// 写法一</span>
+<span class="hljs-keyword">interface</span> A {
+  <span class="hljs-title function_">f</span>(<span class="hljs-attr">x</span>: <span class="hljs-built_in">boolean</span>): <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-comment">// 写法二</span>
+<span class="hljs-keyword">interface</span> B {
+  <span class="hljs-attr">f</span>: <span class="hljs-function">(<span class="hljs-params">x: <span class="hljs-built_in">boolean</span></span>) =&gt;</span> <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-comment">// 写法三</span>
+<span class="hljs-keyword">interface</span> C {
+  <span class="hljs-attr">f</span>: { (<span class="hljs-attr">x</span>: <span class="hljs-built_in">boolean</span>): <span class="hljs-built_in">string</span> };
+}
+</code></pre><p>属性名可以采用表达式，所以下面的写法也是可以的。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> f = <span class="hljs-string">&#x27;f&#x27;</span>;
+
+<span class="hljs-keyword">interface</span> A {
+  [f](<span class="hljs-attr">x</span>: <span class="hljs-built_in">boolean</span>): <span class="hljs-built_in">string</span>;
+}
+</code></pre><p>类型方法可以重载。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> A {
+  <span class="hljs-title function_">f</span>(): <span class="hljs-built_in">number</span>;
+  <span class="hljs-title function_">f</span>(<span class="hljs-attr">x</span>: <span class="hljs-built_in">boolean</span>): <span class="hljs-built_in">boolean</span>;
+  <span class="hljs-title function_">f</span>(<span class="hljs-attr">x</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">y</span>: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">string</span>;
+}
+</code></pre><p>interface 里面的函数重载，不需要给出实现。但是，由于对象内部定义方法时，无法使用函数重载的语法，所以需要额外在对象外部给出函数方法的实现。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> A {
+  <span class="hljs-title function_">f</span>(): <span class="hljs-built_in">number</span>;
+  <span class="hljs-title function_">f</span>(<span class="hljs-attr">x</span>: <span class="hljs-built_in">boolean</span>): <span class="hljs-built_in">boolean</span>;
+  <span class="hljs-title function_">f</span>(<span class="hljs-attr">x</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">y</span>: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">MyFunc</span>(<span class="hljs-params"></span>): <span class="hljs-built_in">number</span>;
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">MyFunc</span>(<span class="hljs-params">x: <span class="hljs-built_in">boolean</span></span>): <span class="hljs-built_in">boolean</span>;
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">MyFunc</span>(<span class="hljs-params">x: <span class="hljs-built_in">string</span>, y: <span class="hljs-built_in">string</span></span>): <span class="hljs-built_in">string</span>;
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">MyFunc</span>(<span class="hljs-params">
+  x?:<span class="hljs-built_in">boolean</span>|<span class="hljs-built_in">string</span>, y?:<span class="hljs-built_in">string</span>
+</span>):<span class="hljs-built_in">number</span>|<span class="hljs-built_in">boolean</span>|<span class="hljs-built_in">string</span> {
+  <span class="hljs-keyword">if</span> (x === <span class="hljs-literal">undefined</span> &amp;&amp; y === <span class="hljs-literal">undefined</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> x === <span class="hljs-string">&#x27;boolean&#x27;</span> &amp;&amp; y === <span class="hljs-literal">undefined</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> x === <span class="hljs-string">&#x27;string&#x27;</span> &amp;&amp; <span class="hljs-keyword">typeof</span> y === <span class="hljs-string">&#x27;string&#x27;</span>) <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;hello&#x27;</span>;
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;wrong parameters&#x27;</span>);  
+}
+
+<span class="hljs-keyword">const</span> <span class="hljs-attr">a</span>:A = {
+  <span class="hljs-attr">f</span>: <span class="hljs-title class_">MyFunc</span>
+}
+</code></pre><p>上面示例中，接口<code>A</code>的方法<code>f()</code>有函数重载，需要额外定义一个函数<code>MyFunc()</code>实现这个重载，然后部署接口<code>A</code>的对象<code>a</code>的属性<code>f</code>等于函数<code>MyFunc()</code>就可以了。</p><p>（4）函数</p><p>interface 也可以用来声明独立的函数。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Add</span> {
+  (<span class="hljs-attr">x</span>:<span class="hljs-built_in">number</span>, <span class="hljs-attr">y</span>:<span class="hljs-built_in">number</span>): <span class="hljs-built_in">number</span>;
+}
+
+<span class="hljs-keyword">const</span> <span class="hljs-attr">myAdd</span>:<span class="hljs-title class_">Add</span> = <span class="hljs-function">(<span class="hljs-params">x,y</span>) =&gt;</span> x + y;
+</code></pre><p>上面示例中，接口<code>Add</code>声明了一个函数类型。</p><p>（5）构造函数</p><p>interface 内部可以使用<code>new</code>关键字，表示构造函数。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title class_">ErrorConstructor</span> {
+  <span class="hljs-keyword">new</span> (message?: <span class="hljs-built_in">string</span>): <span class="hljs-title class_">Error</span>;
+}
+</code></pre><p>上面示例中，接口<code>ErrorConstructor</code>内部有<code>new</code>命令，表示它是一个构造函数。</p><p>TypeScript 里面，构造函数特指具有<code>constructor</code>属性的类，详见《Class》一章。</p><h2 id="interface-的继承">interface 的继承 <a class="markdownIt-Anchor" href="#interface-的继承">#</a></h2><p>interface 可以继承其他类型，主要有下面几种情况。</p><h3 id="interface-继承-interface">interface 继承 interface <a class="markdownIt-Anchor" href="#interface-继承-interface">#</a></h3><p>interface 可以使用<code>extends</code>关键字，继承其他 interface。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Shape</span> {
+  <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">interface</span> <span class="hljs-title class_">Circle</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Shape</span> {
+  <span class="hljs-attr">radius</span>: <span class="hljs-built_in">number</span>;
+}
+</code></pre><p>上面示例中，<code>Circle</code>继承了<code>Shape</code>，所以<code>Circle</code>其实有两个属性<code>name</code>和<code>radius</code>。这时，<code>Circle</code>是子接口，<code>Shape</code>是父接口。</p><p><code>extends</code>关键字会从继承的接口里面拷贝属性类型，这样就不必书写重复的属性。</p><p>interface 允许多重继承。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Style</span> {
+  <span class="hljs-attr">color</span>: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">interface</span> <span class="hljs-title class_">Shape</span> {
+  <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">interface</span> <span class="hljs-title class_">Circle</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Style</span>, <span class="hljs-title class_">Shape</span> {
+  <span class="hljs-attr">radius</span>: <span class="hljs-built_in">number</span>;
+}
+</code></pre><p>上面示例中，<code>Circle</code>同时继承了<code>Style</code>和<code>Shape</code>，所以拥有三个属性<code>color</code>、<code>name</code>和<code>radius</code>。</p><p>多重接口继承，实际上相当于多个父接口的合并。</p><p>如果子接口与父接口存在同名属性，那么子接口的属性会覆盖父接口的属性。注意，子接口与父接口的同名属性必须是类型兼容的，不能有冲突，否则会报错。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Foo</span> {
+  <span class="hljs-attr">id</span>: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">interface</span> <span class="hljs-title class_">Bar</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Foo</span> {
+  <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>; <span class="hljs-comment">// 报错</span>
+}
+</code></pre><p>上面示例中，<code>Bar</code>继承了<code>Foo</code>，但是两者的同名属性<code>id</code>的类型不兼容，导致报错。</p><p>多重继承时，如果多个父接口存在同名属性，那么这些同名属性不能有类型冲突，否则会报错。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Foo</span> {
+  <span class="hljs-attr">id</span>: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">interface</span> <span class="hljs-title class_">Bar</span> {
+  <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>;
+}
+
+<span class="hljs-comment">// 报错</span>
+<span class="hljs-keyword">interface</span> <span class="hljs-title class_">Baz</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Foo</span>, <span class="hljs-title class_">Bar</span> {
+  <span class="hljs-attr">type</span>: <span class="hljs-built_in">string</span>;
+}
+</code></pre><p>上面示例中，<code>Baz</code>同时继承了<code>Foo</code>和<code>Bar</code>，但是后两者的同名属性<code>id</code>有类型冲突，导致报错。</p><h3 id="interface-继承-type">interface 继承 type <a class="markdownIt-Anchor" href="#interface-继承-type">#</a></h3><p>interface 可以继承<code>type</code>命令定义的对象类型。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">Country</span> = {
+  <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
+  <span class="hljs-attr">capital</span>: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">interface</span> <span class="hljs-title class_">CountryWithPop</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Country</span> {
+  <span class="hljs-attr">population</span>: <span class="hljs-built_in">number</span>;
+}
+</code></pre><p>上面示例中，<code>CountryWithPop</code>继承了<code>type</code>命令定义的<code>Country</code>对象，并且新增了一个<code>population</code>属性。</p><p>注意，如果<code>type</code>命令定义的类型不是对象，interface 就无法继承。</p><h3 id="interface-继承-class">interface 继承 class <a class="markdownIt-Anchor" href="#interface-继承-class">#</a></h3><p>inteface 还可以继承 class，即继承该类的所有成员。关于 class 的详细解释，参见下一章。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> {
+  <span class="hljs-attr">x</span>:<span class="hljs-built_in">string</span> = <span class="hljs-string">&#x27;&#x27;</span>;
+
+  <span class="hljs-title function_">y</span>():<span class="hljs-built_in">boolean</span> {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+  }
+}
+
+<span class="hljs-keyword">interface</span> B <span class="hljs-keyword">extends</span> A {
+  <span class="hljs-attr">z</span>: <span class="hljs-built_in">number</span>
+}
+</code></pre><p>上面示例中，<code>B</code>继承了<code>A</code>，因此<code>B</code>就具有属性<code>x</code>、<code>y()</code>和<code>z</code>。</p><p>实现<code>B</code>接口的对象就需要实现这些属性。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> <span class="hljs-attr">b</span>:B = {
+  <span class="hljs-attr">x</span>: <span class="hljs-string">&#x27;&#x27;</span>,
+  <span class="hljs-attr">y</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>){ <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span> },
+  <span class="hljs-attr">z</span>: <span class="hljs-number">123</span>
+}
+</code></pre><p>上面示例中，对象<code>b</code>就实现了接口<code>B</code>，而接口<code>B</code>又继承了类<code>A</code>。</p><p>某些类拥有私有成员和保护成员，interface 可以继承这样的类，但是意义不大。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> {
+  <span class="hljs-keyword">private</span> <span class="hljs-attr">x</span>: <span class="hljs-built_in">string</span> = <span class="hljs-string">&#x27;&#x27;</span>;
+  <span class="hljs-keyword">protected</span> <span class="hljs-attr">y</span>: <span class="hljs-built_in">string</span> = <span class="hljs-string">&#x27;&#x27;</span>;
+}
+
+<span class="hljs-keyword">interface</span> B <span class="hljs-keyword">extends</span> A {
+  <span class="hljs-attr">z</span>: <span class="hljs-built_in">number</span>
+}
+
+<span class="hljs-comment">// 报错</span>
+<span class="hljs-keyword">const</span> <span class="hljs-attr">b</span>:B = { <span class="hljs-comment">/* ... */</span> }
+
+<span class="hljs-comment">// 报错</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">C</span> <span class="hljs-keyword">implements</span> B {
+  <span class="hljs-comment">// ...</span>
+}
+</code></pre><p>上面示例中，<code>A</code>有私有成员和保护成员，<code>B</code>继承了<code>A</code>，但无法用于对象，因为对象不能实现这些成员。这导致<code>B</code>只能用于其他 class，而这时其他 class 与<code>A</code>之间不构成父类和子类的关系，使得<code>x</code>与<code>y</code>无法部署。</p><h2 id="接口合并">接口合并 <a class="markdownIt-Anchor" href="#接口合并">#</a></h2><p>多个同名接口会合并成一个接口。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Box</span> {
+  <span class="hljs-attr">height</span>: <span class="hljs-built_in">number</span>;
+  <span class="hljs-attr">width</span>: <span class="hljs-built_in">number</span>;
+}
+
+<span class="hljs-keyword">interface</span> <span class="hljs-title class_">Box</span> {
+  <span class="hljs-attr">length</span>: <span class="hljs-built_in">number</span>;
+}
+</code></pre><p>上面示例中，两个<code>Box</code>接口会合并成一个接口，同时有<code>height</code>、<code>width</code>和<code>length</code>三个属性。</p><p>这样的设计主要是为了兼容 JavaScript 的行为。JavaScript 开发者常常对全局对象或者外部库，添加自己的属性和方法。那么，只要使用 interface 给出这些自定义属性和方法的类型，就能自动跟原始的 interface 合并，使得扩展外部类型非常方便。</p><p>举例来说，Web 网页开发经常会对<code>windows</code>对象和<code>document</code>对象添加自定义属性，但是 TypeScript 会报错，因为原始定义没有这些属性。解决方法就是把自定义属性写成 interface，合并进原始定义。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Document</span> {
+  <span class="hljs-attr">foo</span>: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-variable language_">document</span>.<span class="hljs-property">foo</span> = <span class="hljs-string">&#x27;hello&#x27;</span>;
+</code></pre><p>上面示例中，接口<code>Document</code>增加了一个自定义属性<code>foo</code>，从而就可以在<code>document</code>对象上使用自定义属性。</p><p>同名接口合并时，同一个属性如果有多个类型声明，彼此不能有类型冲突。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> A {
+  <span class="hljs-attr">a</span>: <span class="hljs-built_in">number</span>;
+}
+
+<span class="hljs-keyword">interface</span> A {
+  <span class="hljs-attr">a</span>: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// 报错</span>
+}
+</code></pre><p>上面示例中，接口<code>A</code>的属性<code>a</code>有两个类型声明，彼此是冲突的，导致报错。</p><p>同名接口合并时，如果同名方法有不同的类型声明，那么会发生函数重载。而且，后面的定义比前面的定义具有更高的优先级。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Cloner</span> {
+  <span class="hljs-title function_">clone</span>(<span class="hljs-attr">animal</span>: <span class="hljs-title class_">Animal</span>): <span class="hljs-title class_">Animal</span>;
+}
+
+<span class="hljs-keyword">interface</span> <span class="hljs-title class_">Cloner</span> {
+  <span class="hljs-title function_">clone</span>(<span class="hljs-attr">animal</span>: <span class="hljs-title class_">Sheep</span>): <span class="hljs-title class_">Sheep</span>;
+}
+
+<span class="hljs-keyword">interface</span> <span class="hljs-title class_">Cloner</span> {
+  <span class="hljs-title function_">clone</span>(<span class="hljs-attr">animal</span>: <span class="hljs-title class_">Dog</span>): <span class="hljs-title class_">Dog</span>;
+  <span class="hljs-title function_">clone</span>(<span class="hljs-attr">animal</span>: <span class="hljs-title class_">Cat</span>): <span class="hljs-title class_">Cat</span>;
+}
+
+<span class="hljs-comment">// 等同于</span>
+<span class="hljs-keyword">interface</span> <span class="hljs-title class_">Cloner</span> {
+  <span class="hljs-title function_">clone</span>(<span class="hljs-attr">animal</span>: <span class="hljs-title class_">Dog</span>): <span class="hljs-title class_">Dog</span>;
+  <span class="hljs-title function_">clone</span>(<span class="hljs-attr">animal</span>: <span class="hljs-title class_">Cat</span>): <span class="hljs-title class_">Cat</span>;
+  <span class="hljs-title function_">clone</span>(<span class="hljs-attr">animal</span>: <span class="hljs-title class_">Sheep</span>): <span class="hljs-title class_">Sheep</span>;
+  <span class="hljs-title function_">clone</span>(<span class="hljs-attr">animal</span>: <span class="hljs-title class_">Animal</span>): <span class="hljs-title class_">Animal</span>;
+}
+</code></pre><p>上面示例中，<code>clone()</code>方法有不同的类型声明，会发生函数重载。这时，越靠后的定义，优先级越高，排在函数重载的越前面。比如，<code>clone(animal: Animal)</code>是最先出现的类型声明，就排在函数重载的最后，属于<code>clone()</code>函数最后匹配的类型。</p><p>这个规则有一个例外。同名方法之中，如果有一个参数是字面量类型，字面量类型有更高的优先级。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> A {
+  <span class="hljs-title function_">f</span>(<span class="hljs-attr">x</span>:<span class="hljs-string">&#x27;foo&#x27;</span>): <span class="hljs-built_in">boolean</span>;
+}
+
+<span class="hljs-keyword">interface</span> A {
+  <span class="hljs-title function_">f</span>(<span class="hljs-attr">x</span>:<span class="hljs-built_in">any</span>): <span class="hljs-built_in">void</span>;
+}
+
+<span class="hljs-comment">// 等同于</span>
+<span class="hljs-keyword">interface</span> A {
+  <span class="hljs-title function_">f</span>(<span class="hljs-attr">x</span>:<span class="hljs-string">&#x27;foo&#x27;</span>): <span class="hljs-built_in">boolean</span>;
+  <span class="hljs-title function_">f</span>(<span class="hljs-attr">x</span>:<span class="hljs-built_in">any</span>): <span class="hljs-built_in">void</span>;
+}
+</code></pre><p>上面示例中，<code>f()</code>方法有一个类型声明是，参数<code>x</code>是字面量类型，这个类型声明的优先级最高，会排在函数重载的最前面。</p><p>一个实际的例子是 Document 对象的<code>createElement()</code>方法，它会根据参数的不同，而生成不同的 HTML 节点对象。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Document</span> {
+  <span class="hljs-title function_">createElement</span>(<span class="hljs-attr">tagName</span>: <span class="hljs-built_in">any</span>): <span class="hljs-title class_">Element</span>;
+}
+<span class="hljs-keyword">interface</span> <span class="hljs-title class_">Document</span> {
+  <span class="hljs-title function_">createElement</span>(<span class="hljs-attr">tagName</span>: <span class="hljs-string">&quot;div&quot;</span>): <span class="hljs-title class_">HTMLDivElement</span>;
+  <span class="hljs-title function_">createElement</span>(<span class="hljs-attr">tagName</span>: <span class="hljs-string">&quot;span&quot;</span>): <span class="hljs-title class_">HTMLSpanElement</span>;
+}
+<span class="hljs-keyword">interface</span> <span class="hljs-title class_">Document</span> {
+  <span class="hljs-title function_">createElement</span>(<span class="hljs-attr">tagName</span>: <span class="hljs-built_in">string</span>): <span class="hljs-title class_">HTMLElement</span>;
+  <span class="hljs-title function_">createElement</span>(<span class="hljs-attr">tagName</span>: <span class="hljs-string">&quot;canvas&quot;</span>): <span class="hljs-title class_">HTMLCanvasElement</span>;
+}
+
+<span class="hljs-comment">// 等同于</span>
+<span class="hljs-keyword">interface</span> <span class="hljs-title class_">Document</span> {
+  <span class="hljs-title function_">createElement</span>(<span class="hljs-attr">tagName</span>: <span class="hljs-string">&quot;canvas&quot;</span>): <span class="hljs-title class_">HTMLCanvasElement</span>;
+  <span class="hljs-title function_">createElement</span>(<span class="hljs-attr">tagName</span>: <span class="hljs-string">&quot;div&quot;</span>): <span class="hljs-title class_">HTMLDivElement</span>;
+  <span class="hljs-title function_">createElement</span>(<span class="hljs-attr">tagName</span>: <span class="hljs-string">&quot;span&quot;</span>): <span class="hljs-title class_">HTMLSpanElement</span>;
+  <span class="hljs-title function_">createElement</span>(<span class="hljs-attr">tagName</span>: <span class="hljs-built_in">string</span>): <span class="hljs-title class_">HTMLElement</span>;
+  <span class="hljs-title function_">createElement</span>(<span class="hljs-attr">tagName</span>: <span class="hljs-built_in">any</span>): <span class="hljs-title class_">Element</span>;
+}
+</code></pre><p>上面示例中，<code>createElement()</code>方法的函数重载，参数为字面量的类型声明会排到最前面，返回具体的 HTML 节点对象。类型越不具体的参数，排在越后面，返回通用的 HTML 节点对象。</p><p>如果两个 interface 组成的联合类型存在同名属性，那么该属性的类型也是联合类型。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Circle</span> {
+  <span class="hljs-attr">area</span>: <span class="hljs-built_in">bigint</span>;
+}
+
+<span class="hljs-keyword">interface</span> <span class="hljs-title class_">Rectangle</span> {
+  <span class="hljs-attr">area</span>: <span class="hljs-built_in">number</span>;
+}
+
+<span class="hljs-keyword">declare</span> <span class="hljs-keyword">const</span> <span class="hljs-attr">s</span>: <span class="hljs-title class_">Circle</span> | <span class="hljs-title class_">Rectangle</span>;
+
+s.<span class="hljs-property">area</span>;   <span class="hljs-comment">// bigint | number</span>
+</code></pre><p>上面示例中，接口<code>Circle</code>和<code>Rectangle</code>组成一个联合类型<code>Circle | Rectangle</code>。因此，这个联合类型的同名属性<code>area</code>，也是一个联合类型。本例中的<code>declare</code>命令表示变量<code>s</code>的具体定义，由其他脚本文件给出，详见《declare 命令》一章。</p><h2 id="interface-与-type-的异同">interface 与 type 的异同 <a class="markdownIt-Anchor" href="#interface-与-type-的异同">#</a></h2><p><code>interface</code>命令与<code>type</code>命令作用类似，都可以表示对象类型。</p><p>很多对象类型即可以用 interface 表示，也可以用 type 表示。而且，两者往往可以换用，几乎所有的 interface 命令都可以改写为 type 命令。</p><p>它们的相似之处，首先表现在都能为对象类型起名。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">Country</span> = {
+  <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
+  <span class="hljs-attr">capital</span>: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">interface</span> <span class="hljs-title class_">Coutry</span> {
+  <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
+  <span class="hljs-attr">capital</span>: <span class="hljs-built_in">string</span>;
+}
+</code></pre><p>上面示例是<code>type</code>命令和<code>interface</code>命令，分别定义同一个类型。</p><p><code>class</code>命令也有类似作用，通过定义一个类，同时定义一个对象类型。但是，它会创造一个值，编译后依然存在。如果只是单纯想要一个类型，应该使用<code>type</code>或<code>interface</code>。</p><p>interface 与 type 的区别有下面几点。</p><p>（1）<code>type</code>能够表示非对象类型，而<code>interface</code>只能表示对象类型（包括数组、函数等）。</p><p>（2）<code>interface</code>可以继承其他类型，<code>type</code>不支持继承。</p><p>继承的主要作用是添加属性，<code>type</code>定义的对象类型如果想要添加属性，只能使用<code>&amp;</code>运算符，重新定义一个类型。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">Animal</span> = {
+  <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>
+}
+
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">Bear</span> = <span class="hljs-title class_">Animal</span> &amp; {
+  <span class="hljs-attr">honey</span>: <span class="hljs-built_in">boolean</span>
+}
+</code></pre><p>上面示例中，类型<code>Bear</code>在<code>Animal</code>的基础上添加了一个属性<code>honey</code>。</p><p>上例的<code>&amp;</code>运算符，表示同时具备两个类型的特征，因此可以起到两个对象类型合并的作用。</p><p>作为比较，<code>interface</code>添加属性，采用的是继承的写法。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Animal</span> {
+  <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>
+}
+
+<span class="hljs-keyword">interface</span> <span class="hljs-title class_">Bear</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Animal</span> {
+  <span class="hljs-attr">honey</span>: <span class="hljs-built_in">boolean</span>
+}
+</code></pre><p>继承时，type 和 interface 是可以换用的。interface 可以继承 type。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">Foo</span> = { <span class="hljs-attr">x</span>: <span class="hljs-built_in">number</span>; };
+
+<span class="hljs-keyword">interface</span> <span class="hljs-title class_">Bar</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Foo</span> {
+  <span class="hljs-attr">y</span>: <span class="hljs-built_in">number</span>;
+}
+</code></pre><p>type 也可以继承 interface。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Foo</span> {
+  <span class="hljs-attr">x</span>: <span class="hljs-built_in">number</span>;
+}
+
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">Bar</span> = <span class="hljs-title class_">Foo</span> &amp; { <span class="hljs-attr">y</span>: <span class="hljs-built_in">number</span>; };
+</code></pre><p>（3）同名<code>interface</code>会自动合并，同名<code>type</code>则会报错。也就是说，TypeScript 不允许使用<code>type</code>多次定义同一个类型。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> A = { <span class="hljs-attr">foo</span>:<span class="hljs-built_in">number</span> }; <span class="hljs-comment">// 报错</span>
+<span class="hljs-keyword">type</span> A = { <span class="hljs-attr">bar</span>:<span class="hljs-built_in">number</span> }; <span class="hljs-comment">// 报错</span>
+</code></pre><p>上面示例中，<code>type</code>两次定义了类型<code>A</code>，导致两行都会报错。</p><p>作为比较，<code>interface</code>则会自动合并。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> A { <span class="hljs-attr">foo</span>:<span class="hljs-built_in">number</span> };
+<span class="hljs-keyword">interface</span> A { <span class="hljs-attr">bar</span>:<span class="hljs-built_in">number</span> };
+
+<span class="hljs-keyword">const</span> <span class="hljs-attr">obj</span>:A = {
+  <span class="hljs-attr">foo</span>: <span class="hljs-number">1</span>,
+  <span class="hljs-attr">bar</span>: <span class="hljs-number">1</span>
+};
+</code></pre><p>上面示例中，<code>interface</code>把类型<code>A</code>的两个定义合并在一起。</p><p>这表明，inteface 是开放的，可以添加属性，type 是封闭的，不能添加属性，只能定义新的 type。</p><p>（4）<code>interface</code>不能包含属性映射（mapping），<code>type</code>可以，详见《映射》一章。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Point</span> {
+  <span class="hljs-attr">x</span>: <span class="hljs-built_in">number</span>;
+  <span class="hljs-attr">y</span>: <span class="hljs-built_in">number</span>;
+}
+
+<span class="hljs-comment">// 正确</span>
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">PointCopy1</span> = {
+  [<span class="hljs-title class_">Key</span> <span class="hljs-keyword">in</span> keyof <span class="hljs-title class_">Point</span>]: <span class="hljs-title class_">Point</span>[<span class="hljs-title class_">Key</span>];
+};
+
+<span class="hljs-comment">// 报错</span>
+<span class="hljs-keyword">interface</span> <span class="hljs-title class_">PointCopy2</span> {
+  [<span class="hljs-title class_">Key</span> <span class="hljs-keyword">in</span> keyof <span class="hljs-title class_">Point</span>]: <span class="hljs-title class_">Point</span>[<span class="hljs-title class_">Key</span>];
+};
+</code></pre><p>（5）<code>this</code>关键字只能用于<code>interface</code>。</p><pre class="hljs"><code><span class="hljs-comment">// 正确</span>
+<span class="hljs-keyword">interface</span> <span class="hljs-title class_">Foo</span> {
+  <span class="hljs-title function_">add</span>(<span class="hljs-attr">num</span>:<span class="hljs-built_in">number</span>): <span class="hljs-variable language_">this</span>;
+};
+
+<span class="hljs-comment">// 报错</span>
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">Foo</span> = {
+  <span class="hljs-title function_">add</span>(<span class="hljs-attr">num</span>:<span class="hljs-built_in">number</span>): <span class="hljs-variable language_">this</span>;
+};
+</code></pre><p>上面示例中，type 命令声明的方法<code>add()</code>，返回<code>this</code>就报错了。interface 命令没有这个问题。</p><p>下面是返回<code>this</code>的实际对象的例子。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">Calculator</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Foo</span> {
+  result = <span class="hljs-number">0</span>;
+  <span class="hljs-title function_">add</span>(<span class="hljs-params">num：<span class="hljs-built_in">number</span></span>) {
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">result</span> += num;
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>;
+  }
+}
+</code></pre><p>（6）type 可以扩展原始数据类型，interface 不行。</p><pre class="hljs"><code><span class="hljs-comment">// 正确</span>
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">MyStr</span> = <span class="hljs-built_in">string</span> &amp; {
+  <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;new&#x27;</span>
+};
+
+<span class="hljs-comment">// 报错</span>
+<span class="hljs-keyword">interface</span> <span class="hljs-title class_">MyStr</span> <span class="hljs-keyword">extends</span> <span class="hljs-built_in">string</span> {
+  <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;new&#x27;</span>
+}
+</code></pre><p>上面示例中，type 可以扩展原始数据类型 string，interface 就不行。</p><p>（7）<code>interface</code>无法表达某些复杂类型（比如交叉类型和联合类型），但是<code>type</code>可以。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> A = { <span class="hljs-comment">/* ... */</span> };
+<span class="hljs-keyword">type</span> B = { <span class="hljs-comment">/* ... */</span> };
+
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">AorB</span> = A | B;
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">AorBwithName</span> = <span class="hljs-title class_">AorB</span> &amp; {
+  <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>
+};
+</code></pre><p>上面示例中，类型<code>AorB</code>是一个联合类型，<code>AorBwithName</code>则是为<code>AorB</code>添加一个属性。这两种运算，<code>interface</code>都没法表达。</p><p>综上所述，如果有复杂的类型运算，那么没有其他选择只能使用<code>type</code>；一般情况下，<code>interface</code>灵活性比较高，便于扩充类型或自动合并，建议优先使用。</p></article><nav class="level level-previous-next is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="object.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> 对象</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="class.html">类 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><div class="page-info"><p>本教程采用<a href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh" target="_blank">知识共享 署名-相同方式共享 3.0协议</a>。</p><p>分享本文 <span class="social-share"></span></p></div></div><div class="column is-3 is-offset-1"><nav class="panel panel-menu"><p class="panel-heading"><i class="fa fa-book" aria-hidden="true"></i> TypeScript 教程</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="intro.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">简介</span></a></li><li><a href="basic.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">基本用法</span></a></li><li><a href="any.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">any 类型</span></a></li><li><a href="types.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">类型系统</span></a></li><li><a href="array.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数组</span></a></li><li><a href="tuple.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">元组</span></a></li><li><a href="symbol.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">symbol 类型</span></a></li><li><a href="function.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">函数</span></a></li><li><a href="object.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">对象</span></a></li><li><a href="interface.html" class="is-active"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">interface</span></a></li><li><a href="class.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">类</span></a></li><li><a href="generics.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">泛型</span></a></li><li><a href="enum.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Enum 类型</span></a></li><li><a href="assert.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">类型断言</span></a></li><li><a href="module.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">模块</span></a></li><li><a href="namespace.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">namespace</span></a></li><li><a href="decorator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">装饰器</span></a></li><li><a href="decorator-legacy.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">装饰器（旧语法）</span></a></li><li><a href="declare.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">declare 关键字</span></a></li><li><a href="d.ts.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">d.ts 类型声明文件</span></a></li><li><a href="operator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">运算符</span></a></li><li><a href="mapping.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">类型映射</span></a></li><li><a href="utility.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">类型工具</span></a></li><li><a href="comment.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">注释指令</span></a></li><li><a href="tsconfig.json.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">tsconfig.json 文件</span></a></li><li><a href="tsc.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">tsc 命令</span></a></li></ul></aside></div></nav><nav class="panel panel-info"><p class="panel-heading"><i class="fa fa-link" aria-hidden="true"></i> 链接</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="https://raw.githubusercontent.com/wangdoc/typescript-tutorial/master/docs/interface.md" target="_blank"><span class="icon"></span><i class="fa fa-code" aria-hidden="true" style="width: 14px;"></i>&nbsp;本文源码</a></li><li><a href="https://github.com/wangdoc/typescript-tutorial" target="_blank"><span class="icon"></span><i class="fa fa-hdd-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;代码仓库</a></li><li><a href="https://github.com/wangdoc/typescript-tutorial/issues" target="_blank"><span class="icon"></span><i class="fa fa-flag-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;反馈</a></li></ul></aside></div></nav></div></div><div class="columns"><div class="column is-8 is-6-widescreen is-offset-1-widescreen"><div id="disqus_thread"></div></div></div></div></section><footer class="footer"><div class="container"><div class="content has-text-centered"><p>联系：contact@wangdoc.com</p></div></div></footer><script>var LOPPO={current_path:"interface.md",relative_root_path:"",article_toc:'<ul class="markdownIt-TOC">\n<li><a href="#%E7%AE%80%E4%BB%8B">简介</a></li>\n<li><a href="#interface-%E7%9A%84%E7%BB%A7%E6%89%BF">interface 的继承</a>\n<ul>\n<li><a href="#interface-%E7%BB%A7%E6%89%BF-interface">interface 继承 interface</a></li>\n<li><a href="#interface-%E7%BB%A7%E6%89%BF-type">interface 继承 type</a></li>\n<li><a href="#interface-%E7%BB%A7%E6%89%BF-class">interface 继承 class</a></li>\n</ul>\n</li>\n<li><a href="#%E6%8E%A5%E5%8F%A3%E5%90%88%E5%B9%B6">接口合并</a></li>\n<li><a href="#interface-%E4%B8%8E-type-%E7%9A%84%E5%BC%82%E5%90%8C">interface 与 type 的异同</a></li>\n</ul>\n'}</script><script src="assets/js/app.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-111269443-1"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","UA-111269443-1")</script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script"),t=(e.src="https://hm.baidu.com/hm.js?5eec262881855af3dede6a71234571f6",document.getElementsByTagName("script")[0]);t.parentNode.insertBefore(e,t)}()</script><script>var disqus_config=function(){var t=window.location,e=t.protocol+"//"+t.host+(t.port?":"+t.port:"")+t.pathname;this.page.url=e,this.page.identifier=t.pathname};!function(){var t=document,e=t.createElement("script");e.src="https://wangdoc-typescript.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><!--script src="assets/js/social-share.min.js"--><!--/script--><script>var shareDesc="我正在阅读《TypeScript 的 interface 接口》，出自网道（WangDoc.com）的《TypeScript 教程》。",shareOpts={url:window.location.href,source:shareDesc,title:shareDesc,description:"",image:"",sites:["weibo","wechat","qq","qzone","twitter","facebook"],origin:"WangDoc_com",disabled:[],wechatQrcodeTitle:"微信",wechatQrcodeHelper:"扫一下二维码，分享到微信。"};socialShare(".social-share",shareOpts)</script></body></html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TypeScript 类型运算符 - TypeScript 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="TypeScript 类型运算符"><link rel="apple-touch-icon" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png"><link rel="manifest" href="assets/icons/manifest.json"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/typescript-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/typescript-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8 is-6-widescreen is-offset-1-widescreen"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;TypeScript 教程</a></li><li class="is-active"><a class="has-text-grey" href="operator.html">运算符</a></li></ul></nav><nav class="level level-previous-next is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="d.ts.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> d.ts 类型声明文件</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="mapping.html">类型映射 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><article class="content"><h1 class="title">TypeScript 类型运算符</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><p>TypeScript 提供强大的类型运算能力，可以使用各种类型运算符，对已有的类型进行计算，得到新类型。</p><h2 id="keyof-运算符">keyof 运算符 <a class="markdownIt-Anchor" href="#keyof-运算符">#</a></h2><h3 id="简介">简介 <a class="markdownIt-Anchor" href="#简介">#</a></h3><p>keyof 是一个单目运算符，接受一个对象类型作为参数，返回该对象的所有键名组成的联合类型。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">MyObj</span> = {
+  <span class="hljs-attr">foo</span>: <span class="hljs-built_in">number</span>,
+  <span class="hljs-attr">bar</span>: <span class="hljs-built_in">string</span>,
+};
+
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">Keys</span> = keyof <span class="hljs-title class_">MyObj</span>; <span class="hljs-comment">// &#x27;foo&#x27;|&#x27;bar&#x27;</span>
+</code></pre><p>上面示例中，<code>keyof MyObj</code>返回<code>MyObj</code>的所有键名组成的联合类型，即<code>'foo'|'bar'</code>。</p><p>下面是另一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> T {
+  <span class="hljs-number">0</span>: <span class="hljs-built_in">boolean</span>;
+  <span class="hljs-attr">a</span>: <span class="hljs-built_in">string</span>;
+  <span class="hljs-title function_">b</span>(): <span class="hljs-built_in">void</span>;
+}
+
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">KeyT</span> = keyof T; <span class="hljs-comment">// 0 | &#x27;a&#x27; | &#x27;b&#x27;</span>
+</code></pre><p>由于 JavaScript 对象的键名只有三种类型，所以对于任意对象的键名的联合类型就是<code>string|number|symbol</code>。</p><pre class="hljs"><code><span class="hljs-comment">// string | number | symbol</span>
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">KeyT</span> = keyof <span class="hljs-built_in">any</span>;
+</code></pre><p>对于没有自定义键名的类型使用 keyof 运算符，返回<code>never</code>类型，表示不可能有这样类型的键名。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">KeyT</span> = keyof <span class="hljs-built_in">object</span>;  <span class="hljs-comment">// never</span>
+</code></pre><p>上面示例中，由于<code>object</code>类型没有自身的属性，也就没有键名，所以<code>keyof object</code>返回<code>never</code>类型。</p><p>由于 keyof 返回的类型是<code>string|number|symbol</code>，如果有些场合只需要其中的一种类型，那么可以采用交叉类型的写法。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">Capital</span>&lt;T <span class="hljs-keyword">extends</span> <span class="hljs-built_in">string</span>&gt; = <span class="hljs-title class_">Capitalize</span>&lt;T&gt;;
+
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">MyKeys</span>&lt;<span class="hljs-title class_">Obj</span> <span class="hljs-keyword">extends</span> <span class="hljs-built_in">object</span>&gt; = <span class="hljs-title class_">Capital</span>&lt;keyof <span class="hljs-title class_">Obj</span>&gt;; <span class="hljs-comment">// 报错</span>
+</code></pre><p>上面示例中，类型<code>Capital</code>只接受字符串作为类型参数，传入<code>keyof Obj</code>会报错，原因是这时的类型参数是<code>string|number|symbol</code>，跟字符串不兼容。采用下面的交叉类型写法，就不会报错。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">MyKeys</span>&lt;<span class="hljs-title class_">Obj</span> <span class="hljs-keyword">extends</span> <span class="hljs-built_in">object</span>&gt; = <span class="hljs-title class_">Capital</span>&lt;<span class="hljs-built_in">string</span> &amp; keyof <span class="hljs-title class_">Obj</span>&gt;;
+</code></pre><p>上面示例中，<code>string &amp; keyof Obj</code>等同于<code>string &amp; string|number|symbol</code>进行交集运算，最后返回<code>string</code>，因此<code>Capital&lt;T extends string&gt;</code>就不会报错了。</p><p>如果对象属性名采用索引形式，keyof 会返回属性名的索引类型。</p><pre class="hljs"><code><span class="hljs-comment">// 示例一</span>
+<span class="hljs-keyword">interface</span> T {
+  [<span class="hljs-attr">prop</span>: <span class="hljs-built_in">number</span>]: <span class="hljs-built_in">number</span>;
+}
+
+<span class="hljs-comment">// number</span>
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">KeyT</span> = keyof T;
+
+<span class="hljs-comment">// 示例二</span>
+<span class="hljs-keyword">interface</span> T {
+  [<span class="hljs-attr">prop</span>: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">number</span>;
+}
+
+<span class="hljs-comment">// string|number</span>
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">KeyT</span> = keyof T;
+</code></pre><p>上面的示例二，<code>keyof T</code>返回的类型是<code>string|number</code>，原因是 JavaScript 属性名为字符串时，包含了属性名为数值的情况，因为数值属性名会自动转为字符串。</p><p>如果 keyof 运算符用于数组或元组类型，得到的结果可能出人意料。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">Result</span> = keyof [<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;c&#x27;</span>];
+<span class="hljs-comment">// 返回 number | &quot;0&quot; | &quot;1&quot; | &quot;2&quot;</span>
+<span class="hljs-comment">// | &quot;length&quot; | &quot;pop&quot; | &quot;push&quot; | ···</span>
+</code></pre><p>上面示例中，keyof 会返回数组的所有键名，包括数字键名和继承的键名。</p><p>对于联合类型，keyof 返回成员共有的键名。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> A = { <span class="hljs-attr">a</span>: <span class="hljs-built_in">string</span>; <span class="hljs-attr">z</span>: <span class="hljs-built_in">boolean</span> };
+<span class="hljs-keyword">type</span> B = { <span class="hljs-attr">b</span>: <span class="hljs-built_in">string</span>; <span class="hljs-attr">z</span>: <span class="hljs-built_in">boolean</span> };
+
+<span class="hljs-comment">// 返回 &#x27;z&#x27;</span>
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">KeyT</span> = keyof (A | B);
+</code></pre><p>对于交叉类型，keyof 返回所有键名。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> A = { <span class="hljs-attr">a</span>: <span class="hljs-built_in">string</span>; <span class="hljs-attr">x</span>: <span class="hljs-built_in">boolean</span> };
+<span class="hljs-keyword">type</span> B = { <span class="hljs-attr">b</span>: <span class="hljs-built_in">string</span>; <span class="hljs-attr">y</span>: <span class="hljs-built_in">number</span> };
+
+<span class="hljs-comment">// 返回 &#x27;a&#x27; | &#x27;x&#x27; | &#x27;b&#x27; | &#x27;y&#x27;</span>
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">KeyT</span> = keyof (A &amp; B);
+
+<span class="hljs-comment">// 相当于</span>
+keyof (A &amp; B) ≡ keyof A | keyof B
+</code></pre><p>keyof 取出的是键名组成的联合类型，如果想取出键值组成的联合类型，可以像下面这样写。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">MyObj</span> = {
+  <span class="hljs-attr">foo</span>: <span class="hljs-built_in">number</span>,
+  <span class="hljs-attr">bar</span>: <span class="hljs-built_in">string</span>,
+};
+
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">Keys</span> = keyof <span class="hljs-title class_">MyObj</span>;
+
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">Values</span> = <span class="hljs-title class_">MyObj</span>[<span class="hljs-title class_">Keys</span>]; <span class="hljs-comment">// number|string</span>
+</code></pre><p>上面示例中，<code>Keys</code>是键名组成的联合类型，而<code>MyObj[Keys]</code>会取出每个键名对应的键值类型，组成一个新的联合类型，即<code>number|string</code>。</p><h3 id="keyof-运算符的用途">keyof 运算符的用途 <a class="markdownIt-Anchor" href="#keyof-运算符的用途">#</a></h3><p>keyof 运算符往往用于精确表达对象的属性类型。</p><p>举例来说，取出对象的某个指定属性的值，JavaScript 版本可以写成下面这样。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">prop</span>(<span class="hljs-params">obj, key</span>) {
+  <span class="hljs-keyword">return</span> obj[key];
+}
+</code></pre><p>上面这个函数添加类型，只能写成下面这样。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">prop</span>(<span class="hljs-params">
+  obj:object, key:string
+</span>):any {
+  <span class="hljs-keyword">return</span> obj[key];
+}
+</code></pre><p>上面的类型声明有两个问题，一是无法表示参数<code>key</code>与参数<code>obj</code>之间的关系，二是返回值类型只能写成<code>any</code>。</p><p>有了 keyof 以后，就可以解决这两个问题，精确表达返回值类型。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> prop&lt;<span class="hljs-title class_">Obj</span>, K <span class="hljs-keyword">extends</span> keyof <span class="hljs-title class_">Obj</span>&gt;(
+  <span class="hljs-attr">obj</span>:<span class="hljs-title class_">Obj</span>, <span class="hljs-attr">key</span>:K
+):<span class="hljs-title class_">Obj</span>[K] {
+  <span class="hljs-keyword">return</span> obj[key];
+}
+</code></pre><p>上面示例中，<code>K extends keyof Obj</code>表示<code>K</code>是<code>Obj</code>的一个属性名，传入其他字符串会报错。返回值类型<code>Obj[K]</code>就表示<code>K</code>这个属性值的类型。</p><p>keyof 的另一个用途是用于属性映射，即将一个类型的所有属性逐一映射成其他值。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">NewProps</span>&lt;<span class="hljs-title class_">Obj</span>&gt; = {
+  [<span class="hljs-title class_">Prop</span> <span class="hljs-keyword">in</span> keyof <span class="hljs-title class_">Obj</span>]: <span class="hljs-built_in">boolean</span>;
+};
+
+<span class="hljs-comment">// 用法</span>
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">MyObj</span> = { <span class="hljs-attr">foo</span>: <span class="hljs-built_in">number</span>; };
+
+<span class="hljs-comment">// 等于 { foo: boolean; }</span>
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">NewObj</span> = <span class="hljs-title class_">NewProps</span>&lt;<span class="hljs-title class_">MyObj</span>&gt;;
+</code></pre><p>上面示例中，类型<code>NewProps</code>是类型<code>Obj</code>的映射类型，前者继承了后者的所有属性，但是把所有属性值类型都改成了<code>boolean</code>。</p><p>下面的例子是去掉 readonly 修饰符。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">Mutable</span>&lt;<span class="hljs-title class_">Obj</span>&gt; = {
+  -<span class="hljs-keyword">readonly</span> [<span class="hljs-title class_">Prop</span> <span class="hljs-keyword">in</span> keyof <span class="hljs-title class_">Obj</span>]: <span class="hljs-title class_">Obj</span>[<span class="hljs-title class_">Prop</span>];
+};
+
+<span class="hljs-comment">// 用法</span>
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">MyObj</span> = {
+  <span class="hljs-keyword">readonly</span> <span class="hljs-attr">foo</span>: <span class="hljs-built_in">number</span>;
+}
+
+<span class="hljs-comment">// 等于 { foo: number; }</span>
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">NewObj</span> = <span class="hljs-title class_">Mutable</span>&lt;<span class="hljs-title class_">MyObj</span>&gt;;
+</code></pre><p>上面示例中，<code>[Prop in keyof Obj]</code>是<code>Obj</code>类型的所有属性名，<code>-readonly</code>表示去除这些属性的只读特性。对应地，还有<code>+readonly</code>的写法，表示添加只读属性设置。</p><p>下面的例子是让可选属性变成必有的属性。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">Concrete</span>&lt;<span class="hljs-title class_">Obj</span>&gt; = {
+  [<span class="hljs-title class_">Prop</span> <span class="hljs-keyword">in</span> keyof <span class="hljs-title class_">Obj</span>]-?: <span class="hljs-title class_">Obj</span>[<span class="hljs-title class_">Prop</span>];
+};
+
+<span class="hljs-comment">// 用法</span>
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">MyObj</span> = {
+  foo?: <span class="hljs-built_in">number</span>;
+}
+
+<span class="hljs-comment">// 等于 { foo: number; }</span>
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">NewObj</span> = <span class="hljs-title class_">Concrete</span>&lt;<span class="hljs-title class_">MyObj</span>&gt;;
+</code></pre><p>上面示例中，<code>[Prop in keyof Obj]</code>后面的<code>-?</code>表示去除可选属性设置。对应地，还有<code>+?</code>的写法，表示添加可选属性设置。</p><h2 id="in-运算符">in 运算符 <a class="markdownIt-Anchor" href="#in-运算符">#</a></h2><p>JavaScript 语言中，<code>in</code>运算符用来确定对象是否包含某个属性名。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> obj = { <span class="hljs-attr">a</span>: <span class="hljs-number">123</span> };
+
+<span class="hljs-keyword">if</span> (<span class="hljs-string">&#x27;a&#x27;</span> <span class="hljs-keyword">in</span> obj)
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;found a&#x27;</span>);
+</code></pre><p>上面示例中，<code>in</code>运算符用来判断对象<code>obj</code>是否包含属性<code>a</code>。</p><p><code>in</code>运算符的左侧是一个字符串，表示属性名，右侧是一个对象。它的返回值是一个布尔值。</p><p>TypeScript 语言的类型运算中，<code>in</code>运算符有不同的用法，用来取出（遍历）联合类型的每一个成员类型。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> U = <span class="hljs-string">&#x27;a&#x27;</span>|<span class="hljs-string">&#x27;b&#x27;</span>|<span class="hljs-string">&#x27;c&#x27;</span>;
+
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">Foo</span> = {
+  [<span class="hljs-title class_">Prop</span> <span class="hljs-keyword">in</span> U]: <span class="hljs-built_in">number</span>;
+};
+<span class="hljs-comment">// 等同于</span>
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">Foo</span> = {
+  <span class="hljs-attr">a</span>: <span class="hljs-built_in">number</span>,
+  <span class="hljs-attr">b</span>: <span class="hljs-built_in">number</span>,
+  <span class="hljs-attr">c</span>: <span class="hljs-built_in">number</span>
+};
+</code></pre><p>上面示例中，<code>[Prop in U]</code>表示依次取出联合类型<code>U</code>的每一个成员。</p><p>上一小节的例子也提到，<code>[Prop in keyof Obj]</code>表示取出对象<code>Obj</code>的每一个键名。</p><h2 id="方括号运算符">方括号运算符 <a class="markdownIt-Anchor" href="#方括号运算符">#</a></h2><p>方括号运算符（<code>[]</code>）用于取出对象的键值类型，比如<code>T[K]</code>会返回对象<code>T</code>的属性<code>K</code>的类型。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">Person</span> = {
+  <span class="hljs-attr">age</span>: <span class="hljs-built_in">number</span>;
+  <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
+  <span class="hljs-attr">alive</span>: <span class="hljs-built_in">boolean</span>;
+};
+
+<span class="hljs-comment">// Age 的类型是 number</span>
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">Age</span> = <span class="hljs-title class_">Person</span>[<span class="hljs-string">&#x27;age&#x27;</span>];
+</code></pre><p>上面示例中，<code>Person['age']</code>返回属性<code>age</code>的类型，本例是<code>number</code>。</p><p>方括号的参数如果是联合类型，那么返回的也是联合类型。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">Person</span> = {
+  <span class="hljs-attr">age</span>: <span class="hljs-built_in">number</span>;
+  <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
+  <span class="hljs-attr">alive</span>: <span class="hljs-built_in">boolean</span>;
+};
+
+<span class="hljs-comment">// number|string</span>
+<span class="hljs-keyword">type</span> T = <span class="hljs-title class_">Person</span>[<span class="hljs-string">&#x27;age&#x27;</span>|<span class="hljs-string">&#x27;name&#x27;</span>];
+
+<span class="hljs-comment">// number|string|boolean</span>
+<span class="hljs-keyword">type</span> A = <span class="hljs-title class_">Person</span>[keyof <span class="hljs-title class_">Obj</span>];
+</code></pre><p>上面示例中，方括号里面是属性名的联合类型，所以返回的也是对应的属性值的联合类型。</p><p>如果访问不存在的属性，会报错。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> T = <span class="hljs-title class_">Person</span>[<span class="hljs-string">&#x27;notExisted&#x27;</span>]; <span class="hljs-comment">// 报错</span>
+</code></pre><p>方括号运算符的参数也可以是属性名的索引类型。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">Obj</span> = {
+  [<span class="hljs-attr">key</span>:<span class="hljs-built_in">string</span>]: <span class="hljs-built_in">number</span>,
+};
+
+<span class="hljs-comment">// number</span>
+<span class="hljs-keyword">type</span> T = <span class="hljs-title class_">Obj</span>[<span class="hljs-built_in">string</span>];
+</code></pre><p>上面示例中，<code>Obj</code>的属性名是字符串的索引类型，所以可以写成<code>Obj[string]</code>，代表所有字符串属性名，返回的就是它们的类型<code>number</code>。</p><p>这个语法对于数组也适用，可以使用<code>number</code>作为方括号的参数。</p><pre class="hljs"><code><span class="hljs-comment">// MyArray 的类型是 { [key:number]：string }</span>
+<span class="hljs-keyword">const</span> <span class="hljs-title class_">MyArray</span> = [<span class="hljs-string">&#x27;a&#x27;</span>,<span class="hljs-string">&#x27;b&#x27;</span>,<span class="hljs-string">&#x27;c&#x27;</span>];
+
+<span class="hljs-comment">// 等同于 (typeof MyArray)[number]</span>
+<span class="hljs-comment">// 返回 string</span>
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">Person</span> = <span class="hljs-keyword">typeof</span> <span class="hljs-title class_">MyArray</span>[<span class="hljs-built_in">number</span>];
+</code></pre><p>上面示例中，<code>MyArray</code>是一个数组，它的类型实际上是属性名的数值索引，而<code>typeof MyArray[number]</code>的<code>typeof</code>运算优先级高于方括号，所以返回的是所有数值键名的键值类型<code>string</code>。</p><p>注意，方括号里面不能有值的运算。</p><pre class="hljs"><code><span class="hljs-comment">// 示例一</span>
+<span class="hljs-keyword">const</span> key = <span class="hljs-string">&#x27;age&#x27;</span>;
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">Age</span> = <span class="hljs-title class_">Person</span>[key]; <span class="hljs-comment">// 报错</span>
+
+<span class="hljs-comment">// 示例二</span>
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">Age</span> = <span class="hljs-title class_">Person</span>[<span class="hljs-string">&#x27;a&#x27;</span> + <span class="hljs-string">&#x27;g&#x27;</span> + <span class="hljs-string">&#x27;e&#x27;</span>]; <span class="hljs-comment">// 报错</span>
+</code></pre><p>上面两个示例，方括号里面都涉及值的运算，编译时不会进行这种运算，所以会报错。</p><h2 id="extends-条件运算符">extends...?: 条件运算符 <a class="markdownIt-Anchor" href="#extends-条件运算符">#</a></h2><p>TypeScript 提供类似 JavaScript 的<code>?:</code>运算符这样的三元运算符，但多出了一个<code>extends</code>关键字。</p><p>条件运算符<code>extends...?:</code>可以根据当前类型是否符合某种条件，返回不同的类型。</p><pre class="hljs"><code>T <span class="hljs-keyword">extends</span> U ? X : Y
+</code></pre><p>上面式子中的<code>extends</code>用来判断，类型<code>T</code>是否可以赋值给类型<code>U</code>，即<code>T</code>是否为<code>U</code>的子类型，这里的<code>T</code>和<code>U</code>可以是任意类型。</p><p>如果<code>T</code>能够赋值给类型<code>U</code>，表达式的结果为类型<code>X</code>，否则结果为类型<code>Y</code>。</p><pre class="hljs"><code><span class="hljs-comment">// true</span>
+<span class="hljs-keyword">type</span> T = <span class="hljs-number">1</span> <span class="hljs-keyword">extends</span> <span class="hljs-built_in">number</span> ? <span class="hljs-literal">true</span> : <span class="hljs-literal">false</span>;
+</code></pre><p>上面示例中，<code>1</code>是<code>number</code>的子类型，所以返回<code>true</code>。</p><p>下面是另外一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Animal</span> {
+  <span class="hljs-title function_">live</span>(): <span class="hljs-built_in">void</span>;
+}
+<span class="hljs-keyword">interface</span> <span class="hljs-title class_">Dog</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Animal</span> {
+  <span class="hljs-title function_">woof</span>(): <span class="hljs-built_in">void</span>;
+}
+
+<span class="hljs-comment">// number</span>
+<span class="hljs-keyword">type</span> <span class="hljs-variable constant_">T1</span> = <span class="hljs-title class_">Dog</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Animal</span> ? <span class="hljs-built_in">number</span> : <span class="hljs-built_in">string</span>;
+
+<span class="hljs-comment">// string</span>
+<span class="hljs-keyword">type</span> <span class="hljs-variable constant_">T2</span> = <span class="hljs-title class_">RegExp</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Animal</span> ? <span class="hljs-built_in">number</span> : <span class="hljs-built_in">string</span>;
+</code></pre><p>上面示例中，<code>Dog</code>是<code>Animal</code>的子类型，所以<code>T1</code>的类型是<code>number</code>。<code>RegExp</code>不是<code>Animal</code>的子类型，所以<code>T2</code>的类型是<code>string</code>。</p><p>一般来说，调换<code>extends</code>两侧类型，会返回相反的结果。举例来说，有两个类<code>Dog</code>和<code>Animal</code>，前者是后者的子类型，那么<code>Cat extends Animal</code>就为真，而<code>Animal extends Cat</code>就为伪。</p><p>如果需要判断的类型是一个联合类型，那么条件运算符会展开这个联合类型。</p><pre class="hljs"><code>(A|B) <span class="hljs-keyword">extends</span> U ? X : Y
+
+<span class="hljs-comment">// 等同于</span>
+
+(A <span class="hljs-keyword">extends</span> U ? X : Y) |
+(B <span class="hljs-keyword">extends</span> U ? X : Y)
+</code></pre><p>上面示例中，<code>A|B</code>是一个联合类型，进行条件运算时，相当于<code>A</code>和<code>B</code>分别进行运算符，返回结果组成一个联合类型。</p><p>如果不希望联合类型被条件运算符展开，可以把<code>extends</code>两侧的操作数都放在方括号里面。</p><pre class="hljs"><code><span class="hljs-comment">// 示例一</span>
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">ToArray</span>&lt;<span class="hljs-title class_">Type</span>&gt; =
+  <span class="hljs-title class_">Type</span> <span class="hljs-keyword">extends</span> <span class="hljs-built_in">any</span> ? <span class="hljs-title class_">Type</span>[] : <span class="hljs-built_in">never</span>;
+
+<span class="hljs-comment">// string[]|number[]</span>
+<span class="hljs-keyword">type</span> T = <span class="hljs-title class_">ToArray</span>&lt;<span class="hljs-built_in">string</span>|<span class="hljs-built_in">number</span>&gt;;
+
+<span class="hljs-comment">// 示例二</span>
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">ToArray</span>&lt;<span class="hljs-title class_">Type</span>&gt; =
+  [<span class="hljs-title class_">Type</span>] <span class="hljs-keyword">extends</span> [<span class="hljs-built_in">any</span>] ? <span class="hljs-title class_">Type</span>[] : <span class="hljs-built_in">never</span>;
+
+<span class="hljs-comment">// (string | number)[]</span>
+<span class="hljs-keyword">type</span> T = <span class="hljs-title class_">ToArray</span>&lt;<span class="hljs-built_in">string</span>|<span class="hljs-built_in">number</span>&gt;;
+</code></pre><p>上面的示例一，传入<code>ToArray&lt;Type&gt;</code>的类型参数是一个联合类型，所以会被展开，返回的也是联合类型。示例二是<code>extends</code>两侧的运算数都放在方括号里面，所以传入的联合类型不会展开，返回的是一个数组。</p><p>条件运算符还可以嵌套使用。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">LiteralTypeName</span>&lt;T&gt; =
+  T <span class="hljs-keyword">extends</span> <span class="hljs-literal">undefined</span> ? <span class="hljs-string">&quot;undefined&quot;</span> :
+  T <span class="hljs-keyword">extends</span> <span class="hljs-literal">null</span> ? <span class="hljs-string">&quot;null&quot;</span> :
+  T <span class="hljs-keyword">extends</span> <span class="hljs-built_in">boolean</span> ? <span class="hljs-string">&quot;boolean&quot;</span> :
+  T <span class="hljs-keyword">extends</span> <span class="hljs-built_in">number</span> ? <span class="hljs-string">&quot;number&quot;</span> :
+  T <span class="hljs-keyword">extends</span> <span class="hljs-built_in">bigint</span> ? <span class="hljs-string">&quot;bigint&quot;</span> :
+  T <span class="hljs-keyword">extends</span> <span class="hljs-built_in">string</span> ? <span class="hljs-string">&quot;string&quot;</span> :
+  <span class="hljs-built_in">never</span>;
+</code></pre><p>上面示例是一个多重判断，返回一个字符串的值类型，对应当前类型。下面是它的用法。</p><pre class="hljs"><code><span class="hljs-comment">// &quot;bigint&quot;</span>
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">Result1</span> = <span class="hljs-title class_">LiteralTypeName</span>&lt;<span class="hljs-number">123n</span>&gt;;
+
+<span class="hljs-comment">// &quot;string&quot; | &quot;number&quot; | &quot;boolean&quot;</span>
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">Result2</span> = <span class="hljs-title class_">LiteralTypeName</span>&lt;<span class="hljs-literal">true</span> | <span class="hljs-number">1</span> | <span class="hljs-string">&#x27;a&#x27;</span>&gt;;
+</code></pre><h2 id="infer-关键字">infer 关键字 <a class="markdownIt-Anchor" href="#infer-关键字">#</a></h2><p><code>infer</code>关键字用来定义泛型里面推断出来的类型参数，而不是外部传入的类型参数。</p><p>它通常跟条件运算符一起使用，用在<code>extends</code>关键字后面的父类型之中。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">Flatten</span>&lt;<span class="hljs-title class_">Type</span>&gt; =
+  <span class="hljs-title class_">Type</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Array</span>&lt;infer <span class="hljs-title class_">Item</span>&gt; ? <span class="hljs-title class_">Item</span> : <span class="hljs-title class_">Type</span>;
+</code></pre><p>上面示例中，<code>Type</code>是外部传入的类型参数，如果它是数组<code>Array&lt;T&gt;</code>的子类型，那么就将类型变量<code>Item</code>推断为<code>T</code>，即<code>Item</code>代表数组的成员类型，写成<code>infer Item</code>，表示<code>Item</code>这个类型参数是从当前信息中推断出来的。</p><p>一旦定义了<code>Item</code>，后面的代码就可以使用这个类型参数了。</p><p>下面是上例的泛型<code>Flatten&lt;Type&gt;</code>的用法。</p><pre class="hljs"><code><span class="hljs-comment">// string</span>
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">Str</span> = <span class="hljs-title class_">Flatten</span>&lt;<span class="hljs-built_in">string</span>[]&gt;;
+
+<span class="hljs-comment">// number</span>
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">Num</span> = <span class="hljs-title class_">Flatten</span>&lt;<span class="hljs-built_in">number</span>&gt;;
+</code></pre><p>上面示例中，第一个例子<code>Flatten&lt;string[]&gt;</code>传入的类型参数是<code>string[]</code>，可以推断出<code>Item</code>的类型是<code>string</code>，所以返回的是<code>string</code>。第二个例子<code>Flatten&lt;number&gt;</code>传入的类型参数是<code>number</code>，它不是数组的子类型，所以直接返回自身。</p><p>如果不用<code>infer</code>定义类型参数，那么就要传入两个类型参数。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">Flatten</span>&lt;<span class="hljs-title class_">Type</span>, <span class="hljs-title class_">Item</span>&gt; =
+  <span class="hljs-title class_">Type</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Array</span>&lt;<span class="hljs-title class_">Item</span>&gt; ? <span class="hljs-title class_">Item</span> : <span class="hljs-title class_">Type</span>;
+</code></pre><p>上面是不用<code>infer</code>的写法，每次使用<code>Fleatten</code>的时候，都要传入两个参数，就比较麻烦。</p><p>下面的例子使用<code>infer</code>，推断函数的参数类型和返回值类型。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">ReturnPromise</span>&lt;T&gt; =
+  T <span class="hljs-keyword">extends</span> (...<span class="hljs-attr">args</span>: infer A) =&gt; infer R 
+  ? <span class="hljs-function">(<span class="hljs-params">...args: A</span>) =&gt;</span> <span class="hljs-title class_">Promise</span>&lt;R&gt; 
+  : T;
+</code></pre><p>上面示例中，如果<code>T</code>是函数，就返回这个函数的 Promise 版本，否则原样返回。<code>infer A</code>表示该函数的参数类型为<code>A</code>，<code>infer R</code>表示该函数的返回值类型为<code>R</code>。</p><p>如果不使用<code>infer</code>，就不得不把<code>ReturnPromise&lt;T&gt;</code>写成<code>ReturnPromise&lt;T, A, R&gt;</code>，这样就很麻烦，相当于开发者必须人肉推断编译器可以完成的工作。</p><p>下面是<code>infer</code>提取对象指定属性的例子。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">MyType</span>&lt;T&gt; =
+  T <span class="hljs-keyword">extends</span> {
+    <span class="hljs-attr">a</span>: infer M,
+    <span class="hljs-attr">b</span>: infer N
+  } ? [M, N] : <span class="hljs-built_in">never</span>;
+
+<span class="hljs-comment">// 用法示例</span>
+<span class="hljs-keyword">type</span> T = <span class="hljs-title class_">MyType</span>&lt;{ <span class="hljs-attr">a</span>: <span class="hljs-built_in">string</span>; <span class="hljs-attr">b</span>: <span class="hljs-built_in">number</span> }&gt;;
+<span class="hljs-comment">// [string, number]</span>
+</code></pre><p>上面示例中，<code>infer</code>提取了参数对象的属性<code>a</code>和属性<code>b</code>的类型。</p><p>下面是<code>infer</code>通过正则匹配提取类型参数的例子。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">Str</span> = <span class="hljs-string">&#x27;foo-bar&#x27;</span>;
+
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">Bar</span> = <span class="hljs-title class_">Str</span> <span class="hljs-keyword">extends</span> <span class="hljs-string">`foo-<span class="hljs-subst">${infer rest}</span>`</span> ? rest : <span class="hljs-built_in">never</span> <span class="hljs-comment">// &#x27;bar&#x27;</span>
+</code></pre><p>上面示例中，<code>rest</code>是从模板字符串提取的类型参数。</p><h2 id="is-运算符">is 运算符 <a class="markdownIt-Anchor" href="#is-运算符">#</a></h2><p>函数返回布尔值的时候，可以使用<code>is</code>运算符，限定返回值与参数之间的关系。</p><p><code>is</code>运算符用来描述返回值属于<code>true</code>还是<code>false</code>。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">isFish</span>(<span class="hljs-params">
+  pet: Fish|Bird
+</span>):pet is <span class="hljs-title class_">Fish</span> {
+  <span class="hljs-keyword">return</span> (pet <span class="hljs-keyword">as</span> <span class="hljs-title class_">Fish</span>).<span class="hljs-property">swim</span> !== <span class="hljs-literal">undefined</span>;
+}
+</code></pre><p>上面示例中，函数<code>isFish()</code>的返回值类型为<code>pet is Fish</code>，表示如果参数<code>pet</code>类型为<code>Fish</code>，则返回<code>true</code>，否则返回<code>false</code>。</p><p><code>is</code>运算符总是用于描述函数的返回值类型，写法采用<code>parameterName is Type</code>的形式，即左侧为当前函数的参数名，右侧为某一种类型。它返回一个布尔值，表示左侧参数是否属于右侧的类型。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> A = { <span class="hljs-attr">a</span>: <span class="hljs-built_in">string</span> };
+<span class="hljs-keyword">type</span> B = { <span class="hljs-attr">b</span>: <span class="hljs-built_in">string</span> };
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">isTypeA</span>(<span class="hljs-params">x: A|B</span>): x is A {
+  <span class="hljs-keyword">if</span> (<span class="hljs-string">&#x27;a&#x27;</span> <span class="hljs-keyword">in</span> x) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+}
+</code></pre><p>上面示例中，返回值类型<code>x is A</code>可以准确描述函数体内部的运算逻辑。</p><p><code>is</code>运算符可以用于类型保护。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">isCat</span>(<span class="hljs-params">a:<span class="hljs-built_in">any</span></span>): a is <span class="hljs-title class_">Cat</span> {
+  <span class="hljs-keyword">return</span> a.<span class="hljs-property">name</span> === <span class="hljs-string">&#x27;kitty&#x27;</span>;
+}
+
+<span class="hljs-keyword">let</span> <span class="hljs-attr">x</span>:<span class="hljs-title class_">Cat</span>|<span class="hljs-title class_">Dog</span>;
+
+<span class="hljs-keyword">if</span> (<span class="hljs-title function_">isCat</span>(x)) {
+  x.<span class="hljs-title function_">meow</span>(); <span class="hljs-comment">// 正确，因为 x 肯定是 Cat 类型</span>
+}
+</code></pre><p>上面示例中，函数<code>isCat()</code>的返回类型是<code>a is Cat</code>，它是一个布尔值。后面的<code>if</code>语句就用这个返回值进行判断，从而起到类型保护的作用，确保<code>x</code>是 Cat 类型，从而<code>x.meow()</code>不会报错（假定<code>Cat</code>类型拥有<code>meow()</code>方法）。</p><p><code>is</code>运算符还有一种特殊用法，就是用在类（class）的内部，描述类的方法的返回值。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">Teacher</span> {
+  <span class="hljs-title function_">isStudent</span>():<span class="hljs-variable language_">this</span> is <span class="hljs-title class_">Student</span> {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+  }
+}
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Student</span> {
+  <span class="hljs-title function_">isStudent</span>():<span class="hljs-variable language_">this</span> is <span class="hljs-title class_">Student</span> {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+  }
+}
+</code></pre><p>上面示例中，<code>isStudent()</code>方法的返回值类型，取决于该方法内部的<code>this</code>是否为<code>Student</code>对象。如果是的，就返回布尔值<code>true</code>，否则返回<code>false</code>。</p><p>注意，<code>this is T</code>这种写法，只能用来描述方法的返回值类型，而不能用来描述属性的类型。</p><h2 id="模板字符串">模板字符串 <a class="markdownIt-Anchor" href="#模板字符串">#</a></h2><p>TypeScript 允许使用模板字符串，构建类型。</p><p>模板字符串的最大特点，就是内部可以引用其他类型。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">World</span> = <span class="hljs-string">&quot;world&quot;</span>;
+
+<span class="hljs-comment">// &quot;hello world&quot;</span>
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">Greeting</span> = <span class="hljs-string">`hello <span class="hljs-subst">${World}</span>`</span>;
+</code></pre><p>上面示例中，类型<code>Greeting</code>是一个模板字符串，里面引用了另一个字符串类型<code>world</code>，因此<code>Greeting</code>实际上是字符串<code>hello world</code>。</p><p>注意，模板字符串可以引用的类型一共6种，分别是 string、number、bigint、boolean、null、undefined。引用这6种以外的类型会报错。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">Num</span> = <span class="hljs-number">123</span>;
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">Obj</span> = { n : <span class="hljs-number">123</span> };
+
+<span class="hljs-keyword">type</span> <span class="hljs-variable constant_">T1</span> = <span class="hljs-string">`<span class="hljs-subst">${Num}</span> received`</span>; <span class="hljs-comment">// 正确</span>
+<span class="hljs-keyword">type</span> <span class="hljs-variable constant_">T2</span> = <span class="hljs-string">`<span class="hljs-subst">${Obj}</span> received`</span>; <span class="hljs-comment">// 报错</span>
+</code></pre><p>上面示例中，模板字符串引用数值类型的别名<code>Num</code>是可以的，但是引用对象类型的别名<code>Obj</code>就会报错。</p><p>模板字符串里面引用的类型，如果是一个联合类型，那么它返回的也是一个联合类型，即模板字符串可以展开联合类型。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> T = <span class="hljs-string">&#x27;A&#x27;</span>|<span class="hljs-string">&#x27;B&#x27;</span>;
+
+<span class="hljs-comment">// &quot;A_id&quot;|&quot;B_id&quot;</span>
+<span class="hljs-keyword">type</span> U = <span class="hljs-string">`<span class="hljs-subst">${T}</span>_id`</span>;
+</code></pre><p>上面示例中，类型<code>U</code>是一个模板字符串，里面引用了一个联合类型<code>T</code>，导致最后得到的也是一个联合类型。</p><p>如果模板字符串引用两个联合类型，它会交叉展开这两个类型。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> T = <span class="hljs-string">&#x27;A&#x27;</span>|<span class="hljs-string">&#x27;B&#x27;</span>;
+
+<span class="hljs-keyword">type</span> U = <span class="hljs-string">&#x27;1&#x27;</span>|<span class="hljs-string">&#x27;2&#x27;</span>;
+
+<span class="hljs-comment">// &#x27;A1&#x27;|&#x27;A2&#x27;|&#x27;B1&#x27;|&#x27;B2&#x27;</span>
+<span class="hljs-keyword">type</span> V = <span class="hljs-string">`<span class="hljs-subst">${T}</span><span class="hljs-subst">${U}</span>`</span>;
+</code></pre><p>上面示例中，<code>T</code>和<code>U</code>都是联合类型，各自有两个成员，模板字符串里面引用了这两个类型，最后得到的就是一个4个成员的联合类型。</p></article><nav class="level level-previous-next is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="d.ts.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> d.ts 类型声明文件</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="mapping.html">类型映射 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><div class="page-info"><p>本教程采用<a href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh" target="_blank">知识共享 署名-相同方式共享 3.0协议</a>。</p><p>分享本文 <span class="social-share"></span></p></div></div><div class="column is-3 is-offset-1"><nav class="panel panel-menu"><p class="panel-heading"><i class="fa fa-book" aria-hidden="true"></i> TypeScript 教程</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="intro.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">简介</span></a></li><li><a href="basic.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">基本用法</span></a></li><li><a href="any.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">any 类型</span></a></li><li><a href="types.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">类型系统</span></a></li><li><a href="array.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数组</span></a></li><li><a href="tuple.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">元组</span></a></li><li><a href="symbol.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">symbol 类型</span></a></li><li><a href="function.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">函数</span></a></li><li><a href="object.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">对象</span></a></li><li><a href="interface.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">interface</span></a></li><li><a href="class.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">类</span></a></li><li><a href="generics.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">泛型</span></a></li><li><a href="enum.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Enum 类型</span></a></li><li><a href="assert.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">类型断言</span></a></li><li><a href="module.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">模块</span></a></li><li><a href="namespace.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">namespace</span></a></li><li><a href="decorator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">装饰器</span></a></li><li><a href="decorator-legacy.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">装饰器（旧语法）</span></a></li><li><a href="declare.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">declare 关键字</span></a></li><li><a href="d.ts.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">d.ts 类型声明文件</span></a></li><li><a href="operator.html" class="is-active"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">运算符</span></a></li><li><a href="mapping.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">类型映射</span></a></li><li><a href="utility.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">类型工具</span></a></li><li><a href="comment.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">注释指令</span></a></li><li><a href="tsconfig.json.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">tsconfig.json 文件</span></a></li><li><a href="tsc.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">tsc 命令</span></a></li></ul></aside></div></nav><nav class="panel panel-info"><p class="panel-heading"><i class="fa fa-link" aria-hidden="true"></i> 链接</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="https://raw.githubusercontent.com/wangdoc/typescript-tutorial/master/docs/operator.md" target="_blank"><span class="icon"></span><i class="fa fa-code" aria-hidden="true" style="width: 14px;"></i>&nbsp;本文源码</a></li><li><a href="https://github.com/wangdoc/typescript-tutorial" target="_blank"><span class="icon"></span><i class="fa fa-hdd-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;代码仓库</a></li><li><a href="https://github.com/wangdoc/typescript-tutorial/issues" target="_blank"><span class="icon"></span><i class="fa fa-flag-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;反馈</a></li></ul></aside></div></nav></div></div><div class="columns"><div class="column is-8 is-6-widescreen is-offset-1-widescreen"><div id="disqus_thread"></div></div></div></div></section><footer class="footer"><div class="container"><div class="content has-text-centered"><p>联系：contact@wangdoc.com</p></div></div></footer><script>var LOPPO={current_path:"operator.md",relative_root_path:"",article_toc:'<ul class="markdownIt-TOC">\n<li><a href="#keyof-%E8%BF%90%E7%AE%97%E7%AC%A6">keyof 运算符</a>\n<ul>\n<li><a href="#%E7%AE%80%E4%BB%8B">简介</a></li>\n<li><a href="#keyof-%E8%BF%90%E7%AE%97%E7%AC%A6%E7%9A%84%E7%94%A8%E9%80%94">keyof 运算符的用途</a></li>\n</ul>\n</li>\n<li><a href="#in-%E8%BF%90%E7%AE%97%E7%AC%A6">in 运算符</a></li>\n<li><a href="#%E6%96%B9%E6%8B%AC%E5%8F%B7%E8%BF%90%E7%AE%97%E7%AC%A6">方括号运算符</a></li>\n<li><a href="#extends-%E6%9D%A1%E4%BB%B6%E8%BF%90%E7%AE%97%E7%AC%A6">extends...?: 条件运算符</a></li>\n<li><a href="#infer-%E5%85%B3%E9%94%AE%E5%AD%97">infer 关键字</a></li>\n<li><a href="#is-%E8%BF%90%E7%AE%97%E7%AC%A6">is 运算符</a></li>\n<li><a href="#%E6%A8%A1%E6%9D%BF%E5%AD%97%E7%AC%A6%E4%B8%B2">模板字符串</a></li>\n</ul>\n'}</script><script src="assets/js/app.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-111269443-1"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","UA-111269443-1")</script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script"),t=(e.src="https://hm.baidu.com/hm.js?5eec262881855af3dede6a71234571f6",document.getElementsByTagName("script")[0]);t.parentNode.insertBefore(e,t)}()</script><script>var disqus_config=function(){var t=window.location,e=t.protocol+"//"+t.host+(t.port?":"+t.port:"")+t.pathname;this.page.url=e,this.page.identifier=t.pathname};!function(){var t=document,e=t.createElement("script");e.src="https://wangdoc-typescript.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><!--script src="assets/js/social-share.min.js"--><!--/script--><script>var shareDesc="我正在阅读《TypeScript 类型运算符》，出自网道（WangDoc.com）的《TypeScript 教程》。",shareOpts={url:window.location.href,source:shareDesc,title:shareDesc,description:"",image:"",sites:["weibo","wechat","qq","qzone","twitter","facebook"],origin:"WangDoc_com",disabled:[],wechatQrcodeTitle:"微信",wechatQrcodeHelper:"扫一下二维码，分享到微信。"};socialShare(".social-share",shareOpts)</script></body></html>
