@@ -220,11 +220,11 @@ obj = {
   <span class="hljs-keyword">type</span> T = <span class="hljs-built_in">string</span>;
   <span class="hljs-keyword">let</span> <span class="hljs-attr">v</span>:T = <span class="hljs-string">&#x27;hello&#x27;</span>;
 }
-</code></pre><p>上面示例中，存在两个代码块，其中分别有一个类型<code>T</code>的声明。这两个声明都只在自己的代码块内部有效，在代码块外部无效。</p><h2 id="类型的兼容">类型的兼容 <a class="markdownIt-Anchor" href="#类型的兼容">#</a></h2><p>TypeScript 的类型存在兼容关系，某些类可以兼容其他类。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> T = <span class="hljs-built_in">number</span>|<span class="hljs-built_in">string</span>;
+</code></pre><p>上面示例中，存在两个代码块，其中分别有一个类型<code>T</code>的声明。这两个声明都只在自己的代码块内部有效，在代码块外部无效。</p><h2 id="类型的兼容">类型的兼容 <a class="markdownIt-Anchor" href="#类型的兼容">#</a></h2><p>TypeScript 的类型存在兼容关系，某些类型可以兼容其他类型。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> T = <span class="hljs-built_in">number</span>|<span class="hljs-built_in">string</span>;
 
 <span class="hljs-keyword">let</span> <span class="hljs-attr">a</span>:<span class="hljs-built_in">number</span> = <span class="hljs-number">1</span>;
 <span class="hljs-keyword">let</span> <span class="hljs-attr">b</span>:T = a;
-</code></pre><p>上面示例中，变量<code>a</code>和<code>b</code>的类型是不一样的，但是变量<code>a</code>赋值给变量<code>b</code>并不会报错。这时，我们就认为，变量<code>b</code>兼容变量<code>a</code>。</p><p>TypeScript<br>为这种情况定义了一个专门术语。如果类型<code>A</code>的值可以赋值给类型<code>B</code>，那么类型<code>A</code>就称为类型<code>B</code>的子类型（subtype）。在上例中，类型<code>number</code>就是类型<code>number|string</code>的子类型。</p><p>TypeScript 的一个规则是，凡是可以使用父类型的地方，都可以使用子类型，但是反过来不行。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> <span class="hljs-attr">a</span>:<span class="hljs-string">&#x27;hi&#x27;</span> = <span class="hljs-string">&#x27;hi&#x27;</span>;
+</code></pre><p>上面示例中，变量<code>a</code>和<code>b</code>的类型是不一样的，但是变量<code>a</code>赋值给变量<code>b</code>并不会报错。这时，我们就认为，<code>b</code>的类型兼容<code>a</code>的类型。</p><p>TypeScript 为这种情况定义了一个专门术语。如果类型<code>A</code>的值可以赋值给类型<code>B</code>，那么类型<code>A</code>就称为类型<code>B</code>的子类型（subtype）。在上例中，类型<code>number</code>就是类型<code>number|string</code>的子类型。</p><p>TypeScript 的一个规则是，凡是可以使用父类型的地方，都可以使用子类型，但是反过来不行。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> <span class="hljs-attr">a</span>:<span class="hljs-string">&#x27;hi&#x27;</span> = <span class="hljs-string">&#x27;hi&#x27;</span>;
 <span class="hljs-keyword">let</span> <span class="hljs-attr">b</span>:<span class="hljs-built_in">string</span> = <span class="hljs-string">&#x27;hello&#x27;</span>;
 
 b = a; <span class="hljs-comment">// 正确</span>
