@@ -67,7 +67,7 @@ add = <span class="hljs-keyword">function</span> (<span class="hljs-params">x, y
 }
 
 f.<span class="hljs-property">version</span> = <span class="hljs-string">&#x27;1.0&#x27;</span>;
-</code></pre><p>上面示例中，函数<code>f()</code>本身还有一个属性<code>foo</code>。这时，<code>f</code>完全就是一个对象，类型就要使用对象的写法。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> <span class="hljs-attr">foo</span>: {
+</code></pre><p>上面示例中，函数<code>f()</code>本身还有一个属性<code>version</code>。这时，<code>f</code>完全就是一个对象，类型就要使用对象的写法。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> <span class="hljs-attr">foo</span>: {
   (<span class="hljs-attr">x</span>:<span class="hljs-built_in">number</span>): <span class="hljs-built_in">void</span>;
   <span class="hljs-attr">version</span>: <span class="hljs-built_in">string</span>
 } = f;
