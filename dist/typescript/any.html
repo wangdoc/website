@@ -25,7 +25,7 @@ y.<span class="hljs-title function_">toFixed</span>() <span class="hljs-comment"
 x = <span class="hljs-literal">true</span>; <span class="hljs-comment">// 正确</span>
 x = <span class="hljs-number">42</span>; <span class="hljs-comment">// 正确</span>
 x = <span class="hljs-string">&#x27;Hello World&#x27;</span>; <span class="hljs-comment">// 正确</span>
-</code></pre><p>上面示例中，变量<code>value</code>的类型是<code>unknown</code>，可以赋值为各种类型的值。这与<code>any</code>的行为一致。</p><p><code>unknown</code>类型跟<code>any</code>类型的不同之处在于，它不能直接使用。主要有以下几个限制。</p><p>首先，<code>unknown</code>类型的变量，不能直接赋值给其他类型的变量（除了<code>any</code>类型和<code>unknown</code>类型）。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> <span class="hljs-attr">v</span>:<span class="hljs-built_in">unknown</span> = <span class="hljs-number">123</span>;
+</code></pre><p>上面示例中，变量<code>x</code>的类型是<code>unknown</code>，可以赋值为各种类型的值。这与<code>any</code>的行为一致。</p><p><code>unknown</code>类型跟<code>any</code>类型的不同之处在于，它不能直接使用。主要有以下几个限制。</p><p>首先，<code>unknown</code>类型的变量，不能直接赋值给其他类型的变量（除了<code>any</code>类型和<code>unknown</code>类型）。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> <span class="hljs-attr">v</span>:<span class="hljs-built_in">unknown</span> = <span class="hljs-number">123</span>;
 
 <span class="hljs-keyword">let</span> <span class="hljs-attr">v1</span>:<span class="hljs-built_in">boolean</span> = v; <span class="hljs-comment">// 报错</span>
 <span class="hljs-keyword">let</span> <span class="hljs-attr">v2</span>:<span class="hljs-built_in">number</span> = v; <span class="hljs-comment">// 报错</span>
