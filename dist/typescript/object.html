@@ -203,7 +203,7 @@ myUser.<span class="hljs-property">name</span> = <span class="hljs-string">&quot
   <span class="hljs-number">1</span>: <span class="hljs-number">2</span>,
   <span class="hljs-number">2</span>: <span class="hljs-number">3</span>,
 };
-</code></pre><p>上面示例中，对象类型<code>MyArr</code>的属性名是<code>[n:number]</code>，就表示它的属性名都是数值，比如<code>0</code>、<code>1</code>、<code>2</code>。</p><p>对象可以同时有多种类型的属性名索引，比如同时有数值索引和字符串索性。但是，数值索性不能与字符串索引发生冲突，必须服从后者，这是因为在 JavaScript 语言内部，所有的数值属性名都会自动转为字符串属性名。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">MyType</span> = {
+</code></pre><p>上面示例中，对象类型<code>MyArr</code>的属性名是<code>[n:number]</code>，就表示它的属性名都是数值，比如<code>0</code>、<code>1</code>、<code>2</code>。</p><p>对象可以同时有多种类型的属性名索引，比如同时有数值索引和字符串索引。但是，数值索引不能与字符串索引发生冲突，必须服从后者，这是因为在 JavaScript 语言内部，所有的数值属性名都会自动转为字符串属性名。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">MyType</span> = {
   [<span class="hljs-attr">x</span>: <span class="hljs-built_in">number</span>]: <span class="hljs-built_in">boolean</span>; <span class="hljs-comment">// 报错</span>
   [<span class="hljs-attr">x</span>: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">string</span>;
 }
