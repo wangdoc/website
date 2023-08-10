@@ -276,6 +276,7 @@ src.<span class="hljs-title function_">forEach</span>(<span class="hljs-function
 </code></pre><p>上面示例中，函数<code>fail()</code>返回一个 Error 对象，所以返回值类型是 Error。</p><p>（2）无限执行的函数。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> sing = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>):<span class="hljs-built_in">never</span> {
   <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) {
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;sing&#x27;</span>);
+  }
 };
 </code></pre><p>上面示例中，函数<code>sing()</code>会永远执行，不会返回，所以返回值类型是<code>never</code>。</p><p>注意，<code>never</code>类型不同于<code>void</code>类型。前者表示函数没有执行结束，不可能有返回值；后者表示函数正常执行结束，但是不返回值，或者说返回<code>undefined</code>。</p><pre class="hljs"><code><span class="hljs-comment">// 正确</span>
 <span class="hljs-keyword">function</span> <span class="hljs-title function_">sing</span>(<span class="hljs-params"></span>):<span class="hljs-built_in">void</span> {
