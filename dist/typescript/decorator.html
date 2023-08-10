@@ -297,7 +297,7 @@ logger.<span class="hljs-title function_">log</span>(<span class="hljs-string">&
 }
 
 <span class="hljs-keyword">const</span> inst = <span class="hljs-keyword">new</span> <span class="hljs-title function_">C</span>();
-inst.<span class="hljs-meta">@collect</span> <span class="hljs-comment">// new Set([&#x27;toString&#x27;, Symbol.iterator])</span>
+inst.<span class="hljs-property">collectedMethodKeys</span> <span class="hljs-comment">// new Set([&#x27;toString&#x27;, Symbol.iterator])</span>
 </code></pre><p>上面示例中，方法装饰器<code>@collect</code>会将所装饰的成员名字，加入一个 Set 集合<code>collectedMethodKeys</code>。</p><h2 id="属性装饰器">属性装饰器 <a class="markdownIt-Anchor" href="#属性装饰器">#</a></h2><p>属性装饰器用来装饰定义在类顶部的属性（field）。它的类型描述如下。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">ClassFieldDecorator</span> = <span class="hljs-function">(<span class="hljs-params">
   value: <span class="hljs-literal">undefined</span>,
   context: {
