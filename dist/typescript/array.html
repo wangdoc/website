@@ -22,14 +22,14 @@ arr <span class="hljs-comment">// [1, 2]</span>
 <span class="hljs-keyword">type</span> <span class="hljs-title class_">Name</span> = <span class="hljs-title class_">Names</span>[<span class="hljs-built_in">number</span>]; <span class="hljs-comment">// string</span>
 </code></pre><p>上面示例中，<code>Names[number]</code>表示数组<code>Names</code>所有数值索引的成员类型，所以返回<code>string</code>。</p><h2 id="数组的类型推断">数组的类型推断 <a class="markdownIt-Anchor" href="#数组的类型推断">#</a></h2><p>如果数组变量没有声明类型，TypeScript 就会推断数组成员的类型。这时，推断行为会因为值的不同，而有所不同。</p><p>如果变量的初始值是空数组，那么 TypeScript 会推断数组类型是<code>any[]</code>。</p><pre class="hljs"><code><span class="hljs-comment">// 推断为 any[]</span>
 <span class="hljs-keyword">const</span> arr = [];
-</code></pre><p>后面，为这个数组赋值时，TypeScript 会自动更新类型推断。</p><pre class="hljs"><code><span class="hljs-comment">// 推断为 any[]</span>
-<span class="hljs-keyword">const</span> arr = [];
+</code></pre><p>后面，为这个数组赋值时，TypeScript 会自动更新类型推断。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> arr = [];
+arr <span class="hljs-comment">// 推断为 any[]</span>
 
-<span class="hljs-comment">// 推断类型为 number[]</span>
 arr.<span class="hljs-title function_">push</span>(<span class="hljs-number">123</span>);
+arr <span class="hljs-comment">// 推断类型为 number[]</span>
 
-<span class="hljs-comment">// 推断类型为 (string | number)[]</span>
 arr.<span class="hljs-title function_">push</span>(<span class="hljs-string">&#x27;abc&#x27;</span>);
+arr <span class="hljs-comment">// 推断类型为 (string|number)[]</span>
 </code></pre><p>上面示例中，数组变量<code>arr</code>的初始值是空数组，然后随着新成员的加入，TypeScript 会自动修改推断的数组类型。</p><p>但是，类型推断的自动更新只发生初始值为空数组的情况。如果初始值不是空数组，类型推断就不会更新。</p><pre class="hljs"><code><span class="hljs-comment">// 推断类型为 number[]</span>
 <span class="hljs-keyword">const</span> arr = [<span class="hljs-number">123</span>];
 
