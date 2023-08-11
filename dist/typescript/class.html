@@ -128,7 +128,7 @@ c.<span class="hljs-property">name</span> = <span class="hljs-string">&#x27;bar&
     <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
   }
 }
-</code></pre><p>属性存取器等同于方法，也必须包括在属性索性里面。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyClass</span> {
+</code></pre><p>属性存取器等同于方法，也必须包括在属性索引里面。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyClass</span> {
   [<span class="hljs-attr">s</span>:<span class="hljs-built_in">string</span>]: <span class="hljs-built_in">boolean</span>;
 
   <span class="hljs-title function_">get</span>(<span class="hljs-params">s:<span class="hljs-built_in">string</span></span>) { <span class="hljs-comment">// 报错</span>
@@ -268,10 +268,10 @@ a.<span class="hljs-property">y</span> <span class="hljs-comment">// 10</span>
 }
 
 <span class="hljs-comment">// 写法一</span>
-<span class="hljs-keyword">const</span> <span class="hljs-attr">c</span>:<span class="hljs-title class_">Car</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Car</span>();
+<span class="hljs-keyword">const</span> <span class="hljs-attr">c1</span>:<span class="hljs-title class_">Car</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Car</span>();
 <span class="hljs-comment">// 写法二</span>
-<span class="hljs-keyword">const</span> <span class="hljs-attr">c</span>:<span class="hljs-title class_">MotorVehicle</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Car</span>();
-</code></pre><p>上面示例中，变量<code>c</code>的类型可以写成类<code>Car</code>，也可以写成接口<code>MotorVehicle</code>。它们的区别是，如果类<code>Car</code>有接口<code>MotoVehicle</code>没有的属性和方法，那么只有变量<code>c1</code>可以调用这些属性和方法。</p><p>作为类型使用时，类名只能表示实例的类型，不能表示类的自身类型。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">Point</span> {
+<span class="hljs-keyword">const</span> <span class="hljs-attr">c2</span>:<span class="hljs-title class_">MotorVehicle</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Car</span>();
+</code></pre><p>上面示例中，变量的类型可以写成类<code>Car</code>，也可以写成接口<code>MotorVehicle</code>。它们的区别是，如果类<code>Car</code>有接口<code>MotoVehicle</code>没有的属性和方法，那么只有变量<code>c1</code>可以调用这些属性和方法。</p><p>作为类型使用时，类名只能表示实例的类型，不能表示类的自身类型。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">Point</span> {
   <span class="hljs-attr">x</span>:<span class="hljs-built_in">number</span>;
   <span class="hljs-attr">y</span>:<span class="hljs-built_in">number</span>;
 
