@@ -19,7 +19,7 @@ x.<span class="hljs-property">foo</span> = <span class="hljs-number">100</span>;
 
 x = <span class="hljs-number">123</span>;
 x = { <span class="hljs-attr">foo</span>: <span class="hljs-string">&#x27;hello&#x27;</span> };
-</code></pre><p>上面示例中，变量<code>x</code>的类型推断为<code>any</code>，但是不报错，可以顺利通过编译。</p><p>由于这个原因，建议使用<code>let</code>和<code>var</code>声明变量时，如果不赋值，就一定要显式声明类型，否则可能存在安全隐患。</p><p><code>const</code>命令没有这个问题，因为 TypeScript 要求<code>const</code>声明变量时，必须同时进行初始化（赋值）。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> x; <span class="hljs-comment">// 报错</span>
+</code></pre><p>上面示例中，变量<code>x</code>的类型推断为<code>any</code>，但是不报错，可以顺利通过编译。</p><p>由于这个原因，建议使用<code>let</code>和<code>var</code>声明变量时，如果不赋值，就一定要显式声明类型，否则可能存在安全隐患。</p><p><code>const</code>命令没有这个问题，因为 JavaScript 语言规定<code>const</code>声明变量时，必须同时进行初始化（赋值）。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> x; <span class="hljs-comment">// 报错</span>
 </code></pre><p>上面示例中，<code>const</code>命令声明的<code>x</code>是不能改变值的，声明时必须同时赋值，否则报错，所以它不存在类型推断为<code>any</code>的问题。</p><h3 id="污染问题">污染问题 <a class="markdownIt-Anchor" href="#污染问题">#</a></h3><p><code>any</code>类型除了关闭类型检查，还有一个很大的问题，就是它会“污染”其他变量。它可以赋值给其他任何类型的变量（因为没有类型检查），导致其他变量出错。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> <span class="hljs-attr">x</span>:<span class="hljs-built_in">any</span> = <span class="hljs-string">&#x27;hello&#x27;</span>;
 <span class="hljs-keyword">let</span> <span class="hljs-attr">y</span>:<span class="hljs-built_in">number</span>;
 
