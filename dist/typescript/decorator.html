@@ -434,7 +434,7 @@ inst.<span class="hljs-property">value</span>
 </code></pre><p>accessor 装饰器的类型如下。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">ClassAutoAccessorDecorator</span> = <span class="hljs-function">(<span class="hljs-params">
   value: {
     get: () =&gt; <span class="hljs-built_in">unknown</span>;
-    set(value: <span class="hljs-built_in">unknown</span>) =&gt; <span class="hljs-built_in">void</span>;
+    set: (value: <span class="hljs-built_in">unknown</span>) =&gt; <span class="hljs-built_in">void</span>;
   },
   context: {
     kind: <span class="hljs-string">&quot;accessor&quot;</span>;
