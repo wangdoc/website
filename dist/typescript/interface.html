@@ -143,7 +143,7 @@
 <span class="hljs-keyword">interface</span> <span class="hljs-title class_">CountryWithPop</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Country</span> {
   <span class="hljs-attr">population</span>: <span class="hljs-built_in">number</span>;
 }
-</code></pre><p>上面示例中，<code>CountryWithPop</code>继承了<code>type</code>命令定义的<code>Country</code>对象，并且新增了一个<code>population</code>属性。</p><p>注意，如果<code>type</code>命令定义的类型不是对象，interface 就无法继承。</p><h3 id="interface-继承-class">interface 继承 class <a class="markdownIt-Anchor" href="#interface-继承-class">#</a></h3><p>inteface 还可以继承 class，即继承该类的所有成员。关于 class 的详细解释，参见下一章。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> {
+</code></pre><p>上面示例中，<code>CountryWithPop</code>继承了<code>type</code>命令定义的<code>Country</code>对象，并且新增了一个<code>population</code>属性。</p><p>注意，如果<code>type</code>命令定义的类型不是对象，interface 就无法继承。</p><h3 id="interface-继承-class">interface 继承 class <a class="markdownIt-Anchor" href="#interface-继承-class">#</a></h3><p>interface 还可以继承 class，即继承该类的所有成员。关于 class 的详细解释，参见下一章。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> {
   <span class="hljs-attr">x</span>:<span class="hljs-built_in">string</span> = <span class="hljs-string">&#x27;&#x27;</span>;
 
   <span class="hljs-title function_">y</span>():<span class="hljs-built_in">boolean</span> {
@@ -301,7 +301,7 @@ s.<span class="hljs-property">area</span>;   <span class="hljs-comment">// bigin
   <span class="hljs-attr">foo</span>: <span class="hljs-number">1</span>,
   <span class="hljs-attr">bar</span>: <span class="hljs-number">1</span>
 };
-</code></pre><p>上面示例中，<code>interface</code>把类型<code>A</code>的两个定义合并在一起。</p><p>这表明，inteface 是开放的，可以添加属性，type 是封闭的，不能添加属性，只能定义新的 type。</p><p>（4）<code>interface</code>不能包含属性映射（mapping），<code>type</code>可以，详见《映射》一章。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Point</span> {
+</code></pre><p>上面示例中，<code>interface</code>把类型<code>A</code>的两个定义合并在一起。</p><p>这表明，interface 是开放的，可以添加属性，type 是封闭的，不能添加属性，只能定义新的 type。</p><p>（4）<code>interface</code>不能包含属性映射（mapping），<code>type</code>可以，详见《映射》一章。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Point</span> {
   <span class="hljs-attr">x</span>: <span class="hljs-built_in">number</span>;
   <span class="hljs-attr">y</span>: <span class="hljs-built_in">number</span>;
 }
