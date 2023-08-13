@@ -176,7 +176,7 @@ myFunc = <span class="hljs-keyword">function</span> (<span class="hljs-params">x
 </span>) {
   <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(a + b + c);
 }
-</code></pre><p>参数结构可以结合类型别名（type 命令）一起使用，代码会看起来简洁一些。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-variable constant_">ABC</span> = { <span class="hljs-attr">a</span>:<span class="hljs-built_in">number</span>; <span class="hljs-attr">b</span>:<span class="hljs-built_in">number</span>; <span class="hljs-attr">c</span>:<span class="hljs-built_in">number</span> };
+</code></pre><p>参数解构可以结合类型别名（type 命令）一起使用，代码会看起来简洁一些。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-variable constant_">ABC</span> = { <span class="hljs-attr">a</span>:<span class="hljs-built_in">number</span>; <span class="hljs-attr">b</span>:<span class="hljs-built_in">number</span>; <span class="hljs-attr">c</span>:<span class="hljs-built_in">number</span> };
 
 <span class="hljs-keyword">function</span> <span class="hljs-title function_">sum</span>(<span class="hljs-params">{ a, b, c }:ABC</span>) {
   <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(a + b + c);
