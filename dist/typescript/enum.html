@@ -235,7 +235,7 @@
   B = <span class="hljs-string">&#x27;hello&#x27;</span>,
   C <span class="hljs-comment">// 报错</span>
 }
-</code></pre><p>上面示例中，<code>A</code>之前没有其他成员，所以可以不设置初始值，默认等于<code>0</code>；<code>C</code>之前有一个字符串成员，必须<code>C</code>必须有初始值，不赋值就报错了。</p><p>Enum 成员可以是字符串和数值混合赋值。</p><pre class="hljs"><code><span class="hljs-keyword">enum</span> <span class="hljs-title class_">Enum</span> {
+</code></pre><p>上面示例中，<code>A</code>之前没有其他成员，所以可以不设置初始值，默认等于<code>0</code>；<code>C</code>之前有一个字符串成员，所以<code>C</code>必须有初始值，不赋值就报错了。</p><p>Enum 成员可以是字符串和数值混合赋值。</p><pre class="hljs"><code><span class="hljs-keyword">enum</span> <span class="hljs-title class_">Enum</span> {
   <span class="hljs-title class_">One</span> = <span class="hljs-string">&#x27;One&#x27;</span>,
   <span class="hljs-title class_">Two</span> = <span class="hljs-string">&#x27;Two&#x27;</span>,
   <span class="hljs-title class_">Three</span> = <span class="hljs-number">3</span>,
