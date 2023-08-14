@@ -342,7 +342,7 @@ src.<span class="hljs-title function_">forEach</span>(<span class="hljs-function
 
   <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;wrong parameters&#x27;</span>);
 }
-</code></pre><p>上面示例中，函数<code>add()</code>内部使用<code>if</code>代码块，分别处理参数的两种情况。</p><p>注意，重载的个别类型描述与函数的具体实现之间，不能有其他代码，否则报错。</p><p>另外，虽然函数的具体实现里面，有完整的类型声明。但是，函数实际调用的类型，以前面的类型声明为准。比如，上例的函数实现，参数类型和返回值类型都是<code>number|any[]</code>，但不意味着参数类型为<code>number</code>时返回值类型为<code>any[]</code>。</p><p>函数重载的每个类型声明之间，以及类型声明与函数实现的类型之间，不能有冲突。</p><pre class="hljs"><code><span class="hljs-comment">// 报错</span>
+</code></pre><p>上面示例中，函数<code>add()</code>内部使用<code>if</code>代码块，分别处理参数的两种情况。</p><p>注意，重载的各个类型描述与函数的具体实现之间，不能有其他代码，否则报错。</p><p>另外，虽然函数的具体实现里面，有完整的类型声明。但是，函数实际调用的类型，以前面的类型声明为准。比如，上例的函数实现，参数类型和返回值类型都是<code>number|any[]</code>，但不意味着参数类型为<code>number</code>时返回值类型为<code>any[]</code>。</p><p>函数重载的每个类型声明之间，以及类型声明与函数实现的类型之间，不能有冲突。</p><pre class="hljs"><code><span class="hljs-comment">// 报错</span>
 <span class="hljs-keyword">function</span> <span class="hljs-title function_">fn</span>(<span class="hljs-params">x:<span class="hljs-built_in">boolean</span></span>):<span class="hljs-built_in">void</span>;
 <span class="hljs-keyword">function</span> <span class="hljs-title function_">fn</span>(<span class="hljs-params">x:<span class="hljs-built_in">string</span></span>):<span class="hljs-built_in">void</span>;
 <span class="hljs-keyword">function</span> <span class="hljs-title function_">fn</span>(<span class="hljs-params">x:<span class="hljs-built_in">number</span>|<span class="hljs-built_in">string</span></span>) {
