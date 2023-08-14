@@ -232,7 +232,7 @@ b.<span class="hljs-property">y</span> = <span class="hljs-number">10</span>; <s
 <span class="hljs-keyword">class</span> <span class="hljs-title class_">SecretCar</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">SuperCar</span> {
   <span class="hljs-comment">// ...</span>
 }
-</code></pre><p>上面示例中，接口<code>SuperCar</code>通过<code>SuperCar</code>接口，就间接实现了多个接口。</p><p>注意，发生多重实现时（即一个接口同时实现多个接口），不同接口不能有互相冲突的属性。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Flyable</span> {
+</code></pre><p>上面示例中，类<code>SecretCar</code>通过<code>SuperCar</code>接口，就间接实现了多个接口。</p><p>注意，发生多重实现时（即一个接口同时实现多个接口），不同接口不能有互相冲突的属性。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Flyable</span> {
   <span class="hljs-attr">foo</span>:<span class="hljs-built_in">number</span>;
 }
 
