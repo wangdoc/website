@@ -252,7 +252,7 @@ arr.<span class="hljs-property">length</span> <span class="hljs-comment">// 报�
   <span class="hljs-keyword">let</span> myShape = shape; <span class="hljs-comment">// 报错</span>
   <span class="hljs-keyword">let</span> x = xPos; <span class="hljs-comment">// 报错</span>
 }
-</code></pre><p>上面示例中，函数<code>draw()</code>的参数是一个对象解构，里面的冒号很像是为变量指定类型，其实是为对应的属性指定新的变量名。所以，TypeScript 就会解读成，函数体内不存在变量<code>shape</code>，而是属性<code>shape</code>的值被赋值给了变量<code>Shape</code>。</p><h2 id="结构类型原则">结构类型原则 <a class="markdownIt-Anchor" href="#结构类型原则">#</a></h2><p>只要对象 B 满足 对象 A 的结构特征，TypeScript 就认为对象 B 兼容对象 A 的类型，这称为“结构类型”原则（structual typing）。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> A = {
+</code></pre><p>上面示例中，函数<code>draw()</code>的参数是一个对象解构，里面的冒号很像是为变量指定类型，其实是为对应的属性指定新的变量名。所以，TypeScript 就会解读成，函数体内不存在变量<code>shape</code>，而是属性<code>shape</code>的值被赋值给了变量<code>Shape</code>。</p><h2 id="结构类型原则">结构类型原则 <a class="markdownIt-Anchor" href="#结构类型原则">#</a></h2><p>只要对象 B 满足 对象 A 的结构特征，TypeScript 就认为对象 B 兼容对象 A 的类型，这称为“结构类型”原则（structural typing）。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> A = {
   <span class="hljs-attr">x</span>: <span class="hljs-built_in">number</span>;
 };
 
