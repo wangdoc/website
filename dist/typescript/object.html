@@ -86,16 +86,20 @@ myUser.<span class="hljs-property">name</span> = <span class="hljs-string">&quot
 <span class="hljs-comment">// 等同于</span>
 <span class="hljs-keyword">type</span> <span class="hljs-title class_">User</span> = {
   <span class="hljs-attr">firstName</span>: <span class="hljs-built_in">string</span>;
-  <span class="hljs-attr">lastName</span>: <span class="hljs-built_in">string</span>|<span class="hljs-literal">undefined</span>;
+  lastName?: <span class="hljs-built_in">string</span>|<span class="hljs-literal">undefined</span>;
 };
-</code></pre><p>上面示例中，类型<code>User</code>的属性<code>lastName</code>可以是字符串，也可以是<code>undefined</code>，就表示该属性可以省略不写。</p><p>同理，读取一个可选属性时，有可能返回<code>undefined</code>。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">MyObj</span> = {
+</code></pre><p>上面示例中，类型<code>User</code>的可选属性<code>lastName</code>可以是字符串，也可以是<code>undefined</code>，即可选属性可以赋值为<code>undefined</code>。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> <span class="hljs-attr">obj</span>: {
+  <span class="hljs-attr">x</span>: <span class="hljs-built_in">number</span>;
+  y?: <span class="hljs-built_in">number</span>;
+} = { <span class="hljs-attr">x</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">y</span>: <span class="hljs-literal">undefined</span> };
+</code></pre><p>上面示例中，可选属性<code>y</code>赋值为<code>undefined</code>，不会报错。</p><p>同样地，读取一个没有赋值的可选属性时，返回<code>undefined</code>。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">MyObj</span> = {
   <span class="hljs-attr">x</span>: <span class="hljs-built_in">string</span>,
   y?: <span class="hljs-built_in">string</span>
 };
 
 <span class="hljs-keyword">const</span> <span class="hljs-attr">obj</span>:<span class="hljs-title class_">MyObj</span> = { <span class="hljs-attr">x</span>: <span class="hljs-string">&#x27;hello&#x27;</span> };
 obj.<span class="hljs-property">y</span>.<span class="hljs-title function_">toLowerCase</span>() <span class="hljs-comment">// 报错</span>
-</code></pre><p>上面示例中，最后一行会报错，因为<code>obj.y</code>有可能是<code>undefined</code>，无法对其调用<code>toLowerCase()</code>。</p><p>所以，读取可选属性之前，必须检查一下是否为<code>undefined</code>。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> <span class="hljs-attr">user</span>:{
+</code></pre><p>上面示例中，最后一行会报错，因为<code>obj.y</code>返回<code>undefined</code>，无法对其调用<code>toLowerCase()</code>。</p><p>所以，读取可选属性之前，必须检查一下是否为<code>undefined</code>。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> <span class="hljs-attr">user</span>:{
   <span class="hljs-attr">firstName</span>: <span class="hljs-built_in">string</span>;
   lastName?: <span class="hljs-built_in">string</span>;
 } = { <span class="hljs-attr">firstName</span>: <span class="hljs-string">&#x27;Foo&#x27;</span>};
@@ -112,7 +116,17 @@ obj.<span class="hljs-property">y</span>.<span class="hljs-title function_">toLo
 <span class="hljs-comment">// 写法二</span>
 <span class="hljs-keyword">let</span> firstName = user.<span class="hljs-property">firstName</span> ?? <span class="hljs-string">&#x27;Foo&#x27;</span>;
 <span class="hljs-keyword">let</span> lastName = user.<span class="hljs-property">lastName</span> ?? <span class="hljs-string">&#x27;Bar&#x27;</span>;
-</code></pre><p>上面示例中，写法一使用三元运算符<code>?:</code>，判断是否为<code>undefined</code>，并设置默认值。写法二使用 Null 判断运算符<code>??</code>，与写法一的作用完全相同。</p><h2 id="只读属性">只读属性 <a class="markdownIt-Anchor" href="#只读属性">#</a></h2><p>属性名前面加上<code>readonly</code>关键字，表示这个属性是只读属性，不能修改。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title class_">MyInterface</span> {
+</code></pre><p>上面示例中，写法一使用三元运算符<code>?:</code>，判断是否为<code>undefined</code>，并设置默认值。写法二使用 Null 判断运算符<code>??</code>，与写法一的作用完全相同。</p><p>TypeScript 提供编译设置<code>ExactOptionalPropertyTypes</code>，只要同时打开这个设置和<code>strictNullChecks</code>，可选属性就不能设为<code>undefined</code>。</p><pre class="hljs"><code><span class="hljs-comment">// 打开 ExactOptionsPropertyTypes 和 strictNullChecks</span>
+<span class="hljs-keyword">const</span> <span class="hljs-attr">obj</span>: {
+  <span class="hljs-attr">x</span>: <span class="hljs-built_in">number</span>;
+  y?: <span class="hljs-built_in">number</span>;
+} = { <span class="hljs-attr">x</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">y</span>: <span class="hljs-literal">undefined</span> }; <span class="hljs-comment">// 报错</span>
+</code></pre><p>上面示例中，打开了这两个设置以后，可选属性就不能设为<code>undefined</code>了。</p><p>注意，可选属性与允许设为<code>undefined</code>的必选属性是不等价的。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> A = { <span class="hljs-attr">x</span>:<span class="hljs-built_in">number</span>, y?:<span class="hljs-built_in">number</span> };
+<span class="hljs-keyword">type</span> B = { <span class="hljs-attr">x</span>:<span class="hljs-built_in">number</span>, <span class="hljs-attr">y</span>:<span class="hljs-built_in">number</span>|<span class="hljs-literal">undefined</span> };
+
+<span class="hljs-keyword">const</span> <span class="hljs-title class_">ObjA</span>:A = { <span class="hljs-attr">x</span>: <span class="hljs-number">1</span> }; <span class="hljs-comment">// 正确</span>
+<span class="hljs-keyword">const</span> <span class="hljs-title class_">ObjB</span>:B = { <span class="hljs-attr">x</span>: <span class="hljs-number">1</span> }; <span class="hljs-comment">// 报错</span>
+</code></pre><p>上面示例中，属性<code>y</code>如果是一个可选属性，那就可以省略不写；如果是允许设为<code>undefined</code>的必选属性，一旦省略就会报错，必须显式写成<code>{ x: 1, y: undefined }</code>。</p><h2 id="只读属性">只读属性 <a class="markdownIt-Anchor" href="#只读属性">#</a></h2><p>属性名前面加上<code>readonly</code>关键字，表示这个属性是只读属性，不能修改。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title class_">MyInterface</span> {
   <span class="hljs-keyword">readonly</span> <span class="hljs-attr">prop</span>: <span class="hljs-built_in">number</span>;
 }
 </code></pre><p>上面示例中，<code>prop</code>属性是只读属性，不能修改它的值。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> <span class="hljs-attr">person</span>:{
