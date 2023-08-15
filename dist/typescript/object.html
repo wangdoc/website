@@ -180,7 +180,7 @@ h.<span class="hljs-property">resident</span> = {
 
 w.<span class="hljs-property">age</span> += <span class="hljs-number">1</span>;
 r.<span class="hljs-property">age</span> <span class="hljs-comment">// 43</span>
-</code></pre><p>上面示例中，变量<code>w</code>和<code>r</code>指向同一个对象，其中<code>w</code>是可写的，<code>r</code>的只读的。那么，对<code>w</code>的属性修改，会影响到<code>r</code>。</p><p>如果希望属性值是只读的，除了声明时加上<code>readonly</code>关键字，还有一种方法，就是在赋值时，在对象后面加上只读断言<code>as const</code>。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> myUser = {
+</code></pre><p>上面示例中，变量<code>w</code>和<code>r</code>指向同一个对象，其中<code>w</code>是可写的，<code>r</code>是只读的。那么，对<code>w</code>的属性修改，会影响到<code>r</code>。</p><p>如果希望属性值是只读的，除了声明时加上<code>readonly</code>关键字，还有一种方法，就是在赋值时，在对象后面加上只读断言<code>as const</code>。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> myUser = {
   <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;Sabrina&quot;</span>,
 } <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>;
 
