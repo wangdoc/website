@@ -164,7 +164,7 @@ root.<span class="hljs-title function_">addEventListener</span>(<span class="hlj
 }
 </code></pre><p>上面示例中，函数<code>isString()</code>就是一个断言函数，用来保证参数<code>value</code>是一个字符串。</p><p>下面是它的用法。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> <span class="hljs-attr">aValue</span>:<span class="hljs-built_in">string</span>|<span class="hljs-built_in">number</span> = <span class="hljs-string">&#x27;Hello&#x27;</span>;
 <span class="hljs-title function_">isString</span>(aValue);
-</code></pre><p>上面示例中，变量<code>aValue</code>可能是字符串，也可能是数组。但是，通过调用<code>isString()</code>，后面的代码就可以确定，变量<code>aValue</code>一定是字符串。</p><p>断言函数的类型可以写成下面这样。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">isString</span>(<span class="hljs-params">value:<span class="hljs-built_in">unknown</span></span>):<span class="hljs-built_in">void</span> {
+</code></pre><p>上面示例中，变量<code>aValue</code>可能是字符串，也可能是数字。但是，通过调用<code>isString()</code>，后面的代码就可以确定，变量<code>aValue</code>一定是字符串。</p><p>断言函数的类型可以写成下面这样。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">isString</span>(<span class="hljs-params">value:<span class="hljs-built_in">unknown</span></span>):<span class="hljs-built_in">void</span> {
   <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> value !== <span class="hljs-string">&#x27;string&#x27;</span>)
     <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;Not a string&#x27;</span>);
 }
