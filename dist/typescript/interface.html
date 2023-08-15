@@ -228,7 +228,7 @@
   <span class="hljs-title function_">f</span>(<span class="hljs-attr">x</span>:<span class="hljs-string">&#x27;foo&#x27;</span>): <span class="hljs-built_in">boolean</span>;
   <span class="hljs-title function_">f</span>(<span class="hljs-attr">x</span>:<span class="hljs-built_in">any</span>): <span class="hljs-built_in">void</span>;
 }
-</code></pre><p>上面示例中，<code>f()</code>方法有一个类型声明是，参数<code>x</code>是字面量类型，这个类型声明的优先级最高，会排在函数重载的最前面。</p><p>一个实际的例子是 Document 对象的<code>createElement()</code>方法，它会根据参数的不同，而生成不同的 HTML 节点对象。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Document</span> {
+</code></pre><p>上面示例中，<code>f()</code>方法有一个类型声明的参数<code>x</code>是字面量类型，这个类型声明的优先级最高，会排在函数重载的最前面。</p><p>一个实际的例子是 Document 对象的<code>createElement()</code>方法，它会根据参数的不同，而生成不同的 HTML 节点对象。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Document</span> {
   <span class="hljs-title function_">createElement</span>(<span class="hljs-attr">tagName</span>: <span class="hljs-built_in">any</span>): <span class="hljs-title class_">Element</span>;
 }
 <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Document</span> {
@@ -326,7 +326,7 @@ s.<span class="hljs-property">area</span>;   <span class="hljs-comment">// bigin
 };
 </code></pre><p>上面示例中，type 命令声明的方法<code>add()</code>，返回<code>this</code>就报错了。interface 命令没有这个问题。</p><p>下面是返回<code>this</code>的实际对象的例子。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">Calculator</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Foo</span> {
   result = <span class="hljs-number">0</span>;
-  <span class="hljs-title function_">add</span>(<span class="hljs-params">num：<span class="hljs-built_in">number</span></span>) {
+  <span class="hljs-title function_">add</span>(<span class="hljs-params">num:<span class="hljs-built_in">number</span></span>) {
     <span class="hljs-variable language_">this</span>.<span class="hljs-property">result</span> += num;
     <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>;
   }
