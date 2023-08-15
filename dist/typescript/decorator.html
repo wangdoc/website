@@ -8,15 +8,15 @@
 <span class="hljs-meta">@simpleDecorator</span>
 <span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> {} <span class="hljs-comment">// &quot;hi&quot;</span>
 </code></pre><p>上面示例中，函数<code>simpleDecorator()</code>用作装饰器，附加在类<code>A</code>之上，后者在代码解析时就会打印一行日志。</p><p>编译上面的代码会报错，提示没有用到装饰器的参数。现在就为装饰器加上参数，让它更像正式运行的代码。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">simpleDecorator</span>(<span class="hljs-params">
-  target:<span class="hljs-built_in">any</span>,
+  value:<span class="hljs-built_in">any</span>,
   context:<span class="hljs-built_in">any</span>
 </span>) {
-  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;hi, this is &#x27;</span> + target);
-  <span class="hljs-keyword">return</span> target;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`hi, this is <span class="hljs-subst">${context.kind}</span> <span class="hljs-subst">${context.name}</span>`</span>);
+  <span class="hljs-keyword">return</span> value;
 }
 
 <span class="hljs-meta">@simpleDecorator</span>
-<span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> {} <span class="hljs-comment">// &quot;hi, this is class A {}&quot; </span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> {} <span class="hljs-comment">// &quot;hi, this is class A&quot;</span>
 </code></pre><p>上面的代码就可以顺利通过编译了，代码含义这里先不解释。大家只要理解，类<code>A</code>在执行前会先执行装饰器<code>simpleDecorator()</code>，并且会向装饰器自动传入参数就可以了。</p><p>装饰器有多种形式，基本上只要在<code>@</code>符号后面添加表达式都是可以的。下面都是合法的装饰器。</p><pre class="hljs"><code><span class="hljs-meta">@myFunc</span>
 <span class="hljs-meta">@myFuncFactory</span>(arg1, arg2)
 
