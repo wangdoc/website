@@ -595,13 +595,13 @@ a[<span class="hljs-string">&#x27;x&#x27;</span>] <span class="hljs-comment">// 
 <span class="hljs-keyword">if</span> (<span class="hljs-string">&#x27;x&#x27;</span> <span class="hljs-keyword">in</span> a) { <span class="hljs-comment">// 正确</span>
   <span class="hljs-comment">// ...</span>
 }
-</code></pre><p>上面示例中，<code>A</code>类的属性<code>x</code>是私有属性，但是实例使用方括号，就可以读取这个属性，或者使用<code>in</code>运算符检查这个属性是否存在，都可以正确执行。</p><p>由于<code>private</code>存在这些问题，加上它是 ES6 标准发布前出台的，而 ES6 引入了自己的私有成员写法<code>#propName</code>。因此建议不使用<code>private</code>，改用 ES6 的写法，获得真正意义的私有成员。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> {
+</code></pre><p>上面示例中，<code>A</code>类的属性<code>x</code>是私有属性，但是实例使用方括号，就可以读取这个属性，或者使用<code>in</code>运算符检查这个属性是否存在，都可以正确执行。</p><p>由于<code>private</code>存在这些问题，加上它是 ES2022 标准发布前出台的，而 ES2022 引入了自己的私有成员写法<code>#propName</code>。因此建议不使用<code>private</code>，改用 ES2022 的写法，获得真正意义的私有成员。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> {
   #x = <span class="hljs-number">1</span>;
 }
 
 <span class="hljs-keyword">const</span> a = <span class="hljs-keyword">new</span> <span class="hljs-title function_">A</span>();
 a[<span class="hljs-string">&#x27;x&#x27;</span>] <span class="hljs-comment">// 报错</span>
-</code></pre><p>上面示例中，采用了 ES6 的私有成员写法（属性名前加<code>#</code>），TypeScript 就正确识别了实例对象没有属性<code>x</code>，从而报错。</p><p>构造方法也可以是私有的，这就直接防止了使用<code>new</code>命令生成实例对象，只能在类的内部创建实例对象。</p><p>这时一般会有一个静态方法，充当工厂函数，强制所有实例都通过该方法生成。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">Singleton</span> {
+</code></pre><p>上面示例中，采用了 ES2022 的私有成员写法（属性名前加<code>#</code>），TypeScript 就正确识别了实例对象没有属性<code>x</code>，从而报错。</p><p>构造方法也可以是私有的，这就直接防止了使用<code>new</code>命令生成实例对象，只能在类的内部创建实例对象。</p><p>这时一般会有一个静态方法，充当工厂函数，强制所有实例都通过该方法生成。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">Singleton</span> {
   <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> instance?: <span class="hljs-title class_">Singleton</span>;
 
   <span class="hljs-keyword">private</span> <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) {}
