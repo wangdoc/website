@@ -10,9 +10,14 @@
   x = <span class="hljs-number">0</span>;
   y = <span class="hljs-number">0</span>;
 }
-</code></pre><p>上面示例中，属性<code>x</code>和<code>y</code>的类型都会被推断为 number。</p><p>TypeScript 有一个配置项<code>strictPropertyInitialization</code>，只要打开，就会检查属性是否设置了初值，如果没有就报错。</p><p>如果你打开了这个设置，但是某些情况下，不是在声明时赋值或在构造方法里面赋值，为了防止这个设置报错，可以使用非空断言。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">Point</span> {
-  x!:<span class="hljs-built_in">number</span>;
-  y!:<span class="hljs-built_in">number</span>;
+</code></pre><p>上面示例中，属性<code>x</code>和<code>y</code>的类型都会被推断为 number。</p><p>TypeScript 有一个配置项<code>strictPropertyInitialization</code>，只要打开（默认是打开的），就会检查属性是否设置了初值，如果没有就报错。</p><pre class="hljs"><code><span class="hljs-comment">// 打开 strictPropertyInitialization</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Point</span> {
+  <span class="hljs-attr">x</span>: <span class="hljs-built_in">number</span>; <span class="hljs-comment">// 报错</span>
+  <span class="hljs-attr">y</span>: <span class="hljs-built_in">number</span>; <span class="hljs-comment">// 报错</span>
+}
+</code></pre><p>上面示例中，如果类的顶层属性不赋值，就会报错。如果不希望出现报错，可以使用非空断言。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">Point</span> {
+  x!: <span class="hljs-built_in">number</span>;
+  y!: <span class="hljs-built_in">number</span>;
 }
 </code></pre><p>上面示例中，属性<code>x</code>和<code>y</code>没有初值，但是属性名后面添加了感叹号，表示这两个属性肯定不会为空，所以 TypeScript 就不报错了，详见《类型断言》一章。</p><h3 id="readonly-修饰符">readonly 修饰符 <a class="markdownIt-Anchor" href="#readonly-修饰符">#</a></h3><p>属性名前面加上 readonly 修饰符，就表示该属性是只读的。实例对象不能修改这个属性。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> {
   <span class="hljs-keyword">readonly</span> id = <span class="hljs-string">&#x27;foo&#x27;</span>;
