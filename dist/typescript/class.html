@@ -113,7 +113,7 @@ c.<span class="hljs-property">name</span> = <span class="hljs-string">&#x27;bar&
     <span class="hljs-variable language_">this</span>.<span class="hljs-property">_name</span> = <span class="hljs-title class_">String</span>(value); <span class="hljs-comment">// 正确</span>
   }
 }
-</code></pre><p>上面示例中，<code>set</code>方法的参数类型（<code>number|return</code>）兼容<code>get</code>方法的返回值类型（<code>string</code>），这是允许的。但是，最终赋值的时候，还是必须保证与<code>get</code>方法的返回值类型一致。</p><p>另外，如果<code>set</code>方法的参数没有指定类型，那么会推断为与<code>get</code>方法返回值类型一致。</p><p>（3）<code>get</code>方法与<code>set</code>方法的可访问性必须一致，要么都为公开方法，要么都为私有方法。</p><h3 id="属性索引">属性索引 <a class="markdownIt-Anchor" href="#属性索引">#</a></h3><p>类允许定义属性索引。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyClass</span> {
+</code></pre><p>上面示例中，<code>set</code>方法的参数类型（<code>number|string</code>）兼容<code>get</code>方法的返回值类型（<code>string</code>），这是允许的。但是，最终赋值的时候，还是必须保证与<code>get</code>方法的返回值类型一致。</p><p>另外，如果<code>set</code>方法的参数没有指定类型，那么会推断为与<code>get</code>方法返回值类型一致。</p><p>（3）<code>get</code>方法与<code>set</code>方法的可访问性必须一致，要么都为公开方法，要么都为私有方法。</p><h3 id="属性索引">属性索引 <a class="markdownIt-Anchor" href="#属性索引">#</a></h3><p>类允许定义属性索引。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyClass</span> {
   [<span class="hljs-attr">s</span>:<span class="hljs-built_in">string</span>]: <span class="hljs-built_in">boolean</span> |
     (<span class="hljs-function">(<span class="hljs-params">s:<span class="hljs-built_in">string</span></span>) =&gt;</span> <span class="hljs-built_in">boolean</span>);
 
