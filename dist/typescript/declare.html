@@ -19,7 +19,7 @@ x = <span class="hljs-number">1</span>;
 <span class="hljs-keyword">function</span> <span class="hljs-title function_">sayHello</span>(<span class="hljs-params">name</span>) {
   <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;你好，&#x27;</span> + name;
 }
-</code></pre><p>上面示例中，单独写函数的类型声明就会报错。</p><h2 id="declare-class">declare class <a class="markdownIt-Anchor" href="#declare-class">#</a></h2><p>declare 给出 class 的描述描述写法如下。</p><pre class="hljs"><code><span class="hljs-keyword">declare</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Animal</span> {
+</code></pre><p>上面示例中，单独写函数的类型声明就会报错。</p><h2 id="declare-class">declare class <a class="markdownIt-Anchor" href="#declare-class">#</a></h2><p>declare 给出 class 类型描述的写法如下。</p><pre class="hljs"><code><span class="hljs-keyword">declare</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Animal</span> {
   <span class="hljs-title function_">constructor</span>(<span class="hljs-params">name:<span class="hljs-built_in">string</span></span>);
   <span class="hljs-title function_">eat</span>():<span class="hljs-built_in">void</span>;
   <span class="hljs-title function_">sleep</span>():<span class="hljs-built_in">void</span>;
@@ -71,21 +71,22 @@ x = <span class="hljs-number">1</span>;
 }
 
 <span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-string">&#x27;io&#x27;</span> {
- <span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">readFile</span>(<span class="hljs-params">filename:<span class="hljs-built_in">string</span></span>):<span class="hljs-built_in">string</span>;
+  <span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">readFile</span>(<span class="hljs-params">filename:<span class="hljs-built_in">string</span></span>):<span class="hljs-built_in">string</span>;
 }
 </code></pre><p>上面示例中，namespace 和 module 里面使用了 export 关键字。</p><p>下面的例子是当前脚本使用了<code>myLib</code>这个外部库，它有方法<code>makeGreeting()</code>和属性<code>numberOfGreetings</code>。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> result = myLib.<span class="hljs-title function_">makeGreeting</span>(<span class="hljs-string">&#x27;你好&#x27;</span>);
 <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;欢迎词：&#x27;</span> + result);
+
 <span class="hljs-keyword">let</span> count = myLib.<span class="hljs-property">numberOfGreetings</span>;
 </code></pre><p><code>myLib</code>的类型描述就可以这样写。</p><pre class="hljs"><code><span class="hljs-keyword">declare</span> <span class="hljs-keyword">namespace</span> myLib {
-  <span class="hljs-keyword">function</span> <span class="hljs-title function_">makeGreeting</span>(<span class="hljs-params">s:<span class="hljs-built_in">string</span></span>):<span class="hljs-built_in">string</span>;
-  <span class="hljs-keyword">let</span> <span class="hljs-attr">numberOfGreetings</span>:<span class="hljs-built_in">number</span>;
+  <span class="hljs-keyword">function</span> <span class="hljs-title function_">makeGreeting</span>(<span class="hljs-params">s:<span class="hljs-built_in">string</span></span>): <span class="hljs-built_in">string</span>;
+  <span class="hljs-keyword">let</span> <span class="hljs-attr">numberOfGreetings</span>: <span class="hljs-built_in">number</span>;
 }
 </code></pre><p>declare 关键字的另一个用途，是为外部模块添加属性和方法时，给出新增部分的类型描述。</p><pre class="hljs"><code><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Foo</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">Bar</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;moduleA&#x27;</span>;
 
 <span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-string">&#x27;moduleA&#x27;</span> {
   <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Bar</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Foo</span> {
     <span class="hljs-attr">custom</span>: {
-      <span class="hljs-attr">prop1</span>:<span class="hljs-built_in">string</span>;
+      <span class="hljs-attr">prop1</span>: <span class="hljs-built_in">string</span>;
     }
   }
 }
@@ -108,7 +109,7 @@ x = <span class="hljs-number">1</span>;
 
 <span class="hljs-comment">// 例子</span>
 <span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-string">&quot;hot-new-module&quot;</span>;
-</code></pre><p>加上上面的命令以后，外部模块即使没有类型，也可以通过编译。但是，从该模块输入的所有接口都将为<code>any</code>类型。</p><p>declare module 描述的模块名可以使用通配符。</p><pre class="hljs"><code><span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-string">&#x27;my-plugin-*&#x27;</span> {
+</code></pre><p>加上上面的命令以后，外部模块即使没有类型声明，也可以通过编译。但是，从该模块输入的所有接口都将为<code>any</code>类型。</p><p>declare module 描述的模块名可以使用通配符。</p><pre class="hljs"><code><span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-string">&#x27;my-plugin-*&#x27;</span> {
   <span class="hljs-keyword">interface</span> <span class="hljs-title class_">PluginOptions</span> {
     <span class="hljs-attr">enabled</span>: <span class="hljs-built_in">boolean</span>;
     <span class="hljs-attr">priority</span>: <span class="hljs-built_in">number</span>;
