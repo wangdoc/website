@@ -740,7 +740,7 @@ B.<span class="hljs-title function_">getY</span>() <span class="hljs-comment">//
 </code></pre><p>上面示例中，类<code>Box</code>有类型参数<code>Type</code>，因此属于泛型类。新建实例时，变量的类型声明需要带有类型参数的值，不过本例等号左边的<code>Box&lt;string&gt;</code>可以省略不写，因为可以从等号右边推断得到。</p><p>注意，静态成员不能使用泛型的类型参数。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">Box</span>&lt;<span class="hljs-title class_">Type</span>&gt; {
   <span class="hljs-keyword">static</span> <span class="hljs-attr">defaultContents</span>: <span class="hljs-title class_">Type</span>; <span class="hljs-comment">// 报错</span>
 }
-</code></pre><p>上面示例中，静态属性<code>defaultContents</code>的类型写成类型参数<code>Type</code>会报错。因为这意味着调用时必须给出类型参数（即写成<code>Box&lt;string&gt;.defaultContents</code>），并且类型参数发生变化，这个属性也会跟着变，这并不是好的做法。</p><h2 id="抽象类抽象成员">抽象类，抽象成员 <a class="markdownIt-Anchor" href="#抽象类抽象成员">#</a></h2><p>TypeScript 允许在类的定义前面，加上关键字<code>abstract</code>，表示该类不能被实例化，只能当作其他类的模板。这种类就叫做“抽象类”（abastract class）。</p><pre class="hljs"><code><span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> {
+</code></pre><p>上面示例中，静态属性<code>defaultContents</code>的类型写成类型参数<code>Type</code>会报错。因为这意味着调用时必须给出类型参数（即写成<code>Box&lt;string&gt;.defaultContents</code>），并且类型参数发生变化，这个属性也会跟着变，这并不是好的做法。</p><h2 id="抽象类抽象成员">抽象类，抽象成员 <a class="markdownIt-Anchor" href="#抽象类抽象成员">#</a></h2><p>TypeScript 允许在类的定义前面，加上关键字<code>abstract</code>，表示该类不能被实例化，只能当作其他类的模板。这种类就叫做“抽象类”（abstract class）。</p><pre class="hljs"><code><span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> {
   id = <span class="hljs-number">1</span>;
 }
 
