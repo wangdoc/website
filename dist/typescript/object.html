@@ -312,7 +312,7 @@ arr.<span class="hljs-property">length</span> <span class="hljs-comment">// 报�
   darkMode?:<span class="hljs-built_in">boolean</span>;
 };
 
-<span class="hljs-keyword">const</span> <span class="hljs-title class_">Obj</span>:<span class="hljs-title class_">Options</span> = {
+<span class="hljs-keyword">const</span> <span class="hljs-attr">obj</span>:<span class="hljs-title class_">Options</span> = {
   <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;我的网页&#x27;</span>,
   <span class="hljs-attr">darkmode</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// 报错</span>
 };
@@ -321,8 +321,8 @@ arr.<span class="hljs-property">length</span> <span class="hljs-comment">// 报�
   <span class="hljs-attr">darkmode</span>: <span class="hljs-literal">true</span>,
 };
 
-<span class="hljs-keyword">const</span> <span class="hljs-title class_">Obj</span>:<span class="hljs-title class_">Options</span> = myOptions;
-</code></pre><p>上面示例中，创建了一个中间变量<code>myOptions</code>，就不会触发严格字面量规则，因为这时变量<code>obj</code>的赋值，不属于直接字面量赋值。</p><p>如果你确认字面量没有错误，也可以使用类型断言规避严格字面量检查。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> <span class="hljs-title class_">Obj</span>:<span class="hljs-title class_">Options</span> = {
+<span class="hljs-keyword">const</span> <span class="hljs-attr">obj</span>:<span class="hljs-title class_">Options</span> = myOptions;
+</code></pre><p>上面示例中，创建了一个中间变量<code>myOptions</code>，就不会触发严格字面量规则，因为这时变量<code>obj</code>的赋值，不属于直接字面量赋值。</p><p>如果你确认字面量没有错误，也可以使用类型断言规避严格字面量检查。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> <span class="hljs-attr">obj</span>:<span class="hljs-title class_">Options</span> = {
   <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;我的网页&#x27;</span>,
   <span class="hljs-attr">darkmode</span>: <span class="hljs-literal">true</span>,
 } <span class="hljs-keyword">as</span> <span class="hljs-title class_">Options</span>;
