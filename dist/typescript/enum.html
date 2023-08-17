@@ -258,7 +258,7 @@ s = <span class="hljs-string">&#x27;One&#x27;</span>; <span class="hljs-comment"
 }
 
 <span class="hljs-title function_">f</span>(<span class="hljs-string">&#x27;One&#x27;</span>) <span class="hljs-comment">// 报错</span>
-</code></pre><p>上面示例中，参数类型是<code>MyEnum</code>，直接传入字符串会报错。</p><p>所以，字符串 Enum 作为一种类型，有限定函数参数的作用。</p><p>前面说过，数值 Enum 的成员值往往不重要。但是有些场合，开发者可能希望 Enum 成员值可以保存一些有用的信息，所以 TypeScript 才设计了字符串 Enum.</p><pre class="hljs"><code><span class="hljs-keyword">const</span> <span class="hljs-keyword">enum</span> <span class="hljs-title class_">MediaTypes</span> {
+</code></pre><p>上面示例中，参数类型是<code>MyEnum</code>，直接传入字符串会报错。</p><p>所以，字符串 Enum 作为一种类型，有限定函数参数的作用。</p><p>前面说过，数值 Enum 的成员值往往不重要。但是有些场合，开发者可能希望 Enum 成员值可以保存一些有用的信息，所以 TypeScript 才设计了字符串 Enum。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> <span class="hljs-keyword">enum</span> <span class="hljs-title class_">MediaTypes</span> {
   <span class="hljs-title class_">JSON</span> = <span class="hljs-string">&#x27;application/json&#x27;</span>,
   <span class="hljs-variable constant_">XML</span> = <span class="hljs-string">&#x27;application/xml&#x27;</span>,
 }
