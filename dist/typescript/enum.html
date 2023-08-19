@@ -14,7 +14,7 @@
   <span class="hljs-title class_">Green</span>,   <span class="hljs-comment">// 1</span>
   <span class="hljs-title class_">Blue</span>     <span class="hljs-comment">// 2</span>
 }
-</code></pre><p>上面示例声明了一个 Enum 结构<code>Color</code>，里面包含三个成员<code>Red</code>、<code>Green</code>和<code>Blue</code>。第一个成员的值默认为整数<code>0</code>，第二个为<code>1</code>，第二个为<code>2</code>，以此类推。</p><p>使用时，调用 Enum 的某个成员，与调用对象属性的写法一样，可以使用点运算符，也可以使用方括号运算符。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> c = <span class="hljs-title class_">Color</span>.<span class="hljs-property">Green</span>; <span class="hljs-comment">// 1</span>
+</code></pre><p>上面示例声明了一个 Enum 结构<code>Color</code>，里面包含三个成员<code>Red</code>、<code>Green</code>和<code>Blue</code>。第一个成员的值默认为整数<code>0</code>，第二个为<code>1</code>，第三个为<code>2</code>，以此类推。</p><p>使用时，调用 Enum 的某个成员，与调用对象属性的写法一样，可以使用点运算符，也可以使用方括号运算符。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> c = <span class="hljs-title class_">Color</span>.<span class="hljs-property">Green</span>; <span class="hljs-comment">// 1</span>
 <span class="hljs-comment">// 等同于</span>
 <span class="hljs-keyword">let</span> c = <span class="hljs-title class_">Color</span>[<span class="hljs-string">&#x27;Green&#x27;</span>]; <span class="hljs-comment">// 1</span>
 </code></pre><p>Enum 结构本身也是一种类型。比如，上例的变量<code>c</code>等于<code>1</code>，它的类型可以是 Color，也可以是<code>number</code>。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> <span class="hljs-attr">c</span>:<span class="hljs-title class_">Color</span> = <span class="hljs-title class_">Color</span>.<span class="hljs-property">Green</span>; <span class="hljs-comment">// 正确</span>
