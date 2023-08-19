@@ -142,7 +142,7 @@ keyof (A &amp; B) ≡ keyof A | keyof B
 
 <span class="hljs-comment">// number</span>
 <span class="hljs-keyword">type</span> T = <span class="hljs-title class_">Obj</span>[<span class="hljs-built_in">string</span>];
-</code></pre><p>上面示例中，<code>Obj</code>的属性名是字符串的索引类型，所以可以写成<code>Obj[string]</code>，代表所有字符串属性名，返回的就是它们的类型<code>number</code>。</p><p>这个语法对于数组也适用，可以使用<code>number</code>作为方括号的参数。</p><pre class="hljs"><code><span class="hljs-comment">// MyArray 的类型是 { [key:number]：string }</span>
+</code></pre><p>上面示例中，<code>Obj</code>的属性名是字符串的索引类型，所以可以写成<code>Obj[string]</code>，代表所有字符串属性名，返回的就是它们的类型<code>number</code>。</p><p>这个语法对于数组也适用，可以使用<code>number</code>作为方括号的参数。</p><pre class="hljs"><code><span class="hljs-comment">// MyArray 的类型是 { [key:number]: string }</span>
 <span class="hljs-keyword">const</span> <span class="hljs-title class_">MyArray</span> = [<span class="hljs-string">&#x27;a&#x27;</span>,<span class="hljs-string">&#x27;b&#x27;</span>,<span class="hljs-string">&#x27;c&#x27;</span>];
 
 <span class="hljs-comment">// 等同于 (typeof MyArray)[number]</span>

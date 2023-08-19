@@ -296,7 +296,7 @@ s = <span class="hljs-string">&#x27;One&#x27;</span>; <span class="hljs-comment"
   B = <span class="hljs-string">&#x27;b&#x27;</span>
 }
 
-<span class="hljs-comment">// { a：any, b: any }</span>
+<span class="hljs-comment">// { a: any, b: any }</span>
 <span class="hljs-keyword">type</span> <span class="hljs-title class_">Foo</span> = { [key <span class="hljs-keyword">in</span> <span class="hljs-title class_">MyEnum</span>]: <span class="hljs-built_in">any</span> };
 </code></pre><p>上面示例中，采用属性索引可以取出<code>MyEnum</code>的所有成员值。</p><h2 id="反向映射">反向映射 <a class="markdownIt-Anchor" href="#反向映射">#</a></h2><p>数值 Enum 存在反向映射，即可以通过成员值获得成员名。</p><pre class="hljs"><code><span class="hljs-keyword">enum</span> <span class="hljs-title class_">Weekdays</span> {
   <span class="hljs-title class_">Monday</span> = <span class="hljs-number">1</span>,
