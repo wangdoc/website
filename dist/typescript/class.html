@@ -772,7 +772,7 @@ b.<span class="hljs-property">amount</span> <span class="hljs-comment">// 100</s
 <span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">A</span> {
   foo = <span class="hljs-string">&#x27;b&#x27;</span>;
 }
-</code></pre><p>上面示例中，抽象类<code>A</code>定义了抽象属性<code>foo</code>，子类<code>B</code>必须实现这个属性，否则会报错。</p><p>下面是抽象方法的例子。</p><p>如果抽象类的属性前面加上<code>abstract</code>，就表明子类必须给出该方法的实现。</p><pre class="hljs"><code><span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> {
+</code></pre><p>上面示例中，抽象类<code>A</code>定义了抽象属性<code>foo</code>，子类<code>B</code>必须实现这个属性，否则会报错。</p><p>下面是抽象方法的例子。如果抽象类的方法前面加上<code>abstract</code>，就表明子类必须给出该方法的实现。</p><pre class="hljs"><code><span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> {
   <span class="hljs-keyword">abstract</span> <span class="hljs-title function_">execute</span>():<span class="hljs-built_in">string</span>;
 }
 
