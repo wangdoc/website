@@ -389,7 +389,7 @@ foo.<span class="hljs-title function_">classMethod</span>()
 </code></pre><p>上面代码中，<code>#count</code>就是私有属性，只能在类的内部使用（<code>this.#count</code>）。如果在类的外部使用，就会报错。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> counter = <span class="hljs-keyword">new</span> <span class="hljs-title class_">IncreasingCounter</span>();
 counter.#count <span class="hljs-comment">// 报错</span>
 counter.#count = <span class="hljs-number">42</span> <span class="hljs-comment">// 报错</span>
-</code></pre><p>上面示例中，在类的外部，读取或写入私有属性<code>#count</code>，都会报错。</p><p>另外，不管在类的内部或外部，读取一个不存在的私有属性，也都会报错。这跟公开属性的行为完全不同，如果读取一个不存在的公开属性，不会报错，只会返回<code>undefined</code>。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">IncreasingCounter</span> {
+</code></pre><p>上面示例中，在类的外部，读取或写入私有属性<code>#count</code>，都会报错。</p><p>注意，<a href="https://developer.chrome.com/blog/new-in-devtools-111/#misc" target="_blank" rel="noopener">从 Chrome 111 开始</a>，开发者工具里面可以读写私有属性，不会报错，原因是 Chrome 团队认为这样方便调试。</p><p>另外，不管在类的内部或外部，读取一个不存在的私有属性，也都会报错。这跟公开属性的行为完全不同，如果读取一个不存在的公开属性，不会报错，只会返回<code>undefined</code>。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">IncreasingCounter</span> {
   #count = <span class="hljs-number">0</span>;
   <span class="hljs-keyword">get</span> <span class="hljs-title function_">value</span>() {
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Getting the current value!&#x27;</span>);
