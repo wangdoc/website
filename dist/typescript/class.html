@@ -245,7 +245,7 @@ b.<span class="hljs-property">y</span> = <span class="hljs-number">10</span>; <s
 <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Swimmable</span> {
   <span class="hljs-attr">foo</span>:<span class="hljs-built_in">string</span>;
 }
-</code></pre><p>上面示例中，属性<code>foo</code>在两个接口里面的类型不同，如果同时实现这两个接口，就会报错。</p><h3 id="类与接口的合并">类与接口的合并 <a class="markdownIt-Anchor" href="#类与接口的合并">#</a></h3><p>TypeScript 不允许两个同名的类，但是如果一个类和一个接口同名，那么接口会被合并进类。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> {
+</code></pre><p>上面示例中，属性<code>foo</code>在两个接口里面的类型不同，如果同时实现这两个接口，就会报错。</p><h3 id="类与接口的合并">类与接口的合并 <a class="markdownIt-Anchor" href="#类与接口的合并">#</a></h3><p>TypeScript 不允许两个同名的类，但是如果一个类和一个接口同名，那么接口会被合并进类。值得注意的是，合并进类的非空属性，在实际使用中可能为空。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> {
   <span class="hljs-attr">x</span>:<span class="hljs-built_in">number</span> = <span class="hljs-number">1</span>;
 }
 
@@ -254,6 +254,8 @@ b.<span class="hljs-property">y</span> = <span class="hljs-number">10</span>; <s
 }
 
 <span class="hljs-keyword">let</span> a = <span class="hljs-keyword">new</span> <span class="hljs-title function_">A</span>();
+a.<span class="hljs-property">y</span> <span class="hljs-comment">// undefined</span>
+
 a.<span class="hljs-property">y</span> = <span class="hljs-number">10</span>;
 
 a.<span class="hljs-property">x</span> <span class="hljs-comment">// 1</span>
