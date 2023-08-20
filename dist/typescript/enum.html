@@ -59,7 +59,7 @@
 }
 
 <span class="hljs-title function_">compute</span>(<span class="hljs-title class_">Operator</span>.<span class="hljs-property">ADD</span>, <span class="hljs-number">1</span>, <span class="hljs-number">3</span>) <span class="hljs-comment">// 4</span>
-</code></pre><p>上面示例中，Enum 结构<code>Operator</code>的四个成员表示四则运算“加减乘除”。代码根本不需要用到这四个成员的值，只用成员名就够了。</p><p>Enum 作为类型有一个缺点，就是输入任何数值都不报错。</p><pre class="hljs"><code><span class="hljs-keyword">enum</span> <span class="hljs-title class_">Bool</span> {
+</code></pre><p>上面示例中，Enum 结构<code>Operator</code>的四个成员表示四则运算“加减乘除”。代码根本不需要用到这四个成员的值，只用成员名就够了。</p><p><a href="https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-0.html#enum-overhaul" target="_blank" rel="noopener">TypeScript 5.0</a> 之前，Enum 有一个 Bug，就是 Enum 类型的变量可以赋值为任何数值。</p><pre class="hljs"><code><span class="hljs-keyword">enum</span> <span class="hljs-title class_">Bool</span> {
   <span class="hljs-title class_">No</span>,
   <span class="hljs-title class_">Yes</span>
 }
@@ -68,8 +68,8 @@
   <span class="hljs-comment">// ...</span>
 }
 
-<span class="hljs-title function_">foo</span>(<span class="hljs-number">33</span>);  <span class="hljs-comment">// 不报错</span>
-</code></pre><p>上面代码中，函数<code>foo</code>的参数<code>noYes</code>只有两个可用的值，但是输入任意数值，编译都不会报错。</p><p>另外，由于 Enum 结构编译后是一个对象，所以不能有与它同名的变量（包括对象、函数、类等）。</p><pre class="hljs"><code><span class="hljs-keyword">enum</span> <span class="hljs-title class_">Color</span> {
+<span class="hljs-title function_">foo</span>(<span class="hljs-number">33</span>);  <span class="hljs-comment">// TypeScript 5.0 之前不报错</span>
+</code></pre><p>上面示例中，函数<code>foo</code>的参数<code>noYes</code>是 Enum 类型，只有两个可用的值。但是，TypeScript 5.0 之前，任何数值作为函数<code>foo</code>的参数，编译都不会报错，TypeScript 5.0 纠正了这个问题。</p><p>另外，由于 Enum 结构编译后是一个对象，所以不能有与它同名的变量（包括对象、函数、类等）。</p><pre class="hljs"><code><span class="hljs-keyword">enum</span> <span class="hljs-title class_">Color</span> {
   <span class="hljs-title class_">Red</span>,
   <span class="hljs-title class_">Green</span>,
   <span class="hljs-title class_">Blue</span>
