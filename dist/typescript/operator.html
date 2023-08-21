@@ -61,7 +61,8 @@ keyof (A &amp; B) ≡ keyof A | keyof B
   <span class="hljs-keyword">return</span> obj[key];
 }
 </code></pre><p>上面这个函数添加类型，只能写成下面这样。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">prop</span>(<span class="hljs-params">
-  obj:object, key:string
+  obj: { [p:string]: any },
+  key: string
 </span>):any {
   <span class="hljs-keyword">return</span> obj[key];
 }
