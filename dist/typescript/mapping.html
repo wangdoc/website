@@ -178,7 +178,7 @@
   [E <span class="hljs-keyword">in</span> <span class="hljs-title class_">Events</span> <span class="hljs-keyword">as</span> E[<span class="hljs-string">&#x27;kind&#x27;</span>]]: <span class="hljs-function">(<span class="hljs-params">event: E</span>) =&gt;</span> <span class="hljs-built_in">void</span>;
 }
 
-<span class="hljs-keyword">type</span> <span class="hljs-title class_">Config</span> = <span class="hljs-title class_">MyEvent</span>&lt;S|C&gt;;
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">Config</span> = <span class="hljs-title class_">MyEvents</span>&lt;S|C&gt;;
 <span class="hljs-comment">// 等同于</span>
 <span class="hljs-keyword">type</span> <span class="hljs-title class_">Config</span> = {
   <span class="hljs-attr">square</span>: <span class="hljs-function">(<span class="hljs-params">event:S</span>) =&gt;</span> <span class="hljs-built_in">void</span>;
