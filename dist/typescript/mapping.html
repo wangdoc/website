@@ -15,7 +15,7 @@
 <span class="hljs-keyword">type</span> B = {
   [prop <span class="hljs-keyword">in</span> keyof A]: <span class="hljs-built_in">string</span>;
 };
-</code></pre><p>上面示例中，类型<code>B</code>采用了属性名索引的写法，<code>[prop in keyof A]</code>表示依次得到类型<code>A</code>的所有属性名，然后将每个属性的类型改成<code>string</code>。</p><p>在语法上，<code>[prop in keyof A]</code>是一个属性名表达式，表示这里的属性名需要计算得到。具体的计算规则如下：</p><ul><li><code>prop</code>：属性名变量，名字可以随便起。</li><li><code>in</code>：运算符，用来取出右侧的联合类型的每一个成员。</li><li><code>Keyof A</code>：返回类型<code>A</code>的每一个属性名，组成一个联合类型。</li></ul><p>下面是复制原始类型的例子。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> A = {
+</code></pre><p>上面示例中，类型<code>B</code>采用了属性名索引的写法，<code>[prop in keyof A]</code>表示依次得到类型<code>A</code>的所有属性名，然后将每个属性的类型改成<code>string</code>。</p><p>在语法上，<code>[prop in keyof A]</code>是一个属性名表达式，表示这里的属性名需要计算得到。具体的计算规则如下：</p><ul><li><code>prop</code>：属性名变量，名字可以随便起。</li><li><code>in</code>：运算符，用来取出右侧的联合类型的每一个成员。</li><li><code>keyof A</code>：返回类型<code>A</code>的每一个属性名，组成一个联合类型。</li></ul><p>下面是复制原始类型的例子。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> A = {
   <span class="hljs-attr">foo</span>: <span class="hljs-built_in">number</span>;
   <span class="hljs-attr">bar</span>: <span class="hljs-built_in">string</span>;
 };
@@ -117,7 +117,7 @@
 };
 
 <span class="hljs-comment">// 等同于</span>
-<span class="hljs-keyword">type</span> B&lt;T&gt; = {
+<span class="hljs-keyword">type</span> A&lt;T&gt; = {
   <span class="hljs-keyword">readonly</span> [P <span class="hljs-keyword">in</span> keyof T]?: T[P];
 };
 </code></pre><h2 id="键名重映射">键名重映射 <a class="markdownIt-Anchor" href="#键名重映射">#</a></h2><h3 id="语法">语法 <a class="markdownIt-Anchor" href="#语法">#</a></h3><p>TypeScript 4.1 引入了键名重映射（key remapping），允许改变键名。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> A = {

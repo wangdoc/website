@@ -170,7 +170,7 @@ keyof (A &amp; B) ≡ keyof A | keyof B
 
 <span class="hljs-comment">// string</span>
 <span class="hljs-keyword">type</span> <span class="hljs-variable constant_">T2</span> = <span class="hljs-title class_">RegExp</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Animal</span> ? <span class="hljs-built_in">number</span> : <span class="hljs-built_in">string</span>;
-</code></pre><p>上面示例中，<code>Dog</code>是<code>Animal</code>的子类型，所以<code>T1</code>的类型是<code>number</code>。<code>RegExp</code>不是<code>Animal</code>的子类型，所以<code>T2</code>的类型是<code>string</code>。</p><p>一般来说，调换<code>extends</code>两侧类型，会返回相反的结果。举例来说，有两个类<code>Dog</code>和<code>Animal</code>，前者是后者的子类型，那么<code>Cat extends Animal</code>就为真，而<code>Animal extends Cat</code>就为伪。</p><p>如果需要判断的类型是一个联合类型，那么条件运算符会展开这个联合类型。</p><pre class="hljs"><code>(A|B) <span class="hljs-keyword">extends</span> U ? X : Y
+</code></pre><p>上面示例中，<code>Dog</code>是<code>Animal</code>的子类型，所以<code>T1</code>的类型是<code>number</code>。<code>RegExp</code>不是<code>Animal</code>的子类型，所以<code>T2</code>的类型是<code>string</code>。</p><p>一般来说，调换<code>extends</code>两侧类型，会返回相反的结果。举例来说，有两个类<code>Cat</code>和<code>Animal</code>，前者是后者的子类型，那么<code>Cat extends Animal</code>就为真，而<code>Animal extends Cat</code>就为伪。</p><p>如果需要判断的类型是一个联合类型，那么条件运算符会展开这个联合类型。</p><pre class="hljs"><code>(A|B) <span class="hljs-keyword">extends</span> U ? X : Y
 
 <span class="hljs-comment">// 等同于</span>
 
