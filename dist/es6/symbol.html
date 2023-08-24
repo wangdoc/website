@@ -457,7 +457,7 @@ myCollection[<span class="hljs-number">1</span>] = <span class="hljs-number">2</
 <span class="hljs-number">3</span> + obj <span class="hljs-comment">// &#x27;3default&#x27;</span>
 obj == <span class="hljs-string">&#x27;default&#x27;</span> <span class="hljs-comment">// true</span>
 <span class="hljs-title class_">String</span>(obj) <span class="hljs-comment">// &#x27;str&#x27;</span>
-</code></pre><h3 id="symboltostringtag">Symbol.toStringTag <a class="markdownIt-Anchor" href="#symboltostringtag">#</a></h3><p>对象的<code>Symbol.toStringTag</code>属性，返回一个字符串。在目标对象上面调用<code>Object.prototype.toString</code>方法时，如果<code>Symbol.toStringTag</code>属性存在，它的返回值会出现在<code>toString</code>方法返回的字符串之中，表示对象的类型。也就是说，这个属性可以用来定制<code>[object Object]</code>或<code>[object Array]</code>中<code>object</code>后面的那个字符串。</p><pre class="hljs"><code><span class="hljs-comment">// 例一</span>
+</code></pre><h3 id="symboltostringtag">Symbol.toStringTag <a class="markdownIt-Anchor" href="#symboltostringtag">#</a></h3><p>对象的<code>Symbol.toStringTag</code>属性，用来设定一个字符串（设为其他类型的值无效，但不报错）。在目标对象上面调用<code>Object.prototype.toString()</code>方法时，如果<code>Symbol.toStringTag</code>属性存在，该属性设定的字符串会出现在<code>toString()</code>方法返回的字符串之中，表示对象的类型。也就是说，这个属性可以用来定制<code>[object Object]</code>或<code>[object Array]</code>中<code>object</code>后面的那个大写字符串。</p><pre class="hljs"><code><span class="hljs-comment">// 例一</span>
 ({[<span class="hljs-title class_">Symbol</span>.<span class="hljs-property">toStringTag</span>]: <span class="hljs-string">&#x27;Foo&#x27;</span>}.<span class="hljs-title function_">toString</span>())
 <span class="hljs-comment">// &quot;[object Foo]&quot;</span>
 
