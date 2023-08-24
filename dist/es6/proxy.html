@@ -164,7 +164,7 @@ arr[-<span class="hljs-number">1</span>] <span class="hljs-comment">// c</span>
   }
 });
 proxy.<span class="hljs-property">getReceiver</span> === proxy <span class="hljs-comment">// true</span>
-</code></pre><p>上面代码中，<code>proxy</code>对象的<code>getReceiver</code>属性是由<code>proxy</code>对象提供的，所以<code>receiver</code>指向<code>proxy</code>对象。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> proxy = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Proxy</span>({}, {
+</code></pre><p>上面代码中，<code>proxy</code>对象的<code>getReceiver</code>属性会被<code>get()</code>拦截，得到的返回值就是<code>proxy</code>对象。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> proxy = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Proxy</span>({}, {
   <span class="hljs-attr">get</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">target, key, receiver</span>) {
     <span class="hljs-keyword">return</span> receiver;
   }
