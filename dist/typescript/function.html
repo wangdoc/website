@@ -240,12 +240,12 @@ myFunc = <span class="hljs-keyword">function</span> (<span class="hljs-params">x
 <span class="hljs-keyword">function</span> <span class="hljs-title function_">f</span>(<span class="hljs-params"></span>):<span class="hljs-built_in">void</span> {
   <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>; <span class="hljs-comment">// 报错</span>
 }
-</code></pre><p>需要特别注意的是，如果变量、对象方法、函数参数的类型是 void 类型的函数，那么并不代表不能赋值为有返回值的函数。恰恰相反，该变量、对象方法和函数参数可以接受返回任意值的函数，这时并不会报错。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> voidFunc = <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span>;
+</code></pre><p>需要特别注意的是，如果变量、对象方法、函数参数是一个返回值为 void 类型的函数，那么并不代表不能赋值为有返回值的函数。恰恰相反，该变量、对象方法和函数参数可以接受返回任意值的函数，这时并不会报错。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> voidFunc = <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span>;
 
 <span class="hljs-keyword">const</span> <span class="hljs-attr">f</span>:voidFunc = <span class="hljs-function">() =&gt;</span> {
   <span class="hljs-keyword">return</span> <span class="hljs-number">123</span>;
 };
-</code></pre><p>上面示例中，变量<code>f</code>的类型是<code>voidFunc</code>，是一个没有返回值的函数类型。但是实际上，<code>f</code>的值是一个有返回值的函数（返回<code>123</code>），编译时不会报错。</p><p>这是因为，这时 TypeScript 认为，这里的 void 类型只是表示该函数的返回值没有利用价值，或者说不应该使用该函数的返回值。只要不用到这里的返回值，就不会报错。</p><p>这样设计是有现实意义的。举例来说，数组方法<code>Array.prototype.forEach(fn)</code>的参数<code>fn</code>是一个函数，而且这个函数应该没有返回值，即返回值类型是<code>void</code>。</p><p>但是，实际应用中，很多时候传入的函数是有返回值，但是它的返回值不重要，或者不产生作用。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> src = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
+</code></pre><p>上面示例中，变量<code>f</code>的类型是<code>voidFunc</code>，是一个没有返回值的函数。但是实际上，<code>f</code>的值可以是一个有返回值的函数（返回<code>123</code>），编译时不会报错。</p><p>这是因为，这时 TypeScript 认为，这里的 void 类型只是表示该函数的返回值没有利用价值，或者说不应该使用该函数的返回值。只要不用到这里的返回值，就不会报错。</p><p>这样设计是有现实意义的。举例来说，数组方法<code>Array.prototype.forEach(fn)</code>的参数<code>fn</code>是一个函数，而且这个函数应该没有返回值，即返回值类型是<code>void</code>。</p><p>但是，实际应用中，很多时候传入的函数是有返回值，但是它的返回值不重要，或者不产生作用。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> src = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
 <span class="hljs-keyword">const</span> ret = [];
 
 src.<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">el</span> =&gt;</span> ret.<span class="hljs-title function_">push</span>(el));
@@ -263,7 +263,10 @@ src.<span class="hljs-title function_">forEach</span>(<span class="hljs-function
 <span class="hljs-keyword">const</span> f3 = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>):<span class="hljs-built_in">void</span> {
   <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>; <span class="hljs-comment">// 报错</span>
 };
-</code></pre><p>上面示例中，函数字面量声明了返回<code>void</code>类型，这时只要有返回值（除了<code>undefined</code>和<code>null</code>）就会报错。</p><p>除了函数，其他变量声明为<code>void</code>类型没有多大意义，因为这时只能赋值为<code>undefined</code>或者<code>null</code>（假定没有打开<code>strictNullChecks</code>) 。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> <span class="hljs-attr">foo</span>:<span class="hljs-built_in">void</span> = <span class="hljs-literal">undefined</span>;
+</code></pre><p>上面示例中，函数字面量声明了返回<code>void</code>类型，这时只要有返回值（除了<code>undefined</code>和<code>null</code>）就会报错。</p><p>函数的运行结果如果是抛错，也允许将返回值写成<code>void</code>。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">throwErr</span>(<span class="hljs-params"></span>):<span class="hljs-built_in">void</span> {
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;something wrong&#x27;</span>);
+}
+</code></pre><p>上面示例中，函数<code>throwErr()</code>会抛错，返回值类型写成<code>void</code>是允许的。</p><p>除了函数，其他变量声明为<code>void</code>类型没有多大意义，因为这时只能赋值为<code>undefined</code>或者<code>null</code>（假定没有打开<code>strictNullChecks</code>) 。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> <span class="hljs-attr">foo</span>:<span class="hljs-built_in">void</span> = <span class="hljs-literal">undefined</span>;
 
 <span class="hljs-comment">// 没有打开 strictNullChecks 的情况下</span>
 <span class="hljs-keyword">let</span> <span class="hljs-attr">bar</span>:<span class="hljs-built_in">void</span> = <span class="hljs-literal">null</span>;
@@ -273,7 +276,7 @@ src.<span class="hljs-title function_">forEach</span>(<span class="hljs-function
 </code></pre><p>上面示例中，函数<code>fail()</code>会抛错，不会正常退出，所以返回值类型是<code>never</code>。</p><p>注意，只有抛出错误，才是 never 类型。如果显式用<code>return</code>语句返回一个 Error 对象，返回值就不是 never 类型。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">fail</span>(<span class="hljs-params"></span>):<span class="hljs-title class_">Error</span> {
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&quot;Something failed&quot;</span>);
 }
-</code></pre><p>上面示例中，函数<code>fail()</code>返回一个 Error 对象，所以返回值类型是 Error。</p><p>（2）无限执行的函数。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> sing = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>):<span class="hljs-built_in">never</span> {
+</code></pre><p>上面示例中，函数<code>fail()</code>返回一个 Error 对象，所以返回值类型是 Error。</p><p>另外，由于抛错的情况属于<code>never</code>类型或<code>void</code>类型，所以无法从返回值类型中获知，抛出的是哪一种错误。</p><p>（2）无限执行的函数。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> sing = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>):<span class="hljs-built_in">never</span> {
   <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) {
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;sing&#x27;</span>);
   }
@@ -300,7 +303,16 @@ src.<span class="hljs-title function_">forEach</span>(<span class="hljs-function
 
   x; <span class="hljs-comment">// 推断为 string</span>
 }
-</code></pre><p>上面示例中，函数<code>f()</code>的参数<code>x</code>的类型为<code>string|undefined</code>。但是，<code>x</code>类型为<code>undefined</code>时，调用了<code>neverReturns()</code>。这个函数不会返回，因此 TypeScript 可以推断出，判断语句后面的那个<code>x</code>，类型一定是<code>string</code>。</p><h2 id="局部类型">局部类型 <a class="markdownIt-Anchor" href="#局部类型">#</a></h2><p>函数内部允许声明其他类型，该类型只在函数内部有效，称为局部类型。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">hello</span>(<span class="hljs-params">txt:<span class="hljs-built_in">string</span></span>) {
+</code></pre><p>上面示例中，函数<code>f()</code>的参数<code>x</code>的类型为<code>string|undefined</code>。但是，<code>x</code>类型为<code>undefined</code>时，调用了<code>neverReturns()</code>。这个函数不会返回，因此 TypeScript 可以推断出，判断语句后面的那个<code>x</code>，类型一定是<code>string</code>。</p><p>一个函数如果某些条件下有正常返回值，另一些条件下抛错，这时它的返回值类型可以省略<code>never</code>。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">sometimesThrow</span>(<span class="hljs-params"></span>):<span class="hljs-built_in">number</span> {
+  <span class="hljs-keyword">if</span> (<span class="hljs-title class_">Math</span>.<span class="hljs-title function_">random</span>() &gt; <span class="hljs-number">0.5</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-number">100</span>;
+  }
+
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;Something went wrong&#x27;</span>);
+}
+
+<span class="hljs-keyword">const</span> result = <span class="hljs-title function_">sometimesThrow</span>();
+</code></pre><p>上面示例中，函数<code>sometimesThrow()</code>的返回值其实是<code>number|never</code>，但是一般都写成<code>number</code>，包括最后一行的变量<code>result</code>的类型，也是被推断为<code>number</code>。</p><p>原因是前面章节提到过，<code>never</code>是 TypeScript 的唯一一个底层类型，所有其他类型都包括了<code>never</code>。从集合论的角度看，<code>number|never</code>等同于<code>number</code>。这也提示我们，函数的返回值无论是什么类型，都可能包含了抛出错误的情况。</p><h2 id="局部类型">局部类型 <a class="markdownIt-Anchor" href="#局部类型">#</a></h2><p>函数内部允许声明其他类型，该类型只在函数内部有效，称为局部类型。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">hello</span>(<span class="hljs-params">txt:<span class="hljs-built_in">string</span></span>) {
   <span class="hljs-keyword">type</span> message = <span class="hljs-built_in">string</span>;
   <span class="hljs-keyword">let</span> <span class="hljs-attr">newTxt</span>:message = <span class="hljs-string">&#x27;hello &#x27;</span> + txt;
   <span class="hljs-keyword">return</span> newTxt;
