@@ -165,7 +165,7 @@ obj.<span class="hljs-property">foo</span> = <span class="hljs-literal">undefine
     <span class="hljs-attr">&quot;alwaysStrict&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span>
   <span class="hljs-punctuation">}</span>
 <span class="hljs-punctuation">}</span>
-</code></pre><h3 id="strictbindcallapply">strictBindCallApply <a class="markdownIt-Anchor" href="#strictbindcallapply">#</a></h3><p><code>strictBindCallApply</code>设置是否对函数的<code>call()</code>、<code>bind()</code>、<code>apply()</code>这三个方法进行类型检查。</p><p>如果不打开<code>strictBindCallApply</code>编译选项，编译器不会对以三个方法进行类型检查，参数类型都是<code>any</code>，传入任何参数都不会产生编译错误。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">fn</span>(<span class="hljs-params">x: <span class="hljs-built_in">string</span></span>) {
+</code></pre><h3 id="strictbindcallapply">strictBindCallApply <a class="markdownIt-Anchor" href="#strictbindcallapply">#</a></h3><p><code>strictBindCallApply</code>设置是否对函数的<code>call()</code>、<code>bind()</code>、<code>apply()</code>这三个方法进行类型检查。</p><p>如果不打开<code>strictBindCallApply</code>编译选项，编译器不会对以上三个方法进行类型检查，参数类型都是<code>any</code>，传入任何参数都不会产生编译错误。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">fn</span>(<span class="hljs-params">x: <span class="hljs-built_in">string</span></span>) {
   <span class="hljs-keyword">return</span> <span class="hljs-built_in">parseInt</span>(x);
 }
 
