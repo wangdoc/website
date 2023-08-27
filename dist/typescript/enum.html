@@ -88,7 +88,7 @@
   <span class="hljs-attr">C</span>: <span class="hljs-number">2</span>,
 } <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>;
 
-<span class="hljs-keyword">if</span> （x === <span class="hljs-title class_">Foo</span>.<span class="hljs-property">A</span>）{}
+<span class="hljs-keyword">if</span> (x === <span class="hljs-title class_">Foo</span>.<span class="hljs-property">A</span>) {}
 <span class="hljs-comment">// 等同于</span>
 <span class="hljs-keyword">if</span> (x === <span class="hljs-title class_">Bar</span>.<span class="hljs-property">A</span>) {}
 </code></pre><p>上面示例中，对象<code>Bar</code>使用了<code>as const</code>断言，作用就是使得它的属性无法修改。这样的话，<code>Foo</code>和<code>Bar</code>的行为就很类似了，前者完全可以用后者替代，而且后者还是 JavaScript 的原生数据结构。</p><h2 id="enum-成员的值">Enum 成员的值 <a class="markdownIt-Anchor" href="#enum-成员的值">#</a></h2><p>Enum 成员默认不必赋值，系统会从零开始逐一递增，按照顺序为每个成员赋值，比如0、1、2……</p><p>但是，也可以为 Enum 成员显式赋值。</p><pre class="hljs"><code><span class="hljs-keyword">enum</span> <span class="hljs-title class_">Color</span> {
