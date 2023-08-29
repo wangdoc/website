@@ -36,7 +36,7 @@
 }
 
 <span class="hljs-keyword">const</span> <span class="hljs-attr">obj</span>:A = [<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;c&#x27;</span>];
-</code></pre><p>上面示例中，<code>[prop: number]</code>表示属性名的类型是数值，所以可以用数组对变量<code>obj</code>赋值。</p><p>同样的，一个接口中最多只能定义一个数值索引。数值索引会约束所有名称为数值的属性。</p><p>如果一个 interface 同时定义了字符串索引和数值索引，那么数值索性必须服从于字符串索引。因为在 JavaScript 中，数值属性名最终是自动转换成字符串属性名。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> A {
+</code></pre><p>上面示例中，<code>[prop: number]</code>表示属性名的类型是数值，所以可以用数组对变量<code>obj</code>赋值。</p><p>同样的，一个接口中最多只能定义一个数值索引。数值索引会约束所有名称为数值的属性。</p><p>如果一个 interface 同时定义了字符串索引和数值索引，那么数值索引必须服从于字符串索引。因为在 JavaScript 中，数值属性名最终是自动转换成字符串属性名。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> A {
   [<span class="hljs-attr">prop</span>: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">number</span>;
   [<span class="hljs-attr">prop</span>: <span class="hljs-built_in">number</span>]: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// 报错</span>
 }
