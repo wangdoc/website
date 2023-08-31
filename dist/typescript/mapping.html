@@ -52,7 +52,7 @@
 <span class="hljs-keyword">type</span> <span class="hljs-title class_">MyObj</span> = {
   [<span class="hljs-attr">p</span>: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">boolean</span>;
 };
-</code></pre><p>上面示例中，<code>[p in string]</code>就是属性名索引形式<code>[p: string]</code>的映射写法。</p><p>通过映射，可以某个对象的所有属性改成可选属性。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> A = {
+</code></pre><p>上面示例中，<code>[p in string]</code>就是属性名索引形式<code>[p: string]</code>的映射写法。</p><p>通过映射，可以把某个对象的所有属性改成可选属性。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> A = {
   <span class="hljs-attr">a</span>: <span class="hljs-built_in">string</span>;
   <span class="hljs-attr">b</span>: <span class="hljs-built_in">number</span>;
 };
@@ -133,7 +133,7 @@
 <span class="hljs-keyword">type</span> B = {
   <span class="hljs-attr">fooID</span>: <span class="hljs-built_in">number</span>;
   <span class="hljs-attr">barID</span>: <span class="hljs-built_in">number</span>;
-}；
+};
 </code></pre><p>上面示例中，类型<code>B</code>是类型<code>A</code>的映射，但在映射时把属性名改掉了，在原始属性名后面加上了字符串<code>ID</code>。</p><p>可以看到，键名重映射的语法是在键名映射的后面加上<code>as + 新类型</code>子句。这里的“新类型”通常是一个模板字符串，里面可以对原始键名进行各种操作。</p><p>下面是另一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Person</span> {
   <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
   <span class="hljs-attr">age</span>: <span class="hljs-built_in">number</span>;

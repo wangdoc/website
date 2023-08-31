@@ -283,7 +283,7 @@ values.<span class="hljs-title function_">splice</span>(<span class="hljs-number
   T <span class="hljs-keyword">extends</span> (
     <span class="hljs-attr">this</span>: infer U,
     ...<span class="hljs-attr">args</span>: <span class="hljs-built_in">never</span>
-  ) =&gt; <span class="hljs-built_in">any</span> ? U : <span class="hljs-built_in">unknown</span>；
+  ) =&gt; <span class="hljs-built_in">any</span> ? U : <span class="hljs-built_in">unknown</span>;
 </code></pre><h2 id="thistypetype"><code>ThisType&lt;Type&gt;</code> <a class="markdownIt-Anchor" href="#thistypetype">#</a></h2><p><code>ThisType&lt;Type&gt;</code>不返回类型，只用来跟其他类型组成交叉类型，用来提示 TypeScript 其他类型里面的<code>this</code>的类型。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title class_">HelperThisValue</span> {
   <span class="hljs-attr">logError</span>: <span class="hljs-function">(<span class="hljs-params">error:<span class="hljs-built_in">string</span></span>) =&gt;</span> <span class="hljs-built_in">void</span>;
 }
