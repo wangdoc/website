@@ -8,8 +8,7 @@
 <span class="hljs-keyword">let</span> <span class="hljs-attr">foo</span>:<span class="hljs-title class_">Bool</span> = <span class="hljs-literal">true</span>;
 </code></pre><p>上面示例中，import 语句加载的是一个类型。注意，加载文件写成<code>./a</code>，没有写脚本文件的后缀名。TypeScript 允许加载模块时，省略模块文件的后缀名，它会自动定位，将<code>./a</code>定位到<code>./a.ts</code>。</p><p>编译时，可以两个脚本同时编译。</p><pre class="hljs"><code>$ tsc a.ts b.ts
 </code></pre><p>上面命令会将<code>a.ts</code>和<code>b.ts</code>分别编译成<code>a.js</code>和<code>b.js</code>。</p><p>也可以只编译<code>b.ts</code>，因为它是入口脚本，tsc 会自动编译它依赖的所有脚本。</p><pre class="hljs"><code>$ tsc b.ts
-</code></pre><p>上面命令发现<code>b.ts</code>依赖<code>a.ts</code>，就会自动寻找<code>a.ts</code>，也将其同时编译，因此编译产物还是<code>a.js</code>和<code>b.js</code>两个文件。</p><p>如果想将<code>a.ts</code>和<code>b.ts</code>编译成一个文件，可以使用<code>--outFile</code>参数。</p><pre class="hljs"><code>$ tsc --outFile result.<span class="hljs-property">js</span> b.<span class="hljs-property">ts</span>
-</code></pre><p>上面示例将<code>a.ts</code>和<code>b.ts</code>合并编译为<code>result.js</code>。</p><h2 id="import-type-语句">import type 语句 <a class="markdownIt-Anchor" href="#import-type-语句">#</a></h2><p>import 在一条语句中，可以同时输入类型和正常接口。</p><pre class="hljs"><code><span class="hljs-comment">// a.ts</span>
+</code></pre><p>上面命令发现<code>b.ts</code>依赖<code>a.ts</code>，就会自动寻找<code>a.ts</code>，也将其同时编译，因此编译产物还是<code>a.js</code>和<code>b.js</code>两个文件。</p><h2 id="import-type-语句">import type 语句 <a class="markdownIt-Anchor" href="#import-type-语句">#</a></h2><p>import 在一条语句中，可以同时输入类型和正常接口。</p><pre class="hljs"><code><span class="hljs-comment">// a.ts</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> A {
   <span class="hljs-attr">foo</span>: <span class="hljs-built_in">string</span>;
 }
