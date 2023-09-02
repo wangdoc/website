@@ -263,20 +263,20 @@ src.<span class="hljs-title function_">forEach</span>(<span class="hljs-function
 <span class="hljs-keyword">const</span> f3 = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>):<span class="hljs-built_in">void</span> {
   <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>; <span class="hljs-comment">// 报错</span>
 };
-</code></pre><p>上面示例中，函数字面量声明了返回<code>void</code>类型，这时只要有返回值（除了<code>undefined</code>和<code>null</code>）就会报错。</p><p>函数的运行结果如果是抛错，也允许将返回值写成<code>void</code>。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">throwErr</span>(<span class="hljs-params"></span>):<span class="hljs-built_in">void</span> {
+</code></pre><p>上面示例中，函数字面量声明了返回<code>void</code>类型，这时只要有返回值（除了<code>undefined</code>和<code>null</code>）就会报错。</p><p>函数的运行结果如果是抛出错误，也允许将返回值写成<code>void</code>。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">throwErr</span>(<span class="hljs-params"></span>):<span class="hljs-built_in">void</span> {
   <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;something wrong&#x27;</span>);
 }
-</code></pre><p>上面示例中，函数<code>throwErr()</code>会抛错，返回值类型写成<code>void</code>是允许的。</p><p>除了函数，其他变量声明为<code>void</code>类型没有多大意义，因为这时只能赋值为<code>undefined</code>或者<code>null</code>（假定没有打开<code>strictNullChecks</code>) 。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> <span class="hljs-attr">foo</span>:<span class="hljs-built_in">void</span> = <span class="hljs-literal">undefined</span>;
+</code></pre><p>上面示例中，函数<code>throwErr()</code>会抛出错误，返回值类型写成<code>void</code>是允许的。</p><p>除了函数，其他变量声明为<code>void</code>类型没有多大意义，因为这时只能赋值为<code>undefined</code>或者<code>null</code>（假定没有打开<code>strictNullChecks</code>) 。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> <span class="hljs-attr">foo</span>:<span class="hljs-built_in">void</span> = <span class="hljs-literal">undefined</span>;
 
 <span class="hljs-comment">// 没有打开 strictNullChecks 的情况下</span>
 <span class="hljs-keyword">let</span> <span class="hljs-attr">bar</span>:<span class="hljs-built_in">void</span> = <span class="hljs-literal">null</span>;
 </code></pre><h2 id="never-类型">never 类型 <a class="markdownIt-Anchor" href="#never-类型">#</a></h2><p><code>never</code>类型表示肯定不会出现的值。它用在函数的返回值，就表示某个函数肯定不会返回值，即函数不会正常执行结束。</p><p>它主要有以下两种情况。</p><p>（1）抛出错误的函数。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">fail</span>(<span class="hljs-params">msg:<span class="hljs-built_in">string</span></span>):<span class="hljs-built_in">never</span> {
   <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(msg);
 }
-</code></pre><p>上面示例中，函数<code>fail()</code>会抛错，不会正常退出，所以返回值类型是<code>never</code>。</p><p>注意，只有抛出错误，才是 never 类型。如果显式用<code>return</code>语句返回一个 Error 对象，返回值就不是 never 类型。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">fail</span>(<span class="hljs-params"></span>):<span class="hljs-title class_">Error</span> {
+</code></pre><p>上面示例中，函数<code>fail()</code>会抛出错误，不会正常退出，所以返回值类型是<code>never</code>。</p><p>注意，只有抛出错误，才是 never 类型。如果显式用<code>return</code>语句返回一个 Error 对象，返回值就不是 never 类型。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">fail</span>(<span class="hljs-params"></span>):<span class="hljs-title class_">Error</span> {
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&quot;Something failed&quot;</span>);
 }
-</code></pre><p>上面示例中，函数<code>fail()</code>返回一个 Error 对象，所以返回值类型是 Error。</p><p>另外，由于抛错的情况属于<code>never</code>类型或<code>void</code>类型，所以无法从返回值类型中获知，抛出的是哪一种错误。</p><p>（2）无限执行的函数。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> sing = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>):<span class="hljs-built_in">never</span> {
+</code></pre><p>上面示例中，函数<code>fail()</code>返回一个 Error 对象，所以返回值类型是 Error。</p><p>另外，由于抛出错误的情况属于<code>never</code>类型或<code>void</code>类型，所以无法从返回值类型中获知，抛出的是哪一种错误。</p><p>（2）无限执行的函数。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> sing = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>):<span class="hljs-built_in">never</span> {
   <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) {
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;sing&#x27;</span>);
   }
@@ -303,7 +303,7 @@ src.<span class="hljs-title function_">forEach</span>(<span class="hljs-function
 
   x; <span class="hljs-comment">// 推断为 string</span>
 }
-</code></pre><p>上面示例中，函数<code>f()</code>的参数<code>x</code>的类型为<code>string|undefined</code>。但是，<code>x</code>类型为<code>undefined</code>时，调用了<code>neverReturns()</code>。这个函数不会返回，因此 TypeScript 可以推断出，判断语句后面的那个<code>x</code>，类型一定是<code>string</code>。</p><p>一个函数如果某些条件下有正常返回值，另一些条件下抛错，这时它的返回值类型可以省略<code>never</code>。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">sometimesThrow</span>(<span class="hljs-params"></span>):<span class="hljs-built_in">number</span> {
+</code></pre><p>上面示例中，函数<code>f()</code>的参数<code>x</code>的类型为<code>string|undefined</code>。但是，<code>x</code>类型为<code>undefined</code>时，调用了<code>neverReturns()</code>。这个函数不会返回，因此 TypeScript 可以推断出，判断语句后面的那个<code>x</code>，类型一定是<code>string</code>。</p><p>一个函数如果某些条件下有正常返回值，另一些条件下抛出错误，这时它的返回值类型可以省略<code>never</code>。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">sometimesThrow</span>(<span class="hljs-params"></span>):<span class="hljs-built_in">number</span> {
   <span class="hljs-keyword">if</span> (<span class="hljs-title class_">Math</span>.<span class="hljs-title function_">random</span>() &gt; <span class="hljs-number">0.5</span>) {
     <span class="hljs-keyword">return</span> <span class="hljs-number">100</span>;
   }
