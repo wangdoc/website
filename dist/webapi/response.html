@@ -5,10 +5,10 @@
 <span class="hljs-keyword">new</span> <span class="hljs-title class_">Response</span>()
 <span class="hljs-keyword">new</span> <span class="hljs-title class_">Response</span>(body)
 <span class="hljs-keyword">new</span> <span class="hljs-title class_">Response</span>(body, options)
-</code></pre><p>它带有两个参数，都是可选的。</p><p>第一个参数<code>body</code>是一个对象，代表服务器返回的数据体，必须是下面类型之一：ArrayBuffer、ArrayBufferView、Blob、FormData、ReadableStream、String、URLSearchParams。</p><p>第二个参数<code>init</code>是一个对象，代表服务器返回的数据头，类型描述如下。</p><pre class="hljs"><code>{
-  status :	<span class="hljs-title class_">Number</span>
-  statusText :	<span class="hljs-title class_">String</span>
-  headers :	<span class="hljs-title class_">Object</span>
+</code></pre><p>它带有两个参数，都是可选的。</p><p>第一个参数<code>body</code>代表服务器返回的数据体，必须是下面类型之一：ArrayBuffer、ArrayBufferView、Blob、FormData、ReadableStream、String、URLSearchParams。也就是说，它可以是对象或字符串。</p><p>第二个参数<code>init</code>是一个对象，代表服务器返回的数据头，类型描述如下。</p><pre class="hljs"><code>{
+  <span class="hljs-attr">status</span>: <span class="hljs-title class_">Number</span>
+  <span class="hljs-attr">statusText</span>: <span class="hljs-title class_">String</span>
+  <span class="hljs-attr">headers</span>: <span class="hljs-title class_">Object</span>
 }
 </code></pre><p>下面是一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> myBlob = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Blob</span>();
 <span class="hljs-keyword">const</span> myOptions = { <span class="hljs-attr">status</span>: <span class="hljs-number">200</span>, <span class="hljs-attr">statusText</span>: <span class="hljs-string">&quot;OK&quot;</span> };
