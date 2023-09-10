@@ -238,17 +238,17 @@ value = null;
     <span class="hljs-string">&quot;traceResolution&quot;</span>: <span class="hljs-literal">true</span>
   }
 }
-</code></pre><h3 id="typeroots">typeRoots <a class="markdownIt-Anchor" href="#typeroots">#</a></h3><p><code>typeRoots</code>设置类型模块所在的目录，默认是<code>node_modules/@types</code>。</p><pre class="hljs"><code>{
+</code></pre><h3 id="typeroots">typeRoots <a class="markdownIt-Anchor" href="#typeroots">#</a></h3><p><code>typeRoots</code>设置类型模块所在的目录，默认是<code>node_modules/@types</code>，该目录里面的模块会自动加入编译。一旦指定了该属性，就不会再用默认值<code>node_modules/@types</code>里面的类型模块。</p><p>该属性的值是一个数组，数组的每个成员就是一个目录，它们的路径是相对于<code>tsconfig.json</code>位置。</p><pre class="hljs"><code>{
   <span class="hljs-string">&quot;compilerOptions&quot;</span>: {
     <span class="hljs-string">&quot;typeRoots&quot;</span>: [<span class="hljs-string">&quot;./typings&quot;</span>, <span class="hljs-string">&quot;./vendor/types&quot;</span>]
   }
 }
-</code></pre><h3 id="types">types <a class="markdownIt-Anchor" href="#types">#</a></h3><p><code>types</code>设置<code>typeRoots</code>目录下需要包括在编译之中的类型模块。默认情况下，该目录下的所有类型模块，都会自动包括在编译之中。</p><pre class="hljs"><code>{
+</code></pre><h3 id="types">types <a class="markdownIt-Anchor" href="#types">#</a></h3><p>默认情况下，<code>typeRoots</code>目录下所有模块都会自动加入编译，如果指定了<code>types</code>属性，那么只有其中列出的模块才会自动加入编译。</p><pre class="hljs"><code>{
   <span class="hljs-string">&quot;compilerOptions&quot;</span>: {
     <span class="hljs-string">&quot;types&quot;</span>: [<span class="hljs-string">&quot;node&quot;</span>, <span class="hljs-string">&quot;jest&quot;</span>, <span class="hljs-string">&quot;express&quot;</span>]
   }
 }
-</code></pre><h3 id="useunknownincatchvariables">useUnknownInCatchVariables <a class="markdownIt-Anchor" href="#useunknownincatchvariables">#</a></h3><p><code>useUnknownInCatchVariables</code>设置<code>catch</code>语句捕获的<code>try</code>抛出的返回值类型，从<code>any</code>变成<code>unknown</code>。</p><pre class="hljs"><code><span class="hljs-keyword">try</span> {
+</code></pre><p>上面的设置表示，默认情况下，只有<code>./node_modules/@types/node</code>、<code>./node_modules/@types/jest</code>和<code>./node_modules/@types/express</code>会自动加入编译，其他<code>node_modules/@types/</code>目录下的模块不会加入编译。</p><p>如果<code>&quot;types&quot;: []</code>，就表示不会自动将所有<code>@types</code>模块加入编译。</p><h3 id="useunknownincatchvariables">useUnknownInCatchVariables <a class="markdownIt-Anchor" href="#useunknownincatchvariables">#</a></h3><p><code>useUnknownInCatchVariables</code>设置<code>catch</code>语句捕获的<code>try</code>抛出的返回值类型，从<code>any</code>变成<code>unknown</code>。</p><pre class="hljs"><code><span class="hljs-keyword">try</span> {
   <span class="hljs-title function_">someExternalFunction</span>();
 } <span class="hljs-keyword">catch</span> (err) {
   err; <span class="hljs-comment">// 类型 any</span>
