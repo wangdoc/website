@@ -249,7 +249,7 @@ myFunc = <span class="hljs-keyword">function</span> (<span class="hljs-params">x
 <span class="hljs-keyword">const</span> ret = [];
 
 src.<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">el</span> =&gt;</span> ret.<span class="hljs-title function_">push</span>(el));
-</code></pre><p>上面示例中，<code>push()</code>有返回值，表示新插入的元素在数组里面的位置。但是，对于<code>forEach()</code>方法来说，这个返回值是没有作用的，根本用不到，所以 TypeScript 不会报错。</p><p>如果后面使用了这个函数的返回值，就违反了约定，则会报错。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> voidFunc = <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span>;
+</code></pre><p>上面示例中，<code>push()</code>有返回值，表示插入新元素后数组的长度。但是，对于<code>forEach()</code>方法来说，这个返回值是没有作用的，根本用不到，所以 TypeScript 不会报错。</p><p>如果后面使用了这个函数的返回值，就违反了约定，则会报错。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> voidFunc = <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span>;
  
 <span class="hljs-keyword">const</span> <span class="hljs-attr">f</span>:voidFunc = <span class="hljs-function">() =&gt;</span> {
   <span class="hljs-keyword">return</span> <span class="hljs-number">123</span>;
