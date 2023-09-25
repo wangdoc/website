@@ -5,7 +5,7 @@
 <span class="hljs-keyword">new</span> <span class="hljs-title class_">Response</span>()
 <span class="hljs-keyword">new</span> <span class="hljs-title class_">Response</span>(body)
 <span class="hljs-keyword">new</span> <span class="hljs-title class_">Response</span>(body, options)
-</code></pre><p>它带有两个参数，都是可选的。</p><p>第一个参数<code>body</code>代表服务器返回的数据体，必须是下面类型之一：ArrayBuffer、ArrayBufferView、Blob、FormData、ReadableStream、String、URLSearchParams。也就是说，它可以是对象或字符串。</p><p>第二个参数<code>init</code>是一个对象，代表服务器返回的数据头，类型描述如下。</p><pre class="hljs"><code>{
+</code></pre><p>它带有两个参数，都是可选的。</p><p>第一个参数<code>body</code>代表服务器返回的数据体，必须是下面类型之一：ArrayBuffer、ArrayBufferView、Blob、FormData、ReadableStream、String、URLSearchParams。</p><p>第二个参数<code>init</code>是一个对象，代表服务器返回的数据头，类型描述如下。</p><pre class="hljs"><code>{
   <span class="hljs-attr">status</span>: <span class="hljs-title class_">Number</span>
   <span class="hljs-attr">statusText</span>: <span class="hljs-title class_">String</span>
   <span class="hljs-attr">headers</span>: <span class="hljs-title class_">Object</span>
@@ -13,7 +13,18 @@
 </code></pre><p>下面是一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> myBlob = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Blob</span>();
 <span class="hljs-keyword">const</span> myOptions = { <span class="hljs-attr">status</span>: <span class="hljs-number">200</span>, <span class="hljs-attr">statusText</span>: <span class="hljs-string">&quot;OK&quot;</span> };
 <span class="hljs-keyword">const</span> myResponse = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Response</span>(myBlob, myOptions);
-</code></pre><h2 id="实例属性">实例属性 <a class="markdownIt-Anchor" href="#实例属性">#</a></h2><h3 id="bodybodyused">body，bodyUsed <a class="markdownIt-Anchor" href="#bodybodyused">#</a></h3><p><code>body</code>属性代表数据体，是一个只读的 ReadableStream 对象。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> <span class="hljs-title function_">fetch</span>(<span class="hljs-string">&#x27;/fireworks.ogv&#x27;</span>);
+</code></pre><p>注意，如果返回 JSON 数据，必须将其转成字符串返回。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> data = {
+  <span class="hljs-attr">hello</span>: <span class="hljs-string">&quot;world&quot;</span>,
+};
+
+<span class="hljs-keyword">const</span> json = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(data, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>);
+
+<span class="hljs-keyword">const</span> result = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Response</span>(json, {
+  <span class="hljs-attr">headers</span>: {
+    <span class="hljs-string">&quot;content-type&quot;</span>: <span class="hljs-string">&quot;application/json;charset=UTF-8&quot;</span>,
+  },
+});
+</code></pre><p>上面示例中，构造一个返回 JSON 数据的 Response 对象，就必须用<code>JSON.stringify()</code>方法，将第一个参数转为字符串。</p><h2 id="实例属性">实例属性 <a class="markdownIt-Anchor" href="#实例属性">#</a></h2><h3 id="bodybodyused">body，bodyUsed <a class="markdownIt-Anchor" href="#bodybodyused">#</a></h3><p><code>body</code>属性代表数据体，是一个只读的 ReadableStream 对象。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> <span class="hljs-title function_">fetch</span>(<span class="hljs-string">&#x27;/fireworks.ogv&#x27;</span>);
 <span class="hljs-keyword">const</span> reader = res.<span class="hljs-property">body</span>.<span class="hljs-title function_">getReader</span>();
 
 <span class="hljs-keyword">let</span> result;
