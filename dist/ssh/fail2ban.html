@@ -1,0 +1,94 @@
+<!DOCTYPE html><html lang="zh-CN" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Fail2ban 教程 - SSH 教程 - 网道</title><!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" --><link rel="stylesheet" href="assets/css/app.min.css"><link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.css"><!-- link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"--><!-- link rel="stylesheet" href="assets/css/share.min.css" --><meta property="og:type" content="article"><meta property="og:title" content="Fail2ban 教程"><link rel="apple-touch-icon" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png"><link rel="manifest" href="assets/icons/manifest.json"></head><body><nav class="navbar is-light" role="navigation" id="navbar" aria-label="main navigation"><div class="container"><div class="navbar-brand"><a href="/" class="navbar-item title has-text-grey has-text-weight-light is-5">网道 / WangDoc.com </a><a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false"><span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div><div class="navbar-menu" id="navMenu"><div class="navbar-end"><div class="navbar-item"><form action="https://sourcegraph.com/search" target="_blank" method="get" onsubmit='this.q.value="repo:^github.com/wangdoc/ssh-tutorial$ "+this.origin.value'><p class="control has-icons-right"><input class="input" type="text" name="origin" placeholder="搜索..."> <span class="icon is-small is-right"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg></span></p><input type="hidden" name="q" value=""> <input type="hidden" name="patternType" value="literal"></form></div><a class="navbar-item is-hidden-desktop-only" target="_blank" href="https://github.com/wangdoc/ssh-tutorial"><span class="icon" style="color: #333;"><i class="fa fa-lg fa-github"></i></span></a></div></div></div></nav><section class="section main article"><div class="container"><div class="columns"><div class="column is-8 is-6-widescreen is-offset-1-widescreen"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="index.html"><span class="icon"><i class="fa fa-home"></i></span> &nbsp;SSH 教程</a></li><li class="is-active"><a class="has-text-grey" href="fail2ban.html">Fail2ban 教程</a></li></ul></nav><nav class="level level-previous-next is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="sftp.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> sftp 命令</a></p></div><div class="level-right"><p class="level-item is-narrow"></p></div></nav><article class="content"><h1 class="title">Fail2ban 教程</h1><div class="page-meta"><p>网道（WangDoc.com），互联网文档计划</p></div><h2 id="简介">简介 <a class="markdownIt-Anchor" href="#简介">#</a></h2><p>Fail2ban 是一个 Linux 系统的应用软件，用来防止系统入侵，主要是防止暴力破解系统密码。它是用 Python 开发的。</p><p>它主要通过监控日志文件（比如<code>/var/log/auth.log</code>、<code>/var/log/apache/access.log</code>等）来生效。一旦发现恶意攻击的登录请求，它会封锁对方的 IP 地址，使得对方无法再发起请求。</p><p>Fail2ban 可以防止有人反复尝试 SSH 密码登录，但是如果 SSH 采用的是密钥登录，禁止了密码登录，就不需要 Fail2ban 来保护。</p><p>Fail2ban 的安装命令如下。</p><pre class="hljs"><code><span class="hljs-comment"># ubuntu &amp; Debian</span>
+$ sudo apt install fail2ban
+
+<span class="hljs-comment"># Fedora</span>
+$ sudo dnf install epel-release
+$ sudo dnf install fail2ban
+
+<span class="hljs-comment"># Centos &amp; Red hat</span>
+$ yum install fail2ban
+</code></pre><p>安装后，使用下面的命令查看 Fail2ban 的状态。</p><pre class="hljs"><code>$ systemctl status fail2ban.service
+</code></pre><p>如果没有启动，就启动 Fail2ban。</p><pre class="hljs"><code>$ sudo systemctl start fail2ban
+</code></pre><p>重新启动 Fail2ban。</p><pre class="hljs"><code>$ sudo systemctl restart fail2ban
+</code></pre><p>设置 Fail2ban 重启后自动运行。</p><pre class="hljs"><code>$ sudo systemctl <span class="hljs-built_in">enable</span> fail2ban
+</code></pre><h2 id="fail2ban-client">fail2ban-client <a class="markdownIt-Anchor" href="#fail2ban-client">#</a></h2><p>Fail2ban 自带一个客户端 fail2ban-client，用来操作 Fail2ban。</p><pre class="hljs"><code>$ fail2ban-client
+</code></pre><p>上面的命令会输出 fail2ban-client 所有的用法。</p><p>下面的命令查看激活的监控目标。</p><pre class="hljs"><code>$ fail2ban-client status
+
+Status
+|- Number of jail:	1
+`- Jail list:	sshd
+</code></pre><p>下面的命令查看某个监控目标（这里是 sshd）的运行情况。</p><pre class="hljs"><code>$ sudo fail2ban-client status sshd
+
+Status <span class="hljs-keyword">for</span> the jail: sshd
+|- Filter
+|  |- Currently failed: 1
+|  |- Total failed:     9
+|  `- Journal matches:  _SYSTEMD_UNIT=sshd.service + _COMM=sshd
+`- Actions
+   |- Currently banned: 1
+   |- Total banned:     1
+   `- Banned IP list:   0.0.0.0
+</code></pre><p>下面的命令输出一个简要的版本，包括所有监控目标被封的 IP 地址。</p><pre class="hljs"><code>$ sudo fail2ban-client banned
+[{<span class="hljs-string">&#x27;sshd&#x27;</span>: [<span class="hljs-string">&#x27;192.168.100.50&#x27;</span>]}, {<span class="hljs-string">&#x27;apache-auth&#x27;</span>: []}]
+</code></pre><p>下面的命令可以解封某个 IP 地址。</p><pre class="hljs"><code>$ sudo fail2ban-client <span class="hljs-built_in">set</span> sshd unbanip 192.168.1.69
+</code></pre><h2 id="配置">配置 <a class="markdownIt-Anchor" href="#配置">#</a></h2><h3 id="主配置文件">主配置文件 <a class="markdownIt-Anchor" href="#主配置文件">#</a></h3><p>Fail2ban 主配置文件是在<code>/etc/fail2ban/fail2ban.conf</code>，可以新建一份副本<code>/etc/fail2ban/fail2ban.local</code>，修改都针对副本。</p><pre class="hljs"><code>$ sudo <span class="hljs-built_in">cp</span> /etc/fail2ban/fail2ban.conf /etc/fail2ban/fail2ban.<span class="hljs-built_in">local</span>
+</code></pre><p>下面是设置 Fail2ban 的日志位置。</p><pre class="hljs"><code>[Definition]
+logtarget = /var/log/fail2ban/fail2ban.<span class="hljs-built_in">log</span>
+</code></pre><p>修改配置以后，需要重新启动<code>fail2ban.service</code>，让其生效。</p><h3 id="封禁配置">封禁配置 <a class="markdownIt-Anchor" href="#封禁配置">#</a></h3><p>Fail2ban 封禁行为的配置文件是<code>/etc/fail2ban/jail.conf</code>。为了便于修改，可以把它复制一份<code>/etc/fail2ban/jail.local</code>，后面的修改都针对<code>jail.local</code>这个文件。</p><pre class="hljs"><code>$ sudo <span class="hljs-built_in">cp</span> /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
+</code></pre><p>你也可以在目录<code>/etc/fail2ban/jail.d</code>里面，新建单独的子配置文件，比如<code>/etc/fail2ban/jail.d/sshd.local</code>。</p><p>同样地，修改配置以后，需要重新启动<code>fail2ban.service</code>，让其生效。</p><p>配置文件里面，<code>[DEFAULT]</code>标题行表示对于所有封禁目标生效。举例来说，如果封禁时间修改为1天，<code>/etc/fail2ban/jail.local</code>里面可以写成：</p><pre class="hljs"><code>[DEFAULT]
+bantime = 1d
+</code></pre><p>如果某人被封时，对站长发送邮件通知，可以如下设置。</p><pre class="hljs"><code>[DEFAULT]
+destemail = yourname@example.com
+sender = yourname@example.com
+
+<span class="hljs-comment"># to ban &amp; send an e-mail with whois report to the destemail.</span>
+action = %(action_mw)s
+
+<span class="hljs-comment"># same as action_mw but also send relevant log lines</span>
+<span class="hljs-comment">#action = %(action_mwl)s</span>
+</code></pre><p>如果配置写在其他标题行下，就表示只对该封禁目标生效，比如写在<code>[sshd]</code>下面，就表示只对 sshd 生效。</p><p>默认情况下，Fail2ban 对各种服务都是关闭的，如果要针对某一项服务开启，需要在配置文件里面声明。</p><pre class="hljs"><code>[sshd]
+enabled = <span class="hljs-literal">true</span>
+</code></pre><p>上面声明表示，Fail2ban 对 sshd 开启。</p><h3 id="配置项">配置项 <a class="markdownIt-Anchor" href="#配置项">#</a></h3><p>下面是配置文件<code>jail.local</code>的配置项含义，所有配置项的格式都是<code>key=value</code>。</p><p>（1）bantime</p><p>封禁的时间长度，单位<code>m</code>表示分钟，<code>d</code>表示天，如果不写单位，则表示秒。Fail2ban 默认封禁10分钟（10m 或 600）。</p><pre class="hljs"><code>[DEFAULT]
+bantime = 10m
+</code></pre><p>（2）findtime</p><p>登录失败计算的时间长度，单位<code>m</code>表示分钟，<code>d</code>表示天，如果不写单位，则表示秒。Fail2ban 默认封禁 10 分钟内登录 5 次失败的客户端。</p><pre class="hljs"><code>[DEFAULT]
+
+findtime = 10m
+maxretry = 5
+</code></pre><p>（3）maxretry</p><p>尝试登录的最大失败次数。</p><p>（4）destemail</p><p>接受通知的邮件地址。</p><pre class="hljs"><code>[DEFAULT]
+destemail = root@localhost
+sender = root@&lt;fq-hostname&gt;
+mta = sendmail
+</code></pre><p>（5）sendername</p><p>通知邮件的“发件人”字段的值。</p><p>（6）mta</p><p>发送邮件的邮件服务，默认是<code>sendmail</code>。</p><p>（7）action</p><p>封禁时采取的动作。</p><pre class="hljs"><code>[DEFAULT]
+action = $(action_)s
+</code></pre><p>上面的<code>action_</code>是默认动作，表示拒绝封禁对象的流量，直到封禁期结束。</p><p>下面是 Fail2ban 提供的一些其他动作。</p><pre class="hljs"><code><span class="hljs-comment"># ban &amp; send an e-mail with whois report to the destemail.</span>
+action_mw = %(action_)s
+            %(mta)s-whois[sender=<span class="hljs-string">&quot;%(sender)s&quot;</span>, dest=<span class="hljs-string">&quot;%(destemail)s&quot;</span>, protocol=<span class="hljs-string">&quot;%(protocol)s&quot;</span>, chain=<span class="hljs-string">&quot;%(chain)s&quot;</span>]
+
+<span class="hljs-comment"># ban &amp; send an e-mail with whois report and relevant log lines</span>
+<span class="hljs-comment"># to the destemail.</span>
+action_mwl = %(action_)s
+             %(mta)s-whois-lines[sender=<span class="hljs-string">&quot;%(sender)s&quot;</span>, dest=<span class="hljs-string">&quot;%(destemail)s&quot;</span>, logpath=<span class="hljs-string">&quot;%(logpath)s&quot;</span>, chain=<span class="hljs-string">&quot;%(chain)s&quot;</span>]
+
+<span class="hljs-comment"># See the IMPORTANT note in action.d/xarf-login-attack for when to use this action</span>
+<span class="hljs-comment">#</span>
+<span class="hljs-comment"># ban &amp; send a xarf e-mail to abuse contact of IP address and include relevant log lines</span>
+<span class="hljs-comment"># to the destemail.</span>
+action_xarf = %(action_)s
+             xarf-login-attack[service=%(__name__)s, sender=<span class="hljs-string">&quot;%(sender)s&quot;</span>, logpath=<span class="hljs-string">&quot;%(logpath)s&quot;</span>, port=<span class="hljs-string">&quot;%(port)s&quot;</span>]
+
+<span class="hljs-comment"># ban IP on CloudFlare &amp; send an e-mail with whois report and relevant log lines</span>
+<span class="hljs-comment"># to the destemail.</span>
+action_cf_mwl = cloudflare[cfuser=<span class="hljs-string">&quot;%(cfemail)s&quot;</span>, cftoken=<span class="hljs-string">&quot;%(cfapikey)s&quot;</span>]
+                %(mta)s-whois-lines[sender=<span class="hljs-string">&quot;%(sender)s&quot;</span>, dest=<span class="hljs-string">&quot;%(destemail)s&quot;</span>, logpath=<span class="hljs-string">&quot;%(logpath)s&quot;</span>, chain=<span class="hljs-string">&quot;%(chain)s&quot;</span>]
+</code></pre><p>（8）ignoreip</p><p>Fail2ban 可以忽视的可信 IP 地址。多个 IP 地址之间使用空格分隔。</p><pre class="hljs"><code>ignoreip = 127.0.0.1/8 192.168.1.10 192.168.1.20
+</code></pre><p>（9）port</p><p>指定要监控的端口。可以设为任何端口号或服务名称，比如<code>ssh</code>、<code>22</code>、<code>2200</code>等。</p><h3 id="ssh-配置">ssh 配置 <a class="markdownIt-Anchor" href="#ssh-配置">#</a></h3><p>下面是 sshd 的设置范例。</p><pre class="hljs"><code>[sshd]
+enabled   = <span class="hljs-literal">true</span>
+port = ssh
+filter    = sshd
+banaction = iptables
+backend   = systemd
+maxretry  = 5
+findtime  = 1d
+bantime   = 2w
+ignoreip  = 127.0.0.1/8
+</code></pre><p>首先需要注意，为了让 Fail2ban 能够完整发挥作用，最好在<code>/etc/ssh/sshd_config</code>里面设置<code>LogLevel VERBOSE</code>，保证日志有足够的信息。</p></article><nav class="level level-previous-next is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="sftp.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> sftp 命令</a></p></div><div class="level-right"><p class="level-item is-narrow"></p></div></nav><div class="page-info"><p>本教程采用<a href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh" target="_blank">知识共享 署名-相同方式共享 3.0协议</a>。</p><p>分享本文 <span class="social-share"></span></p></div></div><div class="column is-3 is-offset-1"><nav class="panel panel-menu"><p class="panel-heading"><i class="fa fa-book" aria-hidden="true"></i> SSH 教程</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="basic.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">SSH 基本知识</span></a></li><li><a href="client.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">SSH 客户端</span></a></li><li><a href="key.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">SSH 密钥登录</span></a></li><li><a href="server.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">SSH 服务器</span></a></li><li><a href="log.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">日志</span></a></li><li><a href="port-forwarding.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">端口转发</span></a></li><li><a href="ca.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">SSH 证书登录</span></a></li><li><a href="scp.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">scp 命令</span></a></li><li><a href="rsync.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">rsync 命令</span></a></li><li><a href="sftp.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">sftp 命令</span></a></li><li><a href="fail2ban.html" class="is-active"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Fail2ban 教程</span></a></li></ul></aside></div></nav><nav class="panel panel-info"><p class="panel-heading"><i class="fa fa-link" aria-hidden="true"></i> 链接</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="https://raw.githubusercontent.com/wangdoc/ssh-tutorial/master/docs/fail2ban.md" target="_blank"><span class="icon"></span><i class="fa fa-code" aria-hidden="true" style="width: 14px;"></i>&nbsp;本文源码</a></li><li><a href="https://github.com/wangdoc/ssh-tutorial" target="_blank"><span class="icon"></span><i class="fa fa-hdd-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;代码仓库</a></li><li><a href="https://github.com/wangdoc/ssh-tutorial/issues" target="_blank"><span class="icon"></span><i class="fa fa-flag-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;反馈</a></li></ul></aside></div></nav></div></div><div class="columns"><div class="column is-8 is-6-widescreen is-offset-1-widescreen"><div id="disqus_thread"></div></div></div></div></section><footer class="footer"><div class="container"><div class="content has-text-centered"><p>联系：contact@wangdoc.com</p></div></div></footer><script>var LOPPO={current_path:"fail2ban.md",relative_root_path:"",article_toc:'<ul class="markdownIt-TOC">\n<li><a href="#%E7%AE%80%E4%BB%8B">简介</a></li>\n<li><a href="#fail2ban-client">fail2ban-client</a></li>\n<li><a href="#%E9%85%8D%E7%BD%AE">配置</a>\n<ul>\n<li><a href="#%E4%B8%BB%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6">主配置文件</a></li>\n<li><a href="#%E5%B0%81%E7%A6%81%E9%85%8D%E7%BD%AE">封禁配置</a></li>\n<li><a href="#%E9%85%8D%E7%BD%AE%E9%A1%B9">配置项</a></li>\n<li><a href="#ssh-%E9%85%8D%E7%BD%AE">ssh 配置</a></li>\n</ul>\n</li>\n</ul>\n'}</script><script src="assets/js/app.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-111269443-1"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","UA-111269443-1")</script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script"),t=(e.src="https://hm.baidu.com/hm.js?5eec262881855af3dede6a71234571f6",document.getElementsByTagName("script")[0]);t.parentNode.insertBefore(e,t)}()</script><script>var disqus_config=function(){var t=window.location,e=t.protocol+"//"+t.host+(t.port?":"+t.port:"")+t.pathname;this.page.url=e,this.page.identifier=t.pathname};!function(){var t=document,e=t.createElement("script");e.src="https://wangdoc-ssh.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><!--script src="assets/js/social-share.min.js"--><!--/script--><script>var shareDesc="我正在阅读《Fail2ban 教程》，出自网道（WangDoc.com）的《SSH 教程》。",shareOpts={url:window.location.href,source:shareDesc,title:shareDesc,description:"",image:"",sites:["weibo","wechat","qq","qzone","twitter","facebook"],origin:"WangDoc_com",disabled:[],wechatQrcodeTitle:"微信",wechatQrcodeHelper:"扫一下二维码，分享到微信。"};socialShare(".social-share",shareOpts)</script></body></html>
