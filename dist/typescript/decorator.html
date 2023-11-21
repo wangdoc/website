@@ -507,18 +507,23 @@ c.<span class="hljs-property">x</span> = <span class="hljs-number">123</span>;
 
   <span class="hljs-meta">@d</span>(<span class="hljs-string">&#x27;实例属性&#x27;</span>)
   instanceField = <span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;实例属性值&#x27;</span>);
+
+  <span class="hljs-meta">@d</span>(<span class="hljs-string">&#x27;静态方法装饰器&#x27;</span>)
+  <span class="hljs-keyword">static</span> <span class="hljs-title function_">fn</span>(<span class="hljs-params"></span>){}
 }
-</code></pre><p>上面示例中，类<code>T</code>有四种装饰器：类装饰器、静态属性装饰器、方法装饰器、属性装饰器。</p><p>它的运行结果如下。</p><pre class="hljs"><code><span class="hljs-comment">// &quot;评估 @d(): 类装饰器&quot;</span>
-<span class="hljs-comment">// &quot;评估 @d(): 静态属性装饰器&quot;</span>
-<span class="hljs-comment">// &quot;评估 @d(): 原型方法&quot;</span>
-<span class="hljs-comment">// &quot;计算方法名&quot;</span>
-<span class="hljs-comment">// &quot;评估 @d(): 实例属性&quot;</span>
-<span class="hljs-comment">// &quot;应用 @d(): 原型方法&quot;</span>
-<span class="hljs-comment">// &quot;应用 @d(): 静态属性装饰器&quot;</span>
-<span class="hljs-comment">// &quot;应用 @d(): 实例属性&quot;</span>
-<span class="hljs-comment">// &quot;应用 @d(): 类装饰器&quot;</span>
-<span class="hljs-comment">// &quot;静态属性值&quot;</span>
-</code></pre><p>可以看到，类载入的时候，代码按照以下顺序执行。</p><p>（1）装饰器评估：这一步计算装饰器的值，首先是类装饰器，然后是类内部的装饰器，按照它们出现的顺序。</p><p>注意，如果属性名或方法名是计算值（本例是“计算方法名”），则它们在对应的装饰器评估之后，也会进行自身的评估。</p><p>（2）装饰器应用：实际执行装饰器函数，将它们与对应的方法和属性进行结合。</p><p>原型方法的装饰器首先应用，然后是静态属性和静态方法装饰器，接下来是实例属性装饰器，最后是类装饰器。</p><p>注意，“实例属性值”在类初始化的阶段并不执行，直到类实例化时才会执行。</p><p>如果一个方法或属性有多个装饰器，则内层的装饰器先执行，外层的装饰器后执行。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">Person</span> {
+</code></pre><p>上面示例中，类<code>T</code>有四种装饰器：类装饰器、静态属性装饰器、方法装饰器、属性装饰器。</p><p>它的运行结果如下。</p><pre class="hljs"><code>评估 <span class="hljs-meta">@d</span>(): 类装饰器
+评估 <span class="hljs-meta">@d</span>(): 静态属性装饰器
+评估 <span class="hljs-meta">@d</span>(): 原型方法
+计算方法名
+评估 <span class="hljs-meta">@d</span>(): 实例属性
+评估 <span class="hljs-meta">@d</span>(): 静态方法装饰器
+应用 <span class="hljs-meta">@d</span>(): 静态方法装饰器
+应用 <span class="hljs-meta">@d</span>(): 原型方法
+应用 <span class="hljs-meta">@d</span>(): 静态属性装饰器
+应用 <span class="hljs-meta">@d</span>(): 实例属性
+应用 <span class="hljs-meta">@d</span>(): 类装饰器
+静态属性值
+</code></pre><p>可以看到，类载入的时候，代码按照以下顺序执行。</p><p>（1）装饰器评估：这一步计算装饰器的值，首先是类装饰器，然后是类内部的装饰器，按照它们出现的顺序。</p><p>注意，如果属性名或方法名是计算值（本例是“计算方法名”），则它们在对应的装饰器评估之后，也会进行自身的评估。</p><p>（2）装饰器应用：实际执行装饰器函数，将它们与对应的方法和属性进行结合。</p><p>静态方法装饰器首先应用，然后是原型方法的装饰器和静态属性装饰器，接下来是实例属性装饰器，最后是类装饰器。</p><p>注意，“实例属性值”在类初始化的阶段并不执行，直到类实例化时才会执行。</p><p>如果一个方法或属性有多个装饰器，则内层的装饰器先执行，外层的装饰器后执行。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">Person</span> {
   <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
   <span class="hljs-title function_">constructor</span>(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>) {
     <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name;
