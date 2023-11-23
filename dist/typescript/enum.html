@@ -288,10 +288,9 @@ s = <span class="hljs-string">&#x27;One&#x27;</span>; <span class="hljs-comment"
 
 <span class="hljs-comment">// &#x27;A&#x27;|&#x27;B&#x27;</span>
 <span class="hljs-keyword">type</span> <span class="hljs-title class_">Foo</span> = keyof <span class="hljs-keyword">typeof</span> <span class="hljs-title class_">MyEnum</span>;
-</code></pre><p>上面示例中，<code>keyof typeof MyEnum</code>可以取出<code>MyEnum</code>的所有成员名，所以类型<code>Foo</code>等同于联合类型<code>'A'|'B'</code>。</p><p>注意，这里的<code>typeof</code>是必需的，否则<code>keyof MyEnum</code>相当于<code>keyof number</code>。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">Foo</span> = keyof <span class="hljs-title class_">MyEnum</span>;
-<span class="hljs-comment">// &quot;toString&quot; | &quot;toFixed&quot; | &quot;toExponential&quot; |</span>
-<span class="hljs-comment">// &quot;toPrecision&quot; | &quot;valueOf&quot; | &quot;toLocaleString&quot;</span>
-</code></pre><p>上面示例中，类型<code>Foo</code>等于类型<code>number</code>的所有原生属性名组成的联合类型。</p><p>这是因为 Enum 作为类型，本质上属于<code>number</code>或<code>string</code>的一种变体，而<code>typeof MyEnum</code>会将<code>MyEnum</code>当作一个值处理，从而先其转为对象类型，就可以再用<code>keyof</code>运算符返回该对象的所有属性名。</p><p>如果要返回 Enum 所有的成员值，可以使用<code>in</code>运算符。</p><pre class="hljs"><code><span class="hljs-keyword">enum</span> <span class="hljs-title class_">MyEnum</span> {
+</code></pre><p>上面示例中，<code>keyof typeof MyEnum</code>可以取出<code>MyEnum</code>的所有成员名，所以类型<code>Foo</code>等同于联合类型<code>'A'|'B'</code>。</p><p>注意，这里的<code>typeof</code>是必需的，否则<code>keyof MyEnum</code>相当于<code>keyof string</code>。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">Foo</span> = keyof <span class="hljs-title class_">MyEnum</span>;
+<span class="hljs-comment">// number | typeof Symbol.iterator | &quot;toString&quot; | &quot;charAt&quot; | &quot;charCodeAt&quot; | ...</span>
+</code></pre><p>上面示例中，类型<code>Foo</code>等于类型<code>string</code>的所有原生属性名组成的联合类型。这是<code>MyEnum</code>为字符串 Enum 的结果，如果<code>MyEnum</code>是数值 Enum，那么<code>keyof MyEnum</code>相当于<code>keyof number</code>。</p><p>这是因为 Enum 作为类型，本质上属于<code>number</code>或<code>string</code>的一种变体，而<code>typeof MyEnum</code>会将<code>MyEnum</code>当作一个值处理，从而先其转为对象类型，就可以再用<code>keyof</code>运算符返回该对象的所有属性名。</p><p>如果要返回 Enum 所有的成员值，可以使用<code>in</code>运算符。</p><pre class="hljs"><code><span class="hljs-keyword">enum</span> <span class="hljs-title class_">MyEnum</span> {
   A = <span class="hljs-string">&#x27;a&#x27;</span>,
   B = <span class="hljs-string">&#x27;b&#x27;</span>
 }
