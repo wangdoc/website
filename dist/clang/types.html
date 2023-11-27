@@ -130,7 +130,7 @@ ui--;
 </code></pre><p>上面示例中，变量<code>y</code>的值不是<code>24</code>，而是<code>24.0</code>，因为等号右边的整数自动转为了浮点数。</p><p>（3）窄类型赋值给宽类型</p><p>字节宽度较小的整数类型，赋值给字节宽度较大的整数变量时，会发生类型提升，即窄类型自动转为宽类型。</p><p>比如，<code>char</code>或<code>short</code>类型赋值给<code>int</code>类型，会自动提升为<code>int</code>。</p><pre class="hljs"><code><span class="hljs-type">char</span> x = <span class="hljs-number">10</span>;
 <span class="hljs-type">int</span> i = x + y;
 </code></pre><p>上面示例中，变量<code>x</code>的类型是<code>char</code>，由于赋值给<code>int</code>类型，所以会自动提升为<code>int</code>。</p><p>（4）宽类型赋值给窄类型</p><p>字节宽度较大的类型，赋值给字节宽度较小的变量时，会发生类型降级，自动转为后者的类型。这时可能会发生截值（truncation），系统会自动截去多余的二进制位，导致难以预料的结果。</p><pre class="hljs"><code>int i = <span class="hljs-number">321</span>;
-char ch = i; <span class="hljs-comment">// ch 的值是 65 （321 - 256）</span>
+char ch = i; <span class="hljs-comment">// ch 的值是 65 （321 % 256 的余值）</span>
 </code></pre><p>上面例子中，变量<code>ch</code>是<code>char</code>类型，宽度是8个二进制位。变量<code>i</code>是<code>int</code>类型，将<code>i</code>赋值给<code>ch</code>，后者只能容纳<code>i</code>（二进制形式为<code>101000001</code>，共9位）的后八位，前面多出来的二进制位被丢弃，保留后八位就变成了<code>01000001</code>（十进制的65，相当于字符<code>A</code>）。</p><p>浮点数赋值给整数类型的值，也会发生截值，浮点数的小数部分会被截去。</p><pre class="hljs"><code><span class="hljs-type">double</span> pi = <span class="hljs-number">3.14159</span>;
 <span class="hljs-type">int</span> i = pi; <span class="hljs-comment">// i 的值为 3</span>
 </code></pre><p>上面示例中，<code>i</code>等于<code>3</code>，<code>pi</code>的小数部分被截去了。</p><h3 id="混合类型的运算">混合类型的运算 <a class="markdownIt-Anchor" href="#混合类型的运算">#</a></h3><p>不同类型的值进行混合计算时，必须先转成同一个类型，才能进行计算。转换规则如下：</p><p>（1）整数与浮点数混合运算时，整数转为浮点数类型，与另一个运算数类型相同。</p><pre class="hljs"><code><span class="hljs-number">3</span> + <span class="hljs-number">1.2</span> <span class="hljs-comment">// 4.2</span>
