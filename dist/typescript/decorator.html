@@ -114,10 +114,10 @@ inst1.<span class="hljs-property">count</span> <span class="hljs-comment">// 1</
 inst1 <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">MyClass</span> <span class="hljs-comment">// true</span>
 inst1.<span class="hljs-property">count</span> <span class="hljs-comment">// 1</span>
 </code></pre><p>上面示例中，<code>@countInstances</code>返回一个<code>MyClass</code>的子类。</p><p>下面的例子是通过类装饰器，禁止使用<code>new</code>命令新建类的实例。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">functionCallable</span>(<span class="hljs-params">
-  value <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>, {kind} <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>
-</span>) {
+  value:<span class="hljs-built_in">any</span>, {kind}:<span class="hljs-built_in">any</span>
+</span>):<span class="hljs-built_in">any</span> {
   <span class="hljs-keyword">if</span> (kind === <span class="hljs-string">&#x27;class&#x27;</span>) {
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> (<span class="hljs-params">...args</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> (<span class="hljs-params">...args:<span class="hljs-built_in">any</span></span>) {
       <span class="hljs-keyword">if</span> (<span class="hljs-keyword">new</span>.<span class="hljs-property">target</span> !== <span class="hljs-literal">undefined</span>) {
         <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TypeError</span>(<span class="hljs-string">&#x27;This function can’t be new-invoked&#x27;</span>);
       }
@@ -128,10 +128,13 @@ inst1.<span class="hljs-property">count</span> <span class="hljs-comment">// 1</
 
 <span class="hljs-meta">@functionCallable</span>
 <span class="hljs-keyword">class</span> <span class="hljs-title class_">Person</span> {
-  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">name</span>) {
+  <span class="hljs-attr">name</span>:<span class="hljs-built_in">string</span>;
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">name:<span class="hljs-built_in">string</span></span>) {
     <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name;
   }
 }
+
+<span class="hljs-comment">// @ts-ignore</span>
 <span class="hljs-keyword">const</span> robin = <span class="hljs-title class_">Person</span>(<span class="hljs-string">&#x27;Robin&#x27;</span>);
 robin.<span class="hljs-property">name</span> <span class="hljs-comment">// &#x27;Robin&#x27;</span>
 </code></pre><p>上面示例中，类装饰器<code>@functionCallable</code>返回一个新的构造方法，里面判断<code>new.target</code>是否不为空，如果是的，就表示通过<code>new</code>命令调用，从而报错。</p><p>类装饰器的上下文对象<code>context</code>的<code>addInitializer()</code>方法，用来定义一个类的初始化函数，在类完全定义结束后执行。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">customElement</span>(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>) {
