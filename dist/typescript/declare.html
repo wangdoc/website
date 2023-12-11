@@ -130,10 +130,10 @@ x = <span class="hljs-number">1</span>;
   <span class="hljs-comment">// 具体实现</span>
   <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;&#x27;</span>;
 };
-</code></pre><p>上面示例中，为 JavaScript 原生的<code>String</code>对象添加了<code>toSmallString()</code>方法。declare global 给出这个新增方法的类型描述。</p><p>这个示例第一行的空导出语句<code>export {}</code>，作用是强制编译器将这个脚本当作模块处理。这是因为<code>declare global</code>必须用在模块里面。</p><p>下面的示例是为 window 对象添加一个属性<code>myAppConfig</code>。</p><pre class="hljs"><code><span class="hljs-keyword">export</span> {};
+</code></pre><p>上面示例中，为 JavaScript 原生的<code>String</code>对象添加了<code>toSmallString()</code>方法。declare global 给出这个新增方法的类型描述。</p><p>这个示例第一行的空导出语句<code>export {}</code>，作用是强制编译器将这个脚本当作模块处理。这是因为<code>declare global</code>必须用在模块里面。</p><p>下面的示例是为 window 对象（类型接口为<code>Window</code>）添加一个属性<code>myAppConfig</code>。</p><pre class="hljs"><code><span class="hljs-keyword">export</span> {};
 
 <span class="hljs-keyword">declare</span> <span class="hljs-variable language_">global</span> {
-  <span class="hljs-keyword">interface</span> window {
+  <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Window</span> {
     <span class="hljs-attr">myAppConfig</span>:<span class="hljs-built_in">object</span>;
   }
 }
