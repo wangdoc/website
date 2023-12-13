@@ -200,7 +200,7 @@
 </code></pre><p>我们可以自定义类型工具<code>Mutable&lt;Type&gt;</code>，将参数类型的所有属性变成可变属性。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">Mutable</span>&lt;T&gt; = {
   -<span class="hljs-keyword">readonly</span> [P <span class="hljs-keyword">in</span> keyof T]: T[P];
 };
-</code></pre><p>上面代码中，<code>-readonly</code>表示去除属性的只读标志。</p><p>相应地，<code>+readonly</code>就表示增加只读标志，等同于<code>readonly</code>。因此，<code>ReadOnly&lt;Type&gt;</code>的实现也可以写成下面这样。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">Readonly</span>&lt;T&gt; = {
+</code></pre><p>上面代码中，<code>-readonly</code>表示去除属性的只读标志。</p><p>相应地，<code>+readonly</code>就表示增加只读标志，等同于<code>readonly</code>。因此，<code>Readonly&lt;Type&gt;</code>的实现也可以写成下面这样。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">Readonly</span>&lt;T&gt; = {
   +<span class="hljs-keyword">readonly</span> [P <span class="hljs-keyword">in</span> keyof T]: T[P];
 };
 </code></pre><p><code>Readonly&lt;Type&gt;</code>可以与<code>Partial&lt;Type&gt;</code>结合使用，将所有属性变成只读的可选属性。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Person</span> {
