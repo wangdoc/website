@@ -31,10 +31,10 @@ $(<span class="hljs-built_in">echo</span> foo)
 $ <span class="hljs-built_in">echo</span> it<span class="hljs-string">&#x27;s
 
 # 不正确
-$ echo &#x27;</span>it\<span class="hljs-string">&#x27;s&#x27;</span>
+$ echo &#x27;</span>it\&#x27;s<span class="hljs-string">&#x27;
 
-<span class="hljs-comment"># 正确</span>
-$ <span class="hljs-built_in">echo</span> $<span class="hljs-string">&#x27;it\&#x27;</span>s<span class="hljs-string">&#x27;
+# 正确
+$ echo $&#x27;</span>it\&#x27;s<span class="hljs-string">&#x27;
 </span></code></pre><p>不过，更合理的方法是改在双引号之中使用单引号。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;it&#x27;s&quot;</span>
 it<span class="hljs-string">&#x27;s
 </span></code></pre><h2 id="双引号">双引号 <a class="markdownIt-Anchor" href="#双引号">#</a></h2><p>双引号比单引号宽松，大部分特殊字符在双引号里面，都会失去特殊含义，变成普通字符。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;*&quot;</span>
