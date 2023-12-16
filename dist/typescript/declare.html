@@ -84,13 +84,13 @@ x = <span class="hljs-number">1</span>;
 </code></pre><p>declare 关键字的另一个用途，是为外部模块添加属性和方法时，给出新增部分的类型描述。</p><pre class="hljs"><code><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Foo</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">Bar</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;moduleA&#x27;</span>;
 
 <span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-string">&#x27;moduleA&#x27;</span> {
-  <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Bar</span> {
+  <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Foo</span> {
     <span class="hljs-attr">custom</span>: {
       <span class="hljs-attr">prop1</span>: <span class="hljs-built_in">string</span>;
     }
   }
 }
-</code></pre><p>上面示例中，从模块<code>moduleA</code>导入了<code>Foo</code>接口，将其重命名为<code>Bar</code>，并用 declare 关键字为<code>Bar</code>增加一个属性<code>custom</code>。</p><p>下面是另一个例子。一个项目有多个模块，可以在一个模块中，对另一个模块的接口进行类型扩展。</p><pre class="hljs"><code><span class="hljs-comment">// a.ts</span>
+</code></pre><p>上面示例中，从模块<code>moduleA</code>导入了类型<code>Foo</code>，它是一个接口（interface），并将其重命名为<code>Bar</code>，然后用 declare 关键字为<code>Foo</code>增加一个属性<code>custom</code>。这里需要注意的是，虽然接口<code>Foo</code>改名为<code>Bar</code>，但是扩充类型时，还是扩充原始的接口<code>Foo</code>，因为同名 interface 会自动合并类型声明。</p><p>下面是另一个例子。一个项目有多个模块，可以在一个模块中，对另一个模块的接口进行类型扩展。</p><pre class="hljs"><code><span class="hljs-comment">// a.ts</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> A {
   <span class="hljs-attr">x</span>: <span class="hljs-built_in">number</span>;
 }
