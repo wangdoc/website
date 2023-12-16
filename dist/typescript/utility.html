@@ -274,7 +274,7 @@ values.<span class="hljs-title function_">splice</span>(<span class="hljs-number
   T <span class="hljs-keyword">extends</span> (...<span class="hljs-attr">args</span>: <span class="hljs-built_in">any</span>) =&gt; <span class="hljs-built_in">any</span>
 &gt; =
   T <span class="hljs-keyword">extends</span> (...<span class="hljs-attr">args</span>: <span class="hljs-built_in">any</span>) =&gt; infer R ? R : <span class="hljs-built_in">any</span>;
-</code></pre><h2 id="thisparametertypetype"><code>ThisParameterType&lt;Type&gt;</code> <a class="markdownIt-Anchor" href="#thisparametertypetype">#</a></h2><p><code>ThisParameterType&lt;Type&gt;</code>提取函数类型中<code>this</code>参数的类型。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">toHex</span>(<span class="hljs-params"><span class="hljs-variable language_">this</span>: <span class="hljs-built_in">Number</span></span>) {
+</code></pre><h2 id="thisparametertypetype"><code>ThisParameterType&lt;Type&gt;</code> <a class="markdownIt-Anchor" href="#thisparametertypetype">#</a></h2><p><code>ThisParameterType&lt;Type&gt;</code>提取函数类型中<code>this</code>参数的类型。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">toHex</span>(<span class="hljs-params"><span class="hljs-variable language_">this</span>:<span class="hljs-built_in">number</span></span>) {
   <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">toString</span>(<span class="hljs-number">16</span>);
 }
 
