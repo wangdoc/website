@@ -419,7 +419,7 @@ inst.<span class="hljs-property">value</span>
 </code></pre><p>上面示例中，第一次读取<code>inst.value</code>，会进行计算，然后装饰器<code>@lazy</code>将结果存入只读属性<code>value</code>，后面再读取这个属性，就不会进行计算了。</p><h2 id="accessor-装饰器">accessor 装饰器 <a class="markdownIt-Anchor" href="#accessor-装饰器">#</a></h2><p>装饰器语法引入了一个新的属性修饰符<code>accessor</code>。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">C</span> {
   accessor x = <span class="hljs-number">1</span>;
 }
-</code></pre><p>上面示例中，<code>accessor</code>修饰符等同于为属性<code>x</code>自动生成取值器和存值器，它们作用于私有属性<code>x</code>。也就是说，上面的代码等同于下面的代码。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">C</span> {
+</code></pre><p>上面示例中，<code>accessor</code>修饰符等同于为公开属性<code>x</code>自动生成取值器和存值器，它们作用于私有属性<code>x</code>。（注意，公开的<code>x</code>与私有的<code>x</code>不是同一个属性。）也就是说，上面的代码等同于下面的代码。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">C</span> {
   #x = <span class="hljs-number">1</span>;
 
   <span class="hljs-keyword">get</span> <span class="hljs-title function_">x</span>() {
