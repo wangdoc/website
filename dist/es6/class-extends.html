@@ -103,7 +103,7 @@ cp <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">
 }
 
 B.<span class="hljs-title function_">hello</span>()  <span class="hljs-comment">// hello world</span>
-</code></pre><p>上面代码中，<code>hello()</code>是<code>A</code>类的静态方法，<code>B</code>继承<code>A</code>，也继承了<code>A</code>的静态方法。</p><p>注意，静态属性是通过软拷贝实现继承的。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> { <span class="hljs-keyword">static</span> foo = <span class="hljs-number">100</span>; }
+</code></pre><p>上面代码中，<code>hello()</code>是<code>A</code>类的静态方法，<code>B</code>继承<code>A</code>，也继承了<code>A</code>的静态方法。</p><p>注意，静态属性是通过浅拷贝实现继承的。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> { <span class="hljs-keyword">static</span> foo = <span class="hljs-number">100</span>; }
 <span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">A</span> {
   <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) {
     <span class="hljs-variable language_">super</span>();
