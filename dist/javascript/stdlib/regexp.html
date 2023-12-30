@@ -46,7 +46,7 @@ r.<span class="hljs-title function_">test</span>(<span class="hljs-string">&#x27
 
 r1.<span class="hljs-title function_">exec</span>(s) <span class="hljs-comment">// [&quot;x&quot;]</span>
 r2.<span class="hljs-title function_">exec</span>(s) <span class="hljs-comment">// null</span>
-</code></pre><p>上面代码中，正则对象<code>r1</code>匹配成功，返回一个数组，成员是匹配结果；正则对象<code>r2</code>匹配失败，返回<code>null</code>。</p><p>如果正则表示式包含圆括号（即含有“组匹配”），则返回的数组会包括多个成员。第一个成员是整个匹配成功的结果，后面的成员就是圆括号对应的匹配成功的组。也就是说，第二个成员对应第一个括号，第三个成员对应第二个括号，以此类推。整个数组的<code>length</code>属性等于组匹配的数量再加1。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> s = <span class="hljs-string">&#x27;_x_x&#x27;</span>;
+</code></pre><p>上面代码中，正则对象<code>r1</code>匹配成功，返回一个数组，成员是匹配结果；正则对象<code>r2</code>匹配失败，返回<code>null</code>。</p><p>如果正则表达式包含圆括号（即含有“组匹配”），则返回的数组会包括多个成员。第一个成员是整个匹配成功的结果，后面的成员就是圆括号对应的匹配成功的组。也就是说，第二个成员对应第一个括号，第三个成员对应第二个括号，以此类推。整个数组的<code>length</code>属性等于组匹配的数量再加1。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> s = <span class="hljs-string">&#x27;_x_x&#x27;</span>;
 <span class="hljs-keyword">var</span> r = <span class="hljs-regexp">/_(x)/</span>;
 
 r.<span class="hljs-title function_">exec</span>(s) <span class="hljs-comment">// [&quot;_x&quot;, &quot;x&quot;]</span>
@@ -213,10 +213,10 @@ s.<span class="hljs-title function_">match</span>(<span class="hljs-regexp">/yes
 <span class="hljs-comment">// true</span>
 </code></pre><p>上面代码中，<code>\u0128-\uFFFF</code>表示匹配码点在<code>0128</code>到<code>FFFF</code>之间的所有字符。</p><p>另外，不要过分使用连字符，设定一个很大的范围，否则很可能选中意料之外的字符。最典型的例子就是<code>[A-z]</code>，表面上它是选中从大写的<code>A</code>到小写的<code>z</code>之间52个字母，但是由于在 ASCII 编码之中，大写字母与小写字母之间还有其他字符，结果就会出现意料之外的结果。</p><pre class="hljs"><code>/[A-z]/.<span class="hljs-title function_">test</span>(<span class="hljs-string">&#x27;\\&#x27;</span>) <span class="hljs-comment">// true</span>
 </code></pre><p>上面代码中，由于反斜杠（'\'）的ASCII码在大写字母与小写字母之间，结果会被选中。</p><h3 id="预定义模式">预定义模式 <a class="markdownIt-Anchor" href="#预定义模式">#</a></h3><p>预定义模式指的是某些常见模式的简写方式。</p><ul><li><code>\d</code> 匹配0-9之间的任一数字，相当于<code>[0-9]</code>。</li><li><code>\D</code> 匹配所有0-9以外的字符，相当于<code>[^0-9]</code>。</li><li><code>\w</code> 匹配任意的字母、数字和下划线，相当于<code>[A-Za-z0-9_]</code>。</li><li><code>\W</code> 除所有字母、数字和下划线以外的字符，相当于<code>[^A-Za-z0-9_]</code>。</li><li><code>\s</code> 匹配空格（包括换行符、制表符、空格符等），相等于<code>[ \t\r\n\v\f]</code>。</li><li><code>\S</code> 匹配非空格的字符，相当于<code>[^ \t\r\n\v\f]</code>。</li><li><code>\b</code> 匹配词的边界。</li><li><code>\B</code> 匹配非词边界，即在词的内部。</li></ul><p>下面是一些例子。</p><pre class="hljs"><code><span class="hljs-comment">// \s 的例子</span>
-/\s\w*<span class="hljs-regexp">/.exec(&#x27;hello world&#x27;) /</span><span class="hljs-regexp">/ [&quot; world&quot;]
+/\s\w*<span class="hljs-regexp">/.exec(&#x27;hello world&#x27;) /</span>/ [<span class="hljs-string">&quot; world&quot;</span>]
 
-/</span><span class="hljs-regexp">/ \b 的例子
-/</span>\bworld/.<span class="hljs-title function_">test</span>(<span class="hljs-string">&#x27;hello world&#x27;</span>) <span class="hljs-comment">// true</span>
+<span class="hljs-comment">// \b 的例子</span>
+/\bworld/.<span class="hljs-title function_">test</span>(<span class="hljs-string">&#x27;hello world&#x27;</span>) <span class="hljs-comment">// true</span>
 /\bworld/.<span class="hljs-title function_">test</span>(<span class="hljs-string">&#x27;hello-world&#x27;</span>) <span class="hljs-comment">// true</span>
 /\bworld/.<span class="hljs-title function_">test</span>(<span class="hljs-string">&#x27;helloworld&#x27;</span>) <span class="hljs-comment">// false</span>
 
@@ -278,9 +278,9 @@ regex.<span class="hljs-title function_">test</span>(str); <span class="hljs-com
 </code></pre><p>上面代码表示，加了<code>i</code>修饰符以后，不考虑大小写，所以模式<code>abc</code>匹配字符串<code>ABC</code>。</p><p><strong>（3）m 修饰符</strong></p><p><code>m</code>修饰符表示多行模式（multiline），会修改<code>^</code>和<code>$</code>的行为。默认情况下（即不加<code>m</code>修饰符时），<code>^</code>和<code>$</code>匹配字符串的开始处和结尾处，加上<code>m</code>修饰符以后，<code>^</code>和<code>$</code>还会匹配行首和行尾，即<code>^</code>和<code>$</code>会识别换行符（<code>\n</code>）。</p><pre class="hljs"><code>/world$/.<span class="hljs-title function_">test</span>(<span class="hljs-string">&#x27;hello world\n&#x27;</span>) <span class="hljs-comment">// false</span>
 /world$/m.<span class="hljs-title function_">test</span>(<span class="hljs-string">&#x27;hello world\n&#x27;</span>) <span class="hljs-comment">// true</span>
 </code></pre><p>上面的代码中，字符串结尾处有一个换行符。如果不加<code>m</code>修饰符，匹配不成功，因为字符串的结尾不是<code>world</code>；加上以后，<code>$</code>可以匹配行尾。</p><pre class="hljs"><code>/^b/m.<span class="hljs-title function_">test</span>(<span class="hljs-string">&#x27;a\nb&#x27;</span>) <span class="hljs-comment">// true</span>
-</code></pre><p>上面代码要求匹配行首的<code>b</code>，如果不加<code>m</code>修饰符，就相当于<code>b</code>只能处在字符串的开始处。加上<code>m</code>修饰符以后，换行符<code>\n</code>也会被认为是一行的开始。</p><h3 id="组匹配">组匹配 <a class="markdownIt-Anchor" href="#组匹配">#</a></h3><p><strong>（1）概述</strong></p><p>正则表达式的括号表示分组匹配，括号中的模式可以用来匹配分组的内容。</p><pre class="hljs"><code>/fred+<span class="hljs-regexp">/.test(&#x27;fredd&#x27;) /</span><span class="hljs-regexp">/ true
-/</span>(fred)+<span class="hljs-regexp">/.test(&#x27;fredfred&#x27;) /</span><span class="hljs-regexp">/ true
-</span></code></pre><p>上面代码中，第一个模式没有括号，结果<code>+</code>只表示重复字母<code>d</code>，第二个模式有括号，结果<code>+</code>就表示匹配<code>fred</code>这个词。</p><p>下面是另外一个分组捕获的例子。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> m = <span class="hljs-string">&#x27;abcabc&#x27;</span>.<span class="hljs-title function_">match</span>(<span class="hljs-regexp">/(.)b(.)/</span>);
+</code></pre><p>上面代码要求匹配行首的<code>b</code>，如果不加<code>m</code>修饰符，就相当于<code>b</code>只能处在字符串的开始处。加上<code>m</code>修饰符以后，换行符<code>\n</code>也会被认为是一行的开始。</p><h3 id="组匹配">组匹配 <a class="markdownIt-Anchor" href="#组匹配">#</a></h3><p><strong>（1）概述</strong></p><p>正则表达式的括号表示分组匹配，括号中的模式可以用来匹配分组的内容。</p><pre class="hljs"><code>/fred+<span class="hljs-regexp">/.test(&#x27;fredd&#x27;) /</span>/ <span class="hljs-literal">true</span>
+/(fred)+<span class="hljs-regexp">/.test(&#x27;fredfred&#x27;) /</span>/ <span class="hljs-literal">true</span>
+</code></pre><p>上面代码中，第一个模式没有括号，结果<code>+</code>只表示重复字母<code>d</code>，第二个模式有括号，结果<code>+</code>就表示匹配<code>fred</code>这个词。</p><p>下面是另外一个分组捕获的例子。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> m = <span class="hljs-string">&#x27;abcabc&#x27;</span>.<span class="hljs-title function_">match</span>(<span class="hljs-regexp">/(.)b(.)/</span>);
 m
 <span class="hljs-comment">// [&#x27;abc&#x27;, &#x27;a&#x27;, &#x27;c&#x27;]</span>
 </code></pre><p>上面代码中，正则表达式<code>/(.)b(.)/</code>一共使用两个括号，第一个括号捕获<code>a</code>，第二个括号捕获<code>c</code>。</p><p>注意，使用组匹配时，不宜同时使用<code>g</code>修饰符，否则<code>match</code>方法不会捕获分组的内容。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> m = <span class="hljs-string">&#x27;abcabc&#x27;</span>.<span class="hljs-title function_">match</span>(<span class="hljs-regexp">/(.)b(.)/g</span>);
