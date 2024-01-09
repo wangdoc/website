@@ -18,12 +18,14 @@
 <span class="hljs-comment">// b.ts</span>
 <span class="hljs-keyword">import</span> { A, a } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./a&#x27;</span>;
 </code></pre><p>上面示例中，文件<code>a.ts</code>的 export 语句输出了一个类型<code>A</code>和一个正常接口<code>a</code>，另一个文件<code>b.ts</code>则在同一条语句中输入了类型和正常接口。</p><p>这样很不利于区分类型和正常接口，容易造成混淆。为了解决这个问题，TypeScript 引入了两个解决方法。</p><p>第一个方法是在 import 语句输入的类型前面加上<code>type</code>关键字。</p><pre class="hljs"><code><span class="hljs-keyword">import</span> { <span class="hljs-keyword">type</span> A, a } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./a&#x27;</span>;
-</code></pre><p>上面示例中，import 语句输入的类型<code>A</code>前面有<code>type</code>关键字，表示这是一个类型。</p><p>第二个方法是使用 import type 语句，这个语句只能输入类型，不能输入正常接口。</p><pre class="hljs"><code><span class="hljs-comment">// 正确</span>
+</code></pre><p>上面示例中，import 语句输入的类型<code>A</code>前面有<code>type</code>关键字，表示这是一个类型。</p><p>第二个方法是使用 import type 语句，这个语句只用来输入类型，不用来输入正常接口。</p><pre class="hljs"><code><span class="hljs-comment">// 正确</span>
 <span class="hljs-keyword">import</span> <span class="hljs-keyword">type</span> { A } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./a&#x27;</span>;
+<span class="hljs-keyword">let</span> <span class="hljs-attr">b</span>:A = <span class="hljs-string">&#x27;hello&#x27;</span>;
 
 <span class="hljs-comment">// 报错</span>
 <span class="hljs-keyword">import</span> <span class="hljs-keyword">type</span> { a } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./a&#x27;</span>;
-</code></pre><p>上面示例中，import type 输入类型<code>A</code>是正确的，但是输入正常接口<code>a</code>就会报错。</p><p>import type 语句也可以输入默认类型。</p><pre class="hljs"><code><span class="hljs-keyword">import</span> <span class="hljs-keyword">type</span> <span class="hljs-title class_">DefaultType</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;moduleA&#x27;</span>;
+<span class="hljs-keyword">let</span> b = a;
+</code></pre><p>上面示例中，import type 输入类型<code>A</code>是正确的，可以把<code>A</code>当作类型使用。但是，输入正常接口<code>a</code>，并把<code>a</code>当作一个值使用，就会报错。这就是说，看到<code>import type</code>，你就知道它输入的肯定是类型。</p><p>import type 语句也可以输入默认类型。</p><pre class="hljs"><code><span class="hljs-keyword">import</span> <span class="hljs-keyword">type</span> <span class="hljs-title class_">DefaultType</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;moduleA&#x27;</span>;
 </code></pre><p>import type 在一个名称空间下，输入所有类型的写法如下。</p><pre class="hljs"><code><span class="hljs-keyword">import</span> <span class="hljs-keyword">type</span> * <span class="hljs-keyword">as</span> <span class="hljs-title class_">TypeNS</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;moduleA&#x27;</span>;
 </code></pre><p>同样的，export 语句也有两种方法，表示输出的是类型。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> A = <span class="hljs-string">&#x27;a&#x27;</span>;
 <span class="hljs-keyword">type</span> B = <span class="hljs-string">&#x27;b&#x27;</span>;
