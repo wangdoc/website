@@ -6,7 +6,7 @@
 });
 </code></pre><h2 id="mutationobserver-的实例方法">MutationObserver 的实例方法 <a class="markdownIt-Anchor" href="#mutationobserver-的实例方法">#</a></h2><h3 id="observe">observe() <a class="markdownIt-Anchor" href="#observe">#</a></h3><p><code>observe()</code>方法用来启动监听，它接受两个参数。</p><ul><li>第一个参数：所要观察的 DOM 节点</li><li>第二个参数：一个配置对象，指定所要观察的特定变动</li></ul><pre class="hljs"><code><span class="hljs-keyword">var</span> article = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&#x27;article&#x27;</span>);
 
-<span class="hljs-keyword">var</span>  options = {
+<span class="hljs-keyword">var</span> options = {
   <span class="hljs-string">&#x27;childList&#x27;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-string">&#x27;attributes&#x27;</span>:<span class="hljs-literal">true</span>
 } ;
