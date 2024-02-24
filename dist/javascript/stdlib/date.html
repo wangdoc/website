@@ -108,15 +108,15 @@ d.<span class="hljs-title function_">toTimeString</span>() <span class="hljs-com
 </code></pre><p><strong>（7）本地时间</strong></p><p>以下三种方法，可以将 Date 实例转为表示本地时间的字符串。</p><ul><li><code>Date.prototype.toLocaleString()</code>：完整的本地时间。</li><li><code>Date.prototype.toLocaleDateString()</code>：本地日期（不含小时、分和秒）。</li><li><code>Date.prototype.toLocaleTimeString()</code>：本地时间（不含年月日）。</li></ul><p>下面是用法实例。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> d = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>(<span class="hljs-number">2013</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>);
 
 d.<span class="hljs-title function_">toLocaleString</span>()
-<span class="hljs-comment">// 中文版浏览器为&quot;2013年1月1日 上午12:00:00&quot;</span>
+<span class="hljs-comment">// 中文版浏览器为&quot;2013/1/1 00:00:00&quot;</span>
 <span class="hljs-comment">// 英文版浏览器为&quot;1/1/2013 12:00:00 AM&quot;</span>
 
 d.<span class="hljs-title function_">toLocaleDateString</span>()
-<span class="hljs-comment">// 中文版浏览器为&quot;2013年1月1日&quot;</span>
+<span class="hljs-comment">// 中文版浏览器为&quot;2013/1/1&quot;</span>
 <span class="hljs-comment">// 英文版浏览器为&quot;1/1/2013&quot;</span>
 
 d.<span class="hljs-title function_">toLocaleTimeString</span>()
-<span class="hljs-comment">// 中文版浏览器为&quot;上午12:00:00&quot;</span>
+<span class="hljs-comment">// 中文版浏览器为&quot;00:00:00&quot;</span>
 <span class="hljs-comment">// 英文版浏览器为&quot;12:00:00 AM&quot;</span>
 </code></pre><p>这三个方法都有两个可选的参数。</p><pre class="hljs"><code>dateObj.<span class="hljs-title function_">toLocaleString</span>([locales[, options]])
 dateObj.<span class="hljs-title function_">toLocaleDateString</span>([locales[, options]])
@@ -124,13 +124,13 @@ dateObj.<span class="hljs-title function_">toLocaleTimeString</span>([locales[, 
 </code></pre><p>这两个参数中，<code>locales</code>是一个指定所用语言的字符串，<code>options</code>是一个配置对象。下面是<code>locales</code>的例子，分别采用<code>en-US</code>和<code>zh-CN</code>语言设定。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> d = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>(<span class="hljs-number">2013</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>);
 
 d.<span class="hljs-title function_">toLocaleString</span>(<span class="hljs-string">&#x27;en-US&#x27;</span>) <span class="hljs-comment">// &quot;1/1/2013, 12:00:00 AM&quot;</span>
-d.<span class="hljs-title function_">toLocaleString</span>(<span class="hljs-string">&#x27;zh-CN&#x27;</span>) <span class="hljs-comment">// &quot;2013/1/1 上午12:00:00&quot;</span>
+d.<span class="hljs-title function_">toLocaleString</span>(<span class="hljs-string">&#x27;zh-CN&#x27;</span>) <span class="hljs-comment">// &quot;2013/1/1 00:00:00&quot;</span>
 
 d.<span class="hljs-title function_">toLocaleDateString</span>(<span class="hljs-string">&#x27;en-US&#x27;</span>) <span class="hljs-comment">// &quot;1/1/2013&quot;</span>
 d.<span class="hljs-title function_">toLocaleDateString</span>(<span class="hljs-string">&#x27;zh-CN&#x27;</span>) <span class="hljs-comment">// &quot;2013/1/1&quot;</span>
 
 d.<span class="hljs-title function_">toLocaleTimeString</span>(<span class="hljs-string">&#x27;en-US&#x27;</span>) <span class="hljs-comment">// &quot;12:00:00 AM&quot;</span>
-d.<span class="hljs-title function_">toLocaleTimeString</span>(<span class="hljs-string">&#x27;zh-CN&#x27;</span>) <span class="hljs-comment">// &quot;上午12:00:00&quot;</span>
+d.<span class="hljs-title function_">toLocaleTimeString</span>(<span class="hljs-string">&#x27;zh-CN&#x27;</span>) <span class="hljs-comment">// &quot;00:00:00&quot;</span>
 </code></pre><p><code>options</code>配置对象有以下属性。</p><ul><li><code>dateStyle</code>：可能的值为<code>full</code>、<code>long</code>、<code>medium</code>、<code>short</code>。</li><li><code>timeStyle</code>：可能的值为<code>full</code>、<code>long</code>、<code>medium</code>、<code>short</code>。</li><li><code>month</code>：可能的值为<code>numeric</code>、<code>2-digit</code>、<code>long</code>、<code>short</code>、<code>narrow</code>。</li><li><code>year</code>：可能的值为<code>numeric</code>、<code>2-digit</code>。</li><li><code>weekday</code>：可能的值为<code>long</code>、<code>short</code>、<code>narrow</code>。</li><li><code>day</code>、<code>hour</code>、<code>minute</code>、<code>second</code>：可能的值为<code>numeric</code>、<code>2-digit</code>。</li><li><code>timeZone</code>：可能的值为 IANA 的时区数据库。</li><li><code>timeZoneName</code>：可能的值为<code>long</code>、<code>short</code>。</li><li><code>hour12</code>：24小时周期还是12小时周期，可能的值为<code>true</code>、<code>false</code>。</li></ul><p>下面是用法实例。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> d = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>(<span class="hljs-number">2013</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>);
 
 d.<span class="hljs-title function_">toLocaleDateString</span>(<span class="hljs-string">&#x27;en-US&#x27;</span>, {
