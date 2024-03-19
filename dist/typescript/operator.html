@@ -263,7 +263,7 @@ keyof (A &amp; B) ≡ keyof A | keyof B
 
 <span class="hljs-comment">// &quot;hello world&quot;</span>
 <span class="hljs-keyword">type</span> <span class="hljs-title class_">Greeting</span> = <span class="hljs-string">`hello <span class="hljs-subst">${World}</span>`</span>;
-</code></pre><p>上面示例中，类型<code>Greeting</code>是一个模板字符串，里面引用了另一个字符串类型<code>world</code>，因此<code>Greeting</code>实际上是字符串<code>hello world</code>。</p><p>注意，模板字符串可以引用的类型一共6种，分别是 string、number、bigint、boolean、null、undefined。引用这6种以外的类型会报错。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">Num</span> = <span class="hljs-number">123</span>;
+</code></pre><p>上面示例中，类型<code>Greeting</code>是一个模板字符串，里面引用了另一个字符串类型<code>world</code>，因此<code>Greeting</code>实际上是字符串<code>hello world</code>。</p><p>注意，模板字符串可以引用的类型一共7种，分别是 string、number、bigint、boolean、null、undefined、Enum。引用这7种以外的类型会报错。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">Num</span> = <span class="hljs-number">123</span>;
 <span class="hljs-keyword">type</span> <span class="hljs-title class_">Obj</span> = { n : <span class="hljs-number">123</span> };
 
 <span class="hljs-keyword">type</span> <span class="hljs-variable constant_">T1</span> = <span class="hljs-string">`<span class="hljs-subst">${Num}</span> received`</span>; <span class="hljs-comment">// 正确</span>
