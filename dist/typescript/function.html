@@ -218,7 +218,7 @@ myFunc = <span class="hljs-keyword">function</span> (<span class="hljs-params">x
   <span class="hljs-comment">// ...</span>
   arr[<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>; <span class="hljs-comment">// 报错</span>
 }
-</code></pre><p>上面示例中，参数<code>arr</code>的类型是<code>readonly number[]</code>，表示为只读参数。如果函数体内部修改这个数组，就会报错。</p><h2 id="void-类型">void 类型 <a class="markdownIt-Anchor" href="#void-类型">#</a></h2><p>void 类型表示函数没有返回值。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">f</span>(<span class="hljs-params"></span>):<span class="hljs-built_in">void</span> {
+</code></pre><p>上面示例中，参数<code>arr</code>的类型是<code>readonly number[]</code>，表示为只读参数。如果函数体内部修改这个数组，就会报错。</p><p>注意，<code>readonly</code>关键字目前只允许用在数组和元组类型的参数前面，如果用在其他类型的参数前面，就会报错。</p><h2 id="void-类型">void 类型 <a class="markdownIt-Anchor" href="#void-类型">#</a></h2><p>void 类型表示函数没有返回值。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">f</span>(<span class="hljs-params"></span>):<span class="hljs-built_in">void</span> {
   <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;hello&#x27;</span>);
 }
 </code></pre><p>上面示例中，函数<code>f</code>没有返回值，类型就要写成<code>void</code>。</p><p>如果返回其他值，就会报错。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">f</span>(<span class="hljs-params"></span>):<span class="hljs-built_in">void</span> {
