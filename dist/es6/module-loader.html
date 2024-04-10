@@ -160,7 +160,7 @@ $ node my-app.js
 {
   <span class="hljs-string">&quot;exports&quot;</span>: <span class="hljs-string">&quot;./main.js&quot;</span>
 }
-</code></pre><p>由于<code>exports</code>字段只有支持 ES6 的 Node.js 才认识，所以可以用来兼容旧版本的 Node.js。</p><pre class="hljs"><code>{
+</code></pre><p>由于<code>exports</code>字段只有支持 ES6 的 Node.js 才认识，所以可以搭配<code>main</code>字段，来兼容旧版本的 Node.js。</p><pre class="hljs"><code>{
   <span class="hljs-string">&quot;main&quot;</span>: <span class="hljs-string">&quot;./main-legacy.cjs&quot;</span>,
   <span class="hljs-string">&quot;exports&quot;</span>: {
     <span class="hljs-string">&quot;.&quot;</span>: <span class="hljs-string">&quot;./main-modern.cjs&quot;</span>
