@@ -18,7 +18,7 @@
   <span class="hljs-attr">body</span>: params
 }).<span class="hljs-title function_">then</span>(...)
 </code></pre><p>上面示例中，fetch 向服务器发送命令时，可以直接使用 URLSearchParams 实例对象作为数据体。</p><p>它还可以接受另一个 URLSearchParams 实例对象作为参数，等于复制了该对象。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> params1 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">URLSearchParams</span>(<span class="hljs-string">&#x27;?a=1&amp;b=2&#x27;</span>);
-<span class="hljs-keyword">const</span> params2 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">URLSearchParams</span>(params);
+<span class="hljs-keyword">const</span> params2 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">URLSearchParams</span>(params1);
 </code></pre><p>上面示例中，<code>params1</code>和<code>params2</code>是两个一模一样的实例对象，但是修改其中一个，不会影响到另一个。</p><p>URLSearchParams会对查询字符串自动编码。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> params = <span class="hljs-keyword">new</span> <span class="hljs-title class_">URLSearchParams</span>({<span class="hljs-string">&#x27;foo&#x27;</span>: <span class="hljs-string">&#x27;你好&#x27;</span>});
 params.<span class="hljs-title function_">toString</span>() <span class="hljs-comment">// &quot;foo=%E4%BD%A0%E5%A5%BD&quot;</span>
 </code></pre><p>上面示例中，<code>foo</code>的值是汉字，URLSearchParams 对其自动进行 URL 编码。</p><p>键名可以没有键值，这时 URLSearchParams 会认为键值等于空字符串。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> params1 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">URLSearchParams</span>(<span class="hljs-string">&quot;foo&amp;bar=baz&quot;</span>);
