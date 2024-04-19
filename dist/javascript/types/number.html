@@ -8,7 +8,7 @@
 (<span class="hljs-number">0.3</span> - <span class="hljs-number">0.2</span>) === (<span class="hljs-number">0.2</span> - <span class="hljs-number">0.1</span>)
 <span class="hljs-comment">// false</span>
 </code></pre><h3 id="数值精度">数值精度 <a class="markdownIt-Anchor" href="#数值精度">#</a></h3><p>根据国际标准 IEEE 754，JavaScript 浮点数的64个二进制位，从最左边开始，是这样组成的。</p><ul><li>第1位：符号位，<code>0</code>表示正数，<code>1</code>表示负数</li><li>第2位到第12位（共11位）：指数部分</li><li>第13位到第64位（共52位）：小数部分（即有效数字）</li></ul><p>符号位决定了一个数的正负，指数部分决定了数值的大小，小数部分决定了数值的精度。</p><p>指数部分一共有11个二进制位，因此大小范围就是0到2047。IEEE 754 规定，如果指数部分的值在0到2047之间（不含两个端点），那么有效数字的第一位默认总是1，不保存在64位浮点数之中。也就是说，有效数字这时总是<code>1.xx...xx</code>的形式，其中<code>xx..xx</code>的部分保存在64位浮点数之中，最长可能为52位。因此，JavaScript 提供的有效数字最长为53个二进制位。</p><pre class="hljs"><code>(-1)^符号位 * 1.xx...xx * 2^指数部分
-</code></pre><p>上面公式是正常情况下（指数部分在0到2047之间），一个数在 JavaScript 内部实际的表示形式。</p><p>精度最多只能到53个二进制位，这意味着，绝对值小于2的53次方的整数，即-2<sup>53</sup>到2<sup>53</sup>，都可以精确表示。</p><pre class="hljs"><code><span class="hljs-title class_">Math</span>.<span class="hljs-title function_">pow</span>(<span class="hljs-number">2</span>, <span class="hljs-number">53</span>)
+</code></pre><p>上面公式是正常情况下（指数部分在0到2047之间），一个数在 JavaScript 内部实际的表示形式。</p><p>精度最多只能到53个二进制位，这意味着，绝对值小于2的53次方的整数，即-2<sup>53</sup> + 1 到 2<sup>53</sup> - 1，都可以精确表示。</p><pre class="hljs"><code><span class="hljs-title class_">Math</span>.<span class="hljs-title function_">pow</span>(<span class="hljs-number">2</span>, <span class="hljs-number">53</span>)
 <span class="hljs-comment">// 9007199254740992</span>
 
 <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">pow</span>(<span class="hljs-number">2</span>, <span class="hljs-number">53</span>) + <span class="hljs-number">1</span>
