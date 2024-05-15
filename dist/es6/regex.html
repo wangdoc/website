@@ -161,6 +161,9 @@ regex.<span class="hljs-title function_">test</span>(<span class="hljs-string">&
 </code></pre><p>下面是其他一些例子。</p><pre class="hljs"><code><span class="hljs-comment">// 匹配所有空格</span>
 \p{<span class="hljs-title class_">White</span>_Space}
 
+<span class="hljs-comment">// 匹配十六进制字符</span>
+\p{<span class="hljs-title class_">Hex</span>_Digit}
+
 <span class="hljs-comment">// 匹配各种文字的所有字母，等同于 Unicode 版的 \w</span>
 [\p{<span class="hljs-title class_">Alphabetic</span>}\p{<span class="hljs-title class_">Mark</span>}\p{<span class="hljs-title class_">Decimal</span>_Number}\p{<span class="hljs-title class_">Connector</span>_Punctuation}\p{<span class="hljs-title class_">Join</span>_Control}]
 
@@ -168,7 +171,7 @@ regex.<span class="hljs-title function_">test</span>(<span class="hljs-string">&
 [^\p{<span class="hljs-title class_">Alphabetic</span>}\p{<span class="hljs-title class_">Mark</span>}\p{<span class="hljs-title class_">Decimal</span>_Number}\p{<span class="hljs-title class_">Connector</span>_Punctuation}\p{<span class="hljs-title class_">Join</span>_Control}]
 
 <span class="hljs-comment">// 匹配 Emoji</span>
-/\p{<span class="hljs-title class_">Emoji</span>_Modifier_Base}\p{<span class="hljs-title class_">Emoji</span>_Modifier}?|\p{<span class="hljs-title class_">Emoji</span>_Presentation}|\p{<span class="hljs-title class_">Emoji</span>}\uFE0F/gu
+/\p{<span class="hljs-title class_">Extended</span>_Pictographic}/u
 
 <span class="hljs-comment">// 匹配所有的箭头字符</span>
 <span class="hljs-keyword">const</span> regexArrows = <span class="hljs-regexp">/^\p{Block=Arrows}+$/u</span>;
