@@ -507,33 +507,7 @@ counter.#myCount <span class="hljs-comment">// 报错</span>
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(#foo <span class="hljs-keyword">in</span> <span class="hljs-variable language_">this</span>); <span class="hljs-comment">// 报错</span>
   }
 }
-</code></pre><p>上面示例中，私有属性<code>#foo</code>没有声明，就直接用于<code>in</code>运算符的判断，导致报错。</p><p>子类从父类继承的私有属性，也可以使用<code>in</code>运算符来判断。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> {
-  #foo = <span class="hljs-number">0</span>;
-  <span class="hljs-keyword">static</span> <span class="hljs-title function_">test</span>(<span class="hljs-params">obj</span>) {
-    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(#foo <span class="hljs-keyword">in</span> obj);
-  }
-}
-
-<span class="hljs-keyword">class</span> <span class="hljs-title class_">SubA</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">A</span> {};
-
-A.<span class="hljs-title function_">test</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">SubA</span>()) <span class="hljs-comment">// true</span>
-</code></pre><p>上面示例中，<code>SubA</code>从父类继承了私有属性<code>#foo</code>，<code>in</code>运算符也有效。</p><p>注意，<code>in</code>运算符对于<code>Object.create()</code>、<code>Object.setPrototypeOf</code>形成的继承，是无效的，因为这种继承不会传递私有属性。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> {
-  #foo = <span class="hljs-number">0</span>;
-  <span class="hljs-keyword">static</span> <span class="hljs-title function_">test</span>(<span class="hljs-params">obj</span>) {
-    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(#foo <span class="hljs-keyword">in</span> obj);
-  }
-}
-<span class="hljs-keyword">const</span> a = <span class="hljs-keyword">new</span> <span class="hljs-title function_">A</span>();
-
-<span class="hljs-keyword">const</span> o1 = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(a);
-A.<span class="hljs-title function_">test</span>(o1) <span class="hljs-comment">// false</span>
-A.<span class="hljs-title function_">test</span>(o1.<span class="hljs-property">__proto__</span>) <span class="hljs-comment">// true</span>
-
-<span class="hljs-keyword">const</span> o2 = {};
-<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">setPrototypeOf</span>(o2, a);
-A.<span class="hljs-title function_">test</span>(o2) <span class="hljs-comment">// false</span>
-A.<span class="hljs-title function_">test</span>(o2.<span class="hljs-property">__proto__</span>) <span class="hljs-comment">// true</span>
-</code></pre><p>上面示例中，对于修改原型链形成的继承，子类都取不到父类的私有属性，所以<code>in</code>运算符无效。</p><h2 id="静态块">静态块 <a class="markdownIt-Anchor" href="#静态块">#</a></h2><p>静态属性的一个问题是，如果它有初始化逻辑，这个逻辑要么写在类的外部，要么写在<code>constructor()</code>方法里面。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">C</span> {
+</code></pre><p>上面示例中，私有属性<code>#foo</code>没有声明，就直接用于<code>in</code>运算符的判断，导致报错。</p><h2 id="静态块">静态块 <a class="markdownIt-Anchor" href="#静态块">#</a></h2><p>静态属性的一个问题是，如果它有初始化逻辑，这个逻辑要么写在类的外部，要么写在<code>constructor()</code>方法里面。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">C</span> {
   <span class="hljs-keyword">static</span> x = <span class="hljs-number">234</span>;
   <span class="hljs-keyword">static</span> y;
   <span class="hljs-keyword">static</span> z;
