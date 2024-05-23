@@ -12,11 +12,14 @@ x = <span class="hljs-number">1</span>;
 </span>):<span class="hljs-built_in">void</span>;
 
 <span class="hljs-title function_">sayHello</span>(<span class="hljs-string">&#x27;张三&#x27;</span>);
-</code></pre><p>上面示例中，declare 命令给出了<code>sayHello()</code>的类型描述，因此可以直接使用它。</p><p>注意，这种单独的函数类型声明语句，只能用于<code>declare</code>命令后面。一方面，TypeScript 不支持单独的函数类型声明语句；另一方面，declare 关键字后面也不能带有函数的具体实现。</p><pre class="hljs"><code><span class="hljs-comment">// 报错</span>
+</code></pre><p>上面示例中，declare 命令给出了<code>sayHello()</code>的类型描述，表示这个函数是由外部文件定义的，因此这里可以直接使用该函数。</p><p>注意，这种单独的函数类型声明语句，只能用于<code>declare</code>命令后面。一方面，TypeScript 不支持单独的函数类型声明语句；另一方面，declare 关键字后面也不能带有函数的具体实现。</p><pre class="hljs"><code><span class="hljs-comment">// 报错</span>
 <span class="hljs-keyword">function</span> <span class="hljs-title function_">sayHello</span>(<span class="hljs-params">
   name:<span class="hljs-built_in">string</span>
 </span>):<span class="hljs-built_in">void</span>;
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">sayHello</span>(<span class="hljs-params">name</span>) {
+
+<span class="hljs-keyword">let</span> foo = <span class="hljs-string">&#x27;bar&#x27;</span>;
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">sayHello</span>(<span class="hljs-params">name:<span class="hljs-built_in">string</span></span>) {
   <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;你好，&#x27;</span> + name;
 }
 </code></pre><p>上面示例中，单独写函数的类型声明就会报错。</p><h2 id="declare-class">declare class <a class="markdownIt-Anchor" href="#declare-class">#</a></h2><p>declare 给出 class 类型描述的写法如下。</p><pre class="hljs"><code><span class="hljs-keyword">declare</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Animal</span> {
