@@ -14,7 +14,7 @@
   } ? F <span class="hljs-keyword">extends</span> (
     <span class="hljs-attr">value</span>: infer V,
     ...<span class="hljs-attr">args</span>: infer _
-  ) =&gt; <span class="hljs-built_in">any</span> ? <span class="hljs-title class_">Awaited</span>&lt;...&gt; : <span class="hljs-attr">never</span>:
+  ) =&gt; <span class="hljs-built_in">any</span> ? <span class="hljs-title class_">Awaited</span>&lt;V&gt; : <span class="hljs-attr">never</span>:
   T;
 </code></pre><h2 id="constructorparameterstype"><code>ConstructorParameters&lt;Type&gt;</code> <a class="markdownIt-Anchor" href="#constructorparameterstype">#</a></h2><p><code>ConstructorParameters&lt;Type&gt;</code>提取构造方法<code>Type</code>的参数类型，组成一个元组类型返回。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-variable constant_">T1</span> = <span class="hljs-title class_">ConstructorParameters</span>&lt;
   <span class="hljs-keyword">new</span> (<span class="hljs-attr">x</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">y</span>: <span class="hljs-built_in">number</span>) =&gt; <span class="hljs-built_in">object</span>
