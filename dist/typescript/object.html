@@ -246,8 +246,7 @@ arr.<span class="hljs-property">length</span> <span class="hljs-comment">// 报�
   : { <span class="hljs-attr">x</span>: <span class="hljs-built_in">string</span>; <span class="hljs-attr">y</span>: <span class="hljs-built_in">number</span> } = obj;
 </code></pre><p>这一点要特别小心，TypeScript 里面很容易搞糊涂。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">draw</span>(<span class="hljs-params">{
   shape: Shape,
-  xPos: <span class="hljs-built_in">number</span> = <span class="hljs-number">100</span>,
-  yPos: <span class="hljs-built_in">number</span> = <span class="hljs-number">100</span>
+  xPos: <span class="hljs-built_in">number</span> = <span class="hljs-number">100</span>
 }</span>) {
   <span class="hljs-keyword">let</span> myShape = shape; <span class="hljs-comment">// 报错</span>
   <span class="hljs-keyword">let</span> x = xPos; <span class="hljs-comment">// 报错</span>
