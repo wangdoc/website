@@ -107,7 +107,7 @@ element.<span class="hljs-property">style</span>.<span class="hljs-property">pos
 <span class="hljs-keyword">function</span> <span class="hljs-title function_">step</span>(<span class="hljs-params">timestamp</span>) {
   <span class="hljs-keyword">if</span> (!start) start = timestamp;
   <span class="hljs-keyword">var</span> progress = timestamp - start;
-  <span class="hljs-comment">// 元素不断向左移，最大不超过200像素</span>
+  <span class="hljs-comment">// 元素不断向右移，最大不超过200像素</span>
   element.<span class="hljs-property">style</span>.<span class="hljs-property">left</span> = <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">min</span>(progress / <span class="hljs-number">10</span>, <span class="hljs-number">200</span>) + <span class="hljs-string">&#x27;px&#x27;</span>;
   <span class="hljs-comment">// 如果距离第一次执行不超过 2000 毫秒，</span>
   <span class="hljs-comment">// 就继续执行动画</span>
