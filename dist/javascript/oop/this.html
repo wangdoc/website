@@ -349,19 +349,19 @@ a.<span class="hljs-title function_">forEach</span>(print)
 <span class="hljs-title class_">Array</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">slice</span>.<span class="hljs-title function_">apply</span>({<span class="hljs-number">0</span>: <span class="hljs-number">1</span>}) <span class="hljs-comment">// []</span>
 <span class="hljs-title class_">Array</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">slice</span>.<span class="hljs-title function_">apply</span>({<span class="hljs-number">0</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">length</span>: <span class="hljs-number">2</span>}) <span class="hljs-comment">// [1, undefined]</span>
 <span class="hljs-title class_">Array</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">slice</span>.<span class="hljs-title function_">apply</span>({<span class="hljs-attr">length</span>: <span class="hljs-number">1</span>}) <span class="hljs-comment">// [undefined]</span>
-</code></pre><p>上面代码的<code>apply</code>方法的参数都是对象，但是返回结果都是数组，这就起到了将对象转成数组的目的。从上面代码可以看到，这个方法起作用的前提是，被处理的对象必须有<code>length</code>属性，以及相对应的数字键。</p><p><strong>（4）绑定回调函数的对象</strong></p><p>前面的按钮点击事件的例子，可以改写如下。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> o = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>();
+</code></pre><p>上面代码的<code>apply</code>方法的参数都是对象，但是返回结果都是数组，这就起到了将对象转成数组的目的。从上面代码可以看到，这个方法起作用的前提是，被处理的对象必须有<code>length</code>属性，以及相对应的数字键。</p><p><strong>（4）绑定回调函数的对象</strong></p><p>前面的按钮点击事件的例子，可以改写如下。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> obj = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>();
 
-o.<span class="hljs-property">f</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
-  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span> === o);
+<span class="hljs-keyword">var</span> func = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span> === obj);
 }
 
-<span class="hljs-keyword">var</span> f = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>){
-  o.<span class="hljs-property">f</span>.<span class="hljs-title function_">apply</span>(o);
-  <span class="hljs-comment">// 或者 o.f.call(o);</span>
+<span class="hljs-keyword">var</span> handler = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>){
+  func.<span class="hljs-title function_">apply</span>(obj);
+  <span class="hljs-comment">// 或者 f.call(obj);</span>
 };
 
 <span class="hljs-comment">// jQuery 的写法</span>
-$(<span class="hljs-string">&#x27;#button&#x27;</span>).<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;click&#x27;</span>, f);
+$(<span class="hljs-string">&#x27;#button&#x27;</span>).<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;click&#x27;</span>, handler);
 </code></pre><p>上面代码中，点击按钮以后，控制台将会显示<code>true</code>。由于<code>apply()</code>方法（或者<code>call()</code>方法）不仅绑定函数执行时所在的对象，还会立即执行函数，因此不得不把绑定语句写在一个函数体内。更简洁的写法是采用下面介绍的<code>bind()</code>方法。</p><h3 id="functionprototypebind">Function.prototype.bind() <a class="markdownIt-Anchor" href="#functionprototypebind">#</a></h3><p><code>bind()</code>方法用于将函数体内的<code>this</code>绑定到某个对象，然后返回一个新函数。</p><pre class="hljs"><code><span class="hljs-keyword">var</span> d = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>();
 d.<span class="hljs-title function_">getTime</span>() <span class="hljs-comment">// 1481869925657</span>
 
