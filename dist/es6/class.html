@@ -333,7 +333,7 @@ foo.<span class="hljs-title function_">classMethod</span>()
 </code></pre><p>上面代码中，老写法的静态属性定义在类的外部。整个类生成以后，再生成静态属性。这样让人很容易忽略这个静态属性，也不符合相关代码应该放在一起的代码组织原则。另外，新写法是显式声明（declarative），而不是赋值处理，语义更好。</p><h2 id="私有方法和私有属性">私有方法和私有属性 <a class="markdownIt-Anchor" href="#私有方法和私有属性">#</a></h2><h3 id="早期解决方案">早期解决方案 <a class="markdownIt-Anchor" href="#早期解决方案">#</a></h3><p>私有方法和私有属性，是只能在类的内部访问的方法和属性，外部不能访问。这是常见需求，有利于代码的封装，但早期的 ES6 不提供，只能通过变通方法模拟实现。</p><p>一种做法是在命名上加以区别。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">Widget</span> {
 
   <span class="hljs-comment">// 公有方法</span>
-  foo (baz) {
+  <span class="hljs-title function_">foo</span> (baz) {
     <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">_bar</span>(baz);
   }
 
@@ -345,7 +345,7 @@ foo.<span class="hljs-title function_">classMethod</span>()
   <span class="hljs-comment">// ...</span>
 }
 </code></pre><p>上面代码中，<code>_bar()</code>方法前面的下划线，表示这是一个只限于内部使用的私有方法。但是，这种命名是不保险的，在类的外部，还是可以调用到这个方法。</p><p>另一种方法就是索性将私有方法移出类，因为类内部的所有方法都是对外可见的。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">Widget</span> {
-  foo (baz) {
+  <span class="hljs-title function_">foo</span> (baz) {
     bar.<span class="hljs-title function_">call</span>(<span class="hljs-variable language_">this</span>, baz);
   }
 
@@ -609,10 +609,10 @@ counter.#myCount <span class="hljs-comment">// 报错</span>
 
 <span class="hljs-keyword">const</span> myObj = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Obj</span>();
 myObj.<span class="hljs-title function_">getThis</span>() === myObj <span class="hljs-comment">// true</span>
-</code></pre><p>箭头函数内部的<code>this</code>总是指向定义时所在的对象。上面代码中，箭头函数位于构造函数内部，它的定义生效的时候，是在构造函数执行的时候。这时，箭头函数所在的运行环境，肯定是实例对象，所以<code>this</code>会总是指向实例对象。</p><p>还有一种解决方法是使用<code>Proxy</code>，获取方法的时候，自动绑定<code>this</code>。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">selfish</span> (target) {
+</code></pre><p>箭头函数内部的<code>this</code>总是指向定义时所在的对象。上面代码中，箭头函数位于构造函数内部，它的定义生效的时候，是在构造函数执行的时候。这时，箭头函数所在的运行环境，肯定是实例对象，所以<code>this</code>会总是指向实例对象。</p><p>还有一种解决方法是使用<code>Proxy</code>，获取方法的时候，自动绑定<code>this</code>。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">selfish</span> (<span class="hljs-params">target</span>) {
   <span class="hljs-keyword">const</span> cache = <span class="hljs-keyword">new</span> <span class="hljs-title class_">WeakMap</span>();
   <span class="hljs-keyword">const</span> handler = {
-    get (target, key) {
+    <span class="hljs-title function_">get</span> (target, key) {
       <span class="hljs-keyword">const</span> value = <span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">get</span>(target, key);
       <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> value !== <span class="hljs-string">&#x27;function&#x27;</span>) {
         <span class="hljs-keyword">return</span> value;

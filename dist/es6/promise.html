@@ -525,7 +525,7 @@ p.<span class="hljs-title function_">then</span>(<span class="hljs-literal">null
     image.<span class="hljs-property">src</span> = path;
   });
 };
-</code></pre><h3 id="generator-函数与-promise-的结合">Generator 函数与 Promise 的结合 <a class="markdownIt-Anchor" href="#generator-函数与-promise-的结合">#</a></h3><p>使用 Generator 函数管理流程，遇到异步操作的时候，通常返回一个<code>Promise</code>对象。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">getFoo</span> () {
+</code></pre><h3 id="generator-函数与-promise-的结合">Generator 函数与 Promise 的结合 <a class="markdownIt-Anchor" href="#generator-函数与-promise-的结合">#</a></h3><p>使用 Generator 函数管理流程，遇到异步操作的时候，通常返回一个<code>Promise</code>对象。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">getFoo</span> (<span class="hljs-params"></span>) {
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">resolve, reject</span>){
     <span class="hljs-title function_">resolve</span>(<span class="hljs-string">&#x27;foo&#x27;</span>);
   });
@@ -540,7 +540,7 @@ p.<span class="hljs-title function_">then</span>(<span class="hljs-literal">null
   }
 };
 
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">run</span> (generator) {
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">run</span> (<span class="hljs-params">generator</span>) {
   <span class="hljs-keyword">const</span> it = <span class="hljs-title function_">generator</span>();
 
   <span class="hljs-keyword">function</span> <span class="hljs-title function_">go</span>(<span class="hljs-params">result</span>) {
@@ -564,13 +564,13 @@ p.<span class="hljs-title function_">then</span>(<span class="hljs-literal">null
 <span class="hljs-comment">// next</span>
 <span class="hljs-comment">// now</span>
 </code></pre><p>上面代码中，函数<code>f</code>是同步的，但是用 Promise 包装了以后，就变成异步执行了。</p><p>那么有没有一种方法，让同步函数同步执行，异步函数异步执行，并且让它们具有统一的 API 呢？回答是可以的，并且还有两种写法。第一种写法是用<code>async</code>函数来写。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> <span class="hljs-title function_">f</span> = (<span class="hljs-params"></span>) =&gt; <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;now&#x27;</span>);
-(<span class="hljs-keyword">async</span> () =&gt; <span class="hljs-title function_">f</span>())();
+(<span class="hljs-title function_">async</span> () =&gt; <span class="hljs-title function_">f</span>())();
 <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;next&#x27;</span>);
 <span class="hljs-comment">// now</span>
 <span class="hljs-comment">// next</span>
-</code></pre><p>上面代码中，第二行是一个立即执行的匿名函数，会立即执行里面的<code>async</code>函数，因此如果<code>f</code>是同步的，就会得到同步的结果；如果<code>f</code>是异步的，就可以用<code>then</code>指定下一步，就像下面的写法。</p><pre class="hljs"><code>(<span class="hljs-keyword">async</span> () =&gt; <span class="hljs-title function_">f</span>())()
+</code></pre><p>上面代码中，第二行是一个立即执行的匿名函数，会立即执行里面的<code>async</code>函数，因此如果<code>f</code>是同步的，就会得到同步的结果；如果<code>f</code>是异步的，就可以用<code>then</code>指定下一步，就像下面的写法。</p><pre class="hljs"><code>(<span class="hljs-title function_">async</span> () =&gt; <span class="hljs-title function_">f</span>())()
 .<span class="hljs-title function_">then</span>(...)
-</code></pre><p>需要注意的是，<code>async () =&gt; f()</code>会吃掉<code>f()</code>抛出的错误。所以，如果想捕获错误，要使用<code>promise.catch</code>方法。</p><pre class="hljs"><code>(<span class="hljs-keyword">async</span> () =&gt; <span class="hljs-title function_">f</span>())()
+</code></pre><p>需要注意的是，<code>async () =&gt; f()</code>会吃掉<code>f()</code>抛出的错误。所以，如果想捕获错误，要使用<code>promise.catch</code>方法。</p><pre class="hljs"><code>(<span class="hljs-title function_">async</span> () =&gt; <span class="hljs-title function_">f</span>())()
 .<span class="hljs-title function_">then</span>(...)
 .<span class="hljs-keyword">catch</span>(...)
 </code></pre><p>第二种写法是使用<code>new Promise()</code>。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> <span class="hljs-title function_">f</span> = (<span class="hljs-params"></span>) =&gt; <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;now&#x27;</span>);

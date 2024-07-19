@@ -117,15 +117,15 @@ a = <span class="hljs-number">10</span>;
 </code></pre><p>上面代码中，<code>g</code>定义了两个<code>...</code>占位符，真正执行的时候，它们的值是一样的。</p><h2 id="管道运算符">管道运算符 <a class="markdownIt-Anchor" href="#管道运算符">#</a></h2><p>Unix 操作系统有一个管道机制（pipeline），可以把前一个操作的值传给后一个操作。这个机制非常有用，使得简单的操作可以组合成为复杂的操作。许多语言都有管道的实现，现在有一个<a href="https://github.com/tc39/proposal-pipeline-operator" target="_blank" rel="noopener">提案</a>，让 JavaScript 也拥有管道机制。</p><p>JavaScript 的管道是一个运算符，写作<code>|&gt;</code>。它的左边是一个表达式，右边是一个函数。管道运算符把左边表达式的值，传入右边的函数进行求值。</p><pre class="hljs"><code>x |&gt; f
 <span class="hljs-comment">// 等同于</span>
 <span class="hljs-title function_">f</span>(x)
-</code></pre><p>管道运算符最大的好处，就是可以把嵌套的函数，写成从左到右的链式表达式。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">doubleSay</span> (str) {
+</code></pre><p>管道运算符最大的好处，就是可以把嵌套的函数，写成从左到右的链式表达式。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">doubleSay</span> (<span class="hljs-params">str</span>) {
   <span class="hljs-keyword">return</span> str + <span class="hljs-string">&quot;, &quot;</span> + str;
 }
 
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">capitalize</span> (str) {
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">capitalize</span> (<span class="hljs-params">str</span>) {
   <span class="hljs-keyword">return</span> str[<span class="hljs-number">0</span>].<span class="hljs-title function_">toUpperCase</span>() + str.<span class="hljs-title function_">substring</span>(<span class="hljs-number">1</span>);
 }
 
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">exclaim</span> (str) {
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">exclaim</span> (<span class="hljs-params">str</span>) {
   <span class="hljs-keyword">return</span> str + <span class="hljs-string">&#x27;!&#x27;</span>;
 }
 </code></pre><p>上面是三个简单的函数。如果要嵌套执行，传统的写法和管道的写法分别如下。</p><pre class="hljs"><code><span class="hljs-comment">// 传统的写法</span>
@@ -138,8 +138,8 @@ a = <span class="hljs-number">10</span>;
   |&gt; capitalize
   |&gt; exclaim
 <span class="hljs-comment">// &quot;Hello, hello!&quot;</span>
-</code></pre><p>管道运算符只能传递一个值，这意味着它右边的函数必须是一个单参数函数。如果是多参数函数，就必须进行柯里化，改成单参数的版本。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">double</span> (x) { <span class="hljs-keyword">return</span> x + x; }
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">add</span> (x, y) { <span class="hljs-keyword">return</span> x + y; }
+</code></pre><p>管道运算符只能传递一个值，这意味着它右边的函数必须是一个单参数函数。如果是多参数函数，就必须进行柯里化，改成单参数的版本。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">double</span> (<span class="hljs-params">x</span>) { <span class="hljs-keyword">return</span> x + x; }
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">add</span> (<span class="hljs-params">x, y</span>) { <span class="hljs-keyword">return</span> x + y; }
 
 <span class="hljs-keyword">let</span> person = { <span class="hljs-attr">score</span>: <span class="hljs-number">25</span> };
 person.<span class="hljs-property">score</span>
@@ -193,14 +193,14 @@ bar.<span class="hljs-title function_">apply</span>(foo, <span class="hljs-varia
 </code></pre><p>上面代码中，<code>Realm API</code>单独提供了一个全局对象<code>new Realm().global</code>。</p><p>Realm API 提供一个<code>Realm()</code>构造函数，用来生成一个 Realm 对象。该对象的<code>global</code>属性指向一个新的顶层对象，这个顶层对象跟原始的顶层对象类似。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> globalOne = <span class="hljs-variable language_">window</span>;
 <span class="hljs-keyword">const</span> globalTwo = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Realm</span>().<span class="hljs-property">global</span>;
 
-globalOne.evaluate(<span class="hljs-string">&#x27;1 + 2&#x27;</span>) <span class="hljs-comment">// 3</span>
-globalTwo.evaluate(<span class="hljs-string">&#x27;1 + 2&#x27;</span>) <span class="hljs-comment">// 3</span>
-</code></pre><p>上面代码中，Realm 生成的顶层对象的<code>evaluate()</code>方法，可以运行代码。</p><p>下面的代码可以证明，Realm 顶层对象与原始顶层对象是两个对象。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> a1 = globalOne.evaluate(<span class="hljs-string">&#x27;[1,2,3]&#x27;</span>);
-<span class="hljs-keyword">let</span> a2 = globalTwo.evaluate(<span class="hljs-string">&#x27;[1,2,3]&#x27;</span>);
+globalOne.<span class="hljs-title function_">evaluate</span>(<span class="hljs-string">&#x27;1 + 2&#x27;</span>) <span class="hljs-comment">// 3</span>
+globalTwo.<span class="hljs-title function_">evaluate</span>(<span class="hljs-string">&#x27;1 + 2&#x27;</span>) <span class="hljs-comment">// 3</span>
+</code></pre><p>上面代码中，Realm 生成的顶层对象的<code>evaluate()</code>方法，可以运行代码。</p><p>下面的代码可以证明，Realm 顶层对象与原始顶层对象是两个对象。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> a1 = globalOne.<span class="hljs-title function_">evaluate</span>(<span class="hljs-string">&#x27;[1,2,3]&#x27;</span>);
+<span class="hljs-keyword">let</span> a2 = globalTwo.<span class="hljs-title function_">evaluate</span>(<span class="hljs-string">&#x27;[1,2,3]&#x27;</span>);
 a1.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> === a2.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>; <span class="hljs-comment">// false</span>
 a1 <span class="hljs-keyword">instanceof</span> globalTwo.<span class="hljs-property">Array</span>; <span class="hljs-comment">// false</span>
 a2 <span class="hljs-keyword">instanceof</span> globalOne.<span class="hljs-property">Array</span>; <span class="hljs-comment">// false</span>
-</code></pre><p>上面代码中，Realm 沙箱里面的数组的原型对象，跟原始环境里面的数组是不一样的。</p><p>Realm 沙箱里面只能运行 ECMAScript 语法提供的 API，不能运行宿主环境提供的 API。</p><pre class="hljs"><code>globalTwo.evaluate(<span class="hljs-string">&#x27;console.log(1)&#x27;</span>)
+</code></pre><p>上面代码中，Realm 沙箱里面的数组的原型对象，跟原始环境里面的数组是不一样的。</p><p>Realm 沙箱里面只能运行 ECMAScript 语法提供的 API，不能运行宿主环境提供的 API。</p><pre class="hljs"><code>globalTwo.<span class="hljs-title function_">evaluate</span>(<span class="hljs-string">&#x27;console.log(1)&#x27;</span>)
 <span class="hljs-comment">// throw an error: console is undefined</span>
 </code></pre><p>上面代码中，Realm 沙箱里面没有<code>console</code>对象，导致报错。因为<code>console</code>不是语法标准，是宿主环境提供的。</p><p>如果要解决这个问题，可以使用下面的代码。</p><pre class="hljs"><code>globalTwo.<span class="hljs-property">console</span> = globalOne.<span class="hljs-property">console</span>;
 </code></pre><p><code>Realm()</code>构造函数可以接受一个参数对象，该参数对象的<code>intrinsics</code>属性可以指定 Realm 沙箱继承原始顶层对象的方法。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> r1 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Realm</span>();

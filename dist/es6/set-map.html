@@ -184,7 +184,7 @@ ws.<span class="hljs-title function_">forEach</span>(<span class="hljs-keyword">
   <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) {
     foos.<span class="hljs-title function_">add</span>(<span class="hljs-variable language_">this</span>)
   }
-  method () {
+  <span class="hljs-title function_">method</span> () {
     <span class="hljs-keyword">if</span> (!foos.<span class="hljs-title function_">has</span>(<span class="hljs-variable language_">this</span>)) {
       <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TypeError</span>(<span class="hljs-string">&#x27;Foo.prototype.method 只能在Foo的实例上调用！&#x27;</span>);
     }

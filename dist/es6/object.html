@@ -51,15 +51,15 @@ baz <span class="hljs-comment">// {foo: &quot;bar&quot;}</span>
 <span class="hljs-comment">// {x:1, y:10}</span>
 </code></pre><p>CommonJS 模块输出一组变量，就非常合适使用简洁写法。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> ms = {};
 
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">getItem</span> (key) {
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">getItem</span> (<span class="hljs-params">key</span>) {
   <span class="hljs-keyword">return</span> key <span class="hljs-keyword">in</span> ms ? ms[key] : <span class="hljs-literal">null</span>;
 }
 
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">setItem</span> (key, value) {
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">setItem</span> (<span class="hljs-params">key, value</span>) {
   ms[key] = value;
 }
 
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">clear</span> () {
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">clear</span> (<span class="hljs-params"></span>) {
   ms = {};
 }
 
@@ -73,11 +73,11 @@ baz <span class="hljs-comment">// {foo: &quot;bar&quot;}</span>
 </code></pre><p>属性的赋值器（setter）和取值器（getter），事实上也是采用这种写法。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> cart = {
   <span class="hljs-attr">_wheels</span>: <span class="hljs-number">4</span>,
 
-  get wheels () {
+  get <span class="hljs-title function_">wheels</span> () {
     <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">_wheels</span>;
   },
 
-  set wheels (value) {
+  set <span class="hljs-title function_">wheels</span> (value) {
     <span class="hljs-keyword">if</span> (value &lt; <span class="hljs-variable language_">this</span>.<span class="hljs-property">_wheels</span>) {
       <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;数值太小了！&#x27;</span>);
     }

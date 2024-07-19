@@ -27,7 +27,7 @@ b **= <span class="hljs-number">3</span>;
   <span class="hljs-comment">// 表单校验失败</span>
   <span class="hljs-keyword">return</span>;
 }
-</code></pre><p>上面代码中，老式浏览器的表单对象可能没有<code>checkValidity()</code>这个方法，这时<code>?.</code>运算符就会返回<code>undefined</code>，判断语句就变成了<code>undefined === false</code>，所以就会跳过下面的代码。</p><p>链判断运算符<code>?.</code>有三种写法。</p><ul><li><code>obj?.prop</code> // 对象属性是否存在</li><li><code>obj?.[expr]</code> // 同上</li><li><code>func?.(...args)</code> // 函数或对象方法是否存在</li></ul><p>下面是<code>obj?.[expr]</code>用法的一个例子。</p><pre class="hljs"><code><span class="hljs-built_in">let</span> hex = <span class="hljs-string">&quot;#C0FFEE&quot;</span>.match(/<span class="hljs-comment">#([A-Z]+)/i)?.[1];</span>
+</code></pre><p>上面代码中，老式浏览器的表单对象可能没有<code>checkValidity()</code>这个方法，这时<code>?.</code>运算符就会返回<code>undefined</code>，判断语句就变成了<code>undefined === false</code>，所以就会跳过下面的代码。</p><p>链判断运算符<code>?.</code>有三种写法。</p><ul><li><code>obj?.prop</code> // 对象属性是否存在</li><li><code>obj?.[expr]</code> // 同上</li><li><code>func?.(...args)</code> // 函数或对象方法是否存在</li></ul><p>下面是<code>obj?.[expr]</code>用法的一个例子。</p><pre class="hljs"><code><span class="hljs-built_in">let</span> hex = <span class="hljs-string">&quot;#C0FFEE&quot;</span>.match(/#([A-Z]+)/i)?.[1];
 </code></pre><p>上面例子中，字符串的<code>match()</code>方法，如果没有发现匹配会返回<code>null</code>，如果发现匹配会返回一个数组，<code>?.</code>运算符起到了判断作用。</p><p>下面是<code>?.</code>运算符常见形式，以及不使用该运算符时的等价形式。</p><pre class="hljs"><code>a?.<span class="hljs-property">b</span>
 <span class="hljs-comment">// 等同于</span>
 a == <span class="hljs-literal">null</span> ? <span class="hljs-literal">undefined</span> : a.<span class="hljs-property">b</span>

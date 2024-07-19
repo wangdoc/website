@@ -93,7 +93,7 @@ asyncIterator
 
 <span class="hljs-title function_">runner</span>();
 </code></pre><h2 id="for-awaitof">for await...of <a class="markdownIt-Anchor" href="#for-awaitof">#</a></h2><p>前面介绍过，<code>for...of</code>循环用于遍历同步的 Iterator 接口。新引入的<code>for await...of</code>循环，则是用于遍历异步的 Iterator 接口。</p><pre class="hljs"><code><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">f</span>(<span class="hljs-params"></span>) {
-  <span class="hljs-keyword">for</span> <span class="hljs-keyword">await</span> (<span class="hljs-keyword">const</span> x <span class="hljs-keyword">of</span> <span class="hljs-title function_">createAsyncIterable</span>([<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>])) {
+  <span class="hljs-keyword">for</span> <span class="hljs-title function_">await</span> (<span class="hljs-keyword">const</span> x <span class="hljs-keyword">of</span> <span class="hljs-title function_">createAsyncIterable</span>([<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>])) {
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(x);
   }
 }
@@ -108,7 +108,7 @@ asyncIterator
 }
 </code></pre><p>上面代码中，<code>req</code>是一个 asyncIterable 对象，用来异步读取数据。可以看到，使用<code>for await...of</code>循环以后，代码会非常简洁。</p><p>如果<code>next</code>方法返回的 Promise 对象被<code>reject</code>，<code>for await...of</code>就会报错，要用<code>try...catch</code>捕捉。</p><pre class="hljs"><code><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
   <span class="hljs-keyword">try</span> {
-    <span class="hljs-keyword">for</span> <span class="hljs-keyword">await</span> (<span class="hljs-keyword">const</span> x <span class="hljs-keyword">of</span> <span class="hljs-title function_">createRejectingIterable</span>()) {
+    <span class="hljs-keyword">for</span> <span class="hljs-title function_">await</span> (<span class="hljs-keyword">const</span> x <span class="hljs-keyword">of</span> <span class="hljs-title function_">createRejectingIterable</span>()) {
       <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(x);
     }
   } <span class="hljs-keyword">catch</span> (e) {
@@ -116,7 +116,7 @@ asyncIterator
   }
 }
 </code></pre><p>注意，<code>for await...of</code>循环也可以用于同步遍历器。</p><pre class="hljs"><code>(<span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
-  <span class="hljs-keyword">for</span> <span class="hljs-keyword">await</span> (<span class="hljs-keyword">const</span> x <span class="hljs-keyword">of</span> [<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>]) {
+  <span class="hljs-keyword">for</span> <span class="hljs-title function_">await</span> (<span class="hljs-keyword">const</span> x <span class="hljs-keyword">of</span> [<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>]) {
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(x);
   }
 })();
@@ -143,7 +143,7 @@ asyncIterator
     { <span class="hljs-attr">encoding</span>: <span class="hljs-string">&#x27;utf8&#x27;</span>, <span class="hljs-attr">highWaterMark</span>: <span class="hljs-number">1024</span> }
   );
 
-  <span class="hljs-keyword">for</span> <span class="hljs-keyword">await</span> (<span class="hljs-keyword">const</span> chunk <span class="hljs-keyword">of</span> readStream) {
+  <span class="hljs-keyword">for</span> <span class="hljs-title function_">await</span> (<span class="hljs-keyword">const</span> chunk <span class="hljs-keyword">of</span> readStream) {
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;&gt;&gt;&gt; &#x27;</span>+chunk);
   }
   <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;### DONE ###&#x27;</span>);
@@ -185,12 +185,12 @@ genObj.<span class="hljs-title function_">next</span>().<span class="hljs-title 
   }
 }
 </code></pre><p>上面代码中，异步操作前面使用<code>await</code>关键字标明，即<code>await</code>后面的操作，应该返回 Promise 对象。凡是使用<code>yield</code>关键字的地方，就是<code>next</code>方法停下来的地方，它后面的表达式的值（即<code>await file.readLine()</code>的值），会作为<code>next()</code>返回对象的<code>value</code>属性，这一点是与同步 Generator 函数一致的。</p><p>异步 Generator 函数内部，能够同时使用<code>await</code>和<code>yield</code>命令。可以这样理解，<code>await</code>命令用于将外部操作产生的值输入函数内部，<code>yield</code>命令用于将函数内部的值输出。</p><p>上面代码定义的异步 Generator 函数的用法如下。</p><pre class="hljs"><code>(<span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
-  <span class="hljs-keyword">for</span> <span class="hljs-keyword">await</span> (<span class="hljs-keyword">const</span> line <span class="hljs-keyword">of</span> <span class="hljs-title function_">readLines</span>(filePath)) {
+  <span class="hljs-keyword">for</span> <span class="hljs-title function_">await</span> (<span class="hljs-keyword">const</span> line <span class="hljs-keyword">of</span> <span class="hljs-title function_">readLines</span>(filePath)) {
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(line);
   }
 })()
 </code></pre><p>异步 Generator 函数可以与<code>for await...of</code>循环结合起来使用。</p><pre class="hljs"><code><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span>* <span class="hljs-title function_">prefixLines</span>(<span class="hljs-params">asyncIterable</span>) {
-  <span class="hljs-keyword">for</span> <span class="hljs-keyword">await</span> (<span class="hljs-keyword">const</span> line <span class="hljs-keyword">of</span> asyncIterable) {
+  <span class="hljs-keyword">for</span> <span class="hljs-title function_">await</span> (<span class="hljs-keyword">const</span> line <span class="hljs-keyword">of</span> asyncIterable) {
     <span class="hljs-keyword">yield</span> <span class="hljs-string">&#x27;&gt; &#x27;</span> + line;
   }
 }
@@ -271,7 +271,7 @@ writer.<span class="hljs-title function_">next</span>(<span class="hljs-string">
   <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">yield</span>* <span class="hljs-title function_">gen1</span>();
 }
 </code></pre><p>上面代码中，<code>gen2</code>函数里面的<code>result</code>变量，最后的值是<code>2</code>。</p><p>与同步 Generator 函数一样，<code>for await...of</code>循环会展开<code>yield*</code>。</p><pre class="hljs"><code>(<span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
-  <span class="hljs-keyword">for</span> <span class="hljs-keyword">await</span> (<span class="hljs-keyword">const</span> x <span class="hljs-keyword">of</span> <span class="hljs-title function_">gen2</span>()) {
+  <span class="hljs-keyword">for</span> <span class="hljs-title function_">await</span> (<span class="hljs-keyword">const</span> x <span class="hljs-keyword">of</span> <span class="hljs-title function_">gen2</span>()) {
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(x);
   }
 })();

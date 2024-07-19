@@ -189,7 +189,7 @@ $ node my-app.js
     <span class="hljs-string">&quot;default&quot;</span>: <span class="hljs-string">&quot;./main.js&quot;</span>
   }
 }
-</code></pre><h3 id="commonjs-模块加载-es6-模块">CommonJS 模块加载 ES6 模块 <a class="markdownIt-Anchor" href="#commonjs-模块加载-es6-模块">#</a></h3><p>CommonJS 的<code>require()</code>命令不能加载 ES6 模块，会报错，只能使用<code>import()</code>这个方法加载。</p><pre class="hljs"><code>(<span class="hljs-keyword">async</span> () =&gt; {
+</code></pre><h3 id="commonjs-模块加载-es6-模块">CommonJS 模块加载 ES6 模块 <a class="markdownIt-Anchor" href="#commonjs-模块加载-es6-模块">#</a></h3><p>CommonJS 的<code>require()</code>命令不能加载 ES6 模块，会报错，只能使用<code>import()</code>这个方法加载。</p><pre class="hljs"><code>(<span class="hljs-title function_">async</span> () =&gt; {
   <span class="hljs-keyword">await</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;./my-app.mjs&#x27;</span>);
 })();
 </code></pre><p>上面代码可以在 CommonJS 模块中运行。</p><p><code>require()</code>不支持 ES6 模块的一个原因是，它是同步加载，而 ES6 模块内部可以使用顶层<code>await</code>命令，导致无法被同步加载。</p><h3 id="es6-模块加载-commonjs-模块">ES6 模块加载 CommonJS 模块 <a class="markdownIt-Anchor" href="#es6-模块加载-commonjs-模块">#</a></h3><p>ES6 模块的<code>import</code>命令可以加载 CommonJS 模块，但是只能整体加载，不能只加载单一的输出项。</p><pre class="hljs"><code><span class="hljs-comment">// 正确</span>

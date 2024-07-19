@@ -109,8 +109,8 @@ g.<span class="hljs-title function_">next</span>() <span class="hljs-comment">//
 g.<span class="hljs-title function_">next</span>() <span class="hljs-comment">// { value: 1, done: false }</span>
 g.<span class="hljs-title function_">next</span>(<span class="hljs-literal">true</span>) <span class="hljs-comment">// { value: 0, done: false }</span>
 </code></pre><p>上面代码先定义了一个可以无限运行的 Generator 函数<code>f</code>，如果<code>next</code>方法没有参数，每次运行到<code>yield</code>表达式，变量<code>reset</code>的值总是<code>undefined</code>。当<code>next</code>方法带一个参数<code>true</code>时，变量<code>reset</code>就被重置为这个参数（即<code>true</code>），因此<code>i</code>会等于<code>-1</code>，下一轮循环就会从<code>-1</code>开始递增。</p><p>这个功能有很重要的语法意义。Generator 函数从暂停状态到恢复运行，它的上下文状态（context）是不变的。通过<code>next</code>方法的参数，就有办法在 Generator 函数开始运行之后，继续向函数体内部注入值。也就是说，可以在 Generator 函数运行的不同阶段，从外部向内部注入不同的值，从而调整函数行为。</p><p>再看一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">function</span>* <span class="hljs-title function_">foo</span>(<span class="hljs-params">x</span>) {
-  <span class="hljs-keyword">var</span> y = <span class="hljs-number">2</span> * (<span class="hljs-keyword">yield</span> (x + <span class="hljs-number">1</span>));
-  <span class="hljs-keyword">var</span> z = <span class="hljs-keyword">yield</span> (y / <span class="hljs-number">3</span>);
+  <span class="hljs-keyword">var</span> y = <span class="hljs-number">2</span> * (<span class="hljs-title function_">yield</span> (x + <span class="hljs-number">1</span>));
+  <span class="hljs-keyword">var</span> z = <span class="hljs-title function_">yield</span> (y / <span class="hljs-number">3</span>);
   <span class="hljs-keyword">return</span> (x + y + z);
 }
 
@@ -123,7 +123,7 @@ a.<span class="hljs-title function_">next</span>() <span class="hljs-comment">//
 b.<span class="hljs-title function_">next</span>() <span class="hljs-comment">// { value:6, done:false }</span>
 b.<span class="hljs-title function_">next</span>(<span class="hljs-number">12</span>) <span class="hljs-comment">// { value:8, done:false }</span>
 b.<span class="hljs-title function_">next</span>(<span class="hljs-number">13</span>) <span class="hljs-comment">// { value:42, done:true }</span>
-</code></pre><p>上面代码中，第二次运行<code>next</code>方法的时候不带参数，导致 y 的值等于<code>2 * undefined</code>（即<code>NaN</code>），除以 3 以后还是<code>NaN</code>，因此返回对象的<code>value</code>属性也等于<code>NaN</code>。第三次运行<code>Next</code>方法的时候不带参数，所以<code>z</code>等于<code>undefined</code>，返回对象的<code>value</code>属性等于<code>5 + NaN + undefined</code>，即<code>NaN</code>。</p><p>如果向<code>next</code>方法提供参数，返回结果就完全不一样了。上面代码第一次调用<code>b</code>的<code>next</code>方法时，返回<code>x+1</code>的值<code>6</code>；第二次调用<code>next</code>方法，将上一次<code>yield</code>表达式的值设为<code>12</code>，因此<code>y</code>等于<code>24</code>，返回<code>y / 3</code>的值<code>8</code>；第三次调用<code>next</code>方法，将上一次<code>yield</code>表达式的值设为<code>13</code>，因此<code>z</code>等于<code>13</code>，这时<code>x</code>等于<code>5</code>，<code>y</code>等于<code>24</code>，所以<code>return</code>语句的值等于<code>42</code>。</p><p>注意，由于<code>next</code>方法的参数表示上一个<code>yield</code>表达式的返回值，所以在第一次使用<code>next</code>方法时，传递参数是无效的。V8 引擎直接忽略第一次使用<code>next</code>方法时的参数，只有从第二次使用<code>next</code>方法开始，参数才是有效的。从语义上讲，第一个<code>next</code>方法用来启动遍历器对象，所以不用带有参数。</p><p>再看一个通过<code>next</code>方法的参数，向 Generator 函数内部输入值的例子。</p><pre class="hljs"><code><span class="hljs-keyword">function</span>* <span class="hljs-title function_">dataConsumer</span>(<span class="hljs-params"></span>) {
+</code></pre><p>上面代码中，第二次运行<code>next</code>方法的时候不带参数，导致 y 的值等于<code>2 * undefined</code>（即<code>NaN</code>），除以 3 以后还是<code>NaN</code>，因此返回对象的<code>value</code>属性也等于<code>NaN</code>。第三次运行<code>next</code>方法的时候不带参数，所以<code>z</code>等于<code>undefined</code>，返回对象的<code>value</code>属性等于<code>5 + NaN + undefined</code>，即<code>NaN</code>。</p><p>如果向<code>next</code>方法提供参数，返回结果就完全不一样了。上面代码第一次调用<code>b</code>的<code>next</code>方法时，返回<code>x+1</code>的值<code>6</code>；第二次调用<code>next</code>方法，将上一次<code>yield</code>表达式的值设为<code>12</code>，因此<code>y</code>等于<code>24</code>，返回<code>y / 3</code>的值<code>8</code>；第三次调用<code>next</code>方法，将上一次<code>yield</code>表达式的值设为<code>13</code>，因此<code>z</code>等于<code>13</code>，这时<code>x</code>等于<code>5</code>，<code>y</code>等于<code>24</code>，所以<code>return</code>语句的值等于<code>42</code>。</p><p>注意，由于<code>next</code>方法的参数表示上一个<code>yield</code>表达式的返回值，所以在第一次使用<code>next</code>方法时，传递参数是无效的。V8 引擎直接忽略第一次使用<code>next</code>方法时的参数，只有从第二次使用<code>next</code>方法开始，参数才是有效的。从语义上讲，第一个<code>next</code>方法用来启动遍历器对象，所以不用带有参数。</p><p>再看一个通过<code>next</code>方法的参数，向 Generator 函数内部输入值的例子。</p><pre class="hljs"><code><span class="hljs-keyword">function</span>* <span class="hljs-title function_">dataConsumer</span>(<span class="hljs-params"></span>) {
   <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Started&#x27;</span>);
   <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`1. <span class="hljs-subst">${<span class="hljs-keyword">yield</span>}</span>`</span>);
   <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`2. <span class="hljs-subst">${<span class="hljs-keyword">yield</span>}</span>`</span>);
@@ -209,7 +209,7 @@ jane[<span class="hljs-title class_">Symbol</span>.<span class="hljs-property">i
 }
 <span class="hljs-comment">// first: Jane</span>
 <span class="hljs-comment">// last: Doe</span>
-</code></pre><p>除了<code>for...of</code>循环以外，扩展运算符（<code>...</code>）、解构赋值和<code>Array.from</code>方法内部调用的，都是遍历器接口。这意味着，它们都可以将 Generator 函数返回的 Iterator 对象，作为参数。</p><pre class="hljs"><code><span class="hljs-keyword">function</span>* numbers () {
+</code></pre><p>除了<code>for...of</code>循环以外，扩展运算符（<code>...</code>）、解构赋值和<code>Array.from</code>方法内部调用的，都是遍历器接口。这意味着，它们都可以将 Generator 函数返回的 Iterator 对象，作为参数。</p><pre class="hljs"><code><span class="hljs-keyword">function</span>* <span class="hljs-title function_">numbers</span> () {
   <span class="hljs-keyword">yield</span> <span class="hljs-number">1</span>
   <span class="hljs-keyword">yield</span> <span class="hljs-number">2</span>
   <span class="hljs-keyword">return</span> <span class="hljs-number">3</span>
@@ -427,7 +427,7 @@ g.<span class="hljs-title function_">next</span>()        <span class="hljs-comm
 
 g.<span class="hljs-title function_">next</span>() <span class="hljs-comment">// { value: 1, done: false }</span>
 g.<span class="hljs-keyword">return</span>() <span class="hljs-comment">// { value: undefined, done: true }</span>
-</code></pre><p>如果 Generator 函数内部有<code>try...finally</code>代码块，且正在执行<code>try</code>代码块，那么<code>return()</code>方法会导致立刻进入<code>finally</code>代码块，执行完以后，整个函数才会结束。</p><pre class="hljs"><code><span class="hljs-keyword">function</span>* numbers () {
+</code></pre><p>如果 Generator 函数内部有<code>try...finally</code>代码块，且正在执行<code>try</code>代码块，那么<code>return()</code>方法会导致立刻进入<code>finally</code>代码块，执行完以后，整个函数才会结束。</p><pre class="hljs"><code><span class="hljs-keyword">function</span>* <span class="hljs-title function_">numbers</span> () {
   <span class="hljs-keyword">yield</span> <span class="hljs-number">1</span>;
   <span class="hljs-keyword">try</span> {
     <span class="hljs-keyword">yield</span> <span class="hljs-number">2</span>;

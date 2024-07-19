@@ -6,7 +6,7 @@
   @<span class="hljs-title function_">throttle</span>(<span class="hljs-number">500</span>)
   <span class="hljs-title function_">expensiveMethod</span>(<span class="hljs-params"></span>) {}
 }
-</code></pre><p>上面代码一共使用了四个装饰器，一个用在类本身（@frozen），另外三个用在类方法（@configurable()、@enumerable()、@throttle()）。它们不仅增加了代码的可读性，清晰地表达了意图，而且提供一种方便的手段，增加或修改类的功能。</p><h2 id="装饰器-api新语法">装饰器 API（新语法） <a class="markdownIt-Anchor" href="#装饰器-api新语法">#</a></h2><p>装饰器是一个函数，API 的类型描述如下（TypeScript 写法）。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">Decorator</span> = <span class="hljs-function">(<span class="hljs-params">value: Input, context: {
+</code></pre><p>上面代码一共使用了四个装饰器，一个用在类本身（@frozen），另外三个用在类方法（@configurable()、@enumerable()、@throttle()）。它们不仅增加了代码的可读性，清晰地表达了意图，而且提供一种方便的手段，增加或修改类的功能。</p><h2 id="装饰器-api新语法">装饰器 API（新语法） <a class="markdownIt-Anchor" href="#装饰器-api新语法">#</a></h2><p>装饰器是一个函数，API 的类型描述如下（TypeScript 写法）。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">Decorator</span> = <span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">value</span>: <span class="hljs-title class_">Input</span>, <span class="hljs-attr">context</span>: {
   kind: <span class="hljs-built_in">string</span>;
   name: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">symbol</span>;
   access: {
@@ -93,7 +93,7 @@ obj.<span class="hljs-title function_">foo</span>() <span class="hljs-comment">/
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">connect</span>(mapStateToProps, mapDispatchToProps)(<span class="hljs-title class_">MyReactComponent</span>);
 </code></pre><p>有了装饰器，就可以改写上面的代码。</p><pre class="hljs"><code>@<span class="hljs-title function_">connect</span>(mapStateToProps, mapDispatchToProps)
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MyReactComponent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">React.Component</span> {}
-</code></pre><p>相对来说，后一种写法看上去更容易理解。</p><h2 id="类装饰器新语法">类装饰器（新语法） <a class="markdownIt-Anchor" href="#类装饰器新语法">#</a></h2><p>类装饰器的类型描述如下。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">ClassDecorator</span> = <span class="hljs-function">(<span class="hljs-params">value: <span class="hljs-built_in">Function</span>, context: {
+</code></pre><p>相对来说，后一种写法看上去更容易理解。</p><h2 id="类装饰器新语法">类装饰器（新语法） <a class="markdownIt-Anchor" href="#类装饰器新语法">#</a></h2><p>类装饰器的类型描述如下。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">ClassDecorator</span> = <span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">value</span>: <span class="hljs-title class_">Function</span>, <span class="hljs-attr">context</span>: {
   kind: <span class="hljs-string">&quot;class&quot;</span>;
   name: <span class="hljs-built_in">string</span> | <span class="hljs-literal">undefined</span>;
   addInitializer(initializer: () =&gt; <span class="hljs-built_in">void</span>): <span class="hljs-built_in">void</span>;
@@ -133,7 +133,7 @@ C = <span class="hljs-title function_">logged</span>(C, {
 
 <span class="hljs-comment">// 相当于</span>
 C.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">toString</span> = <span class="hljs-title function_">trace</span>(C.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">toString</span>);
-</code></pre><p>上面示例中，<code>@trace</code>装饰<code>toString()</code>方法，就相当于修改了该方法。</p><p>方法装饰器使用 TypeScript 描述类型如下。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">ClassMethodDecorator</span> = <span class="hljs-function">(<span class="hljs-params">value: <span class="hljs-built_in">Function</span>, context: {
+</code></pre><p>上面示例中，<code>@trace</code>装饰<code>toString()</code>方法，就相当于修改了该方法。</p><p>方法装饰器使用 TypeScript 描述类型如下。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">ClassMethodDecorator</span> = <span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">value</span>: <span class="hljs-title class_">Function</span>, <span class="hljs-attr">context</span>: {
   kind: <span class="hljs-string">&quot;method&quot;</span>;
   name: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">symbol</span>;
   access: { get(): <span class="hljs-built_in">unknown</span> };
@@ -321,7 +321,7 @@ readOnly = <span class="hljs-built_in">require</span>(<span class="hljs-string">
 }
 
 <span class="hljs-keyword">const</span> wrapped = <span class="hljs-title function_">loggingDecorator</span>(doSomething);
-</code></pre><h2 id="存取器装饰器新语法">存取器装饰器（新语法） <a class="markdownIt-Anchor" href="#存取器装饰器新语法">#</a></h2><p>存取器装饰器使用 TypeScript 描述的类型如下。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">ClassGetterDecorator</span> = <span class="hljs-function">(<span class="hljs-params">value: <span class="hljs-built_in">Function</span>, context: {
+</code></pre><h2 id="存取器装饰器新语法">存取器装饰器（新语法） <a class="markdownIt-Anchor" href="#存取器装饰器新语法">#</a></h2><p>存取器装饰器使用 TypeScript 描述的类型如下。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">ClassGetterDecorator</span> = <span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">value</span>: <span class="hljs-title class_">Function</span>, <span class="hljs-attr">context</span>: {
   kind: <span class="hljs-string">&quot;getter&quot;</span>;
   name: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">symbol</span>;
   access: { get(): <span class="hljs-built_in">unknown</span> };
@@ -330,7 +330,7 @@ readOnly = <span class="hljs-built_in">require</span>(<span class="hljs-string">
   addInitializer(initializer: () =&gt; <span class="hljs-built_in">void</span>): <span class="hljs-built_in">void</span>;
 }</span>) =&gt;</span> <span class="hljs-title class_">Function</span> | <span class="hljs-built_in">void</span>;
 
-<span class="hljs-keyword">type</span> <span class="hljs-title class_">ClassSetterDecorator</span> = <span class="hljs-function">(<span class="hljs-params">value: <span class="hljs-built_in">Function</span>, context: {
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">ClassSetterDecorator</span> = <span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">value</span>: <span class="hljs-title class_">Function</span>, <span class="hljs-attr">context</span>: {
   kind: <span class="hljs-string">&quot;setter&quot;</span>;
   name: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">symbol</span>;
   access: { set(value: <span class="hljs-built_in">unknown</span>): <span class="hljs-built_in">void</span> };
@@ -380,13 +380,13 @@ set = <span class="hljs-title function_">logged</span>(set, {
 }) ?? set;
 
 <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">defineProperty</span>(C.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>, <span class="hljs-string">&quot;x&quot;</span>, { set });
-</code></pre><h2 id="属性装饰器新语法">属性装饰器（新语法） <a class="markdownIt-Anchor" href="#属性装饰器新语法">#</a></h2><p>属性装饰器的类型描述如下。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">ClassFieldDecorator</span> = <span class="hljs-function">(<span class="hljs-params">value: <span class="hljs-literal">undefined</span>, context: {
+</code></pre><h2 id="属性装饰器新语法">属性装饰器（新语法） <a class="markdownIt-Anchor" href="#属性装饰器新语法">#</a></h2><p>属性装饰器的类型描述如下。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">ClassFieldDecorator</span> = <span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">value</span>: <span class="hljs-literal">undefined</span>, <span class="hljs-attr">context</span>: {
   kind: <span class="hljs-string">&quot;field&quot;</span>;
   name: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">symbol</span>;
   access: { get(): <span class="hljs-built_in">unknown</span>, set(value: <span class="hljs-built_in">unknown</span>): <span class="hljs-built_in">void</span> };
   <span class="hljs-keyword">static</span>: <span class="hljs-built_in">boolean</span>;
   <span class="hljs-keyword">private</span>: <span class="hljs-built_in">boolean</span>;
-}</span>) =&gt;</span> <span class="hljs-function">(<span class="hljs-params">initialValue: <span class="hljs-built_in">unknown</span></span>) =&gt;</span> <span class="hljs-built_in">unknown</span> | <span class="hljs-built_in">void</span>;
+}</span>) =&gt;</span> <span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">initialValue</span>: <span class="hljs-built_in">unknown</span></span>) =&gt;</span> <span class="hljs-built_in">unknown</span> | <span class="hljs-built_in">void</span>;
 </code></pre><p>属性装饰器的第一个参数是<code>undefined</code>，即不输入值。用户可以选择让装饰器返回一个初始化函数，当该属性被赋值时，这个初始化函数会自动运行，它会收到属性的初始值，然后返回一个新的初始值。属性装饰器也可以不返回任何值。除了这两种情况，返回其他类型的值都会报错。</p><p>下面是一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">logged</span>(<span class="hljs-params">value, { kind, name }</span>) {
   <span class="hljs-keyword">if</span> (kind === <span class="hljs-string">&quot;field&quot;</span>) {
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> (<span class="hljs-params">initialValue</span>) {
@@ -470,11 +470,11 @@ c.<span class="hljs-property">x</span>;
 c.<span class="hljs-property">x</span> = <span class="hljs-number">123</span>;
 <span class="hljs-comment">// setting x to 123</span>
 </code></pre><p>上面的示例等同于使用<code>@logged</code>装饰器，改写<code>accessor</code>属性的 getter 和 setter 方法。</p><p>用于<code>accessor</code>的属性装饰器的类型描述如下。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">ClassAutoAccessorDecorator</span> = <span class="hljs-function">(<span class="hljs-params">
-  value: {
+  <span class="hljs-attr">value</span>: {
     get: () =&gt; <span class="hljs-built_in">unknown</span>;
     set(value: <span class="hljs-built_in">unknown</span>) =&gt; <span class="hljs-built_in">void</span>;
   },
-  context: {
+  <span class="hljs-attr">context</span>: {
     kind: <span class="hljs-string">&quot;accessor&quot;</span>;
     name: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">symbol</span>;
     access: { get(): <span class="hljs-built_in">unknown</span>, set(value: <span class="hljs-built_in">unknown</span>): <span class="hljs-built_in">void</span> };
@@ -484,8 +484,8 @@ c.<span class="hljs-property">x</span> = <span class="hljs-number">123</span>;
   }
 </span>) =&gt;</span> {
   get?: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">unknown</span>;
-  set?: <span class="hljs-function">(<span class="hljs-params">value: <span class="hljs-built_in">unknown</span></span>) =&gt;</span> <span class="hljs-built_in">void</span>;
-  initialize?: <span class="hljs-function">(<span class="hljs-params">initialValue: <span class="hljs-built_in">unknown</span></span>) =&gt;</span> <span class="hljs-built_in">unknown</span>;
+  set?: <span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">value</span>: <span class="hljs-built_in">unknown</span></span>) =&gt;</span> <span class="hljs-built_in">void</span>;
+  initialize?: <span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">initialValue</span>: <span class="hljs-built_in">unknown</span></span>) =&gt;</span> <span class="hljs-built_in">unknown</span>;
 } | <span class="hljs-built_in">void</span>;
 </code></pre><p><code>accessor</code>命令的第一个参数接收到的是一个对象，包含了<code>accessor</code>命令定义的属性的存取器 get 和 set。属性装饰器可以返回一个新对象，其中包含了新的存取器，用来取代原来的，即相当于拦截了原来的存取器。此外，返回的对象还可以包括一个<code>initialize</code>函数，用来改变私有属性的初始值。装饰器也可以不返回值，如果返回的是其他类型的值，或者包含其他属性的对象，就会报错。</p><h2 id="addinitializer-方法新语法">addInitializer() 方法（新语法） <a class="markdownIt-Anchor" href="#addinitializer-方法新语法">#</a></h2><p>除了属性装饰器，其他装饰器的上下文对象还包括一个<code>addInitializer()</code>方法，用来完成初始化操作。</p><p>它的运行时间如下。</p><ul><li>类装饰器：在类被完全定义之后。</li><li>方法装饰器：在类构造期间运行，在属性初始化之前。</li><li>静态方法装饰器：在类定义期间运行，早于静态属性定义，但晚于类方法的定义。</li></ul><p>下面是一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">customElement</span>(<span class="hljs-params">name</span>) {
   <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">value, { addInitializer }</span>) =&gt;</span> {

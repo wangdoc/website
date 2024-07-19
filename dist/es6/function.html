@@ -572,7 +572,7 @@ fix = λf.(λx.<span class="hljs-title function_">f</span>(λv.<span class="hljs
 }
 
 <span class="hljs-title function_">factorial</span>(<span class="hljs-number">5</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// 120</span>
-</code></pre><p>还有一个比较著名的例子，就是计算 Fibonacci 数列，也能充分说明尾递归优化的重要性。</p><p>非尾递归的 Fibonacci 数列实现如下。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">Fibonacci</span> (n) {
+</code></pre><p>还有一个比较著名的例子，就是计算 Fibonacci 数列，也能充分说明尾递归优化的重要性。</p><p>非尾递归的 Fibonacci 数列实现如下。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">Fibonacci</span> (<span class="hljs-params">n</span>) {
   <span class="hljs-keyword">if</span> ( n &lt;= <span class="hljs-number">1</span> ) {<span class="hljs-keyword">return</span> <span class="hljs-number">1</span>};
 
   <span class="hljs-keyword">return</span> <span class="hljs-title class_">Fibonacci</span>(n - <span class="hljs-number">1</span>) + <span class="hljs-title class_">Fibonacci</span>(n - <span class="hljs-number">2</span>);
@@ -581,7 +581,7 @@ fix = λf.(λx.<span class="hljs-title function_">f</span>(λv.<span class="hljs
 <span class="hljs-title class_">Fibonacci</span>(<span class="hljs-number">10</span>) <span class="hljs-comment">// 89</span>
 <span class="hljs-title class_">Fibonacci</span>(<span class="hljs-number">100</span>) <span class="hljs-comment">// 超时</span>
 <span class="hljs-title class_">Fibonacci</span>(<span class="hljs-number">500</span>) <span class="hljs-comment">// 超时</span>
-</code></pre><p>尾递归优化过的 Fibonacci 数列实现如下。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">Fibonacci2</span> (n , ac1 = <span class="hljs-number">1</span> , ac2 = <span class="hljs-number">1</span>) {
+</code></pre><p>尾递归优化过的 Fibonacci 数列实现如下。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">Fibonacci2</span> (<span class="hljs-params">n , ac1 = <span class="hljs-number">1</span> , ac2 = <span class="hljs-number">1</span></span>) {
   <span class="hljs-keyword">if</span>( n &lt;= <span class="hljs-number">1</span> ) {<span class="hljs-keyword">return</span> ac2};
 
   <span class="hljs-keyword">return</span> <span class="hljs-title class_">Fibonacci2</span> (n - <span class="hljs-number">1</span>, ac2, ac1 + ac2);
@@ -698,11 +698,11 @@ fix = λf.(λx.<span class="hljs-title function_">f</span>(λv.<span class="hljs
   <span class="hljs-string">&#x27;foo&#x27;</span>,
   <span class="hljs-string">&#x27;bar&#x27;</span>,
 );
-</code></pre><p>这样的规定也使得，函数参数与数组和对象的尾逗号规则，保持一致了。</p><h2 id="functionprototypetostring">Function.prototype.toString() <a class="markdownIt-Anchor" href="#functionprototypetostring">#</a></h2><p><a href="https://github.com/tc39/Function-prototype-toString-revision" target="_blank" rel="noopener">ES2019</a> 对函数实例的<code>toString()</code>方法做出了修改。</p><p><code>toString()</code>方法返回函数代码本身，以前会省略注释和空格。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-comment">/* foo comment */</span> foo () {}
+</code></pre><p>这样的规定也使得，函数参数与数组和对象的尾逗号规则，保持一致了。</p><h2 id="functionprototypetostring">Function.prototype.toString() <a class="markdownIt-Anchor" href="#functionprototypetostring">#</a></h2><p><a href="https://github.com/tc39/Function-prototype-toString-revision" target="_blank" rel="noopener">ES2019</a> 对函数实例的<code>toString()</code>方法做出了修改。</p><p><code>toString()</code>方法返回函数代码本身，以前会省略注释和空格。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-comment">/* foo comment */</span> <span class="hljs-title function_">foo</span> () {}
 
 foo.<span class="hljs-title function_">toString</span>()
 <span class="hljs-comment">// function foo() {}</span>
-</code></pre><p>上面代码中，函数<code>foo</code>的原始代码包含注释，函数名<code>foo</code>和圆括号之间有空格，但是<code>toString()</code>方法都把它们省略了。</p><p>修改后的<code>toString()</code>方法，明确要求返回一模一样的原始代码。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-comment">/* foo comment */</span> foo () {}
+</code></pre><p>上面代码中，函数<code>foo</code>的原始代码包含注释，函数名<code>foo</code>和圆括号之间有空格，但是<code>toString()</code>方法都把它们省略了。</p><p>修改后的<code>toString()</code>方法，明确要求返回一模一样的原始代码。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-comment">/* foo comment */</span> <span class="hljs-title function_">foo</span> () {}
 
 foo.<span class="hljs-title function_">toString</span>()
 <span class="hljs-comment">// &quot;function /* foo comment */ foo () {}&quot;</span>

@@ -106,7 +106,7 @@ num.<span class="hljs-title function_">toString</span>() <span class="hljs-comme
 </code></pre><p>上面代码解释了，为什么比较<code>0.1 + 0.2</code>与<code>0.3</code>得到的结果是<code>false</code>。</p><pre class="hljs"><code><span class="hljs-number">0.1</span> + <span class="hljs-number">0.2</span> === <span class="hljs-number">0.3</span> <span class="hljs-comment">// false</span>
 </code></pre><p><code>Number.EPSILON</code>可以用来设置“能够接受的误差范围”。比如，误差范围设为 2 的-50 次方（即<code>Number.EPSILON * Math.pow(2, 2)</code>），即如果两个浮点数的差小于这个值，我们就认为这两个浮点数相等。</p><pre class="hljs"><code><span class="hljs-number">5.551115123125783e-17</span> &lt; <span class="hljs-title class_">Number</span>.<span class="hljs-property">EPSILON</span> * <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">pow</span>(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>)
 <span class="hljs-comment">// true</span>
-</code></pre><p>因此，<code>Number.EPSILON</code>的实质是一个可以接受的最小误差范围。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">withinErrorMargin</span> (left, right) {
+</code></pre><p>因此，<code>Number.EPSILON</code>的实质是一个可以接受的最小误差范围。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">withinErrorMargin</span> (<span class="hljs-params">left, right</span>) {
   <span class="hljs-keyword">return</span> <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">abs</span>(left - right) &lt; <span class="hljs-title class_">Number</span>.<span class="hljs-property">EPSILON</span> * <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">pow</span>(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>);
 }
 
@@ -163,7 +163,7 @@ num.<span class="hljs-title function_">toString</span>() <span class="hljs-comme
 <span class="hljs-comment">// 正确答案应该是 9007199254740003</span>
 </code></pre><p>上面代码中，<code>9007199254740993</code>不是一个安全整数，但是<code>Number.isSafeInteger</code>会返回结果，显示计算结果是安全的。这是因为，这个数超出了精度范围，导致在计算机内部，以<code>9007199254740992</code>的形式储存。</p><pre class="hljs"><code><span class="hljs-number">9007199254740993</span> === <span class="hljs-number">9007199254740992</span>
 <span class="hljs-comment">// true</span>
-</code></pre><p>所以，如果只验证运算结果是否为安全整数，很可能得到错误结果。下面的函数可以同时验证两个运算数和运算结果。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">trusty</span> (left, right, result) {
+</code></pre><p>所以，如果只验证运算结果是否为安全整数，很可能得到错误结果。下面的函数可以同时验证两个运算数和运算结果。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">trusty</span> (<span class="hljs-params">left, right, result</span>) {
   <span class="hljs-keyword">if</span> (
     <span class="hljs-title class_">Number</span>.<span class="hljs-title function_">isSafeInteger</span>(left) &amp;&amp;
     <span class="hljs-title class_">Number</span>.<span class="hljs-title function_">isSafeInteger</span>(right) &amp;&amp;
