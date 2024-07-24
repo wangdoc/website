@@ -176,7 +176,7 @@ regex.<span class="hljs-title function_">test</span>(<span class="hljs-string">&
 <span class="hljs-comment">// 匹配所有的箭头字符</span>
 <span class="hljs-keyword">const</span> regexArrows = <span class="hljs-regexp">/^\p{Block=Arrows}+$/u</span>;
 regexArrows.<span class="hljs-title function_">test</span>(<span class="hljs-string">&#x27;←↑→↓↔↕↖↗↘↙⇏⇐⇑⇒⇓⇔⇕⇖⇗⇘⇙⇧⇩&#x27;</span>) <span class="hljs-comment">// true</span>
-</code></pre><h2 id="v-修饰符unicode-属性类的运算">v 修饰符：Unicode 属性类的运算 <a class="markdownIt-Anchor" href="#v-修饰符unicode-属性类的运算">#</a></h2><p>有时，需要向某个 Unicode 属性类添加或减少字符，即需要对属性类进行运算。现在有一个<a href="https://github.com/tc39/proposal-regexp-v-flag" target="_blank" rel="noopener">提案</a>，增加了 Unicode 属性类的运算功能。</p><p>它提供两种形式的运算，一种是差集运算（A 集合减去 B 集合），另一种是交集运算。</p><pre class="hljs"><code><span class="hljs-comment">// 差集运算（A 减去 B）</span>
+</code></pre><h2 id="v-修饰符unicode-属性类的运算">v 修饰符：Unicode 属性类的运算 <a class="markdownIt-Anchor" href="#v-修饰符unicode-属性类的运算">#</a></h2><p>有时，需要向某个 Unicode 属性类添加或减少字符，即需要对属性类进行运算。<a href="https://github.com/tc39/proposal-regexp-v-flag" target="_blank" rel="noopener">ES2024</a> 增加了 Unicode 属性类的运算功能。</p><p>它提供两种形式的运算，一种是差集运算（A 集合减去 B 集合），另一种是交集运算。</p><pre class="hljs"><code><span class="hljs-comment">// 差集运算（A 减去 B）</span>
 [A--B]
 
 <span class="hljs-comment">// 交集运算（A 与 B 的交集）</span>
@@ -188,7 +188,9 @@ regexArrows.<span class="hljs-title function_">test</span>(<span class="hljs-str
 
 <span class="hljs-comment">// Emoji 字符去除 ASCII 码字符</span>
 [\p{<span class="hljs-title class_">Emoji</span>}--\p{<span class="hljs-variable constant_">ASCII</span>}]
-</code></pre><h2 id="具名组匹配">具名组匹配 <a class="markdownIt-Anchor" href="#具名组匹配">#</a></h2><h3 id="简介">简介 <a class="markdownIt-Anchor" href="#简介">#</a></h3><p>正则表达式使用圆括号进行组匹配。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">RE_DATE</span> = <span class="hljs-regexp">/(\d{4})-(\d{2})-(\d{2})/</span>;
+</code></pre><p>看一个实际的例子，<code>0</code>属于十进制字符类。</p><pre class="hljs"><code>/[\p{<span class="hljs-title class_">Decimal</span>_Number}]/u.<span class="hljs-title function_">test</span>(<span class="hljs-string">&#x27;0&#x27;</span>) <span class="hljs-comment">// true</span>
+</code></pre><p>上面示例中，字符类是 Unicode 专用的，所以必须使用<code>u</code>修饰符。</p><p>如果把<code>0-9</code>从十进制字符类里面去掉，那么<code>0</code>就不属于这个类了。</p><pre class="hljs"><code>/[\p{<span class="hljs-title class_">Decimal</span>_Number}--[<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]]/v.<span class="hljs-title function_">test</span>(<span class="hljs-string">&#x27;0&#x27;</span>) <span class="hljs-comment">// false</span>
+</code></pre><p>上面示例中，<code>v</code>修饰符只能用于 Unicode，所以可以省略<code>u</code>修饰符。</p><h2 id="具名组匹配">具名组匹配 <a class="markdownIt-Anchor" href="#具名组匹配">#</a></h2><h3 id="简介">简介 <a class="markdownIt-Anchor" href="#简介">#</a></h3><p>正则表达式使用圆括号进行组匹配。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">RE_DATE</span> = <span class="hljs-regexp">/(\d{4})-(\d{2})-(\d{2})/</span>;
 </code></pre><p>上面代码中，正则表达式里面有三组圆括号。使用<code>exec</code>方法，就可以将这三组匹配结果提取出来。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">RE_DATE</span> = <span class="hljs-regexp">/(\d{4})-(\d{2})-(\d{2})/</span>;
 
 <span class="hljs-keyword">const</span> matchObj = <span class="hljs-variable constant_">RE_DATE</span>.<span class="hljs-title function_">exec</span>(<span class="hljs-string">&#x27;1999-12-31&#x27;</span>);
