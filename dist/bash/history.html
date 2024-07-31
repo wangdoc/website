@@ -30,8 +30,8 @@ hello
 </code></pre><p>上面示例中，<code>!!</code>会返回并执行上一条命令<code>echo hello</code>。</p><p>有时候，我们使用某条命令，系统报错没有权限，这时就可以使用<code>sudo !!</code>。</p><pre class="hljs"><code><span class="hljs-comment"># 报错，没有执行权限</span>
 $ yum update
 
-$ sudo !!
-sudo yum update
+$ <span class="hljs-built_in">sudo</span> !!
+<span class="hljs-built_in">sudo</span> yum update
 </code></pre><p>上面示例中，<code>sudo !!</code>返回<code>sudo yum update</code>，从而就可以正确执行了。</p><h3 id="--搜索词">! + 搜索词 <a class="markdownIt-Anchor" href="#--搜索词">#</a></h3><p><code>感叹号 + 搜索词</code>可以快速执行匹配的命令。</p><pre class="hljs"><code>$ <span class="hljs-built_in">echo</span> Hello World
 Hello World
 
