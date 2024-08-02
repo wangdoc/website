@@ -11,17 +11,17 @@
       <span class="hljs-attr">onfulfilled</span>: infer F,
       ...<span class="hljs-attr">args</span>: infer _
     ): <span class="hljs-built_in">any</span>;
-  } ? F <span class="hljs-keyword">extends</span> (
+  } ? F <span class="hljs-title function_">extends</span> (
     <span class="hljs-attr">value</span>: infer V,
     ...<span class="hljs-attr">args</span>: infer _
   ) =&gt; <span class="hljs-built_in">any</span> ? <span class="hljs-title class_">Awaited</span>&lt;V&gt; : <span class="hljs-attr">never</span>:
   T;
 </code></pre><h2 id="constructorparameterstype"><code>ConstructorParameters&lt;Type&gt;</code> <a class="markdownIt-Anchor" href="#constructorparameterstype">#</a></h2><p><code>ConstructorParameters&lt;Type&gt;</code>提取构造方法<code>Type</code>的参数类型，组成一个元组类型返回。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-variable constant_">T1</span> = <span class="hljs-title class_">ConstructorParameters</span>&lt;
-  <span class="hljs-keyword">new</span> (<span class="hljs-attr">x</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">y</span>: <span class="hljs-built_in">number</span>) =&gt; <span class="hljs-built_in">object</span>
+  <span class="hljs-title function_">new</span> (<span class="hljs-attr">x</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">y</span>: <span class="hljs-built_in">number</span>) =&gt; <span class="hljs-built_in">object</span>
 &gt;; <span class="hljs-comment">// [x: string, y: number]</span>
 
 <span class="hljs-keyword">type</span> <span class="hljs-variable constant_">T2</span> = <span class="hljs-title class_">ConstructorParameters</span>&lt;
-  <span class="hljs-keyword">new</span> (x?: <span class="hljs-built_in">string</span>) =&gt; <span class="hljs-built_in">object</span>
+  <span class="hljs-title function_">new</span> (x?: <span class="hljs-built_in">string</span>) =&gt; <span class="hljs-built_in">object</span>
 &gt;; <span class="hljs-comment">// [x?: string | undefined]</span>
 </code></pre><p>它可以返回一些内置构造方法的参数类型。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-variable constant_">T1</span> = <span class="hljs-title class_">ConstructorParameters</span>&lt;
   <span class="hljs-title class_">ErrorConstructor</span>
@@ -41,8 +41,8 @@
 
 <span class="hljs-keyword">type</span> <span class="hljs-variable constant_">T2</span> = <span class="hljs-title class_">ConstructorParameters</span>&lt;<span class="hljs-built_in">never</span>&gt;; <span class="hljs-comment">// never</span>
 </code></pre><p><code>ConstructorParameters&lt;Type&gt;</code>的实现如下。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">ConstructorParameters</span>&lt;
-  T <span class="hljs-keyword">extends</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">new</span> (...<span class="hljs-attr">args</span>: <span class="hljs-built_in">any</span>) =&gt; <span class="hljs-built_in">any</span>
-&gt; = T <span class="hljs-keyword">extends</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">new</span> (...<span class="hljs-attr">args</span>: infer P) 
+  T <span class="hljs-keyword">extends</span> <span class="hljs-keyword">abstract</span> <span class="hljs-title function_">new</span> (...<span class="hljs-attr">args</span>: <span class="hljs-built_in">any</span>) =&gt; <span class="hljs-built_in">any</span>
+&gt; = T <span class="hljs-keyword">extends</span> <span class="hljs-keyword">abstract</span> <span class="hljs-title function_">new</span> (...<span class="hljs-attr">args</span>: infer P) 
   =&gt; <span class="hljs-built_in">any</span> ? P : <span class="hljs-built_in">never</span>
 </code></pre><h2 id="excludeuniontype-excludedmembers"><code>Exclude&lt;UnionType, ExcludedMembers&gt;</code> <a class="markdownIt-Anchor" href="#excludeuniontype-excludedmembers">#</a></h2><p><code>Exclude&lt;UnionType, ExcludedMembers&gt;</code>用来从联合类型<code>UnionType</code>里面，删除某些类型<code>ExcludedMembers</code>，组成一个新的类型返回。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-variable constant_">T1</span> = <span class="hljs-title class_">Exclude</span>&lt;<span class="hljs-string">&#x27;a&#x27;</span>|<span class="hljs-string">&#x27;b&#x27;</span>|<span class="hljs-string">&#x27;c&#x27;</span>, <span class="hljs-string">&#x27;a&#x27;</span>&gt;; <span class="hljs-comment">// &#x27;b&#x27;|&#x27;c&#x27;</span>
 <span class="hljs-keyword">type</span> <span class="hljs-variable constant_">T2</span> = <span class="hljs-title class_">Exclude</span>&lt;<span class="hljs-string">&#x27;a&#x27;</span>|<span class="hljs-string">&#x27;b&#x27;</span>|<span class="hljs-string">&#x27;c&#x27;</span>, <span class="hljs-string">&#x27;a&#x27;</span>|<span class="hljs-string">&#x27;b&#x27;</span>&gt;; <span class="hljs-comment">// &#x27;c&#x27;</span>
@@ -61,7 +61,7 @@
 </code></pre><p>如果参数类型<code>Union</code>不包含在联合类型<code>UnionType</code>之中，则返回<code>never</code>类型。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> T = <span class="hljs-title class_">Extract</span>&lt;<span class="hljs-built_in">string</span>|<span class="hljs-built_in">number</span>, <span class="hljs-built_in">boolean</span>&gt;; <span class="hljs-comment">// never</span>
 </code></pre><p><code>Extract&lt;UnionType, Union&gt;</code>的实现如下。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">Extract</span>&lt;T, U&gt; = T <span class="hljs-keyword">extends</span> U ? T : <span class="hljs-built_in">never</span>;
 </code></pre><h2 id="instancetypetype"><code>InstanceType&lt;Type&gt;</code> <a class="markdownIt-Anchor" href="#instancetypetype">#</a></h2><p><code>InstanceType&lt;Type&gt;</code>提取构造函数的返回值的类型（即实例类型），参数<code>Type</code>是一个构造函数，等同于构造函数的<code>ReturnType&lt;Type&gt;</code>。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> T = <span class="hljs-title class_">InstanceType</span>&lt;
-  <span class="hljs-keyword">new</span> () =&gt; <span class="hljs-built_in">object</span>
+  <span class="hljs-title function_">new</span> () =&gt; <span class="hljs-built_in">object</span>
 &gt;; <span class="hljs-comment">// object</span>
 </code></pre><p>上面示例中，类型参数是一个构造函数<code>new () =&gt; object</code>，返回值是该构造函数的实例类型（<code>object</code>）。</p><p>下面是一些例子。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> A = <span class="hljs-title class_">InstanceType</span>&lt;<span class="hljs-title class_">ErrorConstructor</span>&gt;; <span class="hljs-comment">// Error</span>
 <span class="hljs-keyword">type</span> B = <span class="hljs-title class_">InstanceType</span>&lt;<span class="hljs-title class_">FunctionConstructor</span>&gt;; <span class="hljs-comment">// Function</span>
@@ -79,8 +79,8 @@
 
 <span class="hljs-keyword">type</span> <span class="hljs-variable constant_">T2</span> = <span class="hljs-title class_">InstanceType</span>&lt;<span class="hljs-built_in">never</span>&gt;; <span class="hljs-comment">// never</span>
 </code></pre><p><code>InstanceType&lt;Type&gt;</code>的实现如下。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">InstanceType</span>&lt;
-  T <span class="hljs-keyword">extends</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">new</span> (...<span class="hljs-attr">args</span>:<span class="hljs-built_in">any</span>) =&gt; <span class="hljs-built_in">any</span>
-&gt; = T <span class="hljs-keyword">extends</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">new</span> (...<span class="hljs-attr">args</span>: <span class="hljs-built_in">any</span>) =&gt; infer R ? R :
+  T <span class="hljs-keyword">extends</span> <span class="hljs-keyword">abstract</span> <span class="hljs-title function_">new</span> (...<span class="hljs-attr">args</span>:<span class="hljs-built_in">any</span>) =&gt; <span class="hljs-built_in">any</span>
+&gt; = T <span class="hljs-keyword">extends</span> <span class="hljs-keyword">abstract</span> <span class="hljs-title function_">new</span> (...<span class="hljs-attr">args</span>: <span class="hljs-built_in">any</span>) =&gt; infer R ? R :
   <span class="hljs-built_in">any</span>;
 </code></pre><h2 id="nonnullabletype"><code>NonNullable&lt;Type&gt;</code> <a class="markdownIt-Anchor" href="#nonnullabletype">#</a></h2><p><code>NonNullable&lt;Type&gt;</code>用来从联合类型<code>Type</code>删除<code>null</code>类型和<code>undefined</code>类型，组成一个新类型返回，也就是返回<code>Type</code>的非空类型版本。</p><pre class="hljs"><code><span class="hljs-comment">// string|number</span>
 <span class="hljs-keyword">type</span> <span class="hljs-variable constant_">T1</span> = <span class="hljs-title class_">NonNullable</span>&lt;<span class="hljs-built_in">string</span>|<span class="hljs-built_in">number</span>|<span class="hljs-literal">undefined</span>&gt;;
@@ -109,27 +109,27 @@
 <span class="hljs-keyword">type</span> T = <span class="hljs-title class_">Omit</span>&lt;A, <span class="hljs-string">&#x27;z&#x27;</span>&gt;; <span class="hljs-comment">// { x: number; y: number }</span>
 </code></pre><p>上面示例中，对象类型<code>A</code>中不存在属性<code>z</code>，所以就原样返回了。</p><p><code>Omit&lt;Type, Keys&gt;</code>的实现如下。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">Omit</span>&lt;T, K <span class="hljs-keyword">extends</span> keyof <span class="hljs-built_in">any</span>&gt; 
   = <span class="hljs-title class_">Pick</span>&lt;T, <span class="hljs-title class_">Exclude</span>&lt;keyof T, K&gt;&gt;;
-</code></pre><h2 id="omitthisparametertype"><code>OmitThisParameter&lt;Type&gt;</code> <a class="markdownIt-Anchor" href="#omitthisparametertype">#</a></h2><p><code>OmitThisParameter&lt;Type&gt;</code>从函数类型中移除 this 参数。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">toHex</span>(<span class="hljs-params"><span class="hljs-variable language_">this</span>: <span class="hljs-built_in">Number</span></span>) {
+</code></pre><h2 id="omitthisparametertype"><code>OmitThisParameter&lt;Type&gt;</code> <a class="markdownIt-Anchor" href="#omitthisparametertype">#</a></h2><p><code>OmitThisParameter&lt;Type&gt;</code>从函数类型中移除 this 参数。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">toHex</span>(<span class="hljs-params"><span class="hljs-attr">this</span>: <span class="hljs-title class_">Number</span></span>) {
   <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">toString</span>(<span class="hljs-number">16</span>);
 }
 
 <span class="hljs-keyword">type</span> T = <span class="hljs-title class_">OmitThisParameter</span>&lt;<span class="hljs-keyword">typeof</span> toHex&gt;; <span class="hljs-comment">// () =&gt; string</span>
 </code></pre><p>上面示例中，<code>OmitThisParameter&lt;T&gt;</code>给出了函数<code>toHex()</code>的类型，并将其中的<code>this</code>参数删除。</p><p>如果函数没有 this 参数，则返回原始函数类型。</p><p><code>OmitThisParameter&lt;Type&gt;</code>的实现如下。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">OmitThisParameter</span>&lt;T&gt; =
   <span class="hljs-built_in">unknown</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">ThisParameterType</span>&lt;T&gt; ? T :
-  T <span class="hljs-keyword">extends</span> (...<span class="hljs-attr">args</span>: infer A) =&gt; infer R ?
-  <span class="hljs-function">(<span class="hljs-params">...args: A</span>) =&gt;</span> R : T;
+  T <span class="hljs-title function_">extends</span> (...<span class="hljs-attr">args</span>: infer A) =&gt; infer R ?
+  <span class="hljs-function">(<span class="hljs-params">...<span class="hljs-attr">args</span>: A</span>) =&gt;</span> R : T;
 </code></pre><h2 id="parameterstype"><code>Parameters&lt;Type&gt;</code> <a class="markdownIt-Anchor" href="#parameterstype">#</a></h2><p><code>Parameters&lt;Type&gt;</code>从函数类型<code>Type</code>里面提取参数类型，组成一个元组返回。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-variable constant_">T1</span> = <span class="hljs-title class_">Parameters</span>&lt;<span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">string</span>&gt;; <span class="hljs-comment">// []</span>
 
-<span class="hljs-keyword">type</span> <span class="hljs-variable constant_">T2</span> = <span class="hljs-title class_">Parameters</span>&lt;<span class="hljs-function">(<span class="hljs-params">s:<span class="hljs-built_in">string</span></span>) =&gt;</span> <span class="hljs-built_in">void</span>&gt;; <span class="hljs-comment">// [s:string]</span>
+<span class="hljs-keyword">type</span> <span class="hljs-variable constant_">T2</span> = <span class="hljs-title class_">Parameters</span>&lt;<span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">s</span>:<span class="hljs-built_in">string</span></span>) =&gt;</span> <span class="hljs-built_in">void</span>&gt;; <span class="hljs-comment">// [s:string]</span>
 
-<span class="hljs-keyword">type</span> <span class="hljs-variable constant_">T3</span> = <span class="hljs-title class_">Parameters</span>&lt;&lt;T&gt;<span class="hljs-function">(<span class="hljs-params">arg: T</span>) =&gt;</span> T&gt;;    <span class="hljs-comment">// [arg: unknown]</span>
+<span class="hljs-keyword">type</span> <span class="hljs-variable constant_">T3</span> = <span class="hljs-title class_">Parameters</span>&lt;&lt;T&gt;<span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">arg</span>: T</span>) =&gt;</span> T&gt;;    <span class="hljs-comment">// [arg: unknown]</span>
 
 <span class="hljs-keyword">type</span> <span class="hljs-variable constant_">T4</span> = <span class="hljs-title class_">Parameters</span>&lt;
-  <span class="hljs-function">(<span class="hljs-params">x:{ a: <span class="hljs-built_in">number</span>; b: <span class="hljs-built_in">string</span> }</span>) =&gt;</span> <span class="hljs-built_in">void</span>
+  <span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">x</span>:{ a: <span class="hljs-built_in">number</span>; b: <span class="hljs-built_in">string</span> }</span>) =&gt;</span> <span class="hljs-built_in">void</span>
 &gt;; <span class="hljs-comment">// [x: { a: number, b: string }]</span>
 
 <span class="hljs-keyword">type</span> <span class="hljs-variable constant_">T5</span> = <span class="hljs-title class_">Parameters</span>&lt;
-  <span class="hljs-function">(<span class="hljs-params">a:<span class="hljs-built_in">number</span>, b:<span class="hljs-built_in">number</span></span>) =&gt;</span> <span class="hljs-built_in">number</span>
+  <span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">a</span>:<span class="hljs-built_in">number</span>, <span class="hljs-attr">b</span>:<span class="hljs-built_in">number</span></span>) =&gt;</span> <span class="hljs-built_in">number</span>
 &gt;; <span class="hljs-comment">// [a:number, b:number]</span>
 </code></pre><p>上面示例中，<code>Parameters&lt;Type&gt;</code>的返回值会包括函数的参数名，这一点需要注意。</p><p>如果参数类型<code>Type</code>不是带有参数的函数形式，会报错。</p><pre class="hljs"><code><span class="hljs-comment">// 报错</span>
 <span class="hljs-keyword">type</span> <span class="hljs-variable constant_">T1</span> = <span class="hljs-title class_">Parameters</span>&lt;<span class="hljs-built_in">string</span>&gt;;
@@ -150,16 +150,16 @@
 }
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">getGift</span>(<span class="hljs-params">
-  name: SecretName,
-  gift: <span class="hljs-built_in">string</span>
+  <span class="hljs-attr">name</span>: <span class="hljs-title class_">SecretName</span>,
+  <span class="hljs-attr">gift</span>: <span class="hljs-built_in">string</span>
 </span>): <span class="hljs-title class_">SecretSanta</span> {
  <span class="hljs-comment">// ...</span>
 }
 </code></pre><p>上面示例中，模块只输出了函数<code>getGift()</code>，没有输出参数<code>SecretName</code>和返回值<code>SecretSanta</code>。这时就可以通过<code>Parameters&lt;T&gt;</code>和<code>ReturnType&lt;T&gt;</code>拿到这两个接口类型。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">ParaT</span> = <span class="hljs-title class_">Parameters</span>&lt;<span class="hljs-keyword">typeof</span> getGift&gt;[<span class="hljs-number">0</span>]; <span class="hljs-comment">// SecretName</span>
 
 <span class="hljs-keyword">type</span> <span class="hljs-title class_">ReturnT</span> = <span class="hljs-title class_">ReturnType</span>&lt;<span class="hljs-keyword">typeof</span> getGift&gt;; <span class="hljs-comment">// SecretSanta</span>
-</code></pre><p><code>Parameters&lt;Type&gt;</code>的实现如下。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">Parameters</span>&lt;T <span class="hljs-keyword">extends</span> (...<span class="hljs-attr">args</span>: <span class="hljs-built_in">any</span>) =&gt; <span class="hljs-built_in">any</span>&gt; = 
-  T <span class="hljs-keyword">extends</span> (...<span class="hljs-attr">args</span>: infer P)
+</code></pre><p><code>Parameters&lt;Type&gt;</code>的实现如下。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">Parameters</span>&lt;T <span class="hljs-title function_">extends</span> (...<span class="hljs-attr">args</span>: <span class="hljs-built_in">any</span>) =&gt; <span class="hljs-built_in">any</span>&gt; = 
+  T <span class="hljs-title function_">extends</span> (...<span class="hljs-attr">args</span>: infer P)
   =&gt; <span class="hljs-built_in">any</span> ? P : <span class="hljs-built_in">never</span>
 </code></pre><h2 id="partialtype"><code>Partial&lt;Type&gt;</code> <a class="markdownIt-Anchor" href="#partialtype">#</a></h2><p><code>Partial&lt;Type&gt;</code>返回一个新类型，将参数类型<code>Type</code>的所有属性变为可选属性。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> A {
   <span class="hljs-attr">x</span>: <span class="hljs-built_in">number</span>;
@@ -252,7 +252,7 @@ values.<span class="hljs-title function_">splice</span>(<span class="hljs-number
   <span class="hljs-attr">a</span>: <span class="hljs-built_in">string</span>; <span class="hljs-attr">b</span>: <span class="hljs-built_in">number</span>
 }&gt;; <span class="hljs-comment">// { a: string; b: number }</span>
 
-<span class="hljs-keyword">type</span> <span class="hljs-variable constant_">T3</span> = <span class="hljs-title class_">ReturnType</span>&lt;<span class="hljs-function">(<span class="hljs-params">s:<span class="hljs-built_in">string</span></span>) =&gt;</span> <span class="hljs-built_in">void</span>&gt;; <span class="hljs-comment">// void</span>
+<span class="hljs-keyword">type</span> <span class="hljs-variable constant_">T3</span> = <span class="hljs-title class_">ReturnType</span>&lt;<span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">s</span>:<span class="hljs-built_in">string</span></span>) =&gt;</span> <span class="hljs-built_in">void</span>&gt;; <span class="hljs-comment">// void</span>
 
 <span class="hljs-keyword">type</span> <span class="hljs-variable constant_">T4</span> = <span class="hljs-title class_">ReturnType</span>&lt;<span class="hljs-function">() =&gt;</span> <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">any</span>[]&gt;; <span class="hljs-comment">// () =&gt; any[]</span>
 
@@ -271,21 +271,21 @@ values.<span class="hljs-title function_">splice</span>(<span class="hljs-number
 
 <span class="hljs-keyword">type</span> <span class="hljs-variable constant_">T2</span> = <span class="hljs-title class_">ReturnType</span>&lt;<span class="hljs-built_in">never</span>&gt;; <span class="hljs-comment">// never</span>
 </code></pre><p><code>ReturnType&lt;Type&gt;</code>的实现如下。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">ReturnType</span>&lt;
-  T <span class="hljs-keyword">extends</span> (...<span class="hljs-attr">args</span>: <span class="hljs-built_in">any</span>) =&gt; <span class="hljs-built_in">any</span>
+  T <span class="hljs-title function_">extends</span> (...<span class="hljs-attr">args</span>: <span class="hljs-built_in">any</span>) =&gt; <span class="hljs-built_in">any</span>
 &gt; =
-  T <span class="hljs-keyword">extends</span> (...<span class="hljs-attr">args</span>: <span class="hljs-built_in">any</span>) =&gt; infer R ? R : <span class="hljs-built_in">any</span>;
-</code></pre><h2 id="thisparametertypetype"><code>ThisParameterType&lt;Type&gt;</code> <a class="markdownIt-Anchor" href="#thisparametertypetype">#</a></h2><p><code>ThisParameterType&lt;Type&gt;</code>提取函数类型中<code>this</code>参数的类型。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">toHex</span>(<span class="hljs-params"><span class="hljs-variable language_">this</span>:<span class="hljs-built_in">number</span></span>) {
+  T <span class="hljs-title function_">extends</span> (...<span class="hljs-attr">args</span>: <span class="hljs-built_in">any</span>) =&gt; infer R ? R : <span class="hljs-built_in">any</span>;
+</code></pre><h2 id="thisparametertypetype"><code>ThisParameterType&lt;Type&gt;</code> <a class="markdownIt-Anchor" href="#thisparametertypetype">#</a></h2><p><code>ThisParameterType&lt;Type&gt;</code>提取函数类型中<code>this</code>参数的类型。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">toHex</span>(<span class="hljs-params"><span class="hljs-attr">this</span>:<span class="hljs-built_in">number</span></span>) {
   <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">toString</span>(<span class="hljs-number">16</span>);
 }
 
 <span class="hljs-keyword">type</span> T = <span class="hljs-title class_">ThisParameterType</span>&lt;<span class="hljs-keyword">typeof</span> toHex&gt;; <span class="hljs-comment">// number</span>
 </code></pre><p>如果函数没有<code>this</code>参数，则返回<code>unknown</code>。</p><p><code>ThisParameterType&lt;Type&gt;</code>的实现如下。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">ThisParameterType</span>&lt;T&gt; =
-  T <span class="hljs-keyword">extends</span> (
+  T <span class="hljs-title function_">extends</span> (
     <span class="hljs-attr">this</span>: infer U,
     ...<span class="hljs-attr">args</span>: <span class="hljs-built_in">never</span>
   ) =&gt; <span class="hljs-built_in">any</span> ? U : <span class="hljs-built_in">unknown</span>;
 </code></pre><h2 id="thistypetype"><code>ThisType&lt;Type&gt;</code> <a class="markdownIt-Anchor" href="#thistypetype">#</a></h2><p><code>ThisType&lt;Type&gt;</code>不返回类型，只用来跟其他类型组成交叉类型，用来提示 TypeScript 其他类型里面的<code>this</code>的类型。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title class_">HelperThisValue</span> {
-  <span class="hljs-attr">logError</span>: <span class="hljs-function">(<span class="hljs-params">error:<span class="hljs-built_in">string</span></span>) =&gt;</span> <span class="hljs-built_in">void</span>;
+  <span class="hljs-attr">logError</span>: <span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">error</span>:<span class="hljs-built_in">string</span></span>) =&gt;</span> <span class="hljs-built_in">void</span>;
 }
 
 <span class="hljs-keyword">let</span> <span class="hljs-attr">helperFunctions</span>:

@@ -8,22 +8,22 @@ x = <span class="hljs-number">1</span>;
 </code></pre><p>上面示例中，declare 告诉编译器，变量<code>document</code>的类型是外部定义的（具体定义在 TypeScript 内置文件<code>lib.d.ts</code>）。</p><p>如果 TypeScript 没有找到<code>document</code>的外部定义，这里就会假定它的类型是<code>any</code>。</p><p>注意，declare 关键字只用来给出类型描述，是纯的类型代码，不允许设置变量的初始值，即不能涉及值。</p><pre class="hljs"><code><span class="hljs-comment">// 报错</span>
 <span class="hljs-keyword">declare</span> <span class="hljs-keyword">let</span> <span class="hljs-attr">x</span>:<span class="hljs-built_in">number</span> = <span class="hljs-number">1</span>;
 </code></pre><p>上面示例中，declare 设置了变量的初始值，结果就报错了。</p><h2 id="declare-function">declare function <a class="markdownIt-Anchor" href="#declare-function">#</a></h2><p>declare 关键字可以给出外部函数的类型描述。</p><p>下面是一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">declare</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">sayHello</span>(<span class="hljs-params">
-  name:<span class="hljs-built_in">string</span>
+  <span class="hljs-attr">name</span>:<span class="hljs-built_in">string</span>
 </span>):<span class="hljs-built_in">void</span>;
 
 <span class="hljs-title function_">sayHello</span>(<span class="hljs-string">&#x27;张三&#x27;</span>);
 </code></pre><p>上面示例中，declare 命令给出了<code>sayHello()</code>的类型描述，表示这个函数是由外部文件定义的，因此这里可以直接使用该函数。</p><p>注意，这种单独的函数类型声明语句，只能用于<code>declare</code>命令后面。一方面，TypeScript 不支持单独的函数类型声明语句；另一方面，declare 关键字后面也不能带有函数的具体实现。</p><pre class="hljs"><code><span class="hljs-comment">// 报错</span>
 <span class="hljs-keyword">function</span> <span class="hljs-title function_">sayHello</span>(<span class="hljs-params">
-  name:<span class="hljs-built_in">string</span>
+  <span class="hljs-attr">name</span>:<span class="hljs-built_in">string</span>
 </span>):<span class="hljs-built_in">void</span>;
 
 <span class="hljs-keyword">let</span> foo = <span class="hljs-string">&#x27;bar&#x27;</span>;
 
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">sayHello</span>(<span class="hljs-params">name:<span class="hljs-built_in">string</span></span>) {
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">sayHello</span>(<span class="hljs-params"><span class="hljs-attr">name</span>:<span class="hljs-built_in">string</span></span>) {
   <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;你好，&#x27;</span> + name;
 }
 </code></pre><p>上面示例中，单独写函数的类型声明就会报错。</p><h2 id="declare-class">declare class <a class="markdownIt-Anchor" href="#declare-class">#</a></h2><p>declare 给出 class 类型描述的写法如下。</p><pre class="hljs"><code><span class="hljs-keyword">declare</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Animal</span> {
-  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">name:<span class="hljs-built_in">string</span></span>);
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-attr">name</span>:<span class="hljs-built_in">string</span></span>);
   <span class="hljs-title function_">eat</span>():<span class="hljs-built_in">void</span>;
   <span class="hljs-title function_">sleep</span>():<span class="hljs-built_in">void</span>;
 }
@@ -37,21 +37,21 @@ x = <span class="hljs-number">1</span>;
   <span class="hljs-keyword">private</span> <span class="hljs-attr">b</span>:<span class="hljs-built_in">number</span>;
 
   <span class="hljs-comment">// 构造函数</span>
-  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">arg:<span class="hljs-built_in">number</span></span>);
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-attr">arg</span>:<span class="hljs-built_in">number</span></span>);
 
   <span class="hljs-comment">// 方法</span>
   <span class="hljs-title function_">m</span>(<span class="hljs-attr">x</span>:<span class="hljs-built_in">number</span>, <span class="hljs-attr">y</span>:<span class="hljs-built_in">number</span>):<span class="hljs-built_in">number</span>;
 
   <span class="hljs-comment">// 存取器</span>
   <span class="hljs-keyword">get</span> <span class="hljs-title function_">c</span>():<span class="hljs-built_in">number</span>;
-  <span class="hljs-keyword">set</span> <span class="hljs-title function_">c</span>(<span class="hljs-params">value:<span class="hljs-built_in">number</span></span>);
+  <span class="hljs-keyword">set</span> <span class="hljs-title function_">c</span>(<span class="hljs-params"><span class="hljs-attr">value</span>:<span class="hljs-built_in">number</span></span>);
 
   <span class="hljs-comment">// 索引签名</span>
   [<span class="hljs-attr">index</span>:<span class="hljs-built_in">string</span>]:<span class="hljs-built_in">any</span>;
 }
 </code></pre><p>同样的，declare 后面不能给出 Class 的具体实现或初始值。</p><h2 id="declare-moduledeclare-namespace">declare module，declare namespace <a class="markdownIt-Anchor" href="#declare-moduledeclare-namespace">#</a></h2><p>如果想把变量、函数、类组织在一起，可以将 declare 与 module 或 namespace 一起使用。</p><pre class="hljs"><code><span class="hljs-keyword">declare</span> <span class="hljs-keyword">namespace</span> <span class="hljs-title class_">AnimalLib</span> {
   <span class="hljs-keyword">class</span> <span class="hljs-title class_">Animal</span> {
-    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">name:<span class="hljs-built_in">string</span></span>);
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-attr">name</span>:<span class="hljs-built_in">string</span></span>);
     <span class="hljs-title function_">eat</span>():<span class="hljs-built_in">void</span>;
     <span class="hljs-title function_">sleep</span>():<span class="hljs-built_in">void</span>;
   }
@@ -62,7 +62,7 @@ x = <span class="hljs-number">1</span>;
 <span class="hljs-comment">// 或者</span>
 <span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-title class_">AnimalLib</span> {
   <span class="hljs-keyword">class</span> <span class="hljs-title class_">Animal</span> {
-    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">name:<span class="hljs-built_in">string</span></span>);
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-attr">name</span>:<span class="hljs-built_in">string</span></span>);
     <span class="hljs-title function_">eat</span>(): <span class="hljs-built_in">void</span>;
     <span class="hljs-title function_">sleep</span>(): <span class="hljs-built_in">void</span>;
   }
@@ -74,14 +74,14 @@ x = <span class="hljs-number">1</span>;
 }
 
 <span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-string">&#x27;io&#x27;</span> {
-  <span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">readFile</span>(<span class="hljs-params">filename:<span class="hljs-built_in">string</span></span>):<span class="hljs-built_in">string</span>;
+  <span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">readFile</span>(<span class="hljs-params"><span class="hljs-attr">filename</span>:<span class="hljs-built_in">string</span></span>):<span class="hljs-built_in">string</span>;
 }
 </code></pre><p>上面示例中，namespace 和 module 里面使用了 export 关键字。</p><p>下面的例子是当前脚本使用了<code>myLib</code>这个外部库，它有方法<code>makeGreeting()</code>和属性<code>numberOfGreetings</code>。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> result = myLib.<span class="hljs-title function_">makeGreeting</span>(<span class="hljs-string">&#x27;你好&#x27;</span>);
 <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;欢迎词：&#x27;</span> + result);
 
 <span class="hljs-keyword">let</span> count = myLib.<span class="hljs-property">numberOfGreetings</span>;
-</code></pre><p><code>myLib</code>的类型描述就可以这样写。</p><pre class="hljs"><code><span class="hljs-keyword">declare</span> <span class="hljs-keyword">namespace</span> myLib {
-  <span class="hljs-keyword">function</span> <span class="hljs-title function_">makeGreeting</span>(<span class="hljs-params">s:<span class="hljs-built_in">string</span></span>): <span class="hljs-built_in">string</span>;
+</code></pre><p><code>myLib</code>的类型描述就可以这样写。</p><pre class="hljs"><code><span class="hljs-keyword">declare</span> <span class="hljs-keyword">namespace</span> <span class="hljs-title class_">myLib</span> {
+  <span class="hljs-keyword">function</span> <span class="hljs-title function_">makeGreeting</span>(<span class="hljs-params"><span class="hljs-attr">s</span>:<span class="hljs-built_in">string</span></span>): <span class="hljs-built_in">string</span>;
   <span class="hljs-keyword">let</span> <span class="hljs-attr">numberOfGreetings</span>: <span class="hljs-built_in">number</span>;
 }
 </code></pre><p>declare 关键字的另一个用途，是为外部模块添加属性和方法时，给出新增部分的类型描述。</p><pre class="hljs"><code><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Foo</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">Bar</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;moduleA&#x27;</span>;
@@ -118,7 +118,7 @@ x = <span class="hljs-number">1</span>;
     <span class="hljs-attr">priority</span>: <span class="hljs-built_in">number</span>;
   }
 
-  <span class="hljs-keyword">function</span> <span class="hljs-title function_">initialize</span>(<span class="hljs-params">options: PluginOptions</span>): <span class="hljs-built_in">void</span>;
+  <span class="hljs-keyword">function</span> <span class="hljs-title function_">initialize</span>(<span class="hljs-params"><span class="hljs-attr">options</span>: <span class="hljs-title class_">PluginOptions</span></span>): <span class="hljs-built_in">void</span>;
   <span class="hljs-keyword">export</span> = initialize;
 }
 </code></pre><p>上面示例中，模块名<code>my-plugin-*</code>表示适配所有以<code>my-plugin-</code>开头的模块名（比如<code>my-plugin-logger</code>）。</p><h2 id="declare-global">declare global <a class="markdownIt-Anchor" href="#declare-global">#</a></h2><p>如果要为 JavaScript 引擎的原生对象添加属性和方法，可以使用<code>declare global {}</code>语法。</p><pre class="hljs"><code><span class="hljs-keyword">export</span> {};
@@ -169,15 +169,15 @@ x = <span class="hljs-number">1</span>;
   }
 
   <span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">parse</span>(<span class="hljs-params">
-    urlStr: <span class="hljs-built_in">string</span>,
+    <span class="hljs-attr">urlStr</span>: <span class="hljs-built_in">string</span>,
     parseQueryString?,
     slashesDenoteHost?
   </span>): <span class="hljs-title class_">Url</span>;
 }
 
 <span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-string">&quot;path&quot;</span> {
-  <span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">normalize</span>(<span class="hljs-params">p: <span class="hljs-built_in">string</span></span>): <span class="hljs-built_in">string</span>;
-  <span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">join</span>(<span class="hljs-params">...paths: <span class="hljs-built_in">any</span>[]</span>): <span class="hljs-built_in">string</span>;
+  <span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">normalize</span>(<span class="hljs-params"><span class="hljs-attr">p</span>: <span class="hljs-built_in">string</span></span>): <span class="hljs-built_in">string</span>;
+  <span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">join</span>(<span class="hljs-params">...<span class="hljs-attr">paths</span>: <span class="hljs-built_in">any</span>[]</span>): <span class="hljs-built_in">string</span>;
   <span class="hljs-keyword">export</span> <span class="hljs-keyword">var</span> <span class="hljs-attr">sep</span>: <span class="hljs-built_in">string</span>;
 }
 </code></pre><p>上面示例中，<code>url</code>和<code>path</code>都是单独的模块脚本，但是它们的类型都定义在<code>node.d.ts</code>这个文件里面。</p><p>使用时，自己的脚本使用三斜杠命令，加载这个类型声明文件。</p><pre class="hljs"><code><span class="hljs-comment">/// &lt;reference path=&quot;node.d.ts&quot;/&gt;</span>

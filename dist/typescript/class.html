@@ -43,12 +43,12 @@ a.<span class="hljs-property">id</span> = <span class="hljs-string">&#x27;bar&#x
   <span class="hljs-attr">x</span>:<span class="hljs-built_in">number</span>;
   <span class="hljs-attr">y</span>:<span class="hljs-built_in">number</span>;
 
-  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">x:<span class="hljs-built_in">number</span>, y:<span class="hljs-built_in">number</span></span>) {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-attr">x</span>:<span class="hljs-built_in">number</span>, <span class="hljs-attr">y</span>:<span class="hljs-built_in">number</span></span>) {
     <span class="hljs-variable language_">this</span>.<span class="hljs-property">x</span> = x;
     <span class="hljs-variable language_">this</span>.<span class="hljs-property">y</span> = y;
   }
 
-  <span class="hljs-title function_">add</span>(<span class="hljs-params">point:Point</span>) {
+  <span class="hljs-title function_">add</span>(<span class="hljs-params"><span class="hljs-attr">point</span>:<span class="hljs-title class_">Point</span></span>) {
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Point</span>(
       <span class="hljs-variable language_">this</span>.<span class="hljs-property">x</span> + point.<span class="hljs-property">x</span>,
       <span class="hljs-variable language_">this</span>.<span class="hljs-property">y</span> + point.<span class="hljs-property">y</span>
@@ -65,9 +65,9 @@ a.<span class="hljs-property">id</span> = <span class="hljs-string">&#x27;bar&#x
   }
 }
 </code></pre><p>上面示例中，如果新建实例时，不提供属性<code>x</code>和<code>y</code>的值，它们都等于默认值<code>0</code>。</p><p>下面是函数重载的例子。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">Point</span> {
-  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">x:<span class="hljs-built_in">number</span>, y:<span class="hljs-built_in">string</span></span>);
-  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">s:<span class="hljs-built_in">string</span></span>);
-  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">xs:<span class="hljs-built_in">number</span>|<span class="hljs-built_in">string</span>, y?:<span class="hljs-built_in">string</span></span>) {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-attr">x</span>:<span class="hljs-built_in">number</span>, <span class="hljs-attr">y</span>:<span class="hljs-built_in">string</span></span>);
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-attr">s</span>:<span class="hljs-built_in">string</span></span>);
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-attr">xs</span>:<span class="hljs-built_in">number</span>|<span class="hljs-built_in">string</span>, y?:<span class="hljs-built_in">string</span></span>) {
     <span class="hljs-comment">// ...</span>
   }
 }
@@ -101,7 +101,7 @@ c.<span class="hljs-property">name</span> = <span class="hljs-string">&#x27;bar&
   <span class="hljs-keyword">get</span> <span class="hljs-title function_">name</span>():<span class="hljs-built_in">string</span> {  <span class="hljs-comment">// 报错</span>
     <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">_name</span>;
   }
-  <span class="hljs-keyword">set</span> <span class="hljs-title function_">name</span>(<span class="hljs-params">value:<span class="hljs-built_in">number</span></span>) {
+  <span class="hljs-keyword">set</span> <span class="hljs-title function_">name</span>(<span class="hljs-params"><span class="hljs-attr">value</span>:<span class="hljs-built_in">number</span></span>) {
     <span class="hljs-variable language_">this</span>.<span class="hljs-property">_name</span> = <span class="hljs-title class_">String</span>(value);
   }
 }
@@ -110,15 +110,15 @@ c.<span class="hljs-property">name</span> = <span class="hljs-string">&#x27;bar&
   <span class="hljs-keyword">get</span> <span class="hljs-title function_">name</span>():<span class="hljs-built_in">string</span> {
     <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">_name</span>;
   }
-  <span class="hljs-keyword">set</span> <span class="hljs-title function_">name</span>(<span class="hljs-params">value:<span class="hljs-built_in">number</span>|<span class="hljs-built_in">string</span></span>) {
+  <span class="hljs-keyword">set</span> <span class="hljs-title function_">name</span>(<span class="hljs-params"><span class="hljs-attr">value</span>:<span class="hljs-built_in">number</span>|<span class="hljs-built_in">string</span></span>) {
     <span class="hljs-variable language_">this</span>.<span class="hljs-property">_name</span> = <span class="hljs-title class_">String</span>(value);
   }
 }
 </code></pre><p>上面示例中，<code>set</code>方法的参数类型（<code>number|string</code>）兼容<code>get</code>方法的返回值类型（<code>string</code>），这是允许的。</p><p>TypeScript 5.1 版做出了<a href="https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-1.html#unrelated-types-for-getters-and-setters" target="_blank" rel="noopener">改变</a>，现在两者可以不兼容。</p><p>（3）<code>get</code>方法与<code>set</code>方法的可访问性必须一致，要么都为公开方法，要么都为私有方法。</p><h3 id="属性索引">属性索引 <a class="markdownIt-Anchor" href="#属性索引">#</a></h3><p>类允许定义属性索引。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyClass</span> {
   [<span class="hljs-attr">s</span>:<span class="hljs-built_in">string</span>]: <span class="hljs-built_in">boolean</span> |
-    (<span class="hljs-function">(<span class="hljs-params">s:<span class="hljs-built_in">string</span></span>) =&gt;</span> <span class="hljs-built_in">boolean</span>);
+    (<span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">s</span>:<span class="hljs-built_in">string</span></span>) =&gt;</span> <span class="hljs-built_in">boolean</span>);
 
-  <span class="hljs-title function_">get</span>(<span class="hljs-params">s:<span class="hljs-built_in">string</span></span>) {
+  <span class="hljs-title function_">get</span>(<span class="hljs-params"><span class="hljs-attr">s</span>:<span class="hljs-built_in">string</span></span>) {
     <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>[s] <span class="hljs-keyword">as</span> <span class="hljs-built_in">boolean</span>;
   }
 }
@@ -165,7 +165,7 @@ c.<span class="hljs-property">name</span> = <span class="hljs-string">&#x27;bar&
   }
 }
 </code></pre><p>上面示例中，类<code>B</code>实现了接口<code>A</code>，但是后者并不能代替<code>B</code>的类型声明。因此，<code>B</code>的<code>get()</code>方法的参数<code>s</code>的类型是<code>any</code>，而不是<code>string</code>。<code>B</code>类依然需要声明参数<code>s</code>的类型。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span> <span class="hljs-keyword">implements</span> A {
-  <span class="hljs-title function_">get</span>(<span class="hljs-params">s:<span class="hljs-built_in">string</span></span>) {
+  <span class="hljs-title function_">get</span>(<span class="hljs-params"><span class="hljs-attr">s</span>:<span class="hljs-built_in">string</span></span>) {
     <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
   }
 }
@@ -271,7 +271,7 @@ a.<span class="hljs-property">y</span> <span class="hljs-comment">// undefined</
 </code></pre><p>上面示例中，根据类型定义，<code>y</code>应该是一个非空属性。但是合并后，<code>y</code>有可能是<code>undefined</code>。</p><h2 id="class-类型">Class 类型 <a class="markdownIt-Anchor" href="#class-类型">#</a></h2><h3 id="实例类型">实例类型 <a class="markdownIt-Anchor" href="#实例类型">#</a></h3><p>TypeScript 的类本身就是一种类型，但是它代表该类的实例类型，而不是 class 的自身类型。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">Color</span> {
   <span class="hljs-attr">name</span>:<span class="hljs-built_in">string</span>;
 
-  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">name:<span class="hljs-built_in">string</span></span>) {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-attr">name</span>:<span class="hljs-built_in">string</span></span>) {
     <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name;
   }
 }
@@ -291,7 +291,7 @@ a.<span class="hljs-property">y</span> <span class="hljs-comment">// undefined</
   <span class="hljs-attr">x</span>:<span class="hljs-built_in">number</span>;
   <span class="hljs-attr">y</span>:<span class="hljs-built_in">number</span>;
 
-  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">x:<span class="hljs-built_in">number</span>, y:<span class="hljs-built_in">number</span></span>) {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-attr">x</span>:<span class="hljs-built_in">number</span>, <span class="hljs-attr">y</span>:<span class="hljs-built_in">number</span></span>) {
     <span class="hljs-variable language_">this</span>.<span class="hljs-property">x</span> = x;
     <span class="hljs-variable language_">this</span>.<span class="hljs-property">y</span> = y;
   }
@@ -299,32 +299,32 @@ a.<span class="hljs-property">y</span> <span class="hljs-comment">// undefined</
 
 <span class="hljs-comment">// 错误</span>
 <span class="hljs-keyword">function</span> <span class="hljs-title function_">createPoint</span>(<span class="hljs-params">
-  PointClass:Point,
-  x: <span class="hljs-built_in">number</span>,
-  y: <span class="hljs-built_in">number</span>
+  <span class="hljs-title class_">PointClass</span>:<span class="hljs-title class_">Point</span>,
+  <span class="hljs-attr">x</span>: <span class="hljs-built_in">number</span>,
+  <span class="hljs-attr">y</span>: <span class="hljs-built_in">number</span>
 </span>) {
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PointClass</span>(x, y);
 }
 </code></pre><p>上面示例中，函数<code>createPoint()</code>的第一个参数<code>PointClass</code>，需要传入 Point 这个类，但是如果把参数的类型写成<code>Point</code>就会报错，因为<code>Point</code>描述的是实例类型，而不是 Class 的自身类型。</p><p>由于类名作为类型使用，实际上代表一个对象，因此可以把类看作为对象类型起名。事实上，TypeScript 有三种方法可以为对象类型起名：type、interface 和 class。</p><h3 id="类的自身类型">类的自身类型 <a class="markdownIt-Anchor" href="#类的自身类型">#</a></h3><p>要获得一个类的自身类型，一个简便的方法就是使用 typeof 运算符。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">createPoint</span>(<span class="hljs-params">
-  PointClass:<span class="hljs-keyword">typeof</span> Point,
-  x:<span class="hljs-built_in">number</span>,
-  y:<span class="hljs-built_in">number</span>
+  <span class="hljs-title class_">PointClass</span>:<span class="hljs-keyword">typeof</span> <span class="hljs-title class_">Point</span>,
+  <span class="hljs-attr">x</span>:<span class="hljs-built_in">number</span>,
+  <span class="hljs-attr">y</span>:<span class="hljs-built_in">number</span>
 </span>):<span class="hljs-title class_">Point</span> {
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PointClass</span>(x, y);
 }
 </code></pre><p>上面示例中，<code>createPoint()</code>的第一个参数<code>PointClass</code>是<code>Point</code>类自身，要声明这个参数的类型，简便的方法就是使用<code>typeof Point</code>。因为<code>Point</code>类是一个值，<code>typeof Point</code>返回这个值的类型。注意，<code>createPoint()</code>的返回值类型是<code>Point</code>，代表实例类型。</p><p>JavaScript 语言中，类只是构造函数的一种语法糖，本质上是构造函数的另一种写法。所以，类的自身类型可以写成构造函数的形式。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">createPoint</span>(<span class="hljs-params">
-  PointClass: <span class="hljs-keyword">new</span> (x:<span class="hljs-built_in">number</span>, y:<span class="hljs-built_in">number</span>) =&gt; Point,
-  x: <span class="hljs-built_in">number</span>,
-  y: <span class="hljs-built_in">number</span>
+  <span class="hljs-title class_">PointClass</span>: <span class="hljs-keyword">new</span> (x:<span class="hljs-built_in">number</span>, y:<span class="hljs-built_in">number</span>) =&gt; <span class="hljs-title class_">Point</span>,
+  <span class="hljs-attr">x</span>: <span class="hljs-built_in">number</span>,
+  <span class="hljs-attr">y</span>: <span class="hljs-built_in">number</span>
 </span>):<span class="hljs-title class_">Point</span> {
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PointClass</span>(x, y);
 }
 </code></pre><p>上面示例中，参数<code>PointClass</code>的类型写成了一个构造函数，这时就可以把<code>Point</code>类传入。</p><p>构造函数也可以写成对象形式，所以参数<code>PointClass</code>的类型还有另一种写法。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">createPoint</span>(<span class="hljs-params">
-  PointClass: {
+  <span class="hljs-title class_">PointClass</span>: {
     <span class="hljs-keyword">new</span> (x:<span class="hljs-built_in">number</span>, y:<span class="hljs-built_in">number</span>): Point
   },
-  x: <span class="hljs-built_in">number</span>,
-  y: <span class="hljs-built_in">number</span>
+  <span class="hljs-attr">x</span>: <span class="hljs-built_in">number</span>,
+  <span class="hljs-attr">y</span>: <span class="hljs-built_in">number</span>
 </span>):<span class="hljs-title class_">Point</span> {
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PointClass</span>(x, y);
 }
@@ -333,9 +333,9 @@ a.<span class="hljs-property">y</span> <span class="hljs-comment">// undefined</
 }
 
 <span class="hljs-keyword">function</span> <span class="hljs-title function_">createPoint</span>(<span class="hljs-params">
-  PointClass: PointConstructor,
-  x: <span class="hljs-built_in">number</span>,
-  y: <span class="hljs-built_in">number</span>
+  <span class="hljs-title class_">PointClass</span>: <span class="hljs-title class_">PointConstructor</span>,
+  <span class="hljs-attr">x</span>: <span class="hljs-built_in">number</span>,
+  <span class="hljs-attr">y</span>: <span class="hljs-built_in">number</span>
 </span>):<span class="hljs-title class_">Point</span> {
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PointClass</span>(x, y);
 }
@@ -343,7 +343,7 @@ a.<span class="hljs-property">y</span> <span class="hljs-comment">// undefined</
   id!:<span class="hljs-built_in">number</span>;
 }
 
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">fn</span>(<span class="hljs-params">arg:Foo</span>) {
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">fn</span>(<span class="hljs-params"><span class="hljs-attr">arg</span>:<span class="hljs-title class_">Foo</span></span>) {
   <span class="hljs-comment">// ...</span>
 }
 
@@ -394,7 +394,7 @@ a.<span class="hljs-property">y</span> <span class="hljs-comment">// undefined</
 </code></pre><p>上面示例中，对象<code>obj</code>并不是<code>Person</code>的实例，但是赋值给变量<code>p</code>不会报错，TypeScript 认为<code>obj</code>也属于<code>Person</code>类型，因为它们的属性相同。</p><p>由于这种情况，运算符<code>instanceof</code>不适用于判断某个对象是否跟某个 class 属于同一类型。</p><pre class="hljs"><code>obj <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">Person</span> <span class="hljs-comment">// false</span>
 </code></pre><p>上面示例中，运算符<code>instanceof</code>确认变量<code>obj</code>不是 Person 的实例，但是两者的类型是相同的。</p><p>空类不包含任何成员，任何其他类都可以看作与空类结构相同。因此，凡是类型为空类的地方，所有类（包括对象）都可以使用。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">Empty</span> {}
 
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">fn</span>(<span class="hljs-params">x:Empty</span>) {
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">fn</span>(<span class="hljs-params"><span class="hljs-attr">x</span>:<span class="hljs-title class_">Empty</span></span>) {
   <span class="hljs-comment">// ...</span>
 }
 
@@ -405,14 +405,14 @@ a.<span class="hljs-property">y</span> <span class="hljs-comment">// undefined</
   <span class="hljs-attr">x</span>: <span class="hljs-built_in">number</span>;
   <span class="hljs-attr">y</span>: <span class="hljs-built_in">number</span>;
   <span class="hljs-keyword">static</span> <span class="hljs-attr">t</span>: <span class="hljs-built_in">number</span>;
-  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">x:<span class="hljs-built_in">number</span></span>) {}
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-attr">x</span>:<span class="hljs-built_in">number</span></span>) {}
 }
 
 <span class="hljs-keyword">class</span> <span class="hljs-title class_">Position</span> {
   <span class="hljs-attr">x</span>: <span class="hljs-built_in">number</span>;
   <span class="hljs-attr">y</span>: <span class="hljs-built_in">number</span>;
   <span class="hljs-attr">z</span>: <span class="hljs-built_in">number</span>;
-  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">x:<span class="hljs-built_in">string</span></span>) {}
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-attr">x</span>:<span class="hljs-built_in">string</span></span>) {}
 }
 
 <span class="hljs-keyword">const</span> <span class="hljs-attr">point</span>:<span class="hljs-title class_">Point</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Position</span>(<span class="hljs-string">&#x27;&#x27;</span>);
@@ -466,7 +466,7 @@ a.<span class="hljs-title function_">greet</span>()
 
 <span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">A</span> {
   <span class="hljs-comment">// 报错</span>
-  <span class="hljs-title function_">greet</span>(<span class="hljs-params">name:<span class="hljs-built_in">string</span></span>) {
+  <span class="hljs-title function_">greet</span>(<span class="hljs-params"><span class="hljs-attr">name</span>:<span class="hljs-built_in">string</span></span>) {
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Hello, <span class="hljs-subst">${name}</span>`</span>);
   }
 }
@@ -509,7 +509,7 @@ a.<span class="hljs-title function_">greet</span>()
 }
 
 <span class="hljs-keyword">interface</span> <span class="hljs-title class_">GreeterConstructor</span> {
-  <span class="hljs-keyword">new</span> (): <span class="hljs-title class_">Greeter</span>;
+  <span class="hljs-title function_">new</span> (): <span class="hljs-title class_">Greeter</span>;
 }
 
 <span class="hljs-keyword">function</span> <span class="hljs-title function_">getGreeterBase</span>(<span class="hljs-params"></span>):<span class="hljs-title class_">GreeterConstructor</span> {
@@ -521,7 +521,31 @@ a.<span class="hljs-title function_">greet</span>()
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">greeting</span>());
   }
 }
-</code></pre><p>上面示例中，例一和例二的<code>extends</code>关键字后面都是构造函数，例三的<code>extends</code>关键字后面是一个表达式，执行后得到的也是一个构造函数。</p><h2 id="可访问性修饰符">可访问性修饰符 <a class="markdownIt-Anchor" href="#可访问性修饰符">#</a></h2><p>类的内部成员的外部可访问性，由三个可访问性修饰符（access modifiers）控制：<code>public</code>、<code>private</code>和<code>protected</code>。</p><p>这三个修饰符的位置，都写在属性或方法的最前面。</p><h3 id="public">public <a class="markdownIt-Anchor" href="#public">#</a></h3><p><code>public</code>修饰符表示这是公开成员，外部可以自由访问。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">Greeter</span> {
+</code></pre><p>上面示例中，例一和例二的<code>extends</code>关键字后面都是构造函数，例三的<code>extends</code>关键字后面是一个表达式，执行后得到的也是一个构造函数。</p><h2 id="override-关键字">override 关键字 <a class="markdownIt-Anchor" href="#override-关键字">#</a></h2><p>子类继承父类时，可以覆盖父类的同名方法。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> {
+  <span class="hljs-title function_">show</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-comment">// ...</span>
+  }
+  <span class="hljs-title function_">hide</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-comment">// ...</span>
+  }
+}
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">A</span> {
+  <span class="hljs-title function_">show</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-comment">// ...</span>
+  }
+  <span class="hljs-title function_">hide</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-comment">// ...</span>
+  }
+}
+</code></pre><p>上面示例中，B 类定义了自己的<code>show()</code>方法和<code>hide()</code>方法，覆盖了 A 类的同名方法。</p><p>但是有些时候，我们继承他人的类，可能会在不知不觉中，就覆盖了他人的方法。为了防止这种情况，TypeScript 4.3 引入了 <a href="https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-3.html#override-and-the---noimplicitoverride-flag" target="_blank" rel="noopener">override 关键字</a>。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">A</span> {
+  <span class="hljs-keyword">override</span> <span class="hljs-title function_">show</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-comment">// ...</span>
+  }
+  <span class="hljs-keyword">override</span> <span class="hljs-title function_">hide</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-comment">// ...</span>
+  }
+}
+</code></pre><p>上面示例中，B 类的<code>show()</code>方法和<code>hide()</code>方法前面加了 override 关键字，明确表明作者的意图，就是要覆盖 A 类里面的这两个同名方法。这时，如果 A 类没有定义自己的<code>show()</code>方法和<code>hide()</code>方法，就会报错。</p><p>但是，这依然没有解决，子类无意中覆盖父类同名方法的问题。因此，TypeScript 又提供了一个编译参数<code>noImplicitOverride</code>。一旦打开这个参数，子类覆盖父类的同名方法就会报错，除非使用了 override 关键字。</p><h2 id="可访问性修饰符">可访问性修饰符 <a class="markdownIt-Anchor" href="#可访问性修饰符">#</a></h2><p>类的内部成员的外部可访问性，由三个可访问性修饰符（access modifiers）控制：<code>public</code>、<code>private</code>和<code>protected</code>。</p><p>这三个修饰符的位置，都写在属性或方法的最前面。</p><h3 id="public">public <a class="markdownIt-Anchor" href="#public">#</a></h3><p><code>public</code>修饰符表示这是公开成员，外部可以自由访问。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">Greeter</span> {
   <span class="hljs-keyword">public</span> <span class="hljs-title function_">greet</span>(<span class="hljs-params"></span>) {
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;hi!&quot;</span>);
   }
@@ -551,7 +575,7 @@ a.<span class="hljs-property">x</span> <span class="hljs-comment">// 报错</spa
 </code></pre><p>上面示例中，<code>A</code>类有一个私有属性<code>x</code>，子类<code>B</code>就不能定义自己的属性<code>x</code>了。</p><p>如果在类的内部，当前类的实例可以获取私有成员。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> {
   <span class="hljs-keyword">private</span> x = <span class="hljs-number">10</span>;
 
-  <span class="hljs-title function_">f</span>(<span class="hljs-params">obj:A</span>) {
+  <span class="hljs-title function_">f</span>(<span class="hljs-params"><span class="hljs-attr">obj</span>:A</span>) {
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(obj.<span class="hljs-property">x</span>);
   }
 }
@@ -613,7 +637,7 @@ b.<span class="hljs-title function_">getX</span>() <span class="hljs-comment">//
 </code></pre><p>上面示例中，子类<code>B</code>定义了父类<code>A</code>的同名成员<code>x</code>，并且父类的<code>x</code>是保护成员，子类将其改成了公开成员。<code>B</code>类的<code>x</code>属性前面没有修饰符，等同于修饰符是<code>public</code>，外界可以读取这个属性。</p><p>在类的外部，实例对象不能读取保护成员，但是在类的内部可以。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> {
   <span class="hljs-keyword">protected</span> x = <span class="hljs-number">1</span>;
 
-  <span class="hljs-title function_">f</span>(<span class="hljs-params">obj:A</span>) {
+  <span class="hljs-title function_">f</span>(<span class="hljs-params"><span class="hljs-attr">obj</span>:A</span>) {
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(obj.<span class="hljs-property">x</span>);
   }
 }
@@ -626,15 +650,15 @@ a.<span class="hljs-title function_">f</span>(a) <span class="hljs-comment">// 1
   <span class="hljs-attr">x</span>:<span class="hljs-built_in">number</span>;
   <span class="hljs-attr">y</span>:<span class="hljs-built_in">number</span>;
 
-  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">x:<span class="hljs-built_in">number</span>, y:<span class="hljs-built_in">number</span></span>) {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-attr">x</span>:<span class="hljs-built_in">number</span>, <span class="hljs-attr">y</span>:<span class="hljs-built_in">number</span></span>) {
     <span class="hljs-variable language_">this</span>.<span class="hljs-property">x</span> = x;
     <span class="hljs-variable language_">this</span>.<span class="hljs-property">y</span> = y;
   }
 }
 </code></pre><p>上面实例中，属性<code>x</code>和<code>y</code>的值是通过构造方法的参数传入的。</p><p>这样的写法等于对同一个属性要声明两次类型，一次在类的头部，另一次在构造方法的参数里面。这有些累赘，TypeScript 就提供了一种简写形式。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">Point</span> {
   <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
-    <span class="hljs-keyword">public</span> x:<span class="hljs-built_in">number</span>,
-    <span class="hljs-keyword">public</span> y:<span class="hljs-built_in">number</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-attr">x</span>:<span class="hljs-built_in">number</span>,
+    <span class="hljs-keyword">public</span> <span class="hljs-attr">y</span>:<span class="hljs-built_in">number</span>
   </span>) {}
 }
 
@@ -643,10 +667,10 @@ p.<span class="hljs-property">x</span> <span class="hljs-comment">// 10</span>
 p.<span class="hljs-property">y</span> <span class="hljs-comment">// 10</span>
 </code></pre><p>上面示例中，构造方法的参数<code>x</code>前面有<code>public</code>修饰符，这时 TypeScript 就会自动声明一个公开属性<code>x</code>，不必在构造方法里面写任何代码，同时还会设置<code>x</code>的值为构造方法的参数值。注意，这里的<code>public</code>不能省略。</p><p>除了<code>public</code>修饰符，构造方法的参数名只要有<code>private</code>、<code>protected</code>、<code>readonly</code>修饰符，都会自动声明对应修饰符的实例属性。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> {
   <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
-    <span class="hljs-keyword">public</span> a: <span class="hljs-built_in">number</span>,
-    <span class="hljs-keyword">protected</span> b: <span class="hljs-built_in">number</span>,
-    <span class="hljs-keyword">private</span> c: <span class="hljs-built_in">number</span>,
-    <span class="hljs-keyword">readonly</span> d: <span class="hljs-built_in">number</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-attr">a</span>: <span class="hljs-built_in">number</span>,
+    <span class="hljs-keyword">protected</span> <span class="hljs-attr">b</span>: <span class="hljs-built_in">number</span>,
+    <span class="hljs-keyword">private</span> <span class="hljs-attr">c</span>: <span class="hljs-built_in">number</span>,
+    <span class="hljs-keyword">readonly</span> <span class="hljs-attr">d</span>: <span class="hljs-built_in">number</span>
   </span>) {}
 }
 
@@ -665,9 +689,9 @@ p.<span class="hljs-property">y</span> <span class="hljs-comment">// 10</span>
 }
 </code></pre><p>上面示例中，从编译结果可以看到，构造方法的<code>a</code>、<code>b</code>、<code>c</code>、<code>d</code>会生成对应的实例属性。</p><p><code>readonly</code>还可以与其他三个可访问性修饰符，一起使用。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> {
   <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
-    <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> x:<span class="hljs-built_in">number</span>,
-    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">readonly</span> y:<span class="hljs-built_in">number</span>,
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> z:<span class="hljs-built_in">number</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> <span class="hljs-attr">x</span>:<span class="hljs-built_in">number</span>,
+    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">readonly</span> <span class="hljs-attr">y</span>:<span class="hljs-built_in">number</span>,
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> <span class="hljs-attr">z</span>:<span class="hljs-built_in">number</span>
   </span>) {}
 }
 </code></pre><h2 id="顶层属性的处理方法">顶层属性的处理方法 <a class="markdownIt-Anchor" href="#顶层属性的处理方法">#</a></h2><p>对于类的顶层属性，TypeScript 早期的处理方法，与后来的 ES2022 标准不一致。这会导致某些代码的运行结果不一样。</p><p>类的顶层属性在 TypeScript 里面，有两种写法。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">User</span> {
@@ -675,7 +699,7 @@ p.<span class="hljs-property">y</span> <span class="hljs-comment">// 10</span>
   age = <span class="hljs-number">25</span>;
 
   <span class="hljs-comment">// 写法二</span>
-  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> currentYear: <span class="hljs-built_in">number</span></span>) {}
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-attr">currentYear</span>: <span class="hljs-built_in">number</span></span>) {}
 }
 </code></pre><p>上面示例中，写法一是直接声明一个实例属性<code>age</code>，并初始化；写法二是顶层属性的简写形式，直接将构造方法的参数<code>currentYear</code>声明为实例属性。</p><p>TypeScript 早期的处理方法是，先在顶层声明属性，但不进行初始化，等到运行构造方法时，再完成所有初始化。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">User</span> {
   age = <span class="hljs-number">25</span>;
@@ -692,7 +716,7 @@ p.<span class="hljs-property">y</span> <span class="hljs-comment">// 10</span>
 </code></pre><p>上面示例中，TypeScript 早期会先声明顶层属性<code>age</code>，然后等到运行构造函数时，再将其初始化为<code>25</code>。</p><p>ES2022 标准里面的处理方法是，先进行顶层属性的初始化，再运行构造方法。这在某些情况下，会使得同一段代码在 TypeScript 和 JavaScript 下运行结果不一致。</p><p>这种不一致一般发生在两种情况。第一种情况是，顶层属性的初始化依赖于其他实例属性。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">User</span> {
   age = <span class="hljs-variable language_">this</span>.<span class="hljs-property">currentYear</span> - <span class="hljs-number">1998</span>;
 
-  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> currentYear: <span class="hljs-built_in">number</span></span>) {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-attr">currentYear</span>: <span class="hljs-built_in">number</span></span>) {
     <span class="hljs-comment">// 输出结果将不一致</span>
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Current age:&#x27;</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-property">age</span>);
   }
@@ -710,7 +734,7 @@ p.<span class="hljs-property">y</span> <span class="hljs-comment">// 10</span>
 <span class="hljs-keyword">class</span> <span class="hljs-title class_">AnimalHouse</span> {
   <span class="hljs-attr">resident</span>: <span class="hljs-title class_">Animal</span>;
 
-  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">animal:Animal</span>) {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-attr">animal</span>:<span class="hljs-title class_">Animal</span></span>) {
     <span class="hljs-variable language_">this</span>.<span class="hljs-property">resident</span> = animal;
   }
 }
@@ -718,7 +742,7 @@ p.<span class="hljs-property">y</span> <span class="hljs-comment">// 10</span>
 <span class="hljs-keyword">class</span> <span class="hljs-title class_">DogHouse</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">AnimalHouse</span> {
   <span class="hljs-attr">resident</span>: <span class="hljs-title class_">Dog</span>;
 
-  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">dog:Dog</span>) {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-attr">dog</span>:<span class="hljs-title class_">Dog</span></span>) {
     <span class="hljs-variable language_">super</span>(dog);
   }
 }
@@ -733,7 +757,7 @@ p.<span class="hljs-property">y</span> <span class="hljs-comment">// 10</span>
 </code></pre><p>上面示例中，TypeScript 的处理方法，会使得<code>resident</code>属性能够初始化，所以输出参数对象的值。但是，ES2022 标准的处理方法是，顶层属性的初始化先于构造方法的运行。这使得<code>resident</code>属性不会得到赋值，因此输出为<code>undefined</code>。</p><p>为了解决这个问题，同时保证以前代码的行为一致，TypeScript 从3.7版开始，引入了编译设置<code>useDefineForClassFields</code>。这个设置设为<code>true</code>，则采用 ES2022 标准的处理方法，否则采用 TypeScript 早期的处理方法。</p><p>它的默认值与<code>target</code>属性有关，如果输出目标设为<code>ES2022</code>或者更高，那么<code>useDefineForClassFields</code>的默认值为<code>true</code>，否则为<code>false</code>。关于这个设置的详细说明，参见官方 3.7 版本的<a href="https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html#the-usedefineforclassfields-flag-and-the-declare-property-modifier" target="_blank" rel="noopener">发布说明</a>。</p><p>如果希望避免这种不一致，让代码在不同设置下的行为都一样，那么可以将所有顶层属性的初始化，都放到构造方法里面。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">User</span>  {
   <span class="hljs-attr">age</span>: <span class="hljs-built_in">number</span>;
 
-  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> currentYear: <span class="hljs-built_in">number</span></span>) {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-attr">currentYear</span>: <span class="hljs-built_in">number</span></span>) {
     <span class="hljs-variable language_">this</span>.<span class="hljs-property">age</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">currentYear</span> - <span class="hljs-number">1998</span>;
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Current age:&#x27;</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-property">age</span>);
   }
@@ -743,7 +767,7 @@ p.<span class="hljs-property">y</span> <span class="hljs-comment">// 10</span>
 </code></pre><p>上面示例中，顶层属性<code>age</code>的初始化就放在构造方法里面，那么任何情况下，代码行为都是一致的。</p><p>对于类的继承，还有另一种解决方法，就是使用<code>declare</code>命令，去声明子类顶层属性的类型，告诉 TypeScript 这些属性的初始化由父类实现。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">DogHouse</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">AnimalHouse</span> {
   <span class="hljs-keyword">declare</span> <span class="hljs-attr">resident</span>: <span class="hljs-title class_">Dog</span>;
 
-  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">dog:Dog</span>) {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-attr">dog</span>:<span class="hljs-title class_">Dog</span></span>) {
     <span class="hljs-variable language_">super</span>(dog);
   }
 }
@@ -780,7 +804,7 @@ B.<span class="hljs-title function_">getY</span>() <span class="hljs-comment">//
 </code></pre><p>上面示例中，类<code>A</code>的静态属性<code>x</code>和<code>y</code>都被<code>B</code>继承，公开成员<code>x</code>可以在<code>B</code>的外部获取，保护成员<code>y</code>只能在<code>B</code>的内部获取。</p><h2 id="泛型类">泛型类 <a class="markdownIt-Anchor" href="#泛型类">#</a></h2><p>类也可以写成泛型，使用类型参数。关于泛型的详细介绍，请看《泛型》一章。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">Box</span>&lt;<span class="hljs-title class_">Type</span>&gt; {
   <span class="hljs-attr">contents</span>: <span class="hljs-title class_">Type</span>;
 
-  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">value:Type</span>) {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-attr">value</span>:<span class="hljs-title class_">Type</span></span>) {
     <span class="hljs-variable language_">this</span>.<span class="hljs-property">contents</span> = value;
   }
 }
@@ -848,8 +872,8 @@ a.<span class="hljs-title function_">getName</span>() <span class="hljs-comment"
 b.<span class="hljs-title function_">getName</span>() <span class="hljs-comment">// &#x27;b&#x27;</span>
 </code></pre><p>上面示例中，变量<code>a</code>和<code>b</code>的<code>getName()</code>是同一个方法，但是执行结果不一样，原因就是它们内部的<code>this</code>指向不一样的对象。如果<code>getName()</code>在变量<code>a</code>上运行，<code>this</code>指向<code>a</code>；如果在<code>b</code>上运行，<code>this</code>指向<code>b</code>。</p><p>有些场合需要给出<code>this</code>类型，但是 JavaScript 函数通常不带有<code>this</code>参数，这时 TypeScript 允许函数增加一个名为<code>this</code>的参数，放在参数列表的第一位，用来描述函数内部的<code>this</code>关键字的类型。</p><pre class="hljs"><code><span class="hljs-comment">// 编译前</span>
 <span class="hljs-keyword">function</span> <span class="hljs-title function_">fn</span>(<span class="hljs-params">
-  <span class="hljs-variable language_">this</span>: SomeType,
-  x: <span class="hljs-built_in">number</span>
+  <span class="hljs-attr">this</span>: <span class="hljs-title class_">SomeType</span>,
+  <span class="hljs-attr">x</span>: <span class="hljs-built_in">number</span>
 </span>) {
   <span class="hljs-comment">/* ... */</span>
 }
@@ -861,7 +885,7 @@ b.<span class="hljs-title function_">getName</span>() <span class="hljs-comment"
 </code></pre><p>上面示例中，函数<code>fn()</code>的第一个参数是<code>this</code>，用来声明函数内部的<code>this</code>的类型。编译时，TypeScript 一旦发现函数的第一个参数名为<code>this</code>，则会去除这个参数，即编译结果不会带有该参数。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> {
   name = <span class="hljs-string">&#x27;A&#x27;</span>;
 
-  <span class="hljs-title function_">getName</span>(<span class="hljs-params"><span class="hljs-variable language_">this</span>: A</span>) {
+  <span class="hljs-title function_">getName</span>(<span class="hljs-params"><span class="hljs-attr">this</span>: A</span>) {
     <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span>;
   }
 }
@@ -871,7 +895,7 @@ b.<span class="hljs-title function_">getName</span>() <span class="hljs-comment"
 
 <span class="hljs-title function_">b</span>() <span class="hljs-comment">// 报错</span>
 </code></pre><p>上面示例中，类<code>A</code>的<code>getName()</code>添加了<code>this</code>参数，如果直接调用这个方法，<code>this</code>的类型就会跟声明的类型不一致，从而报错。</p><p><code>this</code>参数的类型可以声明为各种对象。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">foo</span>(<span class="hljs-params">
-  <span class="hljs-variable language_">this</span>: { name: <span class="hljs-built_in">string</span> }
+  <span class="hljs-attr">this</span>: { name: <span class="hljs-built_in">string</span> }
 </span>) {
   <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = <span class="hljs-string">&#x27;Jack&#x27;</span>;
   <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = <span class="hljs-number">0</span>; <span class="hljs-comment">// 报错</span>
@@ -882,8 +906,8 @@ foo.<span class="hljs-title function_">call</span>({ <span class="hljs-attr">nam
 
 <span class="hljs-keyword">class</span> <span class="hljs-title class_">Rectangle</span> {
   <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
-    <span class="hljs-keyword">public</span> width:<span class="hljs-built_in">number</span>,
-    <span class="hljs-keyword">public</span> height:<span class="hljs-built_in">number</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-attr">width</span>:<span class="hljs-built_in">number</span>,
+    <span class="hljs-keyword">public</span> <span class="hljs-attr">height</span>:<span class="hljs-built_in">number</span>
   </span>) {}
 
   <span class="hljs-title function_">getAreaFunction</span>(<span class="hljs-params"></span>) {
@@ -914,4 +938,4 @@ foo.<span class="hljs-title function_">call</span>({ <span class="hljs-attr">nam
 
   <span class="hljs-comment">// ...</span>
 }
-</code></pre><p>上面示例中，两个方法的返回值类型都是布尔值，写成<code>this is Type</code>的形式，可以精确表示返回值。<code>is</code>运算符的介绍详见《类型断言》一章。</p><h2 id="参考链接">参考链接 <a class="markdownIt-Anchor" href="#参考链接">#</a></h2><ul><li><a href="http://fritzthecat-blog.blogspot.com/2018/06/typescript-constructor-in-interface.html" target="_blank" rel="noopener">TypeScript Constructor in Interface</a></li><li><a href="https://angular.schule/blog/2022-11-use-define-for-class-fields" target="_blank" rel="noopener">TypeScript: useDefineForClassFields – How to avoid future Breaking Changes</a></li></ul></article><nav class="level level-previous-next is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="interface.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> interface</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="generics.html">泛型 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><div class="page-info"><p>本教程采用<a href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh" target="_blank">知识共享 署名-相同方式共享 3.0协议</a>。</p><p>分享本文 <span class="social-share"></span></p></div></div><div class="column is-3 is-offset-1"><nav class="panel panel-menu is-light"><p class="panel-heading"><i class="fa fa-book" aria-hidden="true"></i> TypeScript 教程</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="intro.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">简介</span></a></li><li><a href="basic.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">基本用法</span></a></li><li><a href="any.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">any 类型</span></a></li><li><a href="types.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">类型系统</span></a></li><li><a href="array.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数组</span></a></li><li><a href="tuple.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">元组</span></a></li><li><a href="symbol.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">symbol 类型</span></a></li><li><a href="function.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">函数</span></a></li><li><a href="object.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">对象</span></a></li><li><a href="interface.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">interface</span></a></li><li><a href="class.html" class="is-active"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">类</span></a></li><li><a href="generics.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">泛型</span></a></li><li><a href="enum.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Enum 类型</span></a></li><li><a href="assert.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">类型断言</span></a></li><li><a href="module.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">模块</span></a></li><li><a href="namespace.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">namespace</span></a></li><li><a href="decorator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">装饰器</span></a></li><li><a href="decorator-legacy.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">装饰器（旧语法）</span></a></li><li><a href="declare.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">declare 关键字</span></a></li><li><a href="d.ts.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">d.ts 类型声明文件</span></a></li><li><a href="operator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">类型运算符</span></a></li><li><a href="mapping.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">类型映射</span></a></li><li><a href="utility.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">类型工具</span></a></li><li><a href="comment.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">注释指令</span></a></li><li><a href="tsconfig.json.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">tsconfig.json 文件</span></a></li><li><a href="tsc.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">tsc 命令</span></a></li></ul></aside></div></nav><nav class="panel panel-info is-light"><p class="panel-heading"><i class="fa fa-link" aria-hidden="true"></i> 链接</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="https://raw.githubusercontent.com/wangdoc/typescript-tutorial/main/docs/class.md" target="_blank"><span class="icon"></span><i class="fa fa-code" aria-hidden="true" style="width: 14px;"></i>&nbsp;本文源码</a></li><li><a href="https://github.com/wangdoc/typescript-tutorial" target="_blank"><span class="icon"></span><i class="fa fa-hdd-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;代码仓库</a></li><li><a href="https://github.com/wangdoc/typescript-tutorial/issues" target="_blank"><span class="icon"></span><i class="fa fa-flag-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;反馈</a></li></ul></aside></div></nav></div></div><div class="columns"><div class="column is-8 is-6-widescreen is-offset-1-widescreen"><div id="disqus_thread"></div></div></div></div></section><footer class="footer"><div class="container"><div class="content has-text-centered"><p>联系：contact@wangdoc.com</p></div></div></footer><script>var LOPPO={current_path:"class.md",relative_root_path:"",article_toc:'<ul class="markdownIt-TOC">\n<li><a href="#%E7%AE%80%E4%BB%8B">简介</a>\n<ul>\n<li><a href="#%E5%B1%9E%E6%80%A7%E7%9A%84%E7%B1%BB%E5%9E%8B">属性的类型</a></li>\n<li><a href="#readonly-%E4%BF%AE%E9%A5%B0%E7%AC%A6">readonly 修饰符</a></li>\n<li><a href="#%E6%96%B9%E6%B3%95%E7%9A%84%E7%B1%BB%E5%9E%8B">方法的类型</a></li>\n<li><a href="#%E5%AD%98%E5%8F%96%E5%99%A8%E6%96%B9%E6%B3%95">存取器方法</a></li>\n<li><a href="#%E5%B1%9E%E6%80%A7%E7%B4%A2%E5%BC%95">属性索引</a></li>\n</ul>\n</li>\n<li><a href="#%E7%B1%BB%E7%9A%84-interface-%E6%8E%A5%E5%8F%A3">类的 interface 接口</a>\n<ul>\n<li><a href="#implements-%E5%85%B3%E9%94%AE%E5%AD%97">implements 关键字</a></li>\n<li><a href="#%E5%AE%9E%E7%8E%B0%E5%A4%9A%E4%B8%AA%E6%8E%A5%E5%8F%A3">实现多个接口</a></li>\n<li><a href="#%E7%B1%BB%E4%B8%8E%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%90%88%E5%B9%B6">类与接口的合并</a></li>\n</ul>\n</li>\n<li><a href="#class-%E7%B1%BB%E5%9E%8B">Class 类型</a>\n<ul>\n<li><a href="#%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9E%8B">实例类型</a></li>\n<li><a href="#%E7%B1%BB%E7%9A%84%E8%87%AA%E8%BA%AB%E7%B1%BB%E5%9E%8B">类的自身类型</a></li>\n<li><a href="#%E7%BB%93%E6%9E%84%E7%B1%BB%E5%9E%8B%E5%8E%9F%E5%88%99">结构类型原则</a></li>\n</ul>\n</li>\n<li><a href="#%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF">类的继承</a></li>\n<li><a href="#%E5%8F%AF%E8%AE%BF%E9%97%AE%E6%80%A7%E4%BF%AE%E9%A5%B0%E7%AC%A6">可访问性修饰符</a>\n<ul>\n<li><a href="#public">public</a></li>\n<li><a href="#private">private</a></li>\n<li><a href="#protected">protected</a></li>\n<li><a href="#%E5%AE%9E%E4%BE%8B%E5%B1%9E%E6%80%A7%E7%9A%84%E7%AE%80%E5%86%99%E5%BD%A2%E5%BC%8F">实例属性的简写形式</a></li>\n</ul>\n</li>\n<li><a href="#%E9%A1%B6%E5%B1%82%E5%B1%9E%E6%80%A7%E7%9A%84%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95">顶层属性的处理方法</a></li>\n<li><a href="#%E9%9D%99%E6%80%81%E6%88%90%E5%91%98">静态成员</a></li>\n<li><a href="#%E6%B3%9B%E5%9E%8B%E7%B1%BB">泛型类</a></li>\n<li><a href="#%E6%8A%BD%E8%B1%A1%E7%B1%BB%E6%8A%BD%E8%B1%A1%E6%88%90%E5%91%98">抽象类，抽象成员</a></li>\n<li><a href="#this-%E9%97%AE%E9%A2%98">this 问题</a></li>\n<li><a href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5">参考链接</a></li>\n</ul>\n'}</script><script src="assets/js/app.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-111269443-1"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","UA-111269443-1")</script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script"),t=(e.src="https://hm.baidu.com/hm.js?5eec262881855af3dede6a71234571f6",document.getElementsByTagName("script")[0]);t.parentNode.insertBefore(e,t)}()</script><script>var disqus_config=function(){var t=window.location,e=t.protocol+"//"+t.host+(t.port?":"+t.port:"")+t.pathname;this.page.url=e,this.page.identifier=t.pathname};!function(){var t=document,e=t.createElement("script");e.src="https://wangdoc-typescript.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><!--script src="assets/js/social-share.min.js"--><!--/script--><script>var shareDesc="我正在阅读《TypeScript 的 class 类型》，出自网道（WangDoc.com）的《TypeScript 教程》。",shareOpts={url:window.location.href,source:shareDesc,title:shareDesc,description:"",image:"",sites:["weibo","wechat","qq","qzone","twitter","facebook"],origin:"WangDoc_com",disabled:[],wechatQrcodeTitle:"微信",wechatQrcodeHelper:"扫一下二维码，分享到微信。"};socialShare(".social-share",shareOpts)</script></body></html>
+</code></pre><p>上面示例中，两个方法的返回值类型都是布尔值，写成<code>this is Type</code>的形式，可以精确表示返回值。<code>is</code>运算符的介绍详见《类型断言》一章。</p><h2 id="参考链接">参考链接 <a class="markdownIt-Anchor" href="#参考链接">#</a></h2><ul><li><a href="http://fritzthecat-blog.blogspot.com/2018/06/typescript-constructor-in-interface.html" target="_blank" rel="noopener">TypeScript Constructor in Interface</a></li><li><a href="https://angular.schule/blog/2022-11-use-define-for-class-fields" target="_blank" rel="noopener">TypeScript: useDefineForClassFields – How to avoid future Breaking Changes</a></li></ul></article><nav class="level level-previous-next is-mobile"><!-- Left side --><div class="level-left"><p class="level-item is-narrow"><a href="interface.html"><span class="icon"><i class="fa fa-toggle-left"></i></span> interface</a></p></div><div class="level-right"><p class="level-item is-narrow"><a href="generics.html">泛型 <span class="icon"><i class="fa fa-toggle-right"></i></span></a></p></div></nav><div class="page-info"><p>本教程采用<a href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh" target="_blank">知识共享 署名-相同方式共享 3.0协议</a>。</p><p>分享本文 <span class="social-share"></span></p></div></div><div class="column is-3 is-offset-1"><nav class="panel panel-menu is-light"><p class="panel-heading"><i class="fa fa-book" aria-hidden="true"></i> TypeScript 教程</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="intro.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">简介</span></a></li><li><a href="basic.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">基本用法</span></a></li><li><a href="any.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">any 类型</span></a></li><li><a href="types.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">类型系统</span></a></li><li><a href="array.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">数组</span></a></li><li><a href="tuple.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">元组</span></a></li><li><a href="symbol.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">symbol 类型</span></a></li><li><a href="function.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">函数</span></a></li><li><a href="object.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">对象</span></a></li><li><a href="interface.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">interface</span></a></li><li><a href="class.html" class="is-active"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">类</span></a></li><li><a href="generics.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">泛型</span></a></li><li><a href="enum.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">Enum 类型</span></a></li><li><a href="assert.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">类型断言</span></a></li><li><a href="module.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">模块</span></a></li><li><a href="namespace.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">namespace</span></a></li><li><a href="decorator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">装饰器</span></a></li><li><a href="decorator-legacy.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">装饰器（旧语法）</span></a></li><li><a href="declare.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">declare 关键字</span></a></li><li><a href="d.ts.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">d.ts 类型声明文件</span></a></li><li><a href="operator.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">类型运算符</span></a></li><li><a href="mapping.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">类型映射</span></a></li><li><a href="utility.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">类型工具</span></a></li><li><a href="comment.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">注释指令</span></a></li><li><a href="tsconfig.json.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">tsconfig.json 文件</span></a></li><li><a href="tsc.html"><span class="icon"></span> <i class="fa fa-file-text-o" aria-hidden="true" style="width: 14px;"></i> &nbsp; <span class="menu-list-title">tsc 命令</span></a></li></ul></aside></div></nav><nav class="panel panel-info is-light"><p class="panel-heading"><i class="fa fa-link" aria-hidden="true"></i> 链接</p><div class="panel-block"><aside class="menu"><p class="menu-label"></p><ul class="menu-list"><li><a href="https://raw.githubusercontent.com/wangdoc/typescript-tutorial/main/docs/class.md" target="_blank"><span class="icon"></span><i class="fa fa-code" aria-hidden="true" style="width: 14px;"></i>&nbsp;本文源码</a></li><li><a href="https://github.com/wangdoc/typescript-tutorial" target="_blank"><span class="icon"></span><i class="fa fa-hdd-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;代码仓库</a></li><li><a href="https://github.com/wangdoc/typescript-tutorial/issues" target="_blank"><span class="icon"></span><i class="fa fa-flag-o" aria-hidden="true" style="width: 14px;"></i>&nbsp;反馈</a></li></ul></aside></div></nav></div></div><div class="columns"><div class="column is-8 is-6-widescreen is-offset-1-widescreen"><div id="disqus_thread"></div></div></div></div></section><footer class="footer"><div class="container"><div class="content has-text-centered"><p>联系：contact@wangdoc.com</p></div></div></footer><script>var LOPPO={current_path:"class.md",relative_root_path:"",article_toc:'<ul class="markdownIt-TOC">\n<li><a href="#%E7%AE%80%E4%BB%8B">简介</a>\n<ul>\n<li><a href="#%E5%B1%9E%E6%80%A7%E7%9A%84%E7%B1%BB%E5%9E%8B">属性的类型</a></li>\n<li><a href="#readonly-%E4%BF%AE%E9%A5%B0%E7%AC%A6">readonly 修饰符</a></li>\n<li><a href="#%E6%96%B9%E6%B3%95%E7%9A%84%E7%B1%BB%E5%9E%8B">方法的类型</a></li>\n<li><a href="#%E5%AD%98%E5%8F%96%E5%99%A8%E6%96%B9%E6%B3%95">存取器方法</a></li>\n<li><a href="#%E5%B1%9E%E6%80%A7%E7%B4%A2%E5%BC%95">属性索引</a></li>\n</ul>\n</li>\n<li><a href="#%E7%B1%BB%E7%9A%84-interface-%E6%8E%A5%E5%8F%A3">类的 interface 接口</a>\n<ul>\n<li><a href="#implements-%E5%85%B3%E9%94%AE%E5%AD%97">implements 关键字</a></li>\n<li><a href="#%E5%AE%9E%E7%8E%B0%E5%A4%9A%E4%B8%AA%E6%8E%A5%E5%8F%A3">实现多个接口</a></li>\n<li><a href="#%E7%B1%BB%E4%B8%8E%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%90%88%E5%B9%B6">类与接口的合并</a></li>\n</ul>\n</li>\n<li><a href="#class-%E7%B1%BB%E5%9E%8B">Class 类型</a>\n<ul>\n<li><a href="#%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9E%8B">实例类型</a></li>\n<li><a href="#%E7%B1%BB%E7%9A%84%E8%87%AA%E8%BA%AB%E7%B1%BB%E5%9E%8B">类的自身类型</a></li>\n<li><a href="#%E7%BB%93%E6%9E%84%E7%B1%BB%E5%9E%8B%E5%8E%9F%E5%88%99">结构类型原则</a></li>\n</ul>\n</li>\n<li><a href="#%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF">类的继承</a></li>\n<li><a href="#override-%E5%85%B3%E9%94%AE%E5%AD%97">override 关键字</a></li>\n<li><a href="#%E5%8F%AF%E8%AE%BF%E9%97%AE%E6%80%A7%E4%BF%AE%E9%A5%B0%E7%AC%A6">可访问性修饰符</a>\n<ul>\n<li><a href="#public">public</a></li>\n<li><a href="#private">private</a></li>\n<li><a href="#protected">protected</a></li>\n<li><a href="#%E5%AE%9E%E4%BE%8B%E5%B1%9E%E6%80%A7%E7%9A%84%E7%AE%80%E5%86%99%E5%BD%A2%E5%BC%8F">实例属性的简写形式</a></li>\n</ul>\n</li>\n<li><a href="#%E9%A1%B6%E5%B1%82%E5%B1%9E%E6%80%A7%E7%9A%84%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95">顶层属性的处理方法</a></li>\n<li><a href="#%E9%9D%99%E6%80%81%E6%88%90%E5%91%98">静态成员</a></li>\n<li><a href="#%E6%B3%9B%E5%9E%8B%E7%B1%BB">泛型类</a></li>\n<li><a href="#%E6%8A%BD%E8%B1%A1%E7%B1%BB%E6%8A%BD%E8%B1%A1%E6%88%90%E5%91%98">抽象类，抽象成员</a></li>\n<li><a href="#this-%E9%97%AE%E9%A2%98">this 问题</a></li>\n<li><a href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5">参考链接</a></li>\n</ul>\n'}</script><script src="assets/js/app.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-111269443-1"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","UA-111269443-1")</script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script"),t=(e.src="https://hm.baidu.com/hm.js?5eec262881855af3dede6a71234571f6",document.getElementsByTagName("script")[0]);t.parentNode.insertBefore(e,t)}()</script><script>var disqus_config=function(){var t=window.location,e=t.protocol+"//"+t.host+(t.port?":"+t.port:"")+t.pathname;this.page.url=e,this.page.identifier=t.pathname};!function(){var t=document,e=t.createElement("script");e.src="https://wangdoc-typescript.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><!--script src="assets/js/social-share.min.js"--><!--/script--><script>var shareDesc="我正在阅读《TypeScript 的 class 类型》，出自网道（WangDoc.com）的《TypeScript 教程》。",shareOpts={url:window.location.href,source:shareDesc,title:shareDesc,description:"",image:"",sites:["weibo","wechat","qq","qzone","twitter","facebook"],origin:"WangDoc_com",disabled:[],wechatQrcodeTitle:"微信",wechatQrcodeHelper:"扫一下二维码，分享到微信。"};socialShare(".social-share",shareOpts)</script></body></html>

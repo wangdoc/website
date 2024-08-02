@@ -62,7 +62,7 @@ expr <span class="hljs-keyword">as</span> <span class="hljs-built_in">unknown</s
   |<span class="hljs-string">&#x27;TypeScript&#x27;</span>
   |<span class="hljs-string">&#x27;Python&#x27;</span>;
 
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">setLang</span>(<span class="hljs-params">language:Lang</span>) {
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">setLang</span>(<span class="hljs-params"><span class="hljs-attr">language</span>:<span class="hljs-title class_">Lang</span></span>) {
   <span class="hljs-comment">/* ... */</span>
 }
 
@@ -101,7 +101,7 @@ expr <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span
 
 <span class="hljs-comment">// a2 的类型推断为 readonly [1, 2, 3]</span>
 <span class="hljs-keyword">const</span> a2 = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>] <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>;
-</code></pre><p>上面示例中，数组字面量使用<code>as const</code>断言后，类型推断就变成了只读元组。</p><p>由于<code>as const</code>会将数组变成只读元组，所以很适合用于函数的 rest 参数。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">add</span>(<span class="hljs-params">x:<span class="hljs-built_in">number</span>, y:<span class="hljs-built_in">number</span></span>) {
+</code></pre><p>上面示例中，数组字面量使用<code>as const</code>断言后，类型推断就变成了只读元组。</p><p>由于<code>as const</code>会将数组变成只读元组，所以很适合用于函数的 rest 参数。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">add</span>(<span class="hljs-params"><span class="hljs-attr">x</span>:<span class="hljs-built_in">number</span>, <span class="hljs-attr">y</span>:<span class="hljs-built_in">number</span></span>) {
   <span class="hljs-keyword">return</span> x + y;
 }
 
@@ -144,7 +144,7 @@ root.<span class="hljs-title function_">addEventListener</span>(<span class="hlj
   <span class="hljs-attr">x</span>:<span class="hljs-built_in">number</span>; <span class="hljs-comment">// 报错</span>
   <span class="hljs-attr">y</span>:<span class="hljs-built_in">number</span>; <span class="hljs-comment">// 报错</span>
 
-  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">x:<span class="hljs-built_in">number</span>, y:<span class="hljs-built_in">number</span></span>) {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-attr">x</span>:<span class="hljs-built_in">number</span>, <span class="hljs-attr">y</span>:<span class="hljs-built_in">number</span></span>) {
     <span class="hljs-comment">// ...</span>
   }
 }
@@ -152,27 +152,27 @@ root.<span class="hljs-title function_">addEventListener</span>(<span class="hlj
   x!:<span class="hljs-built_in">number</span>; <span class="hljs-comment">// 正确</span>
   y!:<span class="hljs-built_in">number</span>; <span class="hljs-comment">// 正确</span>
 
-  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">x:<span class="hljs-built_in">number</span>, y:<span class="hljs-built_in">number</span></span>) {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-attr">x</span>:<span class="hljs-built_in">number</span>, <span class="hljs-attr">y</span>:<span class="hljs-built_in">number</span></span>) {
     <span class="hljs-comment">// ...</span>
   }
 }
-</code></pre><p>另外，非空断言只有在打开编译选项<code>strictNullChecks</code>时才有意义。如果不打开这个选项，编译器就不会检查某个变量是否可能为<code>undefined</code>或<code>null</code>。</p><h2 id="断言函数">断言函数 <a class="markdownIt-Anchor" href="#断言函数">#</a></h2><p>断言函数是一种特殊函数，用于保证函数参数符合某种类型。如果函数参数达不到要求，就会抛出错误，中断程序执行；如果达到要求，就不进行任何操作，让代码按照正常流程运行。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">isString</span>(<span class="hljs-params">value:<span class="hljs-built_in">unknown</span></span>):<span class="hljs-built_in">void</span> {
+</code></pre><p>另外，非空断言只有在打开编译选项<code>strictNullChecks</code>时才有意义。如果不打开这个选项，编译器就不会检查某个变量是否可能为<code>undefined</code>或<code>null</code>。</p><h2 id="断言函数">断言函数 <a class="markdownIt-Anchor" href="#断言函数">#</a></h2><p>断言函数是一种特殊函数，用于保证函数参数符合某种类型。如果函数参数达不到要求，就会抛出错误，中断程序执行；如果达到要求，就不进行任何操作，让代码按照正常流程运行。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">isString</span>(<span class="hljs-params"><span class="hljs-attr">value</span>:<span class="hljs-built_in">unknown</span></span>):<span class="hljs-built_in">void</span> {
   <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> value !== <span class="hljs-string">&#x27;string&#x27;</span>)
     <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;Not a string&#x27;</span>);
 }
-</code></pre><p>上面示例中，函数<code>isString()</code>就是一个断言函数，用来保证参数<code>value</code>是一个字符串，否则就会抛出错误，中断程序的执行。</p><p>下面是它的用法。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">toUpper</span>(<span class="hljs-params">x: <span class="hljs-built_in">string</span>|<span class="hljs-built_in">number</span></span>) {
+</code></pre><p>上面示例中，函数<code>isString()</code>就是一个断言函数，用来保证参数<code>value</code>是一个字符串，否则就会抛出错误，中断程序的执行。</p><p>下面是它的用法。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">toUpper</span>(<span class="hljs-params"><span class="hljs-attr">x</span>: <span class="hljs-built_in">string</span>|<span class="hljs-built_in">number</span></span>) {
   <span class="hljs-title function_">isString</span>(x);
   <span class="hljs-keyword">return</span> x.<span class="hljs-title function_">toUpperCase</span>();
 }
-</code></pre><p>上面示例中，函数<code>toUpper()</code>的参数<code>x</code>，可能是字符串，也可能是数值。但是，函数体的最后一行调用<code>toUpperCase()</code>方法，必须保证<code>x</code>是字符串，否则报错。所以，这一行前面调用断言函数<code>isString()</code>，调用以后 TypeScript 就能确定，变量<code>x</code>一定是字符串，不是数值，也就不报错了。</p><p>传统的断言函数<code>isString()</code>的写法有一个缺点，它的参数类型是<code>unknown</code>，返回值类型是<code>void</code>（即没有返回值）。单单从这样的类型声明，很难看出<code>isString()</code>是一个断言函数。</p><p>为了更清晰地表达断言函数，TypeScript 3.7 引入了新的类型写法。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">isString</span>(<span class="hljs-params">value:<span class="hljs-built_in">unknown</span></span>):asserts value is <span class="hljs-built_in">string</span> {
+</code></pre><p>上面示例中，函数<code>toUpper()</code>的参数<code>x</code>，可能是字符串，也可能是数值。但是，函数体的最后一行调用<code>toUpperCase()</code>方法，必须保证<code>x</code>是字符串，否则报错。所以，这一行前面调用断言函数<code>isString()</code>，调用以后 TypeScript 就能确定，变量<code>x</code>一定是字符串，不是数值，也就不报错了。</p><p>传统的断言函数<code>isString()</code>的写法有一个缺点，它的参数类型是<code>unknown</code>，返回值类型是<code>void</code>（即没有返回值）。单单从这样的类型声明，很难看出<code>isString()</code>是一个断言函数。</p><p>为了更清晰地表达断言函数，TypeScript 3.7 引入了新的类型写法。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">isString</span>(<span class="hljs-params"><span class="hljs-attr">value</span>:<span class="hljs-built_in">unknown</span></span>):asserts value is <span class="hljs-built_in">string</span> {
   <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> value !== <span class="hljs-string">&#x27;string&#x27;</span>)
     <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;Not a string&#x27;</span>);
 }
-</code></pre><p>上面示例中，函数<code>isString()</code>的返回值类型写成<code>asserts value is string</code>，其中<code>asserts</code>和<code>is</code>都是关键词，<code>value</code>是函数的参数名，<code>string</code>是函数参数的预期类型。它的意思是，该函数用来断言参数<code>value</code>的类型是<code>string</code>，如果达不到要求，程序就会在这里中断。</p><p>使用了断言函数的新写法以后，TypeScript 就会自动识别，只要执行了该函数，对应的变量都为断言的类型。</p><p>注意，函数返回值的断言写法，只是用来更清晰地表达函数意图，真正的检查是需要开发者自己部署的。而且，如果内部的检查与断言不一致，TypeScript 也不会报错。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">isString</span>(<span class="hljs-params">value:<span class="hljs-built_in">unknown</span></span>):asserts value is <span class="hljs-built_in">string</span> {
+</code></pre><p>上面示例中，函数<code>isString()</code>的返回值类型写成<code>asserts value is string</code>，其中<code>asserts</code>和<code>is</code>都是关键词，<code>value</code>是函数的参数名，<code>string</code>是函数参数的预期类型。它的意思是，该函数用来断言参数<code>value</code>的类型是<code>string</code>，如果达不到要求，程序就会在这里中断。</p><p>使用了断言函数的新写法以后，TypeScript 就会自动识别，只要执行了该函数，对应的变量都为断言的类型。</p><p>注意，函数返回值的断言写法，只是用来更清晰地表达函数意图，真正的检查是需要开发者自己部署的。而且，如果内部的检查与断言不一致，TypeScript 也不会报错。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">isString</span>(<span class="hljs-params"><span class="hljs-attr">value</span>:<span class="hljs-built_in">unknown</span></span>):asserts value is <span class="hljs-built_in">string</span> {
   <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> value !== <span class="hljs-string">&#x27;number&#x27;</span>)
     <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;Not a number&#x27;</span>);
 }
-</code></pre><p>上面示例中，函数的断言是参数<code>value</code>类型为字符串，但是实际上，内部检查的却是它是否为数值，如果不是就抛错。这段代码能够正常通过编译，表示 TypeScript 并不会检查断言与实际的类型检查是否一致。</p><p>另外，断言函数的<code>asserts</code>语句等同于<code>void</code>类型，所以如果返回除了<code>undefined</code>和<code>null</code>以外的值，都会报错。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">isString</span>(<span class="hljs-params">value:<span class="hljs-built_in">unknown</span></span>):asserts value is <span class="hljs-built_in">string</span> {
+</code></pre><p>上面示例中，函数的断言是参数<code>value</code>类型为字符串，但是实际上，内部检查的却是它是否为数值，如果不是就抛错。这段代码能够正常通过编译，表示 TypeScript 并不会检查断言与实际的类型检查是否一致。</p><p>另外，断言函数的<code>asserts</code>语句等同于<code>void</code>类型，所以如果返回除了<code>undefined</code>和<code>null</code>以外的值，都会报错。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">isString</span>(<span class="hljs-params"><span class="hljs-attr">value</span>:<span class="hljs-built_in">unknown</span></span>):asserts value is <span class="hljs-built_in">string</span> {
   <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> value !== <span class="hljs-string">&#x27;string&#x27;</span>)
     <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;Not a string&#x27;</span>);
   <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>; <span class="hljs-comment">// 报错</span>
@@ -180,7 +180,7 @@ root.<span class="hljs-title function_">addEventListener</span>(<span class="hlj
 </code></pre><p>上面示例中，断言函数返回了<code>true</code>，导致报错。</p><p>下面是另一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">AccessLevel</span> = <span class="hljs-string">&#x27;r&#x27;</span> | <span class="hljs-string">&#x27;w&#x27;</span> | <span class="hljs-string">&#x27;rw&#x27;</span>;
 
 <span class="hljs-keyword">function</span> <span class="hljs-title function_">allowsReadAccess</span>(<span class="hljs-params">
-  level:AccessLevel
+  <span class="hljs-attr">level</span>:<span class="hljs-title class_">AccessLevel</span>
 </span>):asserts level is <span class="hljs-string">&#x27;r&#x27;</span> | <span class="hljs-string">&#x27;rw&#x27;</span> {
   <span class="hljs-keyword">if</span> (!level.<span class="hljs-title function_">includes</span>(<span class="hljs-string">&#x27;r&#x27;</span>))
     <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;Read not allowed&#x27;</span>);
@@ -202,21 +202,21 @@ root.<span class="hljs-title function_">addEventListener</span>(<span class="hlj
 
 <span class="hljs-comment">// 写法二</span>
 <span class="hljs-keyword">type</span> <span class="hljs-title class_">AssertIsNumber</span> =
-  <span class="hljs-function">(<span class="hljs-params">value:<span class="hljs-built_in">unknown</span></span>) =&gt;</span> asserts value is <span class="hljs-built_in">number</span>;
+  <span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">value</span>:<span class="hljs-built_in">unknown</span></span>) =&gt;</span> asserts value is <span class="hljs-built_in">number</span>;
 
 <span class="hljs-keyword">const</span> <span class="hljs-attr">assertIsNumber</span>:<span class="hljs-title class_">AssertIsNumber</span> = <span class="hljs-function">(<span class="hljs-params">value</span>) =&gt;</span> {
   <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> value !== <span class="hljs-string">&#x27;number&#x27;</span>)
     <span class="hljs-keyword">throw</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;Not a number&#x27;</span>);
 };
 </code></pre><p>注意，断言函数与类型保护函数（type guard）是两种不同的函数。它们的区别是，断言函数不返回值，而类型保护函数总是返回一个布尔值。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">isString</span>(<span class="hljs-params">
-  value:<span class="hljs-built_in">unknown</span>
+  <span class="hljs-attr">value</span>:<span class="hljs-built_in">unknown</span>
 </span>):value is <span class="hljs-built_in">string</span> {
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> value === <span class="hljs-string">&#x27;string&#x27;</span>;
 }
-</code></pre><p>上面示例就是一个类型保护函数<code>isString()</code>，作用是检查参数<code>value</code>是否为字符串。如果是的，返回<code>true</code>，否则返回<code>false</code>。该函数的返回值类型是<code>value is string</code>，其中的<code>is</code>是一个类型运算符，如果左侧的值符合右侧的类型，则返回<code>true</code>，否则返回<code>false</code>。</p><p>如果要断言某个参数保证为真（即不等于<code>false</code>、<code>undefined</code>和<code>null</code>），TypeScript 提供了断言函数的一种简写形式。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">assert</span>(<span class="hljs-params">x:<span class="hljs-built_in">unknown</span></span>):asserts x {
+</code></pre><p>上面示例就是一个类型保护函数<code>isString()</code>，作用是检查参数<code>value</code>是否为字符串。如果是的，返回<code>true</code>，否则返回<code>false</code>。该函数的返回值类型是<code>value is string</code>，其中的<code>is</code>是一个类型运算符，如果左侧的值符合右侧的类型，则返回<code>true</code>，否则返回<code>false</code>。</p><p>如果要断言某个参数保证为真（即不等于<code>false</code>、<code>undefined</code>和<code>null</code>），TypeScript 提供了断言函数的一种简写形式。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">assert</span>(<span class="hljs-params"><span class="hljs-attr">x</span>:<span class="hljs-built_in">unknown</span></span>):asserts x {
   <span class="hljs-comment">// ...</span>
 }
-</code></pre><p>上面示例中，函数<code>assert()</code>的断言部分，<code>asserts x</code>省略了谓语和宾语，表示参数<code>x</code>保证为真（<code>true</code>）。</p><p>同样的，参数为真的实际检查需要开发者自己实现。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">assert</span>(<span class="hljs-params">x:<span class="hljs-built_in">unknown</span></span>):asserts x {
+</code></pre><p>上面示例中，函数<code>assert()</code>的断言部分，<code>asserts x</code>省略了谓语和宾语，表示参数<code>x</code>保证为真（<code>true</code>）。</p><p>同样的，参数为真的实际检查需要开发者自己实现。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">assert</span>(<span class="hljs-params"><span class="hljs-attr">x</span>:<span class="hljs-built_in">unknown</span></span>):asserts x {
   <span class="hljs-keyword">if</span> (!x) {
     <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">`<span class="hljs-subst">${x}</span> should be a truthy value.`</span>);
   }
@@ -233,8 +233,8 @@ root.<span class="hljs-title function_">addEventListener</span>(<span class="hlj
 <span class="hljs-keyword">let</span> person = <span class="hljs-title function_">loadPerson</span>();
 
 <span class="hljs-keyword">function</span> <span class="hljs-title function_">assert</span>(<span class="hljs-params">
-  condition: <span class="hljs-built_in">unknown</span>,
-  message: <span class="hljs-built_in">string</span>
+  <span class="hljs-attr">condition</span>: <span class="hljs-built_in">unknown</span>,
+  <span class="hljs-attr">message</span>: <span class="hljs-built_in">string</span>
 </span>):asserts condition {
   <span class="hljs-keyword">if</span> (!condition) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(message);
 }

@@ -61,13 +61,13 @@ x = y; <span class="hljs-comment">// 报错</span>
 </code></pre><p>上面示例中，函数<code>distanceFromOrigin()</code>的参数是一个元组，传入只读元组就会报错，因为只读元组不能替代元组。</p><p>读者可能注意到了，上例中<code>[3, 4] as const</code>的写法，在上一章讲到，生成的是只读数组，其实生成的同时也是只读元组。因为它生成的实际上是一个只读的“值类型”<code>readonly [3, 4]</code>，把它解读成只读数组或只读元组都可以。</p><p>上面示例报错的解决方法，就是使用类型断言，在最后一行将传入的参数断言为普通元组，详见《类型断言》一章。</p><pre class="hljs"><code><span class="hljs-title function_">distanceFromOrigin</span>(
   point <span class="hljs-keyword">as</span> [<span class="hljs-built_in">number</span>, <span class="hljs-built_in">number</span>]
 )
-</code></pre><h2 id="成员数量的推断">成员数量的推断 <a class="markdownIt-Anchor" href="#成员数量的推断">#</a></h2><p>如果没有可选成员和扩展运算符，TypeScript 会推断出元组的成员数量（即元组长度）。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">f</span>(<span class="hljs-params">point: [<span class="hljs-built_in">number</span>, <span class="hljs-built_in">number</span>]</span>) {
+</code></pre><h2 id="成员数量的推断">成员数量的推断 <a class="markdownIt-Anchor" href="#成员数量的推断">#</a></h2><p>如果没有可选成员和扩展运算符，TypeScript 会推断出元组的成员数量（即元组长度）。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">f</span>(<span class="hljs-params"><span class="hljs-attr">point</span>: [<span class="hljs-built_in">number</span>, <span class="hljs-built_in">number</span>]</span>) {
   <span class="hljs-keyword">if</span> (point.<span class="hljs-property">length</span> === <span class="hljs-number">3</span>) {  <span class="hljs-comment">// 报错</span>
     <span class="hljs-comment">// ...</span>
   }
 }
 </code></pre><p>上面示例会报错，原因是 TypeScript 发现元组<code>point</code>的长度是<code>2</code>，不可能等于<code>3</code>，这个判断无意义。</p><p>如果包含了可选成员，TypeScript 会推断出可能的成员数量。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">f</span>(<span class="hljs-params">
-  point:[<span class="hljs-built_in">number</span>, <span class="hljs-built_in">number</span>?, <span class="hljs-built_in">number</span>?]
+  <span class="hljs-attr">point</span>:[<span class="hljs-built_in">number</span>, <span class="hljs-built_in">number</span>?, <span class="hljs-built_in">number</span>?]
 </span>) {
   <span class="hljs-keyword">if</span> (point.<span class="hljs-property">length</span> === <span class="hljs-number">4</span>) {  <span class="hljs-comment">// 报错</span>
     <span class="hljs-comment">// ...</span>
@@ -81,7 +81,7 @@ x = y; <span class="hljs-comment">// 报错</span>
 }
 </code></pre><p>上面示例中，<code>myTuple</code>只有三个成员，但是 TypeScript 推断不出它的成员数量，因为它的类型用到了扩展运算符，TypeScript 把<code>myTuple</code>当成数组看待，而数组的成员数量是不确定的。</p><p>一旦扩展运算符使得元组的成员数量无法推断，TypeScript 内部就会把该元组当成数组处理。</p><h2 id="扩展运算符与成员数量">扩展运算符与成员数量 <a class="markdownIt-Anchor" href="#扩展运算符与成员数量">#</a></h2><p>扩展运算符（<code>...</code>）将数组（注意，不是元组）转换成一个逗号分隔的序列，这时 TypeScript 会认为这个序列的成员数量是不确定的，因为数组的成员数量是不确定的。</p><p>这导致如果函数调用时，使用扩展运算符传入函数参数，可能发生参数数量与数组长度不匹配的报错。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> arr = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>];
 
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">add</span>(<span class="hljs-params">x:<span class="hljs-built_in">number</span>, y:<span class="hljs-built_in">number</span></span>){
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">add</span>(<span class="hljs-params"><span class="hljs-attr">x</span>:<span class="hljs-built_in">number</span>, <span class="hljs-attr">y</span>:<span class="hljs-built_in">number</span></span>){
   <span class="hljs-comment">// ...</span>
 }
 
@@ -90,7 +90,7 @@ x = y; <span class="hljs-comment">// 报错</span>
 <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(...arr) <span class="hljs-comment">// 正确</span>
 </code></pre><p>上面示例中，<code>console.log()</code>可以接受任意数量的参数，所以传入<code>...arr</code>就不会报错。</p><p>解决这个问题的一个方法，就是把成员数量不确定的数组，写成成员数量确定的元组，再使用扩展运算符。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> <span class="hljs-attr">arr</span>:[<span class="hljs-built_in">number</span>, <span class="hljs-built_in">number</span>] = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>];
 
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">add</span>(<span class="hljs-params">x:<span class="hljs-built_in">number</span>, y:<span class="hljs-built_in">number</span></span>){
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">add</span>(<span class="hljs-params"><span class="hljs-attr">x</span>:<span class="hljs-built_in">number</span>, <span class="hljs-attr">y</span>:<span class="hljs-built_in">number</span></span>){
   <span class="hljs-comment">// ...</span>
 }
 

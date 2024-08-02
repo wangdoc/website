@@ -8,7 +8,7 @@
   getArrayLength,
   maxInterval,
 };
-</code></pre><p>它的类型声明文件可以写成下面这样。</p><pre class="hljs"><code><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">getArrayLength</span>(<span class="hljs-params">arr: <span class="hljs-built_in">any</span>[]</span>): <span class="hljs-built_in">number</span>;
+</code></pre><p>它的类型声明文件可以写成下面这样。</p><pre class="hljs"><code><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">getArrayLength</span>(<span class="hljs-params"><span class="hljs-attr">arr</span>: <span class="hljs-built_in">any</span>[]</span>): <span class="hljs-built_in">number</span>;
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-attr">maxInterval</span>: <span class="hljs-number">12</span>;
 </code></pre><p>类型声明文件也可以使用<code>export =</code>命令，输出对外接口。下面是 moment 模块的类型声明文件的例子。</p><pre class="hljs"><code><span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-string">&#x27;moment&#x27;</span> {
   <span class="hljs-keyword">function</span> <span class="hljs-title function_">moment</span>(<span class="hljs-params"></span>): <span class="hljs-built_in">any</span>;
@@ -94,12 +94,12 @@
   }
 
   <span class="hljs-keyword">function</span> <span class="hljs-title function_">moment</span>(<span class="hljs-params">
-    input?: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">Date</span>
+    input?: <span class="hljs-built_in">string</span> | <span class="hljs-title class_">Date</span>
   </span>): <span class="hljs-title class_">Moment</span>;
 
   <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> moment;
 }
-</code></pre><p>上面示例中，可以注意一下默认接口<code>moment()</code>的写法。</p><p>下面是 D3 库的类型声明文件<code>D3.d.ts</code>。</p><pre class="hljs"><code><span class="hljs-keyword">declare</span> <span class="hljs-keyword">namespace</span> D3 {
+</code></pre><p>上面示例中，可以注意一下默认接口<code>moment()</code>的写法。</p><p>下面是 D3 库的类型声明文件<code>D3.d.ts</code>。</p><pre class="hljs"><code><span class="hljs-keyword">declare</span> <span class="hljs-keyword">namespace</span> <span class="hljs-title class_">D3</span> {
   <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Selectors</span> {
     <span class="hljs-attr">select</span>: {
       (<span class="hljs-attr">selector</span>: <span class="hljs-built_in">string</span>): <span class="hljs-title class_">Selection</span>;

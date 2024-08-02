@@ -40,9 +40,9 @@
 }
 
 <span class="hljs-keyword">function</span> <span class="hljs-title function_">compute</span>(<span class="hljs-params">
-  op:Operator,
-  a:<span class="hljs-built_in">number</span>,
-  b:<span class="hljs-built_in">number</span>
+  <span class="hljs-attr">op</span>:<span class="hljs-title class_">Operator</span>,
+  <span class="hljs-attr">a</span>:<span class="hljs-built_in">number</span>,
+  <span class="hljs-attr">b</span>:<span class="hljs-built_in">number</span>
 </span>) {
   <span class="hljs-keyword">switch</span> (op) {
     <span class="hljs-keyword">case</span> <span class="hljs-title class_">Operator</span>.<span class="hljs-property">ADD</span>:
@@ -64,7 +64,7 @@
   <span class="hljs-title class_">Yes</span>
 }
 
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">foo</span>(<span class="hljs-params">noYes:Bool</span>) {
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">foo</span>(<span class="hljs-params"><span class="hljs-attr">noYes</span>:<span class="hljs-title class_">Bool</span></span>) {
   <span class="hljs-comment">// ...</span>
 }
 
@@ -253,7 +253,7 @@ s = <span class="hljs-string">&#x27;One&#x27;</span>; <span class="hljs-comment"
   <span class="hljs-title class_">Two</span> = <span class="hljs-string">&#x27;Two&#x27;</span>,
 }
 
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">f</span>(<span class="hljs-params">arg:MyEnum</span>) {
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">f</span>(<span class="hljs-params"><span class="hljs-attr">arg</span>:<span class="hljs-title class_">MyEnum</span></span>) {
   <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;arg is &#x27;</span> + arg;
 }
 
@@ -273,7 +273,7 @@ s = <span class="hljs-string">&#x27;One&#x27;</span>; <span class="hljs-comment"
   <span class="hljs-comment">// ...</span>
 });
 </code></pre><p>上面示例中，函数<code>fetch()</code>的参数对象的属性<code>Accept</code>，只能接受一些指定的字符串。这时就很适合把字符串放进一个 Enum 结构，通过成员值来引用这些字符串。</p><p>字符串 Enum 可以使用联合类型（union）代替。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">move</span>(<span class="hljs-params">
-  where:<span class="hljs-string">&#x27;Up&#x27;</span>|<span class="hljs-string">&#x27;Down&#x27;</span>|<span class="hljs-string">&#x27;Left&#x27;</span>|<span class="hljs-string">&#x27;Right&#x27;</span>
+  <span class="hljs-attr">where</span>:<span class="hljs-string">&#x27;Up&#x27;</span>|<span class="hljs-string">&#x27;Down&#x27;</span>|<span class="hljs-string">&#x27;Left&#x27;</span>|<span class="hljs-string">&#x27;Right&#x27;</span>
 </span>) {
   <span class="hljs-comment">// ...</span>
  }
@@ -330,7 +330,7 @@ s = <span class="hljs-string">&#x27;One&#x27;</span>; <span class="hljs-comment"
 
 <span class="hljs-comment">// 编译后</span>
 <span class="hljs-keyword">var</span> <span class="hljs-title class_">MyEnum</span>;
-(<span class="hljs-keyword">function</span> (<span class="hljs-params">MyEnum</span>) {
+(<span class="hljs-keyword">function</span> (<span class="hljs-params"><span class="hljs-title class_">MyEnum</span></span>) {
     <span class="hljs-title class_">MyEnum</span>[<span class="hljs-string">&quot;A&quot;</span>] = <span class="hljs-string">&quot;a&quot;</span>;
     <span class="hljs-title class_">MyEnum</span>[<span class="hljs-string">&quot;B&quot;</span>] = <span class="hljs-string">&quot;b&quot;</span>;
 })(<span class="hljs-title class_">MyEnum</span> || (<span class="hljs-title class_">MyEnum</span> = {}));

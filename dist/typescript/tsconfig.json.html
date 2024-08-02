@@ -165,18 +165,18 @@ obj.<span class="hljs-property">foo</span> = <span class="hljs-literal">undefine
     <span class="hljs-attr">&quot;alwaysStrict&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span>
   <span class="hljs-punctuation">}</span>
 <span class="hljs-punctuation">}</span>
-</code></pre><h3 id="strictbindcallapply">strictBindCallApply <a class="markdownIt-Anchor" href="#strictbindcallapply">#</a></h3><p><code>strictBindCallApply</code>设置是否对函数的<code>call()</code>、<code>bind()</code>、<code>apply()</code>这三个方法进行类型检查。</p><p>如果不打开<code>strictBindCallApply</code>编译选项，编译器不会对以上三个方法进行类型检查，参数类型都是<code>any</code>，传入任何参数都不会产生编译错误。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">fn</span>(<span class="hljs-params">x: <span class="hljs-built_in">string</span></span>) {
+</code></pre><h3 id="strictbindcallapply">strictBindCallApply <a class="markdownIt-Anchor" href="#strictbindcallapply">#</a></h3><p><code>strictBindCallApply</code>设置是否对函数的<code>call()</code>、<code>bind()</code>、<code>apply()</code>这三个方法进行类型检查。</p><p>如果不打开<code>strictBindCallApply</code>编译选项，编译器不会对以上三个方法进行类型检查，参数类型都是<code>any</code>，传入任何参数都不会产生编译错误。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">fn</span>(<span class="hljs-params"><span class="hljs-attr">x</span>: <span class="hljs-built_in">string</span></span>) {
   <span class="hljs-keyword">return</span> <span class="hljs-built_in">parseInt</span>(x);
 }
 
 <span class="hljs-comment">// strictBindCallApply:false</span>
 <span class="hljs-keyword">const</span> n = fn.<span class="hljs-title function_">call</span>(<span class="hljs-literal">undefined</span>, <span class="hljs-literal">false</span>);
 <span class="hljs-comment">// 以上不报错</span>
-</code></pre><h3 id="strictfunctiontypes">strictFunctionTypes <a class="markdownIt-Anchor" href="#strictfunctiontypes">#</a></h3><p><code>strictFunctionTypes</code>允许对函数更严格的参数检查。具体来说，如果函数 B 的参数是函数 A 参数的子类型，那么函数 B 不能替代函数 A。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">fn</span>(<span class="hljs-params">x:<span class="hljs-built_in">string</span></span>) {
+</code></pre><h3 id="strictfunctiontypes">strictFunctionTypes <a class="markdownIt-Anchor" href="#strictfunctiontypes">#</a></h3><p><code>strictFunctionTypes</code>允许对函数更严格的参数检查。具体来说，如果函数 B 的参数是函数 A 参数的子类型，那么函数 B 不能替代函数 A。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">fn</span>(<span class="hljs-params"><span class="hljs-attr">x</span>:<span class="hljs-built_in">string</span></span>) {
   <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Hello, &#x27;</span> + x.<span class="hljs-title function_">toLowerCase</span>());
 }
 
-<span class="hljs-keyword">type</span> <span class="hljs-title class_">StringOrNumberFunc</span> = <span class="hljs-function">(<span class="hljs-params">ns:<span class="hljs-built_in">string</span>|<span class="hljs-built_in">number</span></span>) =&gt;</span> <span class="hljs-built_in">void</span>;
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">StringOrNumberFunc</span> = <span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">ns</span>:<span class="hljs-built_in">string</span>|<span class="hljs-built_in">number</span></span>) =&gt;</span> <span class="hljs-built_in">void</span>;
 
 <span class="hljs-comment">// 打开 strictFunctionTypes，下面代码会报错</span>
 <span class="hljs-keyword">let</span> <span class="hljs-attr">func</span>:<span class="hljs-title class_">StringOrNumberFunc</span> = fn;
@@ -185,7 +185,7 @@ obj.<span class="hljs-property">foo</span> = <span class="hljs-literal">undefine
 // strictNullChecks:<span class="hljs-literal">false</span>
 // 下面语句不报错
 value = null;
-</code></pre><p>它可以理解成只要打开，就需要显式检查<code>null</code>或<code>undefined</code>。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">doSomething</span>(<span class="hljs-params">x:<span class="hljs-built_in">string</span>|<span class="hljs-literal">null</span></span>) {
+</code></pre><p>它可以理解成只要打开，就需要显式检查<code>null</code>或<code>undefined</code>。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">doSomething</span>(<span class="hljs-params"><span class="hljs-attr">x</span>:<span class="hljs-built_in">string</span>|<span class="hljs-literal">null</span></span>) {
   <span class="hljs-keyword">if</span> (x === <span class="hljs-literal">null</span>) {
     <span class="hljs-comment">// do nothing</span>
   } <span class="hljs-keyword">else</span> {
@@ -212,24 +212,24 @@ value = null;
 <span class="hljs-keyword">class</span> <span class="hljs-title class_">User</span> {
   <span class="hljs-attr">username</span>:<span class="hljs-built_in">string</span>;
 
-  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">username:<span class="hljs-built_in">string</span></span>) {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-attr">username</span>:<span class="hljs-built_in">string</span></span>) {
     <span class="hljs-variable language_">this</span>.<span class="hljs-property">username</span> = username;
   }
 }
 <span class="hljs-comment">// 或者</span>
 <span class="hljs-keyword">class</span> <span class="hljs-title class_">User</span> {
-  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> username:<span class="hljs-built_in">string</span></span>) {}
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> <span class="hljs-attr">username</span>:<span class="hljs-built_in">string</span></span>) {}
 }
 
 <span class="hljs-comment">// 解决方法四：赋值断言</span>
 <span class="hljs-keyword">class</span> <span class="hljs-title class_">User</span> {
   username!:<span class="hljs-built_in">string</span>;
 
-  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">username:<span class="hljs-built_in">string</span></span>) {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-attr">username</span>:<span class="hljs-built_in">string</span></span>) {
     <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">initialize</span>(username);
   }
 
-  <span class="hljs-keyword">private</span> <span class="hljs-title function_">initialize</span>(<span class="hljs-params">username:<span class="hljs-built_in">string</span></span>) {
+  <span class="hljs-keyword">private</span> <span class="hljs-title function_">initialize</span>(<span class="hljs-params"><span class="hljs-attr">username</span>:<span class="hljs-built_in">string</span></span>) {
     <span class="hljs-variable language_">this</span>.<span class="hljs-property">username</span> = username;
   }
 }

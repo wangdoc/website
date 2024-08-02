@@ -45,7 +45,7 @@ arr.<span class="hljs-title function_">push</span>(<span class="hljs-number">3</
 <span class="hljs-keyword">let</span> <span class="hljs-attr">a2</span>:<span class="hljs-keyword">readonly</span> <span class="hljs-built_in">number</span>[] = a1; <span class="hljs-comment">// 正确</span>
 
 a1 = a2; <span class="hljs-comment">// 报错</span>
-</code></pre><p>上面示例中，子类型<code>number[]</code>可以赋值给父类型<code>readonly number[]</code>，但是反过来就会报错。</p><p>由于只读数组是数组的父类型，所以它不能代替数组。这一点很容易产生令人困惑的报错。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">getSum</span>(<span class="hljs-params">s:<span class="hljs-built_in">number</span>[]</span>) {
+</code></pre><p>上面示例中，子类型<code>number[]</code>可以赋值给父类型<code>readonly number[]</code>，但是反过来就会报错。</p><p>由于只读数组是数组的父类型，所以它不能代替数组。这一点很容易产生令人困惑的报错。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">getSum</span>(<span class="hljs-params"><span class="hljs-attr">s</span>:<span class="hljs-built_in">number</span>[]</span>) {
   <span class="hljs-comment">// ...</span>
 }
 

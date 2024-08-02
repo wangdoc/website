@@ -15,7 +15,7 @@
   <span class="hljs-meta">@MethodDecorator</span>() <span class="hljs-comment">//（C）</span>
   <span class="hljs-title function_">fly</span>(<span class="hljs-params">
     <span class="hljs-meta">@ParameterDecorator</span>() <span class="hljs-comment">// （D）</span>
-    meters: <span class="hljs-built_in">number</span>
+    <span class="hljs-attr">meters</span>: <span class="hljs-built_in">number</span>
   </span>) {
     <span class="hljs-comment">// code</span>
   }
@@ -37,8 +37,8 @@
   <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;in decorated&#x27;</span>);
 }
 </code></pre><p>上面示例中，装饰器用于一个普通函数，这是无效的，结果报错。</p><h2 id="类装饰器">类装饰器 <a class="markdownIt-Anchor" href="#类装饰器">#</a></h2><p>类装饰器应用于类（class），但实际上是应用于类的构造方法。</p><p>类装饰器有唯一参数，就是构造方法，可以在装饰器内部，对构造方法进行各种改造。如果类装饰器有返回值，就会替换掉原来的构造方法。</p><p>类装饰器的类型定义如下。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">ClassDecorator</span> = &lt;<span class="hljs-title class_">TFunction</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Function</span>&gt;
-  <span class="hljs-function">(<span class="hljs-params">target: TFunction</span>) =&gt;</span> <span class="hljs-title class_">TFunction</span> | <span class="hljs-built_in">void</span>;
-</code></pre><p>上面定义中，类型参数<code>TFunction</code>必须是函数，实际上就是构造方法。类装饰器的返回值，要么是返回处理后的原始构造方法，要么返回一个新的构造方法。</p><p>下面就是一个示例。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">f</span>(<span class="hljs-params">target:<span class="hljs-built_in">any</span></span>) {
+  <span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">target</span>: <span class="hljs-title class_">TFunction</span></span>) =&gt;</span> <span class="hljs-title class_">TFunction</span> | <span class="hljs-built_in">void</span>;
+</code></pre><p>上面定义中，类型参数<code>TFunction</code>必须是函数，实际上就是构造方法。类装饰器的返回值，要么是返回处理后的原始构造方法，要么返回一个新的构造方法。</p><p>下面就是一个示例。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">f</span>(<span class="hljs-params"><span class="hljs-attr">target</span>:<span class="hljs-built_in">any</span></span>) {
   <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;apply decorator&#x27;</span>)
   <span class="hljs-keyword">return</span> target;
 }
@@ -51,18 +51,18 @@
   <span class="hljs-keyword">type</span> = <span class="hljs-string">&quot;report&quot;</span>;
   <span class="hljs-attr">title</span>: <span class="hljs-built_in">string</span>;
  
-  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">t:<span class="hljs-built_in">string</span></span>) {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-attr">t</span>:<span class="hljs-built_in">string</span></span>) {
     <span class="hljs-variable language_">this</span>.<span class="hljs-property">title</span> = t;
   }
 }
 
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">sealed</span>(<span class="hljs-params">constructor: <span class="hljs-built_in">Function</span></span>) {
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">sealed</span>(<span class="hljs-params"><span class="hljs-attr">constructor</span>: <span class="hljs-title class_">Function</span></span>) {
   <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">seal</span>(constructor);
   <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">seal</span>(constructor.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>);
 }
-</code></pre><p>上面示例中，装饰器<code>@sealed()</code>会锁定<code>BugReport</code>这个类，使得它无法新增或删除静态成员和实例成员。</p><p>如果除了构造方法，类装饰器还需要其他参数，可以采取“工厂模式”，即把装饰器写在一个函数里面，该函数可以接受其他参数，执行后返回装饰器。但是，这样就需要调用装饰器的时候，先执行一次工厂函数。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">factory</span>(<span class="hljs-params">info:<span class="hljs-built_in">string</span></span>) {
+</code></pre><p>上面示例中，装饰器<code>@sealed()</code>会锁定<code>BugReport</code>这个类，使得它无法新增或删除静态成员和实例成员。</p><p>如果除了构造方法，类装饰器还需要其他参数，可以采取“工厂模式”，即把装饰器写在一个函数里面，该函数可以接受其他参数，执行后返回装饰器。但是，这样就需要调用装饰器的时候，先执行一次工厂函数。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">factory</span>(<span class="hljs-params"><span class="hljs-attr">info</span>:<span class="hljs-built_in">string</span></span>) {
   <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;received: &#x27;</span>, info);
-  <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> (<span class="hljs-params">target:<span class="hljs-built_in">any</span></span>) {
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"><span class="hljs-attr">target</span>:<span class="hljs-built_in">any</span></span>) {
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;apply decorator&#x27;</span>);
     <span class="hljs-keyword">return</span> target;
   }
@@ -70,13 +70,13 @@
 
 <span class="hljs-meta">@factory</span>(<span class="hljs-string">&#x27;log something&#x27;</span>)
 <span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> {}
-</code></pre><p>上面示例中，函数<code>factory()</code>的返回值才是装饰器，所以加载装饰器的时候，要先执行一次<code>@factory('log something')</code>，才能得到装饰器。这样做的好处是，可以加入额外的参数，本例是参数<code>info</code>。</p><p>总之，<code>@</code>后面要么是一个函数名，要么是函数表达式，甚至可以写出下面这样的代码。</p><pre class="hljs"><code>@(<span class="hljs-function">(<span class="hljs-params">constructor: <span class="hljs-built_in">Function</span></span>) =&gt;</span> {
+</code></pre><p>上面示例中，函数<code>factory()</code>的返回值才是装饰器，所以加载装饰器的时候，要先执行一次<code>@factory('log something')</code>，才能得到装饰器。这样做的好处是，可以加入额外的参数，本例是参数<code>info</code>。</p><p>总之，<code>@</code>后面要么是一个函数名，要么是函数表达式，甚至可以写出下面这样的代码。</p><pre class="hljs"><code>@(<span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">constructor</span>: <span class="hljs-title class_">Function</span></span>) =&gt;</span> {
   <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;log something&#x27;</span>);
 })
 <span class="hljs-keyword">class</span> <span class="hljs-title class_">InlineDecoratorExample</span> {
   <span class="hljs-comment">// ...</span>
 }
-</code></pre><p>上面示例中，<code>@</code>后面是一个箭头函数，这也是合法的。</p><p>类装饰器可以没有返回值，如果有返回值，就会替代所装饰的类的构造函数。由于 JavaScript 的类等同于构造函数的语法糖，所以装饰器通常返回一个新的类，对原有的类进行修改或扩展。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">decorator</span>(<span class="hljs-params">target:<span class="hljs-built_in">any</span></span>) {
+</code></pre><p>上面示例中，<code>@</code>后面是一个箭头函数，这也是合法的。</p><p>类装饰器可以没有返回值，如果有返回值，就会替代所装饰的类的构造函数。由于 JavaScript 的类等同于构造函数的语法糖，所以装饰器通常返回一个新的类，对原有的类进行修改或扩展。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">decorator</span>(<span class="hljs-params"><span class="hljs-attr">target</span>:<span class="hljs-built_in">any</span></span>) {
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">extends</span> target {
     value = <span class="hljs-number">123</span>;  
   };
@@ -107,15 +107,15 @@
 <span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> {}
 A = <span class="hljs-title function_">decorator</span>(A) || A;
 </code></pre><p>上面代码中，装饰器要么返回一个新的类<code>A</code>，要么不返回任何值，<code>A</code>保持装饰器处理后的状态。</p><h2 id="方法装饰器">方法装饰器 <a class="markdownIt-Anchor" href="#方法装饰器">#</a></h2><p>方法装饰器用来装饰类的方法，它的类型定义如下。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">MethodDecorator</span> = &lt;T&gt;<span class="hljs-function">(<span class="hljs-params">
-  target: <span class="hljs-built_in">Object</span>,
-  propertyKey: <span class="hljs-built_in">string</span>|<span class="hljs-built_in">symbol</span>,
-  descriptor: TypedPropertyDescriptor&lt;T&gt;
+  <span class="hljs-attr">target</span>: <span class="hljs-title class_">Object</span>,
+  <span class="hljs-attr">propertyKey</span>: <span class="hljs-built_in">string</span>|<span class="hljs-built_in">symbol</span>,
+  <span class="hljs-attr">descriptor</span>: <span class="hljs-title class_">TypedPropertyDescriptor</span>&lt;T&gt;
 </span>) =&gt;</span> <span class="hljs-title class_">TypedPropertyDescriptor</span>&lt;T&gt; | <span class="hljs-built_in">void</span>;
-</code></pre><p>方法装饰器一共可以接受三个参数。</p><ul><li>target：（对于类的静态方法）类的构造函数，或者（对于类的实例方法）类的原型。</li><li>propertyKey：所装饰方法的方法名，类型为<code>string|symbol</code>。</li><li>descriptor：所装饰方法的描述对象。</li></ul><p>方法装饰器的返回值（如果有的话），就是修改后的该方法的描述对象，可以覆盖原始方法的描述对象。</p><p>下面是一个示例。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">enumerable</span>(<span class="hljs-params">value: <span class="hljs-built_in">boolean</span></span>) {
+</code></pre><p>方法装饰器一共可以接受三个参数。</p><ul><li>target：（对于类的静态方法）类的构造函数，或者（对于类的实例方法）类的原型。</li><li>propertyKey：所装饰方法的方法名，类型为<code>string|symbol</code>。</li><li>descriptor：所装饰方法的描述对象。</li></ul><p>方法装饰器的返回值（如果有的话），就是修改后的该方法的描述对象，可以覆盖原始方法的描述对象。</p><p>下面是一个示例。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">enumerable</span>(<span class="hljs-params"><span class="hljs-attr">value</span>: <span class="hljs-built_in">boolean</span></span>) {
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> (<span class="hljs-params">
-    target: <span class="hljs-built_in">any</span>,
-    propertyKey: <span class="hljs-built_in">string</span>,
-    descriptor: PropertyDescriptor
+    <span class="hljs-attr">target</span>: <span class="hljs-built_in">any</span>,
+    <span class="hljs-attr">propertyKey</span>: <span class="hljs-built_in">string</span>,
+    <span class="hljs-attr">descriptor</span>: <span class="hljs-title class_">PropertyDescriptor</span>
   </span>) {
     descriptor.<span class="hljs-property">enumerable</span> = value;
   };
@@ -124,7 +124,7 @@ A = <span class="hljs-title function_">decorator</span>(A) || A;
 <span class="hljs-keyword">class</span> <span class="hljs-title class_">Greeter</span> {
   <span class="hljs-attr">greeting</span>: <span class="hljs-built_in">string</span>;
 
-  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">message:<span class="hljs-built_in">string</span></span>) {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-attr">message</span>:<span class="hljs-built_in">string</span></span>) {
     <span class="hljs-variable language_">this</span>.<span class="hljs-property">greeting</span> = message;
   }
  
@@ -134,9 +134,9 @@ A = <span class="hljs-title function_">decorator</span>(A) || A;
   }
 }
 </code></pre><p>上面示例中，方法装饰器<code>@enumerable()</code>装饰 Greeter 类的<code>greet()</code>方法，作用是修改该方法的描述对象的可遍历性属性<code>enumerable</code>。<code>@enumerable(false)</code>表示将该方法修改成不可遍历。</p><p>下面再看一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">logger</span>(<span class="hljs-params">
-  target: <span class="hljs-built_in">any</span>,
-  propertyKey: <span class="hljs-built_in">string</span>,
-  descriptor: PropertyDescriptor
+  <span class="hljs-attr">target</span>: <span class="hljs-built_in">any</span>,
+  <span class="hljs-attr">propertyKey</span>: <span class="hljs-built_in">string</span>,
+  <span class="hljs-attr">descriptor</span>: <span class="hljs-title class_">PropertyDescriptor</span>
 </span>) {
   <span class="hljs-keyword">const</span> original = descriptor.<span class="hljs-property">value</span>;
 
@@ -150,7 +150,7 @@ A = <span class="hljs-title function_">decorator</span>(A) || A;
 
 <span class="hljs-keyword">class</span> <span class="hljs-title class_">C</span> {
   <span class="hljs-meta">@logger</span>
-  <span class="hljs-title function_">add</span>(<span class="hljs-params">x: <span class="hljs-built_in">number</span>, y:<span class="hljs-built_in">number</span> </span>) {
+  <span class="hljs-title function_">add</span>(<span class="hljs-params"><span class="hljs-attr">x</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">y</span>:<span class="hljs-built_in">number</span> </span>) {
     <span class="hljs-keyword">return</span> x + y;
   }
 }
@@ -160,13 +160,13 @@ A = <span class="hljs-title function_">decorator</span>(A) || A;
 <span class="hljs-comment">// result:  3</span>
 </code></pre><p>上面示例中，方法装饰器<code>@logger</code>用来装饰<code>add()</code>方法，它的作用是让该方法输出日志。每当<code>add()</code>调用一次，控制台就会打印出参数和运行结果。</p><h2 id="属性装饰器">属性装饰器 <a class="markdownIt-Anchor" href="#属性装饰器">#</a></h2><p>属性装饰器用来装饰属性，类型定义如下。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">PropertyDecorator</span> =
   <span class="hljs-function">(<span class="hljs-params">
-    target: <span class="hljs-built_in">Object</span>,
-    propertyKey: <span class="hljs-built_in">string</span>|<span class="hljs-built_in">symbol</span>
+    <span class="hljs-attr">target</span>: <span class="hljs-title class_">Object</span>,
+    <span class="hljs-attr">propertyKey</span>: <span class="hljs-built_in">string</span>|<span class="hljs-built_in">symbol</span>
   </span>) =&gt;</span> <span class="hljs-built_in">void</span>;
-</code></pre><p>属性装饰器函数接受两个参数。</p><ul><li>target：（对于实例属性）类的原型对象（prototype），或者（对于静态属性）类的构造函数。</li><li>propertyKey：所装饰属性的属性名，注意类型有可能是字符串，也有可能是 Symbol 值。</li></ul><p>属性装饰器不需要返回值，如果有的话，也会被忽略。</p><p>下面是一个示例。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">ValidRange</span>(<span class="hljs-params">min:<span class="hljs-built_in">number</span>, max:<span class="hljs-built_in">number</span></span>) {
-  <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">target:<span class="hljs-built_in">Object</span>, key:<span class="hljs-built_in">string</span></span>) =&gt;</span> {
+</code></pre><p>属性装饰器函数接受两个参数。</p><ul><li>target：（对于实例属性）类的原型对象（prototype），或者（对于静态属性）类的构造函数。</li><li>propertyKey：所装饰属性的属性名，注意类型有可能是字符串，也有可能是 Symbol 值。</li></ul><p>属性装饰器不需要返回值，如果有的话，也会被忽略。</p><p>下面是一个示例。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">ValidRange</span>(<span class="hljs-params"><span class="hljs-attr">min</span>:<span class="hljs-built_in">number</span>, <span class="hljs-attr">max</span>:<span class="hljs-built_in">number</span></span>) {
+  <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">target</span>:<span class="hljs-title class_">Object</span>, <span class="hljs-attr">key</span>:<span class="hljs-built_in">string</span></span>) =&gt;</span> {
     <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">defineProperty</span>(target, key, {
-      <span class="hljs-attr">set</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">v:<span class="hljs-built_in">number</span></span>) {
+      <span class="hljs-attr">set</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"><span class="hljs-attr">v</span>:<span class="hljs-built_in">number</span></span>) {
         <span class="hljs-keyword">if</span> (v &lt; min || v &gt; max) {
           <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">`Not allowed value <span class="hljs-subst">${v}</span>`</span>);
         }
@@ -185,7 +185,7 @@ A = <span class="hljs-title function_">decorator</span>(A) || A;
 
 <span class="hljs-comment">// 报错 Not allowed value 2022 </span>
 stud.<span class="hljs-property">year</span> = <span class="hljs-number">2022</span>;
-</code></pre><p>上面示例中，装饰器<code>ValidRange</code>对属性<code>year</code>设立了一个上下限检查器，只要该属性赋值时，超过了上下限，就会报错。</p><p>注意，属性装饰器的第一个参数，对于实例属性是类的原型对象，而不是实例对象（即不是<code>this</code>对象）。这是因为装饰器执行时，类还没有新建实例，所以实例对象不存在。</p><p>由于拿不到<code>this</code>，所以属性装饰器无法获得实例属性的值。这也是它没有在参数里面提供属性描述对象的原因。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">logProperty</span>(<span class="hljs-params">target: <span class="hljs-built_in">Object</span>, member: <span class="hljs-built_in">string</span></span>) {
+</code></pre><p>上面示例中，装饰器<code>ValidRange</code>对属性<code>year</code>设立了一个上下限检查器，只要该属性赋值时，超过了上下限，就会报错。</p><p>注意，属性装饰器的第一个参数，对于实例属性是类的原型对象，而不是实例对象（即不是<code>this</code>对象）。这是因为装饰器执行时，类还没有新建实例，所以实例对象不存在。</p><p>由于拿不到<code>this</code>，所以属性装饰器无法获得实例属性的值。这也是它没有在参数里面提供属性描述对象的原因。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">logProperty</span>(<span class="hljs-params"><span class="hljs-attr">target</span>: <span class="hljs-title class_">Object</span>, <span class="hljs-attr">member</span>: <span class="hljs-built_in">string</span></span>) {
   <span class="hljs-keyword">const</span> prop = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">getOwnPropertyDescriptor</span>(target, member);
   <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Property <span class="hljs-subst">${member}</span> <span class="hljs-subst">${prop}</span>`</span>);
 }
@@ -195,10 +195,10 @@ stud.<span class="hljs-property">year</span> = <span class="hljs-number">2022</s
   <span class="hljs-attr">name</span>:<span class="hljs-built_in">string</span> = <span class="hljs-string">&#x27;Foo&#x27;</span>;
 }
 <span class="hljs-comment">// 输出 Property name undefined</span>
-</code></pre><p>上面示例中，属性装饰器<code>@logProperty</code>内部想要获取实例属性<code>name</code>的属性描述对象，结果拿到的是<code>undefined</code>。因为上例的<code>target</code>是类的原型对象，不是实例对象，所以拿不到<code>name</code>属性，也就是说<code>target.name</code>是不存在的，所以拿到的是<code>undefined</code>。只有通过<code>this.name</code>才能拿到<code>name</code>属性，但是这时<code>this</code>还不存在。</p><p>属性装饰器不仅无法获得实例属性的值，也不能初始化或修改实例属性，而且它的返回值也会被忽略。因此，它的作用很有限。</p><p>不过，如果属性装饰器设置了当前属性的存取器（getter/setter），然后在构造函数里面就可以对实例属性进行读写。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">Min</span>(<span class="hljs-params">limit:<span class="hljs-built_in">number</span></span>) {
+</code></pre><p>上面示例中，属性装饰器<code>@logProperty</code>内部想要获取实例属性<code>name</code>的属性描述对象，结果拿到的是<code>undefined</code>。因为上例的<code>target</code>是类的原型对象，不是实例对象，所以拿不到<code>name</code>属性，也就是说<code>target.name</code>是不存在的，所以拿到的是<code>undefined</code>。只有通过<code>this.name</code>才能拿到<code>name</code>属性，但是这时<code>this</code>还不存在。</p><p>属性装饰器不仅无法获得实例属性的值，也不能初始化或修改实例属性，而且它的返回值也会被忽略。因此，它的作用很有限。</p><p>不过，如果属性装饰器设置了当前属性的存取器（getter/setter），然后在构造函数里面就可以对实例属性进行读写。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">Min</span>(<span class="hljs-params"><span class="hljs-attr">limit</span>:<span class="hljs-built_in">number</span></span>) {
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span>(<span class="hljs-params">
-    target: <span class="hljs-built_in">Object</span>,
-    propertyKey: <span class="hljs-built_in">string</span>
+    <span class="hljs-attr">target</span>: <span class="hljs-title class_">Object</span>,
+    <span class="hljs-attr">propertyKey</span>: <span class="hljs-built_in">string</span>
   </span>) { 
     <span class="hljs-keyword">let</span> <span class="hljs-attr">value</span>: <span class="hljs-built_in">string</span>;
 
@@ -206,7 +206,7 @@ stud.<span class="hljs-property">year</span> = <span class="hljs-number">2022</s
       <span class="hljs-keyword">return</span> value;
     };
 
-    <span class="hljs-keyword">const</span> setter = <span class="hljs-keyword">function</span>(<span class="hljs-params">newVal:<span class="hljs-built_in">string</span></span>) {
+    <span class="hljs-keyword">const</span> setter = <span class="hljs-keyword">function</span>(<span class="hljs-params"><span class="hljs-attr">newVal</span>:<span class="hljs-built_in">string</span></span>) {
       <span class="hljs-keyword">if</span>(newVal.<span class="hljs-property">length</span> &lt; limit) {
         <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">`Your password should be bigger than <span class="hljs-subst">${limit}</span>`</span>);
       }
@@ -227,7 +227,7 @@ stud.<span class="hljs-property">year</span> = <span class="hljs-number">2022</s
   <span class="hljs-meta">@Min</span>(<span class="hljs-number">8</span>)
   <span class="hljs-attr">password</span>: <span class="hljs-built_in">string</span>;
   
-  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">username: <span class="hljs-built_in">string</span>, password: <span class="hljs-built_in">string</span></span>){
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-attr">username</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">password</span>: <span class="hljs-built_in">string</span></span>){
     <span class="hljs-variable language_">this</span>.<span class="hljs-property">username</span> = username;
     <span class="hljs-variable language_">this</span>.<span class="hljs-property">password</span> = password;
   }    
@@ -236,15 +236,15 @@ stud.<span class="hljs-property">year</span> = <span class="hljs-number">2022</s
 <span class="hljs-keyword">const</span> u = <span class="hljs-keyword">new</span> <span class="hljs-title class_">User</span>(<span class="hljs-string">&#x27;Foo&#x27;</span>, <span class="hljs-string">&#x27;pass&#x27;</span>); 
 <span class="hljs-comment">// 报错 Your password should be bigger than 8 </span>
 </code></pre><p>上面示例中，属性装饰器<code>@Min</code>通过设置存取器，拿到了实例属性的值。</p><h2 id="存取器装饰器">存取器装饰器 <a class="markdownIt-Anchor" href="#存取器装饰器">#</a></h2><p>存取器装饰器用来装饰类的存取器（accessor）。所谓“存取器”指的是某个属性的取值器（getter）和存值器（setter）。</p><p>存取器装饰器的类型定义，与方法装饰器一致。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">AccessorDecorator</span> = &lt;T&gt;<span class="hljs-function">(<span class="hljs-params">
-  target: <span class="hljs-built_in">Object</span>,
-  propertyKey: <span class="hljs-built_in">string</span>|<span class="hljs-built_in">symbol</span>,
-  descriptor: TypedPropertyDescriptor&lt;T&gt;
+  <span class="hljs-attr">target</span>: <span class="hljs-title class_">Object</span>,
+  <span class="hljs-attr">propertyKey</span>: <span class="hljs-built_in">string</span>|<span class="hljs-built_in">symbol</span>,
+  <span class="hljs-attr">descriptor</span>: <span class="hljs-title class_">TypedPropertyDescriptor</span>&lt;T&gt;
 </span>) =&gt;</span> <span class="hljs-title class_">TypedPropertyDescriptor</span>&lt;T&gt; | <span class="hljs-built_in">void</span>;
-</code></pre><p>存取器装饰器有三个参数。</p><ul><li>target：（对于静态属性的存取器）类的构造函数，或者（对于实例属性的存取器）类的原型。</li><li>propertyKey：存取器的属性名。</li><li>descriptor：存取器的属性描述对象。</li></ul><p>存取器装饰器的返回值（如果有的话），会作为该属性新的描述对象。</p><p>下面是一个示例。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">configurable</span>(<span class="hljs-params">value: <span class="hljs-built_in">boolean</span></span>) {
+</code></pre><p>存取器装饰器有三个参数。</p><ul><li>target：（对于静态属性的存取器）类的构造函数，或者（对于实例属性的存取器）类的原型。</li><li>propertyKey：存取器的属性名。</li><li>descriptor：存取器的属性描述对象。</li></ul><p>存取器装饰器的返回值（如果有的话），会作为该属性新的描述对象。</p><p>下面是一个示例。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">configurable</span>(<span class="hljs-params"><span class="hljs-attr">value</span>: <span class="hljs-built_in">boolean</span></span>) {
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> (<span class="hljs-params">
-    target: <span class="hljs-built_in">any</span>,
-    propertyKey: <span class="hljs-built_in">string</span>,
-    descriptor: PropertyDescriptor
+    <span class="hljs-attr">target</span>: <span class="hljs-built_in">any</span>,
+    <span class="hljs-attr">propertyKey</span>: <span class="hljs-built_in">string</span>,
+    <span class="hljs-attr">descriptor</span>: <span class="hljs-title class_">PropertyDescriptor</span>
   </span>) {
     descriptor.<span class="hljs-property">configurable</span> = value;
   };
@@ -253,7 +253,7 @@ stud.<span class="hljs-property">year</span> = <span class="hljs-number">2022</s
 <span class="hljs-keyword">class</span> <span class="hljs-title class_">Point</span> {
   <span class="hljs-keyword">private</span> <span class="hljs-attr">_x</span>: <span class="hljs-built_in">number</span>;
   <span class="hljs-keyword">private</span> <span class="hljs-attr">_y</span>: <span class="hljs-built_in">number</span>;
-  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">x:<span class="hljs-built_in">number</span>, y:<span class="hljs-built_in">number</span></span>) {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-attr">x</span>:<span class="hljs-built_in">number</span>, <span class="hljs-attr">y</span>:<span class="hljs-built_in">number</span></span>) {
     <span class="hljs-variable language_">this</span>.<span class="hljs-property">_x</span> = x;
     <span class="hljs-variable language_">this</span>.<span class="hljs-property">_y</span> = y;
   }
@@ -269,9 +269,9 @@ stud.<span class="hljs-property">year</span> = <span class="hljs-number">2022</s
   }
 }
 </code></pre><p>上面示例中，装饰器<code>@configurable(false)</code>关闭了所装饰属性（<code>x</code>和<code>y</code>）的属性描述对象的<code>configurable</code>键（即关闭了属性的可配置性）。</p><p>下面的示例是将装饰器用来验证属性值，如果赋值不满足条件就报错。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">validator</span>(<span class="hljs-params">
-  target: <span class="hljs-built_in">Object</span>,
-  propertyKey: <span class="hljs-built_in">string</span>,
-  descriptor: PropertyDescriptor
+  <span class="hljs-attr">target</span>: <span class="hljs-title class_">Object</span>,
+  <span class="hljs-attr">propertyKey</span>: <span class="hljs-built_in">string</span>,
+  <span class="hljs-attr">descriptor</span>: <span class="hljs-title class_">PropertyDescriptor</span>
 </span>){
   <span class="hljs-keyword">const</span> originalGet = descriptor.<span class="hljs-property">get</span>;
   <span class="hljs-keyword">const</span> originalSet = descriptor.<span class="hljs-property">set</span>;
@@ -307,7 +307,7 @@ c.<span class="hljs-property">foo</span> = <span class="hljs-number">150</span>;
   #<span class="hljs-attr">name</span>:<span class="hljs-built_in">string</span>;
 
   <span class="hljs-meta">@Decorator</span>
-  <span class="hljs-keyword">set</span> <span class="hljs-title function_">name</span>(<span class="hljs-params">n:<span class="hljs-built_in">string</span></span>) {
+  <span class="hljs-keyword">set</span> <span class="hljs-title function_">name</span>(<span class="hljs-params"><span class="hljs-attr">n</span>:<span class="hljs-built_in">string</span></span>) {
     <span class="hljs-variable language_">this</span>.#name = n;
   }
 
@@ -320,7 +320,7 @@ c.<span class="hljs-property">foo</span> = <span class="hljs-number">150</span>;
   #<span class="hljs-attr">name</span>:<span class="hljs-built_in">string</span>;
 
   <span class="hljs-meta">@Decorator</span>
-  <span class="hljs-keyword">set</span> <span class="hljs-title function_">name</span>(<span class="hljs-params">n:<span class="hljs-built_in">string</span></span>) {
+  <span class="hljs-keyword">set</span> <span class="hljs-title function_">name</span>(<span class="hljs-params"><span class="hljs-attr">n</span>:<span class="hljs-built_in">string</span></span>) {
     <span class="hljs-variable language_">this</span>.#name = n;
   }
   <span class="hljs-keyword">get</span> <span class="hljs-title function_">name</span>() {
@@ -328,22 +328,22 @@ c.<span class="hljs-property">foo</span> = <span class="hljs-number">150</span>;
   }
 }
 </code></pre><p>上面示例中，<code>@Decorator</code>只装饰它后面第一个出现的存值器（<code>set name()</code>），并不装饰取值器（<code>get name()</code>），所以不报错。</p><p>装饰器之所以不能同时用于同一个属性的存值器和取值器，原因是装饰器可以从属性描述对象上面，同时拿到取值器和存值器，因此只调用一次就够了。</p><h2 id="参数装饰器">参数装饰器 <a class="markdownIt-Anchor" href="#参数装饰器">#</a></h2><p>参数装饰器用来装饰构造方法或者其他方法的参数。它的类型定义如下。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">ParameterDecorator</span> = <span class="hljs-function">(<span class="hljs-params">
-  target: <span class="hljs-built_in">Object</span>,
-  propertyKey: <span class="hljs-built_in">string</span>|<span class="hljs-built_in">symbol</span>,
-  parameterIndex: <span class="hljs-built_in">number</span>
+  <span class="hljs-attr">target</span>: <span class="hljs-title class_">Object</span>,
+  <span class="hljs-attr">propertyKey</span>: <span class="hljs-built_in">string</span>|<span class="hljs-built_in">symbol</span>,
+  <span class="hljs-attr">parameterIndex</span>: <span class="hljs-built_in">number</span>
 </span>) =&gt;</span> <span class="hljs-built_in">void</span>;
 </code></pre><p>参数装饰器接受三个参数。</p><ul><li>target：（对于静态方法）类的构造函数，或者（对于类的实例方法）类的原型对象。</li><li>propertyKey：所装饰的方法的名字，类型为<code>string|symbol</code>。</li><li>parameterIndex：当前参数在方法的参数序列的位置（从0开始）。</li></ul><p>该装饰器不需要返回值，如果有的话会被忽略。</p><p>下面是一个示例。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">log</span>(<span class="hljs-params">
-  target: <span class="hljs-built_in">Object</span>,
-  propertyKey: <span class="hljs-built_in">string</span>|<span class="hljs-built_in">symbol</span>,
-  parameterIndex: <span class="hljs-built_in">number</span>
+  <span class="hljs-attr">target</span>: <span class="hljs-title class_">Object</span>,
+  <span class="hljs-attr">propertyKey</span>: <span class="hljs-built_in">string</span>|<span class="hljs-built_in">symbol</span>,
+  <span class="hljs-attr">parameterIndex</span>: <span class="hljs-built_in">number</span>
 </span>) {
   <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`<span class="hljs-subst">${<span class="hljs-built_in">String</span>(propertyKey)}</span> NO.<span class="hljs-subst">${parameterIndex}</span> Parameter`</span>);
 }
 
 <span class="hljs-keyword">class</span> <span class="hljs-title class_">C</span> {
   <span class="hljs-title function_">member</span>(<span class="hljs-params">
-    <span class="hljs-meta">@log</span> x:<span class="hljs-built_in">number</span>,
-    <span class="hljs-meta">@log</span> y:<span class="hljs-built_in">number</span>
+    <span class="hljs-meta">@log</span> <span class="hljs-attr">x</span>:<span class="hljs-built_in">number</span>,
+    <span class="hljs-meta">@log</span> <span class="hljs-attr">y</span>:<span class="hljs-built_in">number</span>
   </span>) {
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`member Parameters: <span class="hljs-subst">${x}</span> <span class="hljs-subst">${y}</span>`</span>);
   }
@@ -354,7 +354,7 @@ c.<span class="hljs-title function_">member</span>(<span class="hljs-number">5</
 <span class="hljs-comment">// member NO.1 Parameter</span>
 <span class="hljs-comment">// member NO.0 Parameter </span>
 <span class="hljs-comment">// member Parameters: 5 5 </span>
-</code></pre><p>上面示例中，参数装饰器会输出参数的位置序号。注意，后面的参数会先输出。</p><p>跟其他装饰器不同，参数装饰器主要用于输出信息，没有办法修改类的行为。</p><h2 id="装饰器的执行顺序">装饰器的执行顺序 <a class="markdownIt-Anchor" href="#装饰器的执行顺序">#</a></h2><p>前面说过，装饰器只会执行一次，就是在代码解析时执行，哪怕根本没有调用类新建实例，也会执行，而且从此就不再执行了。</p><p>执行装饰器时，按照如下顺序执行。</p><ol><li>实例相关的装饰器。</li><li>静态相关的装饰器。</li><li>构造方法的参数装饰器。</li><li>类装饰器。</li></ol><p>请看下面的示例。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">f</span>(<span class="hljs-params">key:<span class="hljs-built_in">string</span></span>):<span class="hljs-built_in">any</span> {
+</code></pre><p>上面示例中，参数装饰器会输出参数的位置序号。注意，后面的参数会先输出。</p><p>跟其他装饰器不同，参数装饰器主要用于输出信息，没有办法修改类的行为。</p><h2 id="装饰器的执行顺序">装饰器的执行顺序 <a class="markdownIt-Anchor" href="#装饰器的执行顺序">#</a></h2><p>前面说过，装饰器只会执行一次，就是在代码解析时执行，哪怕根本没有调用类新建实例，也会执行，而且从此就不再执行了。</p><p>执行装饰器时，按照如下顺序执行。</p><ol><li>实例相关的装饰器。</li><li>静态相关的装饰器。</li><li>构造方法的参数装饰器。</li><li>类装饰器。</li></ol><p>请看下面的示例。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">f</span>(<span class="hljs-params"><span class="hljs-attr">key</span>:<span class="hljs-built_in">string</span></span>):<span class="hljs-built_in">any</span> {
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;执行：&#x27;</span>, key);
   };
@@ -368,13 +368,13 @@ c.<span class="hljs-title function_">member</span>(<span class="hljs-number">5</
   <span class="hljs-meta">@f</span>(<span class="hljs-string">&#x27;实例方法&#x27;</span>)
   <span class="hljs-title function_">method</span>(<span class="hljs-params"></span>) {}
 
-  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-meta">@f</span>(<span class="hljs-string">&#x27;构造方法参数&#x27;</span>) foo:<span class="hljs-built_in">any</span></span>) {}
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-meta">@f</span>(<span class="hljs-string">&#x27;构造方法参数&#x27;</span>) <span class="hljs-attr">foo</span>:<span class="hljs-built_in">any</span></span>) {}
 }
 </code></pre><p>加载上面的示例，输出如下。</p><pre class="hljs"><code>执行： 实例方法
 执行： 静态方法
 执行： 构造方法参数
 执行： 类装饰器
-</code></pre><p>同一级装饰器的执行顺序，是按照它们的代码顺序。但是，参数装饰器的执行总是早于方法装饰器。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">f</span>(<span class="hljs-params">key:<span class="hljs-built_in">string</span></span>):<span class="hljs-built_in">any</span> {
+</code></pre><p>同一级装饰器的执行顺序，是按照它们的代码顺序。但是，参数装饰器的执行总是早于方法装饰器。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">f</span>(<span class="hljs-params"><span class="hljs-attr">key</span>:<span class="hljs-built_in">string</span></span>):<span class="hljs-built_in">any</span> {
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;执行：&#x27;</span>, key);
   };
@@ -382,13 +382,13 @@ c.<span class="hljs-title function_">member</span>(<span class="hljs-number">5</
 
 <span class="hljs-keyword">class</span> <span class="hljs-title class_">C</span> {
   <span class="hljs-meta">@f</span>(<span class="hljs-string">&#x27;方法1&#x27;</span>)
-  <span class="hljs-title function_">m1</span>(<span class="hljs-params"><span class="hljs-meta">@f</span>(<span class="hljs-string">&#x27;参数1&#x27;</span>) foo:<span class="hljs-built_in">any</span></span>) {}
+  <span class="hljs-title function_">m1</span>(<span class="hljs-params"><span class="hljs-meta">@f</span>(<span class="hljs-string">&#x27;参数1&#x27;</span>) <span class="hljs-attr">foo</span>:<span class="hljs-built_in">any</span></span>) {}
 
   <span class="hljs-meta">@f</span>(<span class="hljs-string">&#x27;属性1&#x27;</span>)
   <span class="hljs-attr">p1</span>: <span class="hljs-built_in">number</span>;
 
   <span class="hljs-meta">@f</span>(<span class="hljs-string">&#x27;方法2&#x27;</span>)
-  <span class="hljs-title function_">m2</span>(<span class="hljs-params"><span class="hljs-meta">@f</span>(<span class="hljs-string">&#x27;参数2&#x27;</span>) foo:<span class="hljs-built_in">any</span></span>) {}
+  <span class="hljs-title function_">m2</span>(<span class="hljs-params"><span class="hljs-meta">@f</span>(<span class="hljs-string">&#x27;参数2&#x27;</span>) <span class="hljs-attr">foo</span>:<span class="hljs-built_in">any</span></span>) {}
 
   <span class="hljs-meta">@f</span>(<span class="hljs-string">&#x27;属性2&#x27;</span>)
   <span class="hljs-attr">p2</span>: <span class="hljs-built_in">number</span>;
@@ -399,7 +399,7 @@ c.<span class="hljs-title function_">member</span>(<span class="hljs-number">5</
 执行： 参数<span class="hljs-number">2</span>
 执行： 方法<span class="hljs-number">2</span>
 执行： 属性<span class="hljs-number">2</span>
-</code></pre><p>上面示例中，实例装饰器的执行顺序，完全是按照代码顺序的。但是，同一个方法的参数装饰器，总是早于该方法的方法装饰器执行。</p><p>如果同一个方法或属性有多个装饰器，那么装饰器将顺序加载、逆序执行。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">f</span>(<span class="hljs-params">key:<span class="hljs-built_in">string</span></span>):<span class="hljs-built_in">any</span> {
+</code></pre><p>上面示例中，实例装饰器的执行顺序，完全是按照代码顺序的。但是，同一个方法的参数装饰器，总是早于该方法的方法装饰器执行。</p><p>如果同一个方法或属性有多个装饰器，那么装饰器将顺序加载、逆序执行。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">f</span>(<span class="hljs-params"><span class="hljs-attr">key</span>:<span class="hljs-built_in">string</span></span>):<span class="hljs-built_in">any</span> {
   <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;加载：&#x27;</span>, key);
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;执行：&#x27;</span>, key);
@@ -418,7 +418,7 @@ c.<span class="hljs-title function_">member</span>(<span class="hljs-number">5</
 <span class="hljs-comment">// 执行： C</span>
 <span class="hljs-comment">// 执行： B</span>
 <span class="hljs-comment">// 执行： A</span>
-</code></pre><p>如果同一个方法有多个参数，那么参数也是顺序加载、逆序执行。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">f</span>(<span class="hljs-params">key:<span class="hljs-built_in">string</span></span>):<span class="hljs-built_in">any</span> {
+</code></pre><p>如果同一个方法有多个参数，那么参数也是顺序加载、逆序执行。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">f</span>(<span class="hljs-params"><span class="hljs-attr">key</span>:<span class="hljs-built_in">string</span></span>):<span class="hljs-built_in">any</span> {
   <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;加载：&#x27;</span>, key);
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;执行：&#x27;</span>, key);
@@ -427,9 +427,9 @@ c.<span class="hljs-title function_">member</span>(<span class="hljs-number">5</
 
 <span class="hljs-keyword">class</span> <span class="hljs-title class_">C</span> {
   <span class="hljs-title function_">method</span>(<span class="hljs-params">
-    <span class="hljs-meta">@f</span>(<span class="hljs-string">&#x27;A&#x27;</span>) a:<span class="hljs-built_in">any</span>,
-    <span class="hljs-meta">@f</span>(<span class="hljs-string">&#x27;B&#x27;</span>) b:<span class="hljs-built_in">any</span>,
-    <span class="hljs-meta">@f</span>(<span class="hljs-string">&#x27;C&#x27;</span>) c:<span class="hljs-built_in">any</span>,
+    <span class="hljs-meta">@f</span>(<span class="hljs-string">&#x27;A&#x27;</span>) <span class="hljs-attr">a</span>:<span class="hljs-built_in">any</span>,
+    <span class="hljs-meta">@f</span>(<span class="hljs-string">&#x27;B&#x27;</span>) <span class="hljs-attr">b</span>:<span class="hljs-built_in">any</span>,
+    <span class="hljs-meta">@f</span>(<span class="hljs-string">&#x27;C&#x27;</span>) <span class="hljs-attr">c</span>:<span class="hljs-built_in">any</span>,
   </span>) {}
 }
 <span class="hljs-comment">// 加载： A</span>
@@ -439,12 +439,12 @@ c.<span class="hljs-title function_">member</span>(<span class="hljs-number">5</
 <span class="hljs-comment">// 执行： B</span>
 <span class="hljs-comment">// 执行： A</span>
 </code></pre><h2 id="为什么装饰器不能用于函数">为什么装饰器不能用于函数？ <a class="markdownIt-Anchor" href="#为什么装饰器不能用于函数">#</a></h2><p>装饰器只能用于类和类的方法，不能用于函数，主要原因是存在函数提升。</p><p>JavaScript 的函数不管在代码的什么位置，都会提升到代码顶部。</p><pre class="hljs"><code><span class="hljs-title function_">addOne</span>(<span class="hljs-number">1</span>);
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">addOne</span>(<span class="hljs-params">n:<span class="hljs-built_in">number</span></span>) {
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">addOne</span>(<span class="hljs-params"><span class="hljs-attr">n</span>:<span class="hljs-built_in">number</span></span>) {
   <span class="hljs-keyword">return</span> n + <span class="hljs-number">1</span>;
 }
 </code></pre><p>上面示例中，函数<code>addOne()</code>不会因为在定义之前执行而报错，原因就是函数存在提升，会自动提升到代码顶部。</p><p>如果允许装饰器可以用于普通函数，那么就有可能导致意想不到的情况。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> counter = <span class="hljs-number">0</span>;
 
-<span class="hljs-keyword">let</span> add = <span class="hljs-keyword">function</span> (<span class="hljs-params">target:<span class="hljs-built_in">any</span></span>) {
+<span class="hljs-keyword">let</span> add = <span class="hljs-keyword">function</span> (<span class="hljs-params"><span class="hljs-attr">target</span>:<span class="hljs-built_in">any</span></span>) {
   counter++;
 };
 

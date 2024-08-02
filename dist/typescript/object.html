@@ -270,7 +270,7 @@ arr.<span class="hljs-property">length</span> <span class="hljs-comment">// 报�
   <span class="hljs-attr">y</span>: <span class="hljs-built_in">number</span>,
 };
 
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">getSum</span>(<span class="hljs-params">obj:myObj</span>) {
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">getSum</span>(<span class="hljs-params"><span class="hljs-attr">obj</span>:myObj</span>) {
   <span class="hljs-keyword">let</span> sum = <span class="hljs-number">0</span>;
 
   <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> n <span class="hljs-keyword">of</span> <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(obj)) {
@@ -285,7 +285,7 @@ arr.<span class="hljs-property">length</span> <span class="hljs-comment">// 报�
   <span class="hljs-attr">y</span>: <span class="hljs-built_in">number</span>,
 };
 
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">getSum</span>(<span class="hljs-params">obj:MyObj</span>) {
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">getSum</span>(<span class="hljs-params"><span class="hljs-attr">obj</span>:<span class="hljs-title class_">MyObj</span></span>) {
   <span class="hljs-keyword">return</span> <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">abs</span>(obj.<span class="hljs-property">x</span>) + <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">abs</span>(obj.<span class="hljs-property">y</span>);
 }
 </code></pre><p>上面示例就不会报错，因为函数体内部只使用了属性<code>x</code>和<code>y</code>，这两个属性有明确的类型声明，保证<code>obj.x</code>和<code>obj.y</code>肯定是数值。虽然与<code>MyObj</code>兼容的任何对象都可以传入函数<code>getSum()</code>，但是只要不使用其他属性，就不会有类型报错。</p><h2 id="严格字面量检查">严格字面量检查 <a class="markdownIt-Anchor" href="#严格字面量检查">#</a></h2><p>如果对象使用字面量表示，会触发 TypeScript 的严格字面量检查（strict object literal checking）。如果字面量的结构跟类型定义的不一样（比如多出了未定义的属性），就会报错。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> <span class="hljs-attr">point</span>:{
@@ -336,7 +336,7 @@ x = { <span class="hljs-attr">foo</span>: <span class="hljs-number">1</span>, <s
   <span class="hljs-attr">y</span>: <span class="hljs-built_in">number</span>;
 }
 
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">computeDistance</span>(<span class="hljs-params">point: Point</span>) { <span class="hljs-comment">/*...*/</span> }
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">computeDistance</span>(<span class="hljs-params"><span class="hljs-attr">point</span>: <span class="hljs-title class_">Point</span></span>) { <span class="hljs-comment">/*...*/</span> }
 
 <span class="hljs-title function_">computeDistance</span>({ <span class="hljs-attr">x</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">z</span>: <span class="hljs-number">3</span> }); <span class="hljs-comment">// 报错</span>
 <span class="hljs-title function_">computeDistance</span>({<span class="hljs-attr">x</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">2</span>}); <span class="hljs-comment">// 正确</span>

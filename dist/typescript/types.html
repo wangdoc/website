@@ -12,7 +12,7 @@
 </code></pre><p>上面示例中，<code>bigint</code>类型赋值为整数和小数，都会报错。</p><p>注意，bigint 类型是 ES2020 标准引入的。如果使用这个类型，TypeScript 编译的目标 JavaScript 版本不能低于 ES2020（即编译参数<code>target</code>不低于<code>es2020</code>）。</p><h3 id="symbol-类型">symbol 类型 <a class="markdownIt-Anchor" href="#symbol-类型">#</a></h3><p>symbol 类型包含所有的 Symbol 值。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> <span class="hljs-attr">x</span>:<span class="hljs-built_in">symbol</span> = <span class="hljs-title class_">Symbol</span>();
 </code></pre><p>上面示例中，<code>Symbol()</code>函数的返回值就是 symbol 类型。</p><p>symbol 类型的详细介绍，参见《Symbol》一章。</p><h3 id="object-类型">object 类型 <a class="markdownIt-Anchor" href="#object-类型">#</a></h3><p>根据 JavaScript 的设计，object 类型包含了所有对象、数组和函数。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> <span class="hljs-attr">x</span>:<span class="hljs-built_in">object</span> = { <span class="hljs-attr">foo</span>: <span class="hljs-number">123</span> };
 <span class="hljs-keyword">const</span> <span class="hljs-attr">y</span>:<span class="hljs-built_in">object</span> = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
-<span class="hljs-keyword">const</span> <span class="hljs-attr">z</span>:<span class="hljs-built_in">object</span> = <span class="hljs-function">(<span class="hljs-params">n:<span class="hljs-built_in">number</span></span>) =&gt;</span> n + <span class="hljs-number">1</span>;
+<span class="hljs-keyword">const</span> <span class="hljs-attr">z</span>:<span class="hljs-built_in">object</span> = <span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">n</span>:<span class="hljs-built_in">number</span></span>) =&gt;</span> n + <span class="hljs-number">1</span>;
 </code></pre><p>上面示例中，对象、数组、函数都属于 object 类型。</p><h3 id="undefined-类型null-类型">undefined 类型，null 类型 <a class="markdownIt-Anchor" href="#undefined-类型null-类型">#</a></h3><p>undefined 和 null 是两种独立类型，它们各自都只有一个值。</p><p>undefined 类型只包含一个值<code>undefined</code>，表示未定义（即还未给出定义，以后可能会有定义）。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> <span class="hljs-attr">x</span>:<span class="hljs-literal">undefined</span> = <span class="hljs-literal">undefined</span>;
 </code></pre><p>上面示例中，变量<code>x</code>就属于 undefined 类型。两个<code>undefined</code>里面，第一个是类型，第二个是值。</p><p>null 类型也只包含一个值<code>null</code>，表示为空（即此处没有值）。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> <span class="hljs-attr">x</span>:<span class="hljs-literal">null</span> = <span class="hljs-literal">null</span>;
 </code></pre><p>上面示例中，变量<code>x</code>就属于 null 类型。</p><p>注意，如果没有声明类型的变量，被赋值为<code>undefined</code>或<code>null</code>，在关闭编译设置<code>noImplicitAny</code>和<code>strictNullChecks</code>时，它们的类型会被推断为<code>any</code>。</p><pre class="hljs"><code><span class="hljs-comment">// 关闭 noImplicitAny 和 strictNullChecks</span>
@@ -54,7 +54,7 @@ obj = <span class="hljs-string">&#x27;hi&#x27;</span>;
 obj = <span class="hljs-number">1</span>;
 obj = { <span class="hljs-attr">foo</span>: <span class="hljs-number">123</span> };
 obj = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>];
-obj = <span class="hljs-function">(<span class="hljs-params">a:<span class="hljs-built_in">number</span></span>) =&gt;</span> a + <span class="hljs-number">1</span>;
+obj = <span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">a</span>:<span class="hljs-built_in">number</span></span>) =&gt;</span> a + <span class="hljs-number">1</span>;
 </code></pre><p>上面示例中，原始类型值、对象、数组、函数都是合法的<code>Object</code>类型。</p><p>事实上，除了<code>undefined</code>和<code>null</code>这两个值不能转为对象，其他任何值都可以赋值给<code>Object</code>类型。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> <span class="hljs-attr">obj</span>:<span class="hljs-title class_">Object</span>;
 
 obj = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// 报错</span>
@@ -66,12 +66,12 @@ obj = <span class="hljs-string">&#x27;hi&#x27;</span>;
 obj = <span class="hljs-number">1</span>;
 obj = { <span class="hljs-attr">foo</span>: <span class="hljs-number">123</span> };
 obj = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>];
-obj = <span class="hljs-function">(<span class="hljs-params">a:<span class="hljs-built_in">number</span></span>) =&gt;</span> a + <span class="hljs-number">1</span>;
+obj = <span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">a</span>:<span class="hljs-built_in">number</span></span>) =&gt;</span> a + <span class="hljs-number">1</span>;
 </code></pre><p>上面示例中，变量<code>obj</code>的类型是空对象<code>{}</code>，就代表<code>Object</code>类型。</p><p>显然，无所不包的<code>Object</code>类型既不符合直觉，也不方便使用。</p><h3 id="object-类型-2">object 类型 <a class="markdownIt-Anchor" href="#object-类型-2">#</a></h3><p>小写的<code>object</code>类型代表 JavaScript 里面的狭义对象，即可以用字面量表示的对象，只包含对象、数组和函数，不包括原始类型的值。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> <span class="hljs-attr">obj</span>:<span class="hljs-built_in">object</span>;
  
 obj = { <span class="hljs-attr">foo</span>: <span class="hljs-number">123</span> };
 obj = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>];
-obj = <span class="hljs-function">(<span class="hljs-params">a:<span class="hljs-built_in">number</span></span>) =&gt;</span> a + <span class="hljs-number">1</span>;
+obj = <span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">a</span>:<span class="hljs-built_in">number</span></span>) =&gt;</span> a + <span class="hljs-number">1</span>;
 obj = <span class="hljs-literal">true</span>; <span class="hljs-comment">// 报错</span>
 obj = <span class="hljs-string">&#x27;hi&#x27;</span>; <span class="hljs-comment">// 报错</span>
 obj = <span class="hljs-number">1</span>; <span class="hljs-comment">// 报错</span>
@@ -144,12 +144,12 @@ name = <span class="hljs-literal">null</span>;
   | <span class="hljs-string">&#x27;three&#x27;</span>
   | <span class="hljs-string">&#x27;four&#x27;</span>;
 </code></pre><p>上面示例中，联合类型的第一个成员<code>one</code>前面，加上了竖杠。</p><p>如果一个变量有多种类型，读取该变量时，往往需要进行“类型缩小”（type narrowing），区分该值到底属于哪一种类型，然后再进一步处理。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">printId</span>(<span class="hljs-params">
-  id:<span class="hljs-built_in">number</span>|<span class="hljs-built_in">string</span>
+  <span class="hljs-attr">id</span>:<span class="hljs-built_in">number</span>|<span class="hljs-built_in">string</span>
 </span>) {
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(id.<span class="hljs-title function_">toUpperCase</span>()); <span class="hljs-comment">// 报错</span>
 }
 </code></pre><p>上面示例中，参数变量<code>id</code>可能是数值，也可能是字符串，这时直接对这个变量调用<code>toUpperCase()</code>方法会报错，因为这个方法只存在于字符串，不存在于数值。</p><p>解决方法就是对参数<code>id</code>做一下类型缩小，确定它的类型以后再进行处理。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">printId</span>(<span class="hljs-params">
-  id:<span class="hljs-built_in">number</span>|<span class="hljs-built_in">string</span>
+  <span class="hljs-attr">id</span>:<span class="hljs-built_in">number</span>|<span class="hljs-built_in">string</span>
 </span>) {
   <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> id === <span class="hljs-string">&#x27;string&#x27;</span>) {
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(id.<span class="hljs-title function_">toUpperCase</span>());
@@ -158,7 +158,7 @@ name = <span class="hljs-literal">null</span>;
   }
 }
 </code></pre><p>上面示例中，函数体内部会判断一下变量<code>id</code>的类型，如果是字符串，就对其执行<code>toUpperCase()</code>方法。</p><p>“类型缩小”是 TypeScript 处理联合类型的标准方法，凡是遇到可能为多种类型的场合，都需要先缩小类型，再进行处理。实际上，联合类型本身可以看成是一种“类型放大”（type widening），处理时就需要“类型缩小”（type narrowing）。</p><p>下面是“类型缩小”的另一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">getPort</span>(<span class="hljs-params">
-  scheme: <span class="hljs-string">&#x27;http&#x27;</span>|<span class="hljs-string">&#x27;https&#x27;</span>
+  <span class="hljs-attr">scheme</span>: <span class="hljs-string">&#x27;http&#x27;</span>|<span class="hljs-string">&#x27;https&#x27;</span>
 </span>) {
   <span class="hljs-keyword">switch</span> (scheme) {
     <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;http&#x27;</span>:
