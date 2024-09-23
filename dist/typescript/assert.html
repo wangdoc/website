@@ -192,7 +192,7 @@ root.<span class="hljs-title function_">addEventListener</span>(<span class="hlj
     <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">`<span class="hljs-subst">${value}</span> is not defined`</span>)
   }
 }
-</code></pre><p>上面示例中，工具类型<code>NonNullable&lt;T&gt;</code>对应类型<code>T</code>去除空类型后的剩余类型。</p><p>如果要将断言函数用于函数表达式，可以采用下面的写法。根据 TypeScript 的<a href="https://github.com/microsoft/TypeScript/pull/33622" target="_blank" rel="noopener">要求</a>，这时函数表达式所赋予的变量，必须有明确的类型声明。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">AssertIsNumber</span> =
+</code></pre><p>上面示例中，工具类型<code>NonNullable&lt;T&gt;</code>对应类型<code>T</code>去除空类型后的剩余类型。</p><p>如果要将断言函数用于函数表达式，可以采用下面的写法。根据 TypeScript 的<a href="https://github.com/microsoft/TypeScript/pull/33622#issuecomment-575301357" target="_blank" rel="noopener">要求</a>，这时函数表达式所赋予的变量，必须有明确的类型声明。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">AssertIsNumber</span> =
   <span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">value</span>:<span class="hljs-built_in">unknown</span></span>) =&gt;</span> asserts value is <span class="hljs-built_in">number</span>;
 
 <span class="hljs-keyword">const</span> <span class="hljs-attr">assertIsNumber</span>:<span class="hljs-title class_">AssertIsNumber</span> = <span class="hljs-function">(<span class="hljs-params">value</span>) =&gt;</span> {
