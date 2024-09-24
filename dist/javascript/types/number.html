@@ -83,6 +83,7 @@ x <span class="hljs-comment">// 0</span>
 <span class="hljs-title class_">NaN</span> - <span class="hljs-number">32</span> <span class="hljs-comment">// NaN</span>
 <span class="hljs-title class_">NaN</span> * <span class="hljs-number">32</span> <span class="hljs-comment">// NaN</span>
 <span class="hljs-title class_">NaN</span> / <span class="hljs-number">32</span> <span class="hljs-comment">// NaN</span>
+</code></pre><p>但是，ES6 引入指数运算符（<code>**</code>）后，出现了一个例外。</p><pre class="hljs"><code><span class="hljs-title class_">NaN</span> ** <span class="hljs-number">0</span> <span class="hljs-comment">// 1</span>
 </code></pre><h3 id="infinity">Infinity <a class="markdownIt-Anchor" href="#infinity">#</a></h3><p><strong>（1）含义</strong></p><p><code>Infinity</code>表示“无穷”，用来表示两种场景。一种是一个正的数值太大，或一个负的数值太小，无法表示；另一种是非0数值除以0，得到<code>Infinity</code>。</p><pre class="hljs"><code><span class="hljs-comment">// 场景一</span>
 <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">pow</span>(<span class="hljs-number">2</span>, <span class="hljs-number">1024</span>)
 <span class="hljs-comment">// Infinity</span>
