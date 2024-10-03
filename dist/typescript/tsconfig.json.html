@@ -180,19 +180,20 @@ obj.<span class="hljs-property">foo</span> = <span class="hljs-literal">undefine
 
 <span class="hljs-comment">// 打开 strictFunctionTypes，下面代码会报错</span>
 <span class="hljs-keyword">let</span> <span class="hljs-attr">func</span>:<span class="hljs-title class_">StringOrNumberFunc</span> = fn;
-</code></pre><p>上面示例中，函数<code>fn()</code>的参数是<code>StringOrNumberFunc</code>参数的子集，因此<code>fn</code>不能替代<code>StringOrNumberFunc</code>。</p><h3 id="strictnullchecks">strictNullChecks <a class="markdownIt-Anchor" href="#strictnullchecks">#</a></h3><p><code>strictNullChecks</code>设置对<code>null</code>和<code>undefined</code>进行严格类型检查。如果打开<code>strict</code>属性，这一项就会自动设为<code>true</code>，否则为<code>false</code>。</p><pre class="hljs"><code><span class="hljs-built_in">let</span> value:string;
+</code></pre><p>上面示例中，函数<code>fn()</code>的参数是<code>StringOrNumberFunc</code>参数的子集，因此<code>fn</code>不能替代<code>StringOrNumberFunc</code>。</p><h3 id="strictnullchecks">strictNullChecks <a class="markdownIt-Anchor" href="#strictnullchecks">#</a></h3><p>不打开<code>strictNullChecks</code>的情况下，变量可以设为<code>undefined</code>或<code>null</code>，而不管其类型是什么。</p><pre class="hljs"><code><span class="hljs-comment">// 不打开 strictNullChecks 的情况</span>
+<span class="hljs-keyword">let</span> <span class="hljs-attr">x</span>:<span class="hljs-built_in">number</span>;
 
-// strictNullChecks:<span class="hljs-literal">false</span>
-// 下面语句不报错
-value = null;
-</code></pre><p>它可以理解成只要打开，就需要显式检查<code>null</code>或<code>undefined</code>。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">doSomething</span>(<span class="hljs-params"><span class="hljs-attr">x</span>:<span class="hljs-built_in">string</span>|<span class="hljs-literal">null</span></span>) {
-  <span class="hljs-keyword">if</span> (x === <span class="hljs-literal">null</span>) {
-    <span class="hljs-comment">// do nothing</span>
-  } <span class="hljs-keyword">else</span> {
-    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;Hello, &quot;</span> + x.<span class="hljs-title function_">toUpperCase</span>());
-  }
-}
-</code></pre><h3 id="strictpropertyinitialization">strictPropertyInitialization <a class="markdownIt-Anchor" href="#strictpropertyinitialization">#</a></h3><p><code>strictPropertyInitialization</code>设置类的实例属性都必须初始化，包括以下几种情况。</p><ul><li>设为<code>undefined</code>类型</li><li>显式初始化</li><li>构造函数中赋值</li></ul><p>注意，使用该属性的同时，必须打开<code>strictNullChecks</code>。</p><pre class="hljs"><code><span class="hljs-comment">// strictPropertyInitialization：true</span>
+x = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// 不报错</span>
+x = <span class="hljs-literal">null</span>; <span class="hljs-comment">// 不报错</span>
+</code></pre><p>上面示例中，变量<code>x</code>的类型是<code>number</code>，但是赋值为<code>undefined</code>或<code>null</code>都不会报错。这是为了继承 JavaScript 的设定：当变量没有赋值时，它的值就为<code>undefined</code>。</p><p>一旦打开<code>strictNullChecks</code>，就相当于从变量的值里面，排除了<code>undefined</code>和<code>null</code>，除非变量的类型是这两种类型。</p><pre class="hljs"><code><span class="hljs-comment">// 打开 strictNullChecks 的情况</span>
+<span class="hljs-keyword">let</span> <span class="hljs-attr">x</span>:<span class="hljs-built_in">number</span>;
+
+x = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// 报错</span>
+x = <span class="hljs-literal">null</span>; <span class="hljs-comment">// 报错</span>
+</code></pre><p>下面是一个例子。</p><pre class="hljs"><code><span class="hljs-comment">// 打开 strickNullChecks 时，类型 A 为 number</span>
+<span class="hljs-comment">// 不打开时，类型 A 为 string</span>
+<span class="hljs-keyword">type</span> A = <span class="hljs-built_in">unknown</span> <span class="hljs-keyword">extends</span> {} ? <span class="hljs-built_in">string</span> : <span class="hljs-built_in">number</span>;
+</code></pre><p>上面示例中，<code>{}</code>代表了 Object 类型，不打开<code>strictNullChecks</code>时，它包括了<code>undefined</code>和<code>null</code>，就相当于包括了所有类型的值，所以这时<code>unknown</code>类型可以赋值给<code>{}</code>类型，类型<code>A</code>就为<code>number</code>。打开<code>strictNullChecks</code>时，<code>{}</code>就排除掉了<code>undefined</code>和<code>null</code>，这时<code>unknown</code>类型就不能赋值给<code>{}</code>类型后，类型<code>A</code>就为<code>string</code>。</p><p>另外，<code>strict</code>属性包含了<code>strictNullChecks</code>，如果打开<code>strict</code>属性，就相当于打开了<code>strictNullChecks</code>。</p><h3 id="strictpropertyinitialization">strictPropertyInitialization <a class="markdownIt-Anchor" href="#strictpropertyinitialization">#</a></h3><p><code>strictPropertyInitialization</code>设置类的实例属性都必须初始化，包括以下几种情况。</p><ul><li>设为<code>undefined</code>类型</li><li>显式初始化</li><li>构造函数中赋值</li></ul><p>注意，使用该属性的同时，必须打开<code>strictNullChecks</code>。</p><pre class="hljs"><code><span class="hljs-comment">// strictPropertyInitialization：true</span>
 <span class="hljs-keyword">class</span> <span class="hljs-title class_">User</span> {
   <span class="hljs-comment">// 报错，属性 username 没有初始化</span>
   <span class="hljs-attr">username</span>: <span class="hljs-built_in">string</span>;
