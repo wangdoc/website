@@ -170,26 +170,25 @@
 
 <span class="hljs-comment">// string</span>
 <span class="hljs-keyword">type</span> <span class="hljs-variable constant_">T2</span> = <span class="hljs-title class_">RegExp</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Animal</span> ? <span class="hljs-built_in">number</span> : <span class="hljs-built_in">string</span>;
-</code></pre><p>上面示例中，<code>Dog</code>是<code>Animal</code>的子类型，所以<code>T1</code>的类型是<code>number</code>。<code>RegExp</code>不是<code>Animal</code>的子类型，所以<code>T2</code>的类型是<code>string</code>。</p><p>一般来说，调换<code>extends</code>两侧类型，会返回相反的结果。举例来说，有两个类<code>Cat</code>和<code>Animal</code>，前者是后者的子类型，那么<code>Cat extends Animal</code>就为真，而<code>Animal extends Cat</code>就为伪。</p><p>如果需要判断的类型是一个联合类型，那么条件运算符会展开这个联合类型。</p><pre class="hljs"><code>(A|B) <span class="hljs-keyword">extends</span> U ? X : Y
+</code></pre><p>上面示例中，<code>Dog</code>是<code>Animal</code>的子类型，所以<code>T1</code>的类型是<code>number</code>。<code>RegExp</code>不是<code>Animal</code>的子类型，所以<code>T2</code>的类型是<code>string</code>。</p><p>一般来说，调换<code>extends</code>两侧类型，会返回相反的结果。举例来说，有两个类<code>Cat</code>和<code>Animal</code>，前者是后者的子类型，那么<code>Cat extends Animal</code>就为真，而<code>Animal extends Cat</code>就为伪。</p><p>如果对泛型使用 extends 条件运算，有一个地方需要注意。当泛型的类型参数是一个联合类型时，那么条件运算符会展开这个类型参数，即<code>T&lt;A|B&gt; = T&lt;A&gt; | T&lt;B&gt;</code>，所以 extends 对类型参数的每个部分是分别计算的。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">Cond</span>&lt;T&gt; = T <span class="hljs-keyword">extends</span> U ? X : Y;
 
-<span class="hljs-comment">// 等同于</span>
-
-(A <span class="hljs-keyword">extends</span> U ? X : Y) |
-(B <span class="hljs-keyword">extends</span> U ? X : Y)
-</code></pre><p>上面示例中，<code>A|B</code>是一个联合类型，进行条件运算时，相当于<code>A</code>和<code>B</code>分别进行运算符，返回结果组成一个联合类型。</p><p>如果不希望联合类型被条件运算符展开，可以把<code>extends</code>两侧的操作数都放在方括号里面。</p><pre class="hljs"><code><span class="hljs-comment">// 示例一</span>
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">MyType</span> = <span class="hljs-title class_">Cond</span>&lt;A|B&gt;;
+<span class="hljs-comment">// 等同于 Cond&lt;A&gt; | Cond&lt;B&gt;</span>
+<span class="hljs-comment">// 等同于 (A extends U ? X : Y) | (B extends U ? X : Y)</span>
+</code></pre><p>上面示例中，泛型<code>Cond</code>的类型参数<code>A|B</code>是一个联合类型，进行条件运算时，相当于<code>A</code>和<code>B</code>分别进行条件运算，返回结果组成一个联合类型。也就是说，如果类型参数是联合类型，条件运算的返回结果依然是一个联合类型。</p><p>如果不希望联合类型被条件运算符展开，可以把<code>extends</code>两侧的操作数都放在方括号里面。</p><pre class="hljs"><code><span class="hljs-comment">// 示例一</span>
 <span class="hljs-keyword">type</span> <span class="hljs-title class_">ToArray</span>&lt;<span class="hljs-title class_">Type</span>&gt; =
   <span class="hljs-title class_">Type</span> <span class="hljs-keyword">extends</span> <span class="hljs-built_in">any</span> ? <span class="hljs-title class_">Type</span>[] : <span class="hljs-built_in">never</span>;
 
-<span class="hljs-comment">// string[]|number[]</span>
+<span class="hljs-comment">// 返回结果 string[]|number[]</span>
 <span class="hljs-keyword">type</span> T = <span class="hljs-title class_">ToArray</span>&lt;<span class="hljs-built_in">string</span>|<span class="hljs-built_in">number</span>&gt;;
 
 <span class="hljs-comment">// 示例二</span>
 <span class="hljs-keyword">type</span> <span class="hljs-title class_">ToArray</span>&lt;<span class="hljs-title class_">Type</span>&gt; =
   [<span class="hljs-title class_">Type</span>] <span class="hljs-keyword">extends</span> [<span class="hljs-built_in">any</span>] ? <span class="hljs-title class_">Type</span>[] : <span class="hljs-built_in">never</span>;
 
-<span class="hljs-comment">// (string | number)[]</span>
+<span class="hljs-comment">// 返回结果 (string | number)[]</span>
 <span class="hljs-keyword">type</span> T = <span class="hljs-title class_">ToArray</span>&lt;<span class="hljs-built_in">string</span>|<span class="hljs-built_in">number</span>&gt;;
-</code></pre><p>上面的示例一，传入<code>ToArray&lt;Type&gt;</code>的类型参数是一个联合类型，所以会被展开，返回的也是联合类型。示例二是<code>extends</code>两侧的运算数都放在方括号里面，所以传入的联合类型不会展开，返回的是一个数组。</p><p>条件运算符还可以嵌套使用。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">LiteralTypeName</span>&lt;T&gt; =
+</code></pre><p>上面的示例一，泛型<code>ToArray&lt;Type&gt;</code>的类型参数<code>string|number</code>是一个联合类型，所以会被展开，返回的也是联合类型<code>string[]|number[]</code>。示例二是<code>extends</code>两侧的运算数都放在方括号里面，左侧是<code>[Type]</code>，右侧是<code>[any]</code>，这时传入的联合类型不会展开，返回的是一个数组<code>(string|number)[]</code>。</p><p>条件运算符还可以嵌套使用。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">LiteralTypeName</span>&lt;T&gt; =
   T <span class="hljs-keyword">extends</span> <span class="hljs-literal">undefined</span> ? <span class="hljs-string">&quot;undefined&quot;</span> :
   T <span class="hljs-keyword">extends</span> <span class="hljs-literal">null</span> ? <span class="hljs-string">&quot;null&quot;</span> :
   T <span class="hljs-keyword">extends</span> <span class="hljs-built_in">boolean</span> ? <span class="hljs-string">&quot;boolean&quot;</span> :
