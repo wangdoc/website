@@ -383,7 +383,7 @@ clone.<span class="hljs-title function_">m</span>(); <span class="hljs-comment">
 }
 </code></pre><h2 id="error-对象的-cause-属性">Error 对象的 cause 属性 <a class="markdownIt-Anchor" href="#error-对象的-cause-属性">#</a></h2><p>Error 对象用来表示代码运行时的异常情况，但是从这个对象拿到的上下文信息，有时很难解读，也不够充分。<a href="https://github.com/tc39/proposal-error-cause" target="_blank" rel="noopener">ES2022</a> 为 Error 对象添加了一个<code>cause</code>属性，可以在生成错误时，添加报错原因的描述。</p><p>它的用法是<code>new Error()</code>生成 Error 实例时，给出一个描述对象，该对象可以设置<code>cause</code>属性。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> actual = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;an error!&#x27;</span>, { <span class="hljs-attr">cause</span>: <span class="hljs-string">&#x27;Error cause&#x27;</span> });
 actual.<span class="hljs-property">cause</span>; <span class="hljs-comment">// &#x27;Error cause&#x27;</span>
-</code></pre><p>上面示例中，生成 Error 实例时，使用描述对象给出<code>cause</code>属性，写入报错的原因。然后，就可以从实例对象上读取这个属性。</p><p><code>casue</code>属性可以放置任意内容，不必一定是字符串。</p><pre class="hljs"><code><span class="hljs-keyword">try</span> {
+</code></pre><p>上面示例中，生成 Error 实例时，使用描述对象给出<code>cause</code>属性，写入报错的原因。然后，就可以从实例对象上读取这个属性。</p><p><code>cause</code>属性可以放置任意内容，不必一定是字符串。</p><pre class="hljs"><code><span class="hljs-keyword">try</span> {
   <span class="hljs-title function_">maybeWorks</span>();
 } <span class="hljs-keyword">catch</span> (err) {
   <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;maybeWorks failed!&#x27;</span>, { <span class="hljs-attr">cause</span>: err });

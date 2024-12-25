@@ -483,9 +483,9 @@ c.<span class="hljs-property">x</span> = <span class="hljs-number">123</span>;
     addInitializer(initializer: () =&gt; <span class="hljs-built_in">void</span>): <span class="hljs-built_in">void</span>;
   }
 </span>) =&gt;</span> {
-  get?: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">unknown</span>;
-  set?: <span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">value</span>: <span class="hljs-built_in">unknown</span></span>) =&gt;</span> <span class="hljs-built_in">void</span>;
-  initialize?: <span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">initialValue</span>: <span class="hljs-built_in">unknown</span></span>) =&gt;</span> <span class="hljs-built_in">unknown</span>;
+  <span class="hljs-attr">get</span>?: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">unknown</span>;
+  <span class="hljs-attr">set</span>?: <span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">value</span>: <span class="hljs-built_in">unknown</span></span>) =&gt;</span> <span class="hljs-built_in">void</span>;
+  <span class="hljs-attr">initialize</span>?: <span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">initialValue</span>: <span class="hljs-built_in">unknown</span></span>) =&gt;</span> <span class="hljs-built_in">unknown</span>;
 } | <span class="hljs-built_in">void</span>;
 </code></pre><p><code>accessor</code>命令的第一个参数接收到的是一个对象，包含了<code>accessor</code>命令定义的属性的存取器 get 和 set。属性装饰器可以返回一个新对象，其中包含了新的存取器，用来取代原来的，即相当于拦截了原来的存取器。此外，返回的对象还可以包括一个<code>initialize</code>函数，用来改变私有属性的初始值。装饰器也可以不返回值，如果返回的是其他类型的值，或者包含其他属性的对象，就会报错。</p><h2 id="addinitializer-方法新语法">addInitializer() 方法（新语法） <a class="markdownIt-Anchor" href="#addinitializer-方法新语法">#</a></h2><p>除了属性装饰器，其他装饰器的上下文对象还包括一个<code>addInitializer()</code>方法，用来完成初始化操作。</p><p>它的运行时间如下。</p><ul><li>类装饰器：在类被完全定义之后。</li><li>方法装饰器：在类构造期间运行，在属性初始化之前。</li><li>静态方法装饰器：在类定义期间运行，早于静态属性定义，但晚于类方法的定义。</li></ul><p>下面是一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">customElement</span>(<span class="hljs-params">name</span>) {
   <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">value, { addInitializer }</span>) =&gt;</span> {
