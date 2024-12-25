@@ -36,7 +36,7 @@
 <span class="hljs-comment">// TypeError: Cannot assign to read only property &#x27;length&#x27; of string &#x27;abc&#x27;</span>
 </code></pre><p>上面代码报错，因为<code>length</code>是只读属性，严格模式下不可写。正常模式下，改变<code>length</code>属性是无效的，但不会报错。</p><p>严格模式下，对只读属性赋值，或者删除不可配置（non-configurable）属性都会报错。</p><pre class="hljs"><code><span class="hljs-comment">// 对只读属性赋值会报错</span>
 <span class="hljs-meta">&#x27;use strict&#x27;</span>;
-<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">defineProperty</span>({}, <span class="hljs-string">&#x27;a&#x27;</span>, {
+<span class="hljs-keyword">var</span> obj = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">defineProperty</span>({}, <span class="hljs-string">&#x27;a&#x27;</span>, {
   <span class="hljs-attr">value</span>: <span class="hljs-number">37</span>,
   <span class="hljs-attr">writable</span>: <span class="hljs-literal">false</span>
 });
