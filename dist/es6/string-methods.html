@@ -151,7 +151,7 @@ s.<span class="hljs-title function_">trimEnd</span>() <span class="hljs-comment"
 <span class="hljs-comment">// &#x27;a$c&#x27;</span>
 </code></pre><p><code>replaceAll()</code>的第二个参数<code>replacement</code>除了为字符串，也可以是一个函数，该函数的返回值将替换掉第一个参数<code>searchValue</code>匹配的文本。</p><pre class="hljs"><code><span class="hljs-string">&#x27;aabbcc&#x27;</span>.<span class="hljs-title function_">replaceAll</span>(<span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-string">&#x27;_&#x27;</span>)
 <span class="hljs-comment">// &#x27;aa__cc&#x27;</span>
-</code></pre><p>上面例子中，<code>replaceAll()</code>的第二个参数是一个函数，该函数的返回值会替换掉所有<code>b</code>的匹配。</p><p>这个替换函数可以接受多个参数。第一个参数是捕捉到的匹配内容，第二个参数捕捉到是组匹配（有多少个组匹配，就有多少个对应的参数）。此外，最后还可以添加两个参数，倒数第二个参数是捕捉到的内容在整个字符串中的位置，最后一个参数是原字符串。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> str = <span class="hljs-string">&#x27;123abc456&#x27;</span>;
+</code></pre><p>上面例子中，<code>replaceAll()</code>的第二个参数是一个函数，该函数的返回值会替换掉所有<code>b</code>的匹配。</p><p>这个替换函数可以接受多个参数。第一个参数是捕捉到的匹配内容，第二个参数是捕捉到的组匹配（有多少个组匹配，就有多少个对应的参数）。此外，最后还可以添加两个参数，倒数第二个参数是捕捉到的内容在整个字符串中的位置，最后一个参数是原字符串。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> str = <span class="hljs-string">&#x27;123abc456&#x27;</span>;
 <span class="hljs-keyword">const</span> regex = <span class="hljs-regexp">/(\d+)([a-z]+)(\d+)/g</span>;
 
 <span class="hljs-keyword">function</span> <span class="hljs-title function_">replacer</span>(<span class="hljs-params">match, p1, p2, p3, offset, string</span>) {
