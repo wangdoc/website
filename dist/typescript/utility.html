@@ -21,7 +21,7 @@
 &gt;; <span class="hljs-comment">// [x: string, y: number]</span>
 
 <span class="hljs-keyword">type</span> <span class="hljs-variable constant_">T2</span> = <span class="hljs-title class_">ConstructorParameters</span>&lt;
-  <span class="hljs-title function_">new</span> (x?: <span class="hljs-built_in">string</span>) =&gt; <span class="hljs-built_in">object</span>
+  <span class="hljs-title function_">new</span> (<span class="hljs-attr">x</span>?: <span class="hljs-built_in">string</span>) =&gt; <span class="hljs-built_in">object</span>
 &gt;; <span class="hljs-comment">// [x?: string | undefined]</span>
 </code></pre><p>它可以返回一些内置构造方法的参数类型。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-variable constant_">T1</span> = <span class="hljs-title class_">ConstructorParameters</span>&lt;
   <span class="hljs-title class_">ErrorConstructor</span>
@@ -189,7 +189,7 @@
 };
 </code></pre><h2 id="readonlytype"><code>Readonly&lt;Type&gt;</code> <a class="markdownIt-Anchor" href="#readonlytype">#</a></h2><p><code>Readonly&lt;Type&gt;</code>返回一个新类型，将参数类型<code>Type</code>的所有属性变为只读属性。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> A {
   <span class="hljs-attr">x</span>: <span class="hljs-built_in">number</span>;
-  y?: <span class="hljs-built_in">number</span>;
+  <span class="hljs-attr">y</span>?: <span class="hljs-built_in">number</span>;
 }
 
 <span class="hljs-comment">// { readonly x: number; readonly y?: number; }</span>
@@ -221,7 +221,7 @@ worker.<span class="hljs-property">name</span> = <span class="hljs-string">&#x27
 </code></pre><p>参数<code>Keys</code>的类型必须兼容<code>string|number|symbol</code>，否则不能用作键名，会报错。</p><p><code>Record&lt;Keys, Type&gt;</code>的实现如下。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">Record</span>&lt;K <span class="hljs-keyword">extends</span> <span class="hljs-built_in">string</span>|<span class="hljs-built_in">number</span>|<span class="hljs-built_in">symbol</span>, T&gt;
   = { [P <span class="hljs-keyword">in</span> K]: T; }
 </code></pre><h2 id="requiredtype"><code>Required&lt;Type&gt;</code> <a class="markdownIt-Anchor" href="#requiredtype">#</a></h2><p><code>Required&lt;Type&gt;</code>返回一个新类型，将参数类型<code>Type</code>的所有属性变为必选属性。它与<code>Partial&lt;Type&gt;</code>的作用正好相反。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> A {
-  x?: <span class="hljs-built_in">number</span>;
+  <span class="hljs-attr">x</span>?: <span class="hljs-built_in">number</span>;
   <span class="hljs-attr">y</span>: <span class="hljs-built_in">number</span>;
 }
 

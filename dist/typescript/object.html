@@ -76,32 +76,32 @@ myUser.<span class="hljs-property">name</span> = <span class="hljs-string">&quot
 };
 </code></pre><p>上面示例中，<code>obj</code>只写了<code>prop</code>属性，但是不报错。因为它可以继承原型上面的<code>toString()</code>方法。</p><h2 id="可选属性">可选属性 <a class="markdownIt-Anchor" href="#可选属性">#</a></h2><p>如果某个属性是可选的（即可以忽略），需要在属性名后面加一个问号。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> <span class="hljs-attr">obj</span>: {
   <span class="hljs-attr">x</span>: <span class="hljs-built_in">number</span>;
-  y?: <span class="hljs-built_in">number</span>;
+  <span class="hljs-attr">y</span>?: <span class="hljs-built_in">number</span>;
 } = { <span class="hljs-attr">x</span>: <span class="hljs-number">1</span> };
 </code></pre><p>上面示例中，属性<code>y</code>是可选的。</p><p>可选属性等同于允许赋值为<code>undefined</code>，下面两种写法是等效的。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">User</span> = {
   <span class="hljs-attr">firstName</span>: <span class="hljs-built_in">string</span>;
-  lastName?: <span class="hljs-built_in">string</span>;
+  <span class="hljs-attr">lastName</span>?: <span class="hljs-built_in">string</span>;
 };
 
 <span class="hljs-comment">// 等同于</span>
 <span class="hljs-keyword">type</span> <span class="hljs-title class_">User</span> = {
   <span class="hljs-attr">firstName</span>: <span class="hljs-built_in">string</span>;
-  lastName?: <span class="hljs-built_in">string</span>|<span class="hljs-literal">undefined</span>;
+  <span class="hljs-attr">lastName</span>?: <span class="hljs-built_in">string</span>|<span class="hljs-literal">undefined</span>;
 };
 </code></pre><p>上面示例中，类型<code>User</code>的可选属性<code>lastName</code>可以是字符串，也可以是<code>undefined</code>，即可选属性可以赋值为<code>undefined</code>。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> <span class="hljs-attr">obj</span>: {
   <span class="hljs-attr">x</span>: <span class="hljs-built_in">number</span>;
-  y?: <span class="hljs-built_in">number</span>;
+  <span class="hljs-attr">y</span>?: <span class="hljs-built_in">number</span>;
 } = { <span class="hljs-attr">x</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">y</span>: <span class="hljs-literal">undefined</span> };
 </code></pre><p>上面示例中，可选属性<code>y</code>赋值为<code>undefined</code>，不会报错。</p><p>同样地，读取一个没有赋值的可选属性时，返回<code>undefined</code>。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">MyObj</span> = {
   <span class="hljs-attr">x</span>: <span class="hljs-built_in">string</span>,
-  y?: <span class="hljs-built_in">string</span>
+  <span class="hljs-attr">y</span>?: <span class="hljs-built_in">string</span>
 };
 
 <span class="hljs-keyword">const</span> <span class="hljs-attr">obj</span>:<span class="hljs-title class_">MyObj</span> = { <span class="hljs-attr">x</span>: <span class="hljs-string">&#x27;hello&#x27;</span> };
 obj.<span class="hljs-property">y</span>.<span class="hljs-title function_">toLowerCase</span>() <span class="hljs-comment">// 报错</span>
 </code></pre><p>上面示例中，最后一行会报错，因为<code>obj.y</code>返回<code>undefined</code>，无法对其调用<code>toLowerCase()</code>。</p><p>所以，读取可选属性之前，必须检查一下是否为<code>undefined</code>。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> <span class="hljs-attr">user</span>:{
   <span class="hljs-attr">firstName</span>: <span class="hljs-built_in">string</span>;
-  lastName?: <span class="hljs-built_in">string</span>;
+  <span class="hljs-attr">lastName</span>?: <span class="hljs-built_in">string</span>;
 } = { <span class="hljs-attr">firstName</span>: <span class="hljs-string">&#x27;Foo&#x27;</span>};
 
 <span class="hljs-keyword">if</span> (user.<span class="hljs-property">lastName</span> !== <span class="hljs-literal">undefined</span>) {
@@ -119,9 +119,9 @@ obj.<span class="hljs-property">y</span>.<span class="hljs-title function_">toLo
 </code></pre><p>上面示例中，写法一使用三元运算符<code>?:</code>，判断是否为<code>undefined</code>，并设置默认值。写法二使用 Null 判断运算符<code>??</code>，与写法一的作用完全相同。</p><p>TypeScript 提供编译设置<code>ExactOptionalPropertyTypes</code>，只要同时打开这个设置和<code>strictNullChecks</code>，可选属性就不能设为<code>undefined</code>。</p><pre class="hljs"><code><span class="hljs-comment">// 打开 ExactOptionsPropertyTypes 和 strictNullChecks</span>
 <span class="hljs-keyword">const</span> <span class="hljs-attr">obj</span>: {
   <span class="hljs-attr">x</span>: <span class="hljs-built_in">number</span>;
-  y?: <span class="hljs-built_in">number</span>;
+  <span class="hljs-attr">y</span>?: <span class="hljs-built_in">number</span>;
 } = { <span class="hljs-attr">x</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">y</span>: <span class="hljs-literal">undefined</span> }; <span class="hljs-comment">// 报错</span>
-</code></pre><p>上面示例中，打开了这两个设置以后，可选属性就不能设为<code>undefined</code>了。</p><p>注意，可选属性与允许设为<code>undefined</code>的必选属性是不等价的。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> A = { <span class="hljs-attr">x</span>:<span class="hljs-built_in">number</span>, y?:<span class="hljs-built_in">number</span> };
+</code></pre><p>上面示例中，打开了这两个设置以后，可选属性就不能设为<code>undefined</code>了。</p><p>注意，可选属性与允许设为<code>undefined</code>的必选属性是不等价的。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> A = { <span class="hljs-attr">x</span>:<span class="hljs-built_in">number</span>, <span class="hljs-attr">y</span>?:<span class="hljs-built_in">number</span> };
 <span class="hljs-keyword">type</span> B = { <span class="hljs-attr">x</span>:<span class="hljs-built_in">number</span>, <span class="hljs-attr">y</span>:<span class="hljs-built_in">number</span>|<span class="hljs-literal">undefined</span> };
 
 <span class="hljs-keyword">const</span> <span class="hljs-title class_">ObjA</span>:A = { <span class="hljs-attr">x</span>: <span class="hljs-number">1</span> }; <span class="hljs-comment">// 正确</span>
@@ -308,7 +308,7 @@ arr.<span class="hljs-property">length</span> <span class="hljs-comment">// 报�
 } = myPoint; <span class="hljs-comment">// 正确</span>
 </code></pre><p>上面示例中，等号右边是一个变量，就不会触发严格字面量检查，从而不报错。</p><p>TypeScript 对字面量进行严格检查的目的，主要是防止拼写错误。一般来说，字面量大多数来自手写，容易出现拼写错误，或者误用 API。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">Options</span> = {
   <span class="hljs-attr">title</span>:<span class="hljs-built_in">string</span>;
-  darkMode?:<span class="hljs-built_in">boolean</span>;
+  <span class="hljs-attr">darkMode</span>?:<span class="hljs-built_in">boolean</span>;
 };
 
 <span class="hljs-keyword">const</span> <span class="hljs-attr">obj</span>:<span class="hljs-title class_">Options</span> = {
@@ -346,14 +346,14 @@ x = { <span class="hljs-attr">foo</span>: <span class="hljs-number">1</span>, <s
   }
 }
 </code></pre><h2 id="最小可选属性规则">最小可选属性规则 <a class="markdownIt-Anchor" href="#最小可选属性规则">#</a></h2><p>根据“结构类型”原则，如果一个对象的所有属性都是可选的，那么其他对象跟它都是结构类似的。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">Options</span> = {
-  a?:<span class="hljs-built_in">number</span>;
-  b?:<span class="hljs-built_in">number</span>;
-  c?:<span class="hljs-built_in">number</span>;
+  <span class="hljs-attr">a</span>?:<span class="hljs-built_in">number</span>;
+  <span class="hljs-attr">b</span>?:<span class="hljs-built_in">number</span>;
+  <span class="hljs-attr">c</span>?:<span class="hljs-built_in">number</span>;
 };
 </code></pre><p>上面示例中，类型<code>Options</code>的所有属性都是可选的，所以它可以是一个空对象，也就意味着任意对象都满足<code>Options</code>的结构。</p><p>为了避免这种情况，TypeScript 2.4 引入了一个“最小可选属性规则”，也称为<a href="https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-4.html#weak-type-detection" target="_blank" rel="noopener">“弱类型检测”</a>（weak type detection）。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">Options</span> = {
-  a?:<span class="hljs-built_in">number</span>;
-  b?:<span class="hljs-built_in">number</span>;
-  c?:<span class="hljs-built_in">number</span>;
+  <span class="hljs-attr">a</span>?:<span class="hljs-built_in">number</span>;
+  <span class="hljs-attr">b</span>?:<span class="hljs-built_in">number</span>;
+  <span class="hljs-attr">c</span>?:<span class="hljs-built_in">number</span>;
 };
 
 <span class="hljs-keyword">const</span> opts = { <span class="hljs-attr">d</span>: <span class="hljs-number">123</span> };

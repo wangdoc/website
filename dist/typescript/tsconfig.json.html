@@ -80,7 +80,7 @@ $ yarn add --dev @tsconfig/deno
 <span class="hljs-title function_">moment</span>(); <span class="hljs-comment">// 不报错</span>
 </code></pre><p>打开<code>esModuleInterop</code>以后，如果将上面的代码编译成 CommonJS 模块格式，就会加入一些辅助函数，保证编译后的代码行为正确。</p><p>注意，打开<code>esModuleInterop</code>，将自动打开<code>allowSyntheticDefaultImports</code>。</p><h3 id="exactoptionalpropertytypes">exactOptionalPropertyTypes <a class="markdownIt-Anchor" href="#exactoptionalpropertytypes">#</a></h3><p><code>exactOptionalPropertyTypes</code>设置可选属性不能赋值为<code>undefined</code>。</p><pre class="hljs"><code><span class="hljs-comment">// 打开 exactOptionalPropertyTypes</span>
 <span class="hljs-keyword">interface</span> <span class="hljs-title class_">MyObj</span> {
-  foo?: <span class="hljs-string">&#x27;A&#x27;</span> | <span class="hljs-string">&#x27;B&#x27;</span>;
+  <span class="hljs-attr">foo</span>?: <span class="hljs-string">&#x27;A&#x27;</span> | <span class="hljs-string">&#x27;B&#x27;</span>;
 }
 
 <span class="hljs-keyword">let</span> <span class="hljs-attr">obj</span>:<span class="hljs-title class_">MyObj</span> = { <span class="hljs-attr">foo</span>: <span class="hljs-string">&#x27;A&#x27;</span> };

@@ -18,7 +18,7 @@
   <span class="hljs-attr">y</span>: <span class="hljs-built_in">number</span>;
 }
 </code></pre><p>上面示例中，<code>x</code>和<code>y</code>都是对象的属性，分别使用冒号指定每个属性的类型。</p><p>属性之间使用分号或逗号分隔，最后一个属性结尾的分号或逗号可以省略。</p><p>如果属性是可选的，就在属性名后面加一个问号。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Foo</span> {
-  x?: <span class="hljs-built_in">string</span>;
+  <span class="hljs-attr">x</span>?: <span class="hljs-built_in">string</span>;
 }
 </code></pre><p>如果属性是只读的，需要加上<code>readonly</code>修饰符。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> A {
   <span class="hljs-keyword">readonly</span> <span class="hljs-attr">a</span>: <span class="hljs-built_in">string</span>;
@@ -79,7 +79,7 @@
 <span class="hljs-keyword">function</span> <span class="hljs-title function_">MyFunc</span>(<span class="hljs-params"><span class="hljs-attr">x</span>: <span class="hljs-built_in">boolean</span></span>): <span class="hljs-built_in">boolean</span>;
 <span class="hljs-keyword">function</span> <span class="hljs-title function_">MyFunc</span>(<span class="hljs-params"><span class="hljs-attr">x</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">y</span>: <span class="hljs-built_in">string</span></span>): <span class="hljs-built_in">string</span>;
 <span class="hljs-keyword">function</span> <span class="hljs-title function_">MyFunc</span>(<span class="hljs-params">
-  x?:<span class="hljs-built_in">boolean</span>|<span class="hljs-built_in">string</span>, y?:<span class="hljs-built_in">string</span>
+  <span class="hljs-attr">x</span>?:<span class="hljs-built_in">boolean</span>|<span class="hljs-built_in">string</span>, <span class="hljs-attr">y</span>?:<span class="hljs-built_in">string</span>
 </span>):<span class="hljs-built_in">number</span>|<span class="hljs-built_in">boolean</span>|<span class="hljs-built_in">string</span> {
   <span class="hljs-keyword">if</span> (x === <span class="hljs-literal">undefined</span> &amp;&amp; y === <span class="hljs-literal">undefined</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
   <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> x === <span class="hljs-string">&#x27;boolean&#x27;</span> &amp;&amp; y === <span class="hljs-literal">undefined</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
@@ -96,7 +96,7 @@
 
 <span class="hljs-keyword">const</span> <span class="hljs-attr">myAdd</span>:<span class="hljs-title class_">Add</span> = <span class="hljs-function">(<span class="hljs-params">x,y</span>) =&gt;</span> x + y;
 </code></pre><p>上面示例中，接口<code>Add</code>声明了一个函数类型。</p><p>（5）构造函数</p><p>interface 内部可以使用<code>new</code>关键字，表示构造函数。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title class_">ErrorConstructor</span> {
-  <span class="hljs-title function_">new</span> (message?: <span class="hljs-built_in">string</span>): <span class="hljs-title class_">Error</span>;
+  <span class="hljs-title function_">new</span> (<span class="hljs-attr">message</span>?: <span class="hljs-built_in">string</span>): <span class="hljs-title class_">Error</span>;
 }
 </code></pre><p>上面示例中，接口<code>ErrorConstructor</code>内部有<code>new</code>命令，表示它是一个构造函数。</p><p>TypeScript 里面，构造函数特指具有<code>constructor</code>属性的类，详见《Class》一章。</p><h2 id="interface-的继承">interface 的继承 <a class="markdownIt-Anchor" href="#interface-的继承">#</a></h2><p>interface 可以继承其他类型，主要有下面几种情况。</p><h3 id="interface-继承-interface">interface 继承 interface <a class="markdownIt-Anchor" href="#interface-继承-interface">#</a></h3><p>interface 可以使用<code>extends</code>关键字，继承其他 interface。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Shape</span> {
   <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;

@@ -67,7 +67,7 @@ a.<span class="hljs-property">id</span> = <span class="hljs-string">&#x27;bar&#x
 </code></pre><p>上面示例中，如果新建实例时，不提供属性<code>x</code>和<code>y</code>的值，它们都等于默认值<code>0</code>。</p><p>下面是函数重载的例子。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">Point</span> {
   <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-attr">x</span>:<span class="hljs-built_in">number</span>, <span class="hljs-attr">y</span>:<span class="hljs-built_in">string</span></span>);
   <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-attr">s</span>:<span class="hljs-built_in">string</span></span>);
-  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-attr">xs</span>:<span class="hljs-built_in">number</span>|<span class="hljs-built_in">string</span>, y?:<span class="hljs-built_in">string</span></span>) {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-attr">xs</span>:<span class="hljs-built_in">number</span>|<span class="hljs-built_in">string</span>, <span class="hljs-attr">y</span>?:<span class="hljs-built_in">string</span></span>) {
     <span class="hljs-comment">// ...</span>
   }
 }
@@ -171,7 +171,7 @@ c.<span class="hljs-property">name</span> = <span class="hljs-string">&#x27;bar&
 }
 </code></pre><p>下面是另一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> A {
   <span class="hljs-attr">x</span>: <span class="hljs-built_in">number</span>;
-  y?: <span class="hljs-built_in">number</span>;
+  <span class="hljs-attr">y</span>?: <span class="hljs-built_in">number</span>;
 }
 
 <span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span> <span class="hljs-keyword">implements</span> A {
@@ -182,7 +182,7 @@ c.<span class="hljs-property">name</span> = <span class="hljs-string">&#x27;bar&
 b.<span class="hljs-property">y</span> = <span class="hljs-number">10</span>; <span class="hljs-comment">// 报错</span>
 </code></pre><p>上面示例中，接口<code>A</code>有一个可选属性<code>y</code>，类<code>B</code>没有声明这个属性，所以可以通过类型检查。但是，如果给<code>B</code>的实例对象的属性<code>y</code>赋值，就会报错。所以，<code>B</code>类还是需要声明可选属性<code>y</code>。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span> <span class="hljs-keyword">implements</span> A {
   x = <span class="hljs-number">0</span>;
-  y?: <span class="hljs-built_in">number</span>;
+  <span class="hljs-attr">y</span>?: <span class="hljs-built_in">number</span>;
 }
 </code></pre><p>同理，类可以定义接口没有声明的方法和属性。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Point</span> {
   <span class="hljs-attr">x</span>: <span class="hljs-built_in">number</span>;
@@ -450,7 +450,7 @@ b.<span class="hljs-title function_">greet</span>() <span class="hljs-comment">/
 </code></pre><p>上面示例中，子类<code>B</code>继承了基类<code>A</code>，因此就拥有了<code>greet()</code>方法，不需要再次在类的内部定义这个方法了。</p><p>根据结构类型原则，子类也可以用于类型为基类的场合。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> <span class="hljs-attr">a</span>:A = b;
 a.<span class="hljs-title function_">greet</span>()
 </code></pre><p>上面示例中，变量<code>a</code>的类型是基类，但是可以赋值为子类的实例。</p><p>子类可以覆盖基类的同名方法。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">A</span> {
-  <span class="hljs-title function_">greet</span>(<span class="hljs-params">name?: <span class="hljs-built_in">string</span></span>) {
+  <span class="hljs-title function_">greet</span>(<span class="hljs-params"><span class="hljs-attr">name</span>?: <span class="hljs-built_in">string</span></span>) {
     <span class="hljs-keyword">if</span> (name === <span class="hljs-literal">undefined</span>) {
       <span class="hljs-variable language_">super</span>.<span class="hljs-title function_">greet</span>();
     } <span class="hljs-keyword">else</span> {
@@ -599,7 +599,7 @@ a[<span class="hljs-string">&#x27;x&#x27;</span>] <span class="hljs-comment">// 
 <span class="hljs-keyword">const</span> a = <span class="hljs-keyword">new</span> <span class="hljs-title function_">A</span>();
 a[<span class="hljs-string">&#x27;x&#x27;</span>] <span class="hljs-comment">// 报错</span>
 </code></pre><p>上面示例中，采用了 ES2022 的私有成员写法（属性名前加<code>#</code>），TypeScript 就正确识别了实例对象没有属性<code>x</code>，从而报错。</p><p>构造方法也可以是私有的，这就直接防止了使用<code>new</code>命令生成实例对象，只能在类的内部创建实例对象。</p><p>这时一般会有一个静态方法，充当工厂函数，强制所有实例都通过该方法生成。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">Singleton</span> {
-  <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> instance?: <span class="hljs-title class_">Singleton</span>;
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-attr">instance</span>?: <span class="hljs-title class_">Singleton</span>;
 
   <span class="hljs-keyword">private</span> <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) {}
 

@@ -115,12 +115,12 @@ expr <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span
 }
 <span class="hljs-keyword">let</span> e1 = <span class="hljs-title class_">Foo</span>.<span class="hljs-property">X</span>;            <span class="hljs-comment">// Foo</span>
 <span class="hljs-keyword">let</span> e2 = <span class="hljs-title class_">Foo</span>.<span class="hljs-property">X</span> <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>;   <span class="hljs-comment">// Foo.X</span>
-</code></pre><p>上面示例中，如果不使用<code>as const</code>断言，变量<code>e1</code>的类型被推断为整个 Enum 类型；使用了<code>as const</code>断言以后，变量<code>e2</code>的类型被推断为 Enum 的某个成员，这意味着它不能变更为其他成员。</p><h2 id="非空断言">非空断言 <a class="markdownIt-Anchor" href="#非空断言">#</a></h2><p>对于那些可能为空的变量（即可能等于<code>undefined</code>或<code>null</code>），TypeScript 提供了非空断言，保证这些变量不会为空，写法是在变量名后面加上感叹号<code>!</code>。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">f</span>(<span class="hljs-params">x?:<span class="hljs-built_in">number</span>|<span class="hljs-literal">null</span></span>) {
+</code></pre><p>上面示例中，如果不使用<code>as const</code>断言，变量<code>e1</code>的类型被推断为整个 Enum 类型；使用了<code>as const</code>断言以后，变量<code>e2</code>的类型被推断为 Enum 的某个成员，这意味着它不能变更为其他成员。</p><h2 id="非空断言">非空断言 <a class="markdownIt-Anchor" href="#非空断言">#</a></h2><p>对于那些可能为空的变量（即可能等于<code>undefined</code>或<code>null</code>），TypeScript 提供了非空断言，保证这些变量不会为空，写法是在变量名后面加上感叹号<code>!</code>。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">f</span>(<span class="hljs-params"><span class="hljs-attr">x</span>?:<span class="hljs-built_in">number</span>|<span class="hljs-literal">null</span></span>) {
   <span class="hljs-title function_">validateNumber</span>(x); <span class="hljs-comment">// 自定义函数，确保 x 是数值</span>
   <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(x!.<span class="hljs-title function_">toFixed</span>());
 }
 
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">validateNumber</span>(<span class="hljs-params">e?:<span class="hljs-built_in">number</span>|<span class="hljs-literal">null</span></span>) {
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">validateNumber</span>(<span class="hljs-params"><span class="hljs-attr">e</span>?:<span class="hljs-built_in">number</span>|<span class="hljs-literal">null</span></span>) {
   <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> e !== <span class="hljs-string">&#x27;number&#x27;</span>)
     <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;Not a number&#x27;</span>);
 }
@@ -214,7 +214,7 @@ root.<span class="hljs-title function_">addEventListener</span>(<span class="hlj
 }
 </code></pre><p>这种断言函数的简写形式，通常用来检查某个操作是否成功。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">Person</span> = {
   <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
-  email?: <span class="hljs-built_in">string</span>;
+  <span class="hljs-attr">email</span>?: <span class="hljs-built_in">string</span>;
 };
 
 <span class="hljs-keyword">function</span> <span class="hljs-title function_">loadPerson</span>(<span class="hljs-params"></span>): <span class="hljs-title class_">Person</span> | <span class="hljs-literal">null</span> {

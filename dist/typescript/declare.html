@@ -164,9 +164,9 @@ x = <span class="hljs-number">1</span>;
 }
 </code></pre><h2 id="declare-module-用于类型声明文件">declare module 用于类型声明文件 <a class="markdownIt-Anchor" href="#declare-module-用于类型声明文件">#</a></h2><p>我们可以为每个模块脚本，定义一个<code>.d.ts</code>文件，把该脚本用到的类型定义都放在这个文件里面。但是，更方便的做法是为整个项目，定义一个大的<code>.d.ts</code>文件，在这个文件里面使用<code>declare module</code>定义每个模块脚本的类型。</p><p>下面的示例是<code>node.d.ts</code>文件的一部分。</p><pre class="hljs"><code><span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-string">&quot;url&quot;</span> {
   <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Url</span> {
-    protocol?: <span class="hljs-built_in">string</span>;
-    hostname?: <span class="hljs-built_in">string</span>;
-    pathname?: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">protocol</span>?: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">hostname</span>?: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">pathname</span>?: <span class="hljs-built_in">string</span>;
   }
 
   <span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">parse</span>(<span class="hljs-params">

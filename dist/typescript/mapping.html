@@ -72,7 +72,7 @@
 <span class="hljs-comment">//   readonly b: number;</span>
 <span class="hljs-comment">// }</span>
 </code></pre><h2 id="映射修饰符">映射修饰符 <a class="markdownIt-Anchor" href="#映射修饰符">#</a></h2><p>映射会原样复制原始对象的可选属性和只读属性。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> A = {
-  a?: <span class="hljs-built_in">string</span>;
+  <span class="hljs-attr">a</span>?: <span class="hljs-built_in">string</span>;
   <span class="hljs-keyword">readonly</span> <span class="hljs-attr">b</span>: <span class="hljs-built_in">number</span>;
 };
 
@@ -82,7 +82,7 @@
 
 <span class="hljs-comment">// 等同于</span>
 <span class="hljs-keyword">type</span> B = {
-  a?: <span class="hljs-built_in">string</span>;
+  <span class="hljs-attr">a</span>?: <span class="hljs-built_in">string</span>;
   <span class="hljs-keyword">readonly</span> <span class="hljs-attr">b</span>: <span class="hljs-built_in">number</span>;
 };
 </code></pre><p>上面示例中，类型<code>B</code>是类型<code>A</code>的映射，把<code>A</code>的可选属性和只读属性都保留下来。</p><p>如果要删改可选和只读这两个特性，并不是很方便。为了解决这个问题，TypeScript 引入了两个映射修饰符，用来在映射时添加或移除某个属性的<code>?</code>修饰符和<code>readonly</code>修饰符。</p><ul><li><code>+</code>修饰符：写成<code>+?</code>或<code>+readonly</code>，为映射属性添加<code>?</code>修饰符或<code>readonly</code>修饰符。</li><li><code>–</code>修饰符：写成<code>-?</code>或<code>-readonly</code>，为映射属性移除<code>?</code>修饰符或<code>readonly</code>修饰符。</li></ul><p>下面是添加或移除可选属性的例子。</p><pre class="hljs"><code><span class="hljs-comment">// 添加可选属性</span>

@@ -27,7 +27,7 @@
 <span class="hljs-keyword">export</span>= pi;
 </code></pre><p>上面示例中，模块输出的是一个整数，那么可以用<code>export default</code>或<code>export =</code>表示输出这个值。</p><p>下面是一个如何使用类型声明文件的简单例子。有一个类型声明文件<code>types.d.ts</code>。</p><pre class="hljs"><code><span class="hljs-comment">// types.d.ts</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Character</span> {
-  catchphrase?: <span class="hljs-built_in">string</span>;
+  <span class="hljs-attr">catchphrase</span>?: <span class="hljs-built_in">string</span>;
   <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
 }
 </code></pre><p>然后，就可以在 TypeScript 脚本里面导入该文件声明的类型。</p><pre class="hljs"><code><span class="hljs-comment">// index.ts</span>
@@ -94,7 +94,7 @@
   }
 
   <span class="hljs-keyword">function</span> <span class="hljs-title function_">moment</span>(<span class="hljs-params">
-    input?: <span class="hljs-built_in">string</span> | <span class="hljs-title class_">Date</span>
+    <span class="hljs-attr">input</span>?: <span class="hljs-built_in">string</span> | <span class="hljs-title class_">Date</span>
   </span>): <span class="hljs-title class_">Moment</span>;
 
   <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> moment;

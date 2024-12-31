@@ -448,9 +448,9 @@ inst.<span class="hljs-property">value</span>
     addInitializer(initializer: () =&gt; <span class="hljs-built_in">void</span>): <span class="hljs-built_in">void</span>;
   }
 </span>) =&gt;</span> {
-  get?: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">unknown</span>;
-  set?: <span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">value</span>: <span class="hljs-built_in">unknown</span></span>) =&gt;</span> <span class="hljs-built_in">void</span>;
-  init?: <span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">initialValue</span>: <span class="hljs-built_in">unknown</span></span>) =&gt;</span> <span class="hljs-built_in">unknown</span>;
+  <span class="hljs-attr">get</span>?: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">unknown</span>;
+  <span class="hljs-attr">set</span>?: <span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">value</span>: <span class="hljs-built_in">unknown</span></span>) =&gt;</span> <span class="hljs-built_in">void</span>;
+  <span class="hljs-attr">init</span>?: <span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">initialValue</span>: <span class="hljs-built_in">unknown</span></span>) =&gt;</span> <span class="hljs-built_in">unknown</span>;
 } | <span class="hljs-built_in">void</span>;
 </code></pre><p>accessor 装饰器的<code>value</code>参数，是一个包含<code>get()</code>方法和<code>set()</code>方法的对象。该装饰器可以不返回值，或者返回一个新的对象，用来取代原来的<code>get()</code>方法和<code>set()</code>方法。此外，装饰器返回的对象还可以包括一个<code>init()</code>方法，用来改变私有属性的初始值。</p><p>下面是一个例子。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">C</span> {
   <span class="hljs-meta">@logged</span> accessor x = <span class="hljs-number">1</span>;
