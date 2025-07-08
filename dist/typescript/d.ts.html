@@ -25,7 +25,7 @@
 <span class="hljs-comment">// 写法二</span>
 <span class="hljs-keyword">declare</span> <span class="hljs-keyword">const</span> <span class="hljs-attr">pi</span>: <span class="hljs-built_in">number</span>;
 <span class="hljs-keyword">export</span>= pi;
-</code></pre><p>上面示例中，模块输出的是一个整数，那么可以用<code>export default</code>或<code>export =</code>表示输出这个值。</p><p>下面是一个如何使用类型声明文件的简单例子。有一个类型声明文件<code>types.d.ts</code>。</p><pre class="hljs"><code><span class="hljs-comment">// types.d.ts</span>
+</code></pre><p>上面示例中，模块输出的是一个数字，那么可以用<code>export default</code>或<code>export =</code>表示输出这个值。</p><p>下面是一个如何使用类型声明文件的简单例子。有一个类型声明文件<code>types.d.ts</code>。</p><pre class="hljs"><code><span class="hljs-comment">// types.d.ts</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Character</span> {
   <span class="hljs-attr">catchphrase</span>?: <span class="hljs-built_in">string</span>;
   <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
@@ -75,7 +75,7 @@
 </code></pre><p>有了上面的命令，指定模块的所有接口都将视为<code>any</code>类型。</p><h2 id="declare-关键字">declare 关键字 <a class="markdownIt-Anchor" href="#declare-关键字">#</a></h2><p>类型声明文件只包含类型描述，不包含具体实现，所以非常适合使用 declare 语句来描述类型。declare 关键字的具体用法，详见《declare 关键字》一章，这里讲解如何在类型声明文件里面使用它。</p><p>类型声明文件里面，变量的类型描述必须使用<code>declare</code>命令，否则会报错，因为变量声明语句是值相关代码。</p><pre class="hljs"><code><span class="hljs-keyword">declare</span> <span class="hljs-keyword">let</span> <span class="hljs-attr">foo</span>:<span class="hljs-built_in">string</span>;
 </code></pre><p>interface 类型有没有<code>declare</code>都可以，因为 interface 是完全的类型代码。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Foo</span> {} <span class="hljs-comment">// 正确</span>
 <span class="hljs-keyword">declare</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Foo</span> {} <span class="hljs-comment">// 正确</span>
-</code></pre><p>类型声明文件里面，顶层可以使用<code>export</code>命令，也可以不用，除非使用者脚本会显式使用<code>export</code>命令输入类型。</p><pre class="hljs"><code><span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Data</span> {
+</code></pre><p>类型声明文件里面，顶层可以使用<code>export</code>命令，也可以不用，除非使用者脚本会显式使用<code>import</code>命令输入类型。</p><pre class="hljs"><code><span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Data</span> {
   <span class="hljs-attr">version</span>: <span class="hljs-built_in">string</span>;
 }
 </code></pre><p>下面是类型声明文件的一些例子。先看 moment 模块的类型描述文件<code>moment.d.ts</code>。</p><pre class="hljs"><code><span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-string">&#x27;moment&#x27;</span> {
