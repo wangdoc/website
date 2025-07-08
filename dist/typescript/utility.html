@@ -178,7 +178,7 @@
 <span class="hljs-keyword">type</span> <span class="hljs-variable constant_">T1</span> = <span class="hljs-title class_">Pick</span>&lt;A, <span class="hljs-string">&#x27;x&#x27;</span>&gt;; <span class="hljs-comment">// { x: number }</span>
 <span class="hljs-keyword">type</span> <span class="hljs-variable constant_">T2</span> = <span class="hljs-title class_">Pick</span>&lt;A, <span class="hljs-string">&#x27;y&#x27;</span>&gt;; <span class="hljs-comment">// { y: number }</span>
 <span class="hljs-keyword">type</span> <span class="hljs-variable constant_">T3</span> = <span class="hljs-title class_">Pick</span>&lt;A, <span class="hljs-string">&#x27;x&#x27;</span>|<span class="hljs-string">&#x27;y&#x27;</span>&gt;;  <span class="hljs-comment">// { x: number; y: number }</span>
-</code></pre><p>上面示例中，<code>Pick&lt;Type, Keys&gt;</code>会从对象类型<code>A</code>里面挑出指定的键名，组成一个新的对象类型。</p><p>指定的键名<code>Keys</code>必须是对象键名<code>Type</code>里面已经存在的键名，否则会报错。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> A {
+</code></pre><p>上面示例中，<code>Pick&lt;Type, Keys&gt;</code>会从对象类型<code>A</code>里面挑出指定的键名，组成一个新的对象类型。</p><p>指定的键名<code>Keys</code>必须是对象类型<code>Type</code>里面已经存在的键名，否则会报错。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> A {
   <span class="hljs-attr">x</span>: <span class="hljs-built_in">number</span>;
   <span class="hljs-attr">y</span>: <span class="hljs-built_in">number</span>;
 }
