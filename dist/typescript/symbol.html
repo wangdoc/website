@@ -29,14 +29,14 @@ a === b <span class="hljs-comment">// 报错</span>
 <span class="hljs-keyword">const</span> <span class="hljs-attr">b</span>:<span class="hljs-built_in">symbol</span> = a; <span class="hljs-comment">// 正确</span>
 
 <span class="hljs-keyword">const</span> <span class="hljs-attr">c</span>:unique <span class="hljs-built_in">symbol</span> = b; <span class="hljs-comment">// 报错</span>
-</code></pre><p>上面示例中，unique symbol 类型（变量<code>a</code>）赋值给 symbol 类型（变量<code>b</code>）是可以的，但是 symbol 类型（变量<code>b</code>）赋值给 unique symbol 类型（变量<code>c</code>）会报错。</p><p>unique symbol 类型的一个作用，就是用作属性名，这可以保证不会跟其他属性名冲突。如果要把某一个特定的 Symbol 值当作属性名，那么它的类型只能是 unique symbol，不能是 symbol。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> <span class="hljs-attr">x</span>:unique <span class="hljs-built_in">symbol</span> = <span class="hljs-title class_">Symbol</span>();
+</code></pre><p>上面示例中，unique symbol 类型（变量<code>a</code>）赋值给 symbol 类型（变量<code>b</code>）是可以的，但是 symbol 类型（变量<code>b</code>）赋值给 unique symbol 类型（变量<code>c</code>）会报错。</p><p>unique symbol 类型的一个作用，就是用作属性名，这可以保证不会跟其他属性名冲突。在 5.8.3 版本之前，如果要把某一个特定的 Symbol 值当作属性名，TypeScript 只允许它的类型是 unique symbol，不能是 symbol，5.8.3 版本之后没有了这个限制。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> <span class="hljs-attr">x</span>:unique <span class="hljs-built_in">symbol</span> = <span class="hljs-title class_">Symbol</span>();
 <span class="hljs-keyword">const</span> <span class="hljs-attr">y</span>:<span class="hljs-built_in">symbol</span> = <span class="hljs-title class_">Symbol</span>();
 
 <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Foo</span> {
   [x]: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// 正确</span>
-  [y]: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// 报错</span>
+  [y]: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// 5.8.3 版本之前报错</span>
 }
-</code></pre><p>上面示例中，变量<code>y</code>当作属性名，但是<code>y</code>的类型是 symbol，不是固定不变的值，导致报错。</p><p><code>unique symbol</code>类型也可以用作类（class）的属性值，但只能赋值给类的<code>readonly static</code>属性。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">C</span> {
+</code></pre><p>上面示例中，变量<code>y</code>当作属性名，但是<code>y</code>的类型是 symbol，不是固定不变的值，5.8.3 版本之前会报错，之后就不会。</p><p><code>unique symbol</code>类型也可以用作类（class）的属性值，但只能赋值给类的<code>readonly static</code>属性。</p><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title class_">C</span> {
   <span class="hljs-keyword">static</span> <span class="hljs-keyword">readonly</span> <span class="hljs-attr">foo</span>:unique <span class="hljs-built_in">symbol</span> = <span class="hljs-title class_">Symbol</span>();
 }
 </code></pre><p>上面示例中，静态只读属性<code>foo</code>的类型就是<code>unique symbol</code>。注意，这时<code>static</code>和<code>readonly</code>两个限定符缺一不可，这是为了保证这个属性是固定不变的。</p><h2 id="类型推断">类型推断 <a class="markdownIt-Anchor" href="#类型推断">#</a></h2><p>如果变量声明时没有给出类型，TypeScript 会推断某个 Symbol 值变量的类型。</p><p><code>let</code>命令声明的变量，推断类型为 symbol。</p><pre class="hljs"><code><span class="hljs-comment">// 类型为 symbol</span>
