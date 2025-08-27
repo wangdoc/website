@@ -116,7 +116,7 @@ obj.<span class="hljs-property">y</span>.<span class="hljs-title function_">toLo
 <span class="hljs-comment">// 写法二</span>
 <span class="hljs-keyword">let</span> firstName = user.<span class="hljs-property">firstName</span> ?? <span class="hljs-string">&#x27;Foo&#x27;</span>;
 <span class="hljs-keyword">let</span> lastName = user.<span class="hljs-property">lastName</span> ?? <span class="hljs-string">&#x27;Bar&#x27;</span>;
-</code></pre><p>上面示例中，写法一使用三元运算符<code>?:</code>，判断是否为<code>undefined</code>，并设置默认值。写法二使用 Null 判断运算符<code>??</code>，与写法一的作用完全相同。</p><p>TypeScript 提供编译设置<code>ExactOptionalPropertyTypes</code>，只要同时打开这个设置和<code>strictNullChecks</code>，可选属性就不能设为<code>undefined</code>。</p><pre class="hljs"><code><span class="hljs-comment">// 打开 ExactOptionsPropertyTypes 和 strictNullChecks</span>
+</code></pre><p>上面示例中，写法一使用三元运算符<code>?:</code>，判断是否为<code>undefined</code>，并设置默认值。写法二使用 Null 判断运算符<code>??</code>，与写法一的作用完全相同。</p><p>TypeScript 提供编译设置<code>ExactOptionalPropertyTypes</code>，只要同时打开这个设置和<code>strictNullChecks</code>，可选属性就不能设为<code>undefined</code>。</p><pre class="hljs"><code><span class="hljs-comment">// 打开 ExactOptionalPropertyTypes 和 strictNullChecks</span>
 <span class="hljs-keyword">const</span> <span class="hljs-attr">obj</span>: {
   <span class="hljs-attr">x</span>: <span class="hljs-built_in">number</span>;
   <span class="hljs-attr">y</span>?: <span class="hljs-built_in">number</span>;
