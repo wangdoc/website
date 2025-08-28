@@ -141,7 +141,7 @@ c.<span class="hljs-property">name</span> = <span class="hljs-string">&#x27;bar&
     <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
   }
 }
-</code></pre><p>上面示例中，属性<code>inInstance</code>的读取器虽然是一个函数方法，但是视同属性，所以属性索引虽然没有涉及方法类型，但是不会报错。</p><h2 id="类的-interface-接口">类的 interface 接口 <a class="markdownIt-Anchor" href="#类的-interface-接口">#</a></h2><h3 id="implements-关键字">implements 关键字 <a class="markdownIt-Anchor" href="#implements-关键字">#</a></h3><p>interface 接口或 type 别名，可以用对象的形式，为 class 指定一组检查条件。然后，类使用 implements 关键字，表示当前类满足这些外部类型条件的限制。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Country</span> {
+</code></pre><p>上面示例中，属性<code>isInstance</code>的读取器虽然是一个函数方法，但是视同属性，所以属性索引虽然没有涉及方法类型，但是不会报错。</p><h2 id="类的-interface-接口">类的 interface 接口 <a class="markdownIt-Anchor" href="#类的-interface-接口">#</a></h2><h3 id="implements-关键字">implements 关键字 <a class="markdownIt-Anchor" href="#implements-关键字">#</a></h3><p>interface 接口或 type 别名，可以用对象的形式，为 class 指定一组检查条件。然后，类使用 implements 关键字，表示当前类满足这些外部类型条件的限制。</p><pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Country</span> {
   <span class="hljs-attr">name</span>:<span class="hljs-built_in">string</span>;
   <span class="hljs-attr">capital</span>:<span class="hljs-built_in">string</span>;
 }
