@@ -109,7 +109,7 @@
 <span class="hljs-keyword">type</span> T = <span class="hljs-title class_">Omit</span>&lt;A, <span class="hljs-string">&#x27;z&#x27;</span>&gt;; <span class="hljs-comment">// { x: number; y: number }</span>
 </code></pre><p>上面示例中，对象类型<code>A</code>中不存在属性<code>z</code>，所以就原样返回了。</p><p><code>Omit&lt;Type, Keys&gt;</code>的实现如下。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">Omit</span>&lt;T, K <span class="hljs-keyword">extends</span> keyof <span class="hljs-built_in">any</span>&gt; 
   = <span class="hljs-title class_">Pick</span>&lt;T, <span class="hljs-title class_">Exclude</span>&lt;keyof T, K&gt;&gt;;
-</code></pre><h2 id="omitthisparametertype"><code>OmitThisParameter&lt;Type&gt;</code> <a class="markdownIt-Anchor" href="#omitthisparametertype">#</a></h2><p><code>OmitThisParameter&lt;Type&gt;</code>从函数类型中移除 this 参数。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">toHex</span>(<span class="hljs-params"><span class="hljs-attr">this</span>: <span class="hljs-title class_">Number</span></span>) {
+</code></pre><h2 id="omitthisparametertype"><code>OmitThisParameter&lt;Type&gt;</code> <a class="markdownIt-Anchor" href="#omitthisparametertype">#</a></h2><p><code>OmitThisParameter&lt;Type&gt;</code>从函数类型中移除 this 参数。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">toHex</span>(<span class="hljs-params"><span class="hljs-attr">this</span>: <span class="hljs-built_in">number</span></span>) {
   <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">toString</span>(<span class="hljs-number">16</span>);
 }
 
