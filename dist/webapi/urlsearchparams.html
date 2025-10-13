@@ -78,7 +78,7 @@ params.<span class="hljs-title function_">forEach</span>(<span class="hljs-funct
 }
 <span class="hljs-comment">// value1</span>
 <span class="hljs-comment">// value2</span>
-</code></pre><p>这个方法也可以用来将所有键值，转成一个数组。</p><pre class="hljs"><code>Array.from(params.values()) // ['value1', 'value2']
+</code></pre><p>这个方法也可以用来将所有键值，转成一个数组。</p><pre class="hljs"><code><span class="hljs-title class_">Array</span>.<span class="hljs-title function_">from</span>(params.<span class="hljs-title function_">values</span>()) <span class="hljs-comment">// [&#x27;value1&#x27;, &#x27;value2&#x27;]</span>
 </code></pre><h3 id="tostring">toString() <a class="markdownIt-Anchor" href="#tostring">#</a></h3><p><code>toString()</code>用来将 URLSearchParams 实例对象转成一个字符串。它返回的字符串不带问号，这一点与<code>window.location.search</code>不同。</p><h2 id="实例属性">实例属性 <a class="markdownIt-Anchor" href="#实例属性">#</a></h2><h3 id="size">size <a class="markdownIt-Anchor" href="#size">#</a></h3><p><code>size</code>是一个只读属性，返回键值对的总数。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> params = <span class="hljs-keyword">new</span> <span class="hljs-title class_">URLSearchParams</span>(<span class="hljs-string">&quot;c=4&amp;a=2&amp;b=3&amp;a=1&quot;</span>);
 params.<span class="hljs-property">size</span>; <span class="hljs-comment">// 4</span>
 </code></pre><p>上面示例中，键名<code>a</code>在查询字符串里面有两个，<code>size</code>不会将它们合并。</p><p>如果想统计不重复的键名，可以将使用 Set 结构。</p><pre class="hljs"><code>[...<span class="hljs-keyword">new</span> <span class="hljs-title class_">Set</span>(params.<span class="hljs-title function_">keys</span>())].<span class="hljs-property">length</span> <span class="hljs-comment">// 3</span>
