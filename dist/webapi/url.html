@@ -79,8 +79,8 @@ url.<span class="hljs-property">searchParams</span>.<span class="hljs-title func
     }
   }
 }
-</code></pre><p>上面代码中，一旦图片加载成功以后，为本地文件生成的临时网址就没用了，于是可以在<code>img.onload</code>回调函数里面，通过<code>URL.revokeObjectURL()</code>方法释放资源。</p><h3 id="urlcanparse">URL.canParse() <a class="markdownIt-Anchor" href="#urlcanparse">#</a></h3><p><code>URL()</code>构造函数解析非法网址时，会抛出错误，必须用<code>try...catch</code>代码块处理，这样终究不是非常方便。因此，URL 对象又引入了<code>URL.canParse()</code>方法，它返回一个布尔值，表示当前字符串是否为有效网址。</p><pre class="hljs"><code>URL.canParse(url)
-URL.canParse(url, base)
+</code></pre><p>上面代码中，一旦图片加载成功以后，为本地文件生成的临时网址就没用了，于是可以在<code>img.onload</code>回调函数里面，通过<code>URL.revokeObjectURL()</code>方法释放资源。</p><h3 id="urlcanparse">URL.canParse() <a class="markdownIt-Anchor" href="#urlcanparse">#</a></h3><p><code>URL()</code>构造函数解析非法网址时，会抛出错误，必须用<code>try...catch</code>代码块处理，这样终究不是非常方便。因此，URL 对象又引入了<code>URL.canParse()</code>方法，它返回一个布尔值，表示当前字符串是否为有效网址。</p><pre class="hljs"><code><span class="hljs-variable constant_">URL</span>.<span class="hljs-title function_">canParse</span>(url)
+<span class="hljs-variable constant_">URL</span>.<span class="hljs-title function_">canParse</span>(url, base)
 </code></pre><p><code>URL.canParse()</code>可以接受两个参数。</p><ul><li><code>url</code>：字符串或者对象（比如<code>&lt;a&gt;</code>元素的 DOM 对象），表示 URL。</li><li><code>base</code>：字符串或者 URL 实例对象，表示 URL 的基准位置。它是可选参数，当第一个参数<code>url</code>为相对 URL 时，会使用这个参数，计算出完整的 URL，再进行判断。</li></ul><pre class="hljs"><code><span class="hljs-variable constant_">URL</span>.<span class="hljs-title function_">canParse</span>(<span class="hljs-string">&quot;https://developer.mozilla.org/&quot;</span>) <span class="hljs-comment">// true</span>
 <span class="hljs-variable constant_">URL</span>.<span class="hljs-title function_">canParse</span>(<span class="hljs-string">&quot;/en-US/docs&quot;</span>) <span class="hljs-comment">// false</span>
 <span class="hljs-variable constant_">URL</span>.<span class="hljs-title function_">canParse</span>(<span class="hljs-string">&quot;/en-US/docs&quot;</span>, <span class="hljs-string">&quot;https://developer.mozilla.org/&quot;</span>) <span class="hljs-comment">// true</span>
