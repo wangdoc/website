@@ -181,14 +181,16 @@ robin.<span class="hljs-property">name</span> <span class="hljs-comment">// &#x2
 
 <span class="hljs-comment">// `@trace` 等同于</span>
 <span class="hljs-comment">// C.prototype.toString = trace(C.prototype.toString);</span>
-</code></pre><p>上面示例中，<code>@trace</code>是方法<code>toString()</code>的装饰器，它的效果等同于最后一行对<code>toString()</code>的改写。</p><p>如果方法装饰器返回一个新的函数，就会替代所装饰的原始函数。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">replaceMethod</span>(<span class="hljs-params"></span>) {
-  <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+</code></pre><p>上面示例中，<code>@trace</code>是方法<code>toString()</code>的装饰器，它的效果等同于最后一行对<code>toString()</code>的改写。</p><p>如果方法装饰器返回一个新的函数，就会替代所装饰的原始函数。</p><pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">replaceMethod</span>(<span class="hljs-params"><span class="hljs-attr">value</span>:<span class="hljs-built_in">any</span>, <span class="hljs-attr">context</span>:<span class="hljs-title class_">ClassMethodDecoratorContext</span></span>) {
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"><span class="hljs-attr">this</span>:<span class="hljs-title class_">Person</span></span>) {
     <span class="hljs-keyword">return</span> <span class="hljs-string">`How are you, <span class="hljs-subst">${<span class="hljs-variable language_">this</span>.name}</span>?`</span>;
   }
 }
 
 <span class="hljs-keyword">class</span> <span class="hljs-title class_">Person</span> {
-  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">name</span>) {
+  <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
+
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-attr">name</span>:<span class="hljs-built_in">string</span></span>) {
     <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name;
   }
 
