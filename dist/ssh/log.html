@@ -4,7 +4,7 @@ Mar 25 20:25:36 web0 sshd[14144]: Accepted publickey <span class="hljs-keyword">
 Mar 25 20:25:36 web0 sshd[14144]: pam_unix(sshd:session): session opened <span class="hljs-keyword">for</span> user ubuntu by (uid=0)
 Mar 25 20:39:12 web0 sshd[14885]: pam_unix(sshd:session): session closed <span class="hljs-keyword">for</span> user ubuntu
 ...
-</code></pre><p>上面示例中，返回的日志每一行就是一次登录尝试，按照从早到晚的顺序，其中包含了登录失败的尝试。<code>-u</code>参数是 Unit 单元的意思，<code>-u ssh</code>就是查看 SSH<br>单元，有的发行版需要写成<code>-u sshd</code>。</p><p><code>-b0</code>参数可以查看自从上次登录后的日志。</p><pre class="hljs"><code>$ journalctl -u ssh -b0
+</code></pre><p>上面示例中，返回的日志每一行就是一次登录尝试，按照从早到晚的顺序，其中包含了登录失败的尝试。<code>-u</code>参数是 Unit 单元的意思，<code>-u ssh</code>就是查看 SSH 单元，有的发行版需要写成<code>-u sshd</code>。</p><p><code>-b0</code>参数可以查看自从上次登录后的日志。</p><pre class="hljs"><code>$ journalctl -u ssh -b0
 </code></pre><p><code>-r</code>参数表示逆序输出，最新的在前面。</p><pre class="hljs"><code>$ journalctl -u ssh -b0 -r
 </code></pre><p><code>since</code>和<code>until</code>参数可以指定日志的时间范围。</p><pre class="hljs"><code>$ journalctl -u ssh --since yesterday <span class="hljs-comment"># 查看昨天的日志</span>
 $ journalctl -u ssh --since -3d --<span class="hljs-keyword">until</span> -2d <span class="hljs-comment"># 查看三天前的日志</span>
