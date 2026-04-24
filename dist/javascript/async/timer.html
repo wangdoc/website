@@ -98,7 +98,7 @@
     }
   }
 })();
-</code></pre><p>上面代码中，先调用<code>setTimeout</code>，得到一个计算器编号，然后把编号比它小的计数器全部取消。</p><h2 id="实例debounce-函数">实例：debounce 函数 <a class="markdownIt-Anchor" href="#实例debounce-函数">#</a></h2><p>有时，我们不希望回调函数被频繁调用。比如，用户填入网页输入框的内容，希望通过 Ajax 方法传回服务器，jQuery 的写法如下。</p><pre class="hljs"><code>$(<span class="hljs-string">&#x27;textarea&#x27;</span>).<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;keydown&#x27;</span>, ajaxAction);
+</code></pre><p>上面代码中，先调用<code>setTimeout()</code>，得到一个定时器，然后把编号比它小的定时器全部取消，就实现了清除所有定时器的目的。</p><h2 id="实例debounce-函数">实例：debounce 函数 <a class="markdownIt-Anchor" href="#实例debounce-函数">#</a></h2><p>有时，我们不希望回调函数被频繁调用。比如，用户填入网页输入框的内容，希望通过 Ajax 方法传回服务器，jQuery 的写法如下。</p><pre class="hljs"><code>$(<span class="hljs-string">&#x27;textarea&#x27;</span>).<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;keydown&#x27;</span>, ajaxAction);
 </code></pre><p>这样写有一个很大的缺点，就是如果用户连续击键，就会连续触发<code>keydown</code>事件，造成大量的 Ajax 通信。这是不必要的，而且很可能产生性能问题。正确的做法应该是，设置一个门槛值，表示两次 Ajax 通信的最小间隔时间。如果在间隔时间内，发生新的<code>keydown</code>事件，则不触发 Ajax 通信，并且重新开始计时。如果过了指定时间，没有发生新的<code>keydown</code>事件，再将数据发送出去。</p><p>这种做法叫做 debounce（防抖动）。假定两次 Ajax 通信的间隔不得小于2500毫秒，上面的代码可以改写成下面这样。</p><pre class="hljs"><code>$(<span class="hljs-string">&#x27;textarea&#x27;</span>).<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;keydown&#x27;</span>, <span class="hljs-title function_">debounce</span>(ajaxAction, <span class="hljs-number">2500</span>));
 
 <span class="hljs-keyword">function</span> <span class="hljs-title function_">debounce</span>(<span class="hljs-params">fn, delay</span>){
