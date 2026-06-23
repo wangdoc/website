@@ -167,7 +167,7 @@ name = <span class="hljs-literal">null</span>;
       <span class="hljs-keyword">return</span> <span class="hljs-number">443</span>;
   }
 }
-</code></pre><p>上面示例中，函数体内部对参数变量<code>scheme</code>进行类型缩小，根据不同的值类型，返回不同的结果。</p><h2 id="交叉类型">交叉类型 <a class="markdownIt-Anchor" href="#交叉类型">#</a></h2><p>交叉类型（intersection types）指的多个类型组成的一个新类型，使用符号<code>&amp;</code>表示。</p><p>交叉类型<code>A&amp;B</code>表示，任何一个类型必须同时属于<code>A</code>和<code>B</code>，才属于交叉类型<code>A&amp;B</code>，即交叉类型同时满足<code>A</code>和<code>B</code>的特征。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> <span class="hljs-attr">x</span>:<span class="hljs-built_in">number</span>&amp;<span class="hljs-built_in">string</span>;
+</code></pre><p>上面示例中，函数体内部对参数变量<code>scheme</code>进行类型缩小，根据不同的值类型，返回不同的结果。</p><h2 id="交叉类型">交叉类型 <a class="markdownIt-Anchor" href="#交叉类型">#</a></h2><p>交叉类型（intersection types）指的是多个类型组成的一个新类型，使用符号<code>&amp;</code>表示。</p><p>交叉类型<code>A&amp;B</code>表示，任何一个类型必须同时属于<code>A</code>和<code>B</code>，才属于交叉类型<code>A&amp;B</code>，即交叉类型同时满足<code>A</code>和<code>B</code>的特征。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> <span class="hljs-attr">x</span>:<span class="hljs-built_in">number</span>&amp;<span class="hljs-built_in">string</span>;
 </code></pre><p>上面示例中，变量<code>x</code>同时是数值和字符串，这当然是不可能的，所以 TypeScript 会认为<code>x</code>的类型实际是<code>never</code>。</p><p>交叉类型的主要用途是表示对象的合成。</p><pre class="hljs"><code><span class="hljs-keyword">let</span> <span class="hljs-attr">obj</span>:
   { <span class="hljs-attr">foo</span>: <span class="hljs-built_in">string</span> } &amp;
   { <span class="hljs-attr">bar</span>: <span class="hljs-built_in">string</span> };
