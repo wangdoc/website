@@ -163,7 +163,7 @@
 }
 
 <span class="hljs-keyword">type</span> <span class="hljs-title class_">FilteredUser</span> = <span class="hljs-title class_">Filter</span>&lt;<span class="hljs-title class_">User</span>&gt; <span class="hljs-comment">// { name: string }</span>
-</code></pre><p>上面示例中，映射<code>K in keyof T</code>获取类型<code>T</code>的每一个属性以后，然后使用<code>as Type</code>修改键名。</p><p>它的键名重映射<code>as T[K] extends string ? K : never]</code>，使用了条件运算符。如果属性值<code>T[K]</code>的类型是字符串，那么属性名不变，否则属性名类型改为<code>never</code>，即这个属性名不存在。这样就等于过滤了不符合条件的属性，只保留属性值为字符串的属性。</p><h3 id="联合类型的映射">联合类型的映射 <a class="markdownIt-Anchor" href="#联合类型的映射">#</a></h3><p>由于键名重映射可以修改键名类型，所以原始键名的类型不必是<code>string|number|symbol</code>，任意的联合类型都可以用来进行键名重映射。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> S = {
+</code></pre><p>上面示例中，映射<code>K in keyof T</code>获取类型<code>T</code>的每一个属性以后，然后使用<code>as Type</code>修改键名。</p><p>它的键名重映射<code>as T[K] extends string ? K : never</code>，使用了条件运算符。如果属性值<code>T[K]</code>的类型是字符串，那么属性名不变，否则属性名类型改为<code>never</code>，即这个属性名不存在。这样就等于过滤了不符合条件的属性，只保留属性值为字符串的属性。</p><h3 id="联合类型的映射">联合类型的映射 <a class="markdownIt-Anchor" href="#联合类型的映射">#</a></h3><p>由于键名重映射可以修改键名类型，所以原始键名的类型不必是<code>string|number|symbol</code>，任意的联合类型都可以用来进行键名重映射。</p><pre class="hljs"><code><span class="hljs-keyword">type</span> S = {
   <span class="hljs-attr">kind</span>: <span class="hljs-string">&#x27;square&#x27;</span>,
   <span class="hljs-attr">x</span>: <span class="hljs-built_in">number</span>,
   <span class="hljs-attr">y</span>: <span class="hljs-built_in">number</span>,
