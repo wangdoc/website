@@ -224,16 +224,29 @@ circle.<span class="hljs-property">area</span> = <span class="hljs-keyword">func
 <span class="hljs-comment">// 等同于</span>
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> ns <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;mod&quot;</span>;
 <span class="hljs-keyword">export</span> {ns};
-</code></pre><h2 id="import-属性">import 属性 <a class="markdownIt-Anchor" href="#import-属性">#</a></h2><p>ES2025 引入了“<a href="https://github.com/tc39/proposal-import-attributes" target="_blank" rel="noopener">import 属性</a>”（import attributes），允许为 import 命令设置属性，主要用于导入非模块的代码，比如 JSON 数据、WebAssembly 代码、CSS 代码。</p><p>目前，只支持导入 JSON 数据。</p><pre class="hljs"><code><span class="hljs-comment">// 静态导入</span>
-<span class="hljs-keyword">import</span> configData <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./config-data.json&#x27;</span> <span class="hljs-keyword">with</span> { <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;json&#x27;</span> };
-
-<span class="hljs-comment">// 动态导入</span>
-<span class="hljs-keyword">const</span> configData = <span class="hljs-keyword">await</span> <span class="hljs-keyword">import</span>(
-  <span class="hljs-string">&#x27;./config-data.json&#x27;</span>, { <span class="hljs-attr">with</span>: { <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;json&#x27;</span> } }
-);
-</code></pre><p>上面代码中，import 命令使用 with 子句，指定一个属性对象。这个属性对象目前只有一个 type 属性，它的值就是导入代码的类型，现在只能设置为<code>json</code>一个值。</p><p>如果没有 import 属性，导入 JSON 数据只能使用 fetch 命令。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title function_">fetch</span>(<span class="hljs-string">&#x27;./config.json&#x27;</span>);
+</code></pre><h2 id="import-属性">import 属性 <a class="markdownIt-Anchor" href="#import-属性">#</a></h2><p>ES2025 引入了“<a href="https://github.com/tc39/proposal-import-attributes" target="_blank" rel="noopener">import 属性</a>”（import attributes），允许为 import 命令设置属性，主要用于导入非模块的代码，比如 JSON 数据、WebAssembly 代码、CSS 代码。</p><p>导入 JSON 文件的写法如下。</p><pre class="hljs"><code><span class="hljs-keyword">import</span> configData <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./config-data.json&#x27;</span> <span class="hljs-keyword">with</span> { <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;json&#x27;</span> };
+</code></pre><p>上面代码中，import 命令使用 with 子句，指定一个属性对象。这个属性对象目前只有一个 type 属性，它的值就是导入代码的类型，这里设置为<code>json</code>。</p><p>这种写法的一个缺点是，如果导入失败，整个模块就会崩溃。为了避免报错，可以使用异步的<code>import()</code>方法来导入。</p><pre class="hljs"><code><span class="hljs-keyword">try</span> {
+  <span class="hljs-keyword">const</span> configData = <span class="hljs-keyword">await</span> <span class="hljs-keyword">import</span>(
+    <span class="hljs-string">&#x27;./config-data.json&#x27;</span>, { <span class="hljs-attr">with</span>: { <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;json&#x27;</span> } }
+  );
+} <span class="hljs-keyword">catch</span>(error) {
+  <span class="hljs-comment">// 处理报错</span>
+}
+</code></pre><p>如果没有 import 属性，导入 JSON 文件只能使用 fetch 命令。</p><pre class="hljs"><code><span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title function_">fetch</span>(<span class="hljs-string">&#x27;./config.json&#x27;</span>);
 <span class="hljs-keyword">const</span> json = <span class="hljs-keyword">await</span> response.<span class="hljs-title function_">json</span>();
 </code></pre><p>export 命令与 import 命令写在一起，形成一个再导出语句时，也可以使用 import 属性。</p><pre class="hljs"><code><span class="hljs-keyword">export</span> { <span class="hljs-keyword">default</span> <span class="hljs-keyword">as</span> config } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./config-data.json&#x27;</span> <span class="hljs-keyword">with</span> { <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;json&#x27;</span> };
+</code></pre><p>导入 CSS 文件的写法如下。</p><pre class="hljs"><code><span class="hljs-keyword">import</span> componentStyles <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./component.css&quot;</span> <span class="hljs-keyword">with</span> { <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;css&quot;</span> };
+</code></pre><p>下面是一个实际的例子。</p><pre class="hljs"><code><span class="hljs-keyword">import</span> sheet <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./styles.css&#x27;</span> <span class="hljs-keyword">with</span> { <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;css&#x27;</span> };
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">MyComponent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">HTMLElement</span> {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">super</span>();
+    <span class="hljs-keyword">const</span> shadowRoot = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">attachShadow</span>({ <span class="hljs-attr">mode</span>: <span class="hljs-string">&#x27;open&#x27;</span> });
+    shadowRoot.<span class="hljs-property">adoptedStyleSheets</span> = [sheet];
+  }
+
+  <span class="hljs-comment">// ...</span>
+}
 </code></pre><h2 id="模块的继承">模块的继承 <a class="markdownIt-Anchor" href="#模块的继承">#</a></h2><p>模块可以继承。</p><p>假设有一个<code>circleplus</code>模块，继承了<code>circle</code>模块。</p><pre class="hljs"><code><span class="hljs-comment">// circleplus.js</span>
 
 <span class="hljs-keyword">export</span> * <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;circle&#x27;</span>;
