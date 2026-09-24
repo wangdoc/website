@@ -294,7 +294,7 @@ a = <span class="hljs-number">2</span>;
 
 <span class="hljs-comment">// 方法二</span>
 <span class="hljs-keyword">var</span> getGlobal = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> self !== <span class="hljs-string">&#x27;undefined&#x27;</span>) { <span class="hljs-keyword">return</span> self; }
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-variable language_">self</span> !== <span class="hljs-string">&#x27;undefined&#x27;</span>) { <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>; }
   <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-variable language_">window</span> !== <span class="hljs-string">&#x27;undefined&#x27;</span>) { <span class="hljs-keyword">return</span> <span class="hljs-variable language_">window</span>; }
   <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-variable language_">global</span> !== <span class="hljs-string">&#x27;undefined&#x27;</span>) { <span class="hljs-keyword">return</span> <span class="hljs-variable language_">global</span>; }
   <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;unable to locate global object&#x27;</span>);

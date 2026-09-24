@@ -493,7 +493,7 @@ ia[<span class="hljs-number">42</span>] = <span class="hljs-number">314159</span
 }
 worker.<span class="hljs-title function_">postMessage</span>(sharedBuffer);
 </code></pre><p>上面代码中，主线程用<code>Atomics.store()</code>方法写入数据。下面是 Worker 线程用<code>Atomics.load()</code>方法读取数据。</p><pre class="hljs"><code><span class="hljs-comment">// worker.js</span>
-self.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;message&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
+<span class="hljs-variable language_">self</span>.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;message&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
   <span class="hljs-keyword">const</span> sharedArray = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Int32Array</span>(event.<span class="hljs-property">data</span>);
   <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++) {
     <span class="hljs-keyword">const</span> arrayValue = <span class="hljs-title class_">Atomics</span>.<span class="hljs-title function_">load</span>(sharedArray, i);
@@ -501,7 +501,7 @@ self.<span class="hljs-title function_">addEventListener</span>(<span class="hlj
   }
 }, <span class="hljs-literal">false</span>);
 </code></pre><p><strong>（2）Atomics.exchange()</strong></p><p>Worker 线程如果要写入数据，可以使用上面的<code>Atomics.store()</code>方法，也可以使用<code>Atomics.exchange()</code>方法。它们的区别是，<code>Atomics.store()</code>返回写入的值，而<code>Atomics.exchange()</code>返回被替换的值。</p><pre class="hljs"><code><span class="hljs-comment">// Worker 线程</span>
-self.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;message&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
+<span class="hljs-variable language_">self</span>.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;message&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
   <span class="hljs-keyword">const</span> sharedArray = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Int32Array</span>(event.<span class="hljs-property">data</span>);
   <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++) {
     <span class="hljs-keyword">if</span> (i % <span class="hljs-number">2</span> === <span class="hljs-number">0</span>) {
@@ -514,7 +514,7 @@ self.<span class="hljs-title function_">addEventListener</span>(<span class="hlj
   }
 }, <span class="hljs-literal">false</span>);
 </code></pre><p>上面代码将共享内存的偶数位置的值改成<code>1</code>，奇数位置的值改成<code>2</code>。</p><p><strong>（3）Atomics.wait()，Atomics.notify()</strong></p><p>使用<code>while</code>循环等待主线程的通知，不是很高效，如果用在主线程，就会造成卡顿，<code>Atomics</code>对象提供了<code>wait()</code>和<code>notify()</code>两个方法用于等待通知。这两个方法相当于锁内存，即在一个线程进行操作时，让其他线程休眠（建立锁），等到操作结束，再唤醒那些休眠的线程（解除锁）。</p><p><code>Atomics.notify()</code>方法以前叫做<code>Atomics.wake()</code>，后来进行了改名。</p><pre class="hljs"><code><span class="hljs-comment">// Worker 线程</span>
-self.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;message&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
+<span class="hljs-variable language_">self</span>.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;message&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
   <span class="hljs-keyword">const</span> sharedArray = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Int32Array</span>(event.<span class="hljs-property">data</span>);
   <span class="hljs-keyword">const</span> arrayIndex = <span class="hljs-number">0</span>;
   <span class="hljs-keyword">const</span> expectedStoredValue = <span class="hljs-number">50</span>;

@@ -155,9 +155,9 @@ obj[<span class="hljs-title function_">getKey</span>(<span class="hljs-string">&
 <span class="hljs-comment">// best</span>
 [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>].<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">x</span> =&gt;</span> x * x);
 </code></pre><p>箭头函数取代<code>Function.prototype.bind</code>，不应再用 self/_this/that 绑定 this。</p><pre class="hljs"><code><span class="hljs-comment">// bad</span>
-<span class="hljs-keyword">const</span> self = <span class="hljs-variable language_">this</span>;
+<span class="hljs-keyword">const</span> <span class="hljs-variable language_">self</span> = <span class="hljs-variable language_">this</span>;
 <span class="hljs-keyword">const</span> boundMethod = <span class="hljs-keyword">function</span>(<span class="hljs-params">...params</span>) {
-  <span class="hljs-keyword">return</span> method.<span class="hljs-title function_">apply</span>(self, params);
+  <span class="hljs-keyword">return</span> method.<span class="hljs-title function_">apply</span>(<span class="hljs-variable language_">self</span>, params);
 }
 
 <span class="hljs-comment">// acceptable</span>
